@@ -1,17 +1,20 @@
+#!/bin/bash
 # setup for first time use of lt
-# added by paul
 
-echo This script will copy everything in your current directory 
-echo Script will create ./static and ./current
-mkdir ./static
-mkdir ./current
+echo This script will download static files needed to make the pdf
+echo  to ../static
+echo 
+if [ ! -e ../static ] 
+	then mkdir ../static
+fi
 
 echo Downloading static docbook, xsl and fop
-cd ./static
-wget -r https://support.ginsys.be/files/svn/lt/
-
-
-echo Checking out latest trunk from svn
-cd ../current
-svn
+cd ../static
+wget https://support.ginsys.be/files/svn/lt/docbook.tbz
+wget https://support.ginsys.be/files/svn/lt/fop.tbz
+wget https://support.ginsys.be/files/svn/lt/xsl.tbz
+tar -xvjf docbook.tbz
+tar -xvjf fop.tbz
+tar -xvjf xsl.tbz
+rm docbook.tbz fop.tbz xsl.tbz
 
