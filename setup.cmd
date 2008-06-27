@@ -1,4 +1,3 @@
-# test serge
 # setup for first time use of lt
 
 echo This script will copy everything in your current directory 
