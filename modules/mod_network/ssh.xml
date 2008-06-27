@@ -1,0 +1,160 @@
+<section><title>OpenSSH</title>
+	<section><title>Secure Shell</title>
+		<para>Avoid using <command>telnet</command><indexterm><primary>telnet</primary></indexterm>, <command>rlogin</command><indexterm><primary>rlogin</primary></indexterm> and <command>rsh</command><indexterm><primary>rsh</primary></indexterm> to remotely connect to your servers. These older protocols do not encrypt the login session, which means your user id and password can be sniffed by tools like <command>ethereal</command><indexterm><primary>ethereal</primary></indexterm> aka wireshark. To securely connect to your servers, use <command>OpenSSH</command><indexterm><primary>OpenSSH</primary></indexterm>. An ssh connection always starts with a cryptographic handshake, followed by encryption of the transport layer using a symmetric cypher. Then authentication takes place (using user id/password or public/private keys) and communication can take place over the encrypted connection. In other words, the tunnel is encrypted before you start typing anything.</para>
+		<para>The OpenSSH package is maintained by the <command>OpenBSD</command><indexterm><primary>OpenBSD</primary></indexterm> people and is distributed with a lot of operating systems (it may even be the most popular package in the world). Below sample use of <command>ssh</command><indexterm><primary>ssh</primary></indexterm> to connect from one server (RHELv4u2) to another one (RHELv4u4). </para>
+		<screen>
+paul@RHELv4u2:~$ ssh 192.168.1.220
+The authenticity of host '192.168.1.220' can't be established.
+RSA key fingerprint is c4:3c:52:e6:d8:8b:ce:17:8b:c9:78:5a:f3:51:06:4f.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added '192.168.1.220' (RSA) to the list of known...
+paul@192.168.1.220's password: 
+Last login: Sun Jan 21 07:16:26 2007 from 192.168.1.40
+paul@RHELv4u4:~$ 
+		</screen>
+		<para>The second time ssh remembers the connection. It added an entry to the ~/.ssh/known_hosts file.</para>
+		<screen>
+paul@RHELv4u2:~$ ssh 192.168.1.220
+paul@192.168.1.220's password: 
+Last login: Sun Jan 21 08:49:19 2007 from 192.168.1.222
+paul@RHELv4u4:~$
+		</screen>
+	</section>
+	<section><title>SSH Protocol versions</title>
+		<para>The ssh protocol has two versions (1 and 2). Avoid using version 1 anywhere, since it contains some known vulnerabilities. You can control the protocol version via <command>/etc/ssh/ssh_config</command><indexterm><primary>/etc/ssh/ssh_config</primary></indexterm> for the client side and <command>/etc/ssh/sshd_config</command><indexterm><primary>/etc/ssh/sshd_config</primary></indexterm> for the openssh-server daemon.</para>
+		<screen>
+root@laika:/etc/ssh# grep Protocol ssh_config 
+#   Protocol 2,1
+root@laika:/etc/ssh# grep Protocol sshd_config 
+Protocol 2
+root@laika:/etc/ssh# 
+		</screen>
+		<para>Configuration of ssh is done in the <command>/etc/ssh</command><indexterm><primary>/etc/ssh</primary></indexterm> directory and is pretty straightforward.</para>
+	</section>
+	<section><title>About Public and Private keys</title>
+		<para>Imagine Alice and Bob, two people that like to communicate with eachother. Using public and private keys they can communicate with encryption and with authentication.</para>
+		<para>When Alice wants to send an encrypted message to Bob, she uses the public key of Bob. Bob shares his Public Key with Alice, but keeps his Private Key private! Since Bob is the only one to have Bob's Private Key, Alice is sure that Bob is the only one that can read the encrypted message.</para>
+		<para>When Bob wants to verify that the message came from Alice, Bob uses the Public Key of Alice to verify that Alice signed the message with her Private Key. Since Alice is the only one to have Alice's Private Key, Bob is sure the message came from Alice.</para>
+	</section>
+	<section><title>Setting up passwordless ssh</title>
+		<para>To set up passwordless ssh authentication through public/private keys, use <command>ssh-keygen</command> to generate a key pair without a passphrase, and then copy your public key to the destination server. Let's do this step by step.</para>
+		<para>In the example that follows, we will set up ssh without password between Alice and Bob. Alice has an account on a Red Hat Enterprise Linux server, Bob is using Ubuntu on his laptop. Bob wants to give Alice access using ssh and the public and private key system. This means that even if Bob changes his password on his laptop, Alice will still have access.</para>
+		<section><title>ssh-keygen</title>
+			<para>The example below shows how Alice uses <command>ssh-keygen</command><indexterm><primary>ssh-keygen(1)</primary></indexterm> to generate a key pair. Alice does not enter a passphrase.</para>
+			<screen>
+[alice@RHEL5 ~]$ ssh-keygen -t rsa
+Generating public/private rsa key pair.
+Enter file in which to save the key (/home/alice/.ssh/id_rsa): 
+Created directory '/home/alice/.ssh'.
+Enter passphrase (empty for no passphrase): 
+Enter same passphrase again: 
+Your identification has been saved in /home/alice/.ssh/id_rsa.
+Your public key has been saved in /home/alice/.ssh/id_rsa.pub.
+The key fingerprint is:
+9b:ac:ac:56:c2:98:e5:d9:18:c4:2a:51:72:bb:45:eb alice@RHEL5
+[alice@RHEL5 ~]$ 
+			</screen>
+		</section>
+		<section><title>~/.ssh</title>
+			<para>While ssh-keygen generates a public and a private key, it will also create a hidden .ssh directory with proper permissions. If you create the .ssh directory manually, then you need to chmod 700 it! Otherwise ssh will refuse to use the keys (world readable private keys are not secure!).</para>
+			<para>As you can see, the .ssh directory is secure in Alice's home directory.</para>
+			<screen>
+[alice@RHEL5 ~]$ ls -ld .ssh
+drwx------ 2 alice alice 4096 May  1 07:38 .ssh
+[alice@RHEL5 ~]$ 
+			</screen>
+			<para>Bob is using Ubuntu at home. He decides to manually create the .ssh directory, so he needs to manually secure it.</para>
+			<screen>
+bob@laika:~$ mkdir .ssh
+bob@laika:~$ ls -ld .ssh
+drwxr-xr-x 2 bob bob 4096 2008-05-14 16:53 .ssh
+bob@laika:~$ chmod 700 .ssh/
+bob@laika:~$
+			</screen>
+		</section>
+		<section><title>id_rsa and id_rsa.pub</title>
+			<para>The ssh-keygen command generate two keys in .ssh. The public key is named <command>~/.ssh/id_rsa.pub</command><indexterm><primary>~/.ssh/id_rsa.pub</primary></indexterm>. The private key is named <command>~/.ssh/id_rsa</command><indexterm><primary>~/.ssh/id_rsa</primary></indexterm>.</para>
+			<screen>
+[alice@RHEL5 ~]$ ls -l .ssh/
+total 16
+-rw------- 1 alice alice 1671 May  1 07:38 id_rsa
+-rw-r--r-- 1 alice alice  393 May  1 07:38 id_rsa.pub
+[alice@RHEL5 ~]$ 
+			</screen>
+		</section>
+		<section><title>scp</title>
+			<para>To copy the public key from Alice's server tot Bob's laptop, Alice decides to use <command>scp</command><indexterm><primary>scp(1)</primary></indexterm>.</para>
+			<screen>
+[alice@RHEL5 .ssh]$ scp id_rsa.pub bob@192.168.48.92:~/.ssh/authorized_keys
+bob@192.168.48.92's password: 
+id_rsa.pub                                    100%  393     0.4KB/s   00:00    
+[alice@RHEL5 .ssh]$
+			</screen>
+			<para>Be careful when copying a second key! Do not overwrite the first key, instead append the key to the same ~/.ssh/authorized_keys file!</para>
+		</section>
+		<section><title>authorized_keys</title>
+			<para>In your ~/.ssh directory, you can create a file called <command>authorized_keys</command><indexterm><primary>~/.ssh/authorized_keys</primary></indexterm>. This file can contain one or more public keys from people you trust. Those trusted people can use their private keys to prove their identity and gain access to your account via ssh (without password). The example shows Bob's authorized_keys file containing the public key of Alice.</para>
+			<screen>
+bob@laika:~$ cat .ssh/authorized_keys 
+ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEApCQ9xzyLzJes1sR+hPyqW2vyzt1D4zTLqk\
+MDWBR4mMFuUZD/O583I3Lg/Q+JIq0RSksNzaL/BNLDou1jMpBe2Dmf/u22u4KmqlJBfDhe\
+yTmGSBzeNYCYRSMq78CT9l9a+y6x/shucwhaILsy8A2XfJ9VCggkVtu7XlWFDL2cum08/0\
+mRFwVrfc/uPsAn5XkkTscl4g21mQbnp9wJC40pGSJXXMuFOk8MgCb5ieSnpKFniAKM+tEo\
+/vjDGSi3F/bxu691jscrU0VUdIoOSo98HUfEf7jKBRikxGAC7I4HLa+/zX73OIvRFAb2hv\
+tUhn6RHrBtUJUjbSGiYeFTLDfcTQ== alice@RHEL5
+bob@laika:~$ 
+			</screen>
+		</section>
+		<section><title>passwordless ssh</title>
+			<para>Alice can now use ssh to connect passwordless to Bob's laptop. In combination with ssh's capability to execute commands on the remote host, this can be useful in pipes across different machines.</para>
+			<screen>
+[alice@RHEL5 ~]$ ssh bob@192.168.48.92 "ls -l .ssh"
+total 4
+-rw-r--r-- 1 bob bob 393 2008-05-14 17:03 authorized_keys
+[alice@RHEL5 ~]$ 
+			</screen>
+		</section>
+	</section>
+	<section><title>X forwarding via SSH</title>
+		<para> The <command>ssh protocol</command><indexterm><primary>ssh</primary></indexterm> will remember the servers it connected to (and warn you in case something suspicious happened), and will use strong 128-bit encryption. Another popular feature of ssh is called <command>X11 forwarding</command> and is implemented with <command>ssh -X</command><indexterm><primary>ssh -X</primary></indexterm>.</para>
+		<para>Below an example of X11 forwarding: user paul logs in as user greet on her computer to start the graphical application mozilla-thunderbird. Although the application will run on the remote computer from greet, it will be displayed on the screen attached locally to paul's computer.</para>
+		<screen>
+paul@laika:~/PDF$ ssh -X greet@greet.dyndns.org -p 55555
+Warning: Permanently added the RSA host key for IP address \
+'81.240.174.161' to the list of known hosts.
+Password: 
+Linux raika 2.6.8-2-686 #1 Tue Aug 16 13:22:48 UTC 2005 i686 GNU/Linux
+				
+Last login: Thu Jan 18 12:35:56 2007
+greet@raika:~$ ps fax | grep thun
+greet@raika:~$ mozilla-thunderbird &#038;
+[1] 30336
+		</screen>
+	</section>
+	<section><title>Troubleshooting ssh</title>
+		<para>Use <command>ssh -v</command> to get debug information about the ssh connection attempt.</para>
+		<screen>
+paul@laika:~$ ssh -v bert@192.168.1.192
+OpenSSH_4.3p2 Debian-8ubuntu1, OpenSSL 0.9.8c 05 Sep 2006
+debug1: Reading configuration data /home/paul/.ssh/config
+debug1: Reading configuration data /etc/ssh/ssh_config
+debug1: Applying options for *
+debug1: Connecting to 192.168.1.192 [192.168.1.192] port 22.
+debug1: Connection established.
+debug1: identity file /home/paul/.ssh/identity type -1
+debug1: identity file /home/paul/.ssh/id_rsa type 1
+debug1: identity file /home/paul/.ssh/id_dsa type -1
+debug1: Remote protocol version 1.99, remote software version OpenSSH_3
+debug1: match: OpenSSH_3.9p1 pat OpenSSH_3.*
+debug1: Enabling compatibility mode for protocol 2.0
+...
+		</screen>
+	</section>
+	<section><title>Practice SSH</title>
+		<para>1. Create a user for your neighbour, then test ssh to your neighbour (by ip-address or by hostname). (You might need to install the openssh-server with aptitude.)</para>
+		<para>2. Create a bookmark in Firefox, then close your firefox! Use ssh -X to run firefox on your screen, but on your neighbour's computer. Do you see your neighbour's bookmark ?</para>
+		<para>3. Verify in the ssh configuration files that only protocol version 2 is allowed.</para>
+		<para>4. Use ssh-keygen to create a keypair without passphrase. Setup passwordless ssh between you and your neighbour. (or between the ubuntu and the Red Hat)</para>
+	</section>
+</section>
+

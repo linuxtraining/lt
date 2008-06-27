@@ -1,0 +1,336 @@
+<section><title>About processes</title>
+	<para>A <command>process</command><indexterm><primary>process</primary></indexterm> is compiled source code that is currently running on the system. All processes have a <command>process ID</command><indexterm><primary>process ID</primary></indexterm> or <command>PID</command><indexterm><primary>PID</primary></indexterm>, and a parent process (with a <command>PPID</command><indexterm><primary>PPID</primary></indexterm>). The <command>child</command> process is often started by the <command>parent</command> process. The <command>init</command><indexterm><primary>init</primary></indexterm> process always has process ID 1, and does not have a parent. But init serves as a <command>foster parent</command> for <command>orphaned</command> processes. When a process stops running, the process dies, when you want a process to die, you <command>kill</command><indexterm><primary>kill(1)</primary></indexterm> it. Processes that start at system startup and keep running forever are called <command>daemon</command><indexterm><primary>daemon</primary></indexterm> processes. Daemons never die. When a process is killed, but it still shows up on the system, then the process is referred to as <command>zombie</command><indexterm><primary>zombie</primary></indexterm>. You cannot kill zombies, because they are already dead.</para>
+</section>
+<section><title>Process ID</title>
+	<para>Some shell environment variables contain information about processes. The <command>$$</command><indexterm><primary>$$</primary></indexterm> variable will hold your current process ID (PID), and <command>$PPID</command><indexterm><primary>$PPID</primary></indexterm> contains the parent PID. Actually $$ is a shell parameter and not a variable, you cannot assign a value to $$.</para>
+		<screen>
+[paul@RHEL4b ~]$ echo $$ $PPID
+4224 4223
+[paul@RHEL4b ~]$ bash
+[paul@RHEL4b ~]$ echo $$ $PPID
+4812 4224
+[paul@RHEL4b ~]$ bash
+[paul@RHEL4b ~]$ echo $$ $PPID
+4830 4812
+[paul@RHEL4b ~]$ exit
+exit
+[paul@RHEL4b ~]$ echo $$ $PPID
+4812 4224
+[paul@RHEL4b ~]$ exit
+exit
+[paul@RHEL4b ~]$ echo $$ $PPID
+4224 4223
+[paul@RHEL4b ~]$
+		</screen>
+</section>
+<section><title>fork</title>
+		<para>A process starts another process in two fases. First the process creates a <command>fork</command><indexterm><primary>fork</primary></indexterm> of itself, an identical copy. Then the forked process executes an <command>exec</command><indexterm><primary>exec</primary></indexterm> to replace the forked process with the target child process.</para>
+		<screen>
+[paul@RHEL4b ~]$ echo $$
+4224
+[paul@RHEL4b ~]$ bash
+[paul@RHEL4b ~]$ echo $$ $PPID
+5310 4224
+[paul@RHEL4b ~]$ </screen>
+</section>
+<section><title>exec</title>
+		<para>With the <command>exec</command> command, you can execute a process without forking a new process. In the following screenshot i start a Korn shell (ksh) and replace it with a bash shell using the exec command. The PID of the bash shell is the same as the PID of the Korn shell. Exiting the child bash shell will get me back to the parent bash, not to the Korn (which does not exist anymore).</para>
+		<screen>
+[paul@RHEL4b ~]$ echo $$
+4224
+[paul@RHEL4b ~]$ ksh
+$ echo $$ $PPID
+5343 4224
+$ exec bash
+[paul@RHEL4b ~]$ echo $$ $PPID
+5343 4224
+[paul@RHEL4b ~]$ exit
+exit
+[paul@RHEL4b ~]$ echo $$
+4224
+		</screen>
+	</section>
+	<section><title>ps</title>
+		<para>One of the most common tools on Unix to look at processes is <command>ps</command><indexterm><primary>ps</primary></indexterm>. The following screenshot shows the parent child relationship between three bash processes.</para>
+		<screen>
+[paul@RHEL4b ~]$ echo $$ $PPID
+4224 4223
+[paul@RHEL4b ~]$ bash
+[paul@RHEL4b ~]$ echo $$ $PPID
+4866 4224
+[paul@RHEL4b ~]$ bash
+[paul@RHEL4b ~]$ echo $$ $PPID
+4884 4866
+[paul@RHEL4b ~]$ ps fx
+  PID TTY      STAT   TIME COMMAND
+ 4223 ?        S      0:01 sshd: paul@pts/0 
+ 4224 pts/0    Ss     0:00  \_ -bash
+ 4866 pts/0    S      0:00      \_ bash
+ 4884 pts/0    S      0:00          \_ bash
+ 4902 pts/0    R+     0:00              \_ ps fx
+[paul@RHEL4b ~]$ exit
+exit
+[paul@RHEL4b ~]$ ps fx
+  PID TTY      STAT   TIME COMMAND
+ 4223 ?        S      0:01 sshd: paul@pts/0 
+ 4224 pts/0    Ss     0:00  \_ -bash
+ 4866 pts/0    S      0:00      \_ bash
+ 4903 pts/0    R+     0:00          \_ ps fx
+[paul@RHEL4b ~]$ exit
+exit
+[paul@RHEL4b ~]$ ps fx
+  PID TTY      STAT   TIME COMMAND
+ 4223 ?        S      0:01 sshd: paul@pts/0 
+ 4224 pts/0    Ss     0:00  \_ -bash
+ 4904 pts/0    R+     0:00      \_ ps fx
+[paul@RHEL4b ~]$ 		</screen>
+		<para>On Linux, <command>ps fax</command><indexterm><primary>ps fax</primary></indexterm> is often used. On Solaris <command>ps -ef</command><indexterm><primary>ps -ef</primary></indexterm> is common. Here is a partial output from ps fax.</para>
+		<screen>
+[paul@RHEL4a ~]$ ps fax
+PID TTY      STAT   TIME COMMAND
+1 ?        S      0:00 init [5]
+
+...
+
+3713 ?        Ss     0:00 /usr/sbin/sshd
+5042 ?        Ss     0:00  \_ sshd: paul [priv]
+5044 ?        S      0:00      \_ sshd: paul@pts/1 
+5045 pts/1    Ss     0:00          \_ -bash
+5077 pts/1    R+     0:00              \_ ps fax
+		</screen>
+	</section>
+	<section><title>top</title>
+		<para>Another popular tool on Linux is <command>top</command><indexterm><primary>top(1)</primary></indexterm>. The <command>top</command> tool can order processes according to CPU usage or other properties. You can also kill processes from within top. In case of trouble, top is often the first tool to fire up, since it also provides you memory and swap space information.</para>
+	</section>
+	<section><title>priority and nice values</title>
+		<para>All processes have a certain <command>priority</command> and a <command>nice</command><indexterm><primary>nice(1)</primary></indexterm> value. Higher priority processes will get more CPU time than low priority processes. You can influence this with the <command>nice</command> and <command>renice</command><indexterm><primary>renice(1)</primary></indexterm> commands.</para>
+		<para>The <command>top</command> screenshot below shows four processes, all of then using approximately 25 percent of the CPU. PID 5087 and 5088 are catting the letter x to each other, PID 5090 and 5091 do the same with the letter z.</para>
+		<screen>
+PID  USER PR NI VIRT RES SHR S %CPU %MEM TIME+   COMMAND            
+5088 paul 25  0 4128 404 348 R 25.6  0.2 0:13.99 cat                
+5091 paul 25  0 3628 400 348 R 25.6  0.2 0:07.99 cat                
+5090 paul 15  0 4484 404 348 S 24.6  0.2 0:07.78 cat                
+5087 paul 15  0 3932 400 348 S 24.3  0.2 0:14.16 cat 
+		</screen>
+		<para>Since the processes are already running, we need to use the <command>renice</command> command to change their nice value. The <command>nice</command> command can only be used when starting a process. The screenshot below shows how to make two running processes nice.</para>
+		<screen>
+[paul@RHEL4a ~]$ renice +5 5090
+5090: old priority 0, new priority 5
+[paul@RHEL4a ~]$ renice +5 5091
+5091: old priority 0, new priority 5
+		</screen>
+		<para>Two processes (5090 and 5091) are playing nice now, they allow other processes to use more CPU time.</para>
+		<screen>
+PID  USER PR NI VIRT RES SHR S %CPU %MEM  TIME+   COMMAND            
+5087 paul 15  0 3932 400 348 S 37.3  0.2  1:19.97 cat                
+5088 paul 25  0 4128 404 348 R 36.6  0.2  1:19.20 cat                
+5090 paul 21  5 4484 404 348 S 13.7  0.2  1:10.64 cat                
+5091 paul 29  5 3628 400 348 R 12.7  0.2  1:10.64 cat   
+		</screen>
+		<para>Be careful when playing with negative nice values (the range is from -20 to 19), the responsiveness of your system can be affected. Luckily only root can issue negative nice values, in other words, you can only lower the priority of your running processes.</para>
+	</section>
+	<section><title>signals</title>
+		<para>Running processes can receive signals from each other, or from the users. You can have a list of signals by typing <command>kill -l</command><indexterm><primary>kill(1)</primary></indexterm>, that is a letter l, not the number 1.</para>
+		<screen>
+[paul@RHEL4a ~]$ kill -l
+1) SIGHUP       2) SIGINT       3) SIGQUIT      4) SIGILL
+5) SIGTRAP      6) SIGABRT      7) SIGBUS       8) SIGFPE
+9) SIGKILL     10) SIGUSR1     11) SIGSEGV     12) SIGUSR2
+13) SIGPIPE     14) SIGALRM     15) SIGTERM     17) SIGCHLD
+18) SIGCONT     19) SIGSTOP     20) SIGTSTP     21) SIGTTIN
+22) SIGTTOU     23) SIGURG      24) SIGXCPU     25) SIGXFSZ
+26) SIGVTALRM   27) SIGPROF     28) SIGWINCH    29) SIGIO
+30) SIGPWR      31) SIGSYS      34) SIGRTMIN    35) SIGRTMIN+1
+36) SIGRTMIN+2  37) SIGRTMIN+3  38) SIGRTMIN+4  39) SIGRTMIN+5
+40) SIGRTMIN+6  41) SIGRTMIN+7  42) SIGRTMIN+8  43) SIGRTMIN+9
+44) SIGRTMIN+10 45) SIGRTMIN+11 46) SIGRTMIN+12 47) SIGRTMIN+13
+48) SIGRTMIN+14 49) SIGRTMIN+15 50) SIGRTMAX-14 51) SIGRTMAX-13
+52) SIGRTMAX-12 53) SIGRTMAX-11 54) SIGRTMAX-10 55) SIGRTMAX-9
+56) SIGRTMAX-8  57) SIGRTMAX-7  58) SIGRTMAX-6  59) SIGRTMAX-5
+60) SIGRTMAX-4  61) SIGRTMAX-3  62) SIGRTMAX-2  63) SIGRTMAX-1
+64) SIGRTMAX
+[paul@RHEL4a ~]$ 
+		</screen>
+		<para>It is common on Linux to use the first signal SIGHUP (or HUP or 1) to tell a process that it should re-read its configuration file. Thus, the <command>kill -1 1</command> command forces the init process to re-read its configuration file. It is up to the developer of the process to decide whether the process can do this running, or whether it needs to stop and start. The <command>killall</command><indexterm><primary>killall</primary></indexterm> command will also default to sending a signal 15 to the processes.</para>
+		<para>The SIGTERM (15) is used to ask a process to stop running, normally the process should die. If it refuses to die, then you can issue the <command>kill -9</command><indexterm><primary>kill -9</primary></indexterm> command (aka the <command>sure kill</command>). The SIGKILL (9) signal is the only one that a developer cannot intercept. The signal goes directly to the kernel, which will stop the running process (without giving it a chance to save data). When using the kill command without specifying a signal, it defaults to SIGTERM (15). </para>
+		<screen>
+[paul@RHEL4a ~]$ ps fax | grep cat
+5087 pts/1    S     10:04              \_ cat - pipe1
+5088 pts/1    R     10:06              \_ cat
+5090 pts/1    SN     4:26              \_ cat - pipe3
+5091 pts/1    RN     4:28              \_ cat
+5220 pts/1    S+     0:00              \_ grep cat
+[paul@RHEL4a ~]$ kill 5087
+[1]   Terminated              echo -n x | cat - pipe1 >pipe2
+[paul@RHEL4a ~]$
+		</screen>
+	</section>
+<section><title>pgrep</title>
+<para>Similar to the <command>ps -C</command>, you can also use <command>pgrep</command><indexterm><primary>pgrep(1)</primary></indexterm> to search for a process by its name.</para>
+<screen>
+[paul@RHEL5 ~]$ sleep 1000 &#038;
+[1] 32558
+[paul@RHEL5 ~]$ pgrep sleep
+32558
+[paul@RHEL5 ~]$ ps -C sleep
+  PID TTY          TIME CMD
+32558 pts/3    00:00:00 sleep
+[paul@RHEL5 ~]$ 
+</screen>
+<para>You can also list the name of the process with pgrep.</para>
+<screen>
+paul@laika:~$ pgrep -l sleep
+9661 sleep
+paul@laika:~$ 
+</screen>
+</section>
+<section><title>pkill</title>
+<para>You can use the <command>pkill</command><indexterm><primary>pkill(1)</primary></indexterm> command to kill a process by its name.</para>
+<screen>
+[paul@RHEL5 ~]$ sleep 1000 &#038;
+[1] 30203
+[paul@RHEL5 ~]$ pkill sleep
+[1]+  Terminated              sleep 1000
+[paul@RHEL5 ~]$ 
+</screen>
+</section>
+	<section><title>jobs</title>
+		<para>Some processes can be frozen with the <command>Ctrl-Z</command><indexterm><primary>Ctrl-Z</primary></indexterm> key combination. This sends a SIGSTOP to the process. When doing this in vi, the vi goes to the background, and can be seen with the <command>jobs</command><indexterm><primary>jobs</primary></indexterm> command. Processes started with an ampersand (&#038;) at the end of the command line can also be seen with <command>jobs</command>.</para>
+		<screen>
+[paul@RHEL4a ~]$ vi procdemo.txt
+
+[5]+  Stopped                 vim procdemo.txt
+[paul@RHEL4a ~]$ jobs
+[5]+  Stopped                 vim procdemo.txt
+[paul@RHEL4a ~]$ find / &#062; allfiles.txt 2&#062; /dev/null &#038;
+[6] 5230
+[paul@RHEL4a ~]$ jobs
+[5]+  Stopped                 vim procdemo.txt
+[6]-  Running                 find / &#062;allfiles.txt 2&#062;/dev/null &#038;
+[paul@RHEL4a ~]$
+		</screen>
+		<para>An interesting option is <command>jobs -p</command> to see the PID of background jobs.</para>
+		<screen>
+[paul@RHEL4b ~]$ sleep 500 &#038;
+[1] 4902
+[paul@RHEL4b ~]$ sleep 400 &#038;
+[2] 4903
+[paul@RHEL4b ~]$ jobs -p
+4902
+4903
+[paul@RHEL4b ~]$ ps `jobs -p`
+  PID TTY      STAT   TIME COMMAND
+ 4902 pts/0    S      0:00 sleep 500
+ 4903 pts/0    S      0:00 sleep 400
+[paul@RHEL4b ~]$
+	</screen>
+</section>
+<section><title>fg</title>
+	<para>Running the <command>fg</command><indexterm><primary>fg(1)</primary></indexterm> command will bring a background job to the foreground. The number of the background job to bring forward is the parameter of fg.</para>
+	<screen>
+[paul@RHEL5 ~]$ jobs
+[1]   Running                 sleep 1000 &#038;
+[2]-  Running                 sleep 1000 &#038;
+[3]+  Running                 sleep 2000 &#038;
+[paul@RHEL5 ~]$ fg 3
+sleep 2000
+	</screen>
+</section>
+<section><title>bg</title>
+<para>Jobs that are stopped in background can be started in background with <command>bg</command><indexterm><primary>bg(1)</primary></indexterm>. Below an example of the sleep command (stopped with Ctrl-Z) that is reactivated in background with bg.</para>
+<screen>
+[paul@RHEL5 ~]$ jobs
+[paul@RHEL5 ~]$ sleep 5000 &#038;
+[1] 6702
+[paul@RHEL5 ~]$ sleep 3000
+
+[2]+  Stopped                 sleep 3000
+[paul@RHEL5 ~]$ jobs
+[1]-  Running                 sleep 5000 &#038;
+[2]+  Stopped                 sleep 3000
+[paul@RHEL5 ~]$ bg 2
+[2]+ sleep 3000 &#038;
+[paul@RHEL5 ~]$ jobs
+[1]-  Running                 sleep 5000 &#038;
+[2]+  Running                 sleep 3000 &#038;
+[paul@RHEL5 ~]$ 
+</screen>
+</section>
+<section><title>Zombiecreator ;-)</title>
+<para>This is a procedure to create zombies on Linux.</para>
+<para>First create a script that contains one line: sleep 5000. Make it executable (chmod +x). Then start this script and use Ctrl-Z to background the script. Use ps -C sleep to find the PID of the sleep process. Then do a kill -9 of this PID. ps -C sleep now shows a defunct sleep. ps -fax and top will show a zombie sleep process.</para>
+</section>
+	<section><title>Practice</title>
+		<para>1. Explain in detail where the numbers come from in the next screenshot. When are the variables replaced by their value ? By which shell ?</para>
+		<screen>
+[paul@RHEL4b ~]$ echo $$ $PPID
+4224 4223
+[paul@RHEL4b ~]$ bash -c "echo $$ $PPID"
+4224 4223
+[paul@RHEL4b ~]$ bash -c 'echo $$ $PPID'
+5059 4224
+[paul@RHEL4b ~]$ bash -c `echo $$ $PPID`
+5059: 4224: command not found
+		</screen>
+		<para>2. Write a script that echoes its process ID and then sleeps for an hour. Find your script with ps.</para>
+		<para>3. Read the man page of ps and find your script by name with ps.</para>
+		<para>4. Kill your script with the kill command.</para>
+		<para>5. Run your script again, now use top to display only your script and the init process.</para>
+		<para>6. Use top to kill your script.</para>
+		<para>7. Use top, organise all processes by memory usage.</para>
+		<para>8. Write a script with a 'while true' loop that does some calculation. Copy this script.</para>
+		<para>9. Start the while script. Start the copy of it in a nice way. Do you see the difference with top ? with ps ?</para>
+		<para>10. Kill all your running scripts.</para>
+		<para>11. Start editing the while script, put it in background. Same for the copy script. List your background jobs.</para>
+		<para>12. Start the sleep script in background. List the background jobs. Activate the copy script to foreground.</para>
+		<para></para>
+		<para></para>	
+	</section>
+	<section><title>Solutions to the Practice</title>
+		<para>1. The current bash shell will replace the $$ and $PPID while scanning the line, and before executing the echo command.</para>
+		<screen>
+			[paul@RHEL4b ~]$ echo $$ $PPID
+			4224 4223
+		</screen>
+		<para>The variables are now double quoted, but the current bash shell will replace $$ and $PPID while scanning the line, and before executing the bach -c command.</para>
+		<screen>
+			[paul@RHEL4b ~]$ bash -c "echo $$ $PPID"
+			4224 4223
+		</screen>
+		<para>The variables are now single quoted. The current bash shell will not replace the $$ and the $PPID. The bash -c command will be executed before the variables replaced with their value. This latter bash is the one replacing the $$ and $PPID with their value.</para>
+		<screen>
+			[paul@RHEL4b ~]$ bash -c 'echo $$ $PPID'
+			5059 4224
+		</screen>
+		<para>With backticks the shell executes the cmmand between backticks. The result is the two process id's, which are not commands.</para>
+		<screen>
+[paul@RHEL4b ~]$ bash -c `echo $$ $PPID`
+5059: 4224: command not found
+		</screen>
+		<para>2. The script can look like this.</para>
+		<screen>
+#!/bin/bash
+
+echo My Process ID = $$
+sleep 3600
+		</screen>	
+		<para>3. ps -C sleep</para>	
+		<para>4. kill (followed by the PID)</para>	
+		<para>5. top p 1,6705 (replace 6705 with your PID)</para>	
+		<para>6. when inside top, press q</para>	
+		<para>7. use the greater than and smaller than keys from within top</para>	
+		<para>8. an example of an (almost) endless loop:</para>
+		<screen>
+let i=1;
+while [ $i -gt 0 ] ;
+do
+   let i++;
+done
+		</screen>	
+		<para>9. it will show up as 'bash' in top</para>	
+		<para></para>	
+		<para></para>	
+		<para></para>	
+		<para></para>	
+		<para></para>	
+	</section>

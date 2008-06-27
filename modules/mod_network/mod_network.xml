@@ -1,0 +1,857 @@
+<chapter><title>Introduction to Networking</title>
+<section><title>About TCP/IP</title>
+<section><title>Overview of tcp/ip v4</title>
+	<para>The unicast <command>Internet Protocol</command> is one of the oldest network protocols, commonly used today for LAN and WAN networks. Every <command>host</command><indexterm><primary>host</primary></indexterm> gets a unique 32-bit <command>ip-address</command><indexterm><primary>ip-address</primary></indexterm>, this is either static or received from a <command>DHCP</command> server. Internet networks contain several <command>subnets</command><indexterm><primary>subnet</primary></indexterm>. Those subnets used to be <command>classful</command><indexterm><primary>classful</primary></indexterm> (A,B,C,D or E), but this wasted a lot of address space. Today we work with <command>CIDR</command><indexterm><primary>CIDR</primary></indexterm> notation to determine <command>network id</command><indexterm><primary>network id</primary></indexterm> and <command>host id</command><indexterm><primary>host id</primary></indexterm>.</para>
+	<para>In a couple of years we will all be using IPv6! <emphasis>At least, that is what people say since 1995...</emphasis></para>
+</section>
+<section><title>Internet and routers</title>
+	<para>The internet is a collection of <command>routers</command><indexterm><primary>router</primary></indexterm> that act as gateways between different <command>segments</command><indexterm><primary>segment</primary></indexterm>. Routers use their <command>routing table</command> to determine the route of tcp/ip <command>packets</command>. Routers are <command>layer 3</command> devices, layer 2 contains <command>bridges</command><indexterm><primary>bridge</primary></indexterm> and <command>switches</command><indexterm><primary>switch</primary></indexterm>, layer 1 is cabling with <command>repeaters</command><indexterm><primary>repeater</primary></indexterm> and <command>hubs</command><indexterm><primary>hub</primary></indexterm>. Layer 2 devices know your 48-bit unique in the world <command>MAC</command><indexterm><primary>MAC</primary></indexterm> address.</para>
+</section>
+<section><title>many protocols</title>
+	<para>For reliable connections, you use <command>tcp</command><indexterm><primary>tcp</primary></indexterm>, whereas <command>udp</command><indexterm><primary>udp</primary></indexterm> is connectionless but faster. The <command>icmp</command><indexterm><primary>icmp</primary></indexterm> error messages are used by <command>ping</command><indexterm><primary>ping</primary></indexterm>, multicast groups are managed by <command>igmp</command><indexterm><primary>igmp</primary></indexterm> and the ip to mac resolution is done by the <command>broadcast</command> protocol <command>arp</command><indexterm><primary>arp</primary></indexterm>.</para>
+	<para>These protocols are visible in the protocol field of the ip header, and are listed in the <command>/etc/protocols</command><indexterm><primary>/etc/protocols</primary></indexterm> file.</para>
+	<screen>
+paul@laika:~$ grep tcp /etc/protocols 
+tcp     6       TCP             # transmission control protocol
+paul@laika:~$
+	</screen>
+	<para>Every host receives a <command>hostname</command><indexterm><primary>hostname</primary></indexterm>, usually placed in a <command>DNS name space</command> forming the <command>FQDN</command><indexterm><primary>FQDN</primary></indexterm> or Fully Qualified Domain Name. Common application level protocols like SMTP, HTTP, SSH, telnet and FTP have fixed <command>port numbers</command>.</para>
+	<para>To find a port number, look in <command>/etc/services</command><indexterm><primary>/etc/services</primary></indexterm>.</para>
+	<screen>
+paul@laika:~$ grep tftp /etc/services
+tftp            69/udp
+paul@laika:~$
+	</screen>
+</section>
+<section><title>Practice TCP/IP</title>
+	<para>1. Which ports are used by http, pop3, ssh, telnet, nntp and ftp ?</para>
+	<para>2. Explain why e-mail and websites are sent over tcp, whereas internet streaming radio and live broadcasts are using udp.</para>
+</section>
+</section>
+<section><title>Using TCP/IP</title>
+	<section><title>to GUI or not to GUI</title>
+		<para>If you can, setup your tcp/ip configuration at install time, otherwise use the graphical tool from your distribution. In the case of RHEL, this is the <command>Network Administration Tool</command>, Novell and OpenSUSE users can use YaST. Avoid mixed use of the GUI tool with command line or direct editing of network configuration files. You should choose only one method to manage these files, because many GUI tools will override your manually edited settings. Also, on Red Hat Servers avoid editing the files in <command>/etc/sysconfig/networking</command><indexterm><primary>/etc/sysconfig/networking</primary></indexterm> manually!</para>
+		<para>Now that we settled this, let's take a look at the files and script that configure your network.</para>
+	</section>
+	<section><title>/sbin/ifconfig</title>
+		<para>You can use the <command>ifconfig</command><indexterm><primary>ifconfig(1)</primary></indexterm> command to see the tcp/ip configuration of a network interface. The first ethernet network card on linux is eth0.</para>
+		<screen>
+[root@RHEL4b ~]# ifconfig eth0
+eth0      Link encap:Ethernet  HWaddr 00:0C:29:3B:15:80  
+          inet addr:192.168.1.191  Bcast:192.168.1.255  Mask:255.255.255.0
+          inet6 addr: fe80::20c:29ff:fe3b:1580/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:84 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:80 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:9216 (9.0 KiB)  TX bytes:8895 (8.6 KiB)
+          Interrupt:185 Base address:0x1400 
+
+[root@RHEL4b ~]#
+		</screen>
+		<para>You can also disable a network interface with <command>ifconfig eth0 down</command>, or enable it with <command>ifconfig eth0 up</command>.</para>
+		<para>Every user has access to /sbin/ifconfig, providing the path is set. Normal users cannot use it to disable or enable interfaces, or set the ip address.</para>
+		<screen>
+[root@RHEL4b ~]# ifconfig eth0 192.168.1.199
+[root@RHEL4b ~]#
+		</screen>
+		<para>The ip address change will be valid until the next change, or until reboot. You can also supply the <command>subnet mask</command><indexterm><primary>subnet mask</primary></indexterm> with ifconfig.</para>
+		<screen>
+root@laika:~# ifconfig eth0 192.168.1.40 netmask 255.255.255.0
+root@laika:~#
+		</screen>
+		<para>Careful, if you try this via an ssh connection, then you might lose your ssh connection.</para>
+	</section>
+	
+	<section><title>/etc/init.d/network(ing)</title>
+		<para>If you have a problem with network interfaces, you can try to restart the network init script, as shown here on Ubuntu 7.04. The script stops and starts the interfaces, and renews an ip configuration with the DHCP server.</para>
+		<screen>
+root@laika:~# /etc/init.d/networking restart
+ * Reconfiguring network interfaces...
+There is already a pid file /var/run/dhclient.eth0.pid with pid 14570
+killed old client process, removed PID file
+Internet Systems Consortium DHCP Client V3.0.4
+Copyright 2004-2006 Internet Systems Consortium.
+All rights reserved.
+For info, please visit http://www.isc.org/sw/dhcp/
+
+Listening on LPF/eth0/00:90:f5:4e:ae:17
+Sending on   LPF/eth0/00:90:f5:4e:ae:17
+Sending on   Socket/fallback
+DHCPRELEASE on eth0 to 192.168.1.1 port 67
+There is already a pid file /var/run/dhclient.eth0.pid with pid 134993416
+Internet Systems Consortium DHCP Client V3.0.4
+Copyright 2004-2006 Internet Systems Consortium.
+All rights reserved.
+For info, please visit http://www.isc.org/sw/dhcp/
+
+Listening on LPF/eth0/00:90:f5:4e:ae:17
+Sending on   LPF/eth0/00:90:f5:4e:ae:17
+Sending on   Socket/fallback
+DHCPDISCOVER on eth0 to 255.255.255.255 port 67 interval 5
+DHCPOFFER from 192.168.1.1
+DHCPREQUEST on eth0 to 255.255.255.255 port 67
+DHCPACK from 192.168.1.1
+bound to 192.168.1.40 -- renewal in 249143 seconds.
+root@laika:~# 
+		</screen>
+	</section>	
+	<section><title>/etc/sysconfig</title>
+		<para>Red Hat derived Linux systems store their network configuration files in the <command>/etc/sysconfig/</command><indexterm><primary>/etc/sysconfig/</primary></indexterm> directory. Debian derived systems do not have this directory.</para>
+		<section><title>/etc/sysconfig/network</title>
+			<para>Routing and host information for all network interfaces is specified in the <command>/etc/sysconfig/network</command><indexterm><primary>/etc/sysconfig/network</primary></indexterm> file. Below an example, setting 192.168.1.1 as the router (default gateway), and leaving the default hostname of localhost.localdomain. Common options not shown in this screenshot are <command>GATEWAYDEV</command> to set one of your network cards as the gateway device, and <command>NISDOMAIN</command> to specify the NIS domain name. </para>
+			<screen>
+paul@RHELv4u2:~$ cat /etc/sysconfig/network
+NETWORKING=yes
+HOSTNAME=localhost.localdomain
+GATEWAY=192.168.1.1
+			</screen>
+			<para>The same file, but here the hostname of the machine is not set to the default as above.</para>
+			<screen>
+[paul@RHEL4b ~]$ cat /etc/sysconfig/network
+NETWORKING=yes
+HOSTNAME=RHEL4b
+[paul@RHEL4b ~]$ 
+			</screen>
+		</section>
+		<section><title>/etc/sysconfig/network-scripts</title>
+			<para>For every network card in your computer, you should have an interface configuration file named <command>/etc/sysconfig/network-scripts/ifcfg-$IFNAME</command><indexterm><primary>/etc/sysconfig/network-scripts</primary></indexterm>. Be careful when editing these files, your edits will work, until you start the <command>system-config-network</command><indexterm><primary>system-config-network</primary></indexterm> (might soon be renamed to redhat-config-network) tool. This tool can and will overwrite your manual edits.</para>
+			<para>The first ethernet NIC will get <command>ifcfg-eth0</command><indexterm><primary>ifcfg-eth0</primary></indexterm>, the next one ifcfg-eth1 and so on. Below is an example.</para>
+			<screen>
+paul@RHELv4u2:~$ cat /etc/sysconfig/network-scripts/ifcfg-eth0 
+DEVICE=eth0
+BOOTPROTO=static
+BROADCAST=192.168.1.255
+HWADDR=00:0C:29:5A:86:D7
+IPADDR=192.168.1.222
+NETMASK=255.255.255.0
+NETWORK=192.168.1.0
+ONBOOT=yes
+TYPE=Ethernet
+			</screen>
+			<para>When the second nic is configured for dhcp, then this is the ifcfg-eth1. </para>
+			<screen>
+paul@RHELv4u2:~$ cat /etc/sysconfig/network-scripts/ifcfg-eth1
+DEVICE=eth1
+BOOTPROTO=dhcp
+HWADDR=00:0C:29:6A:34:D8
+ONBOOT=yes
+TYPE=Ethernet
+			</screen>
+			<para>Besides <command>dhcp</command><indexterm><primary>dhcp</primary></indexterm> and <command>bootp</command><indexterm><primary>bootp</primary></indexterm> the BOOTPROTO variable can be <command>static</command> or <command>none</command>, both meaning there should be no protocol used at boottime to set the interface values. The BROADCAST variable is no longer needed, it will be calculated.</para>
+			<para>The HWADDR can be used to make sure that the nic's get the correct name when multiple nic's are present in the computer. It can not be used to set the MAC address of a nic. For this, you need to specify the MACADDR variable. Do not use HWADDR and MACADDR in the same ifcfg file.</para>
+		</section>
+	</section>
+	<section><title>/sbin/ifup and /sbin/ifdown</title>
+		<para>The <command>ifup</command><indexterm><primary>ifup(1)</primary></indexterm> and <command>ifdown</command><indexterm><primary>ifdown(1)</primary></indexterm> commands take an interface as argument and bring it up or down. The screenshot below deactivates the eth0 network interface.</para>
+		<screen>
+root@laika:~# ifdown eth0
+There is already a pid file /var/run/dhclient.eth0.pid with pid 14925
+killed old client process, removed PID file
+Internet Systems Consortium DHCP Client V3.0.4
+Copyright 2004-2006 Internet Systems Consortium.
+All rights reserved.
+For info, please visit http://www.isc.org/sw/dhcp/
+
+Listening on LPF/eth0/00:90:f5:4e:ae:17
+Sending on   LPF/eth0/00:90:f5:4e:ae:17
+Sending on   Socket/fallback
+DHCPRELEASE on eth0 to 192.168.1.1 port 67
+		</screen>
+		<para>On debian derived systems, these commands will look at <command>/etc/network/interfaces</command><indexterm><primary>/etc/network/interfaces</primary></indexterm>, whereas on Red Hat derived systems they will look at /etc/sysconfig/network-scripts/ifcfg- files. In the screenshot below ifup is used to bring up the eth0 interface. Because the /etc/network/interfaces file says eth0 uses DHCP, the ifup tool will (try to) start the dhclient daemon.</para>
+		<screen>
+root@laika:~# ifup eth0
+There is already a pid file /var/run/dhclient.eth0.pid with pid 134993416
+Internet Systems Consortium DHCP Client V3.0.4
+Copyright 2004-2006 Internet Systems Consortium.
+All rights reserved.
+For info, please visit http://www.isc.org/sw/dhcp/
+
+Listening on LPF/eth0/00:90:f5:4e:ae:17
+Sending on   LPF/eth0/00:90:f5:4e:ae:17
+Sending on   Socket/fallback
+DHCPDISCOVER on eth0 to 255.255.255.255 port 67 interval 8
+DHCPOFFER from 192.168.1.1
+DHCPREQUEST on eth0 to 255.255.255.255 port 67
+DHCPACK from 192.168.1.1
+bound to 192.168.1.40 -- renewal in 231552 seconds.
+root@laika:~#
+		</screen>
+	</section>
+	<section><title>/sbin/dhclient</title>
+		<para>Home and client Linux desktops often have <command>dhclient</command><indexterm><primary>dhclient(1)</primary></indexterm> running. This is a daemon that enables a network interface to lease an ip configuration from a DHCP server. When your adapter is configured for DHCP or BOOTP, then /sbin/ifup will start the dhclient daemon.</para>
+	</section>
+	<section><title>/sbin/route</title>
+		<para>You can see the computer's local routing table with the <command>route</command><indexterm><primary>route(1)</primary></indexterm> command (and also with <command>netstat -r</command><indexterm><primary>netstat(1)</primary></indexterm> ).</para>
+		<screen>
+root@RHEL4b ~]# netstat -r
+Kernel IP routing table
+Destination     Gateway   Genmask         Flags   MSS Window  irtt Iface
+192.168.1.0     *         255.255.255.0   U         0 0          0 eth0
+[root@RHEL4b ~]# route
+Kernel IP routing table
+Destination     Gateway   Genmask         Flags Metric Ref    Use Iface
+192.168.1.0     *         255.255.255.0   U     0      0        0 eth0
+[root@RHEL4b ~]# 
+		</screen>
+		<para>It appears this computer does not have a <command>gateway</command><indexterm><primary>gateway</primary></indexterm> configured, so we use <command>route add default gw</command><indexterm><primary>route(1)</primary></indexterm> to add a <command>default gateway</command><indexterm><primary>default gateway</primary></indexterm>.</para>
+		<screen>
+[root@RHEL4b ~]# route add default gw 192.168.1.1
+[root@RHEL4b ~]# route
+Kernel IP routing table
+Destination     Gateway      Genmask        Flags Metric Ref  Use Iface
+192.168.1.0     *            255.255.255.0  U     0      0      0 eth0
+default         192.168.1.1  0.0.0.0        UG    0      0      0 eth0
+[root@RHEL4b ~]# 
+		</screen>
+	</section>
+	<section><title>arp</title>
+		<para>Mac to IP resolution is handled by the <command>arp</command><indexterm><primary>arp(1)</primary></indexterm> protocol. The arp table can be displayed with the arp tool.</para>
+		<screen>
+root@barry:~# arp -a
+? (192.168.1.191) at 00:0C:29:3B:15:80 [ether] on eth1
+agapi (192.168.1.73) at 00:03:BA:09:7F:D2 [ether] on eth1
+anya (192.168.1.1) at 00:12:01:E2:87:FB [ether] on eth1
+faith (192.168.1.41) at 00:0E:7F:41:0D:EB [ether] on eth1
+kiss (192.168.1.49) at 00:D0:E0:91:79:95 [ether] on eth1
+laika (192.168.1.40) at 00:90:F5:4E:AE:17 [ether] on eth1
+pasha (192.168.1.71) at 00:03:BA:02:C3:82 [ether] on eth1
+shaka (192.168.1.72) at 00:03:BA:09:7C:F9 [ether] on eth1
+root@barry:~# 	
+		</screen>
+		<para><emphasis>Anya is a Cisco Firewall, Faith is an HP Color printer, Kiss is a Kiss DP600, laika is a Clevo laptop and Agapi, Shaka and Pasha are SPARC servers. The question mark is a Red Hat Enterprise Linux server running in vmware.</emphasis></para>
+	</section>
+	<section><title>ping</title>
+		<para>If you can ping to another host, then ip is configured.</para>
+		<screen>
+[root@RHEL4b ~]# ping 192.168.1.5
+PING 192.168.1.5 (192.168.1.5) 56(84) bytes of data.
+64 bytes from 192.168.1.5: icmp_seq=0 ttl=64 time=1004 ms
+64 bytes from 192.168.1.5: icmp_seq=1 ttl=64 time=1.19 ms
+64 bytes from 192.168.1.5: icmp_seq=2 ttl=64 time=0.494 ms
+64 bytes from 192.168.1.5: icmp_seq=3 ttl=64 time=0.419 ms
+
+--- 192.168.1.5 ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss, time 3009ms
+rtt min/avg/max/mdev = 0.419/251.574/1004.186/434.520 ms, pipe 2
+[root@RHEL4b ~]#		</screen>
+	</section>
+	<section><title>Red Hat network settings backup</title>
+		<para>It is always a good idea to have a backup of current network settings. The <command>system-config-network-cmd</command><indexterm><primary>system-config-network-cmd</primary></indexterm> can do this for you.</para>
+		<screen>
+root ~# system-config-network-cmd -e > NetworkSettings20070208.txt
+		</screen>
+		<para>And system-config-network-cmd can also be used to restore these settings.</para>
+		<screen>
+root ~# system-config-network-cmd -i -c &#060; NetworkSettings20070208.txt
+		</screen>
+		<para>For other Linux Systems, take a backup of the relevant portions in /etc.</para>
+	</section>
+	<section><title>Restarting the network</title>
+	<para>To stop, start or restart all network interfaces and services, use <command>service network stop|start|restart</command><indexterm><primary>service(1)</primary></indexterm>. <emphasis>Do not stop the network when connected through ssh.</emphasis></para>
+	</section>
+	<section><title>ethtool</title>
+		<para>To display or change network card settings, use <command>ethtool</command><indexterm><primary>ethtool(1)</primary></indexterm>. The results depend on the capabilities of your network card. The example shows a network that auto-negotiates it's bandwidth.</para>
+		<screen>
+root@laika:~# ethtool eth0
+Settings for eth0:
+	Supported ports: [ TP ]
+	Supported link modes:   10baseT/Half 10baseT/Full 
+	                        100baseT/Half 100baseT/Full 
+	                        1000baseT/Full 
+	Supports auto-negotiation: Yes
+	Advertised link modes:  10baseT/Half 10baseT/Full 
+	                        100baseT/Half 100baseT/Full 
+	                        1000baseT/Full 
+	Advertised auto-negotiation: Yes
+	Speed: 1000Mb/s
+	Duplex: Full
+	Port: Twisted Pair
+	PHYAD: 0
+	Transceiver: internal
+	Auto-negotiation: on
+	Supports Wake-on: pumbg
+	Wake-on: g
+	Current message level: 0x00000033 (51)
+	Link detected: yes
+		</screen>
+		<para>This example shows how to use ethtool to switch the bandwidth from 1000Mbit to 100Mbit and back. Note that some time passes before the nic is back to 1000Mbit.</para>
+		<screen>
+root@laika:~# ethtool eth0 | grep Speed
+	Speed: 1000Mb/s
+root@laika:~# ethtool -s eth0 speed 100
+root@laika:~# ethtool eth0 | grep Speed
+	Speed: 100Mb/s
+root@laika:~# ethtool -s eth0 speed 1000
+root@laika:~# ethtool eth0 | grep Speed
+	Speed: 1000Mb/s
+		</screen>
+	</section>
+	<section><title>Practice IP Configuration</title>
+		<para>1. Use ifconfig to list all your network interfaces and their ip-addresses. Write down your ip-address and subnet mask.</para>
+		<para>2. Use the GUI tool of your distro to set a fix ip address (use the same address as the one you got from dhcp). Verify with ifconfig and ping to a neighbour that it works. Also look at the configuration files in /etc/network or /etc/sysconfig to see how the GUI tool sets a fixed address.</para>
+		<para>3. Use the GUI tool to enable dhcp again (and verify the changes in the config files).</para>
+		<para>4. Use ifdown or ifconfig to disable your eth0 network card.</para>
+		<para>5. Restart networking to enable your network card again.</para>
+		<para>6. Is the dhclient daemon running ?</para>
+		<para>7. Verify that you have a default gateway.</para>	
+		<para>8. Ping the default gateway, then look at the MAC address of the default gateway.</para>	
+	</section>
+</section>
+
+<section><title>multiple IP adresses</title>
+	<section><title>Binding multiple ip-addresses</title>
+		<para>To bind more than one ip-addres to the same interface, use <command>ifcfg-eth0:0</command><indexterm><primary>ifcfg(1)</primary></indexterm>, where the last zero can be anything else. Only two directives are required in the file. </para>
+		<screen>
+root@RHELv4u2:/etc/sysconfig/network-scripts# cat ifcfg-eth0:0
+DEVICE=eth0:0
+IPADDR=192.168.1.232
+		</screen>
+	</section>
+	<section><title>Enabling extra ip-addresses</title>
+		<para>To activate a virtual network interface, use <command>ifup</command><indexterm><primary>ifup(1)</primary></indexterm>, to deactivate it, use <command>ifdown</command><indexterm><primary>ifdown(1)</primary></indexterm>. </para>
+		<screen>
+root@RHELv4u2:~# ifdown eth0:0
+root@RHELv4u2:~# ifup eth0:0
+		</screen>
+	</section>
+	<section><title>Practice multiple IP addresses</title>
+		<para>1. Add an extra ip address to your server. Test that it works (have your neighbour ssh to it)!</para>
+		<para>2. Use ifdown and ifup to disable and enable the second ip address.</para>
+	</section>
+</section>
+<section><title>multihomed hosts</title>
+		<para>You can combine (bond) two physical network interfaces as one logical interface. Having two network cards serve the same IP-address doubles the bandwidth, and provides hardware redundancy. For <command>bonding</command><indexterm><primary>bonding (network cards)</primary></indexterm> to work, you have to load the kernel module for bonding. You can do this manually with <command>modprobe</command><indexterm><primary>modprobe(1)</primary></indexterm>.</para>
+		<screen>
+root@RHELv4u2:~# modprobe bonding
+root@RHELv4u2:~# lsmod | grep bon
+bonding                58984  0
+		</screen>
+		<para>Or automatically, by adding the alias to <command>/etc/modprobe.conf</command><indexterm><primary>/etc/modprobe.conf</primary></indexterm> (used to be called /etc/modules.conf). </para>
+		<screen>
+root@RHELv4u2:~# echo alias bond0 bonding >> /etc/modprobe.conf
+		</screen>
+		<para>You need two network cards to enable bonding, and add the <command>MASTER</command> and <command>SLAVE</command> variables. In this case we used eth0 and eth1, configured like this.</para>
+		<screen>
+root@RHELv4u2:~# cat /etc/sysconfig/network-scripts/ifcfg-eth0
+DEVICE=eth0
+BROADCAST=192.168.1.255
+HWADDR=00:0C:29:5A:86:D7
+IPADDR=192.168.1.222
+NETMASK=255.255.255.0
+NETWORK=192.168.1.0
+ONBOOT=yes
+TYPE=Ethernet
+GATEWAY=192.168.1.1
+MASTER=bond0
+SLAVE=yes
+USERCTL=no
+root@RHELv4u2:~# cat /etc/sysconfig/network-scripts/ifcfg-eth1
+DEVICE=eth1
+BROADCAST=192.168.1.255
+HWADDR=00:0C:29:5A:86:E1
+IPADDR=192.168.1.232
+NETMASK=255.255.255.0
+NETWORK=192.168.1.0
+ONBOOT=yes
+TYPE=Ethernet
+GATEWAY=192.168.1.1
+MASTER=bond0
+SLAVE=yes
+USERCTL=no
+root@RHELv4u2:~# 
+		</screen>
+		<para>And you need to set up a bonding interface. In this case, we call it bond0.</para>
+		<screen>
+root@RHELv4u2:~# cat /etc/sysconfig/network-scripts/ifcfg-bond0 
+DEVICE=bond0
+BOOTPROTO=none
+ONBOOT=no
+NETWORK=192.168.1.0
+NETMASK=255.255.255.0
+IPADDR=192.168.1.229
+USERCTL=no
+root@RHELv4u2:~#
+		</screen>
+		<para>To bring up the interface, just use the <command>ifup bond0</command> command.</para>
+		<screen>
+root@RHELv4u2:/etc/sysconfig/network-scripts# ifup bond0
+Enslaving eth0 to bond0
+Enslaving eth1 to bond0
+root@RHELv4u2:~#
+		</screen>
+		<para>The <command>ifconfig</command><indexterm><primary>ifconfig(1)</primary></indexterm> command will show you all activated interfaces.</para>
+		<screen>
+root@RHELv4u2:~# ifconfig
+bond0     Link encap:Ethernet  HWaddr 00:0C:29:5A:86:D7  
+inet addr:192.168.1.229  Bcast:192.168.1.255  Mask:255.255.255.0
+inet6 addr: fe80::200:ff:fe00:0/64 Scope:Link
+UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+RX packets:3835 errors:0 dropped:0 overruns:0 frame:0
+TX packets:1001 errors:0 dropped:0 overruns:0 carrier:0
+collisions:0 txqueuelen:0 
+RX bytes:469645 (458.6 KiB)  TX bytes:139816 (136.5 KiB)
+				
+eth0      Link encap:Ethernet  HWaddr 00:0C:29:5A:86:D7  
+inet6 addr: fe80::20c:29ff:fe5a:86d7/64 Scope:Link
+UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+RX packets:3452 errors:0 dropped:0 overruns:0 frame:0
+TX packets:837 errors:0 dropped:0 overruns:0 carrier:0
+collisions:0 txqueuelen:1000 
+RX bytes:412155 (402.4 KiB)  TX bytes:117844 (115.0 KiB)
+Interrupt:11 Base address:0x1400 
+				
+eth1      Link encap:Ethernet  HWaddr 00:0C:29:5A:86:D7  
+inet6 addr: fe80::20c:29ff:fe5a:86d7/64 Scope:Link
+UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+RX packets:392 errors:0 dropped:0 overruns:0 frame:0
+TX packets:177 errors:0 dropped:0 overruns:0 carrier:0
+collisions:0 txqueuelen:1000 
+RX bytes:58084 (56.7 KiB)  TX bytes:24078 (23.5 KiB)
+Interrupt:10 Base address:0x1480 
+		</screen>
+	</section>
+	<section><title>Practice multihomed hosts</title>
+		<para>1. Add a network card to the vmware machine, and bond the two cards as one virtual (double bandwidth and failover) card.</para>
+	</section>
+<section><title>Introduction to iptables</title>
+	<section><title>Introducing iptables</title>
+		<para>The Linux kernel has a built-in stateful firewall named iptables. To stop the <command>iptables</command><indexterm><primary>iptables</primary></indexterm> firewall on Red Hat, use the service command.</para>
+		<screen>
+root@RHELv4u4:~# service iptables stop
+Flushing firewall rules:                                   [  OK  ]
+Setting chains to policy ACCEPT: filter                    [  OK  ]
+Unloading iptables modules:                                [  OK  ]
+root@RHELv4u4:~# 
+		</screen>
+		<para>The easy way to configure iptables, is to use a graphical tool like KDE's <command>kmyfirewall</command><indexterm><primary>kmyfirewall</primary></indexterm> or <command>Security Level Configuration Tool</command>. You can find the latter in the GUI menu, somewhere in System Tools - Security, or you can start it by typing <command>system-config-securitylevel</command><indexterm><primary>system-config-securitylevel</primary></indexterm> in bash. These tools allow for some basic firewall configuration. You can decide whether to enable or disable the firewall, and what typical standard ports are allowed when the firewall is active. You can even add some custom ports. When you are done, the configuration is written to <command>/etc/sysconfig/iptables</command><indexterm><primary>/etc/sysconfig/iptables</primary></indexterm> on Red Hat. </para>
+		<screen>
+root@RHELv4u4:~# cat /etc/sysconfig/iptables
+# Firewall configuration written by system-config-securitylevel
+# Manual customization of this file is not recommended.
+*filter
+:INPUT ACCEPT [0:0]
+:FORWARD ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
+:RH-Firewall-1-INPUT - [0:0]
+-A INPUT -j RH-Firewall-1-INPUT
+-A FORWARD -j RH-Firewall-1-INPUT
+-A RH-Firewall-1-INPUT -i lo -j ACCEPT
+-A RH-Firewall-1-INPUT -p icmp --icmp-type any -j ACCEPT
+-A RH-Firewall-1-INPUT -p 50 -j ACCEPT
+-A RH-Firewall-1-INPUT -p 51 -j ACCEPT
+-A RH-Firewall-1-INPUT -p udp --dport 5353 -d 224.0.0.251 -j ACCEPT
+-A RH-Firewall-1-INPUT -p udp -m udp --dport 631 -j ACCEPT
+-A RH-Firewall-1-INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+-A RH-F...NPUT -m state --state NEW -m tcp -p tcp --dport 22 -j ACCEPT
+-A RH-F...NPUT -m state --state NEW -m tcp -p tcp --dport 80 -j ACCEPT
+-A RH-F...NPUT -m state --state NEW -m tcp -p tcp --dport 21 -j ACCEPT
+-A RH-F...NPUT -m state --state NEW -m tcp -p tcp --dport 25 -j ACCEPT
+-A RH-Firewall-1-INPUT -j REJECT --reject-with icmp-host-prohibited
+COMMIT
+root@RHELv4u4:~#
+		</screen>
+		<para>To start the service, issue the <command>service iptables start</command><indexterm><primary>service(1)</primary></indexterm> command. You can configure iptables to start at boot time with chkconfig.</para>
+		<screen>
+root@RHELv4u4:~# service iptables start
+Applying iptables firewall rules:                          [  OK  ]
+root@RHELv4u4:~# chkconfig iptables on
+root@RHELv4u4:~# 
+		</screen>
+		<para>One of the nice features of iptables is that it displays extensive <command>status</command> information when queried with the <command>service iptables status</command> command.</para>
+		<screen>
+root@RHELv4u4:~# service iptables status
+Table: filter
+Chain INPUT (policy ACCEPT)
+target     prot opt source               destination         
+RH-Firewall-1-INPUT  all  --  0.0.0.0/0            0.0.0.0/0           
+				
+Chain FORWARD (policy ACCEPT)
+target     prot opt source               destination         
+RH-Firewall-1-INPUT  all  --  0.0.0.0/0            0.0.0.0/0           
+
+Chain OUTPUT (policy ACCEPT)
+target     prot opt source               destination         
+				
+Chain RH-Firewall-1-INPUT (2 references)
+target  prot opt source      destination  
+ACCEPT  all  --  0.0.0.0/0   0.0.0.0/0 
+ACCEPT  icmp --  0.0.0.0/0   0.0.0.0/0   icmp type 255 
+ACCEPT  esp  --  0.0.0.0/0   0.0.0.0/0 
+ACCEPT  ah   --  0.0.0.0/0   0.0.0.0/0    
+ACCEPT  udp  --  0.0.0.0/0   224.0.0.251 udp dpt:5353 
+ACCEPT  udp  --  0.0.0.0/0   0.0.0.0/0   udp dpt:631 
+ACCEPT  all  --  0.0.0.0/0   0.0.0.0/0   state RELATED,ESTABLISHED 
+ACCEPT  tcp  --  0.0.0.0/0   0.0.0.0/0   state NEW tcp dpt:22 
+ACCEPT  tcp  --  0.0.0.0/0   0.0.0.0/0   state NEW tcp dpt:80 
+ACCEPT  tcp  --  0.0.0.0/0   0.0.0.0/0   state NEW tcp dpt:21 
+ACCEPT  tcp  --  0.0.0.0/0   0.0.0.0/0   state NEW tcp dpt:25 
+REJECT  all  --  0.0.0.0/0   0.0.0.0/0   reject-with icmp-host-prohibited 
+
+root@RHELv4u4:~# 
+		</screen>
+		<para>Mastering firewall configuration requires a decent knowledge of tcp/ip. Good iptables tutorials can be found online here http://iptables-tutorial.frozentux.net/iptables-tutorial.html and here http://tldp.org/HOWTO/IP-Masquerade-HOWTO/.</para>
+	</section>
+	<section><title>Practice iptables</title>
+		<para>1. Verify whether the firewall is running.</para>
+		<para>2. Disable the firewall.</para>
+	</section>
+</section>
+<section><title>xinetd and inetd</title>
+	<section><title>About the superdaemon</title>
+		<para>Back when resources like RAM memory were limited, a super-server was deviced to listen to all sockets and start the appropriate daemon only when needed. Services like swat, telnet and vmware are typically served by such a super-server. The <command>xinetd</command> superserver is more recent than <command>inetd</command><indexterm><primary>inetd</primary></indexterm>. We will discuss the configuration both daemons.</para>
+		<para>Recent Linux distributions like RHEL5 and Ubuntu8.04 do not install inetd or xinetd by default.</para>
+	</section>
+	<section><title>inetd or xinetd</title>
+		<para>First verify whether your computer is running inetd or xinetd. This Debian 4.0 Etch is running inetd.</para>
+		<screen>
+root@barry:~# ps fax | grep inet
+ 3870 ?        Ss     0:00 /usr/sbin/inetd
+		</screen>
+		<para>This Red Hat Enterprise Linux 4 update 4 is running xinetd.</para>
+		<screen>
+[root@RHEL4b ~]# ps fax | grep inet
+ 3003 ?        Ss     0:00 xinetd -stayalive -pidfile /var/run/xinetd.pid
+		</screen>
+		<para>Both daemons have the same functionality (listening to many ports, starting other daemons when they are needed), but they have different configuration files.</para>
+	</section>
+	<section><title>The superdaemon xinetd</title>
+		<para>The <command>xinetd</command><indexterm><primary>xinetd</primary></indexterm> daemon is often called a superdaemon because it listens to a lot of incoming connections, and starts other daemons when they are needed. When a connection request is received, xinetd will first check TCP wrappers (/etc/hosts.allow and /etc/hosts.deny) and then give control of the connection to the other daemon. This superdaemon is configured through <command>/etc/xinetd.conf</command><indexterm><primary>/etc/xinetd.conf</primary></indexterm> and the files in the directory <command>/etc/xinetd.d</command><indexterm><primary>/etc/xinetd.d</primary></indexterm>. Let's first take a look at /etc/xinetd.conf.</para>
+		<screen>
+paul@RHELv4u2:~$ cat /etc/xinetd.conf 
+#
+# Simple configuration file for xinetd
+#
+# Some defaults, and include /etc/xinetd.d/
+				
+defaults
+{
+instances               = 60
+log_type                = SYSLOG authpriv
+log_on_success          = HOST PID
+log_on_failure          = HOST
+cps                     = 25 30
+}
+				
+includedir /etc/xinetd.d
+				
+paul@RHELv4u2:~$ 
+		</screen>
+		<para>According to the settings in this file, xinetd can handle 60 client requests at once. It uses the <command>authpriv</command> facility to log the host ip-address and pid of successful daemon spawns. When a service (aka protocol linked to daemon) gets more than 25 cps (connections per second), it holds subsequent requests for 30 seconds.</para>
+		<para>The directory <command>/etc/xinetd.d</command> contains more specific configuration files. Let's also take a look at one of them.</para>
+		<screen>
+paul@RHELv4u2:~$ ls /etc/xinetd.d
+amanda     chargen-udp  echo      klogin       rexec   talk
+amandaidx  cups-lpd     echo-udp  krb5-telnet  rlogin  telnet
+amidxtape  daytime      eklogin   kshell       rsh     tftp
+auth       daytime-udp  finger    ktalk        rsync   time
+chargen    dbskkd-cdb   gssftp    ntalk        swat    time-udp
+paul@RHELv4u2:~$ cat /etc/xinetd.d/swat 
+# default: off
+# description: SWAT is the Samba Web Admin Tool. Use swat \
+#              to configure your Samba server. To use SWAT, \
+#              connect to port 901 with your favorite web browser.
+service swat
+{
+port            = 901
+socket_type     = stream
+wait            = no
+only_from       = 127.0.0.1
+user            = root
+server          = /usr/sbin/swat
+log_on_failure  += USERID
+disable         = yes
+}
+paul@RHELv4u2:~$
+		</screen>
+		<para>The services should be listed in the <command>/etc/services</command><indexterm><primary>/etc/services</primary></indexterm> file. Port determines the service port, and must be the same as the port specified in /etc/services. The <command>socket_type</command> should be set to <command>stream</command> for tcp services (and to dgram for udp). The <command>log_on_failure +=</command> concats the userid to the log message formatted in /etc/xinetd.conf. The last setting <command>disable</command> can be set to yes or no. Setting this to <command>no</command> means the service is enabled! </para>
+		<para>Check the xinetd and xinetd.conf manual pages for many more configuration options.</para>
+	</section>
+	<section><title>The superdaemon inetd</title>
+		<para>This superdaemon has only one configuration file <command>/etc/inetd.conf</command><indexterm><primary>/etc/inetd.conf</primary></indexterm>. Every protocol or daemon that it is listening for, gets one line in this file.</para>
+		<screen>
+root@barry:~# grep ftp /etc/inetd.conf 
+tftp dgram udp wait nobody /usr/sbin/tcpd /usr/sbin/in.tftpd /boot/tftp
+root@barry:~#
+		</screen>
+		<para>You can disable a service in inetd.conf above by putting a &#035; at the start of that line. Here an example of the disabled vmware web interface (listening on tcp port 902).</para>
+		<screen>
+paul@laika:~$ grep vmware /etc/inetd.conf 
+#902 stream tcp nowait root /usr/sbin/vmware-authd vmware-authd
+		</screen>
+	</section>
+	<section><title>Practice</title>
+		<para>1. Verify on all systems whether they are using xinetd or inetd.</para>
+		<para>2. Look at the configuration files.</para>
+		<para>3. (If telnet is installable, then replace swat in these questions with telnet) Is swat installed ? If not, then install swat and look at the changes in the (x)inetd configuration. Is swat enabled or disabled ?</para>
+		<para>4. Disable swat, test it. Enable swat, test it.</para>
+	</section>
+</section>
+<section><title>OpenSSH</title>
+	<section><title>Secure Shell</title>
+		<para>Avoid using <command>telnet</command><indexterm><primary>telnet</primary></indexterm>, <command>rlogin</command><indexterm><primary>rlogin</primary></indexterm> and <command>rsh</command><indexterm><primary>rsh</primary></indexterm> to remotely connect to your servers. These older protocols do not encrypt the login session, which means your user id and password can be sniffed by tools like <command>ethereal</command><indexterm><primary>ethereal</primary></indexterm> aka wireshark. To securely connect to your servers, use <command>OpenSSH</command><indexterm><primary>OpenSSH</primary></indexterm>. An ssh connection always starts with a cryptographic handshake, followed by encryption of the transport layer using a symmetric cypher. Then authentication takes place (using user id/password or public/private keys) and communication can take place over the encrypted connection. In other words, the tunnel is encrypted before you start typing anything.</para>
+		<para>The OpenSSH package is maintained by the <command>OpenBSD</command><indexterm><primary>OpenBSD</primary></indexterm> people and is distributed with a lot of operating systems (it may even be the most popular package in the world). Below sample use of <command>ssh</command><indexterm><primary>ssh</primary></indexterm> to connect from one server (RHELv4u2) to another one (RHELv4u4). </para>
+		<screen>
+paul@RHELv4u2:~$ ssh 192.168.1.220
+The authenticity of host '192.168.1.220' can't be established.
+RSA key fingerprint is c4:3c:52:e6:d8:8b:ce:17:8b:c9:78:5a:f3:51:06:4f.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added '192.168.1.220' (RSA) to the list of known...
+paul@192.168.1.220's password: 
+Last login: Sun Jan 21 07:16:26 2007 from 192.168.1.40
+paul@RHELv4u4:~$ 
+		</screen>
+		<para>The second time ssh remembers the connection. It added an entry to the ~/.ssh/known_hosts file.</para>
+		<screen>
+paul@RHELv4u2:~$ ssh 192.168.1.220
+paul@192.168.1.220's password: 
+Last login: Sun Jan 21 08:49:19 2007 from 192.168.1.222
+paul@RHELv4u4:~$
+		</screen>
+	</section>
+	<section><title>SSH Protocol versions</title>
+		<para>The ssh protocol has two versions (1 and 2). Avoid using version 1 anywhere, since it contains some known vulnerabilities. You can control the protocol version via <command>/etc/ssh/ssh_config</command><indexterm><primary>/etc/ssh/ssh_config</primary></indexterm> for the client side and <command>/etc/ssh/sshd_config</command><indexterm><primary>/etc/ssh/sshd_config</primary></indexterm> for the openssh-server daemon.</para>
+		<screen>
+root@laika:/etc/ssh# grep Protocol ssh_config 
+#   Protocol 2,1
+root@laika:/etc/ssh# grep Protocol sshd_config 
+Protocol 2
+root@laika:/etc/ssh# 
+		</screen>
+		<para>Configuration of ssh is done in the <command>/etc/ssh</command><indexterm><primary>/etc/ssh</primary></indexterm> directory and is pretty straightforward.</para>
+	</section>
+	<section><title>About Public and Private keys</title>
+		<para>Imagine Alice and Bob, two people that like to communicate with eachother. Using public and private keys they can communicate with encryption and with authentication.</para>
+		<para>When Alice wants to send an encrypted message to Bob, she uses the public key of Bob. Bob shares his Public Key with Alice, but keeps his Private Key private! Since Bob is the only one to have Bob's Private Key, Alice is sure that Bob is the only one that can read the encrypted message.</para>
+		<para>When Bob wants to verify that the message came from Alice, Bob uses the Public Key of Alice to verify that Alice signed the message with her Private Key. Since Alice is the only one to have Alice's Private Key, Bob is sure the message came from Alice.</para>
+	</section>
+	<section><title>Setting up passwordless ssh</title>
+		<para>To set up passwordless ssh authentication through public/private keys, use <command>ssh-keygen</command> to generate a key pair without a passphrase, and then copy your public key to the destination server. Let's do this step by step.</para>
+		<para>In the example that follows, we will set up ssh without password between Alice and Bob. Alice has an account on a Red Hat Enterprise Linux server, Bob is using Ubuntu on his laptop. Bob wants to give Alice access using ssh and the public and private key system. This means that even if Bob changes his password on his laptop, Alice will still have access.</para>
+		<section><title>ssh-keygen</title>
+			<para>The example below shows how Alice uses <command>ssh-keygen</command><indexterm><primary>ssh-keygen(1)</primary></indexterm> to generate a key pair. Alice does not enter a passphrase.</para>
+			<screen>
+[alice@RHEL5 ~]$ ssh-keygen -t rsa
+Generating public/private rsa key pair.
+Enter file in which to save the key (/home/alice/.ssh/id_rsa): 
+Created directory '/home/alice/.ssh'.
+Enter passphrase (empty for no passphrase): 
+Enter same passphrase again: 
+Your identification has been saved in /home/alice/.ssh/id_rsa.
+Your public key has been saved in /home/alice/.ssh/id_rsa.pub.
+The key fingerprint is:
+9b:ac:ac:56:c2:98:e5:d9:18:c4:2a:51:72:bb:45:eb alice@RHEL5
+[alice@RHEL5 ~]$ 
+			</screen>
+		</section>
+		<section><title>~/.ssh</title>
+			<para>While ssh-keygen generates a public and a private key, it will also create a hidden .ssh directory with proper permissions. If you create the .ssh directory manually, then you need to chmod 700 it! Otherwise ssh will refuse to use the keys (world readable private keys are not secure!).</para>
+			<para>As you can see, the .ssh directory is secure in Alice's home directory.</para>
+			<screen>
+[alice@RHEL5 ~]$ ls -ld .ssh
+drwx------ 2 alice alice 4096 May  1 07:38 .ssh
+[alice@RHEL5 ~]$ 
+			</screen>
+			<para>Bob is using Ubuntu at home. He decides to manually create the .ssh directory, so he needs to manually secure it.</para>
+			<screen>
+bob@laika:~$ mkdir .ssh
+bob@laika:~$ ls -ld .ssh
+drwxr-xr-x 2 bob bob 4096 2008-05-14 16:53 .ssh
+bob@laika:~$ chmod 700 .ssh/
+bob@laika:~$
+			</screen>
+		</section>
+		<section><title>id_rsa and id_rsa.pub</title>
+			<para>The ssh-keygen command generate two keys in .ssh. The public key is names <command>~/.ssh/id_rsa.pub</command><indexterm><primary>~/.ssh/id_rsa.pub</primary></indexterm>. The private key is named <command>~/.ssh/id_rsa</command><indexterm><primary>~/.ssh/id_rsa</primary></indexterm>.</para>
+			<screen>
+[alice@RHEL5 ~]$ ls -l .ssh/
+total 16
+-rw------- 1 alice alice 1671 May  1 07:38 id_rsa
+-rw-r--r-- 1 alice alice  393 May  1 07:38 id_rsa.pub
+[alice@RHEL5 ~]$ 
+			</screen>
+		</section>
+		<section><title>scp</title>
+			<para>To copy the public key from Alice's server tot Bob's laptop, Alice decides to use <command>scp</command><indexterm><primary>scp(1)</primary></indexterm>.</para>
+			<screen>
+[alice@RHEL5 .ssh]$ scp id_rsa.pub bob@192.168.48.92:~/.ssh/authorized_keys
+bob@192.168.48.92's password: 
+id_rsa.pub                                    100%  393     0.4KB/s   00:00    
+[alice@RHEL5 .ssh]$
+			</screen>
+			<para>Be careful when copying a second key! Do not overwrite the first key, instead append the key to the same ~/.ssh/authorized_keys file!</para>
+		</section>
+		<section><title>authorized_keys</title>
+			<para>In your ~/.ssh directory, you can create a file called <command>authorized_keys</command><indexterm><primary>~/.ssh/authorized_keys</primary></indexterm>. This file can contain one or more public keys from people you trust. Those trusted people can use their private keys to prove their identity and gain access to your account via ssh (without password). The example shows Bob's authorized_keys file containing the public key of Alice.</para>
+			<screen>
+bob@laika:~$ cat .ssh/authorized_keys 
+ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEApCQ9xzyLzJes1sR+hPyqW2vyzt1D4zTLqk\
+MDWBR4mMFuUZD/O583I3Lg/Q+JIq0RSksNzaL/BNLDou1jMpBe2Dmf/u22u4KmqlJBfDhe\
+yTmGSBzeNYCYRSMq78CT9l9a+y6x/shucwhaILsy8A2XfJ9VCggkVtu7XlWFDL2cum08/0\
+mRFwVrfc/uPsAn5XkkTscl4g21mQbnp9wJC40pGSJXXMuFOk8MgCb5ieSnpKFniAKM+tEo\
+/vjDGSi3F/bxu691jscrU0VUdIoOSo98HUfEf7jKBRikxGAC7I4HLa+/zX73OIvRFAb2hv\
+tUhn6RHrBtUJUjbSGiYeFTLDfcTQ== alice@RHEL5
+bob@laika:~$ 
+			</screen>
+		</section>
+		<section><title>passwordless ssh</title>
+			<para>Alice can now use ssh to connect passwordless to Bob's laptop. In combination with ssh's capability to execute commands on the remote host, this can be useful in pipes across different machines.</para>
+			<screen>
+[alice@RHEL5 ~]$ ssh bob@192.168.48.92 "ls -l .ssh"
+total 4
+-rw-r--r-- 1 bob bob 393 2008-05-14 17:03 authorized_keys
+[alice@RHEL5 ~]$ 
+			</screen>
+		</section>
+	</section>
+	<section><title>X forwarding via SSH</title>
+		<para> The <command>ssh protocol</command><indexterm><primary>ssh</primary></indexterm> will remember the servers it connected to (and warn you in case something suspicious happened), and will use strong 128-bit encryption. Another popular feature of ssh is called <command>X11 forwarding</command> and is implemented with <command>ssh -X</command><indexterm><primary>ssh -X</primary></indexterm>.</para>
+		<para>Below an example of X11 forwarding: user paul logs in as user greet on her computer to start the graphical application mozilla-thunderbird. Although the application will run on the remote computer from greet, it will be displayed on the screen attached locally to paul's computer.</para>
+		<screen>
+paul@laika:~/PDF$ ssh -X greet@greet.dyndns.org -p 55555
+Warning: Permanently added the RSA host key for IP address \
+'81.240.174.161' to the list of known hosts.
+Password: 
+Linux raika 2.6.8-2-686 #1 Tue Aug 16 13:22:48 UTC 2005 i686 GNU/Linux
+				
+Last login: Thu Jan 18 12:35:56 2007
+greet@raika:~$ ps fax | grep thun
+greet@raika:~$ mozilla-thunderbird &#038;
+[1] 30336
+		</screen>
+	</section>
+	<section><title>Troubleshooting ssh</title>
+		<para>Use <command>ssh -v</command> to get debug information about the ssh connection attempt.</para>
+		<screen>
+paul@laika:~$ ssh -v bert@192.168.1.192
+OpenSSH_4.3p2 Debian-8ubuntu1, OpenSSL 0.9.8c 05 Sep 2006
+debug1: Reading configuration data /home/paul/.ssh/config
+debug1: Reading configuration data /etc/ssh/ssh_config
+debug1: Applying options for *
+debug1: Connecting to 192.168.1.192 [192.168.1.192] port 22.
+debug1: Connection established.
+debug1: identity file /home/paul/.ssh/identity type -1
+debug1: identity file /home/paul/.ssh/id_rsa type 1
+debug1: identity file /home/paul/.ssh/id_dsa type -1
+debug1: Remote protocol version 1.99, remote software version OpenSSH_3
+debug1: match: OpenSSH_3.9p1 pat OpenSSH_3.*
+debug1: Enabling compatibility mode for protocol 2.0
+...
+		</screen>
+	</section>
+	<section><title>Practice SSH</title>
+		<para>1. Create a user for your neighbour, then test ssh to your neighbour (by ip-address or by hostname). (You might need to install the openssh-server with aptitude.)</para>
+		<para>2. Create a bookmark in Firefox, then close your firefox! Use ssh -X to run firefox on your screen, but on your neighbour's computer. Do you see your neighbour's bookmark ?</para>
+		<para>3. Verify in the ssh configuration files that only protocol version 2 is allowed.</para>
+		<para>4. Use ssh-keygen to create a keypair without passphrase. Setup passwordless ssh between you and your neighbour. (or between the ubuntu and the Red Hat)</para>
+	</section>
+</section>
+
+<section><title>Network File System</title>
+	<section><title>Network Attached Storage (NAS)</title>
+		<para><command>NAS</command><indexterm><primary>NAS</primary></indexterm> means using separate servers with lots of storage, connected over a (hopefully very fast) network. NAS servers offer <command>file-based access</command> over the network with protocols like <command>NCP</command><indexterm><primary>NCP</primary></indexterm> (old Novell Netware), Sun's <command>NFS</command><indexterm><primary>NFS</primary></indexterm> (common on Unix) or <command>SMB</command><indexterm><primary>SMB</primary></indexterm> (implemented on Unix/Linux with Samba). NAS is not to be confused with <command>SAN</command><indexterm><primary>SAN</primary></indexterm>, which uses <command>block-based access</command> over proprietary protocols (Fiber Channel, iSCSI, ...). A <command>NAS head</command> is a NAS without on-board storage, which connects to a SAN and acts as a translator between the file-level NAS protocols and the block-level SAN protocols.</para>
+	</section>
+	<section><title>NFS: the Network File System</title>
+		<section><title>protocol versions</title>
+			<para>The older <command>NFS</command><indexterm><primary>NFS</primary></indexterm> versions 2 and 3 are stateless (udp) by default, but they can use tcp. Clients connect to the server using <command>RPC</command><indexterm><primary>RPC</primary></indexterm> (on Linux this is controlled by the <command>portmap</command><indexterm><primary>portmap</primary></indexterm> daemon. Look at <command>rpcinfo</command><indexterm><primary>rpcinfo(1)</primary></indexterm> to verify that NFS and its related services are running.</para>
+			<screen>
+root@RHELv4u2:~# /etc/init.d/portmap status
+portmap (pid 1920) is running...
+root@RHELv4u2:~# rpcinfo -p
+program vers proto   port
+100000    2   tcp    111  portmapper
+100000    2   udp    111  portmapper
+100024    1   udp  32768  status
+100024    1   tcp  32769  status
+root@RHELv4u2:~# service nfs start
+Starting NFS services:                                     [  OK  ]
+Starting NFS quotas:                                       [  OK  ]
+Starting NFS daemon:                                       [  OK  ]
+Starting NFS mountd:                                       [  OK  ]
+			</screen>
+			<para>The same rpcinfo command when NFS is started.</para>
+			<screen>
+root@RHELv4u2:~# rpcinfo -p
+program vers proto   port
+100000    2   tcp    111  portmapper
+100000    2   udp    111  portmapper
+100024    1   udp  32768  status
+100024    1   tcp  32769  status
+100011    1   udp    985  rquotad
+100011    2   udp    985  rquotad
+100011    1   tcp    988  rquotad
+100011    2   tcp    988  rquotad
+100003    2   udp   2049  nfs
+100003    3   udp   2049  nfs
+100003    4   udp   2049  nfs
+100003    2   tcp   2049  nfs
+100003    3   tcp   2049  nfs
+100003    4   tcp   2049  nfs
+100021    1   udp  32770  nlockmgr
+100021    3   udp  32770  nlockmgr
+100021    4   udp  32770  nlockmgr
+100021    1   tcp  32789  nlockmgr
+100021    3   tcp  32789  nlockmgr
+100021    4   tcp  32789  nlockmgr
+100005    1   udp   1004  mountd
+100005    1   tcp   1007  mountd
+100005    2   udp   1004  mountd
+100005    2   tcp   1007  mountd
+100005    3   udp   1004  mountd
+100005    3   tcp   1007  mountd
+root@RHELv4u2:~#
+			</screen>
+			<para>NFS version 4 requires tcp (port 2049) and supports <command>Kerberos</command><indexterm><primary>Kerberos</primary></indexterm> user authentication as an option. NFS authentication only takes place when mounting the share. NFS versions 2 and 3 authenticate only the host.</para>
+		</section>			
+		<section><title>server configuration</title>
+			<para> NFS is configured in <command>/etc/exports</command><indexterm><primary>/etc/exports</primary></indexterm>. Here is a sample /etc/exports to explain the syntax. You need some way (NIS domain or LDAP) to synchronize userid's across computers when using NFS a lot. The <command>rootsquash</command><indexterm><primary>rootsquash</primary></indexterm> option will change UID 0 to the UID of the nfsnobody user account. The <command>sync</command> option will write writes to disk before completing the client request.</para>
+			<screen>
+paul@laika:~$ cat /etc/exports 
+# Everyone can read this share
+/mnt/data/iso  *(ro)
+				
+# Only the computers barry and pasha can readwrite this one
+/var/www pasha(rw) barry(rw)
+				
+# same, but without root squashing for barry
+/var/ftp pasha(rw) barry(rw,no_root_squash)
+				
+# everyone from the netsec.lan domain gets access
+/var/backup       *.netsec.lan(rw)
+				
+# ro for one network, rw for the other
+/var/upload   192.168.1.0/24(ro) 192.168.5.0/24(rw)
+			</screen>
+			<para>You don't need to restart the nfs server to start exporting your newly created exports. You can use the <command>exportfs -va</command><indexterm><primary>exportfs(1)</primary></indexterm> command to do this. It will write the exported directories to <command>/var/lib/nfs/etab</command><indexterm><primary>/var/lib/nfs/etab</primary></indexterm>, where they are immediately applied. </para>
+		</section>	
+		<section><title>client configuration</title>
+			<para>We have seen the <command>mount</command><indexterm><primary>mount(1)</primary></indexterm> command and the <command>/etc/fstab</command><indexterm><primary>/etc/fstab</primary></indexterm> file before.</para>
+			<screen>
+root@RHELv4u2:~# mount -t nfs barry:/mnt/data/iso /home/project55/
+root@RHELv4u2:~# cat /etc/fstab | grep nfs
+barry:/mnt/data/iso   /home/iso               nfs     defaults    0 0
+root@RHELv4u2:~# 
+			</screen>
+		</section>	
+		<section><title>Mounting NAS</title>
+			<para>Just a simple fictitious example. Suppose the project55 people tell you they only need a couple of CD-ROM images, and you already have them available on an NFS server. You could issue the following command to mount the network attached storage on their /home/project55 mount point.</para>
+			<screen>
+root@RHELv4u2:~# mount -t nfs 192.168.1.40:/mnt/data/iso /home/project55/
+root@RHELv4u2:~# ls -lh /home/project55/
+total 3.6G
+drwxr-xr-x  2 1000 1000 4.0K Jan 16 17:55 RHELv4u1
+drwxr-xr-x  2 1000 1000 4.0K Jan 16 14:14 RHELv4u2
+drwxr-xr-x  2 1000 1000 4.0K Jan 16 14:54 RHELv4u3
+drwxr-xr-x  2 1000 1000 4.0K Jan 16 11:09 RHELv4u4
+-rw-r--r--  1 root root 1.6G Oct 13 15:22 sled10-vmwarews5-vm.zip
+root@RHELv4u2:~# 
+			</screen>
+		</section>
+	</section>
+	<section><title>Practice NFS</title>
+		<para>1. Create two directories with some files. Use NFS to share one of them as read only, the other must be writable. Have your neighbour connect to them to test.</para>
+		<para>2. Investigate the user owner of the files created by your neighbour.</para>
+		<para>3. Protect a share by ip-address or hostname, so only your neighbour can connect.</para>
+	</section>
+</section>
+</chapter>

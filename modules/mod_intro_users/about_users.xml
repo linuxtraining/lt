@@ -1,0 +1,3 @@
+<section><title>About Users</title>
+	<para>In general, if you are a novice linux user and you need to manage users and groups on your home system, then use the graphical tool that is provided by your linux distro. This will make sure that you do not run into problems. Server administrators will use command line tools like useradd, userdel, groupadd and so on, whereas really advanced administrators will use vi (or vipw) to edit the proper files directly. Do not attempt the latter as a novice on production systems.</para>
+</section>

@@ -1,0 +1,3 @@
+<section><title>About scripting</title>
+	<para>Bash has support for programming constructs that can be saved as scripts. These scripts in turn then become more bash commands. In fact, a lot of linux commands are scripts. This means that system administrators also need a basic knowledge of scripting to understand how their servers and their applications are started, updated, upgraded, patched, maintained, configured and removed.</para>
+</section>

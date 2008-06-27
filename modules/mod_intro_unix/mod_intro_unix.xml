@@ -1,0 +1,292 @@
+<chapter><title>Introduction to Unix and Linux</title>
+<section><title>Unix History</title>
+	<section><title>AT&#038;T Bell Labs</title>
+		<para>In 1969 <command>Dennis Ritchie</command><indexterm><primary>Dennis Ritchie</primary></indexterm> and <command>Ken Thompson</command><indexterm><primary>Ken Thompson</primary></indexterm> wrote <command>UNICS</command><indexterm><primary>UNICS</primary></indexterm> (Uniplexed Information and Computing System) at Bell Labs. Together with <command>Douglas McIlroy</command><indexterm><primary>Douglas McIlroy</primary></indexterm> they are seen as the creators of Unix. The name Unix is a play on the Multics Operating System for large mainframe computers. Unics (later renamed to Unix) was written for mini computers like the DEC PDP-series. In 1973 they decided to write Unix in C (instead of assembler), to make it portable to other computers. Unix was made available to universities, companies and the US government, including the full source code. This meant that every C programmer could make changes. By 1978 about 600 computers were running Unix.</para>
+<table frame='all'><title>Early Unix Timeline</title>
+<?dbfo table-width="100%" ?>
+<?dbfo fontsize="7px" ?>
+<tgroup cols='5' align='left' colsep='1' rowsep='1'>
+<colspec colname='1969-1977' colwidth="3*" align="center"/>
+<colspec colname='1978-1980' colwidth="2*" align="center"/>
+<colspec colname='1981' colwidth="1*" align="center"/>
+<colspec colname='1982' colwidth="1*" align="center"/>
+<colspec colname='X' colwidth="0*" align="center"/>
+<thead>
+<row>
+  <entry>1969-1977</entry>
+  <entry>1978-1980</entry>
+  <entry>1981</entry>
+  <entry>1982</entry>
+  <entry>&nbsp;</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry morerows="5" valign="middle">UNIX Time Sharing System</entry>
+  <entry morerows="2" valign="middle">BSD</entry>
+  <entry morerows="2" valign="middle">4.1BSD</entry>
+  <entry morerows="1" valign="middle">4.1BSD</entry>
+  <entry>&nbsp;</entry>
+</row>
+<row>
+  <entry>&nbsp;</entry>
+</row>
+<row>
+  <entry>SunOS 1.0</entry>
+  <entry>&nbsp;</entry>
+</row>
+<row>
+  <entry morerows="2" valign="middle" namest="1978-1980" nameend="1981">Unix</entry>
+  <entry morerows="2" valign="middle">Unix System III</entry>
+  <entry>&nbsp;</entry>
+</row>
+<row>
+  <entry>&nbsp;</entry>
+</row>
+<row>
+  <entry>&nbsp;</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+	</section>
+	<section><title>The Unix Wars</title>
+		<para>The unity and openness that existed in the Unix world until 1977 was long gone by the end of the eighties. Different vendors of distinct versions of Unix tried to set the standard. Sun and AT&#038;T joined the <command>X/Open</command> group to unify Unix. Other vendors joined the Open Software Foundation or <command>OSF</command>. These struggles were not good for Unix, allowing for new operating system families like OS/2, Novell Netware and Microsoft Windows NT to take big chunks of server market share in the early nineties. The table below shows the evolution of a united Unix into several Unixes in the eighties.</para> 
+<table frame='all'><title>Eighties Unix Timeline</title>
+<?dbfo table-width="100%" ?>
+<?dbfo fontsize="7px" ?>
+<tgroup cols='10' align='left' colsep='1' rowsep='1'>
+<colspec colname='1983' align="center"/>
+<colspec colname='1984' align="center"/>
+<colspec colname='1985' align="center"/>
+<colspec colname='1986' align="center"/>
+<colspec colname='1987' align="center"/>
+<colspec colname='1988' align="center"/>
+<colspec colname='1989' align="center"/>
+<colspec colname='1990' align="center"/>
+<colspec colname='1991' align="center"/>
+<colspec colname='1992' align="center"/>
+<thead>
+<row>
+  <entry>1983</entry>
+  <entry>1984</entry>
+  <entry>1985</entry>
+  <entry>1986</entry>
+  <entry>1987</entry>
+  <entry>1988</entry>
+  <entry>1989</entry>
+  <entry>1990</entry>
+  <entry>1991</entry>
+  <entry>1992</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry morerows="1" namest="1983" nameend="1985" valign="middle">4.1BSD</entry>
+  <entry namest="1986" nameend="1990">4.3BSD</entry>
+  <entry namest="1991" nameend="1992">BSD Net/2</entry>
+</row>
+<row>
+  <entry namest="1986" nameend="1987">4.3BSD</entry>
+  <entry namest="1988" nameend="1992">NeXTSTEP</entry>
+</row>
+<row>
+  <entry namest="1983" nameend="1985">SunOS1.0</entry>
+  <entry namest="1986" nameend="1987">SunOS3.2</entry>
+  <entry morerows="1" namest="1988" nameend="1990" valign="middle">SystemVr4</entry>
+  <entry namest="1991" nameend="1992">Solaris</entry>
+</row>
+<row>
+  <entry namest="1983" nameend="1987">System V</entry>
+  <entry namest="1991" nameend="1992">UnixWare</entry>
+</row>
+<row>
+  <entry namest="1983" nameend="1985">System V</entry>
+  <entry namest="1986" nameend="1992">AIX</entry>
+</row>
+<row>
+  <entry>III + V</entry>
+  <entry namest="1984" nameend="1992">HP-UX</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+		</section>
+		<section><title>University of California, Berkeley</title>
+			<para>Students of Berkeley were happy to join in the development of Bell Labs Unix, but were not so happy with the restrictive licensing. Unix was open source software, but it still required purchase of a license. So during the eighties, they rewrote all the Unix tools, until they had a complete Unix-like operating system. By 1991, the <command>BSD</command><indexterm><primary>BSD</primary></indexterm> (Berkeley Software Distribution) branch of Unix was completely separate from the Bell Labs Unix. <command>NetBSD</command><indexterm><primary>NetBSD</primary></indexterm>, <command>FreeBSD</command><indexterm><primary>FreeBSD</primary></indexterm> and <command>OpenBSD</command><indexterm><primary>OpenBSD</primary></indexterm> are three current Unix-like operating systems derived from the 1991 <command>BSD Net/2</command><indexterm><primary>BSD Net/2</primary></indexterm> codebase. Sun Solaris, Microsoft Windows NT and Apple Mac OS X all used source code from BSD. The table below shows operating systems still in use today that are in a way derived from the 1978-1981 BSD codebase.</para>
+<table frame='all'><title>Current BSD Timeline</title>
+<?dbfo table-width="100%" ?>
+<tgroup cols='10' align='left' colsep='1' rowsep='1'>
+<colspec colname='1991' align="center" colwidth="1*"/>
+<colspec colname='1992' align="center" colwidth="1*"/>
+<colspec colname='1993' align="center" colwidth="1*"/>
+<colspec colname='1994' align="center" colwidth="1*"/>
+<colspec colname='1995' align="center" colwidth="1*"/>
+<colspec colname='1996' align="center" colwidth="1*"/>
+<colspec colname='1997' align="center" colwidth="1*"/>
+<colspec colname='1998' align="center" colwidth="1*"/>
+<colspec colname='1999' align="center" colwidth="1*"/>
+<colspec colname='2000' align="center" colwidth="3*"/>
+<thead>
+<row>
+  <entry>1991</entry>
+  <entry>1992</entry>
+  <entry>1993</entry>
+  <entry>1994</entry>
+  <entry>1995</entry>
+  <entry>1996</entry>
+  <entry>1997</entry>
+  <entry>1998</entry>
+  <entry>1999</entry>
+  <entry>2000-2008</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry morerows="2" namest="1991" nameend="1992" valign="middle">BSD Net/2</entry>
+  <entry namest="1993" nameend="2000">FreeBSD</entry>
+</row>
+<row>
+  <entry namest="1993" nameend="2000">NetBSD</entry>
+</row>
+<row>
+  <entry namest="1993" nameend="1995">NetBSD</entry>
+  <entry namest="1996" nameend="2000">OpenBSD</entry>
+</row>
+<row>
+  <entry namest="1991" nameend="1998">NeXTSTEP</entry>
+  <entry namest="1999" nameend="2000">Mac OS X</entry>
+</row>
+<row>
+  <entry namest="1991" nameend="2000">Solaris</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+		</section>
+		<section><title>GNU's not Unix</title>
+			<para>Largely because of unhappiness with the restrictive licensing on existing Unix implementations, <command>Richard Stallman</command><indexterm><primary>Richard Stallman</primary></indexterm> initiated the <command>GNU Project</command><indexterm><primary>GNU Project</primary></indexterm> in 1983. The GNU project aims to create free software. Development of the GNU operating system started, aiming to create a complete Unix-like branch, seperate from the two other (BSD and Bell Labs).  Today the GNU compiler <command>gcc</command><indexterm><primary>gcc</primary></indexterm> and most other GNU utilities (like <command>bash</command><indexterm><primary>bash</primary></indexterm>) are among the most popular on many Unix-like systems. The official kernel of this project is <command>GNU/Hurd</command><indexterm><primary>GNU/Hurd</primary></indexterm>, but you can hardly call that kernel a finished product.</para>
+		</section>	
+		<section><title>Linux</title>
+			<para>Where <command>GNU/Hurd</command> failed, the Linux kernel succeeded! In 1991 a Finnish student named <command>Linus Torvalds</command><indexterm><primary>Linus Torvalds</primary></indexterm> started writing his own operating system for his intel 80386 computer. In January 1992, Linus decided to release Linux under the GNU GPL. Thanks to this, thousands of developers are now working on the Linux kernel. Contrary to popular believe, they are not all volunteers. Today big companies like Sun, IBM, Novell, Red Hat, Sony, HP and others are actively paying developers to work on the Linux kernel. Mister Torvalds is still the only one to decide what code gets accepted into the kernel.</para>
+		</section>
+	</section>
+<section><title>Licensing</title>
+	<section><title>Proprietary</title>
+		<para>Some flavors of Unix, like HP-UX, IBM AIX and Sun Solaris 9 are delivered after purchase in binary form. You are not authorized to install or use these without paying a license to the owner. You are not authorized to distribute these copies to other people, and you are not authorized to look at or change the closed source code of the operating system. This software is usually protected by copyright, patents and extensive software licensing.</para>
+	</section>
+	<section><title>BSD</title>
+		<para>BSD style licenses are close to the public domain. They essentially state that you can copy the software, but you have to leave the copyright notice that refers to BSD. This license gives a lot of freedom, but offers few protection to someone copying and selling your work.</para>
+	</section>
+	<section><title>GNU General Public License (GPL)</title>
+		<para>More and more software is being released under the <command>GPL</command><indexterm><primary>GPL</primary></indexterm> (in 2006 Java was released under the GPL). The goal of the GPL is to guarantee that free software stays free. Everyone can work together on GPL software, knowing that the software will be freely available to everyone. The GPL can protect software, even in court.</para>
+		<para>Free as in <command>freedom of speech</command><indexterm><primary>freedom of speech</primary></indexterm>, not to be confused with free as in not having to pay for your free beer. In other words, or even better, in other languages free software translates to <command>vrije software</command><indexterm><primary>vrije software</primary></indexterm> (Dutch) or <command>Logiciel Libre</command><indexterm><primary>Logiciel Libre</primary></indexterm> (French). Whereas the free from free beer translates to gratis.</para>
+		<para>Briefly explained, the GPL allows you to copy software, the GPL allows you to distribute (sell or give away) that software, and the GPL grants you the right to read and change the source code. But the person receiving or buying the software from you has the same rights. And also, should you decide to distribute modified versions of GPL software, then you are obligated to put the same license on the modifications (and provide the source code of your modifications). You can actually call the GPL a <command>viral license</command><indexterm><primary>viral license</primary></indexterm> because it spreads like a virus.</para>
+	</section>
+	<section><title>Others...</title>
+		<para><emphasis>There are many other licenses on software. You should read and understand them before using any software.</emphasis></para>
+	</section>
+</section>
+	<section><title>Current Distributions</title>
+		<section><title>About</title>
+			<para>Unix comes in many flavors, usually called <command>distributions</command><indexterm><primary>distributions</primary></indexterm>. A distribution (or in short distro) is a collection of software packages, distributed on CD, online or pre-installed on computers. All the software in a distribution is supposedly thoroughly tested and integrates nicely into a whole. Software is maintained (patched) by the distributor, and is managed by an <command>integrated package manager</command><indexterm><primary>integrated package manager</primary></indexterm>. Many distro's have a central <command>repository of approved software</command><indexterm><primary>repository of approved software</primary></indexterm>. Installing software from outside the distro can sometimes be cumbersome and may void your warranty on the system.</para>
+			<para><emphasis>Typical among <command>geeks</command><indexterm><primary>geeks</primary></indexterm> are all the <command>flame wars</command><indexterm><primary>flame wars</primary></indexterm> over which is the best distribution. I had this very funny image copied from http://ars.userfriendly.org/cartoons/?id=19990301&#038;mode=classic here, but the copyright owners did not approve the inclusion of this image in this course.</emphasis></para>
+		</section>	
+		<section><title>Major Vendors of Unix</title>
+			<para>We should at least mention IBM's <command>AIX</command><indexterm><primary>AIX</primary></indexterm>, Sun's <command>Solaris</command><indexterm><primary>Solaris</primary></indexterm> and Hewlett-Packards <command>HP-UX</command><indexterm><primary>HP-UX</primary></indexterm>, all are based on the original Unix from Bell Labs (Unix System V). Sun's <command>SunOS</command><indexterm><primary>SunOS</primary></indexterm>, HP's <command>Tru64</command><indexterm><primary>Tru64</primary></indexterm> (originally from DEC) and Apple's <command>MacOSX</command><indexterm><primary>MacOSX</primary></indexterm> are more derived from the BSD branch. But most Unixes today may contain source code and implementations from both original Unix-branches.</para>
+		</section>	
+		<section><title>Some BSD Distributions</title>
+			<section><title>FreeBSD</title>
+				<para>FreeBSD is a complete operating system. The kernel and all of the utilities are held in the same source code tree. FreeBSD runs on many architectures and is considered to be reliable and robust. Millions of websites are running on FreeBSD, including some big like yahoo, netcraft, php.net, freebsd.org and (until last year) ftp.cdrom.com.</para>
+			</section>
+			<section><title>NetBSD</title>
+				<para>NetBSD development started around the same time (1993) as FreeBSD. NetBSD runs on many architectures and is often used in embedded devices.</para>
+			</section>
+			<section><title>OpenBSD</title>
+				<para>Co-founder <command>Theo De Raadt</command><indexterm><primary>Theo De Raadt</primary></indexterm> from NetBSD founded the OpenBSD project in 1994. OpenBSD is by far the most secure operating system in the world. The past ten years, only two vulnerabilities were found in the default install of OpenBSD. All source code is thoroughly checked. OpenBSD runs on sixteen different architectures and is commonly used for firewalls and IDS. The OpenBSD people also bring us OpenSSH.</para>
+			</section>
+		</section>
+		<section><title>Linux Distributions</title>
+			<para>There are hundreds of linux distributions, just take a look at the distrowatch.com website. For many years, Red Hat, Suse and Mandrake were considered the big three for end users. Red Hat is still the biggest commercial linux vendor. Today, the most popular linux distro is Ubuntu.</para>
+			<section><title>Red Hat</title>
+				<para>Redhat exists as a company since 1993. They distribute <command>Red Hat Enterprise Linux</command><indexterm><primary>Red Hat Enterprise Linux</primary></indexterm> (RHEL) to companies and manage the <command>Fedora</command><indexterm><primary>Fedora</primary></indexterm> project. RHEL is probably the most popular Linux-based distro on servers. Fedora is a very popular and user friendly Linux-based distro, aimed towards home users. The company makes a profit of around one hundred million dollars a year, selling support contracts. Red Hat contributes a lot to the linux kernel and other free software projects.</para>
+				<section><title>Red Hat Linux</title>
+					<para>Red Hat Linux was distributed from 1994 until 2003. It was one of the oldest common Linux distributions. Red Hat Linux was the first distro to use the <command>rpm</command><indexterm><primary>rpm</primary></indexterm> package format. Many other distro's are originally derived from Red Hat Linux. The company <command>Red Hat, Inc.</command><indexterm><primary>Red Hat, Inc.</primary></indexterm> decided to split Red Hat Linux into <command>Fedora Core</command><indexterm><primary>Fedora Core</primary></indexterm> and <command>Red Hat Enterprise Linux</command><indexterm><primary>Red Hat Enterprise Linux</primary></indexterm>.</para>
+				</section>
+				<section><title>Fedora Core</title>
+					<para>Fedora is sponsored by Red Hat, and is aimed toward home users. There is no official support from Red Hat. About every six months there is a new version of Fedora. Fedora usually has more recent versions of kernel and applications than RHEL. Fedora Core 7 was released May 2007.</para>
+				</section>
+				<section><title>Red Hat Enterprise Linux</title>
+					<para>Since 2005 Red Hat distributes four different RHEL variants. <command>RHEL AS</command><indexterm><primary>RHEL AS</primary></indexterm> is for mission-critical computer systems. <command>RHEL ES</command><indexterm><primary>RHEL ES</primary></indexterm> is for small to mid-range servers. <command>RHEL WS</command><indexterm><primary>RHEL WS</primary></indexterm> is for technical power user desktops and critical design. <command>Red Hat Desktop</command><indexterm><primary>Red Hat Desktop</primary></indexterm> is for multiple deployments of single user desktops. Red Hat does not give an explanation for the meaning of AS, ES and WS, but it might be Advanced Server, Entry-level Server and Workstation. </para>
+				</section>
+				<section><title>Red Hat Enterprise Linux 5</title>
+					<para>Red Hat Enterprise Linux version 5 is available since March 2007. One of the notable new features is the inclusion of <command>Xen</command><indexterm><primary>Xen</primary></indexterm>. Xen is a free virtual machine application that allows modified NetBSD and Linux to serve as host for a number of unmodified guest OS'ses. Beyond just virtualization, RHEL 5 will also have better SELinux support, clustering, network storage and smartcard integration.</para>
+				</section>
+				<section><title>CentOS and Unbreakable Linux</title>
+					<para>Both <command>CentOS</command><indexterm><primary>CentOS</primary></indexterm> and Oracle's <command>Unbreakable Linux</command><indexterm><primary>Unbreakable Linux</primary></indexterm> are directly derived from RHEL, but all references to Red Hat trademarks are removed. Companies are allowed to do this (GPL), and are hoping to make a profit selling support (without having the cost to maintain and develop their own distribution). Red Hat is not really worried about this, since they develop a lot on Linux, and thus can offer much better support. The Oracle offer however is still very recent, let's wait and see how many organizations will buy a complete solution from Oracle.</para>
+				</section>
+			</section>
+			<section><title>Ubuntu</title>
+				<para><command>Ubuntu</command><indexterm><primary>Ubuntu</primary></indexterm> is a rather new distribution, based on <command>debian</command><indexterm><primary>debian</primary></indexterm> and funded by South African developer and billionaire astronaut <command>Mark Shuttleworth</command><indexterm><primary>Mark Shuttleworth</primary></indexterm>. Ubuntu is giving away free (as in beer and speech) CD's with <command>Ubuntu, Linux for Human Beings</command><indexterm><primary>Ubuntu, Linux for Human Beings</primary></indexterm>. Many people consider Ubuntu to be the most user friendly Linux distribution. The company behind Ubuntu is <command>Canonical</command><indexterm><primary>Canonical</primary></indexterm>, they aim to make a profit of selling support soon. Ubuntu is probably the most popular Unix-like distribution on personal desktops.</para>
+	<para>Image copied from <command>xkcd.com</command><indexterm><primary>http://xkcd.com</primary></indexterm>.</para>
+	<mediaobject><imageobject><imagedata fileref="images/not_really_into_pokemon.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+			</section>
+			<section><title>Novell Suse</title>
+				<para>A couple of years ago, <command>Novell</command><indexterm><primary>Novell</primary></indexterm> bought the German company <command>Suse</command><indexterm><primary>Suse</primary></indexterm>. They are seen as the main competitor to Red Hat with their SLES (Suse Linux Enterprise Server) and SLED (Suse Linux Enterprise Desktop) versions of Suse Linux. Similar to Fedora, Novell hosts the <command>OpenSUSE</command><indexterm><primary>OpenSUSE</primary></indexterm> project as a testbed for upcoming SLED and SLES releases.</para>
+				<para>Novell has signed a very controversial deal with Microsoft. Some high profile open source developers have left the company because of this agreement, and many people from the open source community are actively advocating to abandon Novell completely.</para>
+			</section>
+			<section><title>Debian</title>
+				<para>Debian is one of the most secure linux distro's. It is known to be stable and reliable. But Debian is also known to be a linux for advanced users, not for beginners. A lot of distributions (Ubuntu, Knoppix, ...) are derived from the Debian codebase. Debian has <command>aptitude</command><indexterm><primary>aptitude</primary></indexterm>, which is considered the best package management system.</para>
+			</section>
+			<section><title>Mandriva</title>
+				<para>Mandriva is the unification of the Brazilian distro Connectiva with the French distro Mandrake. They are considered a user friendly distro, with support from the French government. </para> 
+			</section>
+		</section>
+		<section><title>Solaris</title>
+			<section><title>Solaris 8 and Solaris 9</title>
+				<para>All <command>Sun Solaris</command><indexterm><primary>Sun Solaris</primary></indexterm> releases before Solaris 10 are proprietary binary only, just like IBM AIX and HP-UX.</para>
+			</section>
+			<section><title>Solaris 10</title>
+				<para>Solaris 10 is the officialy supported Sun distribution. It is a free (as in beer) download. Sun releases binary patches and updates. Sun would like a community built around the solaris kernel, similar to the linux community. Sun released the Solaris kernel under the CDDL, a license similar to the GPL, hoping this will happen.</para>
+			</section>
+			<section><title>Nevada and Solaris Express</title>
+				<para>Nevada is the codename for the next release of Solaris (Solaris 11). It is currently under development by Sun and is based on the OpenSolaris code. Solaris Express Community Edition is an official free binary release including open source OpenSolaris and some closed source technologies, updated twice a month without any support from Sun. Solaris Express Developer Edition is the same, but with some support, thorough testing before release, and released twice a year.</para>
+				</section>
+			<section><title>OpenSolaris, Belenix and Nexenta</title>
+				<para>OpenSolaris is een open source development project (yes, it is only source code). Future versions of the Solaris operating system are based on this source code. The <command>Belenix</command><indexterm><primary>Belenix</primary></indexterm> LiveCD is based on OpenSolaris. Another famous opensolaris based distro is <command>Nexenta</command><indexterm><primary>Nexenta</primary></indexterm>. Nexenta (www.gnusolaris.org) looks like <command>Ubuntu</command><indexterm><primary>Ubuntu</primary></indexterm> and feels like <command>Debian</command><indexterm><primary>Debian</primary></indexterm>. The goal of this <command>GNU/Solaris</command><indexterm><primary>GNU/Solaris</primary></indexterm> project is to have the best linux desktop (Ubuntu) including the <command>aptitude</command><indexterm><primary>aptitude</primary></indexterm> package manager running on a Sun Solaris kernel. </para>
+			</section>
+		</section>
+	</section>
+	<section><title>Certification</title>
+		<section><title>LPI: Linux Professional Institute</title>
+			<section><title>LPIC Level 1</title>
+				<para>This is the junior level certification. You need to pass exams 101 and 102 to achieve <command>LPIC 1 certification</command><indexterm><primary>LPIC 1 Certification</primary></indexterm>. To pass level one, you will need linux command line, user management, backup and restore, installation, networking and basic system administration skills.</para>
+			</section>
+			<section><title>LPIC Level 2</title>
+				<para>This is the advanced level certification. You need to be LPIC 1 certified and pass exams 201 and 202 to achieve <command>LPIC 2 certification</command><indexterm><primary>LPIC 2 Certification</primary></indexterm>. To pass level two, you will need to be able to administer medium sized linux networks, including Samba, mail, news, proxy, firewall, web and ftp servers.</para>
+			</section>
+			<section><title>LPIC Level 3</title>
+				<para>This is the senior level certification. It contains one core exam (301) which tests advanced skills including ldap, samba, pam, perl and others. To achieve this level you also need LPIC Level 2 and pass a specialty exam. More info on www.lpi.org.</para>
+			</section>
+			<section><title>Ubuntu</title>
+				<para>When you are LPIC Level 1 certified, you can take a LPI Ubuntu exam (199) and become Ubuntu certified.</para>
+			</section>
+		</section>
+		<section><title>Red Hat Certified Engineer</title>
+			<para>The big difference with most certs is that there are no multiple choice questions for <command>RHCE</command><indexterm><primary>RHCE</primary></indexterm>. Red Hat Certified Engineers have taken a live exam consisting of two parts. First they have to troubleshoot and maintain an existing but broken setup (scoring at least 80 percent), second they have to install and configure a machine (scoring at least 70 percent).</para>
+		</section>
+		<section><title>MySQL</title>
+			<para>There are two tracks for MySQL certification; Certified MySQL 5.0 Developer (CMDEV) and Certified MySQL 5.0 DBA (CMDBA). The <command>CMDEV</command><indexterm><primary>CMDEV</primary></indexterm> is focused at database application developers, the <command>CMDBA</command><indexterm><primary>CMDBA</primary></indexterm> is for database administrators. Both tracks require two exams each. The MySQL cluster DBA certification requires CMDBA certification and passing the CMCDBA exam.</para>
+		</section>
+		<section><title>Novell CLP/CLE</title>
+			<para>To become a <command>Novell Certified Linux Professional</command><indexterm><primary>Novell Certified Linux Professional</primary></indexterm>, you have to take a live practicum. This is a VNC session to a set of real SLES servers. You have to perform several tasks and are free to choose your method (commandline or YaST or ...). No multiple choice involved.</para>
+		</section>
+		<section><title>Sun Solaris</title>
+			<para>Sun uses the classical formula of multiple choice exams for certification. Passing two exams for an operating system gets you the Solaris Certified Administrator for Solaris X title.</para>
+		</section>
+		<section><title>Other certifications</title>
+			<para>There are many other less known certs like EC council's Certified Ethical Hacker, CompTIA's linux+ and Sair's Linux GNU.</para>
+		</section>
+	</section>
+</chapter>

@@ -1,0 +1,42 @@
+<section><title>About su and sudo</title>
+	<para>There are two easy ways to switch to another users. With the <command>su</command> command you switch the context of the command prompt (your bash session) to another user. With <command>sudo</command> you start a program with the credentials of another user. Both su and sudo might prompt you for a password.</para>
+</section>
+<section><title>su</title>
+	<para>The <command>su</command><indexterm><primary>su(1)</primary></indexterm> command allows a user to run a shell as another user. Running a shell as another user requires that you know the password of the other user, unless you are root. The root user can become any other user without knowing the user's password.</para>
+	<screen>
+[paul@RHEL4b ~]$ su Harry
+Password: 
+[Harry@RHEL4b paul]$ su root
+Password: 
+[root@RHEL4b paul]# su Serena
+[Serena@RHEL4b paul]$
+	</screen>
+	<para>By default, the su command keeps the same shell environment. To become another user and also get the target user's environment, issue the <command>su -</command><indexterm><primary>su(1)</primary></indexterm> command followed by the target username. When no username is provided to su or su - then the command will assume root is the target.</para>
+	<screen>
+[paul@RHEL4b ~]$ su - Harry
+Password: 
+[Harry@RHEL4b ~]$ su -
+Password: 
+[root@RHEL4b ~]#
+	</screen>
+</section>
+<section><title>sudo</title>
+	<section><title>About sudo</title>
+	</section>
+	<section><title>/usr/bin/sudo</title>
+		<para>The sudo binary has the setuid bit set, so any user can run it with effective userid set as root.</para>
+		<screen>
+paul@laika:~$ ls -l `which sudo`
+-rwsr-xr-x 2 root root 107872 2008-05-15 02:41 /usr/bin/sudo
+paul@laika:~$ 
+		</screen>
+	</section>
+</section>
+<section><title>sudo</title>
+	<para>On linux systems like Ubuntu, the root user does not have a password set. This means that it is not possible to logon as root (extra security). To perform tasks as root, users can be given <command>sudo rights</command><indexterm><primary>sudo(1)</primary></indexterm> via the <command>/etc/sudoers</command><indexterm><primary>/etc/sudoers</primary></indexterm> file to run a command as another user. On Ubuntu the first user created will get sudo rights to run the su command as root. The end result of this is that the user can type <command>sudo su -</command><indexterm><primary>sudo su -</primary></indexterm> and become root without having to enter the root password. The sudo command does require you to enter your own password. Thus the password prompt in the screenshot below is for sudo, not for su. Check the man page of <command>visudo</command><indexterm><primary>visudo(1)</primary></indexterm> before playing with the /etc/sudoers file.</para>
+	<screen>
+paul@laika:~$ sudo su -
+Password:
+root@laika:~#
+	</screen>
+</section>

@@ -1,0 +1,164 @@
+<section><title>About SELinux</title>
+<section><title>What is SELinux</title>
+	<para>Security Enhanced Linux or <command>SELinux</command><indexterm><primary>SELinux</primary></indexterm> is a set of modifications developed by the United States National Security Agency (NSA) to provide a variety of security policies for Linux. SELinux was released as open source at the end of 2000. Since kernel version 2.6 it is an integrated part of Linux.</para>
+	<para>SELinux offers security! SELinux can control what kind of access users have to files and processes. Even when a file received <command>chmod 777</command>, SELinux can still prevent users from accessing it (unix file permissions are checked first!). SELinux does this by placing users in <command>roles</command> that represent a security context. Administrators have very strict control on access permissions granted to roles.</para>
+	<para>SELinux is present in the latest versions of Red Hat Enterprise Linux, Debian, Fedora, Ubuntu, Yellow Dog Linux and Hardened Gentoo. There is currently (2008) limited support in Suse and Slackware.</para>
+</section>
+<section><title>/selinux</title>
+	<para>When selinux is active, there is a new virtual file system named /selinux. (You can compare it to /proc and /dev.)</para>
+	<screen>
+[root@RHEL5 ~]# ls /selinux/
+access                context  mls
+avc                   create   null
+booleans              disable  policyvers
+checkreqprot          enforce  relabel
+commit_pending_bools  load     user
+compat_net            member
+	</screen>
+	<para>Although some files in /selinux appear wih size 0, they often contain a boolean value. Check <command>/selinux/enforce</command><indexterm><primary>/selinux/enforce</primary></indexterm> to see if selinux is running in enforced mode.</para>
+	<screen>
+[root@RHEL5 ~]# ls -l /selinux/enforce 
+-rw-r--r-- 1 root root 0 Apr 29 08:21 /selinux/enforce
+[root@RHEL5 ~]# echo `cat /selinux/enforce` 
+1
+	</screen>
+</section>
+<section><title>/etc/selinux</title>
+	<para>The main selinux configuration files are located in <command>/etc/selinux/</command><indexterm><primary>/etc/selinux/</primary></indexterm>.</para>
+	<screen>
+[root@RHEL5 ~]# cat /etc/selinux/config
+# This file controls the state of SELinux on the system.
+# SELINUX= can take one of these three values:
+#	enforcing - SELinux security policy is enforced.
+#	permissive - SELinux prints warnings instead of enforcing.
+#	disabled - SELinux is fully disabled.
+SELINUX=enforcing
+# SELINUXTYPE= type of policy in use. Possible values are:
+#	targeted - Only targeted network daemons are protected.
+#	strict - Full SELinux protection.
+SELINUXTYPE=targeted
+
+# SETLOCALDEFS= Check local definition changes
+SETLOCALDEFS=0 
+[root@RHEL5 ~]# 
+	</screen>
+</section>
+<section><title>Extended Attributes</title>
+	<para>Extended attributes are use by selinux to store security contexts. These attributes can be viewed with <command>ls</command><indexterm><primary>ls(1)</primary></indexterm> when selinux is running.</para>
+	<screen>
+[root@RHEL5 home]# ls --context 
+drwx------  paul paul system_u:object_r:user_home_dir_t paul
+drwxr-xr-x  root root user_u:object_r:user_home_dir_t  project42
+drwxr-xr-x  root root user_u:object_r:user_home_dir_t  project55
+[root@RHEL5 home]# ls -Z
+drwx------  paul paul system_u:object_r:user_home_dir_t paul
+drwxr-xr-x  root root user_u:object_r:user_home_dir_t  project42
+drwxr-xr-x  root root user_u:object_r:user_home_dir_t  project55
+[root@RHEL5 home]# 
+	</screen>
+	<para>When selinux is not running, then <command>getfattr</command><indexterm><primary>getfattr(1)</primary></indexterm> is the tool to use.</para>
+	<screen>
+[root@RHEL5 etc]# getfattr -m . -d hosts
+# file: hosts
+security.selinux="system_u:object_r:etc_t:s0\000"
+	</screen>
+</section>
+<section><title>Process security context</title>
+	<para>A new option is added to <command>ps</command><indexterm><primary>ps(1)</primary></indexterm> to see the selinux security context of processes. </para>
+	<screen>
+[root@RHEL5 etc]# ps -ZC mingetty
+LABEL                             PID TTY          TIME CMD
+system_u:system_r:getty_t        2941 tty1     00:00:00 mingetty
+system_u:system_r:getty_t        2942 tty2     00:00:00 mingetty
+	</screen>
+</section>
+<section><title>chcon</title>
+	<para>Use <command>chcon</command><indexterm><primary>chcon(1)</primary></indexterm> to change the selinux security context. Examples of this command will follow later.</para>
+	<screen>chcon examples
+	</screen>
+</section>
+<section><title>Identity</title>
+	<para>The <command>SELinux Identity</command><indexterm><primary>identity(SELinux)</primary></indexterm> of a user is distinct from the user ID. An identity is part of a security context, and (via domains) determines what the you can do. The screenshot shows user <command>root</command> having identity <command>user_u</command>.</para>
+	<screen>
+[root@RHEL5 ~]# id | cut -d' ' -f4
+context=user_u:system_r:unconfined_t
+	</screen>
+</section>
+<section><title>Domain</title>
+	<para>The <command>SELinux Domain</command><indexterm><primary>domain(SELinux)</primary></indexterm> is the security context of a process. An SELinux domain determines what a process can do. The screenshot shows init running in domain <command>init_t</command> and the mingetty's running in domain <command>getty_t</command>.</para>
+	<screen>
+[root@RHEL5 ~]# ps fax -Z | grep init_t
+system_u:system_r:init_t        1 ?       Ss    0:01 init [3]         
+[root@RHEL5 ~]# ps fax -Z | grep getty_t
+system_u:system_r:getty_t    2941 tty1    Ss+   0:00 /sbin/mingetty tty1
+system_u:system_r:getty_t    2942 tty2    Ss+   0:00 /sbin/mingetty tty2
+	</screen>
+</section>
+<section><title>Type</title>
+	<para>The <command>SELinux Type</command><indexterm><primary>type(SELinux)</primary></indexterm> is similar to an SELinux Domain, but refers to directories and files instead of processes.</para>
+</section>
+<section><title>Role</title>
+	<para>The <command>SELinux Role</command><indexterm><primary>role(SELinux)</primary></indexterm> defines the domains that can be used. A role is denied to enter a domain, unless the role is explicitely authorized to do so.</para>
+	<para></para>
+</section>
+<section><title>Security Context</title>
+	<para>The combination of identity, role and domain or type make up the SELinux security context. The <command>id</command><indexterm><primary>id(1)</primary></indexterm> will show you your security context in the form identity:role:domain.</para>
+	<screen>
+[paul@RHEL5 ~]$ id | cut -d' ' -f4
+context=user_u:system_r:unconfined_t
+	</screen>
+	<para>The <command>ls -Z</command> command shows the security context for a file in the form identity:role:type.</para>
+	<screen>
+[paul@RHEL5 ~]$ ls -Z test
+-rw-rw-r--  paul paul user_u:object_r:user_home_t      test
+	</screen>
+	<para>The security context for processes visible in /proc defines both the type (of the file in /proc) and the domain (of the running process). Let's take a look at the init process and /proc/1/ .</para>
+	<para>The init process runs in domain <command>init_t</command>.</para>
+	<screen>
+[root@RHEL5 ~]# ps -ZC init
+LABEL                             PID TTY          TIME CMD
+system_u:system_r:init_t            1 ?        00:00:01 init
+	</screen>
+	<para>The /proc/1/ directory, which identifies the init process, has type <command>init_t</command>.</para>
+	<screen>
+[root@RHEL5 ~]# ls -Zd /proc/1/
+dr-xr-xr-x  root root system_u:system_r:init_t         /proc/1/
+	</screen>
+	<para>It is not a coincidence that the domain of the init process and the type of /proc/1/ are both <command>init_t</command>.</para>
+	<para>Don't try to use <command>chcon</command><indexterm><primary>chcon(1)</primary></indexterm> on /proc! It will not work.</para>.
+</section>
+<section><title>Transition</title>
+	<para>An <command>SELinux Transition</command><indexterm><primary>transition(SELinux)</primary></indexterm> (aka an SELinux Labelling) determines the security context that will be assigned. A transition of process domains is used when you execute a process. A transition of file type happens when you create a file.</para>
+	<para>An example of file type transition.</para>
+	<screen>
+[paul@RHEL5 ~]$ touch test
+[paul@RHEL5 ~]$ touch /tmp/test
+[paul@RHEL5 ~]$ ls -Z test
+-rw-rw-r--  paul paul user_u:object_r:user_home_t      test
+[paul@RHEL5 ~]$ ls -Z /tmp/test
+-rw-rw-r--  paul paul user_u:object_r:tmp_t            /tmp/test
+[paul@RHEL5 ~]$ 
+	</screen>
+</section>
+<section><title>Policy</title>
+	<para>Everything comes together in an <command>SELinux Policy</command><indexterm><primary>policy(SELinux)</primary></indexterm>. Policies define user access to roles, role access to domains and domain access to types. </para>
+</section>
+</section>
+<section><title></title>
+	<para><command></command><indexterm><primary></primary></indexterm> </para>
+	<para></para>
+	<screen>
+	</screen>
+</section>
+<section><title></title>
+	<para><command></command><indexterm><primary></primary></indexterm> </para>
+	<para></para>
+	<screen>
+	</screen>
+</section>
+<section><title></title>
+	<para><command></command><indexterm><primary></primary></indexterm> </para>
+	<para></para>
+	<screen>
+	</screen>
+</section>

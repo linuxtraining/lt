@@ -1,0 +1,6 @@
+<section><title>Booting the system</title>
+	<para>Booting the system starts (once the hardware is powered on and configured) with a bootloader.</para>
+        <para>There are a variety of boot loaders available, most common on intel architecture is <command>GRUB</command><indexterm><primary>grub</primary></indexterm>, which is replacing <command>Lilo</command><indexterm><primary>lilo</primary></indexterm> in many places. When installing Linux on SPARC architecture, you can choose <command>Silo</command><indexterm><primary>silo</primary></indexterm>, Itanium systems can use <command>ELILO</command><indexterm><primary>elilo</primary></indexterm>, IBM S/390 and zSeries use <command>z/IPL</command><indexterm><primary>z/IPL</primary></indexterm> and PowerPC architectures use <command>YABOOT</command><indexterm><primary>yaboot</primary></indexterm> (which means Yet Another boot loader).</para>
+	<para> Once the Linux kernel is loaded, the bootloader turns control over to it. From that moment on, the kernel is in control of the system. After discussing bootloaders, we continue with the init system that starts all the daemons.</para>
+</section>
+

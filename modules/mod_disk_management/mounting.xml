@@ -1,0 +1,88 @@
+<section><title>Mounting</title>
+	<para>Once you've put a file system on a partition, you can <command>mount</command><indexterm><primary>mount(1)</primary></indexterm> it. Mounting a file system makes it available for use, usually as a directory. We say <command>mounting a file system</command><indexterm><primary>mounting</primary></indexterm> instead of mounting a partition because we will see later that we can also mount file systems that do not exists on partitions.</para>
+	<section><title>Mounting local disks</title>
+		<para>On all Unix systems, every file and every directory is part of one big file tree. To access a file, you need to know the full path starting from the root directory. When adding a file system to your computer, you need to make it available somewhere in the file tree. The directory where you make a file system available is called a <command>mount point</command><indexterm><primary>mount point</primary></indexterm>. Once mounted, the new file system is accessible to users. The screenshot below shows the creation of a mount point, and the mounting of an ext2 partition on a newly added SCSI disk. </para>
+		<screen>
+root@RHELv4u2:~# mkdir /home/project55
+root@RHELv4u2:~# mount -t ext2 /dev/sdb1 /home/project55/
+root@RHELv4u2:~# ls /home/project55/
+lost+found
+root@RHELv4u2:~# 
+		</screen>
+		<para>Actually the explicit -t ext2 option to set the file system is not always necesarry. The mount command is able to automatically detect a lot of file systems on partitions.</para>
+	</section>
+	<section><title>Displaying mounted file systems</title>
+		<para>To view all mounted file systems, look at the files <command>/proc/mounts</command><indexterm><primary>/proc/mounts</primary></indexterm> or <command>/etc/mtab</command><indexterm><primary>/etc/mtab</primary></indexterm>. The kernel provides the info in /proc/mount in file form, but /proc/mount does not exist as a file on any hard disk. Looking at /proc/mount is the best way to be sure, since the information comes directly from the kernel. The /etc/mtab file on the other hand is updated by the mount command. Do not edit /etc/mtab manually!</para>
+		<para>Another way to view all mounts is by issuing the <command>mount</command><indexterm><primary>mount(1)</primary></indexterm> command without any arguments. The screenshot below pipes the output of these three through grep, to only show our added SCSI disk.</para>
+		<screen>
+root@RHELv4u2:~# cat /proc/mounts | grep /dev/sdb
+/dev/sdb1 /home/project55 ext2 rw 0 0
+root@RHELv4u2:~# cat /etc/mtab | grep /dev/sdb
+/dev/sdb1 /home/project55 ext2 rw 0 0
+root@RHELv4u2:~# mount | grep /dev/sdb
+/dev/sdb1 on /home/project55 type ext2 (rw)
+		</screen>
+		<para>A more user friendly way to look at mounted hard disks is <command>df</command><indexterm><primary>df(1)</primary></indexterm>. The df(diskfree) command has the added benefit of showing you the free space on each mounted disk. Like a lot of Linux commands, df supports the <command>-h</command> switch to make the output more <command>human readable</command>.</para>
+		<screen>
+root@RHELv4u2:~# df
+Filesystem           1K-blocks      Used Available Use% Mounted on
+/dev/mapper/VolGroup00-LogVol00
+11707972   6366996   4746240  58% /
+/dev/sda1             101086    9300    86567  10% /boot
+none                  127988       0   127988   0% /dev/shm
+/dev/sdb1             108865    1550   101694   2% /home/project55
+root@RHELv4u2:~# df -h
+Filesystem            Size  Used Avail Use% Mounted on
+/dev/mapper/VolGroup00-LogVol00
+12G  6.1G  4.6G  58% /
+/dev/sda1              99M  9.1M   85M  10% /boot
+none                  125M     0  125M   0% /dev/shm
+/dev/sdb1             107M  1.6M  100M   2% /home/project55
+		</screen>
+	</section>
+	<section><title>Permanent mounts</title>
+		<para>Until now, we performed all mounts manually. This works nice, until the next reboot. Luckily there is a way to tell your computer to automatically mount certain file systems during boot. This is done using the file system table located in the <command>/etc/fstab</command><indexterm><primary>/etc/fstab</primary></indexterm> file. Below is a sample /etc/fstab file.</para>
+		<screen>
+root@RHELv4u2:~# cat /etc/fstab 
+/dev/VolGroup00/LogVol00 /                ext3    defaults        1 1
+LABEL=/boot             /boot             ext3    defaults        1 2
+none                    /dev/pts          devpts  gid=5,mode=620  0 0
+none                    /dev/shm          tmpfs   defaults        0 0
+none                    /proc             proc    defaults        0 0
+none                    /sys              sysfs   defaults        0 0
+/dev/VolGroup00/LogVol01 swap             swap    defaults        0 0
+		</screen>
+		<para>By adding the following two lines, we can automate the mounting of these file systems. The first line is for our freshly added SCSI disk, the second line mounts an NFS share.</para>
+		<screen>
+/dev/sdb1                /home/project55      ext2    defaults    0 0
+server12:/mnt/data/iso   /home/iso            nfs     defaults    0 0
+		</screen>
+	</section>
+        <section><title>Disk Usage (du)</title>
+                <para>The <command>du</command><indexterm><primary>du(1)</primary></indexterm> command can summarize disk usage for files and directories. Preventing du to go into subdirectories with the -s option will give you a total for that directory. This option is often used together with -h, so <command>du -sh</command> on a mount point gives the total amount used in that partition.</para>
+                <screen>
+root@pasha:~# du -sh /home/reet
+881G     /home/reet
+                </screen>
+        </section>
+        <section><title>Disk Free (df)</title>
+                <para>In the <command>df -h</command><indexterm><primary>df(1)</primary></indexterm> example below you can see the size, free space, used gigabytes and percentage and mount point of a partition.</para>
+                <screen>
+root@laika:~# df -h | egrep -e "(sdb2|File)"
+Filesystem            Size Used Avail Use% Mounted on
+/dev/sdb2              92G   83G  8.6G  91% /media/sdb2
+root@laika:~#
+                </screen>
+        </section>
+	<section><title>Practice Mounting File Systems</title>
+		<para>1. Mount the small 50MB partition on /home/project22.</para>
+		<para>2. Mount the big primary partition on /mnt, the copy some files to it (everything in /etc). Then mount the partition as read only on /srv/nfs/salesnumbers.</para>
+		<para>3. Verify your work with fdisk, df, mount. Also look in /etc and /proc to interesting files.</para>
+		<para>4. Make both mounts permanent, test that it works.</para>
+		<para>5. What happens when you mount a partition on a directory that contains some files ?</para>
+		<para>6. What happens when you mount two partitions on the same mountpoint ?</para>
+		<para>7. Describe the difference between these file searching commands: find, locate, updatedb, whereis, apropos and which.</para>
+		<para>8. Perform a file system check on the partition mounted at /srv/nfs/salesnumbers.</para>
+	</section>
+</section>
+

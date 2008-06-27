@@ -1,0 +1,70 @@
+	<section><title>Current Distributions</title>
+		<section><title>About</title>
+			<para>Unix comes in many flavors, usually called <command>distributions</command><indexterm><primary>distributions</primary></indexterm>. A distribution (or in short distro) is a collection of software packages, distributed on CD, online or pre-installed on computers. All the software in a distribution is supposedly thoroughly tested and integrates nicely into a whole. Software is maintained (patched) by the distributor, and is managed by an <command>integrated package manager</command><indexterm><primary>integrated package manager</primary></indexterm>. Many distro's have a central <command>repository of approved software</command><indexterm><primary>repository of approved software</primary></indexterm>. Installing software from outside the distro can sometimes be cumbersome and may void your warranty on the system.</para>
+			<para><emphasis>Typical among <command>geeks</command><indexterm><primary>geeks</primary></indexterm> are all the <command>flame wars</command><indexterm><primary>flame wars</primary></indexterm> over which is the best distribution. I had this very funny image copied from http://ars.userfriendly.org/cartoons/?id=19990301&#038;mode=classic here, but the copyright owners did not approve the inclusion of this image in this course.</emphasis></para>
+		</section>	
+		<section><title>Major Vendors of Unix</title>
+			<para>We should at least mention IBM's <command>AIX</command><indexterm><primary>AIX</primary></indexterm>, Sun's <command>Solaris</command><indexterm><primary>Solaris</primary></indexterm> and Hewlett-Packards <command>HP-UX</command><indexterm><primary>HP-UX</primary></indexterm>, all are based on the original Unix from Bell Labs (Unix System V). Sun's <command>SunOS</command><indexterm><primary>SunOS</primary></indexterm>, HP's <command>Tru64</command><indexterm><primary>Tru64</primary></indexterm> (originally from DEC) and Apple's <command>MacOSX</command><indexterm><primary>MacOSX</primary></indexterm> are more derived from the BSD branch. But most Unixes today may contain source code and implementations from both original Unix-branches.</para>
+		</section>	
+		<section><title>Some BSD Distributions</title>
+			<section><title>FreeBSD</title>
+				<para>FreeBSD is a complete operating system. The kernel and all of the utilities are held in the same source code tree. FreeBSD runs on many architectures and is considered to be reliable and robust. Millions of websites are running on FreeBSD, including some big like yahoo, netcraft, php.net, freebsd.org and (until last year) ftp.cdrom.com.</para>
+			</section>
+			<section><title>NetBSD</title>
+				<para>NetBSD development started around the same time (1993) as FreeBSD. NetBSD runs on many architectures and is often used in embedded devices.</para>
+			</section>
+			<section><title>OpenBSD</title>
+				<para>Co-founder <command>Theo De Raadt</command><indexterm><primary>Theo De Raadt</primary></indexterm> from NetBSD founded the OpenBSD project in 1994. OpenBSD is by far the most secure operating system in the world. The past ten years, only two vulnerabilities were found in the default install of OpenBSD. All source code is thoroughly checked. OpenBSD runs on sixteen different architectures and is commonly used for firewalls and IDS. The OpenBSD people also bring us OpenSSH.</para>
+			</section>
+		</section>
+		<section><title>Linux Distributions</title>
+			<para>There are hundreds of linux distributions, just take a look at the distrowatch.com website. For many years, Red Hat, Suse and Mandrake were considered the big three for end users. Red Hat is still the biggest commercial linux vendor. Today, the most popular linux distro is Ubuntu.</para>
+			<section><title>Red Hat</title>
+				<para>Redhat exists as a company since 1993. They distribute <command>Red Hat Enterprise Linux</command><indexterm><primary>Red Hat Enterprise Linux</primary></indexterm> (RHEL) to companies and manage the <command>Fedora</command><indexterm><primary>Fedora</primary></indexterm> project. RHEL is probably the most popular Linux-based distro on servers. Fedora is a very popular and user friendly Linux-based distro, aimed towards home users. The company makes a profit of around one hundred million dollars a year, selling support contracts. Red Hat contributes a lot to the linux kernel and other free software projects.</para>
+				<section><title>Red Hat Linux</title>
+					<para>Red Hat Linux was distributed from 1994 until 2003. It was one of the oldest common Linux distributions. Red Hat Linux was the first distro to use the <command>rpm</command><indexterm><primary>rpm</primary></indexterm> package format. Many other distro's are originally derived from Red Hat Linux. The company <command>Red Hat, Inc.</command><indexterm><primary>Red Hat, Inc.</primary></indexterm> decided to split Red Hat Linux into <command>Fedora Core</command><indexterm><primary>Fedora Core</primary></indexterm> and <command>Red Hat Enterprise Linux</command><indexterm><primary>Red Hat Enterprise Linux</primary></indexterm>.</para>
+				</section>
+				<section><title>Fedora Core</title>
+					<para>Fedora is sponsored by Red Hat, and is aimed toward home users. There is no official support from Red Hat. About every six months there is a new version of Fedora. Fedora usually has more recent versions of kernel and applications than RHEL. Fedora Core 7 was released May 2007.</para>
+				</section>
+				<section><title>Red Hat Enterprise Linux</title>
+					<para>Since 2005 Red Hat distributes four different RHEL variants. <command>RHEL AS</command><indexterm><primary>RHEL AS</primary></indexterm> is for mission-critical computer systems. <command>RHEL ES</command><indexterm><primary>RHEL ES</primary></indexterm> is for small to mid-range servers. <command>RHEL WS</command><indexterm><primary>RHEL WS</primary></indexterm> is for technical power user desktops and critical design. <command>Red Hat Desktop</command><indexterm><primary>Red Hat Desktop</primary></indexterm> is for multiple deployments of single user desktops. Red Hat does not give an explanation for the meaning of AS, ES and WS, but it might be Advanced Server, Entry-level Server and Workstation. </para>
+				</section>
+				<section><title>Red Hat Enterprise Linux 5</title>
+					<para>Red Hat Enterprise Linux version 5 is available since March 2007. One of the notable new features is the inclusion of <command>Xen</command><indexterm><primary>Xen</primary></indexterm>. Xen is a free virtual machine application that allows modified NetBSD and Linux to serve as host for a number of unmodified guest OS'ses. Beyond just virtualization, RHEL 5 will also have better SELinux support, clustering, network storage and smartcard integration.</para>
+				</section>
+				<section><title>CentOS and Unbreakable Linux</title>
+					<para>Both <command>CentOS</command><indexterm><primary>CentOS</primary></indexterm> and Oracle's <command>Unbreakable Linux</command><indexterm><primary>Unbreakable Linux</primary></indexterm> are directly derived from RHEL, but all references to Red Hat trademarks are removed. Companies are allowed to do this (GPL), and are hoping to make a profit selling support (without having the cost to maintain and develop their own distribution). Red Hat is not really worried about this, since they develop a lot on Linux, and thus can offer much better support. The Oracle offer however is still very recent, let's wait and see how many organizations will buy a complete solution from Oracle.</para>
+				</section>
+			</section>
+			<section><title>Ubuntu</title>
+				<para><command>Ubuntu</command><indexterm><primary>Ubuntu</primary></indexterm> is a rather new distribution, based on <command>debian</command><indexterm><primary>debian</primary></indexterm> and funded by South African developer and billionaire astronaut <command>Mark Shuttleworth</command><indexterm><primary>Mark Shuttleworth</primary></indexterm>. Ubuntu is giving away free (as in beer and speech) CD's with <command>Ubuntu, Linux for Human Beings</command><indexterm><primary>Ubuntu, Linux for Human Beings</primary></indexterm>. Many people consider Ubuntu to be the most user friendly Linux distribution. The company behind Ubuntu is <command>Canonical</command><indexterm><primary>Canonical</primary></indexterm>, they aim to make a profit of selling support soon. Ubuntu is probably the most popular Unix-like distribution on personal desktops.</para>
+	<para>Image copied from <command>xkcd.com</command><indexterm><primary>http://xkcd.com</primary></indexterm>.</para>
+	<mediaobject><imageobject><imagedata fileref="images/not_really_into_pokemon.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+			</section>
+			<section><title>Novell Suse</title>
+				<para>A couple of years ago, <command>Novell</command><indexterm><primary>Novell</primary></indexterm> bought the German company <command>Suse</command><indexterm><primary>Suse</primary></indexterm>. They are seen as the main competitor to Red Hat with their SLES (Suse Linux Enterprise Server) and SLED (Suse Linux Enterprise Desktop) versions of Suse Linux. Similar to Fedora, Novell hosts the <command>OpenSUSE</command><indexterm><primary>OpenSUSE</primary></indexterm> project as a testbed for upcoming SLED and SLES releases.</para>
+				<para>Novell has signed a very controversial deal with Microsoft. Some high profile open source developers have left the company because of this agreement, and many people from the open source community are actively advocating to abandon Novell completely.</para>
+			</section>
+			<section><title>Debian</title>
+				<para>Debian is one of the most secure linux distro's. It is known to be stable and reliable. But Debian is also known to be a linux for advanced users, not for beginners. A lot of distributions (Ubuntu, Knoppix, ...) are derived from the Debian codebase. Debian has <command>aptitude</command><indexterm><primary>aptitude</primary></indexterm>, which is considered the best package management system.</para>
+			</section>
+			<section><title>Mandriva</title>
+				<para>Mandriva is the unification of the Brazilian distro Connectiva with the French distro Mandrake. They are considered a user friendly distro, with support from the French government. </para> 
+			</section>
+		</section>
+		<section><title>Solaris</title>
+			<section><title>Solaris 8 and Solaris 9</title>
+				<para>All <command>Sun Solaris</command><indexterm><primary>Sun Solaris</primary></indexterm> releases before Solaris 10 are proprietary binary only, just like IBM AIX and HP-UX.</para>
+			</section>
+			<section><title>Solaris 10</title>
+				<para>Solaris 10 is the officialy supported Sun distribution. It is a free (as in beer) download. Sun releases binary patches and updates. Sun would like a community built around the solaris kernel, similar to the linux community. Sun released the Solaris kernel under the CDDL, a license similar to the GPL, hoping this will happen.</para>
+			</section>
+			<section><title>Nevada and Solaris Express</title>
+				<para>Nevada is the codename for the next release of Solaris (Solaris 11). It is currently under development by Sun and is based on the OpenSolaris code. Solaris Express Community Edition is an official free binary release including open source OpenSolaris and some closed source technologies, updated twice a month without any support from Sun. Solaris Express Developer Edition is the same, but with some support, thorough testing before release, and released twice a year.</para>
+				</section>
+			<section><title>OpenSolaris, Belenix and Nexenta</title>
+				<para>OpenSolaris is een open source development project (yes, it is only source code). Future versions of the Solaris operating system are based on this source code. The <command>Belenix</command><indexterm><primary>Belenix</primary></indexterm> LiveCD is based on OpenSolaris. Another famous opensolaris based distro is <command>Nexenta</command><indexterm><primary>Nexenta</primary></indexterm>. Nexenta (www.gnusolaris.org) looks like <command>Ubuntu</command><indexterm><primary>Ubuntu</primary></indexterm> and feels like <command>Debian</command><indexterm><primary>Debian</primary></indexterm>. The goal of this <command>GNU/Solaris</command><indexterm><primary>GNU/Solaris</primary></indexterm> project is to have the best linux desktop (Ubuntu) including the <command>aptitude</command><indexterm><primary>aptitude</primary></indexterm> package manager running on a Sun Solaris kernel. </para>
+			</section>
+		</section>
+	</section>

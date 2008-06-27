@@ -1,0 +1,51 @@
+<section><title>UUID and filesystems</title>
+<section><title>About Unique Objects</title>
+	<para>A <command>UUID</command><indexterm><primary>UUID</primary></indexterm> or <command>Universally Unique Identifier</command><indexterm><primary>Universally Unique Identifier</primary></indexterm>is used to uniquely identify objects. This 128bit standard allows anyone to create a unique UUID. Below we use the <command>vol_id</command><indexterm><primary>vol_id(1)</primary></indexterm> utility to display the UUID of an ext3 partition on a hard disk.</para>
+	<screen>
+root@laika:~# vol_id --uuid /dev/sda1
+825d4b79-ec40-4390-8a71-9261df8d4c82
+	</screen>
+	<para>Red Hat Enterprise Linux 5 does not put the <command>vol_id</command> command in the PATH. But you can use <command>tune2fs</command><indexterm><primary>tune2fs(1)</primary></indexterm> or type the path to the vol_id command to display the UUID of a volume.</para>
+	<screen>
+[root@RHEL5 ~]# tune2fs -l /dev/sda1 | grep UUID
+Filesystem UUID:          11cfc8bc-07c0-4c3f-9f64-78422ef1dd5c
+[root@RHEL5 ~]# /lib/udev/vol_id -u /dev/sda1
+11cfc8bc-07c0-4c3f-9f64-78422ef1dd5c
+	</screen>
+</section>
+<section><title>Using UUID in /etc/fstab</title>
+<para>You can use the UUID to make sure that a volume is universally uniquely identified in <command>/etc/fstab</command>. The device name can change depending on the disk devices that are present at boot time, but a UUID never changes.</para>
+<para>First we use <command>tune2fs</command> to find the UUID.</para>
+<screen>
+[root@RHEL5 ~]# tune2fs -l /dev/sdc1 | grep UUID
+Filesystem UUID:          7626d73a-2bb6-4937-90ca-e451025d64e8
+</screen>
+<para>Then we check that it is properly added to <command>/etc/fstab</command>, the UUID replaces the variable devicename /dev/sdc1.</para>
+<screen>
+[root@RHEL5 ~]# grep UUID /etc/fstab 
+UUID=7626d73a-2bb6-4937-90ca-e451025d64e8 /home/pro42 ext3 defaults 0 0
+</screen>
+<para>Now we can mount the volume using the mountpoint defined in /etc/fstab.</para>
+<screen>
+[root@RHEL5 ~]# mount /home/pro42
+[root@RHEL5 ~]# df -h | grep 42
+/dev/sdc1             397M   11M  366M   3% /home/pro42
+</screen>
+<para>The real test now, is to remove /dev/sdb from the system, reboot the machine and see what happens. After the reboot, the disk previously known as /dev/sdc is now /dev/sdb.</para>
+<screen>
+[root@RHEL5 ~]# tune2fs -l /dev/sdb1 | grep UUID
+Filesystem UUID:          7626d73a-2bb6-4937-90ca-e451025d64e8
+</screen>
+<para>And thanks to the UUID in /etc/fstab, the mountpoint is mounted on the same disk as before.</para>
+<screen>
+[root@RHEL5 ~]# df -h | grep sdb
+/dev/sdb1             397M   11M  366M   3% /home/pro42
+</screen>
+</section>
+<section><title>Practice UUID</title>
+<para>1. Find the UUID of one of your ext3 partitions with tune2fs and vol_id. </para>
+<para>2. USe this UUID in /etc/fstab and test that it works when a disk is removed (and the device name is changed). (You can edit settings in vmware to remove a hard disk.)</para>
+<para></para>
+<para></para>
+</section>
+</section>

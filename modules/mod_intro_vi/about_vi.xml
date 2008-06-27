@@ -1,0 +1,5 @@
+<section><title>About vi</title>
+<para>The editor <command>vi</command> is installed on almost every Unix system in the world. Linux will very often install <command>vim</command> (<command>Vi IMproved</command>) which is very similar, but improved. Every Linux system administrator should know vi (or rather vim), because it is often an easy tool to solve problems.</para>
+<para>Many unixes and linuxes will also have <command>emacs</command>, <command>nano</command>, <command>pico</command>, <command>joe</command> or other editors installed. The choice of favorite editor is often a cause for <command>flame wars</command> or polls. Feel free to use any of the alternatives to vi(m).</para>
+<para>The vi editor is not intuitive to novices, but once you get to know it, vi becomes a very powerful application. Some basic commands are a A i I o O r x G 'n G' b w dw dd d0 d$ yw yy y0 y$ 3dd p P u U :w :q :w! :q! :wq ZZ :r :!cmd ':r !cmd' ddp yyp /pattern. Most Linux distributions will include the <command>vimtutor</command> which is a 45 minute lesson in vi.</para>
+</section>

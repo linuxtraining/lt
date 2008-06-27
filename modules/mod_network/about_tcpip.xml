@@ -1,0 +1,29 @@
+<section><title>About TCP/IP</title>
+<section><title>Overview of tcp/ip v4</title>
+	<para>The unicast <command>Internet Protocol</command> is one of the oldest network protocols, commonly used today for LAN and WAN networks. Every <command>host</command><indexterm><primary>host</primary></indexterm> gets a unique 32-bit <command>ip-address</command><indexterm><primary>ip-address</primary></indexterm>, this is either static or received from a <command>DHCP</command> server. Internet networks contain several <command>subnets</command><indexterm><primary>subnet</primary></indexterm>. Those subnets used to be <command>classful</command><indexterm><primary>classful</primary></indexterm> (A,B,C,D or E), but this wasted a lot of address space. Today we work with <command>CIDR</command><indexterm><primary>CIDR</primary></indexterm> notation to determine <command>network id</command><indexterm><primary>network id</primary></indexterm> and <command>host id</command><indexterm><primary>host id</primary></indexterm>.</para>
+	<para>In a couple of years we will all be using IPv6! <emphasis>At least, that is what people say since 1995...</emphasis></para>
+</section>
+<section><title>Internet and routers</title>
+	<para>The internet is a collection of <command>routers</command><indexterm><primary>router</primary></indexterm> that act as gateways between different <command>segments</command><indexterm><primary>segment</primary></indexterm>. Routers use their <command>routing table</command> to determine the route of tcp/ip <command>packets</command>. Routers are <command>layer 3</command> devices, layer 2 contains <command>bridges</command><indexterm><primary>bridge</primary></indexterm> and <command>switches</command><indexterm><primary>switch</primary></indexterm>, layer 1 is cabling with <command>repeaters</command><indexterm><primary>repeater</primary></indexterm> and <command>hubs</command><indexterm><primary>hub</primary></indexterm>. Layer 2 devices know your 48-bit unique in the world <command>MAC</command><indexterm><primary>MAC</primary></indexterm> address.</para>
+</section>
+<section><title>many protocols</title>
+	<para>For reliable connections, you use <command>tcp</command><indexterm><primary>tcp</primary></indexterm>, whereas <command>udp</command><indexterm><primary>udp</primary></indexterm> is connectionless but faster. The <command>icmp</command><indexterm><primary>icmp</primary></indexterm> error messages are used by <command>ping</command><indexterm><primary>ping</primary></indexterm>, multicast groups are managed by <command>igmp</command><indexterm><primary>igmp</primary></indexterm> and the ip to mac resolution is done by the <command>broadcast</command> protocol <command>arp</command><indexterm><primary>arp</primary></indexterm>.</para>
+	<para>These protocols are visible in the protocol field of the ip header, and are listed in the <command>/etc/protocols</command><indexterm><primary>/etc/protocols</primary></indexterm> file.</para>
+	<screen>
+paul@laika:~$ grep tcp /etc/protocols 
+tcp     6       TCP             # transmission control protocol
+paul@laika:~$
+	</screen>
+	<para>Every host receives a <command>hostname</command><indexterm><primary>hostname</primary></indexterm>, usually placed in a <command>DNS name space</command> forming the <command>FQDN</command><indexterm><primary>FQDN</primary></indexterm> or Fully Qualified Domain Name. Common application level protocols like SMTP, HTTP, SSH, telnet and FTP have fixed <command>port numbers</command>.</para>
+	<para>To find a port number, look in <command>/etc/services</command><indexterm><primary>/etc/services</primary></indexterm>.</para>
+	<screen>
+paul@laika:~$ grep tftp /etc/services
+tftp            69/udp
+paul@laika:~$
+	</screen>
+</section>
+<section><title>Practice TCP/IP</title>
+	<para>1. Which ports are used by http, pop3, ssh, telnet, nntp and ftp ?</para>
+	<para>2. Explain why e-mail and websites are sent over tcp, whereas internet streaming radio and live broadcasts are using udp.</para>
+</section>
+</section>

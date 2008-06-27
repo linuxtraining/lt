@@ -1,0 +1,94 @@
+<section><title>multihomed hosts</title>
+		<para>You can combine (bond) two physical network interfaces as one logical interface. Having two network cards serve the same IP-address doubles the bandwidth, and provides hardware redundancy. For <command>bonding</command><indexterm><primary>bonding (network cards)</primary></indexterm> to work, you have to load the kernel module for bonding. You can do this manually with <command>modprobe</command><indexterm><primary>modprobe(1)</primary></indexterm>.</para>
+		<screen>
+root@RHELv4u2:~# modprobe bonding
+root@RHELv4u2:~# lsmod | grep bon
+bonding                58984  0
+		</screen>
+		<para>Or automatically, by adding the alias to <command>/etc/modprobe.conf</command><indexterm><primary>/etc/modprobe.conf</primary></indexterm> (used to be called /etc/modules.conf). </para>
+		<screen>
+root@RHELv4u2:~# echo alias bond0 bonding >> /etc/modprobe.conf
+		</screen>
+		<para>You need two network cards to enable bonding, and add the <command>MASTER</command> and <command>SLAVE</command> variables. In this case we used eth0 and eth1, configured like this.</para>
+		<screen>
+root@RHELv4u2:~# cat /etc/sysconfig/network-scripts/ifcfg-eth0
+DEVICE=eth0
+BROADCAST=192.168.1.255
+HWADDR=00:0C:29:5A:86:D7
+IPADDR=192.168.1.222
+NETMASK=255.255.255.0
+NETWORK=192.168.1.0
+ONBOOT=yes
+TYPE=Ethernet
+GATEWAY=192.168.1.1
+MASTER=bond0
+SLAVE=yes
+USERCTL=no
+root@RHELv4u2:~# cat /etc/sysconfig/network-scripts/ifcfg-eth1
+DEVICE=eth1
+BROADCAST=192.168.1.255
+HWADDR=00:0C:29:5A:86:E1
+IPADDR=192.168.1.232
+NETMASK=255.255.255.0
+NETWORK=192.168.1.0
+ONBOOT=yes
+TYPE=Ethernet
+GATEWAY=192.168.1.1
+MASTER=bond0
+SLAVE=yes
+USERCTL=no
+root@RHELv4u2:~# 
+		</screen>
+		<para>And you need to set up a bonding interface. In this case, we call it bond0.</para>
+		<screen>
+root@RHELv4u2:~# cat /etc/sysconfig/network-scripts/ifcfg-bond0 
+DEVICE=bond0
+BOOTPROTO=none
+ONBOOT=no
+NETWORK=192.168.1.0
+NETMASK=255.255.255.0
+IPADDR=192.168.1.229
+USERCTL=no
+root@RHELv4u2:~#
+		</screen>
+		<para>To bring up the interface, just use the <command>ifup bond0</command> command.</para>
+		<screen>
+root@RHELv4u2:/etc/sysconfig/network-scripts# ifup bond0
+Enslaving eth0 to bond0
+Enslaving eth1 to bond0
+root@RHELv4u2:~#
+		</screen>
+		<para>The <command>ifconfig</command><indexterm><primary>ifconfig(1)</primary></indexterm> command will show you all activated interfaces.</para>
+		<screen>
+root@RHELv4u2:~# ifconfig
+bond0     Link encap:Ethernet  HWaddr 00:0C:29:5A:86:D7  
+inet addr:192.168.1.229  Bcast:192.168.1.255  Mask:255.255.255.0
+inet6 addr: fe80::200:ff:fe00:0/64 Scope:Link
+UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+RX packets:3835 errors:0 dropped:0 overruns:0 frame:0
+TX packets:1001 errors:0 dropped:0 overruns:0 carrier:0
+collisions:0 txqueuelen:0 
+RX bytes:469645 (458.6 KiB)  TX bytes:139816 (136.5 KiB)
+				
+eth0      Link encap:Ethernet  HWaddr 00:0C:29:5A:86:D7  
+inet6 addr: fe80::20c:29ff:fe5a:86d7/64 Scope:Link
+UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+RX packets:3452 errors:0 dropped:0 overruns:0 frame:0
+TX packets:837 errors:0 dropped:0 overruns:0 carrier:0
+collisions:0 txqueuelen:1000 
+RX bytes:412155 (402.4 KiB)  TX bytes:117844 (115.0 KiB)
+Interrupt:11 Base address:0x1400 
+				
+eth1      Link encap:Ethernet  HWaddr 00:0C:29:5A:86:D7  
+inet6 addr: fe80::20c:29ff:fe5a:86d7/64 Scope:Link
+UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+RX packets:392 errors:0 dropped:0 overruns:0 frame:0
+TX packets:177 errors:0 dropped:0 overruns:0 carrier:0
+collisions:0 txqueuelen:1000 
+RX bytes:58084 (56.7 KiB)  TX bytes:24078 (23.5 KiB)
+Interrupt:10 Base address:0x1480 
+		</screen>
+	</section>
+	<section><title>Practice multihomed hosts</title>
+		<para>1. Add a network card to the vmware machine, and bond the two cards as one virtual (double bandwidth and failover) card.</para>
+	</section>

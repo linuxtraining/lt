@@ -1,0 +1,33 @@
+<section><title>cron</title>
+	<section><title>crontab</title>
+	<para>The <command>crontab(1)</command><indexterm><primary>crontab(1)</primary></indexterm> command can be used to maintain the <command>crontab(5)</command><indexterm><primary>crontab(5)</primary></indexterm> file. Each user can have their own crontab file to schedule jobs at a specific time. This time can be specified with five fields in this order: minute, hour, day of the month, month and day of the week. If a field contains an asterisk (*), then this means all values of that field. </para>
+	<para>The following example means : run script42 eight minutes after two, every day of the month, every month and every day of the week.</para>
+	<screen>8 14 * * * script42</screen>
+	<para>Run script8472 every month on the first of the month at 25 past midnight.</para>
+	<screen>25 0 1 * * script8472</screen>
+	<para>Run this script33 every two minutes on Sunday (both 0 and 7 refer to Sunday).</para>
+	<screen>*/2 * * * 0</screen>
+	<para>Instead of these five fields, you can also type one of these: @reboot, @yearly or @annually, @monthly, @weekly, @daily or @midnight, and @hourly.</para>
+	<para>Users should not edit the crontab file directly, instead they should type <command>crontab -e</command> which will use the editor defined in the EDITOR or VISUAL environment variable. Users can display their cron table with <command>crontab -l</command>. The <command>cron daemon</command> is reading the cron tables, taking into account the <command>/etc/cron.allow</command><indexterm><primary>/etc/cron.allow</primary></indexterm> and <command>/etc/cron.deny</command><indexterm><primary>/etc/cron.deny</primary></indexterm> files.</para>
+</section>
+	<section><title>/etc/cron*</title>
+		<para>The <command>/etc/crontab</command> file contains entries for when to run hourly/daily/weekly/monthly tasks. It will look similar to this output.</para>
+		<screen>
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+20 3 * * *        root    run-parts --report /etc/cron.daily
+40 3 * * 7        root    run-parts --report /etc/cron.weekly
+55 3 1 * *        root    run-parts --report /etc/cron.monthly
+		</screen>
+		<para>The directories shown in the next screenshot contain the tasks that are run at the times scheduled in /etc/crontab. The /etc/cron.d directory is for special cases, to schedule jobs that require finer control than hourly/daily/weekly/monthly.</para>
+		<screen>
+paul@laika:~$ ls -ld /etc/cron.*
+drwxr-xr-x 2 root root 4096 2008-04-11 09:14 /etc/cron.d
+drwxr-xr-x 2 root root 4096 2008-04-19 15:04 /etc/cron.daily
+drwxr-xr-x 2 root root 4096 2008-04-11 09:14 /etc/cron.hourly
+drwxr-xr-x 2 root root 4096 2008-04-11 09:14 /etc/cron.monthly
+drwxr-xr-x 2 root root 4096 2008-04-11 09:14 /etc/cron.weekly
+		</screen>
+	</section>
+</section>

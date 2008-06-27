@@ -1,0 +1,21 @@
+<section><title>multiple IP adresses</title>
+	<section><title>Binding multiple ip-addresses</title>
+		<para>To bind more than one ip-addres to the same interface, use <command>ifcfg-eth0:0</command><indexterm><primary>ifcfg(1)</primary></indexterm>, where the last zero can be anything else. Only two directives are required in the file. </para>
+		<screen>
+root@RHELv4u2:/etc/sysconfig/network-scripts# cat ifcfg-eth0:0
+DEVICE=eth0:0
+IPADDR=192.168.1.232
+		</screen>
+	</section>
+	<section><title>Enabling extra ip-addresses</title>
+		<para>To activate a virtual network interface, use <command>ifup</command><indexterm><primary>ifup(1)</primary></indexterm>, to deactivate it, use <command>ifdown</command><indexterm><primary>ifdown(1)</primary></indexterm>. </para>
+		<screen>
+root@RHELv4u2:~# ifdown eth0:0
+root@RHELv4u2:~# ifup eth0:0
+		</screen>
+	</section>
+	<section><title>Practice multiple IP addresses</title>
+		<para>1. Add an extra ip address to your server. Test that it works (have your neighbour ssh to it)!</para>
+		<para>2. Use ifdown and ifup to disable and enable the second ip address.</para>
+	</section>
+</section>

@@ -1,0 +1,268 @@
+<chapter><title>Logging</title>
+	<section><title>About logging</title>
+		<section><title>/var/log</title>		
+			<para>The location for log files according to the FHS is <command>/var/log</command><indexterm><primary>/var/log</primary></indexterm>. You will find a lot of log files and directories for common applications in /var/log.</para>
+			<screen>
+[paul@RHEL4b ~]$ ls /var/log
+acpid           cron.2    maillog.2   quagga           secure.4
+amanda          cron.3    maillog.3   radius           spooler
+anaconda.log    cron.4    maillog.4   rpmpkgs          spooler.1
+anaconda.syslog cups      mailman     rpmpkgs.1        spooler.2
+anaconda.xlog   dmesg     messages    rpmpkgs.2        spooler.3
+audit           exim      messages.1  rpmpkgs.3        spooler.4
+boot.log        gdm       messages.2  rpmpkgs.4        squid
+boot.log.1      httpd     messages.3  sa               uucp
+boot.log.2      iiim      messages.4  samba            vbox
+boot.log.3      iptraf    mysqld.log  scrollkeeper.log vmware-tools-guestd
+boot.log.4      lastlog   news        secure           wtmp
+canna           mail      pgsql       secure.1         wtmp.1
+cron            maillog   ppp         secure.2         Xorg.0.log
+cron.1          maillog.1 prelink.log secure.3         Xorg.0.log.old
+[paul@RHEL4b ~]$ 
+			</screen>
+		</section>
+		<section><title>/var/log/messages</title>
+			<para>A typical first file to check when troubleshooting is the <command>/var/log/messages</command><indexterm><primary>/var/log/messages</primary></indexterm> file. By default this file will contain information on what just happened to the system.</para>
+			<screen>
+[root@RHEL4b ~]# tail /var/log/messages
+Jul 30 05:13:56 anacron: anacron startup succeeded
+Jul 30 05:13:56 atd: atd startup succeeded
+Jul 30 05:13:57 messagebus: messagebus startup succeeded
+Jul 30 05:13:57 cups-config-daemon: cups-config-daemon startup succeeded
+Jul 30 05:13:58 haldaemon: haldaemon startup succeeded
+Jul 30 05:14:00 fstab-sync[3560]: removed all generated mount points
+Jul 30 05:14:01 fstab-sync[3628]: added mount point /media/cdrom for...
+Jul 30 05:14:01 fstab-sync[3646]: added mount point /media/floppy for...
+Jul 30 05:16:46 sshd(pam_unix)[3662]: session opened for user paul by... 
+Jul 30 06:06:37 su(pam_unix)[3904]: session opened for user root by paul
+[root@RHEL4b ~]#
+			</screen>
+		</section>
+	</section>
+	<section><title>Login logging</title>
+		<para>To keep track of who is logging into the system, Linux can maintain the <command>/var/log/wtmp</command><indexterm><primary>/var/log/wtmp</primary></indexterm>, <command>/var/log/btmp</command><indexterm><primary>/var/log/btmp</primary></indexterm>, <command>/var/run/utmp</command><indexterm><primary>/var/run/utmp</primary></indexterm> and <command>/var/log/lastlog</command><indexterm><primary>/var/log/lastlog</primary></indexterm> files.</para>
+		<section><title>/var/run/utmp (who)</title>	
+			<para>Use the <command>who</command><indexterm><primary>who(1)</primary></indexterm> command to see the /var/run/utmp file.</para> 
+			<screen>
+[root@rhel4a ~]# who
+paul     pts/1        Feb 14 18:39 (192.168.1.45)
+			</screen>
+		</section>
+		<section><title>/var/log/wtmp (last)</title>	
+			<para>The /var/log/wtmp file is updated by the <command>login program</command><indexterm><primary>login</primary></indexterm>. Use <command>last</command><indexterm><primary>last(1)</primary></indexterm> to see the /var/run/wtmp file.</para>
+			<screen>
+[root@rhel4a ~]# last | head
+paul     pts/1       192.168.1.45     Wed Feb 14 18:39   still logged in
+reboot   system boot 2.6.9-42.0.8.ELs Wed Feb 14 18:21          (01:15) 
+nicolas  pts/5       pc-dss.telematic Wed Feb 14 12:32 - 13:06  (00:33) 
+stefaan  pts/3       pc-sde.telematic Wed Feb 14 12:28 - 12:40  (00:12) 
+nicolas  pts/3       pc-nae.telematic Wed Feb 14 11:36 - 12:21  (00:45) 
+nicolas  pts/3       pc-nae.telematic Wed Feb 14 11:34 - 11:36  (00:01) 
+dirk     pts/5       pc-dss.telematic Wed Feb 14 10:03 - 12:31  (02:28) 
+nicolas  pts/3       pc-nae.telematic Wed Feb 14 09:45 - 11:34  (01:48) 
+dimitri  pts/5       rhel4            Wed Feb 14 07:57 - 08:38  (00:40) 
+stefaan  pts/4       pc-sde.telematic Wed Feb 14 07:16 - down   (05:50) 
+[root@rhel4a ~]# 
+			</screen>
+			<para>The last command can also be used to get a list of last reboots.</para>
+			<screen>
+				
+[paul@rekkie ~]$ last reboot 
+reboot   system boot  2.6.16-rekkie   Mon Jul 30 05:13     (370+08:42)  
+
+wtmp begins Tue May 30 23:11:45 2006
+[paul@rekkie ~]$ 				
+			</screen>
+		</section>
+		<section><title>/var/log/lastlog (lastlog)</title>	
+			<para>Use <command>lastlog</command><indexterm><primary>lastlog(1)</primary></indexterm> to see the /var/log/lastlog file.</para>
+			<screen>
+[root@rhel4a ~]# lastlog | tail
+tim              pts/5  10.170.1.122     Tue Feb 13 09:36:54 +0100 2007
+rm               pts/6  rhel4            Tue Feb 13 10:06:56 +0100 2007
+henk                                     **Never logged in**
+stefaan          pts/3  pc-sde.telematic Wed Feb 14 12:28:38 +0100 2007
+dirk             pts/5  pc-dss.telematic Wed Feb 14 10:03:11 +0100 2007
+arsene                                   **Never logged in**
+nicolas          pts/5  pc-dss.telematic Wed Feb 14 12:32:18 +0100 2007
+dimitri          pts/5  rhel4            Wed Feb 14 07:57:19 +0100 2007
+bashuserrm       pts/7  rhel4            Tue Feb 13 10:35:40 +0100 2007
+kornuserrm       pts/5  rhel4            Tue Feb 13 10:06:17 +0100 2007
+[root@rhel4a ~]# 
+			</screen>
+		</section>
+		<section><title>/var/log/btmp (lastb)</title>	
+			<para>There is also the <command>lastb</command><indexterm><primary>lastb(1)</primary></indexterm> command to display the <command>/var/log/btmp</command><indexterm><primary>/var/log/btmp</primary></indexterm> file. This file is updated by the login program when entering the wrong password, so it contains failed login attempts. Many computers will not have this file, resulting in no logging of failed login attempts.</para>
+			<screen>
+[root@RHEL4b ~]# lastb
+lastb: /var/log/btmp: No such file or directory
+Perhaps this file was removed by the operator to prevent logging lastb\
+ info.
+[root@RHEL4b ~]#
+			</screen>
+			<para>The reason given for this is that users sometimes type their password by mistake instead of their login, so this world readable file poses a security risk. You can enable bad login logging by simply creating the file. Doing a chmod o-r /var/log/btmp improves security.</para>
+			<screen>
+[root@RHEL4b ~]# touch /var/log/btmp
+[root@RHEL4b ~]# ll /var/log/btmp
+-rw-r--r--  1 root root 0 Jul 30 06:12 /var/log/btmp
+[root@RHEL4b ~]# chmod o-r /var/log/btmp 
+[root@RHEL4b ~]# lastb
+
+btmp begins Mon Jul 30 06:12:19 2007
+[root@RHEL4b ~]# 
+			</screen>
+			<para>Failed logins via ssh, rlogin or su are not registered in /var/log/btmp. Failed logins via tty are.</para>
+			<screen>
+[root@RHEL4b ~]# lastb
+HalvarFl tty3                  Mon Jul 30 07:10 - 07:10  (00:00)    
+Maria    tty1                  Mon Jul 30 07:09 - 07:09  (00:00)    
+Roberto  tty1                  Mon Jul 30 07:09 - 07:09  (00:00)    
+
+btmp begins Mon Jul 30 07:09:32 2007
+[root@RHEL4b ~]#
+			</screen>
+		</section>
+		<section><title>su and ssh logins</title>
+			<para>Depending on the distribution, you may also have the <command>/var/log/secure</command><indexterm><primary>/var/log/secure</primary></indexterm> file being filled with messages from the auth and/or authpriv syslog facilities. This log will include su and/or ssh failed login attempts. Some distributions put this in <command>/var/log/auth.log</command><indexterm><primary>/var/log/auth.log</primary></indexterm>, verify the syslog configuration.</para>
+			<screen>
+[root@RHEL4b ~]# cat /var/log/secure
+Jul 30 07:09:03 sshd[4387]: Accepted publickey for paul from ::ffff:19\
+2.168.1.52 port 33188 ssh2
+Jul 30 05:09:03 sshd[4388]: Accepted publickey for paul from ::ffff:19\
+2.168.1.52 port 33188 ssh2
+Jul 30 07:22:27 sshd[4655]: Failed password for Hermione from ::ffff:1\
+92.168.1.52 port 38752 ssh2
+Jul 30 05:22:27 sshd[4656]: Failed password for Hermione from ::ffff:1\
+92.168.1.52 port 38752 ssh2
+Jul 30 07:22:30 sshd[4655]: Failed password for Hermione from ::ffff:1\
+92.168.1.52 port 38752 ssh2
+Jul 30 05:22:30 sshd[4656]: Failed password for Hermione from ::ffff:1\
+92.168.1.52 port 38752 ssh2
+Jul 30 07:22:33 sshd[4655]: Failed password for Hermione from ::ffff:1\
+92.168.1.52 port 38752 ssh2
+Jul 30 05:22:33 sshd[4656]: Failed password for Hermione from ::ffff:1\
+92.168.1.52 port 38752 ssh2
+Jul 30 08:27:33 sshd[5018]: Invalid user roberto from ::ffff:192.168.1\
+.52
+Jul 30 06:27:33 sshd[5019]: input_userauth_request: invalid user rober\
+to
+Jul 30 06:27:33 sshd[5019]: Failed none for invalid user roberto from \
+::ffff:192.168.1.52 port 41064 ssh2
+Jul 30 06:27:33 sshd[5019]: Failed publickey for invalid user roberto \
+from ::ffff:192.168.1.52 port 41064 ssh2
+Jul 30 08:27:36 sshd[5018]: Failed password for invalid user roberto f\
+rom ::ffff:192.168.1.52 port 41064 ssh2
+Jul 30 06:27:36 sshd[5019]: Failed password for invalid user roberto f\
+rom ::ffff:192.168.1.52 port 41064 ssh2
+[root@RHEL4b ~]# 
+			</screen>
+			<para>You can enable this yourself, with a custom logfile by adding the following line tot syslog.conf.</para>
+			<screen>auth.*,authpriv.*                 /var/log/customsec.log</screen>
+		</section>
+	</section>
+	<section><title>Syslogd daemon</title>
+		<section><title>About syslog</title>
+			<para>The standard method of logging on Linux is through the <command>syslogd</command><indexterm><primary>syslogd</primary></indexterm> daemon. Syslog was developed by <command>Eric Allman</command><indexterm><primary>Eric Allman</primary></indexterm> for sendmail, but quickly became a standard among many Unix applications and was much later written as rfc 3164. The syslog daemon can receive messages on udp <command>port 514</command> from many applications (and appliances), and can append to logfiles, print, display messages on terminals and forward logs to other syslogd daemons on other machines. The syslogd daemon is configured in <command>/etc/syslog.conf</command><indexterm><primary>/etc/syslog.conf</primary></indexterm>.</para>
+			<para>Each line in the configuration file uses a <command>facility</command> to determine where the message is coming from. It also contains a <command>level</command> for the severity of the message, and an <command>action</command> to decide on what to do with the message.</para>
+		</section>
+		<section><title>Facilities</title>
+			<para>The <command>man syslog.conf</command> will explain the different default facilities for certain daemons, such as mail, lpr, news and kern(el) messages. The local0 to local7 facility can be used for appliances (or any networked device that supports syslog). Here is a list of all facilities for syslog.conf version 1.3. The security keyword is deprecated.</para>
+			<screen>
+auth (security)
+authpriv
+cron
+daemon
+ftp
+kern
+lpr mail
+mark (internal use only)
+news
+syslog
+user
+uucp
+local0-7
+			</screen>
+		</section>
+		<section><title>Levels</title>
+			<para>The worst severity a message can have is <command>emerg</command> followed by <command>alert</command> and <command>crit</command>. Lowest priority should go to <command>info</command> and <command>debug</command> messages. Specifying a severity will also log all messages with a higher severity. You can prefix the severity with = to obtain only messages that match that severity. You can also specify <command>.none</command> to prevent a specific action from any message from a certain facility.</para>
+			<para>Here is a list of all levels, in ascending order. The keywords warn, error and panic are deprecated.</para>
+			<screen>
+debug
+info
+notice
+warning (warn)
+err (error)
+crit
+alert
+emerg (panic)
+			</screen>
+		</section>
+		<section><title>Actions</title>
+			<para>The default action is to send a message to the username listed as action. When the action is prefixed with a <command>/</command> then syslog will send the message to the file (which can be a regular file, but also a printer or terminal). The <command>&#064;</command> sign prefix will send the message on to another syslog server. Here is a list of all possible actions.</para>
+			<screen>
+root,user1      list of users, seperated by comma's
+*               message to all logged on users
+/               file (can be a printer, a console, a tty, ...)
+-/              file, but don't sync after every write
+&#124;               named pipe
+&#064;               other syslog hostname
+			</screen>
+			<para>In addition, you can prefix actions with a - to omit syncing the file after every logging.</para>
+		</section>
+		<section><title>Configuration</title>
+			<para>Below a sample configuration of custom local4 messages in <command>/etc/syslog.conf</command><indexterm><primary>/etc/syslog.conf</primary></indexterm>.</para>
+			<screen>
+local4.crit                            /var/log/critandabove
+local4.=crit                           /var/log/onlycrit
+local4.*                               /var/log/alllocal4
+			</screen>
+			<para>Don't forget to restart the server.</para>
+			<screen>
+[root@rhel4a ~]# /etc/init.d/syslog restart
+Shutting down kernel logger:                               [  OK  ]
+Shutting down system logger:                               [  OK  ]
+Starting system logger:                                    [  OK  ]
+Starting kernel logger:                                    [  OK  ]
+[root@rhel4a ~]#
+			</screen>
+		</section>
+	</section>
+	<section><title>logger</title>
+		<para>The logger command can be used to generate syslog test messages. You can aslo use it in scripts. An example of testing syslogd with the <command>logger</command><indexterm><primary>logger(1)</primary></indexterm> tool.</para>
+		<screen>
+[root@rhel4a ~]# logger -p local4.debug "l4 debug"
+[root@rhel4a ~]# logger -p local4.crit "l4 crit"
+[root@rhel4a ~]# logger -p local4.emerg "l4 emerg"
+[root@rhel4a ~]#
+		</screen>
+		<para>The results of the tests with logger.</para>
+		<screen>
+[root@rhel4a ~]# cat /var/log/critandabove 
+Feb 14 19:55:19 rhel4a paul: l4 crit
+Feb 14 19:55:28 rhel4a paul: l4 emerg
+[root@rhel4a ~]# cat /var/log/onlycrit 
+Feb 14 19:55:19 rhel4a paul: l4 crit
+[root@rhel4a ~]# cat /var/log/alllocal4 
+Feb 14 19:55:11 rhel4a paul: l4 debug
+Feb 14 19:55:19 rhel4a paul: l4 crit
+Feb 14 19:55:28 rhel4a paul: l4 emerg
+[root@rhel4a ~]# 
+		</screen>
+	</section>
+	<section><title>Watching logs</title>
+		<para>You might want to use the <command>tail -f</command><indexterm><primary>tail(1)</primary></indexterm> command to look at the last lines of a log file. The -f option will dynamically display lines that are appended to the log. You can do the same with other commands by preceding them with the <command>watch</command><indexterm><primary>watch(1)</primary></indexterm> command.</para>
+	</section>
+	<section><title>Rotating logs</title>
+		<para>A lot of log files are always growing in size. To keep this within bounds, you might want to use <command>logrotate</command><indexterm><primary>logrotate(1)</primary></indexterm> to rotate, compress, remove and mail logfiles. More info on the logrotate command in the scheduling chapter.</para>
+	</section>
+	<section><title>Practice Logging</title>
+		<para>1. Display the /var/run/utmp file.</para>
+		<para>2. Display the /var/log/wtmp file.</para>
+		<para>3. Use the lastlog and lastb commands, understand the difference.</para>
+		<para>4. Examine syslog to find the location of the log file containing ssh failed logins.</para>
+		<para>5. Configure syslog to put local4.error and above messages in /var/log/l4e.log and local4.info only .info in /var/log/l4i.log. Test that it works with the logger tool!</para>
+		<para>6. Configure /var/log/Mysu.log, all the su to root messages should go in that log. Test that it works!</para>
+		<para>7. Send the local5 messages to the syslog server of your neighbour. Test that it works.</para>
+		<para>8. Write a script that executes logger to local4 every 5 seconds (different message). Use tail -f and watch on your local4 log files. </para>
+	</section>
+</chapter>

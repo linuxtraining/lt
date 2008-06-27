@@ -1,0 +1,107 @@
+<section><title>Network File System</title>
+	<section><title>Network Attached Storage (NAS)</title>
+		<para><command>NAS</command><indexterm><primary>NAS</primary></indexterm> means using separate servers with lots of storage, connected over a (hopefully very fast) network. NAS servers offer <command>file-based access</command> over the network with protocols like <command>NCP</command><indexterm><primary>NCP</primary></indexterm> (old Novell Netware), Sun's <command>NFS</command><indexterm><primary>NFS</primary></indexterm> (common on Unix) or <command>SMB</command><indexterm><primary>SMB</primary></indexterm> (implemented on Unix/Linux with Samba). NAS is not to be confused with <command>SAN</command><indexterm><primary>SAN</primary></indexterm>, which uses <command>block-based access</command> over proprietary protocols (Fiber Channel, iSCSI, ...). A <command>NAS head</command> is a NAS without on-board storage, which connects to a SAN and acts as a translator between the file-level NAS protocols and the block-level SAN protocols.</para>
+	</section>
+	<section><title>NFS: the Network File System</title>
+		<section><title>protocol versions</title>
+			<para>The older <command>NFS</command><indexterm><primary>NFS</primary></indexterm> versions 2 and 3 are stateless (udp) by default, but they can use tcp. Clients connect to the server using <command>RPC</command><indexterm><primary>RPC</primary></indexterm> (on Linux this is controlled by the <command>portmap</command><indexterm><primary>portmap</primary></indexterm> daemon. Look at <command>rpcinfo</command><indexterm><primary>rpcinfo(1)</primary></indexterm> to verify that NFS and its related services are running.</para>
+			<screen>
+root@RHELv4u2:~# /etc/init.d/portmap status
+portmap (pid 1920) is running...
+root@RHELv4u2:~# rpcinfo -p
+program vers proto   port
+100000    2   tcp    111  portmapper
+100000    2   udp    111  portmapper
+100024    1   udp  32768  status
+100024    1   tcp  32769  status
+root@RHELv4u2:~# service nfs start
+Starting NFS services:                                     [  OK  ]
+Starting NFS quotas:                                       [  OK  ]
+Starting NFS daemon:                                       [  OK  ]
+Starting NFS mountd:                                       [  OK  ]
+			</screen>
+			<para>The same rpcinfo command when NFS is started.</para>
+			<screen>
+root@RHELv4u2:~# rpcinfo -p
+program vers proto   port
+100000    2   tcp    111  portmapper
+100000    2   udp    111  portmapper
+100024    1   udp  32768  status
+100024    1   tcp  32769  status
+100011    1   udp    985  rquotad
+100011    2   udp    985  rquotad
+100011    1   tcp    988  rquotad
+100011    2   tcp    988  rquotad
+100003    2   udp   2049  nfs
+100003    3   udp   2049  nfs
+100003    4   udp   2049  nfs
+100003    2   tcp   2049  nfs
+100003    3   tcp   2049  nfs
+100003    4   tcp   2049  nfs
+100021    1   udp  32770  nlockmgr
+100021    3   udp  32770  nlockmgr
+100021    4   udp  32770  nlockmgr
+100021    1   tcp  32789  nlockmgr
+100021    3   tcp  32789  nlockmgr
+100021    4   tcp  32789  nlockmgr
+100005    1   udp   1004  mountd
+100005    1   tcp   1007  mountd
+100005    2   udp   1004  mountd
+100005    2   tcp   1007  mountd
+100005    3   udp   1004  mountd
+100005    3   tcp   1007  mountd
+root@RHELv4u2:~#
+			</screen>
+			<para>NFS version 4 requires tcp (port 2049) and supports <command>Kerberos</command><indexterm><primary>Kerberos</primary></indexterm> user authentication as an option. NFS authentication only takes place when mounting the share. NFS versions 2 and 3 authenticate only the host.</para>
+		</section>			
+		<section><title>server configuration</title>
+			<para> NFS is configured in <command>/etc/exports</command><indexterm><primary>/etc/exports</primary></indexterm>. Here is a sample /etc/exports to explain the syntax. You need some way (NIS domain or LDAP) to synchronize userid's across computers when using NFS a lot. The <command>rootsquash</command><indexterm><primary>rootsquash</primary></indexterm> option will change UID 0 to the UID of the nfsnobody user account. The <command>sync</command> option will write writes to disk before completing the client request.</para>
+			<screen>
+paul@laika:~$ cat /etc/exports 
+# Everyone can read this share
+/mnt/data/iso  *(ro)
+				
+# Only the computers barry and pasha can readwrite this one
+/var/www pasha(rw) barry(rw)
+				
+# same, but without root squashing for barry
+/var/ftp pasha(rw) barry(rw,no_root_squash)
+				
+# everyone from the netsec.lan domain gets access
+/var/backup       *.netsec.lan(rw)
+				
+# ro for one network, rw for the other
+/var/upload   192.168.1.0/24(ro) 192.168.5.0/24(rw)
+			</screen>
+			<para>You don't need to restart the nfs server to start exporting your newly created exports. You can use the <command>exportfs -va</command><indexterm><primary>exportfs(1)</primary></indexterm> command to do this. It will write the exported directories to <command>/var/lib/nfs/etab</command><indexterm><primary>/var/lib/nfs/etab</primary></indexterm>, where they are immediately applied. </para>
+		</section>	
+		<section><title>client configuration</title>
+			<para>We have seen the <command>mount</command><indexterm><primary>mount(1)</primary></indexterm> command and the <command>/etc/fstab</command><indexterm><primary>/etc/fstab</primary></indexterm> file before.</para>
+			<screen>
+root@RHELv4u2:~# mount -t nfs barry:/mnt/data/iso /home/project55/
+root@RHELv4u2:~# cat /etc/fstab | grep nfs
+barry:/mnt/data/iso   /home/iso               nfs     defaults    0 0
+root@RHELv4u2:~# 
+			</screen>
+		</section>	
+		<section><title>Mounting NAS</title>
+			<para>Just a simple fictitious example. Suppose the project55 people tell you they only need a couple of CD-ROM images, and you already have them available on an NFS server. You could issue the following command to mount the network attached storage on their /home/project55 mount point.</para>
+			<screen>
+root@RHELv4u2:~# mount -t nfs 192.168.1.40:/mnt/data/iso /home/project55/
+root@RHELv4u2:~# ls -lh /home/project55/
+total 3.6G
+drwxr-xr-x  2 1000 1000 4.0K Jan 16 17:55 RHELv4u1
+drwxr-xr-x  2 1000 1000 4.0K Jan 16 14:14 RHELv4u2
+drwxr-xr-x  2 1000 1000 4.0K Jan 16 14:54 RHELv4u3
+drwxr-xr-x  2 1000 1000 4.0K Jan 16 11:09 RHELv4u4
+-rw-r--r--  1 root root 1.6G Oct 13 15:22 sled10-vmwarews5-vm.zip
+root@RHELv4u2:~# 
+			</screen>
+		</section>
+	</section>
+	<section><title>Practice NFS</title>
+		<para>1. Create two directories with some files. Use NFS to share one of them as read only, the other must be writable. Have your neighbour connect to them to test.</para>
+		<para>2. Investigate the user owner of the files created by your neighbour.</para>
+		<para>3. Protect a share by ip-address or hostname, so only your neighbour can connect.</para>
+	</section>
+</section>

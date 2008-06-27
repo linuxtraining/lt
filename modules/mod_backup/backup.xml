@@ -1,0 +1,257 @@
+<section><title>About tape devices</title>
+	<para>Don't forget that the name of a device strictly speaking has no meaning since the kernel will use the major and minor number to find the hardware! See the man page of <command>mknod</command><indexterm><primary>mknod(1)</primary></indexterm> and the devices.txt file in the linux kernel source for more info.</para>
+	<section><title>SCSI tapes</title>
+		<para>On the official Linux device list (http://www.lanana.org/docs/device-list/) we find the names for SCSI tapes (major 9 char). SCSI tape devices are located underneath <command>/dev/st</command><indexterm><primary>/dev/st</primary></indexterm> and are numbered starting with 0 for the first tape device.</para>
+		<screen>
+/dev/st0   First tape device
+/dev/st1   Second tape device
+/dev/st2   Third tape device
+		</screen>
+		<para>To prevent <command>automatic rewinding of tapes</command><indexterm><primary>/dev/nst</primary></indexterm>, prefix them with the letter n.</para>
+		<screen>
+/dev/nst0   First no rewind tape device
+/dev/nst1   Second no rewind tape device
+/dev/nst2   Third no rewind tape device
+		</screen>
+		<para>By default, SCSI tapes on linux will use the highest hardware compression that is supported by the tape device. To lower the compression level, append one of the letters l (low), m (medium) or a (auto) to the tape name.</para>
+		<screen>
+/dev/st0l   First low compression tape device
+/dev/st0m   First medium compression tape device
+/dev/nst2m  Third no rewind medium compression tape device
+		</screen>
+	</section>
+	<section><title>IDE tapes</title>
+		<para>On the official Linux device list (http://www.lanana.org/docs/device-list/) we find the names for IDE tapes (major 37 char). IDE tape devices are located underneath <command>/dev/ht</command><indexterm><primary>/dev/ht</primary></indexterm> and are numbered starting with 0 for the first tape device. No rewind and compression is similar to SCSI tapes.</para>
+		<screen>
+/dev/ht0   First IDE tape device
+/dev/nht0  Second no rewind IDE tape device
+/dev/ht0m  First medium compression IDE tape device
+		</screen>
+	</section>
+	<section><title>mt</title>
+		<para>To manage your tapes, use <command>mt</command><indexterm><primary>mt(1)</primary></indexterm> (Magnetic Tape). Some examples.</para>
+		<para>To receive information about the status of the tape.</para>
+		<screen>mt -f /dev/st0 status</screen>
+		<para>To rewind a tape...</para>
+		<screen>mt -f /dev/st0 rewind</screen>
+		<para>To rewind and eject a tape...</para>
+		<screen>mt -f /dev/st0 eject</screen>
+		<para>To erase a tape...</para>
+		<screen>mt -f /dev/st0 erase</screen>
+	</section>
+</section>
+<section><title>Compression</title>
+	<para>It can be beneficial to compress files before backup. The two most popular tools for compression of regular files on linux are <command>gzip/gunzip</command><indexterm><primary>gzip(1)</primary></indexterm> and <command>bzip2/bunzip2</command><indexterm><primary>bzip2(1)</primary></indexterm>. Below you can see gzip in action, notice that it adds the <command>.gz</command> extension to the file.</para>
+	<screen>
+paul@RHELv4u4:~/test$ ls -l allfiles.tx*
+-rw-rw-r--  1 paul paul 8813553 Feb 27 05:38 allfiles.txt
+paul@RHELv4u4:~/test$ gzip allfiles.txt 
+paul@RHELv4u4:~/test$ ls -l allfiles.tx*
+-rw-rw-r--  1 paul paul 931863 Feb 27 05:38 allfiles.txt.gz
+paul@RHELv4u4:~/test$ gunzip allfiles.txt.gz 
+paul@RHELv4u4:~/test$ ls -l allfiles.tx*
+-rw-rw-r--  1 paul paul 8813553 Feb 27 05:38 allfiles.txt
+paul@RHELv4u4:~/test$ 
+	</screen>
+	<para>In general, gzip is much faster than bzip2, but the latter one compresses a lot better. Let us compare the two.</para>
+	<screen>
+paul@RHELv4u4:~/test$ cp allfiles.txt bllfiles.txt 
+paul@RHELv4u4:~/test$ time gzip allfiles.txt 
+		
+real    0m0.050s
+user    0m0.041s
+sys     0m0.009s
+paul@RHELv4u4:~/test$ time bzip2 bllfiles.txt 
+		
+real    0m5.968s
+user    0m5.794s
+sys     0m0.076s
+paul@RHELv4u4:~/test$ ls -l ?llfiles.tx*
+-rw-rw-r--  1 paul paul 931863 Feb 27 05:38 allfiles.txt.gz
+-rw-rw-r--  1 paul paul 708871 May 12 10:52 bllfiles.txt.bz2
+paul@RHELv4u4:~/test$ 
+	</screen>
+</section>
+<section><title>tar</title>
+	<para>The <command>tar</command><indexterm><primary>tar(1)</primary></indexterm> utility gets its name from <command>Tape ARchive</command>. This tool will receive and send files to a destination (typically a tape or a regular file). The c option is used to create a tar archive (or tarfile), the f option to name/create the <command>tarfile</command>. The example below takes a backup of /etc into the file /backup/etc.tar .</para>
+	<screen>
+root@RHELv4u4:~# tar cf /backup/etc.tar /etc
+root@RHELv4u4:~# ls -l /backup/etc.tar 
+-rw-r--r--  1 root root 47800320 May 12 11:47 /backup/etc.tar
+root@RHELv4u4:~#
+	</screen>
+	<para>Compression can be achieved without pipes since tar uses the z flag to compress with gzip, and the j flag to compress with bzip2.</para>
+	<screen>
+root@RHELv4u4:~# tar czf /backup/etc.tar.gz /etc
+root@RHELv4u4:~# tar cjf /backup/etc.tar.bz2 /etc
+root@RHELv4u4:~# ls -l /backup/etc.ta*
+-rw-r--r--  1 root root 47800320 May 12 11:47 /backup/etc.tar
+-rw-r--r--  1 root root  6077340 May 12 11:48 /backup/etc.tar.bz2
+-rw-r--r--  1 root root  8496607 May 12 11:47 /backup/etc.tar.gz
+root@RHELv4u4:~# 
+	</screen>
+	<para>The t option is used to <command>list the contents of a tar file</command>. Verbose mode is enabled with v (also useful when you want to see the files being archived during archiving).</para>
+	<screen>
+root@RHELv4u4:~# tar tvf /backup/etc.tar
+drwxr-xr-x root/root         0 2007-05-12 09:38:21 etc/
+-rw-r--r-- root/root      2657 2004-09-27 10:15:03 etc/warnquota.conf
+-rw-r--r-- root/root     13136 2006-11-03 17:34:50 etc/mime.types
+drwxr-xr-x root/root         0 2004-11-03 13:35:50 etc/sound/
+...
+	</screen>
+	<para>To <command>list a specific file in a tar archive</command>, use the t option, added with the filename (without leading /).</para>
+	<screen>
+root@RHELv4u4:~# tar tvf /backup/etc.tar etc/resolv.conf
+-rw-r--r-- root/root        77 2007-05-12 08:31:32 etc/resolv.conf
+root@RHELv4u4:~# 
+	</screen>
+	<para>Use the x flag to <command>restore a tar archive</command>, or a single file from the archive. Remember that by default tar will restore the file in the current directory.</para>
+	<screen>
+root@RHELv4u4:~# tar xvf /backup/etc.tar etc/resolv.conf
+etc/resolv.conf
+root@RHELv4u4:~# ls -l /etc/resolv.conf
+-rw-r--r--  2 root root 40 May 12 12:05 /etc/resolv.conf
+root@RHELv4u4:~# ls -l etc/resolv.conf
+-rw-r--r--  1 root root 77 May 12 08:31 etc/resolv.conf
+root@RHELv4u4:~# 
+	</screen>
+	<para>You can <command>preserve file permissions</command><indexterm><primary>tar(1)</primary></indexterm> with the p flag. And you can exclude directories or file with <command>--exclude</command>.</para>
+	<screen>
+root ~# tar cpzf /backup/etc_with_perms.tgz /etc 
+root ~# tar cpzf /backup/etc_no_sysconf.tgz /etc --exclude /etc/sysconfig
+root ~# ls -l /backup/etc_*
+-rw-r--r--  1 root root 8434293 May 12 12:48 /backup/etc_no_sysconf.tgz
+-rw-r--r--  1 root root 8496591 May 12 12:48 /backup/etc_with_perms.tgz
+root ~# 
+	</screen>
+	<para>You can also create a text file with names of files and directories to archive, and then supply this file to tar with the -T flag.</para>
+	<screen>
+root@RHELv4u4:~# find /etc -name *.conf > files_to_archive.txt
+root@RHELv4u4:~# echo /home -iname *.pdf >> files_to_archive.txt
+root@RHELv4u4:~# tar cpzf /backup/backup.tgz -T files_to_archive.txt 
+	</screen>
+	<para>The tar utility can receive filenames from the find command, with the help of xargs.</para>
+	<screen>
+find /etc -type f -name "*.conf" | xargs tar czf /backup/confs.tar.gz
+	</screen>
+	<para>You can also use tar to copy a directory, this is more efficient than using cp -r.</para>
+	<screen>
+(cd /etc; tar -cf - . ) | (cd /backup/copy_of_etc/; tar -xpf - )
+	</screen>
+	<para>Another example of tar, this copies a directory securely over the network.</para>
+	<screen>
+(cd /etc;tar -cf - . )|(ssh user@srv 'cd /backup/cp_of_etc/; tar -xf - ')
+	</screen>
+	<para>tar can be used together with gzip and copy a file to a remote server through ssh</para>
+	<screen>
+cat backup.tar | gzip | ssh bashuser@192.168.1.105 "cat - > backup.tgz"
+	</screen>
+	<para>Compress the tar backup when it is on the network, but leave it uncompressed at the destination.</para>
+	<screen>
+cat backup.tar | gzip | ssh user@192.168.1.105 "gunzip|cat - > backup.tar"
+	</screen>
+	<para>Same as the previous, but let ssh handle the compression</para>
+	<screen>
+cat backup.tar | ssh -C bashuser@192.168.1.105 "cat - > backup.tar"
+	</screen>
+</section>
+<section><title>Backup Types</title>
+	<para>Linux uses <command>multilevel incremental</command> backups using distinct levels. A full backup is a backup at level 0. A higher level x backup will include all changes since the last level x-1 backup.</para>
+	<para>Suppose you take a full backup on Monday (level 0) and a level 1 backup on Tuesday, then the Tuesday backup will contain all changes since Monday. Taking a level 2 on Wednesday will contain all changes since Tuesday (the last level 2-1). A level 3 backup on Thursday will contain all changes since Wednesday (the last level 3-1). Another level 3 on Friday will also contain all changes since Wednesday. A level 2 backup on Saturday would take all changes since the last level 1 from Tuesday.</para>
+</section>
+<section><title>dump and restore</title>
+	<para>While <command>dump</command><indexterm><primary>dump(1)</primary></indexterm> is similar to tar, it is also very different because it looks at the file system. Where tar receives a lists of files to backup, dump will find files to backup by itself by examining ext2. Files found by dump will be copied to a tape or regular file. In case the target is not big enough to hold the dump (end-of-media), it is broken into multiple volumes.</para>
+	<para>Restoring files that were backed up with dump is done with the <command>restore</command><indexterm><primary>restore(1)</primary></indexterm> command. In the example below we take a full level 0 backup of two partitions to a SCSI tape. The no rewind is mandatory to put the volumes behind each other on the tape.</para>
+	<screen>
+dump 0f /dev/nst0 /boot
+dump 0f /dev/nst0 /
+	</screen>
+	<para>Listing files in a dump archive is done with <command>dump -t</command>, and you can compare files with <command>dump -C</command>.</para>
+	<para>You can omit files from a dump by changing the dump attribute with the <command>chattr</command><indexterm><primary>chattr(1)</primary></indexterm> command. The d attribute on ext will tell dump to skip the file, even during a full backup. In the following example, /etc/hosts is excluded from dump archives.</para>
+	<screen>
+chattr +d /etc/hosts
+	</screen>
+	<para>To restore the complete file system with <command>restore</command>, use the -r option. This can be useful to change the size or block size of a file system. You should have a clean file system mounted and cd'd into it. Like this example shows.</para>
+	<screen>
+mke2fs /dev/hda3
+mount /dev/hda3 /mnt/data
+cd /mnt/data
+restore rf /dev/nst0
+	</screen>
+	<para>To extract only one file or directory from a dump, use the -x option.</para>
+	<screen>
+restore -xf /dev/st0 /etc
+	</screen>
+</section>
+<section><title>cpio</title>
+	<para>Different from tar and dump is <command>cpio</command><indexterm><primary>cpio(1)</primary></indexterm> (Copy Input and Output). It can be used to receive filenames, but copies the actual files. This makes it an easy companion with find! Some examples below.</para>
+	<para>find sends filenames to cpio, which puts the files in an archive.</para>
+	<screen>find /etc -depth -print | cpio -oaV -O archive.cpio</screen>
+	<para>The same, but compressed with gzip</para>
+	<screen>find /etc -depth -print | cpio -oaV | gzip -c > archive.cpio.gz	</screen>
+	<para>Now pipe it through ssh (backup files to a compressed file on another machine)</para>
+	<screen>
+find /etc -depth -print|cpio -oaV|gzip -c|ssh server "cat - > etc.cpio.gz"
+	</screen>
+	<para>find sends filenames to cpio | cpio sends files to ssh | ssh sends files to cpio 'cpio extracts files'</para>
+	<screen>find /etc -depth -print | cpio -oaV | ssh user@host 'cpio -imVd'</screen>
+	<para>the same but reversed: copy a dir from the remote host to the local machine</para>
+	<screen>ssh user@host "find path -depth -print | cpio -oaV" | cpio -imVd</screen>
+</section>
+<section><title>dd</title>
+<section><title>About dd</title>
+	<para>Some people use <command>dd</command><indexterm><primary>dd(1)</primary></indexterm> to create backups. This can be very powerful, but dd backups can only be restored to very similar partitions or devices. There are however a lot of useful things possible with dd. Some examples.</para>
+</section>
+<section><title>Create a CDROM image</title>
+	<para>The easiest way to create a <command>.ISO file</command><indexterm><primary>iso9660</primary></indexterm> from any CD. The if switch means Input File, of is the Output File. Any good tool can burn a copy of the CD with this .ISO file.</para>
+	<screen>dd if=/dev/cdrom of=/path/to/cdrom.ISO</screen>
+</section>
+<section><title>Create a floppy image</title>
+	<para>A little outdated maybe, but just in case : make an image file from a 1.44MB floppy. Blocksize is defined by bs, and count contains the number of blocks to copy.</para>
+	<screen>dd if=/dev/floppy of=/path/to/floppy.img bs=1024 count=1440
+	</screen>
+</section>
+<section><title>Copy the master boot record</title>
+	<para>Use dd to copy the <command>MBR</command><indexterm><primary>MBR</primary></indexterm> (Master Boot Record) of hard disk /dev/hda to a file.</para>
+	<screen>dd if=/dev/hda of=/MBR.img bs=512 count=1</screen>
+</section>
+<section><title>Copy files</title>
+	<para>This example shows how dd can copy files. Copy the file summer.txt to copy_of_summer.txt . </para>
+	<screen>dd if=~/summer.txt of=~/copy_of_summer.txt</screen>
+</section>
+<section><title>Image disks or partitions</title>
+	<para>And who needs ghost when dd can create a (compressed) image of a partition.</para>
+	<screen>
+dd if=/dev/hdb2 of=/image_of_hdb2.IMG
+dd if=/dev/hdb2 | gzip > /image_of_hdb2.IMG.gz
+	</screen>
+</section>
+<section><title>Create files of a certain size</title>
+	<para>dd can be used to create a file of any size. The first example creates a one MEBIbyte file, the second a one MEGAbyte file.</para>
+	<screen>
+dd if=/dev/zero of=file1MB count=1024 bs=1024
+dd if=/dev/zero of=file1MB count=1000 bs=1024
+	</screen>
+</section>
+<section><title>CDROM server example</title>
+	<para>And there are of course endless combinations with ssh and bzip2. This example puts a bzip2 backup of a cdrom on a remote server.</para>
+	<screen>
+dd if=/dev/cdrom |bzip2|ssh user@host "cat - > /backups/cd/cdrom.iso.bz2"
+	</screen>
+</section>
+</section>
+<section><title>Practice backup</title>
+	<para>!! Careful with tar options and the position of the backup file, mistakes can destroy your system!!</para>
+	<para>1. Create a directory (or partition if you like) for backups. Link (or mount) it under /mnt/backup.</para>
+	<para>2a. Use tar to backup /etc in /mnt/backup/etc_date.tgz, the backup must be gzipped. (Replace date with the current date)</para>
+	<para>2b. Use tar to backup /bin to /mnt/backup/bin_date.tgz, the backup must be bzip2'd.</para>
+	<para>2c. Choose a file in /etc and /bin and verify with tar that the file is indeed backed up.</para>
+	<para>2d. Extract those two files to your home directory.</para>
+	<para>3a. Create a backup directory for your neighbour, make it accessible under /mnt/neighbourName</para>
+	<para>3b. Combine ssh and tar to put a backup of your /boot on your neighbours computer in /mnt/YourName</para>
+	<para>4a. Combine find and cpio to create a cpio archive of /etc.</para>
+	<para>4b. Choose a file in /etc and restore it from the cpio archive into your home directory.</para>	
+	<para>5. Use dd and ssh to put a backup of the master boot record on your neighbours computer.</para>	
+	<para>6. (On the real computer) Create and mount an ISO image of the ubuntu cdrom.</para>	
+	<para>7. Combine dd and gzip to create a 'ghost' image of one of your partitions on another partition.</para>	
+</section>

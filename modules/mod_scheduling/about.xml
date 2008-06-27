@@ -1,0 +1,3 @@
+<section><title>About scheduling</title>
+	<para>Linux administrators use the <command>at</command> to schedule one time jobs. Recurring jobs are better scheduled with <command>cron</command>. The next two sections will discuss both tools.</para>
+</section>

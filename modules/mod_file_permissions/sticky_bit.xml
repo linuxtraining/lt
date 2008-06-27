@@ -1,0 +1,19 @@
+<section><title>The sticky bit</title>
+	<para>You can set the <command>sticky bit</command><indexterm><primary>sticky bit</primary></indexterm> on a directory to prevent users from removing files that they do not own as a user owner. The sticky bit is displayed at the same location as the x permission for others. The sticky bit is represented by a <command>t</command> (meaning x is also there) or a <command>T</command> (when there is no x for others).</para>
+	<screen>
+root@RHELv4u4:~# mkdir /project55
+root@RHELv4u4:~# ls -ld /project55
+drwxr-xr-x  2 root root 4096 Feb  7 17:38 /project55
+root@RHELv4u4:~# chmod +t /project55/
+root@RHELv4u4:~# ls -ld /project55
+drwxr-xr-t  2 root root 4096 Feb  7 17:38 /project55
+root@RHELv4u4:~# 
+	</screen>
+	<para>The sticky bit can also be set with octal permissions, it is binary 1 in the first of four triplets.</para>
+	<screen>
+root@RHELv4u4:~# chmod 1775 /project55/
+root@RHELv4u4:~# ls -ld /project55
+drwxrwxr-t  2 root root 4096 Feb  7 17:38 /project55
+root@RHELv4u4:~# 
+	</screen>
+</section>	

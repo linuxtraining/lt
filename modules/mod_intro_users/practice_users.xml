@@ -1,0 +1,19 @@
+	<section><title>Practice Users</title>
+		<para>1. Create the users Serena Williams, Venus Williams and Justine Henin. all of them with password set to stargate, with username as their first name, and their full name in the comment. Verify that the users and their home directory are properly created.</para>
+		<para>2. Create a user called kornuser, give him the Korn shell (/bin/ksh) as his default shell. Log on with this user (on a command line or in a tty).</para>
+		<para>3. Create a user named Einstime without home directory, give him /bin/date as his default logon shell. What happens when you log on with this user ? Can you think of a useful real world example for changing a user's login shell to an application ?</para>
+		<para>4. Try the commands who, whoami, who am i, w, id, echo $USER $UID .</para>
+		<para>5a. Lock the Venus user account with usermod.</para>
+		<para>5b. Use passwd -d to disable the Serena password.</para>
+		<para>5c. What is the difference between locking a user account and disabling a user account's password ?</para>
+		<para>6. As root change the password of Einstime to stargate.</para>
+		<para>7. Now try changing the password of Serena to Serena as Serena.</para>
+		<para>8. Make sure every new user needs to change his password every 10 days.</para>
+		<para>9. Set the warning number of days to four for the kornuser.</para>
+		<para>10a. Set the password of two seperate users to stargate. Look at the encrypted stargate's in /etc/shadow and explain.</para>
+		<para>10b. Take a backup as root of /etc/shadow. Use vi to copy an encrypted stargate to another user. Can this other user now log on with stargate as a password ?</para>
+		<para>11. Put a file in the skeleton directory and check whether it is copied to user's home directory. When is the skeleton directory copied ?</para>
+		<para>12. Why use vipw instead of vi ? What could be the problem when using vi or vim ?</para>
+		<para>13. Use chsh to list all shells, and compare to cat /etc/shells. Change your login shell to the Korn shell, log out and back in. Now change back to bash.</para>
+		<para>14. Which useradd option allows you to name a home directory ?</para>
+	</section>

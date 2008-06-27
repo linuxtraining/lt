@@ -1,0 +1,51 @@
+<section><title>at</title>
+	<para>Simple scheduling can be done with the <command>at</command><indexterm><primary>at(1)</primary></indexterm> command. This screenshot shows the scheduling of the date command at 22:01 and the sleep command at 22:03.</para> 
+	<screen>
+root@laika:~# at 22:01
+at&#062; date
+at&#062; &#060;EOT&#062;
+job 1 at Wed Aug  1 22:01:00 2007
+root@laika:~# at 22:03
+at&#062; sleep 10
+at&#062; &#060;EOT&#062;
+job 2 at Wed Aug  1 22:03:00 2007
+root@laika:~#
+	</screen>
+	<para><emphasis>In real life you will hopefully be scheduling more useful commands ;-)</emphasis></para>
+	<para>It is easy to check when jobs are scheduled with the <command>atq</command><indexterm><primary>atq(1)</primary></indexterm> or <command>at -l</command> commands.</para>
+	<screen>
+root@laika:~# atq
+1       Wed Aug  1 22:01:00 2007 a root
+2       Wed Aug  1 22:03:00 2007 a root
+root@laika:~# at -l
+1       Wed Aug  1 22:01:00 2007 a root
+2       Wed Aug  1 22:03:00 2007 a root
+root@laika:~# 	
+	</screen>
+	<para>The at command understands English words like tomorrow and teatime to schedule commands the next day and at four in the afternoon.</para>
+	<screen>
+root@laika:~# at 10:05 tomorrow
+at&#062; sleep 100
+at&#062; &#060;EOT&#062;
+job 5 at Thu Aug  2 10:05:00 2007
+root@laika:~# at teatime tomorrow
+at&#062; tea
+at&#062; &#060;EOT&#062;
+job 6 at Thu Aug  2 16:00:00 2007
+root@laika:~# atq
+6       Thu Aug  2 16:00:00 2007 a root
+5       Thu Aug  2 10:05:00 2007 a root
+root@laika:~# 
+	</screen>
+	<para>Jobs in the at queue can be removed with <command>atrm</command><indexterm><primary>atrm(1)</primary></indexterm>.</para>
+	<screen>
+root@laika:~# atq
+6       Thu Aug  2 16:00:00 2007 a root
+5       Thu Aug  2 10:05:00 2007 a root
+root@laika:~# atrm 5
+root@laika:~# atq
+6       Thu Aug  2 16:00:00 2007 a root
+root@laika:~# 
+	</screen>
+	<para>You can also use the <command>/etc/at.allow</command><indexterm><primary>/etc/at.allow</primary></indexterm> and <command>/etc/at.deny</command><indexterm><primary>/etc/at.deny</primary></indexterm> files to manage who can schedule jobs with at.</para>
+</section>

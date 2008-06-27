@@ -1,0 +1,7 @@
+<section><title>Practice Scheduling</title>
+	<para>1. Schedule two jobs with at, display the at queue and remove a job.</para>
+	<para>2. As normal user, use crontab -e to schedule a script to run every four minutes.</para>
+	<para>3. As root, display the crontab file of your normal user.</para>
+	<para>4. Take a look at the cron files and directories in /etc and understand them. What is the run-parts command doing ?</para>
+	<para></para>
+</section>

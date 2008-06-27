@@ -1,0 +1,28 @@
+<section><title>Lilo</title>
+	<section><title>Linux Loader</title>
+		<para><command>Lilo</command><indexterm><primary>lilo</primary></indexterm> used to be the most used Linux bootloader, but is steadily being replaced in x86 with grub.</para>
+	</section>
+	<section><title>lilo.conf</title>
+		<para>Here is an example of a typical <command>lilo.conf</command><indexterm><primary>lilo.conf</primary></indexterm> file. The <command>delay</command> switch receives a number in tenths of a second. So the delay below is three seconds, not thirty!</para>
+		<screen>
+boot = /dev/hda
+delay = 30
+
+image = /boot/vmlinuz
+  root = /dev/hda1
+  label = Red Hat 5.2
+
+image = /boot/vmlinuz
+  root = /dev/hda2
+  label = S.U.S.E. 8.0
+
+other = /dev/hda4
+  table = /dev/hda
+  label = MS-DOS 6.22
+		</screen>
+		<para>The configration file shows three example stanzas. The first one boots Red Hat from the first partition on the first disk (hda1). The second stanza boots Suse 8.0 from the next partition. The last one loads MS-DOS.</para>
+	</section>
+</section>
+
+
+

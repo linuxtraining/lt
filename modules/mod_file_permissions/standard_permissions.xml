@@ -1,0 +1,104 @@
+	<section><title>Reading permissions</title>
+		<para>The <command>users</command><indexterm><primary>users</primary></indexterm> and <command>groups</command><indexterm><primary>groups</primary></indexterm> of a system can be locally managed in <command>/etc/passwd</command><indexterm><primary>/etc/passwd</primary></indexterm> and <command>/etc/group</command><indexterm><primary>/etc/group</primary></indexterm>, or they can be in a NIS, LDAP or Samba domain. These users and groups can <command>own</command> files. Actually, every file has a <command>user owner</command><indexterm><primary>file ownership</primary></indexterm> and a <command>group owner</command>, as can be seen in the following screenshot.</para>
+		<screen>
+paul@RHELv4u4:~/test$ ls -l
+total 24
+-rw-rw-r--  1 paul paul  17 Feb  7 11:53 file1
+-rw-rw-r--  1 paul paul 106 Feb  5 17:04 file2
+-rw-rw-r--  1 paul proj 984 Feb  5 15:38 data.odt
+-rw-r--r--  1 root root   0 Feb  7 16:07 stuff.txt
+paul@RHELv4u4:~/test$ 
+		</screen>
+		<para>User paul owns three files, two of those are also owned by the group paul, data.odt is owned by the group proj. The root user owns the file stuff.txt, as does the group root. Before the user and group owner, you can see ten characters. The first character tells us the type of file. Regular files get a <command>-</command>, directories get a <command>d</command>, symbolic links are shown with an <command>l</command>, pipes get a <command>p</command>, character devices a <command>c</command>, block devices a <command>b</command> and sockets an <command>s</command>. After that, you get the permissions in three triplets, containing <command>r</command> for read access, <command>w</command> for write access and <command>x</command> for execute permissions. You need the r permission to list (ls) the contents of a directory and x permission to enter (cd) a directory, and you need the w permission to create files in or remove files from a directory. Some examples below.</para>
+		<screen>
+paul@laika:~/perms$ ll
+total 12K
+drwxr-xr-x 2 paul paul 4.0K 2007-02-07 22:26 AllEnter_UserCreateDelete
+-rw-r--r-- 1 paul paul    0 2007-02-07 22:22 DefaultPermissions.txt
+-rwxrwxrwx 1 paul paul    0 2007-02-07 22:21 EveryoneFullControl.txt
+-r--r----- 1 paul paul    0 2007-02-07 22:21 OnlyOwnerRead.txt
+-rwxrwx--- 1 paul paul    0 2007-02-07 22:21 OwnerAll_Restnothing.txt
+drwxrwx--- 2 paul paul 4.0K 2007-02-07 22:25 UserAndGroupEnter
+drwx------ 2 paul paul 4.0K 2007-02-07 22:25 UserEnterOnly
+paul@laika:~/perms$ 
+		</screen>
+		<para>It is important to know that the first triplet represents the <command>user owner</command>, the second is the <command>group owner</command>, and the third triplet is all the <command>other</command> users that are not the user owner and are not a member of the group owner.</para>
+	</section>
+	<section><title>Setting permissions</title>
+		<para>Permissions can be changed with <command>chmod</command><indexterm><primary>chmod(1)</primary></indexterm>, owners can be changed with <command>chown</command><indexterm><primary>chown(1)</primary></indexterm> and <command>chgrp</command><indexterm><primary>chgrp(1)</primary></indexterm>. The first example gives the user owner execute permissions.</para>
+		<screen>
+paul@laika:~/perms$ ls -l permissions.txt 
+-rw-r--r-- 1 paul paul 0 2007-02-07 22:34 permissions.txt
+paul@laika:~/perms$ chmod u+x permissions.txt 
+paul@laika:~/perms$ ls -l permissions.txt 
+-rwxr--r-- 1 paul paul 0 2007-02-07 22:34 permissions.txt
+		</screen>
+		<para>This example removes the group owners read permission.</para>
+		<screen>
+paul@laika:~/perms$ chmod g-r permissions.txt 
+paul@laika:~/perms$ ls -l permissions.txt 
+-rwx---r-- 1 paul paul 0 2007-02-07 22:34 permissions.txt
+		</screen>
+		<para>This example removes the others read permission.</para>
+		<screen>
+paul@laika:~/perms$ chmod o-r permissions.txt 
+paul@laika:~/perms$ ls -l permissions.txt 
+-rwx------ 1 paul paul 0 2007-02-07 22:34 permissions.txt
+		</screen>
+		<para>This example gives all of them the write permission.</para>
+		<screen>
+paul@laika:~/perms$ chmod a+w permissions.txt 
+paul@laika:~/perms$ ls -l permissions.txt 
+-rwx-w--w- 1 paul paul 0 2007-02-07 22:34 permissions.txt
+		</screen>
+		<para>You don't even have to type the a.</para>
+		<screen>
+paul@laika:~/perms$ chmod +x permissions.txt 
+paul@laika:~/perms$ ls -l permissions.txt 
+-rwx-wx-wx 1 paul paul 0 2007-02-07 22:34 permissions.txt
+		</screen>
+		<para>You can also set explicit permissions.</para>
+		<screen>
+paul@laika:~/perms$ chmod u=rw permissions.txt 
+paul@laika:~/perms$ ls -l permissions.txt 
+-rw--wx-wx 1 paul paul 0 2007-02-07 22:34 permissions.txt
+		</screen>
+		<para>Feel free to make any kind of combinations.</para>
+		<screen>
+paul@laika:~/perms$ chmod u=rw,g=rw,o=r permissions.txt 
+paul@laika:~/perms$ ls -l permissions.txt 
+-rw-rw-r-- 1 paul paul 0 2007-02-07 22:34 permissions.txt
+		</screen>
+		<para>Even the fishy combinations are accepted by chmod.</para>
+		<screen>
+paul@laika:~/perms$ chmod u=rwx,ug+rw,o=r permissions.txt 
+paul@laika:~/perms$ ls -l permissions.txt 
+-rwxrw-r-- 1 paul paul 0 2007-02-07 22:34 permissions.txt
+		</screen>
+	</section>
+	<section><title>Setting octal permissions</title>
+		<para>Most Unix administrators will use the <command>old school</command> octal system to talk about and set permissions. Look at the triplet bitwise, equaling r to 4, w to 2 and x to 1. This makes <command>777</command><indexterm><primary>777</primary></indexterm> equal to rwxrwxrwx and by the same logic has 654 mean rw-r-xr-- . The <command>chmod</command> command will accept these numbers.</para>
+		<screen>
+paul@laika:~/perms$ chmod 777 permissions.txt 
+paul@laika:~/perms$ ls -l permissions.txt 
+-rwxrwxrwx 1 paul paul 0 2007-02-07 22:34 permissions.txt
+paul@laika:~/perms$ chmod 664 permissions.txt 
+paul@laika:~/perms$ ls -l permissions.txt 
+-rw-rw-r-- 1 paul paul 0 2007-02-07 22:34 permissions.txt
+paul@laika:~/perms$ chmod 750 permissions.txt 
+paul@laika:~/perms$ ls -l permissions.txt 
+-rwxr-x--- 1 paul paul 0 2007-02-07 22:34 permissions.txt
+		</screen>
+	</section>
+	<section><title>umask</title>
+		<para>When creating a file or directory, a set of default permissions are applied. These default permissions are determined by the <command>umask</command><indexterm><primary>umask(1)</primary></indexterm>. The umask specifies permissions that you do not want set by default. You can display the umask with the umask command.</para>
+		<screen>
+[Harry@RHEL4b ~]$ umask
+0002
+[Harry@RHEL4b ~]$ touch test
+[Harry@RHEL4b ~]$ ls -l test
+-rw-rw-r--  1 Harry Harry 0 Jul 24 06:03 test
+[Harry@RHEL4b ~]$
+		</screen>
+		<para>As you can see, the file is also not executable by default. This is a general security feature among Unixes, newly created files are never executable by default. You have to explicitely do a <command>chmod +x</command><indexterm><primary>chmod +x</primary></indexterm> to make a file executable. This also means that the 1 bit in the umask has no meaning, a umask of 0022 is the same as 0033.</para>
+	</section>

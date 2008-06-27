@@ -1,0 +1,16 @@
+<section><title>Licensing</title>
+	<section><title>Proprietary</title>
+		<para>Some flavors of Unix, like HP-UX, IBM AIX and Sun Solaris 9 are delivered after purchase in binary form. You are not authorized to install or use these without paying a license to the owner. You are not authorized to distribute these copies to other people, and you are not authorized to look at or change the closed source code of the operating system. This software is usually protected by copyright, patents and extensive software licensing.</para>
+	</section>
+	<section><title>BSD</title>
+		<para>BSD style licenses are close to the public domain. They essentially state that you can copy the software, but you have to leave the copyright notice that refers to BSD. This license gives a lot of freedom, but offers few protection to someone copying and selling your work.</para>
+	</section>
+	<section><title>GNU General Public License (GPL)</title>
+		<para>More and more software is being released under the <command>GPL</command><indexterm><primary>GPL</primary></indexterm> (in 2006 Java was released under the GPL). The goal of the GPL is to guarantee that free software stays free. Everyone can work together on GPL software, knowing that the software will be freely available to everyone. The GPL can protect software, even in court.</para>
+		<para>Free as in <command>freedom of speech</command><indexterm><primary>freedom of speech</primary></indexterm>, not to be confused with free as in not having to pay for your free beer. In other words, or even better, in other languages free software translates to <command>vrije software</command><indexterm><primary>vrije software</primary></indexterm> (Dutch) or <command>Logiciel Libre</command><indexterm><primary>Logiciel Libre</primary></indexterm> (French). Whereas the free from free beer translates to gratis.</para>
+		<para>Briefly explained, the GPL allows you to copy software, the GPL allows you to distribute (sell or give away) that software, and the GPL grants you the right to read and change the source code. But the person receiving or buying the software from you has the same rights. And also, should you decide to distribute modified versions of GPL software, then you are obligated to put the same license on the modifications (and provide the source code of your modifications). You can actually call the GPL a <command>viral license</command><indexterm><primary>viral license</primary></indexterm> because it spreads like a virus.</para>
+	</section>
+	<section><title>Others...</title>
+		<para><emphasis>There are many other licenses on software. You should read and understand them before using any software.</emphasis></para>
+	</section>
+</section>

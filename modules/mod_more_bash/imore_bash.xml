@@ -1,0 +1,169 @@
+	<section><title>bash shell environment</title>
+		<para>It is nice to have all these preset and custom aliases and variables, but where do they all come from ? Bash has a number of startup files that are checked (and executed) whenever bash is invoked. Bash first reads and executes <command>/etc/profile</command><indexterm><primary>/etc/profile</primary></indexterm>. Then bash searches for <command>.bash_profile</command><indexterm><primary>.bashprofile</primary></indexterm>, <command>.bash_login</command><indexterm><primary>.bash_login</primary></indexterm> and <command>.profile</command><indexterm><primary>.profile</primary></indexterm> in the home directory. Bash will execute the first of these three that it finds. Typically these files will expand your $PATH environment variable.</para>
+		<screen>
+[paul@RHELv4u3 ~]$ cat .bash_profile | grep PATH
+PATH=$PATH:$HOME/bin
+export PATH
+[paul@RHELv4u3 ~]$
+		</screen>
+		<para>If this is an interactive shell, then bash will also execute <command>.bashrc</command><indexterm><primary>.bashrc</primary></indexterm>. In the case of Red Hat, the .bashrc file will source <command>/etc/bashrc</command><indexterm><primary>/etc/bashrc</primary></indexterm>.</para>
+		<screen>
+[paul@RHELv4u3 ~]$ cat .bashrc 
+# .bashrc
+
+# User specific aliases and functions
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+. /etc/bashrc
+fi
+[paul@RHELv4u3 ~]$ 
+		</screen>
+		<para>When you exit the shell, then <command>~/.bash_logout</command><indexterm><primary>.bash_logout</primary></indexterm> is executed.</para>
+		<para>A similar system exists for the Korn shell with .kshrc and other files. Actually a similar system exists for almost all shells.</para>
+	</section>
+	<section><title>path</title>
+		<para>The <command>$PATH</command><indexterm><primary>$PATH</primary></indexterm> variable is very important, it determines where the shell is looking for commands to execute (unless the command is built-in). The shell will not look in the current directory for commands to execute! (Looking for executables in the current directory provided an easy way to crack DOS computers). If you want the shell to look in the current directory, then add a . to your path.</para>
+		<screen>
+[[paul@RHEL4b ~]$ echo $PATH
+/usr/kerberos/bin:/usr/local/bin:/bin:/usr/bin:
+[paul@RHEL4b ~]$ PATH=$PATH:.
+[paul@RHEL4b ~]$ echo $PATH
+/usr/kerberos/bin:/usr/local/bin:/bin:/usr/bin:.
+[paul@RHEL4b ~]$ 
+		</screen>
+		<para>Your path might be different when using su instead of <command>su -</command><indexterm><primary>su -</primary></indexterm> because the latter will take on the environment of the target user. The root user will have some sbin directories added to the PATH variable.</para>
+		<screen>
+[paul@RHEL3 ~]$ su
+Password: 
+[root@RHEL3 paul]# echo $PATH
+/usr/local/bin:/bin:/usr/bin:/usr/X11R6/bin
+[root@RHEL3 paul]# exit
+[paul@RHEL3 ~]$ su -
+Password: 
+[root@RHEL3 ~]# echo $PATH
+/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:
+[root@RHEL3 ~]#
+		</screen>
+	</section>
+	<section><title>Shell I/O redirection</title>
+		<para>The shell (and almost every other Linux command) takes input from <command>stdin</command><indexterm><primary>stdin</primary></indexterm> and sends output to <command>stdout</command><indexterm><primary>stdout</primary></indexterm> and error messages to <command>stderr</command><indexterm><primary>stderr</primary></indexterm>. Stdin is usually the keyboard, stdout and stderr are the screen. The shell allows you to redirect these streams.</para>
+		<section><title>output redirection</title>
+			<para>Stdout can be redirected with a <command>greater than</command> sign. While scanning the line, the shell will see the <command>&#062;</command><indexterm><primary>&#062;</primary></indexterm> sign and will clear the file.</para>
+			<screen>
+[paul@RHELv4u3 ~]$ echo It is cold today!
+It is cold today!
+[paul@RHELv4u3 ~]$ echo It is cold today! &#062; winter.txt
+[paul@RHELv4u3 ~]$ cat winter.txt 
+It is cold today!
+[paul@RHELv4u3 ~]$
+			</screen>
+			<para>Let me repeat myself here: While scanning the line, the shell will see the &#062; sign and will clear the file! This means that even when the command fails, the file will be cleared!</para>
+			<screen>
+[paul@RHELv4u3 ~]$ cat winter.txt 
+It is cold today!
+[paul@RHELv4u3 ~]$ zcho It is cold today! &#062; winter.txt
+-bash: zcho: command not found
+[paul@RHELv4u3 ~]$ cat winter.txt 
+[paul@RHELv4u3 ~]$ 
+			</screen>
+		</section>
+		<section><title>noclobber</title>
+			<para>This can be prevented by setting the <command>noclobber</command><indexterm><primary>noclobber</primary></indexterm> option.</para>
+			<screen>
+[paul@RHELv4u3 ~]$ cat winter.txt 
+It is cold today!
+[paul@RHELv4u3 ~]$ set -o noclobber
+[paul@RHELv4u3 ~]$ echo It is cold today! &#062; winter.txt
+-bash: winter.txt: cannot overwrite existing file
+[paul@RHELv4u3 ~]$ set +o noclobber
+[paul@RHELv4u3 ~]$
+			</screen>
+			<para>The noclobber can be overruled with <command>&#062;|</command><indexterm><primary>&#062;|</primary></indexterm>.</para>
+			<screen>
+[paul@RHELv4u3 ~]$ set -o noclobber
+[paul@RHELv4u3 ~]$ echo It is cold today! &#062; winter.txt
+-bash: winter.txt: cannot overwrite existing file
+[paul@RHELv4u3 ~]$ echo It is very cold today! &#062;| winter.txt
+[paul@RHELv4u3 ~]$ cat winter.txt 
+It is very cold today!
+[paul@RHELv4u3 ~]$ 
+			</screen>
+		</section>
+		<section><title>append</title>
+			<para>You can always use <command>&#062;&#062;</command><indexterm><primary>&#062;&#062;</primary></indexterm> to append output to a file.</para>
+			<screen>
+[paul@RHELv4u3 ~]$ echo It is cold today! &#062; winter.txt
+[paul@RHELv4u3 ~]$ cat winter.txt 
+It is cold today!
+[paul@RHELv4u3 ~]$ echo Where is the summer ? &#062;&#062; winter.txt
+[paul@RHELv4u3 ~]$ cat winter.txt 
+It is cold today!
+Where is the summer ?
+[paul@RHELv4u3 ~]$ 
+			</screen>
+		</section>
+		<section><title>error redirection</title>
+			<para>Redirecting stderr is done with <command>2&#062;</command><indexterm><primary>2&#062;</primary></indexterm>. This can be very useful to prevent error messages from cluttering your screen. The screenshot below shows redirection of stdout to a file, and stderr to /dev/null. Writing <command>1&#062;</command><indexterm><primary>1&#062;</primary></indexterm> is the same as &#062;.</para>
+			<screen>
+[paul@RHELv4u3 ~]$ find / > allfiles.txt 2&#062; /dev/null
+[paul@RHELv4u3 ~]$ 
+			</screen>
+			<para>To redirect both stdout and stderr to the same file, use <command>2>&#038;1</command><indexterm><primary>2>&#038;1</primary></indexterm>.</para>
+			<screen>
+[paul@RHELv4u3 ~]$ find / &#062; allfiles_and_errors.txt 2&#062;&#038;1
+[paul@RHELv4u3 ~]$
+			</screen>
+		</section>
+		<section><title>input redirection</title>
+			<para>Redirecting stdin is done with &#060; .</para>
+			<screen>
+[paul@RHEL4b ~]$ cat &#060; text.txt
+one
+two
+[paul@RHEL4b ~]$ tr 'onetw' 'ONEZZ' &#060; text.txt
+ONE
+ZZO
+[paul@RHEL4b ~]$ 			
+			</screen>
+		</section>
+		<section><title>here document</title>
+			<para>The here document (sometimes called here-is-document) is a way to append input until a certain sequence (usually EOF) is encountered. The <command>EOF</command><indexterm><primary>EOF</primary></indexterm> marker can be typed literally or can be called with Ctrl-D.</para>
+			<screen>
+[paul@RHEL4b ~]$ cat &#060;&#060;EOF &#062; text.txt
+> one
+> two
+> EOF
+[paul@RHEL4b ~]$ cat text.txt 
+one
+two
+[paul@RHEL4b ~]$ cat &#060;&#060;brol &#062; text.txt
+> brel
+> brol
+[paul@RHEL4b ~]$ cat text.txt 
+brel
+[paul@RHEL4b ~]$
+			</screen>
+		</section>
+	</section>
+	<section><title>Confusing I/O redirection</title>
+		<para>The shell will scan the whole line before applying redirection. The following command line is very readable and is correct.</para>
+		<screen>cat winter.txt &#062; snow.txt 2&#062; errors.txt</screen>
+		<para>But this one is also correct, but less readable.</para>
+		<screen>2&#062; errors.txt cat winter.txt &#062; snow.txt</screen>
+		<para>Even this will be understood perfectly by the shell.</para>
+		<screen>&#060; winter.txt &#062; snow.txt 2&#062; errors.txt cat</screen>
+		<para>So what is the quickest way to clear a file ?</para>
+		<screen>>foo</screen>
+	</section>
+	<section><title>Practice: more bash</title>
+		<para>1. Take a backup copy of /etc/bashrc /etc/profile ~/.profile ~/.bashrc ~/.bash_profile (put them in ~/profilebackups).</para>
+		<para>2. Set and export a variable named profwinner in all these scripts, the value is the name of the script (profwinner=etc_bashrc in /etc/bashrc, profwinner=dot_profile in ~/.profile, and so on) </para>
+		<para>3. Set a unique variable in all these scripts (etc_bashrun=yes in /etc/bashrc, dot_profilerun=yes in ~/.profile, and so on)</para>
+		<para>4. Log on to a tty and to a gnome-terminal, and verify the values of the variables you set in questions 2 and 3. Which of the scripts were executed ? Which not ? Which was executed last ?</para>
+		<para>5. Does it matter on which line we set our variables in .bash_profile and .bashrc ?</para>
+		<para>6. Where is the command history stored ? And what about command history for Korn users ?</para>
+		<para>7. Define an alias 'dog' for the tac command in one of your profile scripts. Which script did you choose and why ?</para>
+		<para></para>
+		<para></para>
+	</section>

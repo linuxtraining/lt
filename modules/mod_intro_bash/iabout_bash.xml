@@ -1,0 +1,17 @@
+<section><title>About Bash</title>
+	<para>The command line interface used on most Linux systems is <command>bash</command><indexterm><primary>bash</primary></indexterm>, which stands for <command>Bourne again shell</command><indexterm><primary>Bourne again shell</primary></indexterm>. Bash incorporates features from <command>sh</command><indexterm><primary>sh</primary></indexterm> (the original Bourne shell), <command>csh</command><indexterm><primary>csh</primary></indexterm> (the C shell) and <command>ksh</command><indexterm><primary>ksh</primary></indexterm> (the Korn shell). The manual page of bash contains more than one hundred pages. Bash is important, because every command on your linux system is processed by bash after you type it, before it is executed.</para>
+	<para>Not all commands are external to the shell, some are built-in. To find out whether a command given to the shell will be executed as an <command>external shell command</command> or as a <command>shell built-in command</command>, use the (external) <command>which</command><indexterm><primary>which(1)</primary></indexterm> command. In the screenshot below, it looks like cd is built-in, and ls cp rm mv mkdir pwd file and rename are external.</para> 
+	<screen>
+[root@RHEL4b ~]# which ls cp rm mv cd mkdir pwd file rename which
+/bin/cp
+/bin/ls
+/bin/mv
+/bin/rm
+/usr/bin/which: no cd in (/usr/kerberos/sbin:/usr/kerberos/bin:...
+/bin/mkdir
+/bin/pwd
+/usr/bin/file
+/usr/bin/rename
+/usr/bin/which
+[root@RHEL4b ~]# 	</screen>
+</section>
