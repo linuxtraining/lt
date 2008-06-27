@@ -6,6 +6,7 @@ echo  to ../static
 echo 
 if [ ! -e ../static ] 
 	then mkdir ../static
+	else echo ../static dir already exists ; exit
 fi
 
 echo Downloading static docbook, xsl and fop
