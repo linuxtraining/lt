@@ -209,7 +209,33 @@
 		</section>
 		<section><title>Linux Distributions</title>
 			<para>There are hundreds of linux distributions, just take a look at the distrowatch.com website. For many years, Red Hat, Suse and Mandrake were considered the big three for end users. Red Hat is still the biggest commercial linux vendor. Today, the most popular linux distro is Ubuntu.</para>
-			<section><title>Red Hat</title>
+			                        <section><title>Linux distro version</title>
+                        <para> Depending on the distribution used, there are different files that contan the distribution version. </para>
+                        <section><title>/etc/redhat-release</title>
+                        <para>This file contains the Red Hat version on most of the Red Hat and Red Hat derived systems.</para>
+                        <screen>
+paul@RHELv4u4:~$ cat /etc/redhat-release
+Red Hat Enterprise Linux AS release 4 (Nahant Update 4)
+paul@RHELv4u4:~$
+                        </screen>
+                        </section>
+                        <section><title>/etc/debian-version</title>
+                        <screen>
+serge@venusia:~$ cat /etc/debian_version
+lenny/sid
+                        </screen>
+                        </section>
+                        <section><title>/etc/lsb-release</title>
+                        <screen>
+serge@venusia:~$ cat /etc/lsb-release
+DISTRIB_ID=Ubuntu
+DISTRIB_RELEASE=8.04
+DISTRIB_CODENAME=hardy
+DISTRIB_DESCRIPTION="Ubuntu 8.04.1"
+                        </screen>
+                        </section>
+                </section>
+		<section><title>Red Hat</title>
 				<para>Redhat exists as a company since 1993. They distribute <command>Red Hat Enterprise Linux</command><indexterm><primary>Red Hat Enterprise Linux</primary></indexterm> (RHEL) to companies and manage the <command>Fedora</command><indexterm><primary>Fedora</primary></indexterm> project. RHEL is probably the most popular Linux-based distro on servers. Fedora is a very popular and user friendly Linux-based distro, aimed towards home users. The company makes a profit of around one hundred million dollars a year, selling support contracts. Red Hat contributes a lot to the linux kernel and other free software projects.</para>
 				<section><title>Red Hat Linux</title>
 					<para>Red Hat Linux was distributed from 1994 until 2003. It was one of the oldest common Linux distributions. Red Hat Linux was the first distro to use the <command>rpm</command><indexterm><primary>rpm</primary></indexterm> package format. Many other distro's are originally derived from Red Hat Linux. The company <command>Red Hat, Inc.</command><indexterm><primary>Red Hat, Inc.</primary></indexterm> decided to split Red Hat Linux into <command>Fedora Core</command><indexterm><primary>Fedora Core</primary></indexterm> and <command>Red Hat Enterprise Linux</command><indexterm><primary>Red Hat Enterprise Linux</primary></indexterm>.</para>

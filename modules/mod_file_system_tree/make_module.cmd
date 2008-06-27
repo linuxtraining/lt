@@ -14,7 +14,7 @@ modtitle="The Linux File system Tree"
 echo "<chapter><title>"$modtitle"</title>" > $modfilename
 
 # Generate all the sections
-cat ifile_system_tree.xml   >> $modfilename
+cat file_system_tree.xml   >> $modfilename
 
 # Generate the end chapter tag
 echo "</chapter>"      >> $modfilename

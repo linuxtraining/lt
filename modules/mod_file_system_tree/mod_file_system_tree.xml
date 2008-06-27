@@ -122,14 +122,6 @@ hfs
 paul@RHELv4u4:~$
 				</screen>
 			</section>
-			<section><title>/etc/redhat-release</title>
-			<para>This file contains the Red Hat version on most of the Red Hat and Red Hat derived systems.</para>
-			<screen>
-paul@RHELv4u4:~$ cat /etc/redhat-release 
-Red Hat Enterprise Linux AS release 4 (Nahant Update 4)
-paul@RHELv4u4:~$
-			</screen>
-			</section>
 			<section><title>/etc/skel/</title>
 				<para>The <command>skeleton</command><indexterm><primary>skeleton</primary></indexterm> directory <command>/etc/skel</command><indexterm><primary>/etc/skel</primary></indexterm> is copied to the home directory of a newly created user.</para>
 			</section>
