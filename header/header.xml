@@ -1,7 +1,7 @@
-<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN" "../LTstatic/docbook4.2/docbookx.dtd">
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN" "../static/docbook4.2/docbookx.dtd">
 <book>
 <bookinfo>
-<title>Linux System Administration</title>
+<title>Test Linux System Administration</title>
 <author>
 <firstname>Paul</firstname>
 <surname>Cobbaut</surname>

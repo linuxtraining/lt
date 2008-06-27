@@ -1,8 +1,6 @@
 # use the correct java runtime for fop on Ubuntu
 export JAVA_HOME=/usr/lib/jvm/java-6-sun-1.6.0.06/jre
 
-# svn test paul
-
 # Set the name of the generated XML
 xmlfile=book`date +%Y%m%d`.xml
 
@@ -76,5 +74,5 @@ fi
 cat footer/footer.xml                                  >> $xmlfile
 
 echo running fop to create $pdffile using $xslfile ...
-/home/paul/LTstatic/fop-0.95beta/fop -xml $xmlfile -xsl $xslfile -pdf $pdffile 
+../static/fop-0.95beta/fop -xml $xmlfile -xsl $xslfile -pdf $pdffile 
 
