@@ -1,26 +1,26 @@
 	<section><title>Current Distributions</title>
-		<section><title>About</title>
-			<para>Unix comes in many flavors, usually called <command>distributions</command><indexterm><primary>distributions</primary></indexterm>. A distribution (or in short distro) is a collection of software packages, distributed on CD, online or pre-installed on computers. All the software in a distribution is supposedly thoroughly tested and integrates nicely into a whole. Software is maintained (patched) by the distributor, and is managed by an <command>integrated package manager</command><indexterm><primary>integrated package manager</primary></indexterm>. Many distro's have a central <command>repository of approved software</command><indexterm><primary>repository of approved software</primary></indexterm>. Installing software from outside the distro can sometimes be cumbersome and may void your warranty on the system.</para>
+		<section><title>What is a distribution ?</title>
+			<para>Unix comes in many flavors, usually called <command>distributions</command><indexterm><primary>distributions</primary></indexterm>. A distribution (or in short distro) is a collection of software packages, distributed on CD, online or pre-installed on computers. All the software in a distribution is tested and integrates nicely into a whole. Software is maintained (patched) by the distributor, and is managed by an <command>integrated package manager</command><indexterm><primary>integrated package manager</primary></indexterm>. Many distro's have a central <command>repository of approved software</command><indexterm><primary>repository of approved software</primary></indexterm>. Installing software from outside the distro can sometimes be cumbersome and may void your warranty on the system.</para>
 			<para><emphasis>Typical among <command>geeks</command><indexterm><primary>geeks</primary></indexterm> are all the <command>flame wars</command><indexterm><primary>flame wars</primary></indexterm> over which is the best distribution. I had this very funny image copied from http://ars.userfriendly.org/cartoons/?id=19990301&#038;mode=classic here, but the copyright owners did not approve the inclusion of this image in this course.</emphasis></para>
 		</section>	
 		<section><title>Major Vendors of Unix</title>
 			<para>We should at least mention IBM's <command>AIX</command><indexterm><primary>AIX</primary></indexterm>, Sun's <command>Solaris</command><indexterm><primary>Solaris</primary></indexterm> and Hewlett-Packards <command>HP-UX</command><indexterm><primary>HP-UX</primary></indexterm>, all are based on the original Unix from Bell Labs (Unix System V). Sun's <command>SunOS</command><indexterm><primary>SunOS</primary></indexterm>, HP's <command>Tru64</command><indexterm><primary>Tru64</primary></indexterm> (originally from DEC) and Apple's <command>MacOSX</command><indexterm><primary>MacOSX</primary></indexterm> are more derived from the BSD branch. But most Unixes today may contain source code and implementations from both original Unix-branches.</para>
 		</section>	
-		<section><title>Some BSD Distributions</title>
+		<section><title>BSD Distributions</title>
 			<section><title>FreeBSD</title>
-				<para>FreeBSD is a complete operating system. The kernel and all of the utilities are held in the same source code tree. FreeBSD runs on many architectures and is considered to be reliable and robust. Millions of websites are running on FreeBSD, including some big like yahoo, netcraft, php.net, freebsd.org and (until last year) ftp.cdrom.com.</para>
+				<para><command>FreeBSD</command><indexterm><primary>FreeBSD</primary></indexterm> is a complete operating system. The kernel and all of the utilities are held in the same source code tree. FreeBSD runs on many architectures and is considered to be reliable and robust. Millions of websites are running on FreeBSD, including some big like yahoo.com, apache.org, sony.co.jp, netcraft, php.net, freebsd.org and (until last year) ftp.cdrom.com. Apple's MacOSX contains the FreeBSD virtual file system, network stack and more.</para>
 			</section>
 			<section><title>NetBSD</title>
-				<para>NetBSD development started around the same time (1993) as FreeBSD. NetBSD runs on many architectures and is often used in embedded devices.</para>
+				<para><command>NetBSD</command><indexterm><primary>NetBSD</primary></indexterm> development started around the same time (1993) as FreeBSD. NetBSD aims for maximum portability and thus runs on many architectures. NetBSD is often used in embedded devices.</para>
 			</section>
 			<section><title>OpenBSD</title>
-				<para>Co-founder <command>Theo De Raadt</command><indexterm><primary>Theo De Raadt</primary></indexterm> from NetBSD founded the OpenBSD project in 1994. OpenBSD is by far the most secure operating system in the world. The past ten years, only two vulnerabilities were found in the default install of OpenBSD. All source code is thoroughly checked. OpenBSD runs on sixteen different architectures and is commonly used for firewalls and IDS. The OpenBSD people also bring us OpenSSH.</para>
+				<para>Co-founder <command>Theo De Raadt</command><indexterm><primary>Theo De Raadt</primary></indexterm> from NetBSD founded the <command>OpenBSD</command><indexterm><primary>OpenBSD</primary></indexterm> project in 1994. OpenBSD aims for maximum security. The past ten years, only two vulnerabilities were found in the default install of OpenBSD. All source code is thoroughly checked. OpenBSD runs on sixteen different architectures and is commonly used for firewalls and IDS. The OpenBSD people also bring us <command>OpenSSH</command><indexterm><primary>OpenSSH</primary></indexterm>.</para>
 			</section>
 		</section>
 		<section><title>Linux Distributions</title>
-			<para>There are hundreds of linux distributions, just take a look at the distrowatch.com website. For many years, Red Hat, Suse and Mandrake were considered the big three for end users. Red Hat is still the biggest commercial linux vendor. Today, the most popular linux distro is Ubuntu.</para>
-			                        <section><title>Linux distro version</title>
-                        <para> Depending on the distribution used, there are different files that contan the distribution version. </para>
+			<para>There are hundreds of linux distributions, just take a look at the distrowatch.com website. For many years, Red Hat, Suse and Mandrake were considered the big three for end users. Red Hat is still the biggest commercial linux vendor, but in 2008, the most popular linux distribution is <command>Ubuntu</command><indexterm><primary>Ubuntu</primary></indexterm>.</para>
+			<section><title>Linux distro version</title>
+                        <para>Depending on the distribution used, there are distinct files that contain the distribution version.</para>
                         <section><title>/etc/redhat-release</title>
                         <para>This file contains the Red Hat version on most of the Red Hat and Red Hat derived systems.</para>
                         <screen>
@@ -30,12 +30,14 @@ paul@RHELv4u4:~$
                         </screen>
                         </section>
                         <section><title>/etc/debian-version</title>
-                        <screen>
+				<para>Debian and Ubuntu systems contain /etc/debian-version. Note that Ubuntu was originally derived from Debian.</para>
+                        	<screen>
 serge@venusia:~$ cat /etc/debian_version
 lenny/sid
-                        </screen>
+                        	</screen>
                         </section>
                         <section><title>/etc/lsb-release</title>
+				<para>The /etc/lsb-release file can be found on distributions thta follow the Linux Standard Base.</para>
                         <screen>
 serge@venusia:~$ cat /etc/lsb-release
 DISTRIB_ID=Ubuntu
@@ -50,8 +52,8 @@ DISTRIB_DESCRIPTION="Ubuntu 8.04.1"
 				<section><title>Red Hat Linux</title>
 					<para>Red Hat Linux was distributed from 1994 until 2003. It was one of the oldest common Linux distributions. Red Hat Linux was the first distro to use the <command>rpm</command><indexterm><primary>rpm</primary></indexterm> package format. Many other distro's are originally derived from Red Hat Linux. The company <command>Red Hat, Inc.</command><indexterm><primary>Red Hat, Inc.</primary></indexterm> decided to split Red Hat Linux into <command>Fedora Core</command><indexterm><primary>Fedora Core</primary></indexterm> and <command>Red Hat Enterprise Linux</command><indexterm><primary>Red Hat Enterprise Linux</primary></indexterm>.</para>
 				</section>
-				<section><title>Fedora Core</title>
-					<para>Fedora is sponsored by Red Hat, and is aimed toward home users. There is no official support from Red Hat. About every six months there is a new version of Fedora. Fedora usually has more recent versions of kernel and applications than RHEL. Fedora Core 7 was released May 2007.</para>
+				<section><title>Fedora</title>
+					<para><command>Fedora</command><indexterm><primary>Fedora</primary></indexterm> is sponsored by Red Hat, and is aimed toward home users. There is no official support from Red Hat. About every six months there is a new version of Fedora. Fedora usually has more recent versions of kernel and applications than RHEL. Fedora 9 was released May 2008.</para>
 				</section>
 				<section><title>Red Hat Enterprise Linux</title>
 					<para>Since 2005 Red Hat distributes four different RHEL variants. <command>RHEL AS</command><indexterm><primary>RHEL AS</primary></indexterm> is for mission-critical computer systems. <command>RHEL ES</command><indexterm><primary>RHEL ES</primary></indexterm> is for small to mid-range servers. <command>RHEL WS</command><indexterm><primary>RHEL WS</primary></indexterm> is for technical power user desktops and critical design. <command>Red Hat Desktop</command><indexterm><primary>Red Hat Desktop</primary></indexterm> is for multiple deployments of single user desktops. Red Hat does not give an explanation for the meaning of AS, ES and WS, but it might be Advanced Server, Entry-level Server and Workstation. </para>

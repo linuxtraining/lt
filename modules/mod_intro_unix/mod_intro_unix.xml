@@ -169,7 +169,8 @@
 			<para>Largely because of unhappiness with the restrictive licensing on existing Unix implementations, <command>Richard Stallman</command><indexterm><primary>Richard Stallman</primary></indexterm> initiated the <command>GNU Project</command><indexterm><primary>GNU Project</primary></indexterm> in 1983. The GNU project aims to create free software. Development of the GNU operating system started, aiming to create a complete Unix-like branch, seperate from the two other (BSD and Bell Labs).  Today the GNU compiler <command>gcc</command><indexterm><primary>gcc</primary></indexterm> and most other GNU utilities (like <command>bash</command><indexterm><primary>bash</primary></indexterm>) are among the most popular on many Unix-like systems. The official kernel of this project is <command>GNU/Hurd</command><indexterm><primary>GNU/Hurd</primary></indexterm>, but you can hardly call that kernel a finished product.</para>
 		</section>	
 		<section><title>Linux</title>
-			<para>Where <command>GNU/Hurd</command> failed, the Linux kernel succeeded! In 1991 a Finnish student named <command>Linus Torvalds</command><indexterm><primary>Linus Torvalds</primary></indexterm> started writing his own operating system for his intel 80386 computer. In January 1992, Linus decided to release Linux under the GNU GPL. Thanks to this, thousands of developers are now working on the Linux kernel. Contrary to popular believe, they are not all volunteers. Today big companies like Sun, IBM, Novell, Red Hat, Sony, HP and others are actively paying developers to work on the Linux kernel. Mister Torvalds is still the only one to decide what code gets accepted into the kernel.</para>
+			<para>Where <command>GNU/Hurd</command> failed, the Linux kernel succeeded! In 1991 a Finnish student named <command>Linus Torvalds</command><indexterm><primary>Linus Torvalds</primary></indexterm> started writing his own operating system for his intel 80386 computer. In January 1992, Linus decided to release Linux under the GNU GPL. Thanks to this, thousands of developers are now working on the Linux kernel. Linus Torvalds is in charge of the kernel developers.</para>
+			<para>Contrary to popular believe, they are not all volunteers. Today big companies like Red Hat, Novell, IBM, Intel, SGI, Oracle, Montavista, Google, HP, NetApp, Cisco, Fujitsu, Broadcom and others are actively paying developers to work on the Linux kernel. According to the Linux Foundation "over 3700 individual developers from over 200 different companies have contributed to the kernel between 2005 and april 2008". 1057 developers from 186 different companies contributed code to make kernel version 2.6.23 into 2.6.24.</para>
 		</section>
 	</section>
 <section><title>Licensing</title>
@@ -182,35 +183,35 @@
 	<section><title>GNU General Public License (GPL)</title>
 		<para>More and more software is being released under the <command>GPL</command><indexterm><primary>GPL</primary></indexterm> (in 2006 Java was released under the GPL). The goal of the GPL is to guarantee that free software stays free. Everyone can work together on GPL software, knowing that the software will be freely available to everyone. The GPL can protect software, even in court.</para>
 		<para>Free as in <command>freedom of speech</command><indexterm><primary>freedom of speech</primary></indexterm>, not to be confused with free as in not having to pay for your free beer. In other words, or even better, in other languages free software translates to <command>vrije software</command><indexterm><primary>vrije software</primary></indexterm> (Dutch) or <command>Logiciel Libre</command><indexterm><primary>Logiciel Libre</primary></indexterm> (French). Whereas the free from free beer translates to gratis.</para>
-		<para>Briefly explained, the GPL allows you to copy software, the GPL allows you to distribute (sell or give away) that software, and the GPL grants you the right to read and change the source code. But the person receiving or buying the software from you has the same rights. And also, should you decide to distribute modified versions of GPL software, then you are obligated to put the same license on the modifications (and provide the source code of your modifications). You can actually call the GPL a <command>viral license</command><indexterm><primary>viral license</primary></indexterm> because it spreads like a virus.</para>
+		<para>Briefly explained, the GPL allows you to copy software, the GPL allows you to distribute (sell or give away) that software, and the GPL grants you the right to read and change the source code. But the person receiving or buying the software from you has the same rights. And also, should you decide to distribute modified versions of GPL software, then you are obligated to put the same license on the modifications (and provide the source code of your modifications).</para>
 	</section>
 	<section><title>Others...</title>
 		<para><emphasis>There are many other licenses on software. You should read and understand them before using any software.</emphasis></para>
 	</section>
 </section>
 	<section><title>Current Distributions</title>
-		<section><title>About</title>
-			<para>Unix comes in many flavors, usually called <command>distributions</command><indexterm><primary>distributions</primary></indexterm>. A distribution (or in short distro) is a collection of software packages, distributed on CD, online or pre-installed on computers. All the software in a distribution is supposedly thoroughly tested and integrates nicely into a whole. Software is maintained (patched) by the distributor, and is managed by an <command>integrated package manager</command><indexterm><primary>integrated package manager</primary></indexterm>. Many distro's have a central <command>repository of approved software</command><indexterm><primary>repository of approved software</primary></indexterm>. Installing software from outside the distro can sometimes be cumbersome and may void your warranty on the system.</para>
+		<section><title>What is a distribution ?</title>
+			<para>Unix comes in many flavors, usually called <command>distributions</command><indexterm><primary>distributions</primary></indexterm>. A distribution (or in short distro) is a collection of software packages, distributed on CD, online or pre-installed on computers. All the software in a distribution is tested and integrates nicely into a whole. Software is maintained (patched) by the distributor, and is managed by an <command>integrated package manager</command><indexterm><primary>integrated package manager</primary></indexterm>. Many distro's have a central <command>repository of approved software</command><indexterm><primary>repository of approved software</primary></indexterm>. Installing software from outside the distro can sometimes be cumbersome and may void your warranty on the system.</para>
 			<para><emphasis>Typical among <command>geeks</command><indexterm><primary>geeks</primary></indexterm> are all the <command>flame wars</command><indexterm><primary>flame wars</primary></indexterm> over which is the best distribution. I had this very funny image copied from http://ars.userfriendly.org/cartoons/?id=19990301&#038;mode=classic here, but the copyright owners did not approve the inclusion of this image in this course.</emphasis></para>
 		</section>	
 		<section><title>Major Vendors of Unix</title>
 			<para>We should at least mention IBM's <command>AIX</command><indexterm><primary>AIX</primary></indexterm>, Sun's <command>Solaris</command><indexterm><primary>Solaris</primary></indexterm> and Hewlett-Packards <command>HP-UX</command><indexterm><primary>HP-UX</primary></indexterm>, all are based on the original Unix from Bell Labs (Unix System V). Sun's <command>SunOS</command><indexterm><primary>SunOS</primary></indexterm>, HP's <command>Tru64</command><indexterm><primary>Tru64</primary></indexterm> (originally from DEC) and Apple's <command>MacOSX</command><indexterm><primary>MacOSX</primary></indexterm> are more derived from the BSD branch. But most Unixes today may contain source code and implementations from both original Unix-branches.</para>
 		</section>	
-		<section><title>Some BSD Distributions</title>
+		<section><title>BSD Distributions</title>
 			<section><title>FreeBSD</title>
-				<para>FreeBSD is a complete operating system. The kernel and all of the utilities are held in the same source code tree. FreeBSD runs on many architectures and is considered to be reliable and robust. Millions of websites are running on FreeBSD, including some big like yahoo, netcraft, php.net, freebsd.org and (until last year) ftp.cdrom.com.</para>
+				<para><command>FreeBSD</command><indexterm><primary>FreeBSD</primary></indexterm> is a complete operating system. The kernel and all of the utilities are held in the same source code tree. FreeBSD runs on many architectures and is considered to be reliable and robust. Millions of websites are running on FreeBSD, including some big like yahoo.com, apache.org, sony.co.jp, netcraft, php.net, freebsd.org and (until last year) ftp.cdrom.com. Apple's MacOSX contains the FreeBSD virtual file system, network stack and more.</para>
 			</section>
 			<section><title>NetBSD</title>
-				<para>NetBSD development started around the same time (1993) as FreeBSD. NetBSD runs on many architectures and is often used in embedded devices.</para>
+				<para><command>NetBSD</command><indexterm><primary>NetBSD</primary></indexterm> development started around the same time (1993) as FreeBSD. NetBSD aims for maximum portability and thus runs on many architectures. NetBSD is often used in embedded devices.</para>
 			</section>
 			<section><title>OpenBSD</title>
-				<para>Co-founder <command>Theo De Raadt</command><indexterm><primary>Theo De Raadt</primary></indexterm> from NetBSD founded the OpenBSD project in 1994. OpenBSD is by far the most secure operating system in the world. The past ten years, only two vulnerabilities were found in the default install of OpenBSD. All source code is thoroughly checked. OpenBSD runs on sixteen different architectures and is commonly used for firewalls and IDS. The OpenBSD people also bring us OpenSSH.</para>
+				<para>Co-founder <command>Theo De Raadt</command><indexterm><primary>Theo De Raadt</primary></indexterm> from NetBSD founded the <command>OpenBSD</command><indexterm><primary>OpenBSD</primary></indexterm> project in 1994. OpenBSD aims for maximum security. The past ten years, only two vulnerabilities were found in the default install of OpenBSD. All source code is thoroughly checked. OpenBSD runs on sixteen different architectures and is commonly used for firewalls and IDS. The OpenBSD people also bring us <command>OpenSSH</command><indexterm><primary>OpenSSH</primary></indexterm>.</para>
 			</section>
 		</section>
 		<section><title>Linux Distributions</title>
-			<para>There are hundreds of linux distributions, just take a look at the distrowatch.com website. For many years, Red Hat, Suse and Mandrake were considered the big three for end users. Red Hat is still the biggest commercial linux vendor. Today, the most popular linux distro is Ubuntu.</para>
-			                        <section><title>Linux distro version</title>
-                        <para> Depending on the distribution used, there are different files that contan the distribution version. </para>
+			<para>There are hundreds of linux distributions, just take a look at the distrowatch.com website. For many years, Red Hat, Suse and Mandrake were considered the big three for end users. Red Hat is still the biggest commercial linux vendor, but in 2008, the most popular linux distribution is <command>Ubuntu</command><indexterm><primary>Ubuntu</primary></indexterm>.</para>
+			<section><title>Linux distro version</title>
+                        <para>Depending on the distribution used, there are distinct files that contain the distribution version.</para>
                         <section><title>/etc/redhat-release</title>
                         <para>This file contains the Red Hat version on most of the Red Hat and Red Hat derived systems.</para>
                         <screen>
@@ -220,12 +221,14 @@ paul@RHELv4u4:~$
                         </screen>
                         </section>
                         <section><title>/etc/debian-version</title>
-                        <screen>
+				<para>Debian and Ubuntu systems contain /etc/debian-version. Note that Ubuntu was originally derived from Debian.</para>
+                        	<screen>
 serge@venusia:~$ cat /etc/debian_version
 lenny/sid
-                        </screen>
+                        	</screen>
                         </section>
                         <section><title>/etc/lsb-release</title>
+				<para>The /etc/lsb-release file can be found on distributions thta follow the Linux Standard Base.</para>
                         <screen>
 serge@venusia:~$ cat /etc/lsb-release
 DISTRIB_ID=Ubuntu
@@ -240,8 +243,8 @@ DISTRIB_DESCRIPTION="Ubuntu 8.04.1"
 				<section><title>Red Hat Linux</title>
 					<para>Red Hat Linux was distributed from 1994 until 2003. It was one of the oldest common Linux distributions. Red Hat Linux was the first distro to use the <command>rpm</command><indexterm><primary>rpm</primary></indexterm> package format. Many other distro's are originally derived from Red Hat Linux. The company <command>Red Hat, Inc.</command><indexterm><primary>Red Hat, Inc.</primary></indexterm> decided to split Red Hat Linux into <command>Fedora Core</command><indexterm><primary>Fedora Core</primary></indexterm> and <command>Red Hat Enterprise Linux</command><indexterm><primary>Red Hat Enterprise Linux</primary></indexterm>.</para>
 				</section>
-				<section><title>Fedora Core</title>
-					<para>Fedora is sponsored by Red Hat, and is aimed toward home users. There is no official support from Red Hat. About every six months there is a new version of Fedora. Fedora usually has more recent versions of kernel and applications than RHEL. Fedora Core 7 was released May 2007.</para>
+				<section><title>Fedora</title>
+					<para><command>Fedora</command><indexterm><primary>Fedora</primary></indexterm> is sponsored by Red Hat, and is aimed toward home users. There is no official support from Red Hat. About every six months there is a new version of Fedora. Fedora usually has more recent versions of kernel and applications than RHEL. Fedora 9 was released May 2008.</para>
 				</section>
 				<section><title>Red Hat Enterprise Linux</title>
 					<para>Since 2005 Red Hat distributes four different RHEL variants. <command>RHEL AS</command><indexterm><primary>RHEL AS</primary></indexterm> is for mission-critical computer systems. <command>RHEL ES</command><indexterm><primary>RHEL ES</primary></indexterm> is for small to mid-range servers. <command>RHEL WS</command><indexterm><primary>RHEL WS</primary></indexterm> is for technical power user desktops and critical design. <command>Red Hat Desktop</command><indexterm><primary>Red Hat Desktop</primary></indexterm> is for multiple deployments of single user desktops. Red Hat does not give an explanation for the meaning of AS, ES and WS, but it might be Advanced Server, Entry-level Server and Workstation. </para>
