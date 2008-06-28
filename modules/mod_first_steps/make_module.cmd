@@ -4,19 +4,17 @@
 
 
 # Sets the name of the generated file
-modfilename=mod_tech_intro_unix.xml
+modfilename=mod_first_steps.xml
 
 # Sets the title of this module
-modtitle="Technical Introduction to Unix and Linux"
+modtitle="First Steps"
 
 
 # Generate the <chapter> and <title> tags
 echo "<chapter><title>"$modtitle"</title>" > $modfilename
 
 # Generate all the sections
-cat operating_system.xml     >> $modfilename
-cat help.xml                 >> $modfilename  
-cat classroom.xml            >> $modfilename
+cat first_steps.xml   >> $modfilename
 
 # Generate the end chapter tag
 echo "</chapter>"      >> $modfilename

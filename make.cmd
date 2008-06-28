@@ -35,6 +35,7 @@ cat header/header.xml                                   > $xmlfile
 if [ $linuxfun = 'yes' ] ; then
  cat modules/mod_intro_unix/mod_intro_unix.xml                 >> $xmlfile
  cat modules/mod_tech_intro_unix/mod_tech_intro_unix.xml       >> $xmlfile
+ cat modules/mod_first_steps/mod_first_steps.xml               >> $xmlfile
  cat modules/mod_file_system_tree/mod_file_system_tree.xml     >> $xmlfile
  cat modules/mod_intro_bash/mod_intro_bash.xml                 >> $xmlfile
  cat modules/mod_intro_vi/mod_intro_vi.xml                     >> $xmlfile
