@@ -1,0 +1,37 @@
+to do list
+
+DOCBOOK XML todo
+
+1. Find a way to integrate url's into the docbook xml.
+It would be nice to reference to url's in the text, and have somewhere (appendix?) a list of url's.
+
+e.g https://www.linuxfoundation.org/publications/linuxkerneldevelopment.php could be linked from the "Linux" section in intro_to_unix.
+
+2. Have a seperate index of people mentionned in the text
+
+3. Have a seperate index of files
+not so urgent since they are all at the beginning of the index because they all start with /
+
+4. 
+
+
+
+CONTENT todo
+
+1. integrate ksh into the shell chapters (assigned:paul)
+
+2. integrate dash into the shell chapters
+
+3.
+
+
+
+META todo
+
+1. unify all the make commands in one big make, with a seperate config file (assinged:serge)
+
+2. convince userfriendly.org t allow inclusion of one of their cartoons in distros.xml (assigned:paul)
+
+3.
+
+

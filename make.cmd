@@ -23,7 +23,7 @@ linuxadv=yes
 
 # Set a descriptive title for the book
 #booktitle="Linux Fundamentals"
-booktitle="Test Linux System Administration"
+booktitle="Linux System Administration"
 #booktitle="Linux Servers"
 (cd header;./make_header.cmd "$booktitle")
 

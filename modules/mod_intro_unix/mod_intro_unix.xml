@@ -210,34 +210,25 @@
 		</section>
 		<section><title>Linux Distributions</title>
 			<para>There are hundreds of linux distributions, just take a look at the distrowatch.com website. For many years, Red Hat, Suse and Mandrake were considered the big three for end users. Red Hat is still the biggest commercial linux vendor, but in 2008, the most popular linux distribution is <command>Ubuntu</command><indexterm><primary>Ubuntu</primary></indexterm>.</para>
-			<section><title>Linux distro version</title>
-                        <para>Depending on the distribution used, there are distinct files that contain the distribution version.</para>
-                        <section><title>/etc/redhat-release</title>
-                        <para>This file contains the Red Hat version on most of the Red Hat and Red Hat derived systems.</para>
-                        <screen>
+                        <section><title>Linux distribution detection</title>
+                        	<para>Depending on the distribution used, there are distinct files that contain the distribution version.</para>
+                        	<para>The <command>/etc/redhat-release</command><indexterm><primary>/etc/redhat-release</primary></indexterm> file contains the Red Hat version on most of the Red Hat and Red Hat derived systems. Debian and Ubuntu systems contain <command>/etc/debian-version</command><indexterm><primary>/etc/debian-version</primary></indexterm>. Note that Ubuntu was originally derived from Debian.</para>
+                        	<screen>
 paul@RHELv4u4:~$ cat /etc/redhat-release
 Red Hat Enterprise Linux AS release 4 (Nahant Update 4)
-paul@RHELv4u4:~$
-                        </screen>
-                        </section>
-                        <section><title>/etc/debian-version</title>
-				<para>Debian and Ubuntu systems contain /etc/debian-version. Note that Ubuntu was originally derived from Debian.</para>
-                        	<screen>
+
 serge@venusia:~$ cat /etc/debian_version
 lenny/sid
-                        	</screen>
-                        </section>
-                        <section><title>/etc/lsb-release</title>
-				<para>The /etc/lsb-release file can be found on distributions thta follow the Linux Standard Base.</para>
-                        <screen>
+				</screen>
+				<para>The <command>/etc/lsb-release</command><indexterm><primary>/etc/lsb-release</primary></indexterm> file can be found on distributions that follow the Linux Standard Base. Other variations to these files are <command>/etc/slackware-version</command><indexterm><primary>/etc/slackware-version</primary></indexterm>, <command>/etc/SuSE-release</command><indexterm><primary>/etc/SuSE-release</primary></indexterm>, <command>/etc/gentoo-release</command><indexterm><primary>/etc/gentoo-release</primary></indexterm> and <command>/etc/mandrake-release</command><indexterm><primary>/etc/mandriva-release</primary></indexterm>.</para>
+                        	<screen>
 serge@venusia:~$ cat /etc/lsb-release
 DISTRIB_ID=Ubuntu
 DISTRIB_RELEASE=8.04
 DISTRIB_CODENAME=hardy
 DISTRIB_DESCRIPTION="Ubuntu 8.04.1"
-                        </screen>
+                        	</screen>
                         </section>
-                </section>
 		<section><title>Red Hat</title>
 				<para>Redhat exists as a company since 1993. They distribute <command>Red Hat Enterprise Linux</command><indexterm><primary>Red Hat Enterprise Linux</primary></indexterm> (RHEL) to companies and manage the <command>Fedora</command><indexterm><primary>Fedora</primary></indexterm> project. RHEL is probably the most popular Linux-based distro on servers. Fedora is a very popular and user friendly Linux-based distro, aimed towards home users. The company makes a profit of around one hundred million dollars a year, selling support contracts. Red Hat contributes a lot to the linux kernel and other free software projects.</para>
 				<section><title>Red Hat Linux</title>
