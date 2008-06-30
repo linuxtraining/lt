@@ -1,12 +1,12 @@
 	<section><title>bash shell environment</title>
-		<para>It is nice to have all these preset and custom aliases and variables, but where do they all come from ? Bash has a number of startup files that are checked (and executed) whenever bash is invoked. Bash first reads and executes <command>/etc/profile</command>. Then bash searches for <command>.bash_profile</command>, <command>.bash_login</command> and <command>.profile</command> in the home directory. Bash will execute the first of these three that it finds. Typically these files will expand your $PATH environment variable.</para>
+		<para>It is nice to have all these preset and custom aliases and variables, but where do they all come from ? Bash has a number of startup files that are checked (and executed) whenever bash is invoked. Bash first reads and executes <command>/etc/profile</command><indexterm><primary>/etc/profile</primary></indexterm>. Then bash searches for <command>.bash_profile</command><indexterm><primary>.bashprofile</primary></indexterm>, <command>.bash_login</command><indexterm><primary>.bash_login</primary></indexterm> and <command>.profile</command><indexterm><primary>.profile</primary></indexterm> in the home directory. Bash will execute the first of these three that it finds. Typically these files will expand your $PATH environment variable.</para>
 		<screen>
 [paul@RHELv4u3 ~]$ cat .bash_profile | grep PATH
 PATH=$PATH:$HOME/bin
 export PATH
 [paul@RHELv4u3 ~]$
 		</screen>
-		<para>If this is an interactive shell, then bash will also execute <command>.bashrc</command>. In the case of Red Hat, the .bashrc file will source <command>/etc/bashrc</command>.</para>
+		<para>If this is an interactive shell, then bash will also execute <command>.bashrc</command><indexterm><primary>.bashrc</primary></indexterm>. In the case of Red Hat, the .bashrc file will source <command>/etc/bashrc</command><indexterm><primary>/etc/bashrc</primary></indexterm>.</para>
 		<screen>
 [paul@RHELv4u3 ~]$ cat .bashrc 
 # .bashrc
@@ -19,11 +19,11 @@ if [ -f /etc/bashrc ]; then
 fi
 [paul@RHELv4u3 ~]$ 
 		</screen>
-		<para>When you exit the shell, then <command>~/.bash_logout</command> is executed.</para>
+		<para>When you exit the shell, then <command>~/.bash_logout</command><indexterm><primary>.bash_logout</primary></indexterm> is executed.</para>
 		<para>A similar system exists for the Korn shell with .kshrc and other files. Actually a similar system exists for almost all shells.</para>
 	</section>
 	<section><title>path</title>
-		<para>The <command>$PATH</command> variable is very important, it determines where the shell is looking for commands to execute (unless the command is built-in). The shell will not look in the current directory for commands to execute! (Looking for executables in the current directory provided an easy way to crack DOS computers). If you want the shell to look in the current directory, then add a . to your path.</para>
+		<para>The <command>$PATH</command><indexterm><primary>$PATH</primary></indexterm> variable is very important, it determines where the shell is looking for commands to execute (unless the command is built-in). The shell will not look in the current directory for commands to execute! (Looking for executables in the current directory provided an easy way to crack DOS computers). If you want the shell to look in the current directory, then add a . to your path.</para>
 		<screen>
 [[paul@RHEL4b ~]$ echo $PATH
 /usr/kerberos/bin:/usr/local/bin:/bin:/usr/bin:
@@ -32,7 +32,7 @@ fi
 /usr/kerberos/bin:/usr/local/bin:/bin:/usr/bin:.
 [paul@RHEL4b ~]$ 
 		</screen>
-		<para>Your path might be different when using su instead of <command>su -</command> because the latter will take on the environment of the target user. The root user will have some sbin directories added to the PATH variable.</para>
+		<para>Your path might be different when using su instead of <command>su -</command><indexterm><primary>su -</primary></indexterm> because the latter will take on the environment of the target user. The root user will have some sbin directories added to the PATH variable.</para>
 		<screen>
 [paul@RHEL3 ~]$ su
 Password: 
@@ -47,9 +47,9 @@ Password:
 		</screen>
 	</section>
 	<section><title>Shell I/O redirection</title>
-		<para>The shell (and almost every other Linux command) takes input from <command>stdin</command> and sends output to <command>stdout</command> and error messages to <command>stderr</command>. Stdin is usually the keyboard, stdout and stderr are the screen. The shell allows you to redirect these streams.</para>
+		<para>The shell (and almost every other Linux command) takes input from <command>stdin</command><indexterm><primary>stdin</primary></indexterm> and sends output to <command>stdout</command><indexterm><primary>stdout</primary></indexterm> and error messages to <command>stderr</command><indexterm><primary>stderr</primary></indexterm>. Stdin is usually the keyboard, stdout and stderr are the screen. The shell allows you to redirect these streams.</para>
 		<section><title>output redirection</title>
-			<para>Stdout can be redirected with a <command>greater than</command> sign. While scanning the line, the shell will see the <command>&#062;</command> sign and will clear the file.</para>
+			<para>Stdout can be redirected with a <command>greater than</command> sign. While scanning the line, the shell will see the <command>&#062;</command><indexterm><primary>&#062;</primary></indexterm> sign and will clear the file.</para>
 			<screen>
 [paul@RHELv4u3 ~]$ echo It is cold today!
 It is cold today!
@@ -69,7 +69,7 @@ It is cold today!
 			</screen>
 		</section>
 		<section><title>noclobber</title>
-			<para>This can be prevented by setting the <command>noclobber</command> option.</para>
+			<para>This can be prevented by setting the <command>noclobber</command><indexterm><primary>noclobber</primary></indexterm> option.</para>
 			<screen>
 [paul@RHELv4u3 ~]$ cat winter.txt 
 It is cold today!
@@ -79,7 +79,7 @@ It is cold today!
 [paul@RHELv4u3 ~]$ set +o noclobber
 [paul@RHELv4u3 ~]$
 			</screen>
-			<para>The noclobber can be overruled with <command>&#062;|</command>.</para>
+			<para>The noclobber can be overruled with <command>&#062;|</command><indexterm><primary>&#062;|</primary></indexterm>.</para>
 			<screen>
 [paul@RHELv4u3 ~]$ set -o noclobber
 [paul@RHELv4u3 ~]$ echo It is cold today! &#062; winter.txt
@@ -91,7 +91,7 @@ It is very cold today!
 			</screen>
 		</section>
 		<section><title>append</title>
-			<para>You can always use <command>&#062;&#062;</command> to append output to a file.</para>
+			<para>You can always use <command>&#062;&#062;</command><indexterm><primary>&#062;&#062;</primary></indexterm> to append output to a file.</para>
 			<screen>
 [paul@RHELv4u3 ~]$ echo It is cold today! &#062; winter.txt
 [paul@RHELv4u3 ~]$ cat winter.txt 
@@ -104,12 +104,12 @@ Where is the summer ?
 			</screen>
 		</section>
 		<section><title>error redirection</title>
-			<para>Redirecting stderr is done with <command>2&#062;</command>. This can be very useful to prevent error messages from cluttering your screen. The screenshot below shows redirection of stdout to a file, and stderr to /dev/null. Writing <command>1&#062;</command> is the same as &#062;.</para>
+			<para>Redirecting stderr is done with <command>2&#062;</command><indexterm><primary>2&#062;</primary></indexterm>. This can be very useful to prevent error messages from cluttering your screen. The screenshot below shows redirection of stdout to a file, and stderr to /dev/null. Writing <command>1&#062;</command><indexterm><primary>1&#062;</primary></indexterm> is the same as &#062;.</para>
 			<screen>
 [paul@RHELv4u3 ~]$ find / > allfiles.txt 2&#062; /dev/null
 [paul@RHELv4u3 ~]$ 
 			</screen>
-			<para>To redirect both stdout and stderr to the same file, use <command>2>&#038;1</command>.</para>
+			<para>To redirect both stdout and stderr to the same file, use <command>2>&#038;1</command><indexterm><primary>2>&#038;1</primary></indexterm>.</para>
 			<screen>
 [paul@RHELv4u3 ~]$ find / &#062; allfiles_and_errors.txt 2&#062;&#038;1
 [paul@RHELv4u3 ~]$
@@ -128,7 +128,7 @@ ZZO
 			</screen>
 		</section>
 		<section><title>here document</title>
-			<para>The here document (sometimes called here-is-document) is a way to append input until a certain sequence (usually EOF) is encountered. The <command>EOF</command> marker can be typed literally or can be called with Ctrl-D.</para>
+			<para>The here document (sometimes called here-is-document) is a way to append input until a certain sequence (usually EOF) is encountered. The <command>EOF</command><indexterm><primary>EOF</primary></indexterm> marker can be typed literally or can be called with Ctrl-D.</para>
 			<screen>
 [paul@RHEL4b ~]$ cat &#060;&#060;EOF &#062; text.txt
 > one

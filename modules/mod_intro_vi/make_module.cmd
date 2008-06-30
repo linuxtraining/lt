@@ -14,9 +14,9 @@ modtitle="Introduction to vi"
 echo "<chapter><title>"$modtitle"</title>" > $modfilename
 
 # Generate all the sections
-cat iabout_vi.xml   >> $modfilename
-cat iintro_vi.xml   >> $modfilename
-cat ipractice_vi.xml   >> $modfilename
+cat about_vi.xml   >> $modfilename
+cat intro_vi.xml   >> $modfilename
+cat practice_vi.xml   >> $modfilename
 
 # Generate the end chapter tag
 echo "</chapter>"      >> $modfilename

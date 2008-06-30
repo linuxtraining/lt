@@ -14,7 +14,7 @@ modtitle="More about Bash"
 echo "<chapter><title>"$modtitle"</title>" > $modfilename
 
 # Generate all the sections
-cat imore_bash.xml   >> $modfilename
+cat more_bash.xml   >> $modfilename
 
 # Generate the end chapter tag
 echo "</chapter>"      >> $modfilename

@@ -1,6 +1,6 @@
 <section><title>Introduction to using vi</title>
 	<section><title>command mode and insert mode</title>
-		<para>The vi editor starts in <command>command mode</command>. In command mode, you can type commands. The commands a A i I o O will bring you into <command>insert mode</command>. In insert mode, you can type text. The escape key will bring you back to command mode. When in insert mode, vi will display <command>-- INSERT --</command> in the bottom left corner.</para>
+		<para>The vi editor starts in <command>command mode</command><indexterm><primary>command mode (vi)</primary></indexterm>. In command mode, you can type commands. The commands a A i I o O will bring you into <command>insert mode</command><indexterm><primary>insert mode (vi)</primary></indexterm>. In insert mode, you can type text. The escape key will bring you back to command mode. When in insert mode, vi will display <command>-- INSERT --</command> in the bottom left corner.</para>
 	</section>
 	<section><title>Start typing (a A i I o O)</title>
 		<para>The difference between a A i I o and O is the location where you can start typing. a will append after the current character and A will append at the end of the line. i will insert before the current character and I will insert at the beginning of the line. o will put you in a new line after the current line and O will put you in a new line before the current line.</para>
@@ -50,7 +50,7 @@
 :set tx   (CR/LF style endings)
 :set notx
 		</screen>
-		<para>You can set these options (and much more) in ~/.vimrc</para>
+		<para>You can set these options (and much more) in <command>~/.vimrc</command><indexterm><primary>.vimrc</primary></indexterm></para>
 		<screen>
 paul@barry:~$ cat ~/.vimrc
 set number

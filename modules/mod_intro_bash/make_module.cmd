@@ -14,9 +14,10 @@ modtitle="Introduction to Bash"
 echo "<chapter><title>"$modtitle"</title>" > $modfilename
 
 # Generate all the sections
-cat iabout_bash.xml             >> $modfilename
-cat ibash_shell_expansion.xml   >> $modfilename
-cat ibash_shell_history.xml     >> $modfilename
+cat about_bash.xml             >> $modfilename
+cat bash_shell_expansion.xml   >> $modfilename
+cat bash_shell_history.xml     >> $modfilename
+cat practice.xml               >> $modfilename
 
 # Generate the end chapter tag
 echo "</chapter>"      >> $modfilename
