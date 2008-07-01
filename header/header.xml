@@ -1,10 +1,14 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN" "../static/docbook4.2/docbookx.dtd">
 <book>
 <bookinfo>
-<title>Unix/Linux Fundamentals</title>
+<title>Linux System Administration</title>
 <author>
 <firstname>Paul</firstname>
 <surname>Cobbaut</surname>
+</author>
+<author>
+<firstname>Serge</firstname>
+<surname>Vanginderachter</surname>
 </author>
 <pubdate>2008/06/27 12:01:42</pubdate>
 <releaseinfo>v0.963</releaseinfo>

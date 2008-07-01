@@ -12,10 +12,10 @@ xslfile="lt.xsl"
 
 
 # Include Linux Fundamentals (yes/no)?
-linuxfun=yes
+linuxfun=no
 
 # Include Linux System Administration (yes/no)?
-linuxsysadm=yes
+linuxsysadm=no
 
 # Include Linux Advanced Servers (yes/no)?
 linuxadv=yes
@@ -70,6 +70,7 @@ if [ $linuxadv = 'yes' ] ; then
  cat modules/mod_cloning/mod_cloning.xml                       >> $xmlfile
  cat modules/mod_samba/mod_samba.xml                           >> $xmlfile
 # cat modules/mod_selinux/mod_selinux.xml                       >> $xmlfile
+ cat modules/mod_apache/mod_apache.xml                         >> $xmlfile
 fi
 
 cat footer/footer.xml                                  >> $xmlfile
