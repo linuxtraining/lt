@@ -12,10 +12,10 @@ xslfile="lt.xsl"
 
 
 # Include Linux Fundamentals (yes/no)?
-linuxfun=no
+linuxfun=yes
 
 # Include Linux System Administration (yes/no)?
-linuxsysadm=no
+linuxsysadm=yes
 
 # Include Linux Advanced Servers (yes/no)?
 linuxadv=yes
