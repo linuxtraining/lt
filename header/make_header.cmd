@@ -22,7 +22,7 @@ echo "<surname>Cobbaut</surname>"           >> $filename
 echo "</author>"                            >> $filename
 echo "<author>"                             >> $filename
 echo "<firstname>Serge</firstname>"         >> $filename
-echo "<surname>Vanginderachter</surname>"   >> $filename
+echo "<surname>van Ginderachter</surname>"   >> $filename
 echo "</author>"                            >> $filename
 echo "<pubdate>$pubdate</pubdate>"          >> $filename
 echo "<releaseinfo>$version</releaseinfo>"  >> $filename

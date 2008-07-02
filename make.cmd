@@ -1,5 +1,9 @@
 #!/bin/sh
 
+if [ ! -e ../static ]
+        then mkdir ../static && bin/setup.cmd ; exit
+fi
+
 # cleanup
 rm -rf book*
 
