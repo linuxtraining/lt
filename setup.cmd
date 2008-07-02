@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # setup for first time use of lt
 
 echo This script will download static files needed to make the pdf
