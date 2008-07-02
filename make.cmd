@@ -5,7 +5,10 @@ if [ ! -e ../static ]
 fi
 
 # cleanup
-rm -rf book*
+if [ -d book ]
+	then rm -rf book
+fi
+mkdir book
 
 # use the correct java runtime for fop on Ubuntu
 export JAVA_HOME=/usr/lib/jvm/java-6-sun-1.6.0.06/jre

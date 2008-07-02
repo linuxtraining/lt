@@ -1,0 +1,6 @@
+#/bin/sh
+
+MAJOR=0
+MINOR=963
+REVISION=$(wget -O -  https://support.ginsys.be/svn/lt/ 2>&1 | grep html | grep  Revision | cut -d\  -f2 | sed s/://)
+
