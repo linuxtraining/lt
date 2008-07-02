@@ -10,7 +10,7 @@ xmlfile=book`date +%Y%m%d`.xml
 pdffile=book.pdf
 
 # Set the name of the XSL stylesheet
-xslfile="lt.xsl"
+xslfile="lib/lt.xsl"
 
 
 # Include Linux Fundamentals (yes/no)?
