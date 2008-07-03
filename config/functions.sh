@@ -1,6 +1,30 @@
 #!/bin/sh
 #
 
+### settings###
+
+# svn project path
+SVN_PROJECTDIR="https://support.ginsys.be/svn/lt"
+
+# use the correct java runtime for fop on Ubuntu
+JAVA_HOME=/usr/lib/jvm/java-6-sun-1.6.0.06/jre
+
+# Set the name of the XSL stylesheet
+XSLFILE="lib/lt.xsl"
+
+# VERSION_STRING
+# leave REVISION empty to automagically retrieve it 
+# from local svn working copy or from trunk
+MAJOR=0
+MINOR=963
+REVISION=
+
+DATECODE=$(date +%y%m%d | sed s/^0//)
+PUBDATE=$(date +%c)
+YEAR=$(date +%Y)
+
+### functions ###
+
 set_ROOTDIR() {
 	# sets root_dir to first parameter or to current directory and 
 	# returns err 2 if ROOTDIR does not contain the right code subdirs
@@ -30,7 +54,6 @@ add_chapt() {
         }
 
 get_revision() {
-	. $ROOTDIR/config/settings.sh
 	if [ -z $1 ]
                 then file=$ROOTDIR
                 else file=$1

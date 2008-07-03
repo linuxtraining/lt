@@ -3,7 +3,6 @@
 command=$1
 book=$2
 
-. config/settings.sh
 . config/functions.sh
 
 books=$( ls books | grep .cfg$ | sed s/.cfg// )
@@ -24,12 +23,63 @@ help() {
 
 check() {
 	if [ -z $REVISION ] ; then get_revision ; fi
+	VERSIONSTRING=lt-$MAJOR.$MINOR.$REVISION
 	echo "Subversion repository:\t$SVN_PROJECTDIR"
-	echo "Current version:\t$MAJOR.$MINOR.$REVISION"
+	echo "Current version:\t$VERSIONSTRING"
 	}
 
 build_book() {
-	echo "[building $book book to implement]"
+	echo -n "Parsing config books/$book.cfg ... "
+	. books/$book.cfg && echo "OK" || ( echo "Error!" ; exit )
+	echo Building book $book, titled $BOOKTITLE
+	[ -d ./output ] || mkdir ./output
+	BOOKTITLE2=$(echo $BOOKTITLE | sed s/\ /\_/g)
+	filename=$BOOKTITLE2-$VERSIONSTRING-$DATECODE
+	xmlfile=output/$filename.xml
+	pdffile=output/$filename.pdf
+	headerfile=output/mod_header.xml
+	footerfile=output/mod_footer.xml
+
+	# make header
+	cat modules/header/doctype.xml				 > $headerfile
+	echo "<book>"                              		>> $headerfile
+	echo "<bookinfo>"                          		>> $headerfile
+	echo "<title>$booktitle</title>"           		>> $headerfile
+
+	for author in $( <config/authors cut -d, -f1); do
+		first=$(echo $author | cut -d\  -f1)
+		last=$(echo $author | cut -d\  -f2-)
+		echo "<author>"                        		>> $headerfile
+		echo "<firstname>$first</firstname>"     	>> $headerfile
+		echo "<surname>$last</surname>"      		>> $headerfile
+		echo "</author>"                       		>> $headerfile
+		done
+	echo "<pubdate>$PUBDATE</pubdate>"         		>> $headerfile
+	echo "<releaseinfo>$VERSIONSTRING</releaseinfo>"	>> $headerfile
+	AUTHORSCONTACT=$(<config/authors awk -F, '{print $1,"(",$2,",",$3,")"}')
+	AUTHORS=$(<config/authors awk -F, '{print $1}')
+	cat abstract.xml  \
+	 sed s/AUTHORSCONTACT/$AUTHORSCONTACT/ \
+	 sed s/YEAR/$YEAR/ \
+	 sed s/AUTHORS/$AUTHORS/                       		>> $headerfile
+	echo "</bookinfo>"                         		>> $headerfile
+
+
+	# make body
+
+	# make footer
+	cat modules/footer/footer.xml >$footerfile
+
+	# build master xml
+	cat $headerfile  > $xmlfile
+	cat $footerfile >> $xmlfile
+
+	echo
+	../static/fop-0.95beta/fop -xml $xmlfile -xsl $xslfile -pdf $pdffile
+	if [ $?=0 ]
+		then echo; echo pdf generation done.
+		else echo; echo error generating pdf.
+		fi
 	}
 
 ##############
@@ -62,7 +112,7 @@ case "$command" in
 				else echo "$book is not an available book"; exit
 			fi
 		else
-			$book="default"
+			book="default"
 		fi
 
 	echo "Building '$book' book. Hit return to go or ctrl-c to cancel."
