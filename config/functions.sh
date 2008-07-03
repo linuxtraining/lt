@@ -9,15 +9,15 @@ set_ROOTDIR() {
 		else ROOTDIR=$1
 		fi
 	if [ 	   -d $ROOTDIR \
-		-a -d $ROOTDIR/bin \
-		-a -d $ROOTDIR/configs \
+		-a -d $ROOTDIR/books \
+		-a -d $ROOTDIR/config \
 		-a -d $ROOTDIR/footer \
 		-a -d $ROOTDIR/header \
 		-a -d $ROOTDIR/images \
 		-a -d $ROOTDIR/lib \
 		-a -d $ROOTDIR/modules ]
 		then true
-		else exit 1
+		else return 1
 		fi
 	}
 
@@ -30,7 +30,7 @@ add_chapt() {
         }
 
 get_revision() {
-	. $ROOTDIR/config/settings
+	. $ROOTDIR/config/settings.sh
 	if [ -z $1 ]
                 then file=$ROOTDIR
                 else file=$1
