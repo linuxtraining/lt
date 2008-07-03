@@ -1,0 +1,281 @@
+#!/bin/sh
+#
+mod_apache() {
+	modules=""
+	title="Introduction to Apache"
+	add_mod mod_apache/apache.xml
+	}
+
+#
+mod_backup() {
+	modules=""
+	title="Backup"
+	add_mod mod_backup/backup.xml
+	}
+
+#
+mod_booting_linux() {
+	modules=""
+	title="Booting Linux"
+	add_mod mod_booting_linux/boot.xml          
+	add_mod mod_booting_linux/grub.xml          
+	add_mod mod_booting_linux/lilo.xml          
+	add_mod mod_booting_linux/system_init.xml   
+	add_mod mod_booting_linux/practice.xml      
+	}
+
+#
+mod_cloning() {
+	modules=""
+	title="Cloning a Linux Server"
+	add_mod mod_cloning/cloning.xml  
+	}
+
+#
+mod_disk_management() {
+	modules=""
+	title="Disk Management"
+	add_mod mod_disk_management/diskdevices.xml    
+	add_mod mod_disk_management/partitions.xml     
+	add_mod mod_disk_management/filesystems.xml    
+	add_mod mod_disk_management/mounting.xml       
+	add_mod mod_disk_management/uuid.xml           
+	add_mod mod_disk_management/raid.xml           
+	add_mod mod_disk_management/lvm.xml          
+	}
+
+#
+mod_file_permissions() {
+	modules=""
+	title="Standard File Permissions"
+	add_mod mod_file_permissions/standard_permissions.xml
+	add_mod mod_file_permissions/practice_standard.xml   
+	add_mod mod_file_permissions/sticky_bit.xml          
+	add_mod mod_file_permissions/setgid_setuid.xml       
+	add_mod mod_file_permissions/practice_sst.xml        
+	}
+
+#
+mod_file_system_tree() {
+	modules=""
+	title="The Linux File system Tree"
+	add_mod mod_file_system_tree/file_system_tree.xml  
+	}
+
+#
+mod_mod_first_steps() {
+	modules=""
+	title="First Steps"
+	add_mod mod_first_steps/first_steps.xml  
+	}
+
+#
+mod_hardware_kernel() {
+	modules=""
+	title="Hardware and Kernel"
+	add_mod mod_hardware_kernel/hardware.xml   
+	add_mod mod_hardware_kernel/kernel.xml   
+	}
+
+#
+mod_installing_linux() {
+	modules=""
+	title="Installing Linux"
+	add_mod mod_installing_linux/installing_linux.xml
+	}
+
+#
+mod_intro_bash() {
+	modules=""
+	title="Introduction to Bash"
+	add_mod mod_intro_bash/about_bash.xml            
+	add_mod mod_intro_bash/bash_shell_expansion.xml  
+	add_mod mod_intro_bash/bash_shell_history.xml    
+	add_mod mod_intro_bash/practice.xml              
+	}
+
+#
+mod_intro_groups() {
+	modules=""
+	title="Introduction to Groups"
+	add_mod mod_intro_groups/groups.xml  
+	}
+
+#
+mod_intro_scripts() {
+	modules=""
+	title="Introduction to Scripting"
+	add_mod mod_intro_scripts/about_scripting.xml 
+	add_mod mod_intro_scripts/scripting.xml       
+	}
+
+#
+mod_intro_unix() {
+	modules=""
+	title="Introduction to Unix and Linux"
+	add_mod mod_intro_unix/history_unix.xml  
+	add_mod mod_intro_unix/licensing.xml     
+	add_mod mod_intro_unix/distros.xml       
+	add_mod mod_intro_unix/certifications.xml
+	}
+
+#
+mod_intro_users() {
+	modules=""
+	title="Introduction to Users"
+	add_mod mod_intro_users/about_users.xml   
+	add_mod mod_intro_users/intro_users.xml   
+	add_mod mod_intro_users/susudo.xml        
+	add_mod mod_intro_users/practice_users.xml
+	}
+
+#
+mod_intro_vi() {
+	modules=""
+	title="Introduction to vi"
+	add_mod mod_intro_vi/about_vi.xml  
+	add_mod mod_intro_vi/intro_vi.xml  
+	add_mod mod_intro_vi/practice_vi.xml  
+	}
+
+#
+mod_keys() {
+	modules=""
+	title="Keyboard settings"
+	add_mod mod_keys/keys.xml
+	}
+
+#
+mod_links() {
+	modules=""
+	title="File Links"
+	add_mod mod_links/links.xml  
+	}
+
+#
+mod_logging() {
+	modules=""
+	title="Logging"
+	add_mod mod_logging/logging.xml        
+	}
+
+#
+mod_lvm() {
+	modules=""
+	title="Logical Volume Management"
+	add_mod mod_lvm/lvm.xml  
+	}
+
+#
+mod_lvm() {
+	modules=""
+	title="Memory Management"
+	add_mod mod_memory/memory.xml  
+	}
+
+#
+mod_monitoring() {
+	modules=""
+	title="Performance Monitoring"
+	add_mod mod_monitoring/monitoring.xml        
+	}
+
+#
+mod_more_bash() {
+	modules=""
+	title="More about Bash"
+	add_mod mod_more_bash/more_bash.xml  
+	}
+
+#
+mod_network() {
+	modules=""
+	title="Introduction to Networking"
+	add_mod mod_network/about_tcpip.xml     
+	add_mod mod_network/using_tcpip.xml     
+	add_mod mod_network/multiple_ip.xml     
+	add_mod mod_network/bonding.xml         
+	add_mod mod_network/iptables.xml        
+	add_mod mod_network/inetd_xinetd.xml    
+	add_mod mod_network/ssh.xml             
+	add_mod mod_network/nfs.xml             
+	}
+
+#
+mod_package_management() {
+	modules=""
+	title="Package Management"
+	add_mod mod_package_management/package_management.xml
+
+	}
+
+#
+mod_pipes_filters() {
+	modules=""
+	title="Pipes and Filters"
+	add_mod mod_pipes_filters/pipes_filters.xml  
+	}
+
+#
+mod_processes() {
+	modules=""
+	title="Process Management"
+	add_mod mod_processes/processes.xml  
+	}
+
+#
+mod_quotas() {
+	modules=""
+	title="User Quota's"
+	add_mod mod_quotas/quotas.xml
+	}
+
+#
+mod_samba() {
+	modules=""
+	title="Introduction to Samba"
+	add_mod mod_samba/samba.xml  
+	}
+
+#
+mod_scheduling() {
+	modules=""
+	title="Scheduling"
+	add_mod mod_scheduling/about.xml    
+	add_mod mod_scheduling/at.xml       
+	add_mod mod_scheduling/cron.xml     
+	add_mod mod_scheduling/practice.xml 
+	}
+
+#
+mod_selinux() {
+	modules=""
+	title="SELinux"
+	add_mod mod_selinux/selinux.xml  
+	}
+
+#
+mod_susudo() {
+	modules=""
+	title="About su and sudo"
+	add_mod mod_susudo/susudo.xml  
+	}
+
+#
+mod_tech_intro_unix() {
+	modules=""
+	title="Technical Introduction to Unix and Linux"
+	add_mod mod_tech_intro_unix/operating_system.xml    
+	add_mod mod_tech_intro_unix/help.xml                  
+	add_mod mod_tech_intro_unix/classroom.xml           
+	}
+
+#
+mod_vnc() {
+	modules=""
+	title="VNC"
+	add_mod mod_vnc/vnc.xml
+	}
+	
+#
+

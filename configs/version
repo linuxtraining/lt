@@ -2,5 +2,7 @@
 
 MAJOR=0
 MINOR=963
+# leave REVISION empty to automagically retrieve it 
+# from local svn working copy or from latest
 REVISION=$(wget -O -  https://support.ginsys.be/svn/lt/ 2>&1 | grep html | grep  Revision | cut -d\  -f2 | sed s/://)
 
