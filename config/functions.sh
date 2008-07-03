@@ -35,8 +35,6 @@ set_ROOTDIR() {
 	if [ 	   -d $ROOTDIR \
 		-a -d $ROOTDIR/books \
 		-a -d $ROOTDIR/config \
-		-a -d $ROOTDIR/footer \
-		-a -d $ROOTDIR/header \
 		-a -d $ROOTDIR/images \
 		-a -d $ROOTDIR/lib \
 		-a -d $ROOTDIR/modules ]

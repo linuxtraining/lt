@@ -28,6 +28,36 @@ check() {
 	echo "Current version:\t$VERSIONSTRING"
 	}
 
+build_header() {
+	        cat modules/header/doctype.xml                           > $headerfile
+        echo "<book>"                                           >> $headerfile
+        echo "<bookinfo>"                                       >> $headerfile
+        echo "<title>$BOOKTITLE</title>"                        >> $headerfile
+
+        for author in $( <config/authors cut -d, -f1); do
+		#bug here
+                first=$(echo $author | cut -d\  -f1)
+                last=$(echo $author | cut -d\  -f2-)
+                echo "<author>"                                 >> $headerfile
+                echo "<firstname>$first</firstname>"            >> $headerfile
+                echo "<surname>$last</surname>"                 >> $headerfile
+                echo "</author>"                                >> $headerfile
+                done
+        echo "<pubdate>$PUBDATE</pubdate>"                      >> $headerfile
+        echo "<releaseinfo>$VERSIONSTRING</releaseinfo>"        >> $headerfile
+        AUTHORSCONTACT=$(<config/authors awk -F, '{print $1" "$2" "$3" "}' | xargs echo )
+        AUTHORS=$(<config/authors awk -F, '{print $1"  "}' | xargs echo  )
+        cat modules/header/abstract.xml \
+	  | echo sed	-e 's%AUTHORSCONTACT%'"$AUTHORSCONTACT"'%' \
+		-e "s/YEAR/"$YEAR"/"  \
+		-e "s/AUTHORS/"$AUTHORS"/"    	# 		>> $headerfile
+        echo "</bookinfo>"                                      >> $headerfile
+	}
+
+build_footer() {
+	cat modules/footer/footer.xml >$footerfile
+	}
+
 build_book() {
 	echo -n "Parsing config books/$book.cfg ... "
 	. books/$book.cfg && echo "OK" || ( echo "Error!" ; exit )
@@ -41,41 +71,19 @@ build_book() {
 	footerfile=output/mod_footer.xml
 
 	# make header
-	cat modules/header/doctype.xml				 > $headerfile
-	echo "<book>"                              		>> $headerfile
-	echo "<bookinfo>"                          		>> $headerfile
-	echo "<title>$booktitle</title>"           		>> $headerfile
-
-	for author in $( <config/authors cut -d, -f1); do
-		first=$(echo $author | cut -d\  -f1)
-		last=$(echo $author | cut -d\  -f2-)
-		echo "<author>"                        		>> $headerfile
-		echo "<firstname>$first</firstname>"     	>> $headerfile
-		echo "<surname>$last</surname>"      		>> $headerfile
-		echo "</author>"                       		>> $headerfile
-		done
-	echo "<pubdate>$PUBDATE</pubdate>"         		>> $headerfile
-	echo "<releaseinfo>$VERSIONSTRING</releaseinfo>"	>> $headerfile
-	AUTHORSCONTACT=$(<config/authors awk -F, '{print $1,"(",$2,",",$3,")"}')
-	AUTHORS=$(<config/authors awk -F, '{print $1}')
-	cat abstract.xml  \
-	 sed s/AUTHORSCONTACT/$AUTHORSCONTACT/ \
-	 sed s/YEAR/$YEAR/ \
-	 sed s/AUTHORS/$AUTHORS/                       		>> $headerfile
-	echo "</bookinfo>"                         		>> $headerfile
-
+	build_header
 
 	# make body
 
 	# make footer
-	cat modules/footer/footer.xml >$footerfile
+	build_footer
 
 	# build master xml
 	cat $headerfile  > $xmlfile
 	cat $footerfile >> $xmlfile
 
 	echo
-	../static/fop-0.95beta/fop -xml $xmlfile -xsl $xslfile -pdf $pdffile
+	../static/fop-0.95beta/fop -xml $xmlfile -xsl $XSLFILE -pdf $pdffile
 	if [ $?=0 ]
 		then echo; echo pdf generation done.
 		else echo; echo error generating pdf.
