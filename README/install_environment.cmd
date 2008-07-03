@@ -5,7 +5,7 @@ echo This script will download static files needed to make the pdf
 echo  to ../static
 echo 
 if [ ! -e ../static ] 
-	then mkdir ../static
+	then mkdir ../static ln -s ../static
 	else echo ../static dir already exists ; exit
 fi
 

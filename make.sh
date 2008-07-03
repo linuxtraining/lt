@@ -9,16 +9,20 @@ books=$( ls books | grep .cfg$ | sed s/.cfg// )
 
 help() {
 	echo
-	echo "linux-training book build script"
-	echo "http://linux-training.be"
+	echo "linux-training book build script\t\thttp://linux-training.be"
 	echo
 	echo $0 "check\t\tcheck some settings"
 	echo $0 "clean\t\tdelete output dir"
 	echo $0 "install\tdownload static build environment to ../static"
-	echo $0 "build\t\tbuild book"
+	echo $0 "build [BOOK]\tbuild book"
 	echo
 	echo Available books: $books
 	echo
+	}
+
+clean() {
+	echo "Removing ./output/ directory"
+	[ -d output ] && ( rm -rf output || exit 0 )
 	}
 
 check() {
@@ -29,28 +33,16 @@ check() {
 	}
 
 build_header() {
-	        cat modules/header/doctype.xml                           > $headerfile
+	cat modules/header/doctype.xml                           > $headerfile
         echo "<book>"                                           >> $headerfile
         echo "<bookinfo>"                                       >> $headerfile
         echo "<title>$BOOKTITLE</title>"                        >> $headerfile
-
-        for author in $( <config/authors cut -d, -f1); do
-		#bug here
-                first=$(echo $author | cut -d\  -f1)
-                last=$(echo $author | cut -d\  -f2-)
-                echo "<author>"                                 >> $headerfile
-                echo "<firstname>$first</firstname>"            >> $headerfile
-                echo "<surname>$last</surname>"                 >> $headerfile
-                echo "</author>"                                >> $headerfile
-                done
-        echo "<pubdate>$PUBDATE</pubdate>"                      >> $headerfile
-        echo "<releaseinfo>$VERSIONSTRING</releaseinfo>"        >> $headerfile
-        AUTHORSCONTACT=$(<config/authors awk -F, '{print $1" "$2" "$3" "}' | xargs echo )
-        AUTHORS=$(<config/authors awk -F, '{print $1"  "}' | xargs echo  )
-        cat modules/header/abstract.xml \
-	  | echo sed	-e 's%AUTHORSCONTACT%'"$AUTHORSCONTACT"'%' \
-		-e "s/YEAR/"$YEAR"/"  \
-		-e "s/AUTHORS/"$AUTHORS"/"    	# 		>> $headerfile
+	config/buildheader.pl \
+		"modules/header/abstract.xml" \
+		"config/authors" \
+		"$PUBDATE" \
+		"$YEAR" \
+		"$VERSIONSTRING"					>> $headerfile	 
         echo "</bookinfo>"                                      >> $headerfile
 	}
 
@@ -58,32 +50,55 @@ build_footer() {
 	cat modules/footer/footer.xml >$footerfile
 	}
 
+build_body() {
+	for chapter in $CHAPTERS; do
+		modfile=output/mod_$chapter
+		# load the chapter specific settings
+		eval chapt_$chapter
+		# Generate the end chapter tag
+		echo "<chapter><title>"$chaptitle"</title>" 	 > $modfile
+		# Generate all the sections
+		for module in $MODULES; do
+			cat $module 				>> $modfile
+			done
+		# Generate the end chapter tag
+		echo "</chapter>"      				>> $modfile
+		cat $modfile					>> $bodyfile
+	done
+	}
+
 build_book() {
 	echo -n "Parsing config books/$book.cfg ... "
 	. books/$book.cfg && echo "OK" || ( echo "Error!" ; exit )
-	echo Building book $book, titled $BOOKTITLE
+
+	echo "Generating book $book (titled \"$BOOKTITLE\")"
 	[ -d ./output ] || mkdir ./output
+
 	BOOKTITLE2=$(echo $BOOKTITLE | sed s/\ /\_/g)
 	filename=$BOOKTITLE2-$VERSIONSTRING-$DATECODE
 	xmlfile=output/$filename.xml
 	pdffile=output/$filename.pdf
-	headerfile=output/mod_header.xml
-	footerfile=output/mod_footer.xml
+	headerfile=output/section_mod_header.xml
+	footerfile=output/section_mod_footer.xml
+	bodyfile=output/section_mod_body.xml
 
 	# make header
 	build_header
 
 	# make body
+	build_body
 
 	# make footer
 	build_footer
 
 	# build master xml
+	echo "Building $xmlfile"
 	cat $headerfile  > $xmlfile
+	cat $bodyfile   >> $xmlfile
 	cat $footerfile >> $xmlfile
 
-	echo
-	../static/fop-0.95beta/fop -xml $xmlfile -xsl $XSLFILE -pdf $pdffile
+	echo "Generating $pdffile"
+	../static/fop-0.95beta/fop -xml $xmlfile -xsl $XSLFILE -pdf $pdffile #--execdebug
 	if [ $?=0 ]
 		then echo; echo pdf generation done.
 		else echo; echo error generating pdf.
@@ -92,6 +107,7 @@ build_book() {
 
 ##############
 
+echo
 set_ROOTDIR || ( echo "It does not look like I'm in the project root dir?"; exit)
 
 case "$command" in
@@ -99,7 +115,7 @@ case "$command" in
 	check
 	;;
   clean)
-	[ -d output ] && rm -rf output || exit 0
+	clean
 	;;
 
   install)
@@ -107,24 +123,28 @@ case "$command" in
 	;;
   build)
 	check
+	clean
 	if [ ! -z $book ]
 		then 	# check if $book parameter is one of the available books
-			check=1
+			echo -n "Checking if $book.cfg exists in ./books directory ... "
+			check=0
 			for entry in $books ; do
+				echo books = $books
+				echo entry = $entry
 				if [ $entry = $book ]
 					then check=1
 				fi
 			done
 			if [ $check = 1 ]
-				then true
-				else echo "$book is not an available book"; exit
+				then echo OK
+				else echo "$book is not available"; exit
 			fi
 		else
+			echo "No book specified, assuming default book"
 			book="default"
 		fi
 
 	echo "Building '$book' book. Hit return to go or ctrl-c to cancel."
-	read me
 	build_book $book
 	;;
 

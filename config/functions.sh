@@ -48,7 +48,7 @@ add_mod() {
         }
 
 add_chapt() {
-        CHAPTERS=${CHAPTERS}" "mod_$1
+        CHAPTERS=${CHAPTERS}" "$1
         }
 
 get_revision() {
