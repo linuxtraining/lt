@@ -1,5 +1,13 @@
 #!/bin/sh
 #
 
+#
 SVN_PROJECTDIR="https://support.ginsys.be/svn/lt"
+
+# VERSION_STRING
+# leave REVISION empty to automagically retrieve it 
+# from local svn working copy or from trunk
+MAJOR=0
+MINOR=963
+REVISION=
 
