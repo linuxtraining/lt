@@ -22,7 +22,11 @@ set_ROOTDIR() {
 	}
 
 add_mod() {
-        modules=${modules}" "${ROOTDIR}/modules/$1
+        MODULES=${MODULES}" "${ROOTDIR}/modules/$1
+        }
+
+add_chapt() {
+        CHAPTERS=${CHAPTERS}" "mod_$1
         }
 
 get_revision() {
