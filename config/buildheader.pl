@@ -1,4 +1,7 @@
 #!/usr/bin/perl -w
+# written by Vomit (c) June 2008
+# thanks mate - Serge
+
 my $abstractfile = shift @ARGV;
 my $authorsfile = shift @ARGV;
 my $pubdate = shift @ARGV;
