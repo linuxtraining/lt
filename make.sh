@@ -52,7 +52,7 @@ build_footer() {
 
 build_body() {
 	for chapter in $CHAPTERS; do
-		modfile=output/mod_$chapter
+		modfile=output/mod_$chapter.xml
 		# load the chapter specific settings
 		eval chapt_$chapter
 		# Generate the end chapter tag
@@ -78,9 +78,9 @@ build_book() {
 	filename=$BOOKTITLE2-$VERSIONSTRING-$DATECODE
 	xmlfile=output/$filename.xml
 	pdffile=output/$filename.pdf
-	headerfile=output/section_mod_header.xml
-	footerfile=output/section_mod_footer.xml
-	bodyfile=output/section_mod_body.xml
+	headerfile=output/section_header.xml
+	footerfile=output/section_footer.xml
+	bodyfile=output/section_body.xml
 
 	# make header
 	build_header
