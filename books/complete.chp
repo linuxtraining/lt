@@ -96,6 +96,7 @@ chapt_intro_bash() {
 	add_mod mod_intro_bash/bash_shell_expansion.xml  
 	add_mod mod_intro_bash/bash_shell_history.xml    
 	add_mod mod_intro_bash/practice.xml              
+	add_mod mod_intro_bash/solution.xml              
 	}
 
 #
