@@ -238,6 +238,46 @@ paul@laika:/bin$
 			<para></para>
 			<para></para>	
 		</section>
+		<section><title>Solutions to the Practice</title>
+			<para>1. Display your current directory.</para>
+			<para>pwd</para>	
+			<para>2. Change to the /etc directory.</para>
+			<para>cd /etc</para>	
+			<para>3. Now change to your home directory using only three key presses.</para>
+			<para>cd (and the enter key)</para>	
+			<para>4. Change to the /boot/grub directory using only eleven key presses.</para>
+			<para>cd /boot/grub (use the tab key)</para>	
+			<para>5. Go to the parent directory of the current directory.</para>
+			<para>cd .. (with space between cd and ..)</para>	
+			<para>6. Go to the root directory.</para>
+			<para>cd /</para>	
+			<para>7. List the contents of the root directory.</para>
+			<para>ls</para>	
+			<para>8. List a long listing of the root directory.</para>
+			<para>ls -l</para>	
+			<para>9. Stay where you are, and list the contents of /etc.</para>
+			<para>ls /etc</para>	
+			<para>10. Stay where you are, and list the contents of /bin and /sbin.</para>
+			<para>ls /bin /sbin</para>	
+			<para>11. Stay where you are, and list the contents of &#126;.</para>
+			<para>ls &#126;</para>	
+			<para>12. List all the files (including hidden files) in your homedirectory.</para>
+			<para>ls -al &#126;</para>	
+			<para>13. List the files in /boot in a human readable format.</para>
+			<para>ls -lh /boot</para>	
+			<para>14. Create a directory testdir in your homedirectory.</para>
+			<para>mkdir &#126;/testdir</para>	
+			<para>15. Change to the /etc directory, stay here and create a directory newdir in your homedirectory.</para>
+			<para>cd /etc ; mkdir &#126;/newdir</para>	
+			<para>16. Create in one command the directories &#126;/dir1/dir2/dir3 (dir3 is a subdirectory from dir2, and dir2 is a subdirectory from dir1 ).</para>
+			<para>mkdir -p &#126;/dir1/dir2/dir3</para>	
+			<para>17. Remove the directory testdir.</para>
+			<para>rm testdir</para>	
+			<para>18. If time permits (or if you are waiting for other students to finish this practice), use and understand pushd and popd. Use the man page of bash to find information about pushd, popd and dirs.</para>
+			<para></para>	
+			<para></para>
+			<para></para>	
+		</section>
 	</section>
 	<section><title>Working with files</title>
 		<section><title>file</title>
@@ -397,10 +437,10 @@ ONE.bak  two.bak
 		<section><title>Practice: Working with files</title>
 			<para>1. List the files in the /bin directory</para>
 			<para>2. Display the type of file of /bin/cat, /etc/passwd and /usr/bin/passwd.</para>
-			<para>3a. Download wolf.jpg from http://cobbaut.be (wget http://cobbaut.be/wolf.jpg)</para>
-			<para>3b. Display the type of file of wolf.jpg</para>
-			<para>3c. Rename the file to wolf.pdf</para>
-			<para>3d. Display the type of file of wolf.pdf</para>
+			<para>3a. Download wolf.jpg and book.pdf from http://linux-training.be (wget http://linux-training.be/studentfiles/wolf.jpg)</para>
+			<para>3b. Display the type of file of wolf.jpg and book.pdf</para>
+			<para>3c. Rename wolf.jpg to wolf.pdf (use mv).</para>
+			<para>3d. Display the type of file of wolf.pdf and book.pdf.</para>
 			<para>4. Create a directory &#126;/touched and enter it.</para>
 			<para>5. Create the files today.txt and yesterday.txt in touched.</para>
 			<para>6. Change the date on yesterday.txt to match yesterday's date.</para>
@@ -410,6 +450,42 @@ ONE.bak  two.bak
 			<para>10. Use one command to remove the directory &#126;/testbackup and all files in it.</para>
 			<para>11. Create a directory &#126;/etcbackup and copy all *.conf files from /etc in it. Did you include all subdirectories of /etc ?</para>
 			<para>12. Use rename to rename all *.BAK files to *.BACKUP. (if you have a debian and red hat derived distro available, try it on both!)</para>
+			<para></para>
+			<para></para>
+		</section>
+		<section><title>Solutions to the practice</title>
+			<para>1. List the files in the /bin directory</para>
+			<para>ls /bin</para>
+			<para>2. Display the type of file of /bin/cat, /etc/passwd and /usr/bin/passwd.</para>
+			<para>file /bin/cat /etc/passwd /usr/bin/passwd</para>
+			<para>3a. Download wolf.jpg and book.pdf from http://linux-training.be (wget http://linux-training.be/studentfiles/wolf.jpg)</para>
+			<para>wget http://linux-training.be/studentfiles/wolf.jpg</para>
+			<para>wget http://linux-training.be/studentfiles/book.pdf</para>
+			<para>3b. Display the type of file of wolf.jpg and book.pdf</para>
+			<para>file wolf.jpg wolf.pdf</para>
+			<para>3c. Rename wolf.jpg to wolf.pdf (use mv).</para>
+			<para>mv wolf.jpg wolf.pdf</para>
+			<para>3d. Display the type of file of wolf.pdf and book.pdf.</para>
+			<para>file wolf.pdf book.pdf</para>
+			<para>4. Create a directory &#126;/touched and enter it.</para>
+			<para>mkdir &#126;/touched ; cd &#126;/touched</para>
+			<para>5. Create the files today.txt and yesterday.txt in touched.</para>
+			<para>touch today.txt yesterday.txt</para>
+			<para>6. Change the date on yesterday.txt to match yesterday's date.</para>
+			<para>touch -t 200810251405 yesterday (substitute 20081025 with yesterdays date)</para>
+			<para>7. Copy yesterday.txt to copy.yesterday.txt</para>
+			<para>cp yesterday.txt copy.yesterday.txt</para>
+			<para>8. Rename copy.yesterday.txt to kim</para>
+			<para>mv copy.yesterday.txt kim</para>
+			<para>9. Create a directory called &#126;/testbackup and copy all files from &#126;/touched in it.</para>
+			<para>mkdir &#126;/testbackup ; cp -r &#126;/touched &#126;/testbackup/ </para>
+			<para>10. Use one command to remove the directory &#126;/testbackup and all files in it.</para>
+			<para>rm -rf &#126;/testbackup </para>
+			<para>11. Create a directory &#126;/etcbackup and copy all *.conf files from /etc in it. Did you include all subdirectories of /etc ?</para>
+			<para>cp -r /etc/*.conf &#126;/etcbackup</para>
+			<para>12. Use rename to rename all *.BAK files to *.BACKUP. (if you have a debian and red hat derived distro available, try it on both!)</para>
+			<para>On RHEL: touch 1.bak 2.bak ; rename BAK BACKUP *.bak</para>
+			<para>On Debian: touch 1.bak 2.bak ; rename 's/BAK/BACKUP/' *.bak</para>
 			<para></para>
 			<para></para>
 		</section>

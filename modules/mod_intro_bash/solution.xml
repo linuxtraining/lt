@@ -11,7 +11,7 @@
 		<para>5. Execute cd /etc after cd etc, but only if cd etc fails.</para>
 		<para>cd etc || cd /etc</para>
 		<para>6. Execute sleep 10, what is this command doing ?</para>
-		<para>pausin for ten seconds</para>
+		<para>pausing for ten seconds</para>
 		<para>7. Execute sleep 200 in background (do not wait for it to finish).</para>
 		<para>sleep 200 &#038;</para>
 		<para>8. Use echo to display Hello followed by your username. (use a bash variable!)</para>
