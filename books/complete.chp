@@ -129,7 +129,9 @@ chapt_intro_users() {
 	MODULES=""
 	chaptitle="Introduction to Users"
 	add_mod mod_intro_users/about_users.xml   
-	add_mod mod_intro_users/intro_users.xml   
+	add_mod mod_intro_users/about_passwords.xml   
+	add_mod mod_intro_users/about_home_directories.xml   
+	add_mod mod_intro_users/susudo.xml   
 	add_mod mod_intro_users/practice_users.xml
 	}
 
@@ -256,13 +258,6 @@ chapt_selinux() {
 	MODULES=""
 	chaptitle="SELinux"
 	add_mod mod_selinux/selinux.xml  
-	}
-
-#
-chapt_susudo() {
-	MODULES=""
-	chaptitle="About su and sudo"
-	add_mod mod_susudo/susudo.xml  
 	}
 
 #
