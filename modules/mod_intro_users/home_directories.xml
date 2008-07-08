@@ -1,0 +1,35 @@
+<section><title>About Home Directories</title>
+	<section><title>creating home directories</title>
+		<para>The easy way to create a home directory is to supply the -m option with <command>useradd</command><indexterm><primary>useradd(1)</primary></indexterm> (it is likely set as a default option on Linux).</para>
+		<para>The not so easy way is to create a home directory manually with <command>mkdir</command>, which also requires setting the owner and the permissions on the directory with <command>chmod</command> and <command>chown</command> (both commands are discussed in detail in another chapter).</para>
+		<screen>
+[root@RHEL5 ~]# mkdir /home/laura
+[root@RHEL5 ~]# chown laura:laura /home/laura
+[root@RHEL5 ~]# chmod 700 /home/laura
+[root@RHEL5 ~]# ls -ld /home/laura/
+drwx------ 2 laura laura 4096 Jun 24 15:17 /home/laura/
+		</screen>
+	</section>
+	<section><title>/etc/skel/</title>
+		<para>When using useradd with the -m option, then the <command>/etc/skel/</command><indexterm><primary>/etc/skel</primary></indexterm> directory is copied to the newly created home directory. The /etc/skel/ directory contains some (usually hidden) files that contain profile settings and default values for applications. In this way /etc/skel/ serves as a default home directory and as a default user profile.</para>
+		<screen>
+[root@RHEL5 ~]# ls -la /etc/skel/
+total 48
+drwxr-xr-x  2 root root  4096 Apr  1 00:11 .
+drwxr-xr-x 97 root root 12288 Jun 24 15:36 ..
+-rw-r--r--  1 root root    24 Jul 12  2006 .bash_logout
+-rw-r--r--  1 root root   176 Jul 12  2006 .bash_profile
+-rw-r--r--  1 root root   124 Jul 12  2006 .bashrc
+		</screen>
+	</section>
+	<section><title>deleting home directories</title>
+		<para>The -r option of userdel will make sure that the home directory is deleted together with the user account.</para>
+		<screen>
+[root@RHEL5 ~]# ls -ld /home/wim/
+drwx------ 2 wim wim 4096 Jun 24 15:19 /home/wim/
+[root@RHEL5 ~]# userdel -r wim
+[root@RHEL5 ~]# ls -ld /home/wim/
+ls: /home/wim/: No such file or directory
+		</screen>
+	</section>
+</section>

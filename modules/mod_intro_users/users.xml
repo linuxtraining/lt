@@ -1,4 +1,4 @@
-<section><title>About Users</title>
+<section><title>Users</title>
 	<section><title>User management</title>
 		<para>User management on any Unix can essentialy be done in three ways. You can use the <command>graphical</command> tools provided by your distribution. These tools have a look and feel that depends on the distribution. If you are a novice linux user on your home system, then use the graphical tool that is provided by your distribution. This will make sure that you do not run into problems.</para>
 		<para>Another option is to use <command>command line tools</command> like useradd, usermod, gpasswd, passwd and others. Server administrators are likely to use these tools, since they are familiar and very similar accross many different distributions. This chapter will focus on these command line tools.</para>

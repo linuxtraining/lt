@@ -128,9 +128,10 @@ chapt_intro_unix() {
 chapt_intro_users() {
 	MODULES=""
 	chaptitle="Introduction to Users"
-	add_mod mod_intro_users/about_users.xml   
-	add_mod mod_intro_users/about_passwords.xml   
-	add_mod mod_intro_users/about_home_directories.xml   
+	add_mod mod_intro_users/users.xml   
+	add_mod mod_intro_users/passwords.xml   
+	add_mod mod_intro_users/home_directories.xml   
+	add_mod mod_intro_users/identify_yourself.xml   
 	add_mod mod_intro_users/susudo.xml   
 	add_mod mod_intro_users/practice_users.xml
 	}
