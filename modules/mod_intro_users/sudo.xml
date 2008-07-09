@@ -1,0 +1,39 @@
+<section><title>Run a program as another user</title>
+	<section><title>About sudo</title>
+		<para>The sudo program allows a user to start a program with the credentials of another user. Before this works, the system administrator has to set up the <command>/etc/sudoers</command> file. This can be useful to delegate administrative tasks to another user (without giving the root password).</para>
+		<para>The screenshot below shows the usage of sudo. User paul received the right to run useradd with the credentials of root. This allows paul to create new users on the system without becoming root and without knowing the root password.</para>
+		<screen>
+paul@laika:~$ useradd -m inge
+useradd: unable to lock password file
+paul@laika:~$ sudo useradd -m inge
+[sudo] password for paul: 
+paul@laika:~$
+		</screen>
+	</section>
+	<section><title>setuid on sudo</title>
+		<para>The sudo binary has the setuid bit set, so any user can run it with effective userid set as root.</para>
+		<screen>
+paul@laika:~$ ls -l `which sudo`
+-rwsr-xr-x 2 root root 107872 2008-05-15 02:41 /usr/bin/sudo
+paul@laika:~$ 
+		</screen>
+	</section>
+	<section><title>visudo</title>
+		<para>Check the man page of <command>visudo</command><indexterm><primary>visudo(1)</primary></indexterm> before playing with the /etc/sudoers file.</para>
+		<para></para>
+	</section>
+	<section><title>sudo su</title>
+		<para>On some linux systems like Ubuntu and Kubuntu, the root user does not have a password set. This means that it is not possible to login as root (extra security). To perform tasks as root, the first user is given all <command>sudo rights</command><indexterm><primary>sudo(1)</primary></indexterm> via the <command>/etc/sudoers</command><indexterm><primary>/etc/sudoers</primary></indexterm>. In fact all users that are members of the admin group can use sudo to run all commands as root.</para>
+	<screen>
+root@laika:~# grep admin /etc/sudoers 
+# Members of the admin group may gain root privileges
+%admin ALL=(ALL) ALL
+	</screen>
+	 <para>The end result of this is that the user can type <command>sudo su -</command><indexterm><primary>sudo su -</primary></indexterm> and become root without having to enter the root password. The sudo command does require you to enter your own password. Thus the password prompt in the screenshot below is for sudo, not for su. </para>
+		<screen>
+paul@laika:~$ sudo su -
+Password:
+root@laika:~#
+		</screen>
+	</section>
+</section>

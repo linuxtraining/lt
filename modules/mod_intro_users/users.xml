@@ -61,9 +61,9 @@ SKEL=/etc/skel
 		<screen>
 [root@RHEL4 ~]# tail -1 /etc/passwd
 harry:x:516:520:harry potter:/home/harry:/bin/bash
-[root@RHEL4 ~]# usermod -c 'wizard' Harry
+[root@RHEL4 ~]# usermod -c 'wizard' harry
 [root@RHEL4 ~]# tail -1 /etc/passwd
-harry:x:516:520:wizard:/home/Harry:/bin/bash
+harry:x:516:520:wizard:/home/harry:/bin/bash
 		</screen>
 	</section>
 </section>

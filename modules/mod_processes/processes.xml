@@ -270,7 +270,7 @@ sleep 2000
 [paul@RHEL4b ~]$ bash -c 'echo $$ $PPID'
 5059 4224
 [paul@RHEL4b ~]$ bash -c `echo $$ $PPID`
-5059: 4224: command not found
+5143: 4224: command not found
 		</screen>
 		<para>2. Write a script that echoes its process ID and then sleeps for an hour. Find your script with ps.</para>
 		<para>3. Read the man page of ps and find your script by name with ps.</para>
