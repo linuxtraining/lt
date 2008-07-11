@@ -1,5 +1,5 @@
 <section><title>About Keyboard Layout</title>
-	<para>May people (like Americans) prefer the default US-qwerty keyboard layout. So when you are European and want a local keyboard layout on your system, then the best practice is to select this keyboard at installation time. The the keyboard layout will always be correct. Also, whenever you use ssh to remotely manage a linux system, your local keyboard layout will be used, independent of the server keyboard configuration. So you will not find much information on changing keyboard layout on the fly on linux, because not many people need it. Below are some tips to help you.</para>
+	<para>Many people (like US-Americans) prefer the default US-qwerty keyboard layout. So when you are not from the USA and want a local keyboard layout on your system, then the best practice is to select this keyboard at installation time. Then the keyboard layout will always be correct. Also, whenever you use ssh to remotely manage a linux system, your local keyboard layout will be used, independent of the server keyboard configuration. So you will not find much information on changing keyboard layout on the fly on linux, because not many people need it. Below are some tips to help you.</para>
 </section>
 <section><title>X Keyboard Layout</title>
 	<para>This is the relevant portion in /etc/X11/xorg.conf, first for Belgian azerty, then for US-qwerty.</para>
@@ -13,7 +13,7 @@
         Option      "XkbModel" "pc105"
         Option      "XkbLayout" "us"
 </screen>
-	<para>When in Gnome or KDE or any other graphical environment, look in the graphical menu in preferences, there will be a keyboard section to choose your layout. Use the grpahical menu instead of editing xorg.conf.</para>
+	<para>When in Gnome or KDE or any other graphical environment, look in the graphical menu in preferences, there will be a keyboard section to choose your layout. Use the graphical menu instead of editing xorg.conf.</para>
 </section>
 <section><title>Shell Keyboard Layout</title>
 	<para>When in bash, take a look in the /etc/sysconfig/keyboard file. Below a sample US-qwerty configuration, followed by a Belgian azerty configuration.</para>

@@ -28,9 +28,9 @@ CONTENT todo
 
 META todo
 
-1. unify all the make commands in one big make, with a seperate config file (assinged:serge)
+1. DONE: unify all the make commands in one big make, with a seperate config file (assigned:serge)
 
-2. convince userfriendly.org t allow inclusion of one of their cartoons in distros.xml (assigned:paul)
+2. convince userfriendly.org to allow inclusion of one of their cartoons in distros.xml (assigned:paul)
 
 3.
 
