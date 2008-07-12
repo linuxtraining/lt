@@ -30,6 +30,26 @@ check() {
 	VERSIONSTRING=lt-$MAJOR.$MINOR.$REVISION
 	echo "Subversion repository:\t$SVN_PROJECTDIR"
 	echo "Current version:\t$VERSIONSTRING"
+	echo
+	}
+check_book() {
+	if [ ! -z $book ]
+		then 	# check if $book parameter is one of the available books
+			echo -n "Checking if $book.cfg exists in ./books directory ... "
+			check=0
+			for entry in $books ; do
+				if [ $entry = $book ]
+					then check=1
+				fi
+			done
+			if [ $check = 1 ]
+				then echo OK
+				else echo "$book is not available"; exit
+			fi
+		else
+			echo "No book specified, assuming default book"
+			book="default"
+		fi
 	}
 
 build_header() {
@@ -99,10 +119,7 @@ build_book() {
 
 	echo "Generating $pdffile"
 	../static/fop-0.95beta/fop -xml $xmlfile -xsl $XSLFILE -pdf $pdffile #--execdebug
-	if [ $?=0 ]
-		then echo; echo pdf generation done.
-		else echo; echo error generating pdf.
-		fi
+	ln -s $filename.pdf output/book.pdf
 	}
 
 ##############
@@ -124,28 +141,13 @@ case "$command" in
   build)
 	check
 	clean
-	if [ ! -z $book ]
-		then 	# check if $book parameter is one of the available books
-			echo -n "Checking if $book.cfg exists in ./books directory ... "
-			check=0
-			for entry in $books ; do
-				echo books = $books
-				echo entry = $entry
-				if [ $entry = $book ]
-					then check=1
-				fi
-			done
-			if [ $check = 1 ]
-				then echo OK
-				else echo "$book is not available"; exit
-			fi
-		else
-			echo "No book specified, assuming default book"
-			book="default"
-		fi
-
-	echo "Building '$book' book. Hit return to go or ctrl-c to cancel."
-	build_book $book
+	check_book
+	echo "Building '$book' book. Set DEBUG=1 to watch output."
+	if [ -z $DEBUG ]
+		then build_book $book >/dev/null 2>&1
+		else build_book $book 
+	fi
+	echo "Done generating pdf output/book.pdf -> $pdffile"
 	;;
 
   *)
