@@ -72,17 +72,37 @@ build_footer() {
 
 build_body() {
 	for chapter in $CHAPTERS; do
+		if [ ! -z $DEBUG ] ; then echo -n "Building chapter $chapter .. " ; fi
 		modfile=output/mod_$chapter.xml
 		# load the chapter specific settings
+		if [ ! -z $DEBUG ] ; then echo " .. loading settings chapt_$chapter" ; fi
 		eval chapt_$chapter
 		# Generate the end chapter tag
 		echo "<chapter><title>"$chaptitle"</title>" 	 > $modfile
 		# Generate all the sections
 		for module in $MODULES; do
+			if [ ! -z $DEBUG ] ; then echo "     adding module $module" ; fi
 			cat $module 				>> $modfile
 			done
 		# Generate the end chapter tag
 		echo "</chapter>"      				>> $modfile
+		cat $modfile					>> $bodyfile
+	done
+	for appendix in $APPENDIX; do
+		if [ ! -z $DEBUG ] ; then echo -n "Building appendix $appendix .. " ; fi
+		modfile=output/mod_$appendix.xml
+		# load the chapter specific settings
+		if [ ! -z $DEBUG ] ; then echo " .. loading settings chapt_$appendix" ; fi
+		eval chapt_$appendix
+		# Generate the end chapter tag
+		echo "<appendix><title>"$chaptitle"</title>" 	 > $modfile
+		# Generate all the sections
+		for module in $MODULES; do
+			if [ ! -z $DEBUG ] ; then echo "     adding module $module" ; fi
+			cat $module 				>> $modfile
+			done
+		# Generate the end chapter tag
+		echo "</appendix>"     				>> $modfile
 		cat $modfile					>> $bodyfile
 	done
 	}
@@ -118,7 +138,11 @@ build_book() {
 	cat $footerfile >> $xmlfile
 
 	echo "Generating $pdffile"
-	../static/fop-0.95beta/fop -xml $xmlfile -xsl $XSLFILE -pdf $pdffile #--execdebug
+	if [ -z $DEBUG ] ; then DEBUG="0"; fi
+	if 	[ $DEBUG = "2" ]; then REDIR=""
+	elif 	[ $DEBUG = "3" ]; then REDIR="--execdebug"
+	else	REDIR=">/dev/null 2>&1"; fi
+	eval $(echo ../static/fop-0.95beta/fop -xml $xmlfile -xsl $XSLFILE -pdf $pdffile $REDIR)
 	ln -s $filename.pdf output/book.pdf
 	}
 
@@ -142,11 +166,8 @@ case "$command" in
 	check
 	clean
 	check_book
-	echo "Building '$book' book. Set DEBUG=1 to watch output."
-	if [ -z $DEBUG ]
-		then build_book $book >/dev/null 2>&1
-		else build_book $book 
-	fi
+	echo "Building '$book' book. Set DEBUG=[123] to watch output."
+	build_book $book
 	echo "Done generating pdf output/book.pdf -> $pdffile"
 	;;
 

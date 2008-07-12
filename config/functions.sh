@@ -2,6 +2,8 @@
 #
 
 ### settings###
+CHAPTERS=""
+APPENDIX=""
 
 # svn project path
 SVN_PROJECTDIR="https://support.ginsys.be/svn/lt"
@@ -49,6 +51,10 @@ add_mod() {
 
 add_chapt() {
         CHAPTERS=${CHAPTERS}" "$1
+        }
+
+add_appen() {
+        APPENDIX=${APPENDIX}" "$1
         }
 
 get_revision() {
