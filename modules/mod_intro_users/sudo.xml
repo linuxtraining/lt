@@ -9,7 +9,10 @@ paul@laika:~$ sudo useradd -m inge
 [sudo] password for paul: 
 paul@laika:~$
 		</screen>
-	</section>
+		<para>Image copied from <command>xkcd.com</command><indexterm><primary>http://xkcd.com</primary></indexterm>.</para>
+        	<mediaobject><imageobject><imagedata fileref="images/sandwich.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+        </section>
+
 	<section><title>setuid on sudo</title>
 		<para>The sudo binary has the setuid bit set, so any user can run it with effective userid set as root.</para>
 		<screen>
