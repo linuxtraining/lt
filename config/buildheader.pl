@@ -4,6 +4,8 @@
 
 my $abstractfile = shift @ARGV;
 my $authorsfile = shift @ARGV;
+my $contributorsfile = shift @ARGV;
+my $reviewersfile = shift @ARGV;
 my $pubdate = shift @ARGV;
 my $year = shift @ARGV;
 my $releaseinfo = shift @ARGV;
@@ -22,6 +24,34 @@ while(<AUTH>){
 }
 close AUTH;
 
+open CONTR,"<$contributorsfile" or die "Can't open authors $contributorsfile";
+while(<CONTR>){
+	next if /^#/;
+	@CONTRIBUTOR=split /,/;
+	next unless scalar(@CONTRIBUTOR)==4;
+	push @CONTRIBUTORS,{
+		firstname=>$CONTRIBUTOR[0],
+		lastname=>$CONTRIBUTOR[1],
+		email=>$CONTRIBUTOR[2],
+		http=>$CONTRIBUTOR[3]
+	};
+}
+close CONTR;
+
+open REVW,"<$reviewersfile" or die "Can't open authors $reviewersfile";
+while(<REVW>){
+	next if /^#/;
+	@REVIEWER=split /,/;
+	next unless scalar(@REVIEWER)==4;
+	push @REVIEWERS,{
+		firstname=>$REVIEWER[0],
+		lastname=>$REVIEWER[1],
+		email=>$REVIEWER[2],
+		http=>$REVIEWER[3]
+	};
+}
+close REVW;
+
 foreach $author (@AUTHORS) {
 	print "<author>\n";
 	print "<firstname>$author->{firstname}</firstname>\n";
@@ -35,20 +65,52 @@ print "<releaseinfo>$releaseinfo</releaseinfo>\n";
 open ABSTR,"<$abstractfile" or die "Can't open abstract $abstractfile";
 while(<ABSTR>) {
 	if(/AUTHORSCONTACT/) {
+		$contacts = "<itemizedlist>\n";
 		foreach $author (@AUTHORS) {
-			print "<para>$author->{firstname} $author->{lastname}: ";
-			$contacts = join(" or ",($author->{email},$author->{http}));
-			print "$contacts</para>\n";
+			$contacts .= "<listitem>$author->{firstname} $author->{lastname}: ";
+			$contacts .= join(", ",($author->{email},$author->{http}));
+			$contacts .= "</listitem>\n";
 		}
-		next;
+		$contacts .= "</itemizedlist>\n";
+		s/AUTHORSCONTACT/$contacts/;
+		
 	}
+
 	s/YEAR/$year/;
+
 	if(/\[AUTHORS\]/) {
 		foreach $author (@AUTHORS) {
 			push @authors, "$author->{firstname} $author->{lastname}";
 		}
+		foreach $contributor (@CONTRIBUTORS) {
+			push @authors, "$contributor->{firstname} $contributor->{lastname}";
+		}
 		$authors=join(", ",@authors);
 		s/\[AUTHORS\]/$authors/;
 	}
+
+	if(/CONTRIBUTORS/) {
+		$contributors = "<itemizedlist>\n";
+		foreach $contributor (@CONTRIBUTORS) {
+			$contributors .= "<listitem>$contributor->{firstname} $contributor->{lastname}: ";
+			$contributors .= join(", ",($contributor->{email},$contributor->{http}));
+			$contributors .= "</listitem>\n";
+		}
+		$contributors .= "</itemizedlist>\n";
+		s/CONTRIBUTORS/$contributors/;
+	}		
+
+	if(/REVIEWERS/) {
+		print "<itemizedlist>\n";
+		foreach $reviewer (@REVIEWERS) {
+			push @reviewers, "$reviewer->{firstname} $reviewer->{lastname}: ";
+			print "<listitem>@reviewers";
+			$reviewers = join(", ",($reviewer->{email},$reviewer->{http}));
+			print "$reviewers</listitem>\n";
+		}
+		print "</itemizedlist>\n";
+	next;
+	}		
+
 	print;
 }

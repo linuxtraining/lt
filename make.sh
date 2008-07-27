@@ -60,6 +60,8 @@ build_header() {
 	config/buildheader.pl \
 		"modules/header/abstract.xml" \
 		"config/authors" \
+		"config/contributors" \
+		"config/reviewers" \
 		"$PUBDATE" \
 		"$YEAR" \
 		"$VERSIONSTRING"					>> $headerfile	 

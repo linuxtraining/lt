@@ -1,10 +1,19 @@
 <abstract>
-	<para>This book is meant to be used in an instructor-led training. For self-study, the idea is to read this book next to a working Linux computer so you can immediately do every subject, even every command.</para>
-	<para>This book is aimed towards novice Linux system administrators (and might be interesting and useful for home users that want to know a bit more about their Linux system). However, this book is not meant as an introduction to Linux desktop applications like text editors, browsers, mail clients, multimedia or office applications.</para>
-	<para>More information and free .pdf available at http://linux-training.be .</para>
-	<para></para>
-	<para>Feel free to contact us:</para>
-	<para>AUTHORSCONTACT</para>
-	<para></para>
-	<para>Copyright 2007-YEAR [AUTHORS]</para>
+
+<para>This book is meant to be used in an instructor-led training. For self-study, the idea is to read this book next to a working Linux computer so you can immediately do every subject, even every command.</para>
+<para>This book is aimed towards novice Linux system administrators (and might be interesting and useful for home users that want to know a bit more about their Linux system). However, this book is not meant as an introduction to Linux desktop applications like text editors, browsers, mail clients, multimedia or office applications.</para>
+<para>More information and free .pdf available at http://linux-training.be .</para>
+<para></para>
+<para>Feel free to contact us:
+AUTHORSCONTACT
+</para>
+<para></para>
+<para>Contributors to the Linux Training project are:
+CONTRIBUTORS
+</para>
+<para>Finally, We'd also like to thank our reviewers: 
+REVIEWERS
+</para>
+<para>Copyright 2007-YEAR [AUTHORS]</para>
+
 </abstract>
