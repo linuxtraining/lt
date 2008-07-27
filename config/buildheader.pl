@@ -82,9 +82,10 @@ while(<ABSTR>) {
 		foreach $author (@AUTHORS) {
 			push @authors, "$author->{firstname} $author->{lastname}";
 		}
-		foreach $contributor (@CONTRIBUTORS) {
-			push @authors, "$contributor->{firstname} $contributor->{lastname}";
-		}
+		# uncomment if you feel contributors should be mentioned as authors in the Copyright line
+		# foreach $contributor (@CONTRIBUTORS) {
+		#	push @authors, "$contributor->{firstname} $contributor->{lastname}";
+		# }
 		$authors=join(", ",@authors);
 		s/\[AUTHORS\]/$authors/;
 	}
