@@ -22,7 +22,7 @@ CONTENT todo
 
 2. integrate dash into the shell chapters
 
-3.
+3. add stuff from http://syntra.verwilst.be (we got permission) (assigned:serge)
 
 
 
