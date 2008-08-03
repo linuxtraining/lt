@@ -1,0 +1,137 @@
+<section><title>shell variables</title>
+	<section><title>$ dollar sign</title>
+		<para>Another important character interpreted by the shell is the dollar sign <command>$</command><indexterm><primary>$ (shell variables)</primary></indexterm>. The shell will look for an <command>environment variable</command><indexterm><primary>environment variable</primary></indexterm> named like the string behind the dollar sign and replace it with the value of the variable (or with nothing if the variable does not exist).</para>
+		<para>An example of the $USER variable. The example shows that shell variables are case sensitive!.</para>
+		<screen>
+[paul@RHELv4u3 gen]$ echo Hello $USER
+Hello paul
+[paul@RHELv4u3 gen]$ echo Hello $user
+Hello
+		</screen>
+		<para>Some more examples using $HOSTNAME, $USER, $UID, $SHELL and $HOME.</para>
+		<screen>
+[paul@RHELv4u3 gen]$ echo This is the $SHELL shell
+This is the /bin/bash shell
+[paul@RHELv4u3 gen]$ echo This is $SHELL on computer $HOSTNAME
+This is /bin/bash on computer RHELv4u3.localdomain
+[paul@RHELv4u3 gen]$ echo The userid of $USER is $UID
+The userid of paul is 500
+[paul@RHELv4u3 gen]$ echo My homedir is $HOME
+My homedir is /home/paul
+		</screen>
+	</section>
+	<section><title>$? dollar question mark</title>
+		<para>The exit code of the previous command is stored in the shell variable $?. Actually <command>$?</command><indexterm><primary>$? (shell variables)</primary></indexterm> is a shell parameter and not a variable, you cannot assign a value to $?.</para>
+		<screen>
+paul@laika:~/test$ touch file1 ; echo $?
+0
+paul@laika:~/test$ rm file1 ; echo $?
+0
+paul@laika:~/test$ rm file1 ; echo $?
+rm: cannot remove `file1': No such file or directory
+1
+paul@laika:~/test$
+		</screen>
+	</section>
+	<section><title>creating and setting variables</title>
+		<para>The shell will let you create your own variables. The example below first tries to display the value of the $MyVar variable, but it fails because the variable does not exist.</para>
+		<screen>
+[paul@RHELv4u3 gen]$ echo $MyVar
+				
+[paul@RHELv4u3 gen]$
+		</screen>
+		<para>The example creates the variable $MyVar and sets its value.</para>
+		<screen>
+[paul@RHELv4u3 gen]$ MyVar=555
+[paul@RHELv4u3 gen]$ echo $MyVar
+555
+[paul@RHELv4u3 gen]$ 
+		</screen>
+	</section>
+	<section><title>set</title>			
+		<para>You can use the <command>set</command><indexterm><primary>set</primary></indexterm> command to display a list of environment variables. On Ubuntu and Debian systems, the set command will end the list of shell variables with a list of shell functions, use <command>set | more</command> to see the variables then.</para>
+	</section>
+	<section><title>env</title>			
+		<para>The <command>env</command><indexterm><primary>env(1)</primary></indexterm> The env command can also be useful for other neat things, like starting a clean shell (a shell without any inherited environment). The <command>env -i</command><indexterm><primary>env(1)</primary></indexterm> command clears the environment for the subshell. Notice that bash will set the $SHELL variable on startup.</para>
+		<screen>
+[paul@RHEL4b ~]$ bash -c 'echo $SHELL $HOME $USER'
+/bin/bash /home/paul paul
+[paul@RHEL4b ~]$ env -i bash -c 'echo $SHELL $HOME $USER'
+/bin/bash
+[paul@RHEL4b ~]$
+		</screen>
+		<para>You can also use the env tool to set the LANG variable (or any other) for an instance of bash with one command. The example below uses this to show the influence of the LANG variable on file globbing.</para>
+		<screen>
+[paul@RHEL4b test]$ env LANG=C bash -c 'ls File[a-z]'
+Filea  Fileb
+[paul@RHEL4b test]$ env LANG=en_US.UTF-8 bash -c 'ls File[a-z]'
+Filea  FileA  Fileb  FileB
+[paul@RHEL4b test]$
+		</screen>
+	</section>
+	<section><title>unset</title>			
+		<para>Use the <command>unset</command><indexterm><primary>unset</primary></indexterm> command to remove a variable from your shell environment.</para>
+		<screen>
+[paul@RHEL4b ~]$ MyVar=8472
+[paul@RHEL4b ~]$ echo $MyVar;unset MyVar;echo $MyVar
+8472
+
+[paul@RHEL4b ~]$
+		</screen>
+	</section>
+	<section><title>exporting variables</title>
+		<para>You can export shell variables to other shells with the <command>export</command><indexterm><primary>export</primary></indexterm> command. This will export the variable to child shells. </para>
+		<screen>
+[paul@RHEL4b ~]$ var3=three
+[paul@RHEL4b ~]$ var4=four
+[paul@RHEL4b ~]$ export var4
+[paul@RHEL4b ~]$ echo $var3 $var4
+three four
+[paul@RHEL4b ~]$ bash
+[paul@RHEL4b ~]$ echo $var3 $var4
+four
+		</screen>
+		<para>But it will not export to the parent shell (previous screenshot continued).</para>
+		<screen>
+[paul@RHEL4b ~]$ export var5=five
+[paul@RHEL4b ~]$ echo $var3 $var4 $var5
+four five
+[paul@RHEL4b ~]$ exit
+exit
+[paul@RHEL4b ~]$ echo $var3 $var4 $var5
+three four
+[paul@RHEL4b ~]$
+		</screen>
+	</section>
+	<section><title>delineate variables</title>
+		<para>Until now, we have seen that bash interpretes a variable starting from a dollar sign, until the first occurence of a non-alphanumerical character that is not an underscore. In some situations, this can be a problem. This issue can be resolved with curly braces like in this example.</para>
+		<screen>
+[paul@RHEL4b ~]$ prefix=Super
+[paul@RHEL4b ~]$ echo Hello $prefixman and $prefixgirl
+Hello  and
+[paul@RHEL4b ~]$ echo Hello ${prefix}man and ${prefix}girl
+Hello Superman and Supergirl
+[paul@RHEL4b ~]$
+		</screen>
+	</section>
+	<section><title>quotes and variables</title>
+		<para>Notice that double quotes still allow the parsing of variables, whereas single quotes prevent this.</para>
+		<screen>
+[paul@RHELv4u3 ~]$ MyVar=555
+[paul@RHELv4u3 ~]$ echo $MyVar
+555
+[paul@RHELv4u3 ~]$ echo "$MyVar"
+555
+[paul@RHELv4u3 ~]$ echo '$MyVar'
+$MyVar
+		</screen>
+		<para>The bash shell will replace variables with their value in double quoted lines, but not in single quoted lines.</para>
+		<screen>
+paul@laika:~$ city=Burtonville
+paul@laika:~$ echo "We are in $city today."
+We are in Burtonville today.
+paul@laika:~$ echo 'We are in $city today.'
+We are in $city today.
+		</screen>
+	</section>
+</section>

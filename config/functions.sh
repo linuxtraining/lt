@@ -18,7 +18,7 @@ XSLFILE="lib/lt.xsl"
 # leave REVISION empty to automagically retrieve it 
 # from local svn working copy or from trunk
 MAJOR=0
-MINOR=964
+MINOR=970
 REVISION=
 
 DATECODE=$(date +%y%m%d | sed s/^0//)

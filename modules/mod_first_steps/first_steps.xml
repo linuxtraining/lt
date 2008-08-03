@@ -386,7 +386,7 @@ FileA
 			</screen>
 			<para>You can also use cp to copy multiple file into a directory. In that case, the last argument (aka the target) must be a directory.</para>
 			<screen>cp file1 file2 dir1/file3 dir1/file55 dir2</screen>
-			<para>To prevent cp from overwriting existing files, use the -i (for interacgtive) option.</para>
+			<para>To prevent cp from overwriting existing files, use the -i (for interactive) option.</para>
 			<screen>
 paul@laika:~/test$ cp fire water
 paul@laika:~/test$ cp -i fire water
@@ -420,7 +420,7 @@ paul@laika:~/test$ ls
 123.png  abc.png
 paul@laika:~/test$ 
 			</screen>
-			<para>On Red Hat Enterprise Linux (and many other Linux distro's like Ubuntu 8.04), the syntax of rename is a bit different. The first example below renames all *.conf files, replace any occurrence of conf with bak. The second example renames all(*) files, replacing one with ONE.</para>
+			<para>On Red Hat Enterprise Linux (and many other Linux distro's like Ubuntu 8.04), the syntax of rename is a bit different. The first example below renames all *.conf files, replacing any occurrence of conf with bak. The second example renames all(*) files, replacing one with ONE.</para>
 			<screen>
 [paul@RHEL4a test]$ ls
 one.conf  two.conf
@@ -448,7 +448,8 @@ ONE.bak  two.bak
 			<para>9. Create a directory called &#126;/testbackup and copy all files from &#126;/touched in it.</para>
 			<para>10. Use one command to remove the directory &#126;/testbackup and all files in it.</para>
 			<para>11. Create a directory &#126;/etcbackup and copy all *.conf files from /etc in it. Did you include all subdirectories of /etc ?</para>
-			<para>12. Use rename to rename all *.BAK files to *.BACKUP. (if you have a debian and red hat derived distro available, try it on both!)</para>
+			<para>12. Use rename to rename all *.bak files to *.backup . (if you have more than one distro available, try it on all!)</para>
+			<para></para>
 			<para></para>
 			<para></para>
 		</section>
@@ -482,9 +483,10 @@ ONE.bak  two.bak
 			<para>rm -rf &#126;/testbackup </para>
 			<para>11. Create a directory &#126;/etcbackup and copy all *.conf files from /etc in it. Did you include all subdirectories of /etc ?</para>
 			<para>cp -r /etc/*.conf &#126;/etcbackup</para>
-			<para>12. Use rename to rename all *.BAK files to *.BACKUP. (if you have a debian and red hat derived distro available, try it on both!)</para>
-			<para>On RHEL: touch 1.bak 2.bak ; rename BAK BACKUP *.bak</para>
-			<para>On Debian: touch 1.bak 2.bak ; rename 's/BAK/BACKUP/' *.bak</para>
+			<para>12. Use rename to rename all *.bak files to *.backup . (if you have more than one distro available, try it on all!)</para>
+			<para>On RHEL: touch 1.bak 2.bak ; rename bak backup *.bak</para>
+			<para>On Debian: touch 1.bak 2.bak ; rename 's/bak/backup/' *.bak</para>
+			<para></para>
 			<para></para>
 			<para></para>
 		</section>
@@ -506,7 +508,7 @@ mail:x:8:8:mail:/var/mail:/bin/sh
 news:x:9:9:news:/var/spool/news:/bin/sh
 paul@laika:~$ 
 			</screen>
-			<para>The head command has some options for displaying the first n lines of a file.</para>
+			<para>The head command can also display the first n lines of a file.</para>
 			<screen>
 paul@laika:~$ head -4 /etc/passwd
 root:x:0:0:root:/root:/bin/bash
@@ -536,7 +538,7 @@ fido            60179/tcp             # fidonet EMSI over TCP
 # Local services
 paul@laika:~$
 			</screen>
-			<para>The tail command has many options, we will use some of them during this course.</para>
+			<para>The tail command has other useful options, we will use some of them during this course.</para>
 		</section>
 		<section><title>cat</title>
 			<para>The <command>cat</command><indexterm><primary>cat(1)</primary></indexterm> command is one of the most universal tools. All it does is copying standard input to standard output, but in combination with the shell, this can be very powerful and diverse. Some examples will give a glimpse of the possibilities. The first example is simple, you can use cat to display a file on the screen. If the file is longer than the screen, it will scroll by until the end.</para>
@@ -609,7 +611,7 @@ libacl.so.1
 			</screen>
 		</section>
 		<section><title>split</title>
-			<para>The <command>split</command><indexterm><primary>split(1)</primary></indexterm> command is useful to split files into smaller file. This can be useful to fit the file onto multiple instances of a medium too small to contain the complete file. In the example below, a file of size 5000 bytes is split into three smaller files, with maximum 2000 bytes each.</para>
+			<para>The <command>split</command><indexterm><primary>split(1)</primary></indexterm> command is useful to split files into smaller files. This can be useful to fit the file onto multiple instances of a medium too small to contain the complete file. In the example below, a file of size 5000 bytes is split into three smaller files, with maximum 2000 bytes each.</para>
 			<screen>
 paul@laika:~/test$ ls -l
 total 8
@@ -621,24 +623,6 @@ total 20
 -rw-r--r-- 1 paul paul 2000 2007-09-09 20:47 splitfile.aa
 -rw-r--r-- 1 paul paul 2000 2007-09-09 20:47 splitfile.ab
 -rw-r--r-- 1 paul paul 1000 2007-09-09 20:47 splitfile.ac
-			</screen>
-			<para>In a similar example below the file is split into max 800 bytes parts.</para>
-			<screen>
-paul@laika:~/test$ split -b 800 bigfile1 size800.
-paul@laika:~/test$ ls -l
-total 48
--rw-r--r-- 1 paul paul 5000 2007-09-09 20:46 bigfile1
--rw-r--r-- 1 paul paul  800 2007-09-09 20:48 size800.aa
--rw-r--r-- 1 paul paul  800 2007-09-09 20:48 size800.ab
--rw-r--r-- 1 paul paul  800 2007-09-09 20:48 size800.ac
--rw-r--r-- 1 paul paul  800 2007-09-09 20:48 size800.ad
--rw-r--r-- 1 paul paul  800 2007-09-09 20:48 size800.ae
--rw-r--r-- 1 paul paul  800 2007-09-09 20:48 size800.af
--rw-r--r-- 1 paul paul  200 2007-09-09 20:48 size800.ag
--rw-r--r-- 1 paul paul 2000 2007-09-09 20:47 splitfile.aa
--rw-r--r-- 1 paul paul 2000 2007-09-09 20:47 splitfile.ab
--rw-r--r-- 1 paul paul 1000 2007-09-09 20:47 splitfile.ac
-paul@laika:~/test$ 
 			</screen>
 		</section>
 		<section><title>Practice: File contents</title>
