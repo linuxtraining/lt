@@ -139,6 +139,7 @@ chapt_intro_users() {
 	add_mod mod_intro_users/su.xml   
 	add_mod mod_intro_users/sudo.xml   
 	add_mod mod_intro_users/practice_users.xml
+	add_mod mod_intro_users/solution.xml
 	}
 
 #
