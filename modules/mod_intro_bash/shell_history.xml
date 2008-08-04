@@ -44,6 +44,7 @@ ls file5
 file5
 		</screen>
 		<para>The history command can also receive the count of history lines required.</para>
+		<screen>
 [paul@RHEL4b ~]$ history 4
   422  ls file4
   423  ls file4
@@ -51,8 +52,9 @@ file5
   425  history 4
 [paul@RHEL4b ~]$ 
 		</screen>
+	</section>
 	<section><title>repeating commands in ksh</title>
-		<para>Repeating a command in the Korn shell is very similer. The Korn shell also knows the <command>history</command> command, but uses the letter <command>r</command> to recall lines from history.</para>
+		<para>Repeating a command in the Korn shell is very similar. The Korn shell also knows the <command>history</command> command, but uses the letter <command>r</command> to recall lines from history.</para>
 		<para>This screenshot shows the history command. Note the different meaning of the parameter.</para>
 		<screen>
 $ history 17
