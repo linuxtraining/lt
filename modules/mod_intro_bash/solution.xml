@@ -113,7 +113,7 @@ Last
 		<para>date +%Y/%m/%d</para>
 		<para>49. Issue the cal command. Display a calendar of 1582 and 1752. Notice anything special ?</para>
 		<para>cal 1582</para>
-		<para>The calendars are different depending on the country. Check http://linux-training.be/dates.txt</para>
+		<para>The calendars are different depending on the country. Check http://linux-training.be/studentfiles/dates.txt</para>
 		<para></para>	
 		<para></para>	
 	</section>

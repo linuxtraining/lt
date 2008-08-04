@@ -8,7 +8,7 @@
 	<section><title>Replace and delete a character (r x)</title>
 		<para>When in command mode (it doensn't hurt to hit the escape key more than once) you can use the x key to delete the current character. Big X key (or shift x) will delete the character left of the cursor. Also when in command mode, you can use the r key to replace one single character. The r key will bring you in insert mode for just one key press, and will return you immediately to command mode.</para>
 	</section>
-	<section><title>Undo and repeat(u .)</title>
+	<section><title>Undo and repeat (u .)</title>
 		<para>When in command mode, you can undo your mistakes with u. You can do your mistakes twice with . (in other words the . will repeat your last command).</para>
 	</section>
 	<section><title>Cut, copy and paste a line (dd yy p P)</title>
