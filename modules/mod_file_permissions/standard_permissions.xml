@@ -1,5 +1,6 @@
-	<section><title>Reading permissions</title>
-		<para>The <command>users</command><indexterm><primary>users</primary></indexterm> and <command>groups</command><indexterm><primary>groups</primary></indexterm> of a system can be locally managed in <command>/etc/passwd</command><indexterm><primary>/etc/passwd</primary></indexterm> and <command>/etc/group</command><indexterm><primary>/etc/group</primary></indexterm>, or they can be in a NIS, LDAP or Samba domain. These users and groups can <command>own</command> files. Actually, every file has a <command>user owner</command><indexterm><primary>file ownership</primary></indexterm> and a <command>group owner</command>, as can be seen in the following screenshot.</para>
+<section><title>file ownership</title>
+	<section><title>user owner and group owner</title>
+		<para>The <command>users</command> and <command>groups</command> of a system can be locally managed in <command>/etc/passwd</command><indexterm><primary>/etc/passwd</primary></indexterm> and <command>/etc/group</command><indexterm><primary>/etc/group</primary></indexterm>, or they can be in a NIS, LDAP or Samba domain. These users and groups can <command>own</command> files. Actually, every file has a <command>user owner</command><indexterm><primary>file ownership</primary></indexterm> and a <command>group owner</command>, as can be seen in the following screenshot.</para>
 		<screen>
 paul@RHELv4u4:~/test$ ls -l
 total 24
@@ -9,23 +10,136 @@ total 24
 -rw-r--r--  1 root root   0 Feb  7 16:07 stuff.txt
 paul@RHELv4u4:~/test$ 
 		</screen>
-		<para>User paul owns three files, two of those are also owned by the group paul, data.odt is owned by the group proj. The root user owns the file stuff.txt, as does the group root. Before the user and group owner, you can see ten characters. The first character tells us the type of file. Regular files get a <command>-</command>, directories get a <command>d</command>, symbolic links are shown with an <command>l</command>, pipes get a <command>p</command>, character devices a <command>c</command>, block devices a <command>b</command> and sockets an <command>s</command>. After that, you get the permissions in three triplets, containing <command>r</command> for read access, <command>w</command> for write access and <command>x</command> for execute permissions. You need the r permission to list (ls) the contents of a directory and x permission to enter (cd) a directory, and you need the w permission to create files in or remove files from a directory. Some examples below.</para>
+		<para>User paul owns three files, two of those are also owned by the group paul, data.odt is owned by the group proj. The root user owns the file stuff.txt, as does the group root.</para>
+	</section>
+	<section><title>chgrp</title>
+		<para>You can change the group owner of a file using the <command>chgrp</command><indexterm><primary>chgrp(1)</primary></indexterm> command.</para>
 		<screen>
-paul@laika:~/perms$ ll
+root@laika:/home/paul# touch FileForPaul
+root@laika:/home/paul# ls -l FileForPaul 
+-rw-r--r-- 1 root root 0 2008-08-06 14:11 FileForPaul
+root@laika:/home/paul# chgrp paul FileForPaul 
+root@laika:/home/paul# ls -l FileForPaul 
+-rw-r--r-- 1 root paul 0 2008-08-06 14:11 FileForPaul
+		</screen>
+	</section>
+	<section><title>chown</title>
+		<para>The user owner of a file can be changed with chown<command>chown</command><indexterm><primary>chown(1)</primary></indexterm> command.</para>
+		<screen>
+root@laika:/home/paul# ls -l FileForPaul 
+-rw-r--r-- 1 root paul 0 2008-08-06 14:11 FileForPaul
+root@laika:/home/paul# chown paul FileForPaul 
+root@laika:/home/paul# ls -l FileForPaul 
+-rw-r--r-- 1 paul paul 0 2008-08-06 14:11 FileForPaul
+		</screen>
+		<para>You can also use chown to change both the user owner and the group owner.</para>
+		<screen>
+root@laika:/home/paul# ls -l FileForPaul 
+-rw-r--r-- 1 paul paul 0 2008-08-06 14:11 FileForPaul
+root@laika:/home/paul# chown root:project42 FileForPaul 
+root@laika:/home/paul# ls -l FileForPaul 
+-rw-r--r-- 1 root project42 0 2008-08-06 14:11 FileForPaul
+		</screen>
+	</section>
+</section>
+<section><title>special files</title>
+	<para>Before the user and group owner, you can see ten characters. The first character tells us the type of file. Regular files get a <command>-</command>, directories get a <command>d</command>, symbolic links are shown with an <command>l</command>, pipes get a <command>p</command>, character devices a <command>c</command>, block devices a <command>b</command> and sockets an <command>s</command>.</para>
+	
+
+<table frame='all'><title>Unix special files</title>
+<?dbfo table-width="50%" ?>
+<tgroup cols='2' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="2*" align="center"/>
+<colspec colname='c2' colwidth="4*" align="center"/>
+<thead>
+<row>
+  <entry>first character</entry>
+  <entry>file type</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>-</entry>
+  <entry>normal file</entry>
+</row>
+<row>
+  <entry>d</entry>
+  <entry>directory</entry>
+</row>
+<row>
+  <entry>l</entry>
+  <entry>symbolic link</entry>
+</row>
+<row>
+  <entry>p</entry>
+  <entry>named pipe</entry>
+</row>
+<row>
+  <entry>b</entry>
+  <entry>block device</entry>
+</row>
+<row>
+  <entry>c</entry>
+  <entry>character device</entry>
+</row>
+<row>
+  <entry>s</entry>
+  <entry>socket</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</section>
+<section><title>permissions</title>
+	<para>The nine characters following the file type denote the permissions in three triplets. A permission can be <command>r</command> for read access, <command>w</command> for write access and <command>x</command> for execute. You need the r permission to list (ls) the contents of a directory and x permission to enter (cd) a directory, and you need the w permission to create files in or remove files from a directory.</para>
+<table frame='all'><title>standard Unix file permissions</title>
+<?dbfo table-width="90%" ?>
+<tgroup cols='3' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="1*" align="center"/>
+<colspec colname='c2' colwidth="2*" align="center"/>
+<colspec colname='c3' colwidth="2*" align="center"/>
+<thead>
+<row>
+  <entry>permission</entry>
+  <entry>on a file</entry>
+  <entry>on a directory</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>r (read)</entry>
+  <entry>read file contents (cat)</entry>
+  <entry>read directory contents (ls)</entry>
+</row>
+<row>
+  <entry>w (write)</entry>
+  <entry>change file contents (vi)</entry>
+  <entry>create files in (touch)</entry>
+</row>
+<row>
+  <entry>x (execute)</entry>
+  <entry>execute the file</entry>
+  <entry>enter the directory (cd)</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+	<para>Some example combinations on files and directories in this screenshot. The name of the file explains the permissions.</para>
+	<screen>
+paul@laika:~/perms$ ls -lh
 total 12K
 drwxr-xr-x 2 paul paul 4.0K 2007-02-07 22:26 AllEnter_UserCreateDelete
--rw-r--r-- 1 paul paul    0 2007-02-07 22:22 DefaultPermissions.txt
 -rwxrwxrwx 1 paul paul    0 2007-02-07 22:21 EveryoneFullControl.txt
--r--r----- 1 paul paul    0 2007-02-07 22:21 OnlyOwnerRead.txt
--rwxrwx--- 1 paul paul    0 2007-02-07 22:21 OwnerAll_Restnothing.txt
-drwxrwx--- 2 paul paul 4.0K 2007-02-07 22:25 UserAndGroupEnter
-drwx------ 2 paul paul 4.0K 2007-02-07 22:25 UserEnterOnly
+-r--r----- 1 paul paul    0 2007-02-07 22:21 OnlyOwnersRead.txt
+-rwxrwx--- 1 paul paul    0 2007-02-07 22:21 OwnersAll_RestNothing.txt
+dr-xr-x--- 2 paul paul 4.0K 2007-02-07 22:25 UserAndGroupEnter
+dr-x------ 2 paul paul 4.0K 2007-02-07 22:25 OmlyUserEnter
 paul@laika:~/perms$ 
-		</screen>
-		<para>It is important to know that the first triplet represents the <command>user owner</command>, the second is the <command>group owner</command>, and the third triplet is all the <command>other</command> users that are not the user owner and are not a member of the group owner.</para>
-	</section>
-	<section><title>Setting permissions</title>
-		<para>Permissions can be changed with <command>chmod</command><indexterm><primary>chmod(1)</primary></indexterm>, owners can be changed with <command>chown</command><indexterm><primary>chown(1)</primary></indexterm> and <command>chgrp</command><indexterm><primary>chgrp(1)</primary></indexterm>. The first example gives the user owner execute permissions.</para>
+	</screen>
+	<para>It is important to know that the first triplet represents the <command>user owner</command>, the second is the <command>group owner</command>, and the third triplet is all the <command>other</command> users that are not the user owner and are not a member of the group owner.</para>
+</section>
+<section><title>setting permissions</title>
+	<para>Permissions can be changed with <command>chmod</command><indexterm><primary>chmod(1)</primary></indexterm>. The first example gives the user owner execute permissions.</para>
 		<screen>
 paul@laika:~/perms$ ls -l permissions.txt 
 -rw-r--r-- 1 paul paul 0 2007-02-07 22:34 permissions.txt
@@ -77,7 +191,62 @@ paul@laika:~/perms$ ls -l permissions.txt
 		</screen>
 	</section>
 	<section><title>Setting octal permissions</title>
-		<para>Most Unix administrators will use the <command>old school</command> octal system to talk about and set permissions. Look at the triplet bitwise, equaling r to 4, w to 2 and x to 1. This makes <command>777</command><indexterm><primary>777</primary></indexterm> equal to rwxrwxrwx and by the same logic has 654 mean rw-r-xr-- . The <command>chmod</command> command will accept these numbers.</para>
+		<para>Most Unix administrators will use the <command>old school</command> octal system to talk about and set permissions. Look at the triplet bitwise, equaling r to 4, w to 2 and x to 1.</para>
+<table frame='all'><title>Octal permissions</title>
+<?dbfo table-width="50%" ?>
+<tgroup cols='3' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="1*" align="center"/>
+<colspec colname='c2' colwidth="1*" align="center"/>
+<colspec colname='c3' colwidth="1*" align="center"/>
+<thead>
+<row>
+  <entry>binary</entry>
+  <entry>octal</entry>
+  <entry>permission</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>001</entry>
+  <entry>1</entry>
+  <entry>--x</entry>
+</row>
+<row>
+  <entry>010</entry>
+  <entry>2</entry>
+  <entry>-w-</entry>
+</row>
+<row>
+  <entry>011</entry>
+  <entry>3</entry>
+  <entry>-wx</entry>
+</row>
+<row>
+  <entry>100</entry>
+  <entry>4</entry>
+  <entry>r--</entry>
+</row>
+<row>
+  <entry>101</entry>
+  <entry>5</entry>
+  <entry>r-x</entry>
+</row>
+<row>
+  <entry>110</entry>
+  <entry>6</entry>
+  <entry>rw-</entry>
+</row>
+<row>
+  <entry>111</entry>
+  <entry>7</entry>
+  <entry>rwx</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+
+		<para>This makes <command>777</command><indexterm><primary>777</primary></indexterm> equal to rwxrwxrwx and by the same logic has 654 mean rw-r-xr-- . The <command>chmod</command> command will accept these numbers.</para>
 		<screen>
 paul@laika:~/perms$ chmod 777 permissions.txt 
 paul@laika:~/perms$ ls -l permissions.txt 
