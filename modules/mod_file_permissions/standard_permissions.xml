@@ -24,7 +24,7 @@ root@laika:/home/paul# ls -l FileForPaul
 		</screen>
 	</section>
 	<section><title>chown</title>
-		<para>The user owner of a file can be changed with chown<command>chown</command><indexterm><primary>chown(1)</primary></indexterm> command.</para>
+		<para>The user owner of a file can be changed with <command>chown</command><indexterm><primary>chown(1)</primary></indexterm> command.</para>
 		<screen>
 root@laika:/home/paul# ls -l FileForPaul 
 -rw-r--r-- 1 root paul 0 2008-08-06 14:11 FileForPaul
@@ -43,7 +43,7 @@ root@laika:/home/paul# ls -l FileForPaul
 	</section>
 </section>
 <section><title>special files</title>
-	<para>Before the user and group owner, you can see ten characters. The first character tells us the type of file. Regular files get a <command>-</command>, directories get a <command>d</command>, symbolic links are shown with an <command>l</command>, pipes get a <command>p</command>, character devices a <command>c</command>, block devices a <command>b</command> and sockets an <command>s</command>.</para>
+	<para>When you use <command>ls -l</command>, then you can see, for each file, ten characters before the user and group owner. The first character tells us the type of file. Regular files get a <command>-</command>, directories get a <command>d</command>, symbolic links are shown with an <command>l</command>, pipes get a <command>p</command>, character devices a <command>c</command>, block devices a <command>b</command> and sockets an <command>s</command>.</para>
 	
 
 <table frame='all'><title>Unix special files</title>
@@ -206,6 +206,11 @@ paul@laika:~/perms$ ls -l permissions.txt
 </row>
 </thead>
 <tbody>
+<row>
+  <entry>000</entry>
+  <entry>0</entry>
+  <entry>---</entry>
+</row>
 <row>
   <entry>001</entry>
   <entry>1</entry>

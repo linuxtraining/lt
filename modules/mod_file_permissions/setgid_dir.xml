@@ -1,0 +1,23 @@
+<section><title>SetGID bit on directory</title>
+	<para>The <command>SetGID</command><indexterm><primary>SetGID</primary></indexterm> can be used on directories to make sure that all files inside the directory are group owned by the group owner of the directory. The SetGID bit is displayed at the same location as the x permission for group owner. The SetGID bit is represented by an <command>s</command> (meaning x is also there) or a <command>S</command> (when there is no x for the group owner). Like this example shows, even though root does not belong to the group proj55, the files created by root in /project55 will belong to proj55 when the SetGID is set.</para>
+	<screen>
+root@RHELv4u4:~# groupadd proj55
+root@RHELv4u4:~# chown root:proj55 /project55/
+root@RHELv4u4:~# chmod 3775 /project55/
+root@RHELv4u4:~# touch /project55/fromroot.txt
+root@RHELv4u4:~# ls -ld /project55/
+drwxrwsr-t  2 root proj55 4096 Feb  7 17:45 /project55/
+root@RHELv4u4:~# ls -l /project55/
+total 4
+-rw-r--r--  1 root proj55 0 Feb  7 17:45 fromroot.txt
+root@RHELv4u4:~# 
+	</screen>
+	<para>You can use the <command>find</command><indexterm><primary>find(1)</primary></indexterm> command to find all <command>setgid</command><indexterm><primary>setgid</primary></indexterm> programs.</para>
+	<screen>
+paul@laika:~$ find / -type d -perm -02000 2> /dev/null
+/var/log/mysql
+/var/log/news
+/var/local
+...
+	</screen>
+</section>

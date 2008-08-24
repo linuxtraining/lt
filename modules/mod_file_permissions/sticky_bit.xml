@@ -1,4 +1,4 @@
-<section><title>The sticky bit</title>
+<section><title>Sticky bit on directory</title>
 	<para>You can set the <command>sticky bit</command><indexterm><primary>sticky bit</primary></indexterm> on a directory to prevent users from removing files that they do not own as a user owner. The sticky bit is displayed at the same location as the x permission for others. The sticky bit is represented by a <command>t</command> (meaning x is also there) or a <command>T</command> (when there is no x for others).</para>
 	<screen>
 root@RHELv4u4:~# mkdir /project55
