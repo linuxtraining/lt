@@ -57,6 +57,7 @@ chapt_file_permissions() {
 	add_mod mod_file_permissions/sticky_bit.xml          
 	add_mod mod_file_permissions/setgid_dir.xml       
 	add_mod mod_file_permissions/practice_sst.xml        
+	add_mod mod_file_permissions/solution_sst.xml        
 	}
 
 #

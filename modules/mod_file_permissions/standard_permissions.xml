@@ -138,7 +138,7 @@ paul@laika:~/perms$
 	</screen>
 	<para>It is important to know that the first triplet represents the <command>user owner</command>, the second is the <command>group owner</command>, and the third triplet is all the <command>other</command> users that are not the user owner and are not a member of the group owner.</para>
 </section>
-<section><title>setting permissions</title>
+<section><title>setting permissions (chmod)</title>
 	<para>Permissions can be changed with <command>chmod</command><indexterm><primary>chmod(1)</primary></indexterm>. The first example gives the user owner execute permissions.</para>
 		<screen>
 paul@laika:~/perms$ ls -l permissions.txt 
@@ -190,7 +190,7 @@ paul@laika:~/perms$ ls -l permissions.txt
 -rwxrw-r-- 1 paul paul 0 2007-02-07 22:34 permissions.txt
 		</screen>
 	</section>
-	<section><title>Setting octal permissions</title>
+	<section><title>setting octal permissions</title>
 		<para>Most Unix administrators will use the <command>old school</command> octal system to talk about and set permissions. Look at the triplet bitwise, equaling r to 4, w to 2 and x to 1.</para>
 <table frame='all'><title>Octal permissions</title>
 <?dbfo table-width="50%" ?>
