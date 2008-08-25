@@ -393,6 +393,24 @@ paul@laika:~/test$ cp -i fire water
 cp: overwrite `water'? no
 paul@laika:~/test$
 			</screen>
+			<para>To preserve permissions and file stamps from source files, use <command>cp -p</command>.</para>
+			<screen>
+paul@laika:~/perms$ cp file* cp
+paul@laika:~/perms$ cp -p file* cpp
+paul@laika:~/perms$ ll *
+-rwx------ 1 paul paul    0 2008-08-25 13:26 file33
+-rwxr-x--- 1 paul paul    0 2008-08-25 13:26 file42
+
+cp:
+total 0
+-rwx------ 1 paul paul 0 2008-08-25 13:34 file33
+-rwxr-x--- 1 paul paul 0 2008-08-25 13:34 file42
+
+cpp:
+total 0
+-rwx------ 1 paul paul 0 2008-08-25 13:26 file33
+-rwxr-x--- 1 paul paul 0 2008-08-25 13:26 file42
+			</screen>
 		</section>
 		<section><title>mv</title>
 			<para>Use <command>mv</command><indexterm><primary>mv(1)</primary></indexterm> to rename a file, or to move the file to another directory.</para>
