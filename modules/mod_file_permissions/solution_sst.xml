@@ -1,0 +1,16 @@
+<section><title>Solution: sticky and setGID on directory</title>
+	<para>1. Set up a directory, owned by the group sports.</para>
+	<para>groupadd sports ; mkdir /home/sports ; chown root:sports /home/sports</para>
+	<para>2. Members of the sports group should be able to create files in this directory.</para>
+	<para>chmod 770 /home/sports</para>
+	<para>3. All files created in this directory should be group-owned by the sports group.</para>
+	<para>chmod 2770 /home/sports</para>
+	<para>4. Users should be able to delete only their own user-owned files.</para>
+	<para>chmod +t /home/sports</para>
+	<para>5. Test that this works!</para>
+	<para></para>
+	<para>6. If time permits (or if you are waiting for other students to finish this practice), read about file attributes in the man page of chattr and lsattr. Try setting the i attribute on a file and test that it works.</para>
+	<para></para>
+	<para></para>
+	<para></para>	
+</section>
