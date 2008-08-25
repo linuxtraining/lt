@@ -129,7 +129,7 @@ PID  USER PR NI VIRT RES SHR S %CPU %MEM  TIME+   COMMAND
 		</screen>
 		<para>Be careful when playing with negative nice values (the range is from -20 to 19), the responsiveness of your system can be affected. Luckily only root can issue negative nice values, in other words, you can only lower the priority of your running processes.</para>
 	</section>
-	<section><title>signals</title>
+	<section><title>signals (kill)</title>
 		<para>Running processes can receive signals from each other, or from the users. You can have a list of signals by typing <command>kill -l</command><indexterm><primary>kill(1)</primary></indexterm>, that is a letter l, not the number 1.</para>
 		<screen>
 [paul@RHEL4a ~]$ kill -l
