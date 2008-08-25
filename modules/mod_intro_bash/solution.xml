@@ -1,4 +1,4 @@
-	<section><title>Solutions to the Practice</title>
+	<section><title>Solutions: discover the shell</title>
 		<para>0. All these questions can be answered by one command line!!</para>
 		<para>1. When you type 'passwd', which file is executed ?</para>
 		<para>which passwd</para>

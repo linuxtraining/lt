@@ -219,4 +219,24 @@ alias rm='rm -i'
 /bin/rm
 [paul@RHEL4b ~]$</screen>
 	</section>
+        <section><title>Displaying shell expansion</title>
+                <para>You can display the shell expansion with <command>set -x</command><indexterm><primary>set -x</primary></indexterm>, and stop displaying it with <command>set +x</command><indexterm><primary>set +x</primary></indexterm>. You might want to use this further on in this course, or when in doubt about what exactly the shell is doing with your command.</para>
+                <screen>
+[paul@RHELv4u3 ~]$ set -x
+++ echo -ne '\033]0;paul@RHELv4u3:~\007'
+[paul@RHELv4u3 ~]$ echo $USER
++ echo paul
+paul
+++ echo -ne '\033]0;paul@RHELv4u3:~\007'
+[paul@RHELv4u3 ~]$ echo \$USER
++ echo '$USER'
+$USER
+++ echo -ne '\033]0;paul@RHELv4u3:~\007'
+[paul@RHELv4u3 ~]$ set +x
++ set +x
+[paul@RHELv4u3 ~]$ echo \$USER
+$USER
+[paul@RHELv4u3 ~]$
+                </screen>
+        </section>
 </section>
