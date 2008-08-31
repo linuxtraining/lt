@@ -22,7 +22,10 @@ CONTENT todo
 
 2. integrate dash into the shell chapters
 
-3. add stuff from http://syntra.verwilst.be (we got permission) (assigned:serge)
+3. extra Bash stuff
+   - Array's (http://www.cyberciti.biz/faq/finding-bash-shell-array-length-elements/)
+
+4. add stuff from http://syntra.verwilst.be (we got permission) (assigned:serge)
 
 
 

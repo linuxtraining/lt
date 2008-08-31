@@ -102,16 +102,16 @@ while(<ABSTR>) {
 	}		
 
 	if(/REVIEWERS/) {
-		print "<itemizedlist>\n";
+		$reviewers = "<itemizedlist>\n";
 		foreach $reviewer (@REVIEWERS) {
-			push @reviewers, "$reviewer->{firstname} $reviewer->{lastname}: ";
-			print "<listitem>@reviewers";
-			$reviewers = join(", ",($reviewer->{email},$reviewer->{http}));
-			print "$reviewers</listitem>\n";
+			$reviewers .= "<listitem>$reviewer->{firstname} $reviewer->{lastname}: ";
+			$reviewers .= join(", ",($reviewer->{email},$reviewer->{http}));
+			$reviewers .= "</listitem>\n";
 		}
-		print "</itemizedlist>\n";
-	next;
-	}		
+		$reviewers .= "</itemizedlist>\n";
+		s/REVIEWERS/$reviewers/;
+	}
 
 	print;
+	
 }
