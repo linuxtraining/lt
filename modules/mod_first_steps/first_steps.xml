@@ -272,7 +272,7 @@ paul@laika:/bin$
 			<para>16. Create in one command the directories &#126;/dir1/dir2/dir3 (dir3 is a subdirectory from dir2, and dir2 is a subdirectory from dir1 ).</para>
 			<para>mkdir -p &#126;/dir1/dir2/dir3</para>	
 			<para>17. Remove the directory testdir.</para>
-			<para>rm testdir</para>	
+			<para>rmdir testdir</para>	
 			<para>18. If time permits (or if you are waiting for other students to finish this practice), use and understand pushd and popd. Use the man page of bash to find information about pushd, popd and dirs.</para>
 			<para>man bash</para>	
 			<para></para>
