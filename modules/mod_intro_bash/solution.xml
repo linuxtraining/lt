@@ -35,9 +35,9 @@
 		<para>16. List (with ls) all files starting with file and ending with a letter</para>
 		<para>ls file*[a-z]</para>
 		<para>17. List (with ls) all files starting with File and having a digit as fifth character.</para>
-		<para>ls file[0-9]*</para>
+		<para>ls File[0-9]*</para>
 		<para>18. List (with ls) all files starting with File and having a digit as fifth character and nothing else.</para>
-		<para>ls file[0-9]</para>
+		<para>ls File[0-9]</para>
 		<para>19. List (with ls) all files starting with a letter and ending in a number.</para>
 		<para>ls [a-z]*[0-9]</para>
 		<para>20. List (with ls) all files that have exactly five characters.</para>
