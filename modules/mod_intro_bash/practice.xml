@@ -12,8 +12,8 @@
 		<para>10. Use one echo command to display three words on three lines.</para>
 		<para>11. Create a testdir and enter it.</para>
 		<para>12. Create files file1 file10 file11 file2 File2 File3 file33 fileAB filea fileA fileAAA file( file 2 (the last one has 6 characters including a space)</para>
-		<para>13. List (with ls) all files starting with file.</para>
-		<para>14. List (with ls) all files starting with File.</para>
+		<para>13. List (with ls) all files starting with file</para>
+		<para>14. List (with ls) all files starting with File</para>
 		<para>15. List (with ls) all files starting with file and ending in a number.</para>
 		<para>16. List (with ls) all files starting with file and ending with a letter</para>
 		<para>17. List (with ls) all files starting with File and having a digit as fifth character.</para>

@@ -26,10 +26,10 @@
 		<para>touch file1 file10 file11 file2 File2 File3 file33 fileAB filea fileA fileAAA</para>
 		<para>touch "file("</para>
 		<para>touch "file 2"</para>
-		<para>13. List (with ls) all files starting with file.</para>
+		<para>13. List (with ls) all files starting with file</para>
 		<para>ls file*</para>
-		<para>14. List (with ls) all files starting with File.</para>
-		<para>ls File.*</para>
+		<para>14. List (with ls) all files starting with File</para>
+		<para>ls File*</para>
 		<para>15. List (with ls) all files starting with file and ending in a number.</para>
 		<para>ls file*[0-9]</para>
 		<para>16. List (with ls) all files starting with file and ending with a letter</para>
