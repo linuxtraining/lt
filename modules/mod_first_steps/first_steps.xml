@@ -454,7 +454,7 @@ ONE.bak  two.bak
 		<section><title>Practice: Working with files</title>
 			<para>1. List the files in the /bin directory</para>
 			<para>2. Display the type of file of /bin/cat, /etc/passwd and /usr/bin/passwd.</para>
-			<para>3a. Download wolf.jpg and book.pdf from http://linux-training.be (wget http://linux-training.be/studentfiles/wolf.jpg)</para>
+			<para>3a. Download wolf.jpg and book.pdf from http://www.linux-training.be (wget http://www.linux-training.be/studentfiles/wolf.jpg)</para>
 			<para>3b. Display the type of file of wolf.jpg and book.pdf</para>
 			<para>3c. Rename wolf.jpg to wolf.pdf (use mv).</para>
 			<para>3d. Display the type of file of wolf.pdf and book.pdf.</para>
@@ -476,9 +476,9 @@ ONE.bak  two.bak
 			<para>ls /bin</para>
 			<para>2. Display the type of file of /bin/cat, /etc/passwd and /usr/bin/passwd.</para>
 			<para>file /bin/cat /etc/passwd /usr/bin/passwd</para>
-			<para>3a. Download wolf.jpg and book.pdf from http://linux-training.be (wget http://linux-training.be/studentfiles/wolf.jpg)</para>
-			<para>wget http://linux-training.be/studentfiles/wolf.jpg</para>
-			<para>wget http://linux-training.be/studentfiles/book.pdf</para>
+			<para>3a. Download wolf.jpg and book.pdf from http://www.linux-training.be (wget http://www.linux-training.be/studentfiles/wolf.jpg)</para>
+			<para>wget http://www.linux-training.be/studentfiles/wolf.jpg</para>
+			<para>wget http://www.linux-training.be/studentfiles/book.pdf</para>
 			<para>3b. Display the type of file of wolf.jpg and book.pdf</para>
 			<para>file wolf.jpg wolf.pdf</para>
 			<para>3c. Rename wolf.jpg to wolf.pdf (use mv).</para>
