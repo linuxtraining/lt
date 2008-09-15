@@ -678,7 +678,7 @@ Five
 			<para>4. Use cp to make a backup of this file to cnt.txt.</para>
 			<para>cp count.txt cnt.txt</para>
 			<para>5. Use cat to make a backup of this file to catcnt.txt</para>
-			<para>cat count.txt catcnt.txt</para>
+			<para>cat count.txt &#062; catcnt.txt</para>
 			<para>6. Display catcnt.txt, but with all lines in reverse order (the last line first).</para>
 			<para>tac catcnt.txt</para>
 			<para>7. Use more to display /var/log/messages.</para>
