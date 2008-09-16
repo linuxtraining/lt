@@ -90,6 +90,14 @@ chapt_installing_linux() {
 	}
 
 #
+chapt_iptables() {
+	MODULES=""
+	chaptitle="Iptables"
+	add_mod mod_iptables/about_firewall.xml
+	add_mod mod_iptables/packet_forwarding.xml
+	}
+
+#
 chapt_intro_bash() {
 	MODULES=""
 	chaptitle="Introduction to the shell"
