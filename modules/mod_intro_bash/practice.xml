@@ -51,7 +51,7 @@ Middle
 Last
 [paul@RHEL4b ~]$
 		</screen>
-		<para>43. You receive information that one of your servers was cracked, the cracker probably replaced the ls commnand. You know that the echo command is safe to use. Can echo replace ls ? How can you list the files in the current directory with echo ?</para>
+		<para>43. You receive information that one of your servers was cracked, the cracker probably replaced the ls command. You know that the echo command is safe to use. Can echo replace ls ? How can you list the files in the current directory with echo ?</para>
 		<para>44. The cd command is also compromised, can echo be used to list files in other directories ? Explain how this works (list the contents of /etc and /bin without ls). </para>
 		<para>45. Is there another command besides cd to change directories ?</para>
 		<para>46. Make sure bash remembers the last 5000 commands you typed.</para>

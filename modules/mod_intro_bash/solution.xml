@@ -99,7 +99,7 @@ Last
 [paul@RHEL4b ~]$
 		</screen>
 		<para>echo -n First; echo -n Middle; echo Last</para>
-		<para>43. You receive information that one of your servers was cracked, the cracker probably replaced the ls commnand. You know that the echo command is safe to use. Can echo replace ls ? How can you list the files in the current directory with echo ?</para>
+		<para>43. You receive information that one of your servers was cracked, the cracker probably replaced the ls command. You know that the echo command is safe to use. Can echo replace ls ? How can you list the files in the current directory with echo ?</para>
 		<para>echo *</para>
 		<para>44. The cd command is also compromised, can echo be used to list files in other directories ? Explain how this works (list the contents of /etc and /bin without ls). </para>
 		<para>echo /etc/*.conf # the shell expands the directory for you</para>
