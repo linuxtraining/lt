@@ -1,0 +1,42 @@
+<section><title>packet forwarding</title>
+<section><title>about packet forwarding</title>
+	<para>Packet forwarding means allowing packets to go from one network to another. When a multihomed host is connected to two different networks, and it allows packets to travel from one network to another through its two network interfaces, it is said to have enabled packet forwarding. </para>
+</section>
+<section><title>/proc/sys/net/ipv4/ip_forward</title>
+	<para>Whether a host is forwarding packets is defined in <command>/proc/sys/net/ipv4/ip_forward</command><indexterm><primary>/proc/sys/net/ipv4/ip_forward</primary></indexterm>. The following screenshot shows how to enable packet forwarding on Linux.</para>
+	<screen>
+[root@RHEL5 ~]# echo 1 &#062; /proc/sys/net/ipv4/ip_forward
+	</screen>
+	<para>The next command shows how to disable packet forwarding.</para>
+	<screen>
+[root@RHEL5 ~]# echo 0 &#062; /proc/sys/net/ipv4/ip_forward
+	</screen>
+</section>
+<section><title>/etc/sysctl.conf</title>
+	<para>By default, most Linux computers are not configured for automatic packet forwarding. To enable packet forwarding whenever the system starts, change the <command>net.ipv4.ip_forward</command> variable in <command>/etc/sysctl.conf</command><indexterm><primary>/etc/sysctl.conf</primary></indexterm> to the value 1.</para>
+	<screen>
+[root@RHEL5 ~]# grep ip_forward /etc/sysctl.conf 
+net.ipv4.ip_forward = 0
+	</screen>
+</section>
+<section><title>Practice: packet forwarding</title>
+	<para>1. Set up two dsl (Damn Small Linux) machines, one on vmnet1, the other on vmnet8. Make sure they both get an ip-address in the correct subnet.</para>
+	<para>2. Set up a RHEL server with two network cards, one on vmnet1, the other on vmnet8.</para>
+	<para>3. How can you verify whether the RHEL will allow packet forwarding by default or not ? Test that you can ping from the RHEL to the two dsl machines, and from the two dsl machines to the RHEL.</para>
+	<para>4. ping from one dsl to the other. Enable and/or disable packet forwarding on the RHEL server and verify what happens to the ping between the two dsl machines. If you do not succeed in pinging between the two dsl machines (on different subnets), then use a sniffer like ethereal or tcpdump to discover the problem.</para>
+	<para></para>
+	<para></para>
+</section>
+<section><title>Solution: packet forwarding</title>
+	<para>1. Set up two dsl (Damn Small Linux) machines, one on vmnet1, the other on vmnet8. Make sure they both get an ip-address in the correct subnet.</para>
+	<para>2. Set up a RHEL server with two network cards, one on vmnet1, the other on vmnet8.</para>
+	<para>3. How can you verify whether the RHEL will allow packet forwarding by default or not ? Test that you can ping from the RHEL to the two dsl machines, and from the two dsl machines to the RHEL.</para>
+	<para>grep ip_forward /etc/sysctl.conf (1 is enabled, 0 is disabled)</para>
+	<para>4. ping from one dsl to the other. Enable and/or disable packet forwarding on the RHEL server and verify what happens to the ping between the two dsl machines. If you do not succeed in pinging between the two dsl machines (on different subnets), then use a sniffer like ethereal or tcpdump to discover the problem.</para>
+	<para>Did you forget to add a default gateway to the dsl machines ?</para>
+	<para>You should be able to ping when packet forwarding is enabled (and both default gateways are properly configured). The ping will not work when packet forwarding is disabled or when gateways are not configured correctly.</para>
+	<para></para>
+	<para></para>
+	<para></para>
+</section>
+</section>
