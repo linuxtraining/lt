@@ -27,17 +27,17 @@ root@laika:~#
 <section><title>usermod</title>
 	<para>Group membership can be modified with the useradd or <command>usermod</command><indexterm><primary>usermod</primary></indexterm> command.</para>
 	<screen>
-root@laika:~# usermod -a -G tennis Inge
-root@laika:~# usermod -a -G tennis Katrien
-root@laika:~# usermod -a -G salsa Katrien
-root@laika:~# usermod -a -G snooker Sandra
-root@laika:~# usermod -a -G formula1 Annelies
+root@laika:~# usermod -a -G tennis inge
+root@laika:~# usermod -a -G tennis katrien
+root@laika:~# usermod -a -G salsa katrien
+root@laika:~# usermod -a -G snooker sandra
+root@laika:~# usermod -a -G formula1 annelies
 root@laika:~# tail -5 /etc/group
-tennis:x:1006:Inge,Katrien
+tennis:x:1006:inge,katrien
 football:x:1007:
-snooker:x:1008:Sandra
-formula1:x:1009:Annelies
-salsa:x:1010:Katrien
+snooker:x:1008:sandra
+formula1:x:1009:annelies
+salsa:x:1010:katrien
 root@laika:~# 
 	</screen>
 	<para>Be careful when using usermod to add people to groups. The usermod command will by default <command>remove</command> users from the groups that are not listed in the command! Using the <command>-a</command> (append) switch prevents this behaviour.</para>
@@ -47,11 +47,11 @@ root@laika:~#
 	<screen>
 root@laika:~# groupmod -n darts snooker 
 root@laika:~# tail -5 /etc/group
-tennis:x:1006:Inge,Katrien
+tennis:x:1006:inge,katrien
 football:x:1007:
-formula1:x:1009:Annelies
-salsa:x:1010:Katrien
-darts:x:1008:Sandra
+formula1:x:1009:annelies
+salsa:x:1010:katrien
+darts:x:1008:sandra
 	</screen>
 </section>
 <section><title>groups</title>

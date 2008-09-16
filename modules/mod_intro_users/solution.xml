@@ -14,8 +14,8 @@
 		<para>who ; whoami ; who am i ; w ; id ; echo $USER $UID</para>
 		<para>5a. Lock the venus user account with usermod.</para>
 		<para>usermod -L venus</para>
-		<para>5b. Use passwd -d to disable the serena password.</para>
-		<para>grep -d /etc/shadow; passwd -d serena ; grep serena /etc/shadow</para>
+		<para>5b. Use passwd -d to disable the serena password. Verify the serena line in /etc/shadow before and after disabling.</para>
+		<para>grep serena /etc/shadow; passwd -d serena ; grep serena /etc/shadow</para>
 		<para>5c. What is the difference between locking a user account and disabling a user account's password ?</para>
 		<para>Locking will prevent the user from logging on to the system with his password (by putting a ! in front of the password in /etc/shadow). Disbling with passwd will erase the password from /etc/shadow.</para>
 		<para>6. As root change the password of Einstime to stargate.</para>

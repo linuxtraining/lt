@@ -4,7 +4,7 @@
 		<para>3. Create a user named Einstime without home directory, give him /bin/date as his default logon shell. What happens when you log on with this user ? Can you think of a useful real world example for changing a user's login shell to an application ?</para>
 		<para>4. Try the commands who, whoami, who am i, w, id, echo $USER $UID .</para>
 		<para>5a. Lock the Venus user account with usermod.</para>
-		<para>5b. Use passwd -d to disable the Serena password.</para>
+		<para>5b. Use passwd -d to disable the serena password. Verify the serena line in /etc/shadow before and after disabling.</para>
 		<para>5c. What is the difference between locking a user account and disabling a user account's password ?</para>
 		<para>6. As root change the password of Einstime to stargate.</para>
 		<para>7. Now try changing the password of Serena to Serena as Serena.</para>
