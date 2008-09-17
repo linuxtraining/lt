@@ -3,10 +3,10 @@
 	<screen>
 root@RHELv4u4:~# groupadd proj55
 root@RHELv4u4:~# chown root:proj55 /project55/
-root@RHELv4u4:~# chmod 3775 /project55/
+root@RHELv4u4:~# chmod 2775 /project55/
 root@RHELv4u4:~# touch /project55/fromroot.txt
 root@RHELv4u4:~# ls -ld /project55/
-drwxrwsr-t  2 root proj55 4096 Feb  7 17:45 /project55/
+drwxrwsr-x  2 root proj55 4096 Feb  7 17:45 /project55/
 root@RHELv4u4:~# ls -l /project55/
 total 4
 -rw-r--r--  1 root proj55 0 Feb  7 17:45 fromroot.txt
