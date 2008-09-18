@@ -22,7 +22,7 @@ net.ipv4.ip_forward = 0
 <section><title>Practice: packet forwarding</title>
 	<para>1. Set up two dsl (Damn Small Linux) machines, one on vmnet1, the other on vmnet8. Make sure they both get an ip-address in the correct subnet. These two machines will be 'left' and 'right' from the 'router'.</para>
 	<para>2. Set up a RHEL server with two network cards, one on vmnet1, the other on vmnet8. This computer will be the 'router'. Complete the table below with the relevant names, ip-addresses and mac-addresses.</para>
-<table frame='all'><title>Packet Forwarding</title>
+<table frame='all'><title>Packet Forwarding Exercise</title>
 <?dbfo table-width="100%" ?>
 <tgroup cols='5' align='left' colsep='1' rowsep='1'>
 <colspec colname='c1' colwidth="1*" align="left"/>
@@ -99,7 +99,7 @@ eth2 Link encap:Ethernet  HWaddr 00:0C:29:8C:90:53
 [root@RHEL5 ~]# 
 	</screen>
 	<para>Your setup may use different ip and mac addresses than the ones in the table below. This table serves as a reference for the screenshots from this solution to the practice.</para>
-<table frame='all'><title>Packet Forwarding</title>
+<table frame='all'><title>Packet Forwarding Solution</title>
 <?dbfo table-width="100%" ?>
 <tgroup cols='4' align='left' colsep='1' rowsep='1'>
 <colspec colname='c2' colwidth="1*" align="center"/>

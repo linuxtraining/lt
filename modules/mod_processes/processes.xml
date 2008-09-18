@@ -166,7 +166,7 @@ PID  USER PR NI VIRT RES SHR S %CPU %MEM  TIME+   COMMAND
 		</screen>
 	</section>
 <section><title>pgrep</title>
-<para>Similar to the <command>ps -C</command>, you can also use <command>pgrep</command><indexterm><primary>pgrep(1)</primary></indexterm> to search for a process by its name.</para>
+<para>Similar to the <command>ps -C</command>, you can also use <command>pgrep</command><indexterm><primary>pgrep(1)</primary></indexterm> to search for a process by its command name.</para>
 <screen>
 [paul@RHEL5 ~]$ sleep 1000 &#038;
 [1] 32558
@@ -177,7 +177,7 @@ PID  USER PR NI VIRT RES SHR S %CPU %MEM  TIME+   COMMAND
 32558 pts/3    00:00:00 sleep
 [paul@RHEL5 ~]$ 
 </screen>
-<para>You can also list the name of the process with pgrep.</para>
+<para>You can also list the command name of the process with pgrep.</para>
 <screen>
 paul@laika:~$ pgrep -l sleep
 9661 sleep
@@ -185,7 +185,7 @@ paul@laika:~$
 </screen>
 </section>
 <section><title>pkill</title>
-<para>You can use the <command>pkill</command><indexterm><primary>pkill(1)</primary></indexterm> command to kill a process by its name.</para>
+<para>You can use the <command>pkill</command><indexterm><primary>pkill(1)</primary></indexterm> command to kill a process by its command name.</para>
 <screen>
 [paul@RHEL5 ~]$ sleep 1000 &#038;
 [1] 30203
@@ -273,7 +273,7 @@ sleep 2000
 5143: 4224: command not found
 		</screen>
 		<para>2. Write a script that echoes its process ID and then sleeps for an hour. Find your script with ps.</para>
-		<para>3. Read the man page of ps and find your script by name with ps.</para>
+		<para>3. Read the man page of ps and find your script by command name with ps.</para>
 		<para>4. Kill your script with the kill command.</para>
 		<para>5. Run your script again, now use top to display only your script and the init process.</para>
 		<para>6. Use top to kill your script.</para>
@@ -302,7 +302,7 @@ sleep 2000
 			[paul@RHEL4b ~]$ bash -c 'echo $$ $PPID'
 			5059 4224
 		</screen>
-		<para>With backticks the shell executes the cmmand between backticks. The result is the two process id's, which are not commands.</para>
+		<para>With backticks the shell executes the command between backticks. The result is the two process id's, which are not commands.</para>
 		<screen>
 [paul@RHEL4b ~]$ bash -c `echo $$ $PPID`
 5059: 4224: command not found
@@ -317,7 +317,7 @@ sleep 3600
 		<para>3. ps -C sleep</para>	
 		<para>4. kill (followed by the PID)</para>	
 		<para>5. top p 1,6705 (replace 6705 with your PID)</para>	
-		<para>6. when inside top, press q</para>	
+		<para>6. when inside top, press k</para>	
 		<para>7. use the greater than and smaller than keys from within top</para>	
 		<para>8. an example of an (almost) endless loop:</para>
 		<screen>
