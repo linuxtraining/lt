@@ -157,7 +157,7 @@ brel
 		<screen>>foo</screen>
 	</section>
 	<section><title>Practice: more bash</title>
-		<para>1. Take a backup copy of /etc/bashrc /etc/profile ~/.profile ~/.bashrc ~/.bash_profile (put them in ~/profilebackups).</para>
+		<para>1. Take a backup copy of /etc/bashrc, /etc/profile, ~/.profile, ~/.bashrc and ~/.bash_profile (put them in ~/profilebackups).</para>
 		<para>2. Set and export a variable named profwinner in all these scripts, the value is the name of the script (profwinner=etc_bashrc in /etc/bashrc, profwinner=dot_profile in ~/.profile, and so on) </para>
 		<para>3. Set a unique variable in all these scripts (etc_bashrun=yes in /etc/bashrc, dot_profilerun=yes in ~/.profile, and so on)</para>
 		<para>4. Log on to a tty and to a gnome-terminal, and verify the values of the variables you set in questions 2 and 3. Which of the scripts were executed ? Which not ? Which was executed last ?</para>

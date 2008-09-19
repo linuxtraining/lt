@@ -1,3 +1,36 @@
+<section><title>firewall theory</title>
 <section><title>router or firewall</title>
-	<para>A router is a device that connects two networks. A firewall is a device that besides acting as a router, also contains (and implements) rules to determine whether packets are allowed to travel from one network to another. A firewall can be configured to block access based on networks, hosts, protocols and ports. Firewalls can also change the contents of packets while forwarding them.</para>
+	<para>A router is a device that connects two networks. A <command>firewall</command><indexterm><primary>firewall</primary></indexterm> is a device that besides acting as a <command>router</command>, also contains (and implements) rules to determine whether packets are allowed to travel from one network to another. A firewall can be configured to block access based on networks, hosts, protocols and ports. Firewalls can also change the contents of packets while forwarding them.</para>
 </section>
+<section><title>packet forwarding</title>
+	<para>Packet forwarding means allowing packets to go from one network to another. When a multihomed host is connected to two different networks, and it allows packets to travel from one network to another through its two network interfaces, it is said to have enabled <command>packet forwarding</command><indexterm><primary>packet forwarding</primary></indexterm>. </para>
+</section>
+<section><title>packet filtering</title>
+	<para><command>Packet filtering</command><indexterm><primary>packet filtering</primary></indexterm> is very similar to packet forwarding, but every packet is individually tested against rules that decide on allowing or dropping the packet. The rules are stored by iptables.</para>
+</section>
+<section><title>iptables</title>
+	<para><command>Iptables</command><indexterm><primary>iptables</primary></indexterm> is a user-space application that allows a user to configure the Linux kernel's Netfilter. By default there are three tables in the kernel that contain sets of rules. The filter table is used for packet filtering, the NAT table for address translation and the mangle table for special-purpose processing of packets. Series of rules in each table are called a <command>chain</command><indexterm><primary></primary></indexterm>.</para>
+	<para>The following screenshot shows how to stop and start iptables.</para>
+	<screen>
+[root@RHEL5 ~]# /etc/init.d/iptables stop
+[root@RHEL5 ~]# /etc/init.d/iptables start
+[root@RHEL5 ~]# 
+	</screen>
+</section>
+<section><title>NAT (network address translation)</title>
+	<para>A <command>NAT</command><indexterm><primary>NAT</primary></indexterm> device is a router that is also changing the source and/or target ip-address in packets. It is typically used to connect multiple computers in a private address range (rfc 1918) with the (public) internet. A NAT can hide private addresses from the internet.</para>
+</section>
+<section><title>PAT (port address translation)</title>
+	<para>NAT often includes PAT. A <command>PAT</command><indexterm><primary>PAT</primary></indexterm> device is a router that is also changing the source and/or target tcp/udp port in packets. PAT is Cisco terminology and is used by <command>SNAT</command><indexterm><primary>SNAT</primary></indexterm> (or masquerading) in Linux. RFC 3022 calls it <command>NAPT</command><indexterm><primary>NAPT</primary></indexterm> and defines the NAT/PAT combo as "traditional NAT". A device sold to you as a NAT-device will probably do NAT and PAT.</para>
+</section>
+<section><title>SNAT (source network address translation)</title>
+	<para>In this book we will explain <command>SNAT</command><indexterm><primary>SNAT</primary></indexterm> as "changing the source ip-address when a packet passes our NAT".</para>
+</section>
+<section><title>masquerading</title>
+	<para>In this book we will explain masquerading as "changing the source ip-address when a packet passes our NAT, but only allow connections that originate from our internal network!".</para>
+</section>
+<section><title>port forwarding</title>
+	<para>When static NAT is set up in a way that allows outside connections to enter our private network, then we call it <command>port forwarding</command><indexterm><primary>port forwarding</primary></indexterm>.</para>
+</section>
+</section>
+

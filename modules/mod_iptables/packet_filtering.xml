@@ -1,0 +1,136 @@
+<section><title>packet filtering</title>
+<section><title>about packet filtering</title>
+	<para>Packet filtering is a bit more than packet forwarding. Packet forwarding only uses a routing table to make decisions, the kernel now also uses a list of rules. So with packet filtering, the kernel will inspect each packet and decide based on iptables rules to allow or drop a packet.</para>
+</section>
+<section><title>filter table</title>
+	<para>The filter table in iptables has three chains (sets of rules). The INPUT chain is used for any packet coming into the system. The OUTPUT chain is for any packet leaving the system. And the FORWARD chain is for packets that are forwarded (routed) through the system.</para>
+	<para>The screenshot below shows how to list the filter table and all its rules.</para>
+	<screen>
+[root@RHEL5 ~]# iptables -t filter -nL
+Chain INPUT (policy ACCEPT)
+target     prot opt source               destination         
+
+Chain FORWARD (policy ACCEPT)
+target     prot opt source               destination         
+
+Chain OUTPUT (policy ACCEPT)
+target     prot opt source               destination         
+[root@RHEL5 ~]# 
+	</screen>
+	<para>As you can see, all three chains in the filter table are empty.</para>
+</section>
+<section><title>Changing default policy rules</title>
+	<para>To start, let's set the default policy for all three chains to drop everything. Note that you might lose your connection when typing this over ssh ;-).</para>
+	<screen>
+[root@RHEL5 ~]# iptables -P INPUT DROP
+[root@RHEL5 ~]# iptables -P FORWARD DROP
+[root@RHEL5 ~]# iptables -P OUTPUT DROP
+	</screen>
+	<para>Next, we allow the server to use its own loopback device (this allows the server to access its services running on localhost). We first append a rule to the INPUT chain to allow (ACCEPT) traffic from the lo (loopback) interface, then we do the same to allow packets to leave the system through the loopback interface.</para>
+	<screen>
+[root@RHEL5 ~]# iptables -A INPUT -i lo -j ACCEPT
+[root@RHEL5 ~]# iptables -A OUTPUT -o lo -j ACCEPT
+	</screen>
+	<para>Looking at the filter table again (omitting -t filter because it is the default table).</para>
+	<screen>
+[root@RHEL5 ~]# iptables -nL
+Chain INPUT (policy DROP)
+target     prot opt source               destination
+ACCEPT     all  --  0.0.0.0/0            0.0.0.0/0
+
+Chain FORWARD (policy DROP)
+target     prot opt source               destination
+
+Chain OUTPUT (policy DROP)
+target     prot opt source               destination
+ACCEPT     all  --  0.0.0.0/0            0.0.0.0/0
+	</screen>
+</section>
+<section><title>Allowing ssh over eth0</title>
+	<para>This example show how to add two rules to allow ssh access to your system from outside.</para>
+	<screen>
+[root@RHEL5 ~]# iptables -A INPUT -i eth0 -p tcp --dport 22 -j ACCEPT
+[root@RHEL5 ~]# iptables -A OUTPUT -o eth0 -p tcp --sport 22 -j ACCEPT
+	</screen>
+	<para>The filter table will look something like this screenshot (note that -v is added for more verbose output).</para>
+	<screen>
+[root@RHEL5 ~]# iptables -nvL
+Chain INPUT (policy ACCEPT 7 packets, 609 bytes)
+ pkts bytes target prot opt in    out   source     destination 
+    0     0 ACCEPT all  --  lo    *     0.0.0.0/0  0.0.0.0/0 
+    0     0 ACCEPT tcp  --  eth0  *     0.0.0.0/0  0.0.0.0/0  tcp dpt:22
+
+Chain FORWARD (policy ACCEPT 0 packets, 0 bytes)
+ pkts bytes target prot opt in    out   source     destination
+
+Chain OUTPUT (policy ACCEPT 3 packets, 228 bytes)
+ pkts bytes target prot opt in    out   source     destination
+    0     0 ACCEPT all  --  *     lo    0.0.0.0/0  0.0.0.0/0
+    0     0 ACCEPT tcp  --  *     eth0  0.0.0.0/0  0.0.0.0/0  tcp spt:22
+[root@RHEL5 ~]# 
+</screen>
+</section>
+<section><title>Allowing access from a subnet</title>
+	<para>This example shows how to allow access from any computer in the 10.1.1.0/24 network, but only through eth1. There is no port (application) limitation here.</para>
+	<screen>
+[root@RHEL5 ~]# iptables -A INPUT  -i eth1 -s 10.1.1.0/24 -p tcp -j ACCEPT
+[root@RHEL5 ~]# iptables -A OUTPUT  -o eth1 -d 10.1.1.0/24 -p tcp -j ACCEPT
+	</screen>
+	<para>Together with the previous examples, the policy is expanding.</para>
+	<screen>
+[root@RHEL5 ~]# iptables -nvL
+Chain INPUT (policy ACCEPT 7 packets, 609 bytes)
+ pkts bytes target prot opt in    out   source      destination
+    0     0 ACCEPT all  --  lo    *     0.0.0.0/0   0.0.0.0/0
+    0     0 ACCEPT tcp  --  eth0  *     0.0.0.0/0   0.0.0.0/0  tcp dpt:22
+    0     0 ACCEPT tcp  --  eth1  *     10.1.1.0/24 0.0.0.0/0
+
+Chain FORWARD (policy ACCEPT 0 packets, 0 bytes)
+ pkts bytes target prot opt in    out   source      destination
+
+Chain OUTPUT (policy ACCEPT 3 packets, 228 bytes)
+ pkts bytes target prot opt in    out   source      destination
+    0     0 ACCEPT all  --  *     lo    0.0.0.0/0   0.0.0.0/0
+    0     0 ACCEPT tcp  --  *     eth0  0.0.0.0/0   0.0.0.0/0  tcp spt:22
+    0     0 ACCEPT tcp  --  *     eth1  0.0.0.0/0   10.1.1.0/24
+	</screen>
+</section>
+<section><title>iptables save</title>
+	<para>Use <command>iptables save</command><indexterm><primary>iptables save</primary></indexterm> to automatically implement these rules when the firewall is (re)started.</para>
+	<screen>
+[root@RHEL5 ~]# /etc/init.d/iptables save
+Saving firewall rules to /etc/sysconfig/iptables:          [  OK  ]
+[root@RHEL5 ~]#
+	</screen>
+</section>
+<section><title>scripting example</title>
+	<para>You can write a simple script for these rules. Below is an example script that implements the firewall rules from this chapter.</para>
+	<screen>
+#!/bin/bash
+
+# first cleanup everything
+iptables -t filter -F
+iptables -t filter -X
+iptables -t nat -F
+iptables -t nat -X
+
+# default drop
+iptables -P INPUT   DROP
+iptables -P FORWARD DROP
+iptables -P OUTPUT  DROP
+
+# allow loopback device
+iptables -A INPUT -i lo -j ACCEPT
+iptables -A OUTPUT -o lo -j ACCEPT
+
+# allow ssh over eth0 from outside to system
+iptables -A INPUT -i eth0 -p tcp --dport 22 -j ACCEPT
+iptables -A OUTPUT -o eth0 -p tcp --sport 22 -j ACCEPT
+
+# allow any traffic from 10.1.1.0/24 to system
+iptables -A INPUT  -i eth1 -s 10.1.1.0/24 -p tcp -j ACCEPT
+iptables -A OUTPUT  -o eth1 -d 10.1.1.0/24 -p tcp -j ACCEPT
+	</screen>
+</section>
+
+</section>

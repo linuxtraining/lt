@@ -95,6 +95,7 @@ chapt_iptables() {
 	chaptitle="Iptables"
 	add_mod mod_iptables/about_firewall.xml
 	add_mod mod_iptables/packet_forwarding.xml
+	add_mod mod_iptables/packet_filtering.xml
 	}
 
 #
