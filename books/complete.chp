@@ -93,9 +93,9 @@ chapt_installing_linux() {
 chapt_iptables() {
 	MODULES=""
 	chaptitle="Iptables"
-	add_mod mod_iptables/about_firewall.xml
-	add_mod mod_iptables/packet_forwarding.xml
+	add_mod mod_iptables/about iptables.xml
 	add_mod mod_iptables/packet_filtering.xml
+	add_mod mod_iptables/nat.xml
 	}
 
 #
@@ -251,6 +251,14 @@ chapt_quotas() {
 	MODULES=""
 	chaptitle="User Quota's"
 	add_mod mod_quotas/quotas.xml
+	}
+
+#
+chapt_router() {
+	MODULES=""
+	chaptitle="Routers"
+	add_mod mod_router/about_routers.xml
+	add_mod mod_router/packet_forwarding.xml
 	}
 
 #
