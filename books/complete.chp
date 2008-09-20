@@ -93,7 +93,7 @@ chapt_installing_linux() {
 chapt_iptables() {
 	MODULES=""
 	chaptitle="Iptables"
-	add_mod mod_iptables/about iptables.xml
+	add_mod mod_iptables/about_iptables.xml
 	add_mod mod_iptables/packet_filtering.xml
 	add_mod mod_iptables/nat.xml
 	}

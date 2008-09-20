@@ -60,7 +60,6 @@ net.ipv4.ip_forward = 0
 	<para>4. Ping from one dsl to the other. Enable and/or disable packet forwarding on the RHEL server and verify what happens to the ping between the two dsl machines. If you do not succeed in pinging between the two dsl machines (on different subnets), then use a sniffer like wireshark or tcpdump to discover the problem.</para>
 	<para>5. Use wireshark or tcpdump -xx to answer the following questions. Does the source MAC change when a packet passes through the filter ? And the destination MAC ? What about source and destination IP-addresses ?</para>
 	<para></para>
-	<para></para>
 </section>
 <section><title>Solution: packet forwarding</title>
 	<para>1. Set up two dsl (Damn Small Linux) machines, one on vmnet1, the other on vmnet8. Make sure they both get an ip-address in the correct subnet. These two machines will be 'left' and 'right' from the 'router'.</para>
@@ -141,7 +140,7 @@ net.ipv4.ip_forward = 0
 	<para>You should be able to ping when packet forwarding is enabled (and both default gateways are properly configured). The ping will not work when packet forwarding is disabled or when gateways are not configured correctly.</para>
 	<para></para>
 	<para>5. Use wireshark or tcpdump -xx to answer the following questions. Does the source MAC change when a packet passes through the filter ? And the destination MAC ? What about source and destination IP-addresses ?</para>
-	<para>Both MAC adresses are changed when passing the router. The screenshots below show tcpdump -xx output on the router. The first one is taken on the eth1(vmnet1) interface in the 192.168.187.0/24 network, the second one is from the other interface (eth2 on vmnet8 in 172.16.122.0/24). The first six bytes are the destination MAC, the next six are the source.</para>
+	<para>Both MAC addresses are changed when passing the router. The screenshots below show tcpdump -xx output on the router. The first one is taken on the eth1(vmnet1) interface in the 192.168.187.0/24 network, the second one is from the other interface (eth2 on vmnet8 in 172.16.122.0/24). The first six bytes are the destination MAC, the next six are the source.</para>
 	<screen>
 [root@RHEL5 ~]# tcpdump -xx -i eth1
 tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
@@ -180,7 +179,5 @@ listening on eth2, link-type EN10MB (Ethernet), capture size 96 bytes
 	0x0040:  1617 1819 1a1b 1c1d 1e1f 2021 2223 2425
 	0x0050:  2627 2829 2a2b 2c2d 2e2f 3031 3233 3435
 	</screen>
-	<para></para>
-	<para></para>
 </section>
 </section>
