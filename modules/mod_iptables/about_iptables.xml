@@ -1,0 +1,9 @@
+<section><title>about iptables</title>
+	<para><command>Iptables</command><indexterm><primary>iptables</primary></indexterm> is a user-space application that allows a user to configure the Linux kernel's Netfilter. By default there are three tables in the kernel that contain sets of rules. The filter table is used for packet filtering, the NAT table for address translation and the mangle table for special-purpose processing of packets. Series of rules in each table are called a <command>chain</command><indexterm><primary>chain(iptables)</primary></indexterm>.</para>
+	<para>The following screenshot shows how to stop and start iptables.</para>
+	<screen>
+[root@RHEL5 ~]# /etc/init.d/iptables stop
+[root@RHEL5 ~]# /etc/init.d/iptables start
+[root@RHEL5 ~]# 
+	</screen>
+</section>
