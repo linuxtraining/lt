@@ -18,7 +18,7 @@
 	<para>In this book we will explain <command>SNAT</command><indexterm><primary>SNAT</primary></indexterm> as "changing the source ip-address when a packet passes our NAT".</para>
 </section>
 <section><title>masquerading</title>
-	<para>In this book we will explain masquerading as "changing the source ip-address when a packet passes our NAT, but only allow connections that originate from our internal network!".</para>
+	<para>In this book we will explain masquerading as "changing the source ip-address when a packet passes our dynamic internet interface".</para>
 </section>
 <section><title>port forwarding</title>
 	<para>When static NAT is set up in a way that allows outside connections to enter our private network, then we call it <command>port forwarding</command><indexterm><primary>port forwarding</primary></indexterm>.</para>

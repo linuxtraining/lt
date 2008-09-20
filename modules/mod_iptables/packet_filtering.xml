@@ -73,8 +73,8 @@ Chain OUTPUT (policy ACCEPT 3 packets, 228 bytes)
 <section><title>Allowing access from a subnet</title>
 	<para>This example shows how to allow access from any computer in the 10.1.1.0/24 network, but only through eth1. There is no port (application) limitation here.</para>
 	<screen>
-[root@RHEL5 ~]# iptables -A INPUT  -i eth1 -s 10.1.1.0/24 -p tcp -j ACCEPT
-[root@RHEL5 ~]# iptables -A OUTPUT  -o eth1 -d 10.1.1.0/24 -p tcp -j ACCEPT
+[root@RHEL5 ~]# iptables -A INPUT -i eth1 -s 10.1.1.0/24 -p tcp -j ACCEPT
+[root@RHEL5 ~]# iptables -A OUTPUT -o eth1 -d 10.1.1.0/24 -p tcp -j ACCEPT
 	</screen>
 	<para>Together with the previous examples, the policy is expanding.</para>
 	<screen>
@@ -104,10 +104,9 @@ Saving firewall rules to /etc/sysconfig/iptables:          [  OK  ]
 	</screen>
 </section>
 <section><title>scripting example</title>
-	<para>You can write a simple script for these rules. Below is an example script that implements the firewall rules from this chapter.</para>
+	<para>You can write a simple script for these rules. Below is an example script that implements the firewall rules that you saw before in this chapter.</para>
 	<screen>
 #!/bin/bash
-
 # first cleanup everything
 iptables -t filter -F
 iptables -t filter -X
@@ -115,9 +114,9 @@ iptables -t nat -F
 iptables -t nat -X
 
 # default drop
-iptables -P INPUT   DROP
+iptables -P INPUT DROP
 iptables -P FORWARD DROP
-iptables -P OUTPUT  DROP
+iptables -P OUTPUT DROP
 
 # allow loopback device
 iptables -A INPUT -i lo -j ACCEPT
@@ -128,9 +127,35 @@ iptables -A INPUT -i eth0 -p tcp --dport 22 -j ACCEPT
 iptables -A OUTPUT -o eth0 -p tcp --sport 22 -j ACCEPT
 
 # allow any traffic from 10.1.1.0/24 to system
-iptables -A INPUT  -i eth1 -s 10.1.1.0/24 -p tcp -j ACCEPT
-iptables -A OUTPUT  -o eth1 -d 10.1.1.0/24 -p tcp -j ACCEPT
+iptables -A INPUT -i eth1 -s 10.1.1.0/24 -p tcp -j ACCEPT
+iptables -A OUTPUT -o eth1 -d 10.1.1.0/24 -p tcp -j ACCEPT
 	</screen>
 </section>
-
+<section><title>Allowing ICMP(ping)</title>
+<para>When you enable iptables, you will get an <command>'Operation not permitted'</command> message when trying to ping other hosts.</para>
+<screen>
+[root@RHEL5 ~# ping 192.168.187.130
+PING 192.168.187.130 (192.168.187.130) 56(84) bytes of data.
+ping: sendmsg: Operation not permitted
+ping: sendmsg: Operation not permitted
+</screen>
+<para>The screenshot below shows you how to setup iptables to allow a ping from or to your machine.</para>
+<screen>
+[root@RHEL5 ~]# iptables -A INPUT -p icmp --icmp-type any -j ACCEPT
+[root@RHEL5 ~]# iptables -A OUTPUT -p icmp --icmp-type any -j ACCEPT
+</screen>
+<para>The previous two lines do not allow other computers to route ping messages through your router, because it only handles INPUT and OUTPUT. For routing of ping, you will need to enable it on the FORWARD chain. The following command enables routing of icmp messages between networks.</para>
+<screen>
+[root@RHEL5 ~]# iptables -A FORWARD -p icmp --icmp-type any -j ACCEPT
+</screen>
+</section>
+<section><title>Practice: packet filtering</title>
+<para>1. Make sure you can ssh to your router-system when iptables is active.</para>
+<para>2. Make sure you can ping to your router-system when iptables is active.</para>
+<para>3. Define one of your networks as 'internal' and the other as 'external'. Configure the router to allow visits to a website (http) to go from the internal network to the external network (but not in the other direction).</para>
+<para>4. Make sure the internal network can ssh to the external, but not the other way around.</para>
+<para></para>
+<para></para>
+<para></para>
+</section>
 </section>
