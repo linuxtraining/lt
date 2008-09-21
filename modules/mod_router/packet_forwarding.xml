@@ -11,6 +11,10 @@
 	<screen>
 [root@RHEL5 ~]# echo 0 &#062; /proc/sys/net/ipv4/ip_forward
 	</screen>
+	<para>Use cat to check if packet forwarding is enabled.</para>
+	<screen>
+[root@RHEL5 ~]# cat /proc/sys/net/ipv4/ip_forward
+	</screen>
 </section>
 <section><title>/etc/sysctl.conf</title>
 	<para>By default, most Linux computers are not configured for automatic packet forwarding. To enable packet forwarding whenever the system starts, change the <command>net.ipv4.ip_forward</command> variable in <command>/etc/sysctl.conf</command><indexterm><primary>/etc/sysctl.conf</primary></indexterm> to the value 1.</para>
@@ -56,7 +60,7 @@ net.ipv4.ip_forward = 0
 </tbody>
 </tgroup>
 </table>
-	<para>3. How can you verify whether the RHEL will allow packet forwarding by default or not ? Test that you can ping from the RHEL to the two dsl machines, and from the two dsl machines to the RHEL.</para>
+	<para>3. How can you verify whether the RHEL will allow packet forwarding by default or not ? Test that you can ping from the RHEL to the two dsl machines, and from the two dsl machines to the RHEL. Use <command>arp -a</command> to make sure you are connected with the correct MAC addresses.</para>
 	<para>4. Ping from one dsl to the other. Enable and/or disable packet forwarding on the RHEL server and verify what happens to the ping between the two dsl machines. If you do not succeed in pinging between the two dsl machines (on different subnets), then use a sniffer like wireshark or tcpdump to discover the problem.</para>
 	<para>5. Use wireshark or tcpdump -xx to answer the following questions. Does the source MAC change when a packet passes through the filter ? And the destination MAC ? What about source and destination IP-addresses ?</para>
 	<para></para>
@@ -129,7 +133,7 @@ eth2 Link encap:Ethernet  HWaddr 00:0C:29:8C:90:53
 </tgroup>
 </table>
 
-	<para>3. How can you verify whether the RHEL will allow packet forwarding by default or not ? Test that you can ping from the RHEL to the two dsl machines, and from the two dsl machines to the RHEL.</para>
+	<para>3. How can you verify whether the RHEL will allow packet forwarding by default or not ? Test that you can ping from the RHEL to the two dsl machines, and from the two dsl machines to the RHEL. Use <command>arp -a</command> to make sure you are connected with the correct MAC addresses.</para>
 	<para>This can be done with "<command>grep ip_forward /etc/sysctl.conf</command>" (1 is enabled, 0 is disabled).</para>
 	<screen>
 [root@RHEL5 ~]# grep ip_for /etc/sysctl.conf 

@@ -17,7 +17,7 @@ Chain OUTPUT (policy ACCEPT)
 target     prot opt source               destination         
 [root@RHEL5 ~]# 
 	</screen>
-	<para>As you can see, all three chains in the filter table are empty.</para>
+	<para>As you can see, all three chains in the filter table are set to ACCEPT everything. ACCEPT is the default behaviour.</para>
 </section>
 <section><title>Changing default policy rules</title>
 	<para>To start, let's set the default policy for all three chains to drop everything. Note that you might lose your connection when typing this over ssh ;-).</para>
