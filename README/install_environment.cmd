@@ -11,9 +11,9 @@ fi
 
 echo Downloading static docbook, xsl and fop
 cd ../static
-wget https://support.ginsys.be/files/svn/lt/docbook.tbz
-wget https://support.ginsys.be/files/svn/lt/fop.tbz
-wget https://support.ginsys.be/files/svn/lt/xsl.tbz
+wget http://support.ginsys.be/files/svn/lt/docbook.tbz
+wget http://support.ginsys.be/files/svn/lt/fop.tbz
+wget http://support.ginsys.be/files/svn/lt/xsl.tbz
 tar -xvjf docbook.tbz
 tar -xvjf fop.tbz
 tar -xvjf xsl.tbz
