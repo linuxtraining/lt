@@ -126,7 +126,7 @@ ErrorDocument 404 http://www.cobbaut.be/cobbaut.php
 		<screen>Redirect permanent /foo http://www.foo.com/bar</screen>
 	</section>
 	<section><title>Securing directories with htpasswd and .htaccess</title>
-		<para>You can secure files and directories in your website with a userid/password. First, enter your website, and use the <command>htpasswd</command><indexterm><primary>htpasswd(1)</primary></indexterm> command to create a <command>.htpasswd file</command><indexterm>.htpasswd<primary></primary></indexterm> that contains a userid and an (encrypted) password.</para>
+		<para>You can secure files and directories in your website with a userid/password. First, enter your website, and use the <command>htpasswd</command><indexterm><primary>htpasswd(1)</primary></indexterm> command to create a <command>.htpasswd file</command><indexterm><primary>.htpasswd</primary></indexterm> that contains a userid and an (encrypted) password.</para>
 		<screen>
 		[root@rhel4 testsite]# htpasswd -c .htpasswd pol
 		New password: 
