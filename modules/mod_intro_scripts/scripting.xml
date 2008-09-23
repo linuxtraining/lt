@@ -47,7 +47,7 @@ var1 = 4
 		</screen>
 	</section>
 	<section><title>Shell</title>
-		<para>You can never be sure which shell a user is running. A script that works flawlessly in bash, might not work in ksh or csh or dash. To instruct a shell to run your script in a certain shell, you can start your script with a shebang <command>#!</command><indexterm><primary>#!/bin/bash</primary></indexterm> followed by the shell it is supposed to run in. This script will run in a bash shell.</para>
+		<para>You can never be sure which shell a user is running. A script that works flawlessly in bash, might not work in ksh or csh or dash. To instruct a shell to run your script in a certain shell, you can start your script with a shebang <command>	</command><indexterm><primary>#!/bin/bash</primary></indexterm> followed by the shell it is supposed to run in. This script will run in a bash shell.</para>
 		<screen>
 #!/bin/bash
 echo -n hello
@@ -59,6 +59,16 @@ echo A bash subshell `echo -n hello`
 echo -n hello
 echo a Korn subshell `echo -n hello`
 		</screen>
+		<para>Some user may perform setuid based script root spoofing. This is a rare but possible attack. To improve script security, and to avoid interpreter spoofing you need to add -- to #!/bin/bash, which disables further option processing, so bash will not accept any options. 
+		<screen>
+#!/bin/bash -
+		</screen>
+		or
+		<screen>
+#!/bin/bash --
+		</screen>
+		Any arguments after the -- are treated as filenames and arguments. An argument of - is equivalent to --. 
+		</para>
 	</section>
 	<section><title>for loop</title>
 		<para>The example below shows the syntax of a classical <command>for loop</command><indexterm><primary>for loop (bash)</primary></indexterm> in bash.</para>
