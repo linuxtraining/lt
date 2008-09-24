@@ -1,0 +1,93 @@
+<section><title>Domain Name System</title>
+	<para>DNS or Domain Name System is a worldwide distributed hierarchichal database. It's primary function is to resolve names to ip addresses, and to point to internet services like SMTP and LDAP.</para>
+	<para>Forward lookup zones are most common, they contain host or A records to translate hostnames or Fully Qualified Domain Names (FQDN) to ip addresses. Reverse lookup zones contain PTR records, they translate ip addresses to hostnames or FQDN's.</para>
+	<para>The internet contains thirteen logical DNS servers for the top of the hierarchy. This top is called the root, and is represented with a dot. Below the root are the Top Level Domains (TLD's). There are common TLD's like .com, .net. .info. aero. .museum, .gov, .mil, .edu and others. And there are country TLD's, like .be for Belgium and .fr for France.</para>
+	<para>The internet root name servers will only answer iterative queries, most local DNS servers will answer to recursive queries.</para>
+</section>
+<section><title>bind</title>
+	<para>One of the most common name servers on Linux is the Berkeley Internet Name Domain (bind) server. Use rpm or dpkg to verify whether it is installed.</para>
+	<screen>
+[root@RHEL4b etc]# rpm -qa | grep -i bind
+ypbind-1.17.2-8
+bind-chroot-9.2.4-16.EL4
+bind-utils-9.2.4-16.EL4
+bind-devel-9.2.4-16.EL4
+bind-libs-9.2.4-16.EL4
+bind-9.2.4-16.EL4
+	</screen>
+</section>
+<section><title>named</title>
+	<para>The software is called 'bind', the daemon runs as 'named' ! So look for the named daemon, the named manual pages and /etc/named.conf to work with bind.</para>
+	<screen>
+[root@RHEL4b etc]# apropos named | grep -i domain
+named                (8)  - Internet domain name server
+	</screen>
+</section>
+<section><title>Caching only Name Server</title>
+	<para>A caching only name server is a DNS server that is not authoritative for any zone. It forwards queries to other DNS servers and locally caches the results.</para> 
+	<para>The default /etc/named.conf on RHEL is a caching only name server.</para>
+</section>
+<section><title>Our first zone</title>
+	<para>The way to set up zones in /etc/named.conf is to create a zone entry with a reference to another file located in /var/named.</para>
+	<para>Here is an example of such an entry in /etc/named.conf</para>
+	<screen>
+zone "classdemo.local" IN {
+	type master;
+	file "classdemo.local.zone";
+	allow-update { none; };
+};
+	</screen>
+	<para>To create the zone file, the easy method is to copy an existing zone file (this is easier than writing from scratch).</para>
+	<screen>
+[root@RHEL4b named]# cd /var/named/
+[root@RHEL4b named]# pwd
+/var/named
+[root@RHEL4b named]# cp localhost.zone classdemo.local.zone
+[root@RHEL4b named]#
+	</screen>
+	<para>Here is an example of a zone file.</para>
+	<screen>
+[root@RHEL4b named]# cat classdemo.local.zone 
+$TTL    86400
+$ORIGIN classdemo.local.
+@       IN SOA  rhel4b.classdemo.local.   admin.classdemo.local. (
+                          2007083100      ; serial
+                          3H              ; refresh
+                          900             ; retry
+                          1W              ; expiry
+                          1D )            ; minimum
+
+                IN NS           rhel4b.classdemo.local.
+                IN MX     10    mail.classdemo.local.
+                IN A            192.168.1.191
+
+rhel4b          IN      A       192.168.1.191
+mail            IN      A       192.168.1.191
+www             IN      A       192.168.1.191
+ftp             IN      A       192.168.1.191
+server2         IN      A       192.168.1.1
+	</screen>
+</section>
+<section><title>Starting the name server</title>
+	<para>When starting the name server, don't forget to look at the log file to verify that all your zones are properly configured.</para>
+	<screen>
+[root@RHEL4b etc]# service named restart
+Stopping named:                                            [  OK  ]
+Starting named:                                            [  OK  ]
+[root@RHEL4b etc]# service named status
+number of zones: 9
+debug level: 0
+xfers running: 0
+xfers deferred: 0
+soa queries in progress: 0
+query logging is OFF
+server is up and running
+[root@RHEL4b etc]# 
+	</screen>
+</section>
+<section><title>Practice DNS</title>
+	<para>1. Set up a working DNS server with your own zone. Test that it works.</para>
+	<para>2. Set up a master and a slave server.</para>
+	<para></para>
+	<para></para>
+</section>

@@ -19,6 +19,13 @@ chapt_backup() {
 	}
 
 #
+chapt_bind() {
+	MODULES=""
+	chaptitle="Introduction to bind"
+	add_mod mod_bind/bind.xml
+	}
+
+#
 chapt_booting_linux() {
 	MODULES=""
 	chaptitle="Booting Linux"

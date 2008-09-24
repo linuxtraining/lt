@@ -89,6 +89,30 @@ RX bytes:58084 (56.7 KiB)  TX bytes:24078 (23.5 KiB)
 Interrupt:10 Base address:0x1480 
 		</screen>
 	</section>
+	<section><title>/proc/net/bond*</title>
+		<para>You can verify the proper working of the bonding interfaces by looking at <command>/proc/net/bonding/</command>. Below is a screenshot of a Red Hat Enterprise 5 server, with eth1 and eth2 in bonding.</para>
+		<screen>
+[root@RHEL5 ~]# cat /proc/net/bonding/bond0 
+Ethernet Channel Bonding Driver: v3.1.2 (January 20, 2007)
+
+Bonding Mode: load balancing (round-robin)
+MII Status: up
+MII Polling Interval (ms): 0
+Up Delay (ms): 0
+Down Delay (ms): 0
+
+Slave Interface: eth1
+MII Status: up
+Link Failure Count: 0
+Permanent HW addr: 00:0c:29:a0:9d:e3
+
+Slave Interface: eth2
+MII Status: up
+Link Failure Count: 0
+Permanent HW addr: 00:0c:29:a0:9d:ed
+[root@RHEL5 ~]# 
+		</screen>
+	</section>
 	<section><title>Practice multihomed hosts</title>
 		<para>1. Add a network card to the vmware machine, and bond the two cards as one virtual (double bandwidth and failover) card.</para>
 	</section>
