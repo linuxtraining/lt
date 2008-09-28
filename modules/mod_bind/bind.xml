@@ -1,5 +1,85 @@
 <section><title>Domain Name System</title>
-	<para>DNS or Domain Name System is a worldwide distributed hierarchichal database. It's primary function is to resolve names to ip addresses, and to point to internet services like SMTP and LDAP.</para>
+<section><title>DNS History</title>
+	<para>Today, <command>DNS</command><indexterm><primary>DNS</primary></indexterm> or Domain Name System</command><indexterm><primary>domain name system (DNS)</primary></indexterm> is a worldwide distributed hierarchical database. It's primary function is to resolve names to ip addresses, and to point to internet servers providing SMTP or LDAP services.</para>
+	<para>In the seventies, only a few hundred computers were connected to the internet. To resolve names, computers had a flat file that contained a table to resolve hostnames to ip-addresses. This local file was downloaded from hosts.txt on an ftp server in Stanford.</para>
+	<para>In 1984 <command>Paul Mockapetris</command><indexterm><primary>root(DNS)</primary></indexterm> created DNS, a distributed treelike hierarchical database.</para>
+	<para>ICANN...............</para>
+</section>
+<section><title>DNS Structure</title>
+	<section><title>root</title>
+		<para>DNS is a tree structure. The top of the tree is called the <command>root</command><indexterm><primary>root(DNS)</primary></indexterm>. There are thirteen root servers on the internet, they are named A to M. Journalist often refer to these servers as <command>the master servers of the internet</command>, because if these servers go down, then nobody can use (names!) to connect to websites.</para>
+		<para>The root servers are not thirteen physical machines, in fact ... (expand later with mirror info...)</para>
+	</section>
+	<section><title>top level domains (TLD)</title>
+		<para>Below the root level are the <command>top level domains</command><indexterm><primary>top level domain</primary></indexterm> or <command>TLD's</command><indexterm><primary>TLD</primary></indexterm>. Originally there were only seven defined: .com(mercial) .edu(cational) .gov(ernment) .int(ernational) .mil(ilitary) .net(work) and .org for non-commercial organizations. The .arpa domain was also used, it will be explained later.</para>
+		<para>Country TLD's were defined for individual countries, like .be for Belgium and .fr for France.</para>
+		<para>In the 21st century new TLD's were defined like .museum .info .biz and .aero.</para>
+	</section>
+	<section><title>domains</title>
+		<para>One level below the top level domains are the <command>domains</command><indexterm><primary>domain(DNS)</primary></indexterm>. Examples of domain names are google.com or linux-training.be. Domains can have subdomains (also called child domains).</para>
+	</section>
+	<section><title>fully qualified domain name</title>
+		<para>The <command>fully qualified domain name</command><indexterm><primary>fully qualified domain name</primary></indexterm> or <command>FQDN</command><indexterm><primary>FQDN</primary></indexterm> is the combination of the hostname of a machine appended with its domain name.</para>
+		<para>If for example a system is called <command>wolf</command> and it is in the domain <command>stargate.local</command>, then the FQDN of this system is <command>wolf.stargate.local</command>.</para>
+	</section>
+</section>
+<section><title>How DNS works</title>
+	<section><title>zone</title>
+		<para>A zone is a portion of the DNS tree. A DNS server that is controlling a zone, is said to be the <command>authoritative</command> DNS server for that zone. A zone is a collection of <command>resource records</command>. There are several types of resource records, for example A, PTR, NS, MX, SOA and CNAME.</para>
+		<section><title>A record</title>
+			<para>The <command>A record</command><indexterm><primary>A (DNS record)</primary></indexterm>, which is also called a <command>host record</command><indexterm><primary>host (DNS record)</primary></indexterm> contains the ipv4-address of a computer. When a DNS client queries a DNS server for an A record, then the DNS server will resolve the hostname in the query to an ip-address. An <command>AAAA record</command><indexterm><primary>AAAA (DNS record)</primary></indexterm> is similar but contains an ipv6 address instead of ipv4.</para>
+		</section>
+		<section><title>PTR record</title>
+			<para>A <command>PTR record</command><indexterm><primary>PTR (DNS record)</primary></indexterm> is the reverse of an A record. It contains the name of a computer and can be used to resolve an ip-address to a hostname.</para>
+		</section>
+		<section><title>NS record</title>
+			<para>A <command>NS record</command><indexterm><primary>NS (DNS record)</primary></indexterm> or <command>nameserver record</command> is a record that points to a DNS name server (in this zone). You can list all your name servers for your DNS zone in distinct NS records.</para>
+		</section>
+		<section><title>SOA record</title>
+			<para>The SOA record of a zone contains meta information about the zone itself. The contents of the SOA record is explained in detail in the section about zone transfers. There is exactly one SOA record for each zone.</para>
+		</section>
+		<section><title>CNAME record</title>
+			<para>A <command>CNAME record</command><indexterm><primary>CNAME (DNS record)</primary></indexterm> maps a hostname to a hostname, creating effectively an alias for an existing hostname. The name of the mail server is often aliased to <command>mail</command> or <command>smtp</command>, and the name of a web server to <command>www</command>.</para>
+		</section>
+		<section><title>MX record</title>
+			<para>The <command>MX</command><indexterm><primary>MX (DNS record)</primary></indexterm> points to an SMTP server. When you send an email to another domain, then your mail server will need the MX record of the target domain's mail server.</para>
+		</section>
+	</section>
+	<section><title>master and slave</title>
+		<para>There are several reasons to create more than one name server in a zone. One server might not be able to answer to all queries, or you might want some fault tolerance to mitigate the impact of hardware failure. When adding a <command>secondary DNS server</command><indexterm><primary>secondary server (DNS)</primary></indexterm> to a zone, then you will configure this server as a <command>slave server</command><indexterm><primary>slave server (DNS)</primary></indexterm> to the <command>primary server</command><indexterm><primary>primary server (DNS)</primary></indexterm>. The primary server then becomes the <command>master server</command><indexterm><primary>master server (DNS)</primary></indexterm> of the slave server.</para>
+		<para>Very often the primary DNS server is the master server of all slaves. Sometimes a slave server is master server for a second line slave server.</para>
+	</section>
+	<section><title>zone transfers</title>
+		<para>The slave server receives a copy of the zone database using a <command>zone transfer</command><indexterm><primary>zone transfer (DNS)</primary></indexterm>. Zone transfers are requested by the slave servers at regular intervals. Those intervals are defined in the <command>SOA record</command><indexterm><primary>SOA (DNS record)</primary></indexterm>.</para>
+		<para>The SOA record contains a <command>refresh<command> value. If this is set to 30 minutes, then the slave server will request a copy of the zone file every 30 minutes. There is also a <command>retry</command> value. The retry value is used when the master server did not reply to the last zone transfer request. The value for <command>expiry time</command> says how long the slave server will answer to queries, without receiving a zone update.</para>
+		<para>Zone transfers only occur when the zone database was updated (meaning when one or more resource records were added, removed or changed on the master server). The slave server will compare the <command>serial number<command> of its own copy of the SOA record with the serial number of its master's SOA record. When both serial numbers are the same, then no update is needed (because no records were added, removed or deleted). When the slave has a lower serial number than its master, then a zone transfer is requested.</para>
+	</section>
+	<section><title>full or incremental zone transfers</title>
+		<para>When a zone tranfer occurs, this can be either a full zone transfer or an incremental zone transfer. The decision depends on the size of the transfer that is needed to completely update the zone on the slave server. An incremental zone transfer is prefered when the total size of changes is smaller than the size of the zone database. Full zone transfers use the <command>axfr</command><indexterm><primary>axfr</primary></indexterm> protocol, incremental zone transfer use the <command>ixfr</command><indexterm><primary>ixfr</primary></indexterm> protocol. </para>
+	</section>
+	<section><title>DNS cache</title>
+		<para>DNS is a caching protocol. When a client queries its local DNS server, and the local DNS server is not authoritative for the query, then this server will go looking for an authoritative name server in the DNS tree. The local name server will first query a root server, then a TLD server and then a domain server. When the local name server resolves the query, then it will relay this information to the client that submitted the query, and it will also keep a copy of these queries in its cache. So when a(nother) client submits the same query to this name server, then it will retrieve this information form its cache.</para>
+		<para>For example, a client queries for the A record on www.linux-training.be to its local server. This is the first query ever received by this local server. The local server checks that it is not authoritative for the linux-training.be domain, nor for the .be TLD, and it is also not a root server. So the local server will use the root hints to send an <command>iterative</command> query to a root server. The root server will reply with a reference to the server that is authoritative for the .be domain (root DNS servers do not resolve fqdn's, and root servers do not respond to recursive queries). The local server will then sent an iterative query to the authoritative server for the .be TLD. This server will respond with a reference to the name server that is authoritative for the linux-training.be domain. The local server will then sent the query for www.linux-training.be to the authoritative server (or one of its slave servers) for the linux-training.be domain. When the local server receives the ip-address for www.linux-training.be, then it will provide this information to the client that submitted this query. Besides caching the A record for www.linux-training.be, the local server will also cache the NS and A record for the linux-training.be name server and the .be name server.</para>
+	</section>
+	<section><title>caching only server</title>
+		<para>A DNS server that is set up without its own zone, but that is connected to other name servers and caches the queries is called a <command>cahcing only name server</command><indexterm><primary>cahing only name server</primary></indexterm>. </para>
+	</section>
+	<section><title>iterative or recursive query</title>
+		<para>A <command>recursive query</command><indexterm><primary>recursive query</primary></indexterm> is a DNS query where the client that is submitting the query expects a complete answer. An <command>iterative query</command><indexterm><primary>iterative query</primary></indexterm> is a DNS query where the client does not expect a complete answer. Iterative queries usually take place between name servers. The root name servers do not respond to recursive queries.</para>
+	</section>
+</section>
+<section><title>DNS Structure</title>
+<section><title>DNS Structure</title>
+	<para></para>
+	<para></para>
+	<para></para>
+</section>
+<section><title>DNS Structure</title>
+	<para></para>
+	<para></para>
+	<para></para>
+</section>
+	
 	<para>Forward lookup zones are most common, they contain host or A records to translate hostnames or Fully Qualified Domain Names (FQDN) to ip addresses. Reverse lookup zones contain PTR records, they translate ip addresses to hostnames or FQDN's.</para>
 	<para>The internet contains thirteen logical DNS servers for the top of the hierarchy. This top is called the root, and is represented with a dot. Below the root are the Top Level Domains (TLD's). There are common TLD's like .com, .net. .info. aero. .museum, .gov, .mil, .edu and others. And there are country TLD's, like .be for Belgium and .fr for France.</para>
 	<para>The internet root name servers will only answer iterative queries, most local DNS servers will answer to recursive queries.</para>
