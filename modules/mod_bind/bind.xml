@@ -1,6 +1,5 @@
-<section><title>Domain Name System</title>
 <section><title>DNS History</title>
-	<para>Today, <command>DNS</command><indexterm><primary>DNS</primary></indexterm> or Domain Name System</command><indexterm><primary>domain name system (DNS)</primary></indexterm> is a worldwide distributed hierarchical database. It's primary function is to resolve names to ip addresses, and to point to internet servers providing SMTP or LDAP services.</para>
+	<para>Today, <command>DNS</command><indexterm><primary>DNS</primary></indexterm> or <command>Domain Name System</command><indexterm><primary>domain name system (DNS)</primary></indexterm> is a worldwide distributed hierarchical database. It's primary function is to resolve names to ip addresses, and to point to internet servers providing SMTP or LDAP services.</para>
 	<para>In the seventies, only a few hundred computers were connected to the internet. To resolve names, computers had a flat file that contained a table to resolve hostnames to ip-addresses. This local file was downloaded from hosts.txt on an ftp server in Stanford.</para>
 	<para>In 1984 <command>Paul Mockapetris</command><indexterm><primary>root(DNS)</primary></indexterm> created DNS, a distributed treelike hierarchical database.</para>
 	<para>ICANN...............</para>
@@ -51,8 +50,8 @@
 	</section>
 	<section><title>zone transfers</title>
 		<para>The slave server receives a copy of the zone database using a <command>zone transfer</command><indexterm><primary>zone transfer (DNS)</primary></indexterm>. Zone transfers are requested by the slave servers at regular intervals. Those intervals are defined in the <command>SOA record</command><indexterm><primary>SOA (DNS record)</primary></indexterm>.</para>
-		<para>The SOA record contains a <command>refresh<command> value. If this is set to 30 minutes, then the slave server will request a copy of the zone file every 30 minutes. There is also a <command>retry</command> value. The retry value is used when the master server did not reply to the last zone transfer request. The value for <command>expiry time</command> says how long the slave server will answer to queries, without receiving a zone update.</para>
-		<para>Zone transfers only occur when the zone database was updated (meaning when one or more resource records were added, removed or changed on the master server). The slave server will compare the <command>serial number<command> of its own copy of the SOA record with the serial number of its master's SOA record. When both serial numbers are the same, then no update is needed (because no records were added, removed or deleted). When the slave has a lower serial number than its master, then a zone transfer is requested.</para>
+		<para>The SOA record contains a <command>refresh</command> value. If this is set to 30 minutes, then the slave server will request a copy of the zone file every 30 minutes. There is also a <command>retry</command> value. The retry value is used when the master server did not reply to the last zone transfer request. The value for <command>expiry time</command> says how long the slave server will answer to queries, without receiving a zone update.</para>
+		<para>Zone transfers only occur when the zone database was updated (meaning when one or more resource records were added, removed or changed on the master server). The slave server will compare the <command>serial number</command> of its own copy of the SOA record with the serial number of its master's SOA record. When both serial numbers are the same, then no update is needed (because no records were added, removed or deleted). When the slave has a lower serial number than its master, then a zone transfer is requested.</para>
 	</section>
 	<section><title>full or incremental zone transfers</title>
 		<para>When a zone tranfer occurs, this can be either a full zone transfer or an incremental zone transfer. The decision depends on the size of the transfer that is needed to completely update the zone on the slave server. An incremental zone transfer is prefered when the total size of changes is smaller than the size of the zone database. Full zone transfers use the <command>axfr</command><indexterm><primary>axfr</primary></indexterm> protocol, incremental zone transfer use the <command>ixfr</command><indexterm><primary>ixfr</primary></indexterm> protocol. </para>
@@ -68,18 +67,7 @@
 		<para>A <command>recursive query</command><indexterm><primary>recursive query</primary></indexterm> is a DNS query where the client that is submitting the query expects a complete answer. An <command>iterative query</command><indexterm><primary>iterative query</primary></indexterm> is a DNS query where the client does not expect a complete answer. Iterative queries usually take place between name servers. The root name servers do not respond to recursive queries.</para>
 	</section>
 </section>
-<section><title>DNS Structure</title>
-<section><title>DNS Structure</title>
-	<para></para>
-	<para></para>
-	<para></para>
-</section>
-<section><title>DNS Structure</title>
-	<para></para>
-	<para></para>
-	<para></para>
-</section>
-	
+<section><title>old stuff....work in progress</title>
 	<para>Forward lookup zones are most common, they contain host or A records to translate hostnames or Fully Qualified Domain Names (FQDN) to ip addresses. Reverse lookup zones contain PTR records, they translate ip addresses to hostnames or FQDN's.</para>
 	<para>The internet contains thirteen logical DNS servers for the top of the hierarchy. This top is called the root, and is represented with a dot. Below the root are the Top Level Domains (TLD's). There are common TLD's like .com, .net. .info. aero. .museum, .gov, .mil, .edu and others. And there are country TLD's, like .be for Belgium and .fr for France.</para>
 	<para>The internet root name servers will only answer iterative queries, most local DNS servers will answer to recursive queries.</para>
