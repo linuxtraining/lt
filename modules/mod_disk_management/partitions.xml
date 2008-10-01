@@ -145,7 +145,7 @@ root@RHELv4u2:~#
 		</screen>
 	</section>
 	<section><title>Master Boot Record</title>
-		<para>The partition table information is written in the <command>Master Boot Record</command><indexterm><primary>master boot record</primary></indexterm> or <command>MBR</command><indexterm><primary>mbr</primary></indexterm>. You can use <command>dd</command><indexterm><primary>dd(1)</primary></indexterm> to copy the mbr to a file.</para>
+		<para>The partition table information (primary and extended partitions) is written in the <command>Master Boot Record</command><indexterm><primary>master boot record</primary></indexterm> or <command>MBR</command><indexterm><primary>mbr</primary></indexterm>. You can use <command>dd</command><indexterm><primary>dd(1)</primary></indexterm> to copy the mbr to a file.</para>
 		<para>This example copies the master boot record from the first SCSI hard disk.</para>
 		<screen>dd if=/dev/sda of=/SCSIdisk.mbr bs=512 count=1</screen>
 		<para>The same tool can also be used to wipe out all information about partitions on a disk. This example writes zeroes over the master boot record.</para>
@@ -157,6 +157,10 @@ root@RHELv4u2:~#
 [root@RHEL5 ~]# partprobe 
 [root@RHEL5 ~]#
 		</screen>
+	</section>
+	<section><title>logical drives</title>
+		<para>The partition table does not contain information about logical drives. So the dd backup of the mbr only works for primary and extended partitions. To backup the partition table inlcuding the logical drives, you can use <command>sfdisk</command><indexterm><primary>sfdisk(1)</primary></indexterm>. The following command will copy the mbs and the logical drive information from /dev/sda to /dev/sdb.</para>
+		<screen>sfdisk -d /dev/sda | sfdisk /dev/sdb</screen>
 	</section>
 	<section><title>Practice Partitions</title>
 		<para>1. Use fdisk and df to display existing partitions and sizes. Compare the output of the two commands.</para>
