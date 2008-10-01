@@ -34,19 +34,6 @@ bzip2recover     hw-detect         partman          touch
 bzless           ip                partman-commit   true
 bzmore           kbd_mode          perform_recipe   ulockmgr
 cat              kill              pidof            umount
-check-fc         ld_static         ping             uname
-chgrp            list-devices      ping6            uncompress
-chmod            ln                ps               update-dev
-chown            loadkeys          pwd              user-params
-cp               login             rbash            vdir
-cpio             log-output        readlink         which
-dash             ls                register-module  zcat
-date             lsmod             rm               zcmp
-dd               lspci             rmdir            zdiff
-debconf-get      mapdevfs          rnano            zegrep
-df               mkdir             run-parts        zfgrep
-dir              mknod             search-path      zforce
-dmesg            mktemp            sed              zgrep
 ...
 </screen>
 		</section>
@@ -77,12 +64,6 @@ paul@barry:~$ ls /dev/hd*
 			</section>
 			<section><title>/dev/null</title>
 				<para>On Linux you will find special devices like <command>/dev/null</command><indexterm><primary>/dev/null</primary></indexterm> which can be considered a black hole, it has unlimited storage, but nothing can be retrieved from it. Technically speaking, anything given to /dev/null will be discarded. /dev/null can be useful to discard unwanted output from commands. <emphasis>/dev/null is not a good location to store all your backups ;-)</emphasis>.</para>
-			</section>
-			<section><title>/dev/zero</title>
-				<para>Another Linux special device is <command>/dev/zero</command><indexterm><primary>/dev/zero</primary></indexterm>, which can be considered a source of zeroes. You cannot sent something to /dev/zero, but you can read zeroes from it.</para>
-			</section>
-			<section><title>/dev/random</title>
-				<para>This device acts as a <command>random number generator</command><indexterm><primary>random number generator</primary></indexterm> on any Unix machine.</para>
 			</section>
 		</section>
 		<section><title>/etc Configuration Files</title>
@@ -603,4 +584,68 @@ paul@RHELv4u4:~$
 		<section><title>/var/spool/up2date</title>
 			<para>The <command>Red Hat Update Agent</command><indexterm><primary>Red Hat Update Agent</primary></indexterm> uses files in <command>/var/spool/up2date</command><indexterm><primary>/var/spool/up2date</primary></indexterm>. This location is also used when files are downloaded from the <command>Red Hat Network</command><indexterm><primary>Red Hat Network</primary></indexterm>.</para>
 		</section>
+	</section>
+	<section><title>Practice: file system tree</title>
+		<para>1. Does the file /bin/cat exist ? What about /bin/dd and /bin/echo. What is the type of these files ?</para>
+		<para>2. What is the size of the Linux kernel file(s) (vmlinu*) in /boot ?</para>
+		<para>3. Create a directory ~/test. Then issue the following commands:</para>
+		<screen>cd ~/test</screen>
+		<screen>dd if=/dev/zero of=zeroes.txt count=1 bs=100</screen>
+		<screen>od zeroes.txt</screen>
+		<para>dd will copy one times (count=1) a block of size 100 bytes (bs=100) from the file /dev/zero to ~/test/zeroes.txt. Can you describe the functionality of /dev/zero ?</para>
+		<para>4. Now issue the following command:</para>
+		<screen>dd if=/dev/random of=random.txt count=1 bs=100 ; od random.txt</screen>
+		<para>dd will copy one times (count=1) a block of size 100 bytes (bs=100) from the file /dev/random to ~/test/random.txt. Can you describe the functionality of /dev/random ?</para>
+		<para>5. Issue the following two commands, and look at the first character of each output line.</para>
+		<screen>ls -l /dev/sd* /dev/hd*</screen>
+		<screen>ls -l /dev/tty* /dev/input/mou*</screen>
+		<para>The first ls will show block(b) devices, the second ls shows character(c) devices. Can you tell the difference between block and character devices ?</para>
+		<para>6. Use cat to display /etc/hosts and /etc/resolv.conf. What is your idea about the purpose of these files ?</para>
+		<para>7. Are there any files in /etc/skel/ ? Check also for hidden files.</para>
+		<para>8. Display /proc/cpuinfo. On what architecture is your Linux running ?</para>
+		<para>9. Display /proc/interrupts. What is the size of this file ? Where is this file stored ?</para>
+		<para>10. Can you enter the /root directory ? Are there (hidden) files ?</para>
+		<para>11. Are the binaries ifconfig, fdisk, parted, shutdown and grub-install present in /sbin ? Why are these files in /sbin and not in /bin ?</para>
+		<para>12. Is /var/log a file or a directory ? What about /var/spool ?</para>
+		<para></para>
+		<para></para>
+		<para></para>
+	</section>
+	<section><title>Solutions: file system tree</title>
+		<para>1. Does the file /bin/cat exist ? What about /bin/dd and /bin/echo. What is the type of these files ?</para>
+		<para></para>
+		<para>2. What is the size of the Linux kernel file(s) (vmlinu*) in /boot ?</para>
+		<para></para>
+		<para>3. Create a directory ~/test. Then issue the following commands:</para>
+		<screen>cd ~/test</screen>
+		<screen>dd if=/dev/zero of=zeroes.txt count=1 bs=100</screen>
+		<screen>od zeroes.txt</screen>
+		<para>dd will copy one times (count=1) a block of size 100 bytes (bs=100) from the file /dev/zero to ~/test/zeroes.txt. Can you describe the functionality of /dev/zero ?</para>
+		<para><command>/dev/zero</command><indexterm><primary>/dev/zero</primary></indexterm> is a Linux special device. It can be considered a source of zeroes. You cannot sent something to /dev/zero, but you can read zeroes from it.</para>
+		<para>4. Now issue the following command:</para>
+		<screen>dd if=/dev/random of=random.txt count=1 bs=100 ; od random.txt</screen>
+		<para>dd will copy one times (count=1) a block of size 100 bytes (bs=100) from the file /dev/random to ~/test/random.txt. Can you describe the functionality of /dev/random ?</para>
+		<para><command>/dev/random</command><indexterm><primary>/dev/random</primary></indexterm> acts as a <command>random number generator</command><indexterm><primary>random number generator</primary></indexterm> on your Linux machine.</para>
+		<para></para>
+		<para>5. Issue the following two commands, and look at the first character of each output line.</para>
+		<screen>ls -l /dev/sd* /dev/hd*</screen>
+		<screen>ls -l /dev/tty* /dev/input/mou*</screen>
+		<para>The first ls will show block(b) devices, the second ls shows character(c) devices. Can you tell the difference between block and character devices ?</para>
+		<para>Block devices are always written to (or read from) in blocks. For hard disks, blocks of 512 bytes are common. Character devices act as a stream of characters (or bytes). Mouse and keyboard are typical character devices.</para>
+		<para>6. Use cat to display /etc/hosts and /etc/resolv.conf. What is your idea about the purpose of these files ?</para>
+		<para><command>/etc/hosts</command><indexterm><primary>/et/hosts</primary></indexterm> contains hostnames with their ip-address, and <command>/etc/resolv.conf</command><indexterm><primary>/etc/resolv.conf</primary></indexterm> should contain the ip-address of a DNS name server.</para>
+		<para>7. Are there any files in /etc/skel/ ? Check also for hidden files.</para>
+		<para>Issue "ls -al /etc/skel/". Yes, there should be hidden files there.</para>
+		<para>8. Display /proc/cpuinfo. On what architecture is your Linux running ?</para>
+		<para>The file should contain at least one line with Intel Pentium or other cpu.</para>
+		<para>9. Display /proc/interrupts. What is the size of this file ? Where is this file stored ?</para>
+		<para>The size is zero, yet the file contains data. It is not stored anywhere because /proc is a virtual file system taht allows you to talk with the kernel. (If you answered "stored in RAM-memory, that is also correct...).</para>
+		<para>10. Can you enter the /root directory ? Are there (hidden) files ?</para>
+		<para>Try "cd /root". Yes there are (hidden) files there.</para>
+		<para>11. Are the binaries ifconfig, fdisk, parted, shutdown and grub-install present in /sbin ? Why are these files in /sbin and not in /bin ?</para>
+		<para>Because those files are only meant for system administrators.</para>
+		<para>12. Is /var/log a file or a directory ? What about /var/spool ?</para>
+		<para>Both are directories.</para>
+		<para></para>
+		<para></para>
 	</section>
