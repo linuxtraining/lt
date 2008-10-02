@@ -1,4 +1,4 @@
-	<section><title>About inodes</title>
+	<section><title>about inodes</title>
 		<para>To understand links in a file system, you first have to understand what an <command>inode</command><indexterm><primary>inode</primary></indexterm> is. When the file system stores a new file on the hard disk, it stores not only the contents (data) of the file, but also some extra properties like the name of the file, the creation date, the permissions, the owner of the file... and more. All this information (except the name of the file and the data) is stored in the inode of the file.</para>
 		<para>All the inodes are created when you create the file system (with mkfs). Most of them are unused and empty, each inode has a unique number (the inode number). You can see the inode numbers with the <command>ls -li</command><indexterm><primary>ls(1)</primary></indexterm> command.</para>
 		<screen>
@@ -26,7 +26,7 @@ paul@RHELv4u4:~/test$
 		</screen>
 		<para>The data that is displayed by the cat commend is not in the inode, but somewhere else on the disk. But the inode contains a pointer to the data.</para>
 	</section>
-	<section><title>About directories</title>
+	<section><title>about directories</title>
 		<para>A <command>directory</command><indexterm><primary>directory</primary></indexterm> is a special kind of file. It contains a table mapping filenames to inodes. Looking at our current directory with <command>ls -ali</command><indexterm><primary>ls(1)</primary></indexterm> will display the contents of the directory file.</para>
 		<screen>
 paul@RHELv4u4:~/test$ ls -ali
@@ -40,7 +40,7 @@ paul@RHELv4u4:~/test$
 		</screen>
 		<para>You can see five names, and the mapping to their five inodes. The dot <command>.</command><indexterm><primary>.</primary></indexterm> is a mapping to itself, and the dotdot <command>..</command><indexterm><primary>..</primary></indexterm> is a mapping to the parent directory. The three others are mappings to files.</para>
 	</section>
-	<section><title>Hard links</title>
+	<section><title>hard links</title>
 		<para>When we create a <command>hard link</command><indexterm><primary>hard link</primary></indexterm> to a file with <command>ln</command><indexterm><primary>ln(1)</primary></indexterm>, then an extra entry is added in the directory. A new file name is mapped to an existing inode.</para>
 		<screen>
 paul@RHELv4u4:~/test$ ln file2 hardlink_to_file2
@@ -63,7 +63,7 @@ paul@RHELv4u4:~/test$ find / -inum 2 2> /dev/null
 paul@RHELv4u4:~/test$ 
 		</screen>
 	</section>
-	<section><title>Symbolic links</title>
+	<section><title>symbolic links</title>
 		<para>Symbolic links (sometimes called <command>soft links</command><indexterm><primary>soft link</primary></indexterm>) do not link to inodes, but create a name to name mapping. As you can see below, the <command>symbolic link</command><indexterm><primary>symbolic link</primary></indexterm> gets an inode of its own.</para>
 		<screen>
 paul@RHELv4u4:~/test$ ls -li
@@ -76,6 +76,16 @@ total 32
 paul@RHELv4u4:~/test$ 
 		</screen>
 		<para>Permissions on a symbolic link have no meaning, since the permissions of the target apply. Hard links are limited to their own partition (because they point to an inode), symbolic links can link anywhere (other file systems, even networked).</para>	
+	</section>
+	<section><title>removing links</title>
+	<para>Links can be removed with <command>rm</command><indexterm><primary>rm(1)</primary></indexterm>.</para>
+	<screen>
+paul@laika:~$ touch data.txt
+paul@laika:~$ ln -s data.txt sl_data.txt
+paul@laika:~$ ln data.txt hl_data.txt
+paul@laika:~$ rm sl_data.txt 
+paul@laika:~$ rm hl_data.txt
+	</screen>	
 	</section>
 	<section><title>Practice Links</title>
 		<para>1. Create two files named winter.txt and summer.txt, put some text in them.</para>
