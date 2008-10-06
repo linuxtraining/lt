@@ -613,9 +613,11 @@ paul@RHELv4u4:~$
 	</section>
 	<section><title>Solutions: file system tree</title>
 		<para>1. Does the file /bin/cat exist ? What about /bin/dd and /bin/echo. What is the type of these files ?</para>
-		<para></para>
+		<para>ls /bin/cat</para>
+		<para>ls /bin/dd</para>
+		<para>ls /bin/echo</para>
 		<para>2. What is the size of the Linux kernel file(s) (vmlinu*) in /boot ?</para>
-		<para></para>
+		<para>ls -h /boot/vm*</para>
 		<para>3. Create a directory ~/test. Then issue the following commands:</para>
 		<screen>cd ~/test</screen>
 		<screen>dd if=/dev/zero of=zeroes.txt count=1 bs=100</screen>
@@ -639,7 +641,7 @@ paul@RHELv4u4:~$
 		<para>8. Display /proc/cpuinfo. On what architecture is your Linux running ?</para>
 		<para>The file should contain at least one line with Intel Pentium or other cpu.</para>
 		<para>9. Display /proc/interrupts. What is the size of this file ? Where is this file stored ?</para>
-		<para>The size is zero, yet the file contains data. It is not stored anywhere because /proc is a virtual file system taht allows you to talk with the kernel. (If you answered "stored in RAM-memory, that is also correct...).</para>
+		<para>The size is zero, yet the file contains data. It is not stored anywhere because /proc is a virtual file system that allows you to talk with the kernel. (If you answered "stored in RAM-memory, that is also correct...).</para>
 		<para>10. Can you enter the /root directory ? Are there (hidden) files ?</para>
 		<para>Try "cd /root". Yes there are (hidden) files there.</para>
 		<para>11. Are the binaries ifconfig, fdisk, parted, shutdown and grub-install present in /sbin ? Why are these files in /sbin and not in /bin ?</para>
