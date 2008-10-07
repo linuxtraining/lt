@@ -17,7 +17,8 @@
 		<para>8. Use echo to display Hello followed by your username. (use a bash variable!)</para>
 		<para>echo Hello $USER</para>
 		<para>9. Use echo to display "Hello World with strange' characters \ * [ }  ~ \\ ." (including all quotes)</para>
-		<para>echo "Hello World \' \\ \* \[ \} \~ \\\\ \. \""</para>
+		<para>echo \""Hello World with strange\' characters \\ \* \[ \} \~ \\\\ \. \""</para>
+		<para>echo \""Hello World with strange' characters \ * [ } ~ \\ . "\"</para>
 		<para>10. Use one echo command to display three words on three lines.</para>
 		<para>echo -e "one \ntwo \nthree"</para>
 		<para>11. Create a testdir and enter it.</para>
