@@ -64,7 +64,7 @@
 		<para>30. Destroy your variable.</para>
 		<para>unset MyVar</para>
 		<para>31. Find the list of shell options in the man page of bash. What is the difference between "set -u" and "set -o nounset" ?</para>
-		<para>man bash</para>
+		<para>read the manual of bash (man bash), search for nounset -- both mean the same thing.</para>
 		<para>32a. Create two variables, and export one of them.</para>
 		<para>var1=1; export var2=2</para>
 		<para>32b. Display the exported variable in an interactive child shell.</para>

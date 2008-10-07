@@ -1,5 +1,5 @@
 	<section><title>Practice Users</title>
-		<para>1. Create the users Serena Williams, Venus Williams and Justine Henin. all of them with password set to stargate, with username as their first name, and their full name in the comment. Verify that the users and their home directory are properly created.</para>
+		<para>1. Create the users Serena Williams, Venus Williams and Justine Henin. all of them with password set to stargate, with username (lowercase!) as their first name, and their full name in the comment. Verify that the users and their home directory are properly created.</para>
 		<para>2. Create a user called kornuser, give him the Korn shell (/bin/ksh) as his default shell. Log on with this user (on a command line or in a tty).</para>
 		<para>3. Create a user named Einstime without home directory, give him /bin/date as his default logon shell. What happens when you log on with this user ? Can you think of a useful real world example for changing a user's login shell to an application ?</para>
 		<para>4. Try the commands who, whoami, who am i, w, id, echo $USER $UID .</para>
@@ -7,7 +7,7 @@
 		<para>5b. Use passwd -d to disable the serena password. Verify the serena line in /etc/shadow before and after disabling.</para>
 		<para>5c. What is the difference between locking a user account and disabling a user account's password ?</para>
 		<para>6. As root change the password of Einstime to stargate.</para>
-		<para>7. Now try changing the password of Serena to Serena as Serena.</para>
+		<para>7. Now try changing the password of serena to serena as serena.</para>
 		<para>8. Make sure every new user needs to change his password every 10 days.</para>
 		<para>9. Set the warning number of days to four for the kornuser.</para>
 		<para>10a. Set the password of two seperate users to stargate. Look at the encrypted stargate's in /etc/shadow and explain.</para>

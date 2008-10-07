@@ -1,5 +1,5 @@
 	<section><title>Solutions to the practice</title>
-		<para>1. Create the users Serena Williams, Venus Williams and Justine Henin. all of them with password set to stargate, with username as their first name, and their full name in the comment. Verify that the users and their home directory are properly created.</para>
+		<para>1. Create the users Serena Williams, Venus Williams and Justine Henin. all of them with password set to stargate, with username (lowercase) as their first name, and their full name in the comment. Verify that the users and their home directory are properly created.</para>
 		<para>useradd -c "Serena Williams" serena ; passwd serena</para>
 		<para>useradd -c "Venus Williams" venus ; passwd venus</para>
 		<para>useradd -c "Justine Henin" justine ; passwd justine</para>
@@ -20,7 +20,7 @@
 		<para>Locking will prevent the user from logging on to the system with his password (by putting a ! in front of the password in /etc/shadow). Disbling with passwd will erase the password from /etc/shadow.</para>
 		<para>6. As root change the password of Einstime to stargate.</para>
 		<para>Log on as root and type: passwd Einstime</para>
-		<para>7. Now try changing the password of Serena to Serena as Serena.</para>
+		<para>7. Now try changing the password of serena to serena as serena.</para>
 		<para>log on as serena, then execute: passwd serena... it should fail!</para>
 		<para>8. Make sure every new user needs to change his password every 10 days.</para>
 		<para>For an existing user: chage -M 10 serena</para>
