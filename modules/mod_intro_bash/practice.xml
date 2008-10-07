@@ -35,7 +35,8 @@
 		<para>32b. Display the exported variable in an interactive child shell.</para>
 		<para>32c. Display the exported variable in an embedded child shell.</para>
 		<para>33. Create a variable, give it the value 'Dumb', create another variable with value 'do'. Use echo and the two variables to echo Dumbledore.</para>
-		<para>34. Use echo to display the following exactly: ""\\`;     "_+</para>
+		<para>34. Use echo to display the following exactly:</para>
+		<screen>""\\`;     "_+</screen>
 		<para>35. List all current aliases.</para>
 		<para>36. Create an alias for echo.</para>
 		<para>37. Use your alias to echo echo.</para>

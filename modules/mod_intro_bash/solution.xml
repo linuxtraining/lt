@@ -75,7 +75,8 @@
 		<para>33. Create a variable, give it the value 'Dumb', create another variable with value 'do'. Use echo and the two variables to echo Dumbledore.</para>
 		<para>varx=Dumb; vary=do</para>
 		<para>echo ${varx}le${vary}re</para>
-		<para>34. Use echo to display the following exactly: ""\\`;     "_+</para>
+		<para>34. Use echo to display the following exactly:</para>
+		<screen>""\\`;     "_+</screen>
 		<para>echo \"\"\\\\\`\;\ \ \ \ \"\_\+</para>
 		<para>35. List all current aliases.</para>
 		<para>alias</para>
