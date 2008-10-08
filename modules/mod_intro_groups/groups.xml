@@ -101,3 +101,21 @@ sports:!:serena:venus,harry
 		<para>5. Use the id command to verify that serena is a member of tennis.</para>
 		<para>6. Make someone responsible for managing group membership of foot and sports. Test that it works.</para>
 </section>
+<section><title>Solution: Groups</title>
+		<para>1. Create the groups tennis, football and sports.</para>
+		<para>groupadd tennis ; groupadd football ; groupadd sports</para>
+		<para>2. In one command, make venus a member of tennis and sports.</para>
+		<para>usermod -a -G tennis,sports venus</para>
+		<para>3. Rename the football group to foot.</para>
+		<para>groupmod -n foot football</para>
+		<para>4. Use vi to add serena to the tennis group.</para>
+		<para>vi /etc/group</para>
+		<para>5. Use the id command to verify that serena is a member of tennis.</para>
+		<para>id (and after logoff logon serena should be member)</para>
+		<para>6. Make someone responsible for managing group membership of foot and sports. Test that it works.</para>
+		<para>gpasswd -A (to make member)</para>
+		<para>gpasswd -a (to add member)</para>
+		<para></para>
+		<para></para>
+		<para></para>
+</section>
