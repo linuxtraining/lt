@@ -64,8 +64,9 @@ paul@RHELv4u4:~/test$
 		</screen>
 	</section>
 	<section><title>symbolic links</title>
-		<para>Symbolic links (sometimes called <command>soft links</command><indexterm><primary>soft link</primary></indexterm>) do not link to inodes, but create a name to name mapping. As you can see below, the <command>symbolic link</command><indexterm><primary>symbolic link</primary></indexterm> gets an inode of its own.</para>
+		<para>Symbolic links (sometimes called <command>soft links</command><indexterm><primary>soft link</primary></indexterm>) do not link to inodes, but create a name to name mapping. Symbolic links are created with <command>ln -s</command>. As you can see below, the <command>symbolic link</command><indexterm><primary>symbolic link</primary></indexterm> gets an inode of its own.</para>
 		<screen>
+paul@RHELv4u4:~/test$ ln -s file2 symlink_to_file2
 paul@RHELv4u4:~/test$ ls -li
 total 32
 817273 -rw-rw-r--  1 paul paul  13 Feb  5 17:06 file1
