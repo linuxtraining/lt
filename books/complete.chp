@@ -149,9 +149,9 @@ chapt_intro_users() {
 	MODULES=""
 	chaptitle="Introduction to Users"
 	add_mod mod_intro_users/users.xml   
+	add_mod mod_intro_users/identify_yourself.xml   
 	add_mod mod_intro_users/passwords.xml   
 	add_mod mod_intro_users/home_directories.xml   
-	add_mod mod_intro_users/identify_yourself.xml   
 	add_mod mod_intro_users/user_shell.xml   
 	add_mod mod_intro_users/su.xml   
 	add_mod mod_intro_users/sudo.xml   

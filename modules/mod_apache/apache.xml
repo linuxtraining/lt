@@ -1,7 +1,7 @@
-	<section><title>About Apache</title>
+	<section><title>about apache</title>
 		<para>According to NetCraft (http://news.netcraft.com/archives/web_server_survey.html) about seventy percent of all web servers are running on Apache. Some people say that the name is derived from <command>a patchy</command> web server, because of all the patches people wrote for the NCSA httpd server.</para>
 	</section>
-	<section><title>Is Apache installed ?</title>
+	<section><title>is apache installed ?</title>
 		<para>To verify whether Apache is installed, use the proper tools (rpm, dpkg, ...) and grep for apache or httpd.</para>
 		<para>This Red Hat Enterprise 4 Server has apache installed.</para>
 		<screen>
@@ -22,7 +22,7 @@ ii  apache2.2-common         2.2.3-3.2build1      Next generation, scalable, ...
 ii  libapache2-mod-php5      5.2.1-0ubuntu1.2     server-side, HTML-embedded ...
 		</screen>
 	</section>
-	<section><title>Is Apache running ?</title>
+	<section><title>is apache running ?</title>
 		<para>This is how apache looks when it is installed on Red Hat Enterprise Linux 4, running named as <command>httpd</command><indexterm><primary>httpd</primary></indexterm>.</para>
 		<screen>
 [root@RHELv4u3 ~]# /etc/init.d/httpd status
@@ -60,7 +60,7 @@ root@laika:~#
 		</screen>
 		<para>To verify that apache is running, open a web browser on the web server, and browse to http://localhost. An Apache test page should be shown. The http://localhosts/manual url will give you an extensive Apache manual. The second test is to connect to your Apache from another computer.</para>
 	</section>
-	<section><title>Apache configuration</title>
+	<section><title>apache configuration</title>
 		<para>Configuring Apache changed a bit the past couple of years. But it still takes place in <command>/etc/httpd</command><indexterm><primary>/etc/httpd</primary></indexterm> or <command>/etc/apache</command><indexterm><primary>/etc/apache</primary></indexterm>.</para>
 		<screen>
 [root@RHELv4u3 ~]# cd /etc/httpd/
@@ -76,7 +76,7 @@ lrwxrwxrwx  1 root root   13 Jan 24 08:48 run -> ../../var/run
 		</screen>
 		<para>The main configuration file for the Apache server on RHEL is <command>/etc/httpd/conf/httpd.conf</command><indexterm><primary>/etc/httpd/conf/httpd.conf</primary></indexterm>, on Ubuntu it is <command>/etc/apache2/apache2.conf</command><indexterm><primary>/etc/apache2/apache2.conf</primary></indexterm>. The file explains itself, and contains examples for how to set up virtual hosts or configure access.</para>
 	</section>
-	<section><title>Virtual hosts</title>
+	<section><title>virtual hosts</title>
 		<para>Virtual hosts can be defined by ip-address, by port or by name (host record). (The new way of defining virtual hosts is through seperate config files in the conf.d directory.) Below is a very simple virtual host definition.</para>
 		<screen>
 [root@rhel4 conf]# tail /etc/httpd/conf/httpd.conf 
@@ -119,13 +119,13 @@ ErrorDocument 404 http://www.cobbaut.be/cobbaut.php
 &#060;/VirtualHost&#062;
 		</screen>
 	</section>
-	<section><title>Aliases and redirects</title>
+	<section><title>aliases and redirects</title>
 		<para>Apache supports aliases for directories, like this example shows.</para>
 		<screen>Alias /paul/ "/home/paul/public_html/"</screen>
 		<para>Similarly, content can be redirected to another website or web server.</para>
 		<screen>Redirect permanent /foo http://www.foo.com/bar</screen>
 	</section>
-	<section><title>Securing directories with htpasswd and .htaccess</title>
+	<section><title>securing directories with htpasswd and .htaccess</title>
 		<para>You can secure files and directories in your website with a userid/password. First, enter your website, and use the <command>htpasswd</command><indexterm><primary>htpasswd(1)</primary></indexterm> command to create a <command>.htpasswd file</command><indexterm><primary>.htpasswd</primary></indexterm> that contains a userid and an (encrypted) password.</para>
 		<screen>
 		[root@rhel4 testsite]# htpasswd -c .htpasswd pol
@@ -188,10 +188,10 @@ ErrorDocument 404 http://www.cobbaut.be/cobbaut.php
 		paul@lounge:~/cobbaut.be$ 
 	</screen>
 	</section>
-	<section><title>Traffic</title>
+	<section><title>traffic</title>
 		<para>Apache keeps a log of all visitors. The <command>webalizer</command><indexterm><primary>webalizer</primary></indexterm> is often used to parse this log into nice html statistics.</para>
 	</section>
-	<section><title>Practice</title>
+	<section><title>practice: apache</title>
 		<para>1. Verify that Apache is installed and running.</para>
 		<para>2. Browse to the Apache HTML manual from another computer.</para>
 		<para>3. Create a virtual hosts that listens to port 8247.</para>
