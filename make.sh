@@ -9,7 +9,7 @@ books=$( ls books | grep .cfg$ | sed s/.cfg// )
 
 help() {
 	echo
-	echo "linux-training book build script\t\thttp://linux-training.be"
+	echo "linux-training book build script\t\thttp://www.linux-training.be"
 	echo
 	echo $0 "check\t\tcheck some settings"
 	echo $0 "clean\t\tdelete output dir"
