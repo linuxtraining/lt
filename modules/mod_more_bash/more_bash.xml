@@ -47,7 +47,7 @@ Password:
 		</screen>
 	</section>
 	<section><title>Shell I/O redirection</title>
-		<para>The shell (and almost every other Linux command) takes input from <command>stdin</command><indexterm><primary>stdin</primary></indexterm> and sends output to <command>stdout</command><indexterm><primary>stdout</primary></indexterm> and error messages to <command>stderr</command><indexterm><primary>stderr</primary></indexterm>. Stdin is usually the keyboard, stdout and stderr are the screen. The shell allows you to redirect these streams.</para>
+		<para>The shell (and almost every other Linux command) takes input from <command>stdin</command> (stream <command>0</command>) <indexterm><primary>stdin</primary></indexterm> and sends output to <command>stdout</command> (stream <command>1</command>) <indexterm><primary>stdout</primary></indexterm> and error messages to <command>stderr</command> (stream <command>2</command>) <indexterm><primary>stderr</primary></indexterm>. Stdin is usually the keyboard, stdout and stderr are the screen. The shell allows you to redirect these streams.</para>
 		<section><title>output redirection</title>
 			<para>Stdout can be redirected with a <command>greater than</command> sign. While scanning the line, the shell will see the <command>&#062;</command><indexterm><primary>&#062;</primary></indexterm> sign and will clear the file.</para>
 			<screen>
@@ -67,6 +67,7 @@ It is cold today!
 [paul@RHELv4u3 ~]$ cat winter.txt 
 [paul@RHELv4u3 ~]$ 
 			</screen>
+			<para>Note that the <command>&#062;</command> notation is in fact the abbreviation of <command>1&#062;</command> (<command>stdout</command> being referred to as stream <command>1</command>.</para>
 		</section>
 		<section><title>noclobber</title>
 			<para>This can be prevented by setting the <command>noclobber</command><indexterm><primary>noclobber</primary></indexterm> option.</para>
@@ -116,7 +117,7 @@ Where is the summer ?
 			</screen>
 		</section>
 		<section><title>input redirection</title>
-			<para>Redirecting stdin is done with &#060; .</para>
+			<para>Redirecting stdin is done with &#060; (short for 0&#060;).</para>
 			<screen>
 [paul@RHEL4b ~]$ cat &#060; text.txt
 one
@@ -155,6 +156,12 @@ brel
 		<screen>&#060; winter.txt &#062; snow.txt 2&#062; errors.txt cat</screen>
 		<para>So what is the quickest way to clear a file ?</para>
 		<screen>>foo</screen>
+	</section>
+	<section><title>swapping stdout and stderr</title>
+		<para>When filtering an output stream, e.g. through a pipe ( | ) you only can filter <command>stdout</command>. Say you want to filter out some unimportant error, out of the <command>stderr</command> stream. This cannot be done directly, and you need to 'swap'  <command>stdout</command> and <command>stderr</command>. This can be done by using a 4th stream referred to with number 3:</para>
+		<screen>3&#062;&#038;1 1&#062;&#038;2 2&#062;&#038;3</screen>
+		<para>This Tower Of Hanoi like construction uses a temporary stream 3, to be able to swap stdout (1) and stderr (2). The following is an example of how to filter out all lines in the stderr stream, containing $uninterestingerror.</para>
+		<screen>/usr/bin/$somecommand 3&#062;&#038;1 1&#062;&#038;2 2&#062;&#038;3 | grep -v $uninterestingerror ) 3&#062;&#038;1 1&#062;&#038;2 2&#062;&#038;3</screen>
 	</section>
 	<section><title>Practice: more bash</title>
 		<para>1. Take a backup copy of /etc/bashrc, /etc/profile, ~/.profile, ~/.bashrc and ~/.bash_profile (put them in ~/profilebackups).</para>
