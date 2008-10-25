@@ -9,7 +9,7 @@ APPENDIX=""
 SVN_PROJECTDIR="https://support.ginsys.be/svn/lt"
 
 # use the correct java runtime for fop on Ubuntu
-export JAVA_HOME=/usr/lib/jvm/java-6-sun-1.6.0.06/jre
+export JAVA_HOME=/usr/lib/jvm/java-6-sun/jre
 
 # Set the name of the XSL stylesheet
 XSLFILE="lib/lt.xsl"

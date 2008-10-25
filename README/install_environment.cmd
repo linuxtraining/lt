@@ -4,13 +4,13 @@
 echo This script will download static files needed to make the pdf
 echo  to ../static
 echo 
-if [ ! -e ../static ] 
-	then mkdir ../static ln -s ../static
-	else echo ../static dir already exists ; exit
+if [ ! -e ./static ] 
+	then mkdir ./static
+	else echo ./static dir already exists ; exit
 fi
 
 echo Downloading static docbook, xsl and fop
-cd ../static
+cd static
 wget http://support.ginsys.be/files/svn/lt/docbook.tbz
 wget http://support.ginsys.be/files/svn/lt/fop.tbz
 wget http://support.ginsys.be/files/svn/lt/xsl.tbz

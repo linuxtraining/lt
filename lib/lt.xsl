@@ -1,7 +1,7 @@
 <?xml version='1.0'?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
 
-<xsl:import href="../../static/xsl/fo/docbook.xsl"/>
+<xsl:import href="../static/xsl/fo/docbook.xsl"/>
 
 <xsl:param name="paper.type" select="'A4'"/>
 <xsl:param name="toc.section.depth" select="'3'"/>

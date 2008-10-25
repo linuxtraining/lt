@@ -144,7 +144,7 @@ build_book() {
 	if 	[ $DEBUG = "2" ]; then REDIR=""
 	elif 	[ $DEBUG = "3" ]; then REDIR="--execdebug"
 	else	REDIR=">./output/errors.txt 2>&1"; fi
-	eval $(echo ../static/fop-0.95beta/fop -xml $xmlfile -xsl $XSLFILE -pdf $pdffile $REDIR)
+	eval $(echo ./static/fop-0.95beta/fop -xml $xmlfile -xsl $XSLFILE -pdf $pdffile $REDIR)
 	ln -s $filename.pdf output/book.pdf
 	}
 
