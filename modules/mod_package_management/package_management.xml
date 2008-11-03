@@ -70,8 +70,8 @@ make install
 	</screen>
 </section>
 <section><title>Practice Installing software</title>
-	<para>1. Find the GUI app on all computers to add and remove applications.</para>
-	<para>2. Use aptitude or yum to install the 'dict' and 'wesnoth' applications.</para>
+	<para>1. Find the Graphical application on all computers to add and remove applications.</para>
+	<para>2. Use aptitude or yum to search for and install the 'dict' and 'wesnoth' applications.</para>
 	<para>3. Search the internet for 'webmin' and install it.</para>
 	<para>4. If time permits, uninstall Samba from the ubuntu machine, download the latest version from samba.org and install it.</para>
 </section>

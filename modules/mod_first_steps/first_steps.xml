@@ -501,6 +501,7 @@ ONE.bak  two.bak
 			<para>rm -rf &#126;/testbackup </para>
 			<para>11. Create a directory &#126;/etcbackup and copy all *.conf files from /etc in it. Did you include all subdirectories of /etc ?</para>
 			<para>cp -r /etc/*.conf &#126;/etcbackup</para>
+			<para>Only *.conf files that are directly in /etc/ are copied.</para>
 			<para>12. Use rename to rename all *.bak files to *.backup . (if you have more than one distro available, try it on all!)</para>
 			<para>On RHEL: touch 1.bak 2.bak ; rename bak backup *.bak</para>
 			<para>On Debian: touch 1.bak 2.bak ; rename 's/bak/backup/' *.bak</para>
