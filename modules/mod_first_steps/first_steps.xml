@@ -310,9 +310,10 @@ paul@pasha:~$ file /bin/date
 Linux 2.4.1, dynamically linked (uses shared libs), for GNU/Linux 2.4.1\
 , stripped
 			</screen>
+			<para>The file command uses a magic file that contains patterns to recognize filetypes. The magic file is located in <command>/usr/share/file/magic</command><indexterm><primary>magic(5)</primary></indexterm>. Type <command>man 5 magic</command> for more information.</para>
 		</section>
 		<section><title>touch</title>
-			<para>One easy way to create a file is with <command>touch</command><indexterm><primary>touch</primary></indexterm>. (We will see many other creative avenues for spawning files later in this book.)</para>
+			<para>One easy way to create a file is with <command>touch</command><indexterm><primary>touch(1)</primary></indexterm>. (We will see many other creative avenues for spawning files later in this book.)</para>
 			<screen>
 paul@laika:~/test$ touch file1
 paul@laika:~/test$ ls -l
@@ -564,6 +565,17 @@ paul@laika:~$
 			<screen>
 paul@laika:~$ cat /etc/resolv.conf
 nameserver 194.7.1.4
+paul@laika:~$
+			</screen>
+			<para><command>cat</command> is short for <command>concatenate</command>. One of the basic uses of cat is to concatenate files into a bigger (or complete) file.</para>
+			<screen>
+paul@laika:~$ echo one > part1
+paul@laika:~$ echo two > part2
+paul@laika:~$ echo three > part3
+paul@laika:~$ cat part1 part2 part3
+one
+two
+three
 paul@laika:~$
 			</screen>
 			<para>You can use cat to create files with one or more lines of text. Just type the command as is shown in the screenshot below. Then type one or more lines, finish each line with the enter key. After the last line, type and hold the Control (Ctrl) key and press d. The <command>Ctrl d</command><indexterm><primary>Ctrl D</primary></indexterm> key combination will send an EOF (End of File) to the running process, this will end the cat command.</para>

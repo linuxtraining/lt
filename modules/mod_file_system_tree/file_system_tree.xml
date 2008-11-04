@@ -38,10 +38,10 @@ cat              kill              pidof            umount
 </screen>
 		</section>
 		<section><title>/boot static files to boot the system</title>
-			<para>The <command>/boot</command><indexterm><primary>/boot</primary></indexterm> directory contains all files needed to boot the computer. These files don't change very often. On Linux systems you typically find the <command>/boot/grub</command><indexterm><primary>/boot/grub</primary></indexterm> directory here. This /boot/grub contains <command>/boot/grub/menu.lst</command><indexterm><primary>/boot/grub/menu.lst</primary></indexterm> (the grub configuration file), which defines the bootmenu that is being displayed before the kernel starts.</para>
+			<para>The <command>/boot</command><indexterm><primary>/boot</primary></indexterm> directory contains all files needed to boot the computer. These files don't change very often. On Linux systems you typically find the <command>/boot/grub</command><indexterm><primary>/boot/grub</primary></indexterm> directory here. This /boot/grub contains <command>/boot/grub/menu.lst</command><indexterm><primary>/boot/grub/menu.lst</primary></indexterm> (the grub configuration file is often linked to <command>/boot/grub/grub.conf</command><indexterm><primary>/boot/grub/grub.conf</primary></indexterm>), which defines the bootmenu that is being displayed before the kernel starts.</para>
 		</section>
 		<section><title>/dev device files</title>
-			<para>Device files in <command>/dev</command><indexterm><primary>/dev</primary></indexterm> appear to be ordinary files, but are not located on the harddisk. Instead they are an interface for a device driver toward a (physical or special) device.</para>
+			<para>Device files in <command>/dev</command><indexterm><primary>/dev</primary></indexterm> appear to be ordinary files, but are not located on the harddisk. The /dev directory is populated with files when the kernel is recognizing hardware.</para>
 			<section><title>Common physical devices</title>
 				<para>Common hardware such as hard disk devices are represented by device files in <command>/dev</command>. Below a screenshot of SATA device files on a laptop and then IDE attached drives on a desktop. (The detailed meaning of these devices will be discussed later.)</para>
 				<screen>
@@ -102,7 +102,7 @@ paul@RHELv4u4:~$
 				</screen>
 			</section>
 			<section><title>/etc/skel/</title>
-				<para>The <command>skeleton</command><indexterm><primary>skeleton</primary></indexterm> directory <command>/etc/skel</command><indexterm><primary>/etc/skel</primary></indexterm> is copied to the home directory of a newly created user.</para>
+				<para>The <command>skeleton</command><indexterm><primary>skeleton</primary></indexterm> directory <command>/etc/skel</command><indexterm><primary>/etc/skel</primary></indexterm> is copied to the home directory of a newly created user. It usually contains hidden files like a <command>.bashrc</command> script.</para>
 			</section>
 			<section><title>/etc/sysconfig/</title>
 				<para>This directory, which is not mentioned in the FHS, contains a lot of Red Hat Enterprise Linux configuration files. We will discuss some of them in greater detail. The screenshot below is the <command>/etc/sysconfig</command><indexterm><primary>/etc/sysconfig</primary></indexterm> from RHELv4u4 with everything installed.</para>
@@ -607,7 +607,8 @@ paul@RHELv4u4:~$
 		<para>10. Can you enter the /root directory ? Are there (hidden) files ?</para>
 		<para>11. Are the binaries ifconfig, fdisk, parted, shutdown and grub-install present in /sbin ? Why are these files in /sbin and not in /bin ?</para>
 		<para>12. Is /var/log a file or a directory ? What about /var/spool ?</para>
-		<para></para>
+		<para>13. Open two command prompts (Ctrl-Shift-T in gnome-terminal) or terminals (Ctrl-Alt-F1, Ctrl-Alt-F2, ...) and issue the <command>who am i</command> in both. The try to echo a word from one terminal to the other.</para>
+		<para>14. Read the man page of <command>random</command> and explain the difference between <command>/dev/random</command> and <command>/dev/urandom</command><indexterm><primary>/dev/urandom</primary></indexterm>.</para>
 		<para></para>
 		<para></para>
 	</section>
@@ -635,7 +636,7 @@ paul@RHELv4u4:~$
 		<para>The first ls will show block(b) devices, the second ls shows character(c) devices. Can you tell the difference between block and character devices ?</para>
 		<para>Block devices are always written to (or read from) in blocks. For hard disks, blocks of 512 bytes are common. Character devices act as a stream of characters (or bytes). Mouse and keyboard are typical character devices.</para>
 		<para>6. Use cat to display /etc/hosts and /etc/resolv.conf. What is your idea about the purpose of these files ?</para>
-		<para><command>/etc/hosts</command><indexterm><primary>/et/hosts</primary></indexterm> contains hostnames with their ip-address, and <command>/etc/resolv.conf</command><indexterm><primary>/etc/resolv.conf</primary></indexterm> should contain the ip-address of a DNS name server.</para>
+		<para><command>/etc/hosts</command><indexterm><primary>/etc/hosts</primary></indexterm> contains hostnames with their ip-address, and <command>/etc/resolv.conf</command><indexterm><primary>/etc/resolv.conf</primary></indexterm> should contain the ip-address of a DNS name server.</para>
 		<para>7. Are there any files in /etc/skel/ ? Check also for hidden files.</para>
 		<para>Issue "ls -al /etc/skel/". Yes, there should be hidden files there.</para>
 		<para>8. Display /proc/cpuinfo. On what architecture is your Linux running ?</para>
@@ -648,6 +649,12 @@ paul@RHELv4u4:~$
 		<para>Because those files are only meant for system administrators.</para>
 		<para>12. Is /var/log a file or a directory ? What about /var/spool ?</para>
 		<para>Both are directories.</para>
+		<para>13. Open two command prompts (Ctrl-Shift-T in gnome-terminal) or terminals (Ctrl-Alt-F1, Ctrl-Alt-F2, ...) and issue the <command>who am i</command> in both. The try to echo a word from one terminal to the other.</para>
+		<screen>tty-terminal: echo Hello > /dev/tty1</screen>
+		<screen>pts-terminal: echo Hello > /dev/pts/1</screen>
+		<para>14. Read the man page of <command>random</command> and explain the difference between <command>/dev/random</command> and <command>/dev/urandom</command><indexterm><primary>/dev/urandom</primary></indexterm>.</para>
+		<screen>man 4 random</screen>
+		<para></para>
 		<para></para>
 		<para></para>
 	</section>
