@@ -1,6 +1,6 @@
 	<section><title>About files on Unix</title>
-		<para>Unix is <command>case sensitive</command><indexterm><primary>case sensitive</primary></indexterm>, this means that FILE1 is different from file1, and /etc/hosts is different from /etc/Hosts (the latter one does not exist on a typical Unix). </para>
-		<para>All Unix systems have a directory structure that starts at the <command>root directory</command><indexterm><primary>root directory</primary></indexterm>. The root directory is represented by a slash, like this: <command>/</command><indexterm><primary>/</primary></indexterm> . Everything that exists on your linux system can be found below this root directory. Let's take a brief look at the contents of the root directory.</para>
+		<para>Linux is <command>case sensitive</command><indexterm><primary>case sensitive</primary></indexterm>, this means that FILE1 is different from file1, and /etc/hosts is different from /etc/Hosts (the latter one does not exist on a typical Linux computer). </para>
+		<para>All Linux systems have a directory structure that starts at the <command>root directory</command><indexterm><primary>root directory</primary></indexterm>. The root directory is represented by a slash, like this: <command>/</command><indexterm><primary>/</primary></indexterm> . Everything that exists on your linux system can be found below this root directory. Let's take a brief look at the contents of the root directory.</para>
 		<screen>
 [paul@RHELv4u3 ~]$ ls /
 bin   dev  home  media  mnt  proc  sbin     srv  tftpboot  usr
@@ -9,7 +9,7 @@ boot  etc  lib   misc   opt  root  selinux  sys  tmp       var
 		</screen>
 	</section>
 	<section><title>Filesystem Hierarchy</title>
-		<para>There are some differences between the flavors of Unix. For help about your machine, enter <command>man hier</command><indexterm><primary>man hier</primary></indexterm> to find information about the file system hierarchy. Red Hat, Novell Suse, even Sun's Solaris all aim to follow the <command>Filesystem Hierarchy Standard</command><indexterm><primary>Filesystem Hierarchy Standard</primary></indexterm> (FHS). Maybe the FHS will make more Unix file systems unite in the future. Let's take a look at the <command>FHS</command><indexterm><primary>FHS</primary></indexterm>.</para>
+		<para>There are some differences between Linux distributions. For help about your machine, enter <command>man hier</command><indexterm><primary>man hier</primary></indexterm> to find information about the file system hierarchy. Red Hat, Novell Suse, even Sun's Solaris all aim to follow the <command>Filesystem Hierarchy Standard</command><indexterm><primary>Filesystem Hierarchy Standard</primary></indexterm> (FHS). Maybe the FHS will make more Unix file systems unite in the future. Let's take a look at the <command>FHS</command><indexterm><primary>FHS</primary></indexterm>.</para>
 	</section>
 	<section><title>Filesystem Hierarchy Standard</title>
 		<para>On http://www.pathname.com/fhs/ we read "The filesystem hierarchy standard has been designed to be used by Unix distribution developers, package developers, and system implementors. However, it is primarily intended to be a reference and is not a tutorial on how to manage a Unix filesystem or directory hierarchy." Below we will discuss a couple of root directories. <emphasis>For a complete reference, you'll have to check with every developer and system administrator in the world ;-)</emphasis></para>

@@ -702,7 +702,7 @@ Five
 			<para>9. cd ; ls -lrS /etc</para>
 			<para>mkdir testsplit</para>
 			<para>cp /etc/bash_completion testsplit/biggest</para>
-			<para>split -b 200 biggest parts</para>
+			<para>split -b 2000 biggest parts</para>
 			<para></para>
 			<para></para>
 		</section>
