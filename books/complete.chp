@@ -142,6 +142,8 @@ chapt_intro_unix() {
 	add_mod mod_intro_unix/licensing.xml     
 	add_mod mod_intro_unix/distros.xml       
 	add_mod mod_intro_unix/certifications.xml
+	add_mod mod_intro_unix/help.xml                  
+	add_mod mod_intro_unix/classroom.xml           
 	}
 
 #
@@ -298,15 +300,6 @@ chapt_squid() {
 	chaptitle="Introduction to squid"
 	add_mod mod_squid/about_proxy_servers.xml  
 	add_mod mod_squid/squid.xml  
-	}
-
-#
-chapt_tech_intro_unix() {
-	MODULES=""
-	chaptitle="Technical Introduction to Unix and Linux"
-	add_mod mod_tech_intro_unix/operating_system.xml    
-	add_mod mod_tech_intro_unix/help.xml                  
-	add_mod mod_tech_intro_unix/classroom.xml           
 	}
 
 #
