@@ -38,7 +38,7 @@
 	<para>7. With chmod, is 770 the same as rwxrwx--- ?</para>
 	<para>yes</para>
 	<para>8. With chmod, is 664 the same as r-xr-xr-- ?</para>
-	<para>yes</para>
+	<para>No</para>
 	<para>9. With chmod, is 400 the same as r-------- ?</para>
 	<para>yes</para>
 	<para>10. With chmod, is 734 the same as rwxr-xr-- ?</para>
