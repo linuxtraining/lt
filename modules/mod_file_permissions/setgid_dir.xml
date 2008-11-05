@@ -14,7 +14,7 @@ root@RHELv4u4:~#
 	</screen>
 	<para>You can use the <command>find</command><indexterm><primary>find(1)</primary></indexterm> command to find all <command>setgid</command><indexterm><primary>setgid</primary></indexterm> programs.</para>
 	<screen>
-paul@laika:~$ find / -type d -perm -02000 2> /dev/null
+paul@laika:~$ find / -type d -perm -2000 2> /dev/null
 /var/log/mysql
 /var/log/news
 /var/local
