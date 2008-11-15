@@ -78,7 +78,15 @@ chapt_file_system_tree() {
 chapt_mod_first_steps() {
 	MODULES=""
 	chaptitle="First Steps"
-	add_mod mod_first_steps/first_steps.xml  
+	add_mod mod_first_steps/directories.xml
+	add_mod mod_first_steps/directories_practice.xml
+	add_mod mod_first_steps/directories_solution.xml
+	add_mod mod_first_steps/files.xml
+	add_mod mod_first_steps/files_practice.xml
+	add_mod mod_first_steps/files_solution.xml
+	add_mod mod_first_steps/filecontents.xml
+	add_mod mod_first_steps/filecontents_practice.xml
+	add_mod mod_first_steps/filecontents_solution.xml
 	}
 
 #

@@ -1,0 +1,22 @@
+<section><title>Practice: Working with directories</title>
+	<para>1. Display your current directory.</para>
+	<para>2. Change to the /etc directory.</para>
+	<para>3. Now change to your home directory using only three key presses.</para>
+	<para>4. Change to the /boot/grub directory using only eleven key presses.</para>
+	<para>5. Go to the parent directory of the current directory.</para>
+	<para>6. Go to the root directory.</para>
+	<para>7. List the contents of the root directory.</para>
+	<para>8. List a long listing of the root directory.</para>
+	<para>9. Stay where you are, and list the contents of /etc.</para>
+	<para>10. Stay where you are, and list the contents of /bin and /sbin.</para>
+	<para>11. Stay where you are, and list the contents of &#126;.</para>
+	<para>12. List all the files (including hidden files) in your homedirectory.</para>
+	<para>13. List the files in /boot in a human readable format.</para>
+	<para>14. Create a directory testdir in your homedirectory.</para>
+	<para>15. Change to the /etc directory, stay here and create a directory newdir in your homedirectory.</para>
+	<para>16. Create in one command the directories ~/dir1/dir2/dir3 (dir3 is a subdirectory from dir2, and dir2 is a subdirectory from dir1 ).</para>
+	<para>17. Remove the directory testdir.</para>
+	<para>18. If time permits (or if you are waiting for other students to finish this practice), use and understand pushd and popd. Use the man page of bash to find information about pushd, popd and dirs.</para>
+	<para></para>
+	<para></para>	
+</section>

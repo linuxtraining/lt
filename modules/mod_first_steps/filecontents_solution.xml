@@ -1,0 +1,29 @@
+<section><title>Solution: File contents</title>
+	<para>1. Display the first 12 lines of /etc/X11/xorg.conf.</para>
+	<screen>head -12 /etc/X11/xorg.conf</screen>
+	<para>2. Display the last line of /etc/passwd.</para>
+	<screen>tail -1 /etc/passwd</screen>
+	<para>3. Use cat to create a file named count.txt that looks like this:</para>
+	<screen>
+One
+Two
+Three
+Four
+Five
+	</screen>
+	<screen>cat > count.txt</screen>
+	<para>4. Use cp to make a backup of this file to cnt.txt.</para>
+	<screen>cp count.txt cnt.txt</screen>
+	<para>5. Use cat to make a backup of this file to catcnt.txt</para>
+	<screen>cat count.txt &#062; catcnt.txt</screen>
+	<para>6. Display catcnt.txt, but with all lines in reverse order (the last line first).</para>
+	<screen>tac catcnt.txt</screen>
+	<para>7. Use more to display /var/log/messages.</para>
+	<screen>more /var/log/messages</screen>
+	<para>8. Display the readable character strings from the passwd command.</para>
+	<screen>strings /usr/bin/passwd</screen>
+	<para>9. Use ls to find the biggest file in /etc.</para>	
+	<screen>cd ; ls -lrS /etc</screen>
+	<para></para>
+	<para></para>
+</section>

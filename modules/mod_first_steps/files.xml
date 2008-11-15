@@ -1,0 +1,173 @@
+	<section><title>Working with files</title>
+		<section><title>file</title>
+			<para>The <command>file</command><indexterm><primary>file(1)</primary></indexterm> utility determines the file type. Unlike some other operating system, Unix does not use extensions to determine the file type. Your editor does not care whether a file ends in .TXT or .DOC. As a system administrator, you should use the <command>file</command> command to determine the file type. First some examples on a typical Linux system.</para>
+			<screen>
+paul@laika:~$ file pic33.png 
+pic33.png: PNG image data, 3840 x 1200, 8-bit/color RGBA, non-interlaced
+paul@laika:~$ file /etc/passwd
+/etc/passwd: ASCII text
+paul@laika:~$ file HelloWorld.c 
+HelloWorld.c: ASCII C program text
+			</screen>
+			<para>Here's another example of the file utility. It shows the different type of binaries on different architectures.</para>
+			<screen>
+# Solaris 9 on Intel
+bash-2.05$ file /bin/date
+/bin/date:      ELF 32-bit LSB executable 80386 Version 1, dynamically \
+linked, stripped
+
+# Ubuntu Linux on AMD64
+paul@laika:~$ file /bin/date 
+/bin/date: ELF 64-bit LSB executable, AMD x86-64, version 1 (SYSV), for\
+ GNU/Linux 2.6.0, dynamically linked (uses shared libs), for GNU/Linux \
+2.6.0, stripped
+
+# Debian Sarge on SPARC
+paul@pasha:~$ file /bin/date 
+/bin/date: ELF 32-bit MSB executable, SPARC, version 1 (SYSV), for GNU/\
+Linux 2.4.1, dynamically linked (uses shared libs), for GNU/Linux 2.4.1\
+, stripped
+			</screen>
+			<para>The file command uses a magic file that contains patterns to recognize filetypes. The magic file is located in <command>/usr/share/file/magic</command><indexterm><primary>magic(5)</primary></indexterm>. Type <command>man 5 magic</command> for more information.</para>
+		</section>
+		<section><title>touch</title>
+			<para>One easy way to create a file is with <command>touch</command><indexterm><primary>touch(1)</primary></indexterm>. (We will see many other creative avenues for spawning files later in this book.)</para>
+			<screen>
+paul@laika:~/test$ touch file1
+paul@laika:~/test$ ls -l
+total 0
+-rw-r--r-- 1 paul paul 0 2007-01-10 21:40 file1
+paul@laika:~/test$ touch file2
+paul@laika:~/test$ touch file555
+paul@laika:~/test$ ls -l
+total 0
+-rw-r--r-- 1 paul paul 0 2007-01-10 21:40 file1
+-rw-r--r-- 1 paul paul 0 2007-01-10 21:40 file2
+-rw-r--r-- 1 paul paul 0 2007-01-10 21:40 file555
+			</screen>
+			<para>Of course, touch can do more than just create files. Can you find out what by looking at the next screenshot ? If not, check the manual of touch.</para>
+			<screen>
+paul@laika:~/test$ touch -t 200505050000 SinkoDeMayo
+paul@laika:~/test$ touch -t 130207111630 BigBattle
+paul@laika:~/test$ ls -l
+total 0
+-rw-r--r-- 1 paul paul 0 1302-07-11 16:30 BigBattle
+-rw-r--r-- 1 paul paul 0 2005-05-05 00:00 SinkoDeMayo
+			</screen>
+		</section>
+		<section><title>rm</title>
+			<para>When you no longer need a file, use <command>rm</command><indexterm><primary>rm</primary></indexterm> to remove it. Unlike some graphical user interfaces, the command line in general does not have a <emphasis>waste bin</emphasis> or <emphasis>trashcan</emphasis> to recover files. When you use rm to remove a file, the file is gone. So be careful before removing files! </para>
+			<screen>
+paul@laika:~/test$ ls
+BigBattle  SinkoDeMayo
+paul@laika:~/test$ rm BigBattle 
+paul@laika:~/test$ ls
+SinkoDeMayo
+			</screen>
+			<para>By default, rm will not remove non-empty directories. However rm accepts several options that will allow you to remove any directory. The <command>rm -rf</command><indexterm><primary>rm -rf</primary></indexterm> statement is famous because it will erase anything (providing that you have the permissions to do so). When you are logged on as root, be very careful with <command>rm -rf</command> (the <command>f</command> means <command>force</command> and the <command>r</command> means <command>recursive</command>), because being root implies that permissions don't apply to you, so you can literally erase your entire system by accident.</para>
+			<screen>
+paul@laika:~$ ls test
+SinkoDeMayo
+paul@laika:~$ rm test
+rm: cannot remove `test': Is a directory
+paul@laika:~$ rm -rf test
+paul@laika:~$ ls test
+ls: test: No such file or directory
+			</screen>
+		</section>
+		<section><title>cp</title>
+			<para>To copy a file, use <command>cp</command><indexterm><primary>cp</primary></indexterm> with a source and a target argument. If the target is a directory, then the sourcefiles are copied in that target directory.</para>
+			<screen>
+paul@laika:~/test$ touch FileA
+paul@laika:~/test$ ls
+FileA
+paul@laika:~/test$ cp FileA FileB
+paul@laika:~/test$ ls
+FileA  FileB
+paul@laika:~/test$ mkdir MyDir
+paul@laika:~/test$ ls
+FileA  FileB  MyDir
+paul@laika:~/test$ cp FileA MyDir/
+paul@laika:~/test$ ls MyDir/
+FileA
+			</screen>
+			<para>To copy complete directories, use <command>cp -r</command><indexterm><primary>cp(1)</primary></indexterm> (the <command>-r</command> option forces <command>recursive</command> copying of all files in all subdirectories).</para>
+			<screen>
+paul@laika:~/test$ ls
+FileA  FileB  MyDir
+paul@laika:~/test$ ls MyDir/
+FileA
+paul@laika:~/test$ cp -r MyDir MyDirB
+paul@laika:~/test$ ls
+FileA  FileB  MyDir  MyDirB
+paul@laika:~/test$ ls MyDirB
+FileA
+			</screen>
+			<para>You can also use cp to copy multiple file into a directory. In that case, the last argument (aka the target) must be a directory.</para>
+			<screen>cp file1 file2 dir1/file3 dir1/file55 dir2</screen>
+			<para>To prevent cp from overwriting existing files, use the -i (for interactive) option.</para>
+			<screen>
+paul@laika:~/test$ cp fire water
+paul@laika:~/test$ cp -i fire water
+cp: overwrite `water'? no
+paul@laika:~/test$
+			</screen>
+			<para>To preserve permissions and file stamps from source files, use <command>cp -p</command>.</para>
+			<screen>
+paul@laika:~/perms$ cp file* cp
+paul@laika:~/perms$ cp -p file* cpp
+paul@laika:~/perms$ ll *
+-rwx------ 1 paul paul    0 2008-08-25 13:26 file33
+-rwxr-x--- 1 paul paul    0 2008-08-25 13:26 file42
+
+cp:
+total 0
+-rwx------ 1 paul paul 0 2008-08-25 13:34 file33
+-rwxr-x--- 1 paul paul 0 2008-08-25 13:34 file42
+
+cpp:
+total 0
+-rwx------ 1 paul paul 0 2008-08-25 13:26 file33
+-rwxr-x--- 1 paul paul 0 2008-08-25 13:26 file42
+			</screen>
+		</section>
+		<section><title>mv</title>
+			<para>Use <command>mv</command><indexterm><primary>mv(1)</primary></indexterm> to rename a file, or to move the file to another directory.</para>
+			<screen>
+paul@laika:~/test$ touch file100
+paul@laika:~/test$ ls
+file100
+paul@laika:~/test$ mv file100 ABC.txt
+paul@laika:~/test$ ls
+ABC.txt
+paul@laika:~/test$
+			</screen>
+			<para>When you need to rename only one file, then <command>mv</command> is the prefered command to use.</para>
+		</section>
+		<section><title>rename</title>
+			<para>The <command>rename</command><indexterm><primary>rename(1)</primary></indexterm> command can also be used, but it has a more complex syntax to enable renaming of many files at once. Below two examples, the first switches all occurrences of txt in png for all filenames ending in .txt. The second example switches all occurrences of uppercase ABC in lowercase abc for all filenames ending in .png . The following syntax will work on debian and ubuntu (prior to Ubuntu 7.10).</para>
+			<screen>
+paul@laika:~/test$ ls
+123.txt  ABC.txt
+paul@laika:~/test$ rename 's/txt/png/' *.txt
+paul@laika:~/test$ ls
+123.png  ABC.png
+paul@laika:~/test$ rename 's/ABC/abc/' *.png
+paul@laika:~/test$ ls
+123.png  abc.png
+paul@laika:~/test$ 
+			</screen>
+			<para>On Red Hat Enterprise Linux (and many other Linux distro's like Ubuntu 8.04), the syntax of rename is a bit different. The first example below renames all *.conf files, replacing any occurrence of conf with bak. The second example renames all(*) files, replacing one with ONE.</para>
+			<screen>
+[paul@RHEL4a test]$ ls
+one.conf  two.conf
+[paul@RHEL4a test]$ rename conf bak *.conf
+[paul@RHEL4a test]$ ls
+one.bak  two.bak
+[paul@RHEL4a test]$ rename one ONE *
+[paul@RHEL4a test]$ ls
+ONE.bak  two.bak
+[paul@RHEL4a test]$ 
+			</screen>
+		</section>
+	</section>

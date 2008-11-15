@@ -240,6 +240,21 @@ dd if=/dev/cdrom |bzip2|ssh user@host "cat - > /backups/cd/cdrom.iso.bz2"
 	</screen>
 </section>
 </section>
+<section><title>split</title>
+        <para>The <command>split</command><indexterm><primary>split(1)</primary></indexterm> command is useful to split files into smaller files. This can be useful to fit the file onto multiple instances of a medium too small to contain the complete file. In the example below, a file of size 5000 bytes is split into three smaller files, with maximum 2000 bytes each.</para>
+        <screen> 
+paul@laika:~/test$ ls -l
+total 8
+-rw-r--r-- 1 paul paul 5000 2007-09-09 20:46 bigfile1
+paul@laika:~/test$ split -b 2000 bigfile1 splitfile.
+paul@laika:~/test$ ls -l
+total 20
+-rw-r--r-- 1 paul paul 5000 2007-09-09 20:46 bigfile1
+-rw-r--r-- 1 paul paul 2000 2007-09-09 20:47 splitfile.aa
+-rw-r--r-- 1 paul paul 2000 2007-09-09 20:47 splitfile.ab
+-rw-r--r-- 1 paul paul 1000 2007-09-09 20:47 splitfile.ac
+       </screen>
+</section>
 <section><title>Practice backup</title>
 	<para>!! Careful with tar options and the position of the backup file, mistakes can destroy your system!!</para>
 	<para>1. Create a directory (or partition if you like) for backups. Link (or mount) it under /mnt/backup.</para>
@@ -254,4 +269,8 @@ dd if=/dev/cdrom |bzip2|ssh user@host "cat - > /backups/cd/cdrom.iso.bz2"
 	<para>5. Use dd and ssh to put a backup of the master boot record on your neighbours computer.</para>	
 	<para>6. (On the real computer) Create and mount an ISO image of the ubuntu cdrom.</para>	
 	<para>7. Combine dd and gzip to create a 'ghost' image of one of your partitions on another partition.</para>	
+	<para>8. Use dd to create a five megabyte file in ~/testsplit and name it biggest. Then split this file in smaller two megabyte parts.</para>    
+	<screen>mkdir testsplit</screen>
+	<screen>dd if=/dev/zero of=~/testsplit/biggest count=5000 bs=1024</screen>
+	<screen>split -b 2000000 biggest parts</screen>
 </section>
