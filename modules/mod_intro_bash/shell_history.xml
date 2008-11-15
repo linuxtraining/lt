@@ -17,7 +17,7 @@ HISTSIZE=5000
 		</screen>
 	</section>
 	<section><title>repeating commands in bash</title>
-		<para>To repeat the last command in bash, type <command>!!</command><indexterm><primary>!!</primary></indexterm>. This is pronounced as <command>bash bash</command>. To repeat older commands, use <command>history</command><indexterm><primary>history</primary></indexterm> to display your history and type <command>!</command><indexterm><primary>!</primary></indexterm> followed by a number. The shell will echo the command and execute it.</para>
+		<para>To repeat the last command in bash, type <command>!!</command><indexterm><primary>!!</primary></indexterm>. This is pronounced as <command>bang bang</command>. To repeat older commands, use <command>history</command><indexterm><primary>history</primary></indexterm> to display your history and type <command>!</command><indexterm><primary>!</primary></indexterm> followed by a number. The shell will echo the command and execute it.</para>
 		<screen>
 [paul@RHELv4u3 ~]$ history
 2  cat /etc/redhat-release 

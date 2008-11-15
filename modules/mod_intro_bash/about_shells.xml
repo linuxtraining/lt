@@ -1,6 +1,6 @@
 <section><title>about shells</title>
 	<section><title>several shells</title>
-		<para>The command line interface used on most Linux systems is <command>bash</command><indexterm><primary>/bin/bash</primary></indexterm>, which stands for <command>Bourne again shell</command><indexterm><primary>Bourne again shell</primary></indexterm>. Bash incorporates features from <command>sh</command><indexterm><primary>/bin/sh</primary></indexterm> (the original Bourne shell), <command>csh</command><indexterm><primary>/bin/csh</primary></indexterm> (the C shell) and <command>ksh</command><indexterm><primary>/bin/ksh</primary></indexterm> (the Korn shell). Ubuntu recently started including the <command>dash</command><indexterm><primary>/bin/dash</primary></indexterm> shell.</para>
+		<para>The command line interface used on most Linux systems is <command>bash</command><indexterm><primary>/bin/bash</primary></indexterm>, which stands for <command>Bourne again shell</command><indexterm><primary>Bourne again shell</primary></indexterm>. Bash incorporates features from <command>sh</command><indexterm><primary>/bin/sh</primary></indexterm> (the original Bourne shell), <command>csh</command><indexterm><primary>/bin/csh</primary></indexterm> (the C shell) and <command>ksh</command><indexterm><primary>/bin/ksh</primary></indexterm> (the Korn shell). Ubuntu recently started including the <command>dash</command><indexterm><primary>/bin/dash</primary></indexterm> (Debian ash) shell.</para>
 		<para>This chapter will explain general features of a shell using mainly the /bin/bash shell. Important differences in /bin/ksh and /bin/dash will be mentioned seperately.</para>
 	</section>
 	<section><title>Why talk about shells ?</title>
@@ -33,6 +33,16 @@ paul@laika:~$
 /usr/bin/which
 [root@RHEL4b ~]#
 		</screen>
+	</section>
+	<section><title>type</title>
+	<para>You can also use the shell built-in <command>type</command> command, which will show you whether the command is aliased or not (explained later).</para>
+<screen>
+paul@laika:~$ type ls
+ls is aliased to `ls --color=auto'
+paul@laika:~$ type -P ls
+/bin/ls
+paul@laika:~$ 
+</screen>
 	</section>
 	<section><title>shell expansion</title>
     		<para>One of the primary features of a shell is to perform a <command>command line scan</command><indexterm><primary>command line scan</primary></indexterm>. When you enter a command on the shell's command prompt, and press the enter key, then the shell will start scanning that line. While scanning the line, the shell might make a lot of changes to the command line you typed. This process is called <command>shell expansion</command><indexterm><primary>shell expansion</primary></indexterm>. After the shell has finished scanning and changing that line, the line will be executed. Shell expansion is influenced by the following topics : control operators, white space removal, filename generation, variables, escaping, embedding and shell aliases. All these topics are discussed in the next sections.</para>

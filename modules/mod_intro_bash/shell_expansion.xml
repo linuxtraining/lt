@@ -143,7 +143,7 @@ paul@RHELv4u4:~/test$
 		</section>
 	</section>
 	<section><title>shell embedding</title>
-		<para>Shells can be embedded on the command line, or in other words the command line scan can spawn new processes, containing a fork of the current shell. You can use variables to prove that new shells are created. In the screenshot below (which uses POSIX compliant embedding), the variable $var1 only exists in the (temporary) sub shell.</para>
+		<para>Shells can be embedded on the command line, or in other words the command line scan can spawn new processes, containing a fork of the current shell. You can use variables to prove that new shells are created. In the screenshot below, the variable $var1 only exists in the (temporary) sub shell.</para>
 		<screen>
 [paul@RHELv4u3 gen]$ echo $var1
 
@@ -165,7 +165,7 @@ Parent - ParentChild - ParentChildGrand
 passwd passwd- passwd.OLD
 [paul@RHELv4u3 ~]$ 
 		</screen>
-		<para>Placing the embedding between <command>back ticks</command><indexterm><primary>back ticks</primary></indexterm> is not POSIX compliant, but is functionally identical to the POSIX notation. Be careful however, back ticks are often confused with single quotes. The technical difference between <command>'</command><indexterm><primary>'(single quote)</primary></indexterm> and <command>`</command><indexterm><primary>`(back tick)</primary></indexterm> is significant! You can not use back ticks to nest embedded shells.</para>
+		<para>Placing the embedding between <command>back ticks</command><indexterm><primary>back ticks</primary></indexterm> uses one character less than the dollar and parenthesis combo. Be careful however, back ticks are often confused with single quotes. The technical difference between <command>'</command><indexterm><primary>'(single quote)</primary></indexterm> and <command>`</command><indexterm><primary>`(back tick)</primary></indexterm> is significant! You can not use back ticks to nest embedded shells.</para>
 		<screen>
 [paul@RHELv4u3 gen]$ echo `var1=5;echo $var1`
 5
@@ -180,6 +180,12 @@ var1=5;echo $var1
 paul@laika:~$ alias dir='ls -lh --color=auto'
 paul@laika:~$ alias c='clear'
 paul@laika:~$
+		</screen>
+		<para>You can give multiple aliases as arguments to the <command>alias</command> command to get a small list. Not providing any argument will give you a complete list of current aliases.</para>
+		<screen>
+paul@laika:~$ alias c ll
+alias c='clear'
+alias ll='ls -lh'
 		</screen>
 		<para>Aliases can also be used to create an easier to remember alias for an existing command.</para>
 		<screen>

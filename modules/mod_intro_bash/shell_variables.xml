@@ -52,7 +52,7 @@ paul@laika:~/test$
 		<para>You can use the <command>set</command><indexterm><primary>set</primary></indexterm> command to display a list of environment variables. On Ubuntu and Debian systems, the set command will end the list of shell variables with a list of shell functions, use <command>set | more</command> to see the variables then.</para>
 	</section>
 	<section><title>env</title>			
-		<para>The <command>env</command><indexterm><primary>env(1)</primary></indexterm> The env command can also be useful for other neat things, like starting a clean shell (a shell without any inherited environment). The <command>env -i</command><indexterm><primary>env(1)</primary></indexterm> command clears the environment for the subshell. Notice that bash will set the $SHELL variable on startup.</para>
+		<para>The <command>env</command><indexterm><primary>env(1)</primary></indexterm> command can also be useful for other neat things, like starting a clean shell (a shell without any inherited environment). The <command>env -i</command><indexterm><primary>env(1)</primary></indexterm> command clears the environment for the subshell. Notice that bash will set the $SHELL variable on startup.</para>
 		<screen>
 [paul@RHEL4b ~]$ bash -c 'echo $SHELL $HOME $USER'
 /bin/bash /home/paul paul

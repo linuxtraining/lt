@@ -24,7 +24,7 @@ syslogd (8)          - Linux system logging utilities.
 syslogd-listfiles (8) - list system logfiles
 paul@laika:~$
 		</screen>
-		<para>By now you will have noticed the numbers between the round brackets. <command>man man</command><indexterm><primary>man man</primary></indexterm> will explain to you that these are section numbers. If you want to know more, RTFM (Read The Fantastic Manual). <emphasis>Unfortunately, manual pages do not have the answer to everyhting...</emphasis></para>
+		<para>By now you will have noticed the numbers between the round brackets. <command>man man</command><indexterm><primary>man man</primary></indexterm> will explain to you that these are section numbers. If you want to know more, RTFM (Read The Fantastic Manual). <emphasis>Unfortunately, manual pages do not have the answer to everything...</emphasis></para>
 		<screen>
 paul@laika:~$ man woman
 No manual entry for woman
@@ -37,7 +37,7 @@ No manual entry for woman
 		<para>Google is a powerful tool to find help about Unix, or anything else. Here are some tricks.</para>
 		<para>Look for phrases instead of single words.</para>
 		<mediaobject><imageobject><imagedata fileref="images/phrase.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>			
-		<para>Search only pages from Belgium (or substitute .be for any other Top Level Domain).</para>
+		<para>Search only pages from the .be TLD (or substitute .be for any other Top Level Domain). You can also use "country:be" to search only pages from Belgium (based on ip rather than TLD).</para>
 		<mediaobject><imageobject><imagedata fileref="images/sitehint.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 		<para>Search for pages inside one domain</para>
 		<mediaobject><imageobject><imagedata fileref="images/sitehint2.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
