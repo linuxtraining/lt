@@ -1,0 +1,32 @@
+<section><title>About files on Linux</title>
+	<section><title>case sensitive</title>
+		<para>Linux is <command>case sensitive</command><indexterm><primary>case sensitive</primary></indexterm>, this means that FILE1 is different from file1, and /etc/hosts is different from /etc/Hosts (the latter one does not exist on a typical Linux computer).</para>
+		<para>This screenshot points to the difference between two files, one with uppercase W, the other with lowercase w.</para>
+		<screen>
+paul@laika:~/Linux$ ls
+winter.txt  Winter.txt
+paul@laika:~/Linux$ cat winter.txt 
+It is cold.
+paul@laika:~/Linux$ cat Winter.txt 
+It is very cold!
+		</screen>
+	</section>
+	<section><title>everything is a file</title>
+		<para>A directory is a special kind of file, but it is still a file. Even a terminal window or a hard disk are represented somewhere in de file system hierarchy by a file. It will become clear troughout this course that everything on Linux is a file.</para>
+	</section>
+	<section><title>root directory</title>
+		<para>All Linux systems have a directory structure that starts at the <command>root directory</command><indexterm><primary>root directory</primary></indexterm>. The root directory is represented by a slash, like this: <command>/</command><indexterm><primary>/</primary></indexterm> . Everything that exists on your linux system can be found below this root directory. Let's take a brief look at the contents of the root directory.</para>
+		<screen>
+[paul@RHELv4u3 ~]$ ls /
+bin   dev  home  media  mnt  proc  sbin     srv  tftpboot  usr
+boot  etc  lib   misc   opt  root  selinux  sys  tmp       var
+[paul@RHELv4u3 ~]$ 
+		</screen>
+	</section>
+	<section><title>man hier (FileSystem Hierarchy)</title>
+		<para>There are some differences between Linux distributions. For help about your machine, enter <command>man hier</command><indexterm><primary>man hier</primary></indexterm> to find information about the file system hierarchy. This manual will explain the directory structure on your computer.</para>
+	</section>
+	<section><title>Filesystem Hierarchy Standard</title>
+		<para>Red Hat Enterprise Linux, Fedora, Novell SLES/SLED, OpenSUSE and others (even Sun Solaris) all aim to follow the <command>Filesystem Hierarchy Standard</command><indexterm><primary>Filesystem Hierarchy Standard</primary></indexterm> (FHS). Maybe the FHS will make more Unix file system trees unite in the future. The <command>FHS</command><indexterm><primary>FHS</primary></indexterm> is available online at http://www.pathname.com/fhs/.</para>
+	</section>
+</section>
