@@ -120,6 +120,8 @@ chapt_intro_bash() {
 	chaptitle="Introduction to the shell"
 	add_mod mod_intro_bash/about_shells.xml            
 	add_mod mod_intro_bash/shell_control_operators.xml  
+	add_mod mod_intro_bash/shell_control_operators_practice.xml  
+	add_mod mod_intro_bash/shell_control_operators_solution.xml  
 	add_mod mod_intro_bash/shell_expansion.xml  
 	add_mod mod_intro_bash/shell_variables.xml  
 	add_mod mod_intro_bash/bash_shell_options.xml    
