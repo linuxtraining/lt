@@ -1,6 +1,6 @@
 	<section><title>Working with files</title>
 		<section><title>file</title>
-			<para>The <command>file</command><indexterm><primary>file(1)</primary></indexterm> utility determines the file type. Unlike some other operating system, Unix does not use extensions to determine the file type. Your editor does not care whether a file ends in .TXT or .DOC. As a system administrator, you should use the <command>file</command> command to determine the file type. First some examples on a typical Linux system.</para>
+			<para>The <command>file</command><indexterm><primary>file(1)</primary></indexterm> utility determines the file type. Linux does not use extensions to determine the file type. Your editor does not care whether a file ends in .TXT or .DOC. As a system administrator, you should use the <command>file</command> command to determine the file type. First some examples on a typical Linux system.</para>
 			<screen>
 paul@laika:~$ file pic33.png 
 pic33.png: PNG image data, 3840 x 1200, 8-bit/color RGBA, non-interlaced
@@ -31,12 +31,9 @@ Linux 2.4.1, dynamically linked (uses shared libs), for GNU/Linux 2.4.1\
 			<para>The file command uses a magic file that contains patterns to recognize filetypes. The magic file is located in <command>/usr/share/file/magic</command><indexterm><primary>magic(5)</primary></indexterm>. Type <command>man 5 magic</command> for more information.</para>
 		</section>
 		<section><title>touch</title>
-			<para>One easy way to create a file is with <command>touch</command><indexterm><primary>touch(1)</primary></indexterm>. (We will see many other creative avenues for spawning files later in this book.)</para>
+			<para>One easy way to create a file is with <command>touch</command><indexterm><primary>touch(1)</primary></indexterm>. (We will see many other ways for creating files later in this book.)</para>
 			<screen>
 paul@laika:~/test$ touch file1
-paul@laika:~/test$ ls -l
-total 0
--rw-r--r-- 1 paul paul 0 2007-01-10 21:40 file1
 paul@laika:~/test$ touch file2
 paul@laika:~/test$ touch file555
 paul@laika:~/test$ ls -l
@@ -45,18 +42,20 @@ total 0
 -rw-r--r-- 1 paul paul 0 2007-01-10 21:40 file2
 -rw-r--r-- 1 paul paul 0 2007-01-10 21:40 file555
 			</screen>
-			<para>Of course, touch can do more than just create files. Can you find out what by looking at the next screenshot ? If not, check the manual of touch.</para>
-			<screen>
+			<section><title>touch -t</title>
+				<para>Of course, touch can do more than just create files. Can you find out what by looking at the next screenshot ? If not, check the manual of touch.</para>
+				<screen>
 paul@laika:~/test$ touch -t 200505050000 SinkoDeMayo
 paul@laika:~/test$ touch -t 130207111630 BigBattle
 paul@laika:~/test$ ls -l
 total 0
 -rw-r--r-- 1 paul paul 0 1302-07-11 16:30 BigBattle
 -rw-r--r-- 1 paul paul 0 2005-05-05 00:00 SinkoDeMayo
-			</screen>
+				</screen>
+			</section>
 		</section>
 		<section><title>rm</title>
-			<para>When you no longer need a file, use <command>rm</command><indexterm><primary>rm</primary></indexterm> to remove it. Unlike some graphical user interfaces, the command line in general does not have a <emphasis>waste bin</emphasis> or <emphasis>trashcan</emphasis> to recover files. When you use rm to remove a file, the file is gone. So be careful before removing files! </para>
+			<para>When you no longer need a file, use <command>rm</command><indexterm><primary>rm(1)</primary></indexterm> to remove it. Unlike some graphical user interfaces, the command line in general does not have a <emphasis>waste bin</emphasis> or <emphasis>trashcan</emphasis> to recover files. When you use rm to remove a file, the file is gone. So be careful before removing files! </para>
 			<screen>
 paul@laika:~/test$ ls
 BigBattle  SinkoDeMayo
@@ -64,8 +63,18 @@ paul@laika:~/test$ rm BigBattle
 paul@laika:~/test$ ls
 SinkoDeMayo
 			</screen>
-			<para>By default, rm will not remove non-empty directories. However rm accepts several options that will allow you to remove any directory. The <command>rm -rf</command><indexterm><primary>rm -rf</primary></indexterm> statement is famous because it will erase anything (providing that you have the permissions to do so). When you are logged on as root, be very careful with <command>rm -rf</command> (the <command>f</command> means <command>force</command> and the <command>r</command> means <command>recursive</command>), because being root implies that permissions don't apply to you, so you can literally erase your entire system by accident.</para>
-			<screen>
+			<section><title>rm -i</title>
+				<para>To prevent yourself from accidentally removing a file, you can type <command>rm -i</command>.</para>
+				<screen>
+paul@laika:~/Linux$ touch brel.txt
+paul@laika:~/Linux$ rm -i brel.txt 
+rm: remove regular empty file `brel.txt'? y
+paul@laika:~/Linux$ 
+				</screen>
+			</section>
+			<section><title>rm -rf</title>
+				<para>By default, rm will not remove non-empty directories. However rm accepts several options that will allow you to remove any directory. The <command>rm -rf</command><indexterm><primary>rm -rf</primary></indexterm> statement is famous because it will erase anything (providing that you have the permissions to do so). When you are logged on as root, be very careful with <command>rm -rf</command> (the <command>f</command> means <command>force</command> and the <command>r</command> means <command>recursive</command>), because being root implies that permissions don't apply to you, so you can literally erase your entire system by accident.</para>
+				<screen>
 paul@laika:~$ ls test
 SinkoDeMayo
 paul@laika:~$ rm test
@@ -73,10 +82,11 @@ rm: cannot remove `test': Is a directory
 paul@laika:~$ rm -rf test
 paul@laika:~$ ls test
 ls: test: No such file or directory
-			</screen>
+				</screen>
+			</section>
 		</section>
 		<section><title>cp</title>
-			<para>To copy a file, use <command>cp</command><indexterm><primary>cp</primary></indexterm> with a source and a target argument. If the target is a directory, then the sourcefiles are copied in that target directory.</para>
+			<para>To copy a file, use <command>cp</command><indexterm><primary>cp(1)</primary></indexterm> with a source and a target argument. If the target is a directory, then the sourcefiles are copied in that target directory.</para>
 			<screen>
 paul@laika:~/test$ touch FileA
 paul@laika:~/test$ ls
@@ -91,8 +101,9 @@ paul@laika:~/test$ cp FileA MyDir/
 paul@laika:~/test$ ls MyDir/
 FileA
 			</screen>
-			<para>To copy complete directories, use <command>cp -r</command><indexterm><primary>cp(1)</primary></indexterm> (the <command>-r</command> option forces <command>recursive</command> copying of all files in all subdirectories).</para>
-			<screen>
+			<section><title>cp -r</title>
+				<para>To copy complete directories, use <command>cp -r</command><indexterm><primary>cp(1)</primary></indexterm> (the <command>-r</command> option forces <command>recursive</command> copying of all files in all subdirectories).</para>
+				<screen>
 paul@laika:~/test$ ls
 FileA  FileB  MyDir
 paul@laika:~/test$ ls MyDir/
@@ -102,18 +113,24 @@ paul@laika:~/test$ ls
 FileA  FileB  MyDir  MyDirB
 paul@laika:~/test$ ls MyDirB
 FileA
-			</screen>
-			<para>You can also use cp to copy multiple file into a directory. In that case, the last argument (aka the target) must be a directory.</para>
-			<screen>cp file1 file2 dir1/file3 dir1/file55 dir2</screen>
-			<para>To prevent cp from overwriting existing files, use the -i (for interactive) option.</para>
-			<screen>
+				</screen>
+			</section>
+			<section><title>cp multiple files to directory</title>
+				<para>You can also use cp to copy multiple file into a directory. In that case, the last argument (aka the target) must be a directory.</para>
+				<screen>cp file1 file2 dir1/file3 dir1/file55 dir2</screen>
+			</section>
+			<section><title>cp -i</title>
+				<para>To prevent cp from overwriting existing files, use the -i (for interactive) option.</para>
+				<screen>
 paul@laika:~/test$ cp fire water
 paul@laika:~/test$ cp -i fire water
 cp: overwrite `water'? no
 paul@laika:~/test$
-			</screen>
-			<para>To preserve permissions and file stamps from source files, use <command>cp -p</command>.</para>
-			<screen>
+				</screen>
+			</section>
+			<section><title>cp -p</title>
+				<para>To preserve permissions and time stamps from source files, use <command>cp -p</command>.</para>
+				<screen>
 paul@laika:~/perms$ cp file* cp
 paul@laika:~/perms$ cp -p file* cpp
 paul@laika:~/perms$ ll *
@@ -129,7 +146,8 @@ cpp:
 total 0
 -rwx------ 1 paul paul 0 2008-08-25 13:26 file33
 -rwxr-x--- 1 paul paul 0 2008-08-25 13:26 file42
-			</screen>
+				</screen>
+			</section>
 		</section>
 		<section><title>mv</title>
 			<para>Use <command>mv</command><indexterm><primary>mv(1)</primary></indexterm> to rename a file, or to move the file to another directory.</para>
