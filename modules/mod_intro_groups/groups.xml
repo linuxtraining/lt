@@ -54,6 +54,13 @@ salsa:x:1010:katrien
 darts:x:1008:sandra
 	</screen>
 </section>
+<section><title>groupdel</title>
+	  <para>You can permanently remove a group with the <command>groupdel</command><indexterm><primary>groupdel(1)</primary></indexterm> command.</para>
+	<screen>
+root@laika:~# groupdel tennis
+root@laika:~# 
+	</screen>
+</section>
 <section><title>groups</title>
 	<para>A user can type the <command>groups</command><indexterm><primary>groups(1)</primary></indexterm> command to see a list of groups where the user belongs to.</para>
 	<screen>

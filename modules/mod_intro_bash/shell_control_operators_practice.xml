@@ -1,0 +1,14 @@
+	<section><title>Practice: Control Operators</title>
+		<para>0. All these questions can be answered by one command line!!</para>
+		<para>1. When you type 'passwd', which file is executed ?</para>
+		<para>2. What kind of file is that ?</para>
+		<para>3. Execute the pwd command twice. (remember 0.)</para>
+		<para>4. Execute ls after cd /etc, but only if cd /etc did not error.</para>
+		<para>5. Execute cd /etc after cd etc, but only if cd etc fails.</para>
+		<para>6. Execute sleep 10, what is this command doing ?</para>
+		<para>7. Execute sleep 200 in background (do not wait for it to finish).</para>
+		<para>8. Use echo to display "Hello World with strange' characters \ * [ }  ~ \\ ." (including all quotes)</para>
+		<para>9. Use one echo command to display three words on three lines.</para>
+		<para></para>
+		<para></para>	
+	</section>

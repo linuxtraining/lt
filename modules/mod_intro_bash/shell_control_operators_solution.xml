@@ -1,0 +1,22 @@
+	<section><title>Solutions: Control Operators</title>
+	<para>0. All these questions can be answered by one command line!!</para>
+	<para>1. When you type 'passwd', which file is executed ?</para>
+	<screen>which passwd</screen>
+	<para>2. What kind of file is that ?</para>
+	<screen>file $(which passwd)</screen>
+	<para>3. Execute the pwd command twice. (remember 0.)</para>
+	<screen>pwd ; pwd</screen>
+	<para>4. Execute ls after cd /etc, but only if cd /etc did not error.</para>
+	<screen>cd /etc &#038;&#038; ls</screen>
+	<para>5. Execute cd /etc after cd etc, but only if cd etc fails.</para>
+	<screen>cd etc || cd /etc</screen>
+	<para>6. Execute sleep 10, what is this command doing ?</para>
+	<screen>pausing for ten seconds</screen>
+	<para>7. Execute sleep 200 in background (do not wait for it to finish).</para>
+	<screen>sleep 200 &#038;</screen>
+	<para>8. Use echo to display "Hello World with strange' characters \ * [ }  ~ \\ ." (including all quotes)</para>
+	<screen>echo \""Hello World with strange\' characters \\ \* \[ \} \~ \\\\ \. \""</screen>
+	<screen>echo \""Hello World with strange' characters \ * [ } ~ \\ . "\"</screen>
+	<para>9. Use one echo command to display three words on three lines.</para>
+	<screen>echo -e "one \ntwo \nthree"</screen>
+</section>

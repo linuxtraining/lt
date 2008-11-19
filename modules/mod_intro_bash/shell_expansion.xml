@@ -1,6 +1,7 @@
 <section><title>shell expansion</title>
-	<section><title>white space squeezing</title>
-		<para>Multiple consecutive <command>white spaces</command> on the command line will be reduced to one white space. That is why the following four different command lines are the same after <command>shell expansion</command><indexterm><primary>shell expansion</primary></indexterm>.</para>
+	<section><title>white space removal</title>
+		<para>Before execution, the shell looks at the command line. Parts that are seperated by one or more consecutive <command>white spaces</command> (or tabs) are considered separate arguments. The first argument is the command to be executed, the other arguments are given to the command as arguments.</para>
+		<para>This explains why the following four different command lines are the same after <command>shell expansion</command><indexterm><primary>shell expansion</primary></indexterm>.</para>
 		<screen>
 [paul@RHELv4u3 ~]$ echo Hello World
 Hello World
@@ -12,9 +13,10 @@ Hello World
 Hello World
 [paul@RHELv4u3 ~]$ 
 		</screen>
+		<para>The echo command will separate the different arguments it recieves from the shell by a white space.</para>
 	</section>
 	<section><title>single and double quotes</title>
-		<para>You can prevent the squeezing of white spaces to a single white space character by quoting the spaces.</para>
+		<para>You can prevent the removal of white spaces to a single white space character by quoting the spaces.</para>
 		<screen>
 [paul@RHEL4b ~]$ echo "A line with      double    quotes"
 A line with      double    quotes

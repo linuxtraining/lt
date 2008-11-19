@@ -79,16 +79,6 @@ It failed!
 paul@laika:~/test$
 			</screen>
 	</section>
-	<section><title>\ backslash</title>
-		<para>Lines ending in a backslash are continued on the next line. The shell will wait with shell expansion and execution of the command line until a return without backslash is encountered.</para>
-			<screen>
-[paul@RHEL4b ~]$ echo This command line \
-> is split in three \
-> parts
-This command line is split in three parts
-[paul@RHEL4b ~]$
-			</screen>
-	</section>
 	<section><title># pound sign</title>
 		<para>Anything written after a pound sign (#) is ignored by the shell. This is useful to write <command>shell comment</command><indexterm><primary>shell comment</primary></indexterm>, but has no influence on the command execution or shell expansion.</para>
 			<screen>
@@ -98,7 +88,7 @@ paul@barry:~/test$ ls       # is it empty ?
 paul@barry:~/test$
 			</screen>
 	</section>
-	<section><title>Escaping special characters</title>
+	<section><title>\ escaping special characters</title>
 		<para>When you want to use one of the shell control characters, but without the shell interpreting them, then you can <command>escape</command><indexterm><primary>shell escaping</primary></indexterm> them with a backslash <command>\</command><indexterm><primary>\</primary></indexterm>.</para>
 		<screen>
 [paul@RHELv4u3 ~]$ echo hello \; world
@@ -110,5 +100,15 @@ escaping \ # &#038; " '
 [paul@RHELv4u3 ~]$ echo escaping \\\?\*\"\'
 escaping \?*"'
 		</screen>
+	</section>
+	<section><title>end of line backslash</title>
+		<para>Lines ending in a backslash are continued on the next line. The shell is not interpreting the newline character and will wait with shell expansion and execution of the command line until a newline without backslash is encountered.</para>
+			<screen>
+[paul@RHEL4b ~]$ echo This command line \
+> is split in three \
+> parts
+This command line is split in three parts
+[paul@RHEL4b ~]$
+			</screen>
 	</section>
 </section>
