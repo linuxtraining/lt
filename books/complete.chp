@@ -119,11 +119,18 @@ chapt_intro_bash() {
 	MODULES=""
 	chaptitle="Introduction to the shell"
 	add_mod mod_intro_bash/about_shells.xml            
+	add_mod mod_intro_bash/about_shells_practice.xml            
+	add_mod mod_intro_bash/about_shells_solution.xml            
 	add_mod mod_intro_bash/shell_control_operators.xml  
 	add_mod mod_intro_bash/shell_control_operators_practice.xml  
 	add_mod mod_intro_bash/shell_control_operators_solution.xml  
-	add_mod mod_intro_bash/shell_expansion.xml  
 	add_mod mod_intro_bash/shell_variables.xml  
+	add_mod mod_intro_bash/shell_variables_practice.xml  
+	add_mod mod_intro_bash/shell_variables_solution.xml  
+	add_mod mod_intro_bash/shell_white_spaces_and_quoting.xml  
+	add_mod mod_intro_bash/shell_white_spaces_and_quoting_practice.xml  
+	add_mod mod_intro_bash/shell_white_spaces_and_quoting_solution.xml  
+	add_mod mod_intro_bash/shell_file_globbing.xml  
 	add_mod mod_intro_bash/bash_shell_options.xml    
 	add_mod mod_intro_bash/shell_history.xml    
 	add_mod mod_intro_bash/practice.xml              

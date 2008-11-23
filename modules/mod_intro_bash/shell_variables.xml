@@ -1,22 +1,24 @@
 <section><title>shell variables</title>
 	<section><title>$ dollar sign</title>
 		<para>Another important character interpreted by the shell is the dollar sign <command>$</command><indexterm><primary>$ (shell variables)</primary></indexterm>. The shell will look for an <command>environment variable</command><indexterm><primary>environment variable</primary></indexterm> named like the string behind the dollar sign and replace it with the value of the variable (or with nothing if the variable does not exist).</para>
-		<para>An example of the $USER variable. The example shows that shell variables are case sensitive!.</para>
+		<para>An example of the $USER variable. The example shows that shell variables are case sensitive!</para>
 		<screen>
-[paul@RHELv4u3 gen]$ echo Hello $USER
+[paul@RHELv4u3 ~]$ echo Hello $USER
 Hello paul
-[paul@RHELv4u3 gen]$ echo Hello $user
+[paul@RHELv4u3 ~]$ echo Hello $user
 Hello
 		</screen>
+	</section>
+	<section><title>common variables</title>
 		<para>Some more examples using $HOSTNAME, $USER, $UID, $SHELL and $HOME.</para>
 		<screen>
-[paul@RHELv4u3 gen]$ echo This is the $SHELL shell
+[paul@RHELv4u3 ~]$ echo This is the $SHELL shell
 This is the /bin/bash shell
-[paul@RHELv4u3 gen]$ echo This is $SHELL on computer $HOSTNAME
+[paul@RHELv4u3 ~]$ echo This is $SHELL on computer $HOSTNAME
 This is /bin/bash on computer RHELv4u3.localdomain
-[paul@RHELv4u3 gen]$ echo The userid of $USER is $UID
+[paul@RHELv4u3 ~]$ echo The userid of $USER is $UID
 The userid of paul is 500
-[paul@RHELv4u3 gen]$ echo My homedir is $HOME
+[paul@RHELv4u3 ~]$ echo My homedir is $HOME
 My homedir is /home/paul
 		</screen>
 	</section>
@@ -30,16 +32,28 @@ paul@laika:~/test$ rm file1 ; echo $?
 paul@laika:~/test$ rm file1 ; echo $?
 rm: cannot remove `file1': No such file or directory
 1
-paul@laika:~/test$
 		</screen>
 	</section>
-	<section><title>creating and setting variables</title>
-		<para>The shell will let you create your own variables. The example below first tries to display the value of the $MyVar variable, but it fails because the variable does not exist.</para>
+	<section><title>unbound variables</title>
+		<para>The example below tries to display the value of the $MyVar variable, but it fails because the variable does not exist. By default the shell will display nothing when a variable is unbound (does not exist).</para>
 		<screen>
 [paul@RHELv4u3 gen]$ echo $MyVar
 				
 [paul@RHELv4u3 gen]$
 		</screen>
+		<para>There is however the <command>nounset</command><indexterm><primary>nounset(shell)</primary></indexterm> shell attribute that you can use to generate an error when a variable does not exist.</para>
+		<screen>
+paul@laika:~$ set -u
+paul@laika:~$ echo $Myvar
+bash: Myvar: unbound variable
+paul@laika:~$ set +u
+paul@laika:~$ echo $Myvar
+
+paul@laika:~$ 
+		</screen>
+		<para>In the bash shell <command>set -u</command> is identical to <command>set -o nounset</command> and likewise <command>set +u</command> is identical to <command>set +o nounset</command>.</para>
+	</section>
+	<section><title>creating and setting variables</title>
 		<para>The example creates the variable $MyVar and sets its value.</para>
 		<screen>
 [paul@RHELv4u3 gen]$ MyVar=555
@@ -49,7 +63,17 @@ paul@laika:~/test$
 		</screen>
 	</section>
 	<section><title>set</title>			
-		<para>You can use the <command>set</command><indexterm><primary>set</primary></indexterm> command to display a list of environment variables. On Ubuntu and Debian systems, the set command will end the list of shell variables with a list of shell functions, use <command>set | more</command> to see the variables then.</para>
+		<para>You can use the <command>set</command><indexterm><primary>set(shell)</primary></indexterm> command to display a list of environment variables. On Ubuntu and Debian systems, the set command will end the list of shell variables with a list of shell functions, use <command>set | more</command> to see the variables then.</para>
+	</section>
+	<section><title>unset</title>			
+		<para>Use the <command>unset</command><indexterm><primary>unset(shell)</primary></indexterm> command to remove a variable from your shell environment.</para>
+		<screen>
+[paul@RHEL4b ~]$ MyVar=8472
+[paul@RHEL4b ~]$ echo $MyVar;unset MyVar;echo $MyVar
+8472
+
+[paul@RHEL4b ~]$
+		</screen>
 	</section>
 	<section><title>env</title>			
 		<para>The <command>env</command><indexterm><primary>env(1)</primary></indexterm> command can also be useful for other neat things, like starting a clean shell (a shell without any inherited environment). The <command>env -i</command><indexterm><primary>env(1)</primary></indexterm> command clears the environment for the subshell. Notice that bash will set the $SHELL variable on startup.</para>
@@ -67,16 +91,6 @@ Filea  Fileb
 [paul@RHEL4b test]$ env LANG=en_US.UTF-8 bash -c 'ls File[a-z]'
 Filea  FileA  Fileb  FileB
 [paul@RHEL4b test]$
-		</screen>
-	</section>
-	<section><title>unset</title>			
-		<para>Use the <command>unset</command><indexterm><primary>unset</primary></indexterm> command to remove a variable from your shell environment.</para>
-		<screen>
-[paul@RHEL4b ~]$ MyVar=8472
-[paul@RHEL4b ~]$ echo $MyVar;unset MyVar;echo $MyVar
-8472
-
-[paul@RHEL4b ~]$
 		</screen>
 	</section>
 	<section><title>exporting variables</title>

@@ -1,0 +1,92 @@
+<section><title>white space and quoting</title>
+	<section><title>white space removal</title>
+		<para>Before execution, the shell looks at the command line. Parts that are seperated by one or more consecutive <command>white spaces</command> (or tabs) are considered separate arguments. The first argument is the command to be executed, the other arguments are given to the command as arguments.</para>
+		<para>This explains why the following four different command lines are the same after <command>shell expansion</command><indexterm><primary>shell expansion</primary></indexterm>.</para>
+		<screen>
+[paul@RHELv4u3 ~]$ echo Hello World
+Hello World
+[paul@RHELv4u3 ~]$ echo Hello   World
+Hello World
+[paul@RHELv4u3 ~]$ echo   Hello   World
+Hello World
+[paul@RHELv4u3 ~]$    echo      Hello      World
+Hello World
+[paul@RHELv4u3 ~]$ 
+		</screen>
+		<para>The echo command will separate the different arguments it recieves from the shell by a white space.</para>
+	</section>
+	<section><title>single quotes</title>
+		<para>You can prevent the removal of white spaces by quoting the spaces.</para>
+		<screen>
+[paul@RHEL4b ~]$ echo 'A line with      single    quotes'
+A line with      single    quotes
+[paul@RHEL4b ~]$
+		</screen>
+	</section>
+	<section><title>double quotes</title>
+		<para>You can also prevent the removal of white spaces by double quoting the spaces.</para>
+		<screen>
+[paul@RHEL4b ~]$ echo "A line with      double    quotes"
+A line with      double    quotes
+[paul@RHEL4b ~]$
+		</screen>
+		<para>The only difference between single and double quotes is the parsing of shell variables. You can already see what happens in this screenshot.</para>
+		<screen>
+paul@laika:~$ echo 'My user is $USER'
+My user is $USER
+paul@laika:~$ echo "My user is $USER"
+My user is paul
+		</screen>
+	</section>
+	<section><title>echo and quotes</title>
+		<para>Quoted lines can include special escaped characters recognized by the <command>echo</command> command (when using <command>echo -e</command><indexterm><primary>echo(1)</primary></indexterm>). The screenshot below shows how to use escaped n for a newline and escaped t for a tab (usually eight white spaces).</para>
+		<screen>
+[paul@RHEL4b ~]$ echo -e "A line with \na newline"
+A line with 
+a newline
+[paul@RHEL4b ~]$ echo -e 'A line with \na newline'
+A line with 
+a newline
+[paul@RHEL4b ~]$ echo -e "A line with \ta tab"
+A line with     a tab
+[paul@RHEL4b ~]$ echo -e 'A line with \ta tab'
+A line with     a tab
+[paul@RHEL4b ~]$ 
+		</screen>
+		<para>The echo command can generate more than white spaces, tabs and newlines. Look in the man page for a list of options (and don't forget that echo can be both builtin and external).</para>
+	</section>
+	<section><title>shell embedding</title>
+		<para>Shells can be embedded on the command line, or in other words the command line scan can spawn new processes, containing a fork of the current shell. You can use variables to prove that new shells are created. In the screenshot below, the variable $var1 only exists in the (temporary) sub shell.</para>
+		<screen>
+[paul@RHELv4u3 gen]$ echo $var1
+
+[paul@RHELv4u3 gen]$ echo $(var1=5;echo $var1)
+5
+[paul@RHELv4u3 gen]$ echo $var1
+
+[paul@RHELv4u3 gen]$ 
+		</screen>
+		<para>You can embed a shell in an <command>embedded shell</command><indexterm><primary>embedding(shell)</primary></indexterm>, this is called <command>nested embedding</command> of shells.</para>
+		<screen>
+$ P=Parent;
+$ echo $P$C$G - $(C=Child;echo $P$C$G - ;echo $(G=Grand;echo $P$C$G))
+Parent - ParentChild - ParentChildGrand
+		</screen>
+		<para>Single embedding can be useful to avoid changing your current directory. The screenshot below uses back ticks instead of dollar-bracket to embed.</para>
+		<screen>
+[paul@RHELv4u3 ~]$ echo `cd /etc; ls -d * | grep pass`
+passwd passwd- passwd.OLD
+[paul@RHELv4u3 ~]$ 
+		</screen>
+	</section>
+	<section><title>backticks and single quotes</title>
+		<para>Placing the embedding between <command>backticks</command><indexterm><primary>backticks</primary></indexterm> uses one character less than the dollar and parenthesis combo. Be careful however, backticks are often confused with single quotes. The technical difference between <command>'</command><indexterm><primary>'(single quote)</primary></indexterm> and <command>`</command><indexterm><primary>`(backtick)</primary></indexterm> is significant! You can not use backticks to nest embedded shells.</para>
+		<screen>
+[paul@RHELv4u3 gen]$ echo `var1=5;echo $var1`
+5
+[paul@RHELv4u3 gen]$ echo 'var1=5;echo $var1'
+var1=5;echo $var1
+[paul@RHELv4u3 gen]$
+		</screen>
+	</section>
+</section>

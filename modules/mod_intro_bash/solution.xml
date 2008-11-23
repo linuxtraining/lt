@@ -1,121 +1,53 @@
-	<section><title>Solutions: discover the shell</title>
-		<para>0. All these questions can be answered by one command line!!</para>
-		<para>1. When you type 'passwd', which file is executed ?</para>
-		<para>which passwd</para>
-		<para>2. What kind of file is that ?</para>
-		<para>file $(which passwd)</para>
-		<para>3. Execute the pwd command twice. (remember 0.)</para>
-		<para>pwd ; pwd</para>
-		<para>4. Execute ls after cd /etc, but only if cd /etc did not error.</para>
-		<para>cd /etc &#038;&#038; ls</para>
-		<para>5. Execute cd /etc after cd etc, but only if cd etc fails.</para>
-		<para>cd etc || cd /etc</para>
-		<para>6. Execute sleep 10, what is this command doing ?</para>
-		<para>pausing for ten seconds</para>
-		<para>7. Execute sleep 200 in background (do not wait for it to finish).</para>
-		<para>sleep 200 &#038;</para>
-		<para>8. Use echo to display Hello followed by your username. (use a bash variable!)</para>
-		<para>echo Hello $USER</para>
-		<para>9. Use echo to display "Hello World with strange' characters \ * [ }  ~ \\ ." (including all quotes)</para>
-		<para>echo \""Hello World with strange\' characters \\ \* \[ \} \~ \\\\ \. \""</para>
-		<para>echo \""Hello World with strange' characters \ * [ } ~ \\ . "\"</para>
-		<para>10. Use one echo command to display three words on three lines.</para>
-		<para>echo -e "one \ntwo \nthree"</para>
-		<para>11. Create a testdir and enter it.</para>
-		<para>mkdir testdir; cd testdir</para>
-		<para>12. Create files file1 file10 file11 file2 File2 File3 file33 fileAB filea fileA fileAAA file( file 2 (the last one has 6 characters including a space)</para>
-		<para>touch file1 file10 file11 file2 File2 File3 file33 fileAB filea fileA fileAAA</para>
-		<para>touch "file("</para>
-		<para>touch "file 2"</para>
-		<para>13. List (with ls) all files starting with file</para>
-		<para>ls file*</para>
-		<para>14. List (with ls) all files starting with File</para>
-		<para>ls File*</para>
-		<para>15. List (with ls) all files starting with file and ending in a number.</para>
-		<para>ls file*[0-9]</para>
-		<para>16. List (with ls) all files starting with file and ending with a letter</para>
-		<para>ls file*[a-z]</para>
-		<para>17. List (with ls) all files starting with File and having a digit as fifth character.</para>
-		<para>ls File[0-9]*</para>
-		<para>18. List (with ls) all files starting with File and having a digit as fifth character and nothing else.</para>
-		<para>ls File[0-9]</para>
-		<para>19. List (with ls) all files starting with a letter and ending in a number.</para>
-		<para>ls [a-z]*[0-9]</para>
-		<para>20. List (with ls) all files that have exactly five characters.</para>
-		<para>ls ?????</para>
-		<para>21. List (with ls) all files that start with f or F and end with 3 or A.</para>
-		<para>ls [fF]*[3A]</para>
-		<para>22. List (with ls) all files that start with f have i or R as second character and end in a number.</para>
-		<para>ls f[iR]*[0-9]</para>
-		<para>23. List all files that do not start with the letter F.</para>
-		<para>ls [!F]*</para>
-		<para>24. Copy the value of $LANG to $MyLANG.</para>
-		<para>MyLANG=$LANG</para>
-		<para>25. Show the influence of $LANG in listing A-Z or a-z ranges.</para>
-		<para>see example in book</para>
-		<para>26. List all current shell variables.</para>
-		<para>set</para>
-		<para>27. Write a command line that executes 'rm file55'. Your command line should print 'success' if file55 is removed, and print 'failed' if there was a problem.</para>
-		<para>rm file55 &#038;&#038; echo success || echo failed</para>
-		<para>28. Create a variable MyVar with a value of 1201.</para>
-		<para>MyVar=1201</para>
-		<para>29. Do the env and set commands display your variable ?</para>
-		<para>env | grep 1201 ; echo -- ; set | grep 1201</para>
-		<para>30. Destroy your variable.</para>
-		<para>unset MyVar</para>
-		<para>31. Find the list of shell options in the man page of bash. What is the difference between "set -u" and "set -o nounset" ?</para>
-		<para>read the manual of bash (man bash), search for nounset -- both mean the same thing.</para>
-		<para>32a. Create two variables, and export one of them.</para>
-		<para>var1=1; export var2=2</para>
-		<para>32b. Display the exported variable in an interactive child shell.</para>
-		<para>bash</para>
-		<para>echo $var2</para>
-		<para>32c. Display the exported variable in an embedded child shell.</para>
-		<para>echo $(echo $var2)</para>
-		<para>33. Create a variable, give it the value 'Dumb', create another variable with value 'do'. Use echo and the two variables to echo Dumbledore.</para>
-		<para>varx=Dumb; vary=do</para>
-		<para>echo ${varx}le${vary}re</para>
-		<para>34. Use echo to display the following exactly:</para>
-		<screen>""\\`;     "_+</screen>
-		<para>echo \"\"\\\\\`\;\ \ \ \ \"\_\+</para>
-		<para>35. List all current aliases.</para>
-		<para>alias</para>
-		<para>36. Create an alias for echo.</para>
-		<para>alias zz=echo</para>
-		<para>37. Use your alias to echo echo.</para>
-		<para>zz echo</para>
-		<para>38. Remove your alias for echo.</para>
-		<para>unalias zz</para>
-		<para>39. Read the man page of rm, make sure you understand the -i option of rm. Test yourself that you understand it!</para>
-		<para>man rm</para>
-		<para>40. Execute: alias rm='rm - i' . Does this work as expected ?</para>
-		<para>yes ;-)</para>
-		<para>41. Explain what "set -x" does. Can this be useful ?</para>
-		<para>yes ;-)</para>
-		<para>42. Given the following screenshot, add exactly four characters to that command line so that the total output is FirstMiddleLast.</para>
-		<screen>
-[paul@RHEL4b ~]$ echo  First; echo  Middle; echo  Last
-First
-Middle
-Last
-[paul@RHEL4b ~]$
-		</screen>
-		<para>echo -n First; echo -n Middle; echo Last</para>
-		<para>43. You receive information that one of your servers was cracked, the cracker probably replaced the ls command. You know that the echo command is safe to use. Can echo replace ls ? How can you list the files in the current directory with echo ?</para>
-		<para>echo *</para>
-		<para>44. The cd command is also compromised, can echo be used to list files in other directories ? Explain how this works (list the contents of /etc and /bin without ls). </para>
-		<para>echo /etc/*.conf # the shell expands the directory for you</para>
-		<para>45. Is there another command besides cd to change directories ?</para>
-		<para>pushd popd</para>
-		<para>46. Make sure bash remembers the last 5000 commands you typed.</para>
-		<para>HISTSIZE=5000</para>
-		<para>47. Open more than one console (press Ctrl-shift-t in gnome terminal) with the same user account. When is command history written to the history file ?</para>
-		<para>when you type exit</para>
-		<para>48. Issue the date command. Now display the date in YYYY/MM/DD format.</para>
-		<para>date +%Y/%m/%d</para>
-		<para>49. Issue the cal command. Display a calendar of 1582 and 1752. Notice anything special ?</para>
-		<para>cal 1582</para>
-		<para>The calendars are different depending on the country. Check http://linux-training.be/studentfiles/dates.txt</para>
-		<para></para>	
+	<section><title>Solution: discover the shell</title>
+		<para>1. Create a testdir and enter it.</para>
+		<screen>mkdir testdir; cd testdir</screen>
+		<para>2. Create files file1 file10 file11 file2 File2 File3 file33 fileAB filea fileA fileAAA file( file 2 (the last one has 6 characters including a space)</para>
+		<screen>touch file1 file10 file11 file2 File2 File3 file33 fileAB filea fileA fileAAA</screen>
+		<screen>touch "file("</screen>
+		<screen>touch "file 2"</screen>
+		<para>3. List (with ls) all files starting with file</para>
+		<screen>ls file*</screen>
+		<para>4. List (with ls) all files starting with File</para>
+		<screen>ls File*</screen>
+		<para>5. List (with ls) all files starting with file and ending in a number.</para>
+		<screen>ls file*[0-9]</screen>
+		<para>6. List (with ls) all files starting with file and ending with a letter</para>
+		<screen>ls file*[a-z]</screen>
+		<para>7. List (with ls) all files starting with File and having a digit as fifth character.</para>
+		<screen>ls File[0-9]*</screen>
+		<para>8. List (with ls) all files starting with File and having a digit as fifth character and nothing else.</para>
+		<screen>ls File[0-9]</screen>
+		<para>9. List (with ls) all files starting with a letter and ending in a number.</para>
+		<screen>ls [a-z]*[0-9]</screen>
+		<para>10. List (with ls) all files that have exactly five characters.</para>
+		<screen>ls ?????</screen>
+		<para>11. List (with ls) all files that start with f or F and end with 3 or A.</para>
+		<screen>ls [fF]*[3A]</screen>
+		<para>12. List (with ls) all files that start with f have i or R as second character and end in a number.</para>
+		<screen>ls f[iR]*[0-9]</screen>
+		<para>13. List all files that do not start with the letter F.</para>
+		<screen>ls [!F]*</screen>
+		<para>14. Copy the value of $LANG to $MyLANG.</para>
+		<screen>MyLANG=$LANG</screen>
+		<para>15. Show the influence of $LANG in listing A-Z or a-z ranges.</para>
+		<screen>see example in book</screen>
+		<para>16. Write a command line that executes 'rm file55'. Your command line should print 'success' if file55 is removed, and print 'failed' if there was a problem.</para>
+		<screen>rm file55 &#038;&#038; echo success || echo failed</screen>
+		<para>17. You receive information that one of your servers was cracked, the cracker probably replaced the ls command. You know that the echo command is safe to use. Can echo replace ls ? How can you list the files in the current directory with echo ?</para>
+		<screen>echo *</screen>
+		<para>18. The cd command is also compromised, can echo be used to list files in other directories ? Explain how this works (list the contents of /etc and /bin without ls). </para>
+		<screen>echo /etc/*.conf # the shell expands the directory for you</screen>
+		<para>19. Is there another command besides cd to change directories ?</para>
+		<screen>pushd popd</screen>
+		<para>20. Make sure bash remembers the last 5000 commands you typed.</para>
+		<screen>HISTSIZE=5000</screen>
+		<para>21. Open more than one console (press Ctrl-shift-t in gnome terminal) with the same user account. When is command history written to the history file ?</para>
+		<screen>when you type exit</screen>
+		<para>22. Issue the date command. Now display the date in YYYY/MM/DD format.</para>
+		<screen>date +%Y/%m/%d</screen>
+		<para>23. Issue the cal command. Display a calendar of 1582 and 1752. Notice anything special ?</para>
+		<screen>cal 1582</screen>
+		<para>The calendars are different depending on the country. Check http://www.linux-training.be/studentfiles/dates.txt</para>
+		<para></para>
 		<para></para>	
 	</section>

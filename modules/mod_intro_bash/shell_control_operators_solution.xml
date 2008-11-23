@@ -1,4 +1,4 @@
-	<section><title>Solutions: Control Operators</title>
+	<section><title>Solution: control operators</title>
 	<para>0. All these questions can be answered by one command line!!</para>
 	<para>1. When you type 'passwd', which file is executed ?</para>
 	<screen>which passwd</screen>

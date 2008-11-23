@@ -1,0 +1,102 @@
+<section><title>file globbing</title>
+	<section><title>* asterisk</title>
+		<para>The shell is also responsible for <command>file globbing</command><indexterm><primary>file globbing</primary></indexterm> (or dynamic filename generation). The asterisk <command>*</command><indexterm><primary>* (file globbing)</primary></indexterm> is interpreted by the shell as a sign to generate filenames, matching the asterisk to any combination of characters (even none). When no path is given, the shell will use filenames in the current directory. See the man page of <command>glob(7)</command><indexterm><primary>glob(7)</primary></indexterm> for more information. (This is part of LPI topic 1.103.3.)</para>
+		<screen>
+[paul@RHELv4u3 gen]$ ls
+file1  file2  file3  File4  File55  FileA  fileab  Fileab  FileAB  fileabc
+[paul@RHELv4u3 gen]$ ls File*
+File4  File55  FileA  Fileab  FileAB
+[paul@RHELv4u3 gen]$ ls file*
+file1  file2  file3  fileab  fileabc
+[paul@RHELv4u3 gen]$ ls *ile55
+File55
+[paul@RHELv4u3 gen]$ ls F*ile55
+File55
+[paul@RHELv4u3 gen]$ ls F*55
+File55
+[paul@RHELv4u3 gen]$ 
+		</screen>
+	</section>
+	<section><title>? question mark</title>
+		<para>Similar to the asterisk, the question mark <command>?</command><indexterm><primary>? (file globbing)</primary></indexterm> is interpreted by the shell as a sign to generate filenames, matching the question mark with exactly one character.</para>
+		<screen>
+[paul@RHELv4u3 gen]$ ls
+file1  file2  file3  File4  File55  FileA  fileab  Fileab  FileAB  fileabc
+[paul@RHELv4u3 gen]$ ls File?
+File4  FileA
+[paul@RHELv4u3 gen]$ ls Fil?4
+File4
+[paul@RHELv4u3 gen]$ ls Fil??
+File4  FileA
+[paul@RHELv4u3 gen]$ ls File??
+File55  Fileab  FileAB
+[paul@RHELv4u3 gen]$
+		</screen>
+	</section>
+	<section><title>[] square brackets</title>
+		<para>The square bracket <command>[</command><indexterm><primary>[</primary></indexterm> is interpreted by the shell as a sign to generate filenames, matching any of the characters between <command>[</command> and the first subsequent <command>]</command>. The order in this list between the brackets is not important. Each pair of brackets is replaced by exactly one character.</para>
+		<screen>
+[paul@RHELv4u3 gen]$ ls 
+file1  file2  file3  File4  File55  FileA  fileab  Fileab  FileAB  fileabc
+[paul@RHELv4u3 gen]$ ls File[5A]
+FileA
+[paul@RHELv4u3 gen]$ ls File[A5]
+FileA
+[paul@RHELv4u3 gen]$ ls File[A5][5b]
+File55
+[paul@RHELv4u3 gen]$ ls File[a5][5b]
+File55  Fileab
+[paul@RHELv4u3 gen]$ ls File[a5][5b][abcdefghijklm]
+ls: File[a5][5b][abcdefghijklm]: No such file or directory
+[paul@RHELv4u3 gen]$ ls file[a5][5b][abcdefghijklm]
+fileabc
+[paul@RHELv4u3 gen]$ 
+		</screen>
+		<para>You can also exclude characters from a list between square brackets with the exclamation mark <command>!</command><indexterm><primary>!</primary></indexterm>. And you are allowed to make combinations of these <command>wild cards</command><indexterm><primary>wild cards</primary></indexterm>.</para>
+		<screen>
+[paul@RHELv4u3 gen]$ ls 
+file1  file2  file3  File4  File55  FileA  fileab  Fileab  FileAB  fileabc
+[paul@RHELv4u3 gen]$ ls file[a5][!Z]
+fileab
+[paul@RHELv4u3 gen]$ ls file[!5]*
+file1  file2  file3  fileab  fileabc
+[paul@RHELv4u3 gen]$ ls file[!5]?
+fileab
+[paul@RHELv4u3 gen]$ 
+		</screen>
+	</section>
+	<section><title>a-z and 0-9 ranges</title>
+		<para>The bash shell will also understand ranges of characters between brackets.</para>
+		<screen>
+[paul@RHELv4u3 gen]$ ls
+file1  file3  File55  fileab  FileAB   fileabc
+file2  File4  FileA   Fileab  fileab2
+[paul@RHELv4u3 gen]$ ls file[a-z]*
+fileab  fileab2  fileabc
+[paul@RHELv4u3 gen]$ ls file[0-9]
+file1  file2  file3
+[paul@RHELv4u3 gen]$ ls file[a-z][a-z][0-9]*
+fileab2
+[paul@RHELv4u3 gen]$ 
+		</screen>
+	</section>
+	<section><title>$LANG and square brackets</title>
+		<para>But, don't forget the influence of the <command>LANG</command><indexterm><primary>$LANG</primary></indexterm> variable. Some languages include lowercase letters in an uppercase range (and vice versa).</para>
+		<screen>
+paul@RHELv4u4:~/test$ ls [A-Z]ile?
+file1  file2  file3  File4
+paul@RHELv4u4:~/test$ ls [a-z]ile?
+file1  file2  file3  File4
+paul@RHELv4u4:~/test$ echo $LANG
+en_US.UTF-8
+paul@RHELv4u4:~/test$ LANG=C
+paul@RHELv4u4:~/test$ echo $LANG
+C
+paul@RHELv4u4:~/test$ ls [a-z]ile?
+file1  file2  file3
+paul@RHELv4u4:~/test$ ls [A-Z]ile?
+File4
+paul@RHELv4u4:~/test$ 
+		</screen>
+	</section>
+</section>

@@ -68,7 +68,7 @@ file2  File4  FileA   Fileab  fileab2
 [paul@RHELv4u3 gen]$ 
 			</screen>
 	</section>
-	<section><title>Combining AND and OR</title>
+	<section><title>Combining &#038;&#038; and ||</title>
 			<para>You can use the logical AND and OR to echo whether a command worked or not.</para>
 			<screen>
 paul@laika:~/test$ rm file1 &#038;&#038; echo It worked! || echo It failed!
