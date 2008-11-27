@@ -39,6 +39,9 @@
 		<para>On Red Hat Enterprise Linux: chsh -l</para>
 		<para>14. Which useradd option allows you to name a home directory ?</para>
 		<para>-d</para>
+		<para>15. How can you see whether the password of user harry is locked or unlocked ? Give a solution with grep and a solution with passwd.</para>
+		<para>grep harry /etc/shadow</para>
+		<para>passwd -S harry</para>
 		<para></para>
 		<para></para>
 	</section>

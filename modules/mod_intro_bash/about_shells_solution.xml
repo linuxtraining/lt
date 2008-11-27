@@ -7,7 +7,7 @@
 	<screen>man rm</screen>
 	<screen>touch testfile</screen>
 	<screen>rm -i testfile</screen>
-	<para>4. Execute: alias rm='rm - i' . Test your alias with a testfile. Does this work as expected ?</para>
+	<para>4. Execute: alias rm='rm -i' . Test your alias with a testfile. Does this work as expected ?</para>
 	<screen>touch testfile</screen>
 	<screen>rm testfile (should ask for confirmation!)</screen>
 	<para>5. List all current aliases.</para>

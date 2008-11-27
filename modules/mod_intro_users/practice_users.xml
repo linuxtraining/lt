@@ -16,6 +16,7 @@
 		<para>12. Why use vipw instead of vi ? What could be the problem when using vi or vim ?</para>
 		<para>13. Use chsh to list all shells, and compare to cat /etc/shells. Change your login shell to the Korn shell, log out and back in. Now change back to bash.</para>
 		<para>14. Which useradd option allows you to name a home directory ?</para>
+		<para>15. How can you see whether the password of user harry is locked or unlocked ? Give a solution with grep and a solution with passwd.</para>
 		<para></para>
 		<para></para>
 	</section>

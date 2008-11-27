@@ -603,7 +603,7 @@ paul@RHELv4u4:~$
 		<screen>ls /bin/dd ; file /bin/dd</screen>
 		<screen>ls /bin/echo ; file /bin/echo</screen>
 		<para>2. What is the size of the Linux kernel file(s) (vmlinu*) in /boot ?</para>
-		<screen>ls -h /boot/vm*</screen>
+		<screen>ls -lh /boot/vm*</screen>
 		<para>3. Create a directory ~/test. Then issue the following commands:</para>
 		<screen>cd ~/test</screen>
 		<screen>dd if=/dev/zero of=zeroes.txt count=1 bs=100</screen>

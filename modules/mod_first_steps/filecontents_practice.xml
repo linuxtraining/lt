@@ -13,7 +13,7 @@ Five
 	<para>5. Use cat to make a backup of this file to catcnt.txt</para>
 	<para>6. Display catcnt.txt, but with all lines in reverse order (the last line first).</para>
 	<para>7. Use more to display /var/log/messages.</para>
-	<para>8. Display the readable character strings from the passwd command.</para>
+	<para>8. Display the readable character strings from the /usr/bin/passwd command.</para>
 	<para>9. Use ls to find the biggest file in /etc.</para>	
 	<para></para>
 	<para></para>

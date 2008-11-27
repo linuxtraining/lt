@@ -1,5 +1,5 @@
 	<section><title>Solution: white space and quoting</title>
-		<para>1. Display <command>A B  C</command> with two spaces between A and C.</para>
+		<para>1. Display <screen>A B  C</screen> with two spaces between B and C.</para>
 		<screen>echo "A B  C"</screen>
 		<para>2. Use echo to display "Hello World with strange' characters \ * [ }  ~ \\ ." (including all quotes)</para>
 		<screen>echo \""Hello World with strange\' characters \\ \* \[ \} \~ \\\\ \. \""</screen>

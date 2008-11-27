@@ -2,7 +2,7 @@
 		<para>1. Is tac a shell builtin command ?</para>
 		<para>2. Is there an existing alias for rm ?</para>
 		<para>3. Read the man page of rm, make sure you understand the -i option of rm. Create and rm a file to test the -i option.</para>
-		<para>4. Execute: alias rm='rm - i' . Test your alias with a testfile. Does this work as expected ?</para>
+		<para>4. Execute: alias rm='rm -i' . Test your alias with a testfile. Does this work as expected ?</para>
 		<para>5. List all current aliases.</para>
 		<para>6. Create an alias called 'city' that echoes your hometown.</para>
 		<para>7. Use your alias to test that it works.</para>

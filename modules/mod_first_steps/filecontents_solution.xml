@@ -20,7 +20,7 @@ Five
 	<screen>tac catcnt.txt</screen>
 	<para>7. Use more to display /var/log/messages.</para>
 	<screen>more /var/log/messages</screen>
-	<para>8. Display the readable character strings from the passwd command.</para>
+	<para>8. Display the readable character strings from the /usr/bin/passwd command.</para>
 	<screen>strings /usr/bin/passwd</screen>
 	<para>9. Use ls to find the biggest file in /etc.</para>	
 	<screen>cd ; ls -lrS /etc</screen>
