@@ -1,9 +1,12 @@
 	<section><title>Solution: white space and quoting</title>
-		<para>1. Display <screen>A B  C</screen> with two spaces between B and C.</para>
+		<para>1. Display <command>A B    C</command> with two spaces between B and C.</para>
 		<screen>echo "A B  C"</screen>
-		<para>2. Use echo to display "Hello World with strange' characters \ * [ }  ~ \\ ." (including all quotes)</para>
-		<screen>echo \""Hello World with strange\' characters \\ \* \[ \} \~ \\\\ \. \""</screen>
-		<screen>echo \""Hello World with strange' characters \ * [ } ~ \\ . "\"</screen>
+		<para>2. Complete the following command (do not use spaces) to display exactly the following output:</para>
+		<screen>echo -e "4+4=8" ; echo -e "10+14=24"</screen>
+		<screen>4+4     =8</screen>
+		<screen>10+14   =24</screen>
+		<para>The solution is to use tabs with \t.</para>
+		<screen>echo -e "4+4\t=8" ; echo -e "10+14\t=24"</screen>
 		<para>3. Use echo to display the following exactly:</para>
 		<screen>""\\`;     "_+</screen>
 		<screen>echo \"\"\\\\\`\;\ \ \ \ \"\_\+</screen>

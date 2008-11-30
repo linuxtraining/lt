@@ -9,6 +9,7 @@
 		<screen>MyVar=1201</screen>
 		<para>5. Do the env and set commands display your variable ?</para>
 		<screen>env | grep 1201 ; echo -- ; set | grep 1201</screen>
+		<para>You will notice that <command>set</command> displays all variables, whereas <command>env</command> does not.</para>	
 		<para>6. Destroy your variable.</para>
 		<screen>unset MyVar</screen>
 		<para>7. Find the list of shell options in the man page of bash. What is the difference between "set -u" and "set -o nounset" ?</para>
@@ -18,11 +19,16 @@
 		<para>9. Display the exported variable in an interactive child shell.</para>
 		<screen>bash</screen>
 		<screen>echo $var2</screen>
-		<para>10. Display the exported variable in an embedded child shell.</para>
-		<screen>echo $(echo $var2)</screen>
-		<para>11. Create a variable, give it the value 'Dumb', create another variable with value 'do'. Use echo and the two variables to echo Dumbledore.</para>
+		<para>10. Create a variable, give it the value 'Dumb', create another variable with value 'do'. Use echo and the two variables to echo Dumbledore.</para>
 		<screen>varx=Dumb; vary=do</screen>
 		<screen>echo ${varx}le${vary}re</screen>
+		<para>11. Activate <command>nounset</command> in your shell. Test that it shows an error message when using non-existing variables.</para>	
+		<screen>set -u</screen>
+		<screen>set -o nounset</screen>
+		<para>Both these lines have the same effect (read the manual of bash, search for nounset).</para>	
+		<para>12. Deactivate nounset.</para>	
+		<screen>set +u</screen>
+		<screen>set +o nounset</screen>
 		<para></para>	
 		<para></para>	
 	</section>

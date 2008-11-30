@@ -1,14 +1,16 @@
-	<section><title>Practice: shell variables</title>
-		<para>1. Use echo to display Hello followed by your username. (use a bash variable!)</para>
-		<para>2. Copy the value of $LANG to $MyLANG.</para>
-		<para>3. List all current shell variables.</para>
-		<para>4. Create a variable MyVar with a value of 1201.</para>
-		<para>5. Do the env and set commands display your variable ?</para>
-		<para>6. Destroy your variable.</para>
-		<para>7. Find the list of shell options in the man page of bash. What is the difference between "set -u" and "set -o nounset" ?</para>
-		<para>8. Create two variables, and export one of them.</para>
-		<para>9. Display the exported variable in an interactive child shell.</para>
-		<para>10. Display the exported variable in an embedded child shell.</para>
-		<para>11. Create a variable, give it the value 'Dumb', create another variable with value 'do'. Use echo and the two variables to echo Dumbledore.</para>
-		<para></para>	
-	</section>
+<section><title>Practice: shell variables</title>
+	<para>1. Use echo to display Hello followed by your username. (use a bash variable!)</para>
+	<para>2. Copy the value of $LANG to $MyLANG.</para>
+	<para>3. List all current shell variables.</para>
+	<para>4. Create a variable MyVar with a value of 1201.</para>
+	<para>5. Do the env and set commands display your variable ?</para>
+	<para>6. Destroy your variable.</para>
+	<para>7. Find the list of shell options in the man page of bash. What is the difference between "set -u" and "set -o nounset" ?</para>
+	<para>8. Create two variables, and export one of them.</para>
+	<para>9. Display the exported variable in an interactive child shell.</para>
+	<para>10. Create a variable, give it the value 'Dumb', create another variable with value 'do'. Use echo and the two variables to echo Dumbledore.</para>
+	<para>11. Activate <command>nounset</command> in your shell. Test that it shows an error message when using non-existing variables.</para>	
+	<para>12. Deactivate nounset.</para>	
+	<para></para>	
+	<para></para>	
+</section>

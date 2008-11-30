@@ -1,5 +1,5 @@
 	<section><title>Solution: control operators</title>
-	<para>0. All these questions can be answered by one command line!!</para>
+	<para>0. Each question can be answered by one command line!</para>
 	<para>1. When you type 'passwd', which file is executed ?</para>
 	<screen>which passwd</screen>
 	<para>2. What kind of file is that ?</para>
@@ -15,8 +15,11 @@
 	<para>7. Execute sleep 200 in background (do not wait for it to finish).</para>
 	<screen>sleep 200 &#038;</screen>
 	<para>8. Use echo to display "Hello World with strange' characters \ * [ }  ~ \\ ." (including all quotes)</para>
-	<screen>echo \""Hello World with strange\' characters \\ \* \[ \} \~ \\\\ \. \""</screen>
+	<screen>echo \"Hello World with strange\' characters \\ \* \[ \} \~ \\\\ \. \"</screen>
 	<screen>echo \""Hello World with strange' characters \ * [ } ~ \\ . "\"</screen>
 	<para>9. Use one echo command to display three words on three lines.</para>
 	<screen>echo -e "one \ntwo \nthree"</screen>
+	<para></para>
+	<para></para>
+	<para></para>
 </section>

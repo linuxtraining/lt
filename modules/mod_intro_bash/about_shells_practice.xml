@@ -1,13 +1,21 @@
-	<section><title>Practice: about shells</title>
-		<para>1. Is tac a shell builtin command ?</para>
-		<para>2. Is there an existing alias for rm ?</para>
-		<para>3. Read the man page of rm, make sure you understand the -i option of rm. Create and rm a file to test the -i option.</para>
-		<para>4. Execute: alias rm='rm -i' . Test your alias with a testfile. Does this work as expected ?</para>
-		<para>5. List all current aliases.</para>
-		<para>6. Create an alias called 'city' that echoes your hometown.</para>
-		<para>7. Use your alias to test that it works.</para>
-		<para>8. Remove your city alias.</para>
-		<para>9. What is the location of the cat and the passwd commands ?</para>
-		<para></para>	
-		<para></para>	
-	</section>
+<section><title>Practice: about shells</title>
+	<para>1. Is tac a shell builtin command ?</para>
+	<para>2. Is there an existing alias for rm ?</para>
+	<para>3. Read the man page of rm, make sure you understand the -i option of rm. Create and rm a file to test the -i option.</para>
+	<para>4. Execute: <command>alias rm='rm -i'</command> . Test your alias with a testfile. Does this work as expected ?</para>
+	<para>5. List all current aliases.</para>
+	<para>6. Create an alias called 'city' that echoes your hometown.</para>
+	<para>7. Use your alias to test that it works.</para>
+	<para>8. Remove your city alias.</para>
+	<para>9. What is the location of the cat and the passwd commands ?</para>
+	<para>10. Explain the difference between the following commands:</para>	
+	<screen>echo</screen>
+	<screen>/bin/echo</screen>
+	<para>The 'echo' will be interpreted by the shell as the builtin echo command. The '/bin/echo' will make the shell execute the echo binary located in the /bin directory.</para>
+	<para>11. Explain the difference between the following commands:</para>	
+	<screen>echo Hello</screen>
+	<screen>echo -n Hello</screen>
+	<para>The -n option of the echo command will prevent echo from echoing a trailing newline. 'echo Hello' will echo six characters in total, 'echo -n hello' only echoes five characters.</para>
+	<para></para>	
+	<para></para>	
+</section>
