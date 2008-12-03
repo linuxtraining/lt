@@ -381,13 +381,17 @@ fi
 		<screen>
 #!/bin/bash
 
-let i=0
-for file in *.txt
-do
-let i++
-done
-
-echo "There are $i files ending in .txt"
+ls *.txt > /dev/null 2>&1
+if [ $? -ne 0 ] 
+then echo "There are 0 files ending in .txt"
+else
+	let i=0
+	for file in *.txt
+	do
+		let i++
+	done
+	echo "There are $i files ending in .txt"
+fi
 </screen>
 		<para>4. Write a script that asks for two numbers, and outputs the sum and product (as shown here).</para>
 		<screen>
