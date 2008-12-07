@@ -1,5 +1,0 @@
-
-	<section><title>monolithic with modules</title>
-		<para>The Linux kernel (just like FreeBSD, OpenBSD, NetBSD, Solaris, OpenSolaris, AIX, MS-DOS, MacOS and OpenVMS) is a monolithic kernel. A monolithic kernel runs entirely in kernel mode, providing system calls to applications in user space.</para>
-		<para>The Linux kernel uses loadable modules, which will be explained in detail later.</para>
-	</section>
