@@ -270,7 +270,7 @@ sleep 2000
 [paul@RHEL4b ~]$ bash -c 'echo $$ $PPID'
 5059 4224
 [paul@RHEL4b ~]$ bash -c `echo $$ $PPID`
-5143: 4224: command not found
+4223: 4224: command not found
 		</screen>
 		<para>2. Write a script that echoes its process ID and then sleeps for an hour. Find your script with ps.</para>
 		<para>3. Read the man page of ps and find your script by command name with ps.</para>
@@ -302,10 +302,10 @@ sleep 2000
 			[paul@RHEL4b ~]$ bash -c 'echo $$ $PPID'
 			5059 4224
 		</screen>
-		<para>With backticks the shell executes the command between backticks. The result is the two process id's, which are not commands.</para>
+		<para>With backticks the shell will still replace both variable before the embedded echo is executed. The result of this echo is the two process id's. These are given as commands to bash -c. But two numbers are not commands!</para>
 		<screen>
 [paul@RHEL4b ~]$ bash -c `echo $$ $PPID`
-5059: 4224: command not found
+4223: 4224: command not found
 		</screen>
 		<para>2. The script can look like this.</para>
 		<screen>

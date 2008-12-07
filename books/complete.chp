@@ -76,7 +76,7 @@ chapt_file_system_tree() {
 	}
 
 #
-chapt_mod_first_steps() {
+chapt_first_steps() {
 	MODULES=""
 	chaptitle="First Steps"
 	add_mod mod_first_steps/directories.xml
@@ -103,15 +103,6 @@ chapt_installing_linux() {
 	MODULES=""
 	chaptitle="Installing Linux"
 	add_mod mod_installing_linux/installing_linux.xml
-	}
-
-#
-chapt_iptables() {
-	MODULES=""
-	chaptitle="Iptables"
-	add_mod mod_iptables/about_iptables.xml
-	add_mod mod_iptables/packet_filtering.xml
-	add_mod mod_iptables/nat.xml
 	}
 
 #
@@ -186,6 +177,24 @@ chapt_intro_vi() {
 	add_mod mod_intro_vi/about_vi.xml  
 	add_mod mod_intro_vi/intro_vi.xml  
 	add_mod mod_intro_vi/practice_vi.xml  
+	}
+
+#
+chapt_iptables() {
+	MODULES=""
+	chaptitle="Iptables"
+	add_mod mod_iptables/about_iptables.xml
+	add_mod mod_iptables/packet_filtering.xml
+	add_mod mod_iptables/nat.xml
+	}
+
+#
+chapt_kernel() {
+	MODULES=""
+	chaptitle="Linux Kernel"
+	add_mod mod_kernel/linux_kernel.xml   
+	add_mod mod_kernel/kernel_source.xml   
+	add_mod mod_kernel/kernel_modules.xml   
 	}
 
 #
