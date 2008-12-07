@@ -1,3 +1,4 @@
+<section><title>Linux kernel modules</title>
 <section><title>about kernel modules</title>
 	<para>The Linux kernel is a monolithic kernel with loadable modules. These modules contain parts of the kernel used typically for device drivers, file systems and network protocols. Most of the time the necesarry kernel modules are loaded automatically and dynamically without administrator interaction.</para>
 </section>
@@ -142,5 +143,4 @@ alias eth2 pcnet32
 alias eth1 pcnet32
 	</screen>
 </section>
-
-
+</section>
