@@ -194,6 +194,8 @@ chapt_kernel() {
 	chaptitle="Linux Kernel"
 	add_mod mod_kernel/linux_kernel.xml   
 	add_mod mod_kernel/kernel_source.xml   
+	add_mod mod_kernel/kernel_boot_files.xml   
+	add_mod mod_kernel/kernel_compile.xml   
 	add_mod mod_kernel/compiling_one_module.xml   
 	}
 
