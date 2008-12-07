@@ -1,0 +1,171 @@
+<section><title>kernel module management</title>
+	<section><title>about kernel modules</title>
+		<para>The Linux kernel is a monolithic kernel with loadable modules. These modules contain parts of the kernel used typically for device drivers, file systems and network protocols. Most of the time the necesarry kernel modules are loaded automatically and dynamically without administrator interaction.</para>
+	</section>
+	<section><title>/lib/modules</title>
+		<para>The modules are stored in the <command>/lib/modules/&#060;kernel-version&#062;</command><indexterm><primary>/lib/modules</primary></indexterm> directory. There is a seperate directory for each kernel that was compiled for your system.</para>
+		<screen>
+paul@laika:~$ ll /lib/modules/
+total 12K
+drwxr-xr-x 7 root root 4.0K 2008-11-10 14:32 2.6.24-16-generic
+drwxr-xr-x 8 root root 4.0K 2008-12-06 15:39 2.6.24-21-generic
+drwxr-xr-x 8 root root 4.0K 2008-12-05 12:58 2.6.24-22-generic
+		</screen>
+	</section>
+	<section><title>&#060;module&#062;.ko</title>
+		<para>The file containing the modules usually ends in <command>.ko</command>. This screenshot shows the location of the isdn module files.</para>
+		<screen>
+paul@laika:~$ find /lib/modules -name isdn.ko
+/lib/modules/2.6.24-21-generic/kernel/drivers/isdn/i4l/isdn.ko
+/lib/modules/2.6.24-22-generic/kernel/drivers/isdn/i4l/isdn.ko
+/lib/modules/2.6.24-16-generic/kernel/drivers/isdn/i4l/isdn.ko
+		</screen>
+	</section>
+	<section><title>lsmod</title>
+		<para>To see a list of currently loaded modules, use <command>lsmod</command><indexterm><primary>lsmod(1)</primary></indexterm>. You see the name of each loaded module, the size, the use count, and the names of other modules using this one. The same information is present in <command>/proc/modules</command><indexterm><primary>/proc/modules</primary></indexterm>.</para>
+		<screen>
+[root@RHELv4u3 ~]# lsmod
+Module                  Size  Used by
+iptable_filter          2753  0 
+ip_tables              16705  1 iptable_filter
+nls_utf8                2113  0 
+parport_pc             24577  1 
+lp                     12077  0 
+parport                37129  2 parport_pc,lp
+autofs4                24773  0 
+i2c_dev                11329  0 
+...
+		</screen>
+	</section>
+
+		<screen>
+		</screen>
+		<para></para>
+		<para></para>
+		<para>The system must be configured to load the proper kernel module for each piece of hardware. Normally the <command>kudzu</command><indexterm><primary>kudzu</primary></indexterm> program will detect and configure hardware on Red Hat Enterprise Linux, and might also put an alias for the hardware in <command>/etc/modprobe.conf</command><indexterm><primary>/etc/modprobe.conf</primary></indexterm>.</para>
+		<section><title>modprobe</title>
+			<para>The advantage of <command>modprobe</command><indexterm><primary>modprobe</primary></indexterm> over <command>insmod</command><indexterm><primary>insmod</primary></indexterm> is that modprobe will load all necessary modules, whereas insmod requires manual loading of depedencies.</para>
+			<screen>
+[root@RHELv4u3 ~]# modprobe isdn
+[root@RHELv4u3 ~]# lsmod | grep isdn
+isdn                  133537  0 
+slhc                    7233  1 isdn
+[root@RHELv4u3 ~]# 
+			</screen>
+			<para>Same as insmod, the <command>rmmod</command><indexterm><primary>rmmod</primary></indexterm> tool is rarely used anymore.</para>
+			<screen>
+[root@RHELv4u3 ~]# modprobe isdn
+[root@RHELv4u3 ~]# rmmod slhc
+ERROR: Module slhc is in use by isdn
+[root@RHELv4u3 ~]# rmmod isdn
+[root@RHELv4u3 ~]# rmmod slhc
+[root@RHELv4u3 ~]# lsmod | grep isdn
+[root@RHELv4u3 ~]# 
+			</screen>
+			<para>Contrary to rmmod, modprobe will remove unneeded modules.</para>
+			<screen>
+[root@RHELv4u3 ~]# modprobe isdn
+[root@RHELv4u3 ~]# lsmod | grep isdn
+isdn                  133537  0 
+slhc                    7233  1 isdn
+[root@RHELv4u3 ~]# modprobe -r isdn
+[root@RHELv4u3 ~]# lsmod | grep isdn
+[root@RHELv4u3 ~]# lsmod | grep slhc
+[root@RHELv4u3 ~]# 
+			</screen>
+			<para>To force the loading of a module at boot (normally you will never have to do this manually), put the modprobe command in <command>/etc/rc.modules</command><indexterm><primary>/etc/rc.modules</primary></indexterm> (which is loaded before <command>/etc/rc.local</command><indexterm><primary>/etc/rc.local</primary></indexterm>).</para>
+			<screen>
+[root@RHELv4u3 ~]# cat /etc/rc.modules
+cat: /etc/rc.modules: No such file or directory
+[root@RHELv4u3 ~]# echo modprobe isdn > /etc/rc.modules
+[root@RHELv4u3 ~]# chmod +x /etc/rc.modules
+[root@RHELv4u3 ~]# 
+			</screen>
+		</section>
+	</section>
+	<section><title>compiling one module</title>
+		<para>A little C program that will be our module.</para>
+		<screen>
+[root@rhel4a kernel_module]# cat hello.c 
+#include &#060;linux/module.h&#062;
+#include &#060;section&#062;
+			
+int init_module(void)
+{
+	printk(KERN_INFO "Start Hello World...\n");
+	return 0;
+}
+			
+void cleanup_module(void)
+{
+	printk(KERN_INFO "End Hello World... \n");
+}
+		</screen>
+		<para>The make file for this module.</para>
+		<screen>
+[root@rhel4a kernel_module]# cat Makefile 
+obj-m += hello.o
+all:
+make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
+clean:
+make -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean
+		</screen>
+		<para>These are the only two files needed.</para>
+		<screen>
+[root@rhel4a kernel_module]# ll
+total 16
+-rw-rw-r--  1 paul paul 250 Feb 15 19:14 hello.c
+-rw-rw-r--  1 paul paul 153 Feb 15 19:15 Makefile
+		</screen>
+		<para>The running of the <command>make</command><indexterm><primary>make</primary></indexterm> command.</para>
+		<screen>
+[root@rhel4a kernel_module]# make
+make -C /lib/modules/2.6.9-paul-2/build M=~/kernel_module modules
+make[1]: Entering dir... `/usr/src/redhat/BUILD/kernel-2.6.9/linux-2.6.9'
+CC [M]  /home/paul/kernel_module/hello.o
+Building modules, stage 2.
+MODPOST
+CC      /home/paul/kernel_module/hello.mod.o
+LD [M]  /home/paul/kernel_module/hello.ko
+make[1]: Leaving dir... `/usr/src/redhat/BUILD/kernel-2.6.9/linux-2.6.9'
+[root@rhel4a kernel_module]# 
+		</screen>
+		<para>Now we have more files.</para>
+		<screen>
+[root@rhel4a kernel_module]# ll
+total 172
+-rw-rw-r--  1 paul paul   250 Feb 15 19:14 hello.c
+-rw-r--r--  1 root root 64475 Feb 15 19:15 hello.ko
+-rw-r--r--  1 root root   632 Feb 15 19:15 hello.mod.c
+-rw-r--r--  1 root root 37036 Feb 15 19:15 hello.mod.o
+-rw-r--r--  1 root root 28396 Feb 15 19:15 hello.o
+-rw-rw-r--  1 paul paul   153 Feb 15 19:15 Makefile
+[root@rhel4a kernel_module]#
+		</screen>
+		<para>Use <command>modinfo</command><indexterm><primary>modinfo</primary></indexterm> to verify that it is really a module.</para>
+		<screen>
+[root@rhel4a kernel_module]# modinfo hello.ko 
+filename:       hello.ko
+vermagic:       2.6.9-paul-2 SMP 686 REGPARM 4KSTACKS gcc-3.4
+depends:        
+[root@rhel4a kernel_module]#
+		</screen>
+		<para>Good, so now we can load our hello module.</para>
+		<screen>
+[root@rhel4a kernel_module]# lsmod | grep hello
+[root@rhel4a kernel_module]# insmod ./hello.ko
+[root@rhel4a kernel_module]# lsmod | grep hello
+hello                   5504  0 
+[root@rhel4a kernel_module]# tail -1 /var/log/messages 
+Feb 15 19:16:07 rhel4a kernel: Start Hello World...
+[root@rhel4a kernel_module]# rmmod hello
+[root@rhel4a kernel_module]#
+		</screen>
+		<para>Finally <command>/var/log/messages</command><indexterm><primary>/var/log/messages</primary></indexterm> has a little surprise.</para>
+		<screen>
+[root@rhel4a kernel_module]# tail -2 /var/log/messages 
+Feb 15 19:16:07 rhel4a kernel: Start Hello World...
+Feb 15 19:16:35 rhel4a kernel: End Hello World... 
+[root@rhel4a kernel_module]# 
+		</screen>
+	</section>

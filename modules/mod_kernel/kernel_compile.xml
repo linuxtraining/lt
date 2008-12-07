@@ -1,0 +1,314 @@
+<section><title>Rescue boot floppy</title>
+	<para>Modifying the boot process of your system may render it unbootable. So before we start playing with the kernel, let's make sure we have a backup boot method. One way to boot an unbootable system is by using the official Red Hat Enterprise Linux CD 1. At the boot prompt of this CD, type <command>linux rescue</command>, and an attempt will be made to rescue your system. Another way is to create a bootable floppy for your system with the <command>mkbootdisk</command><indexterm><primary>mkbootdisk</primary></indexterm> or <command>mkboot</command><indexterm><primary>mkboot</primary></indexterm> command. That is, if you still can, since most kernels are too big to fit on a 1.44M floppy these days.</para>
+	<screen>
+root@RHELv4u4:~# mkbootdisk `uname -r`
+Insert a disk in /dev/fd0. Any information on the disk will be lost.
+Press &#060;Enter&#062; to continue or ^C to abort: 
+cp: writing `/tmp/mkbootdisk.yU3889/vmlinuz': No space left on device
+cp: writing `/tmp/mkbootdisk.yU3889/initrd.img': No space left on device
+cat: write error: No space left on device
+cat: write error: No space left on device
+20+0 records in
+20+0 records out
+root@RHELv4u4:~# 
+	</screen>
+</section>
+<section><title>kernel boot files</title>
+	<section><title>vmlinux</title>
+		<para>The <command>vmlinuz</command><indexterm><primary>vmlinuz</primary></indexterm> file in /boot is the compressed kernel.</para>
+		<screen>
+paul@barry:~$ ls -lh /boot | grep vmlinuz
+-rw-r--r-- 1 root root 1.2M 2006-03-06 16:22 vmlinuz-2.6.15-1-486
+-rw-r--r-- 1 root root 1.1M 2006-03-06 16:30 vmlinuz-2.6.15-1-686
+-rw-r--r-- 1 root root 1.3M 2008-02-11 00:00 vmlinuz-2.6.18-6-686
+paul@barry:~$ 
+		</screen>
+	</section>
+	<section><title>initrd</title>
+	<para>The kernel uses <command>initrd</command><indexterm><primary>initrd</primary></indexterm> (an initial RAM disk) at boot time. The initrd is mounted before the kernel loads, and can contain additional drivers and modules. It is a <command>compressed cpio archive</command>, so you can look at the contents in this way.</para>
+		<screen>
+root@RHELv4u4:/boot# mkdir /mnt/initrd
+root@RHELv4u4:/boot# cp initrd-2.6.9-42.0.3.EL.img TMPinitrd.gz
+root@RHELv4u4:/boot# gunzip TMPinitrd.gz 
+root@RHELv4u4:/boot# file TMPinitrd 
+TMPinitrd: ASCII cpio archive (SVR4 with no CRC)
+root@RHELv4u4:/boot# cd /mnt/initrd/
+root@RHELv4u4:/mnt/initrd# cpio -i &#124; /boot/TMPinitrd 
+4985 blocks
+root@RHELv4u4:/mnt/initrd# ls -l
+total 76
+drwxr-xr-x  2 root root 4096 Feb  5 08:36 bin
+drwxr-xr-x  2 root root 4096 Feb  5 08:36 dev
+drwxr-xr-x  4 root root 4096 Feb  5 08:36 etc
+-rwxr-xr-x  1 root root 1607 Feb  5 08:36 init
+drwxr-xr-x  2 root root 4096 Feb  5 08:36 lib
+drwxr-xr-x  2 root root 4096 Feb  5 08:36 loopfs
+drwxr-xr-x  2 root root 4096 Feb  5 08:36 proc
+lrwxrwxrwx  1 root root    3 Feb  5 08:36 sbin -> bin
+drwxr-xr-x  2 root root 4096 Feb  5 08:36 sys
+drwxr-xr-x  2 root root 4096 Feb  5 08:36 sysroot
+root@RHELv4u4:/mnt/initrd# 
+		</screen>
+</section>
+<section><title>System.map</title>
+		<para>The <command>System.map</command><indexterm><primary>System.map</primary></indexterm> contains the symbol table and changes with every kernel compile. The symbol table is also present in <command>/proc/kallsyms</command><indexterm><primary>/proc/kallsyms</primary></indexterm> (pre 2.6 kernels name this file /proc/ksyms). </para>
+		<screen>
+root@RHELv4u4:/boot# head System.map-`uname -r`
+00000400 A __kernel_vsyscall
+0000041a A SYSENTER_RETURN_OFFSET
+00000420 A __kernel_sigreturn
+00000440 A __kernel_rt_sigreturn
+c0100000 A _text
+c0100000 T startup_32
+c01000c6 t checkCPUtype
+c0100147 t is486
+c010014e t is386
+c010019f t L6
+root@RHELv4u4:/boot# head /proc/kallsyms 
+c0100228 t _stext
+c0100228 t calibrate_delay_direct
+c0100228 t stext
+c0100337 t calibrate_delay
+c01004db t rest_init
+c0100580 t do_pre_smp_initcalls
+c0100585 t run_init_process
+c01005ac t init
+c0100789 t early_param_test
+c01007ad t early_setup_test
+root@RHELv4u4:/boot#
+		</screen>
+</section>
+<section><title>.config</title>
+		<para>The last file copied to the /boot directory is the kernel configuration used for compilation. This file is not necessary in the /boot directory, but it is common practice to put a copy there. It allows you to recompile a kernel, starting from the same configuration as an existing working one.</para>
+</section>
+</section>
+<section><title>kernel module management</title>
+		<para>The system must be configured to load the proper kernel module for each piece of hardware. Normally the <command>kudzu</command><indexterm><primary>kudzu</primary></indexterm> program will detect and configure hardware on Red Hat Enterprise Linux, and might also put an alias for the hardware in <command>/etc/modprobe.conf</command><indexterm><primary>/etc/modprobe.conf</primary></indexterm>.</para>
+		<section><title>lsmod</title>
+			<para>To see a list of currently loaded modules, use <command>lsmod</command><indexterm><primary>lsmod</primary></indexterm>. You see the name of each loaded module, the size, the use count, and the names of other modules using this one. The same information is present in <command>/proc/modules</command><indexterm><primary>/proc/modules</primary></indexterm>.</para>
+			<screen>
+[root@RHELv4u3 ~]# lsmod
+Module                  Size  Used by
+iptable_filter          2753  0 
+ip_tables              16705  1 iptable_filter
+nls_utf8                2113  0 
+parport_pc             24577  1 
+lp                     12077  0 
+parport                37129  2 parport_pc,lp
+autofs4                24773  0 
+i2c_dev                11329  0 
+...
+			</screen>
+		</section>
+		<section><title>modprobe</title>
+			<para>The advantage of <command>modprobe</command><indexterm><primary>modprobe</primary></indexterm> over <command>insmod</command><indexterm><primary>insmod</primary></indexterm> is that modprobe will load all necessary modules, whereas insmod requires manual loading of depedencies.</para>
+			<screen>
+[root@RHELv4u3 ~]# modprobe isdn
+[root@RHELv4u3 ~]# lsmod | grep isdn
+isdn                  133537  0 
+slhc                    7233  1 isdn
+[root@RHELv4u3 ~]# 
+			</screen>
+			<para>Same as insmod, the <command>rmmod</command><indexterm><primary>rmmod</primary></indexterm> tool is rarely used anymore.</para>
+			<screen>
+[root@RHELv4u3 ~]# modprobe isdn
+[root@RHELv4u3 ~]# rmmod slhc
+ERROR: Module slhc is in use by isdn
+[root@RHELv4u3 ~]# rmmod isdn
+[root@RHELv4u3 ~]# rmmod slhc
+[root@RHELv4u3 ~]# lsmod | grep isdn
+[root@RHELv4u3 ~]# 
+			</screen>
+			<para>Contrary to rmmod, modprobe will remove unneeded modules.</para>
+			<screen>
+[root@RHELv4u3 ~]# modprobe isdn
+[root@RHELv4u3 ~]# lsmod | grep isdn
+isdn                  133537  0 
+slhc                    7233  1 isdn
+[root@RHELv4u3 ~]# modprobe -r isdn
+[root@RHELv4u3 ~]# lsmod | grep isdn
+[root@RHELv4u3 ~]# lsmod | grep slhc
+[root@RHELv4u3 ~]# 
+			</screen>
+			<para>To force the loading of a module at boot (normally you will never have to do this manually), put the modprobe command in <command>/etc/rc.modules</command><indexterm><primary>/etc/rc.modules</primary></indexterm> (which is loaded before <command>/etc/rc.local</command><indexterm><primary>/etc/rc.local</primary></indexterm>).</para>
+			<screen>
+[root@RHELv4u3 ~]# cat /etc/rc.modules
+cat: /etc/rc.modules: No such file or directory
+[root@RHELv4u3 ~]# echo modprobe isdn > /etc/rc.modules
+[root@RHELv4u3 ~]# chmod +x /etc/rc.modules
+[root@RHELv4u3 ~]# 
+			</screen>
+		</section>
+	</section>
+	<section><title>compiling a kernel</title>
+		<section><title>vanilla</title>
+			<para>To compile a kernel, you need to get the source code first. The vanilla kernel is downloadable from <command>ftp.kernel.org</command><indexterm><primary>ftp://ftp.kernel.org</primary></indexterm>. But getting this one to work perfectly with your Red Hat distribution will be tricky.</para>
+		</section>
+		<section><title>Red Hat Enterprise Linux 4 specific</title>
+			<para>It will be safer to start with the Red Hat kernel source, which is located on the fourth source cdrom. The file is called <command>kernel-2.6.9-42.EL.src.rpm</command> for RHELv4u4.</para>
+			<para>Issue the <command>rpm -i -vv kernel-2.6.9-42.EL.src.rpm</command> command to install this Red Hat package.</para>
+			<para>issue <command>rpmbuild -bp -vv --target=i686 /usr/src/redhat/SPECS/kernel-2.6.spec</command>.  It will put a lot of files in <command>/usr/src/redhat/BUILD</command>.</para>
+			<para>Now go into <command>/usr/src/redhat/BUILD/kernel-2.6.9/linux-2.6.9/</command>.</para>
+		</section>			
+		<section><title>Normal kernel compilation</title>
+			<para>Now clean up the source from any previous installs with <command>make mrproper</command><indexterm><primary>make mrproper</primary></indexterm>. If this is your first after downloading the source code, then this is not needed.</para>
+			<para>Now copy a working .config from /boot to our kernel directory.</para>
+			<para>Now run the <command>make menuconfig</command><indexterm><primary>make menuconfig</primary></indexterm> (or in GUI <command>make xconfig</command><indexterm><primary>make xconfig</primary></indexterm>). This tool allows you to select whether to compile stuff as a module (m), as part of the kernel (*), or not at all (smaller kernel size). If you remove to much, your kernel will not work.</para>
+			<para>Next, change the extraversion in the <command>Makefile</command><indexterm><primary>Makefile</primary></indexterm>, to give your compiled kernel a unique name.</para>
+			<screen>
+[root@RHELv4u3 2.6.9-34.EL-i686]# vi Makefile 
+[root@RHELv4u3 2.6.9-34.EL-i686]# head -5 Makefile 
+VERSION = 2
+PATCHLEVEL = 6
+SUBLEVEL = 9
+EXTRAVERSION = -34.EL.paul
+NAME=AC 1
+[root@RHELv4u3 2.6.9-34.EL-i686]# 
+			</screen>
+			<para>Issue a <command>make clean</command><indexterm><primary>make clean</primary></indexterm> to prepare the kernel for compile. And then run <command>make bzImage</command><indexterm><primary>make bzImage</primary></indexterm>, sit back and relax while the kernel compiles. You can use <command>time make bzImage</command><indexterm><primary>time(1)</primary></indexterm> to know how long it takes to compile, so next time you can go for a short walk (it took six minutes in vmware).</para>
+			<screen>
+[root@RHELv4u3 2.6.9-34.EL-i686]# clean
+[root@RHELv4u3 2.6.9-34.EL-i686]# time make bzImage
+			</screen>
+			<para>You can already copy this image to /boot with <command>cp arch/i386/boot/bzImage /boot</command>.</para>
+			<para>Now run <command>make modules</command><indexterm><primary>make modules</primary></indexterm> (took me 22 minutes) and <command>make modules_install</command> (20 seconds). Compilation is now finished, don't forget to  create an additional stanza in grub.conf. It is common to copy your .config to /boot, this will help you in the next compile to start from a known good configuration. Also copy the System.map. You might also need <command>mkinitrd</command><indexterm><primary>mkinitrd(1)</primary></indexterm> when booting from SCSI.
+			</para>
+		</section>	
+	</section>
+	<section><title>Overview kernel compile</title>
+		<para>An overview of the steps executed to compile the kernel (first attempt, no network connection but otherwise functioning kernel).</para>
+		<screen>
+mkdir kernelcompile
+cd kernelcompile/
+mv /home/paul/kernel-2.6.9-42.EL.src.rpm .
+rpm -i -vv kernel-2.6.9-42.EL.src.rpm 
+cd /usr/src/redhat/SPECS/
+rpmbuild -bp -vv --target=i686 kernel-2.6.spec
+cd ../BUILD/kernel-2.6.9/linux-2.6.9/
+make mrproper
+vi Makefile 
+make menuconfig
+time make bzImage
+cp arch/i386/boot/bzImage /boot/vmlinuz-2.6.9-paul
+time make modules
+time make modules_install
+ls -l /lib/modules/
+cp .config /boot/config-2.6.9-paul
+cp System.map /boot/System.map-2.6.9-paul
+(mkinitrd /boot/initrd-2.6.9-paul.img 2.6.9-paul)
+cp /boot/initrd-2.6.9-42.0.8.ELsmp.img /boot/initrd-2.6.9-paul.img
+ll /boot
+vi /boot/grub/menu.lst 
+reboot
+		</screen>
+		<para>The second attempt...</para>
+		<screen>
+cd /usr/src/redhat/BUILD/kernel-2.6.9/linux-2.6.9/
+make mrproper
+uname -a
+cp /boot/config-2.6.9-42.0.8.ELsmp ./.config
+vi Makefile 
+time make bzImage modules modules_install
+cp System.map /boot/System.map-2.6.9-paul-2
+cp arch/i386/boot/bzImage /boot/vmlinuz-2.6.9-paul-2
+cp .config /boot/config-2.6.9-paul-2
+mkinitrd /boot/initrd-2.6.9-paul-2.img 2.6.9-paul-2 
+ll /boot
+vi /boot/grub/menu.lst
+		</screen>
+		<para>...everything seems to work now.</para>
+		<screen>
+paul@laika:~$ ssh 192.168.1.44
+paul@192.168.1.44's password: 
+Last login: Thu Feb 15 18:29:48 2007 from 192.168.1.45
+[paul@rhel4a ~]$ uname -r
+2.6.9-paul-2
+[paul@rhel4a ~]$
+		</screen>
+	</section>
+	<section><title>Compiling one module</title>
+		<para>A little C program that will be our module.</para>
+		<screen>
+[root@rhel4a kernel_module]# cat hello.c 
+#include &#060;linux/module.h&#062;
+#include &#060;section&#062;
+			
+int init_module(void)
+{
+	printk(KERN_INFO "Start Hello World...\n");
+	return 0;
+}
+			
+void cleanup_module(void)
+{
+	printk(KERN_INFO "End Hello World... \n");
+}
+		</screen>
+		<para>The make file for this module.</para>
+		<screen>
+[root@rhel4a kernel_module]# cat Makefile 
+obj-m += hello.o
+all:
+make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
+clean:
+make -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean
+		</screen>
+		<para>These are the only two files needed.</para>
+		<screen>
+[root@rhel4a kernel_module]# ll
+total 16
+-rw-rw-r--  1 paul paul 250 Feb 15 19:14 hello.c
+-rw-rw-r--  1 paul paul 153 Feb 15 19:15 Makefile
+		</screen>
+		<para>The running of the <command>make</command><indexterm><primary>make</primary></indexterm> command.</para>
+		<screen>
+[root@rhel4a kernel_module]# make
+make -C /lib/modules/2.6.9-paul-2/build M=~/kernel_module modules
+make[1]: Entering dir... `/usr/src/redhat/BUILD/kernel-2.6.9/linux-2.6.9'
+CC [M]  /home/paul/kernel_module/hello.o
+Building modules, stage 2.
+MODPOST
+CC      /home/paul/kernel_module/hello.mod.o
+LD [M]  /home/paul/kernel_module/hello.ko
+make[1]: Leaving dir... `/usr/src/redhat/BUILD/kernel-2.6.9/linux-2.6.9'
+[root@rhel4a kernel_module]# 
+		</screen>
+		<para>Now we have more files.</para>
+		<screen>
+[root@rhel4a kernel_module]# ll
+total 172
+-rw-rw-r--  1 paul paul   250 Feb 15 19:14 hello.c
+-rw-r--r--  1 root root 64475 Feb 15 19:15 hello.ko
+-rw-r--r--  1 root root   632 Feb 15 19:15 hello.mod.c
+-rw-r--r--  1 root root 37036 Feb 15 19:15 hello.mod.o
+-rw-r--r--  1 root root 28396 Feb 15 19:15 hello.o
+-rw-rw-r--  1 paul paul   153 Feb 15 19:15 Makefile
+[root@rhel4a kernel_module]#
+		</screen>
+		<para>Use <command>modinfo</command><indexterm><primary>modinfo</primary></indexterm> to verify that it is really a module.</para>
+		<screen>
+[root@rhel4a kernel_module]# modinfo hello.ko 
+filename:       hello.ko
+vermagic:       2.6.9-paul-2 SMP 686 REGPARM 4KSTACKS gcc-3.4
+depends:        
+[root@rhel4a kernel_module]#
+		</screen>
+		<para>Good, so now we can load our hello module.</para>
+		<screen>
+[root@rhel4a kernel_module]# lsmod | grep hello
+[root@rhel4a kernel_module]# insmod ./hello.ko
+[root@rhel4a kernel_module]# lsmod | grep hello
+hello                   5504  0 
+[root@rhel4a kernel_module]# tail -1 /var/log/messages 
+Feb 15 19:16:07 rhel4a kernel: Start Hello World...
+[root@rhel4a kernel_module]# rmmod hello
+[root@rhel4a kernel_module]#
+		</screen>
+		<para>Finally <command>/var/log/messages</command><indexterm><primary>/var/log/messages</primary></indexterm> has a little surprise.</para>
+		<screen>
+[root@rhel4a kernel_module]# tail -2 /var/log/messages 
+Feb 15 19:16:07 rhel4a kernel: Start Hello World...
+Feb 15 19:16:35 rhel4a kernel: End Hello World... 
+[root@rhel4a kernel_module]# 
+		</screen>
+	</section>

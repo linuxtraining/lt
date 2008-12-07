@@ -1,0 +1,15 @@
+<section><title>Rescue boot floppy</title>
+	<para>Modifying the boot process of your system may render it unbootable. So before we start playing with the kernel, let's make sure we have a backup boot method. One way to boot an unbootable system is by using the official Red Hat Enterprise Linux CD 1. At the boot prompt of this CD, type <command>linux rescue</command>, and an attempt will be made to rescue your system. Another way is to create a bootable floppy for your system with the <command>mkbootdisk</command><indexterm><primary>mkbootdisk</primary></indexterm> or <command>mkboot</command><indexterm><primary>mkboot</primary></indexterm> command. That is, if you still can, since most kernels are too big to fit on a 1.44M floppy these days.</para>
+	<screen>
+root@RHELv4u4:~# mkbootdisk `uname -r`
+Insert a disk in /dev/fd0. Any information on the disk will be lost.
+Press &#060;Enter&#062; to continue or ^C to abort: 
+cp: writing `/tmp/mkbootdisk.yU3889/vmlinuz': No space left on device
+cp: writing `/tmp/mkbootdisk.yU3889/initrd.img': No space left on device
+cat: write error: No space left on device
+cat: write error: No space left on device
+20+0 records in
+20+0 records out
+root@RHELv4u4:~# 
+	</screen>
+</section>

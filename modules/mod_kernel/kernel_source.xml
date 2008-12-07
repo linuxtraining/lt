@@ -1,0 +1,152 @@
+<section><title>Linux kernel source</title>
+	<section><title>ftp.kernel.org</title>
+		<para>The home of the Linux kernel source is <command>ftp.kernel.org</command><indexterm><primary>ftp://ftp.kernel.org</primary></indexterm>. It contains all official releases of the Linux kernel source code from 1991. It provides free downloads over http, ftp and rsync of all these releases, as well as changelogs and patches. More information can be otained on the website <command>www.kernel.org</command><indexterm><primary>http://www.kernel.org</primary></indexterm>.</para>
+		<para>Anyone can anonymously use an ftp client to access ftp.kernel.org</para>
+		<screen>
+paul@laika:~$ ftp ftp.kernel.org
+Connected to pub3.kernel.org.
+220 Welcome to ftp.kernel.org.
+Name (ftp.kernel.org:paul): anonymous
+331 Please specify the password.
+Password:
+230-			    Welcome to the
+230-
+230-			LINUX KERNEL ARCHIVES
+230-			    ftp.kernel.org
+		</screen>
+		<para>All the Linux kernel versions are located in the pub/linux/kernel/ directory.</para>
+		<screen>
+ftp> ls pub/linux/kernel/v*
+200 PORT command successful. Consider using PASV.
+150 Here comes the directory listing.
+drwxrwsr-x    2 536      536          4096 Mar 20  2003 v1.0
+drwxrwsr-x    2 536      536         20480 Mar 20  2003 v1.1
+drwxrwsr-x    2 536      536          8192 Mar 20  2003 v1.2
+drwxrwsr-x    2 536      536         40960 Mar 20  2003 v1.3
+drwxrwsr-x    3 536      536         16384 Feb 08  2004 v2.0
+drwxrwsr-x    2 536      536         53248 Mar 20  2003 v2.1
+drwxrwsr-x    3 536      536         12288 Mar 24  2004 v2.2
+drwxrwsr-x    2 536      536         24576 Mar 20  2003 v2.3
+drwxrwsr-x    5 536      536         28672 Dec 02 08:14 v2.4
+drwxrwsr-x    4 536      536         32768 Jul 14  2003 v2.5
+drwxrwsr-x    7 536      536        110592 Dec 05 22:36 v2.6
+226 Directory send OK.
+ftp> 
+		</screen>
+	</section>
+	<section><title>/usr/src</title>
+		<para>On your local computer, the kernel source is located in <command>/usr/src</command><indexterm><primary>/usr/src</primary></indexterm>. Note though that the structure inside /usr/src might be different depending on the distribution that you are using.</para>
+		<para>First let's take a look at <command>/usr/src on Debian</command>. There appear to be two versions of the complete Linux source code there. Looking for a specific file (e1000_main.c) with find reveals it's exact location.</para>
+		<screen>
+paul@barry:~$ ls -l /usr/src/
+drwxr-xr-x 20 root root     4096 2006-04-04 22:12 linux-source-2.6.15
+drwxr-xr-x 19 root root     4096 2006-07-15 17:32 linux-source-2.6.16
+paul@barry:~$ find /usr/src -name e1000_main.c
+/usr/src/linux-source-2.6.15/drivers/net/e1000/e1000_main.c
+/usr/src/linux-source-2.6.16/drivers/net/e1000/e1000_main.c
+		</screen>
+		<para>This is very similar to <command>/usr/src on Ubuntu</command>, except there is only one kernel here (and it is newer).</para>
+		<screen>
+paul@laika:~$ ls -l /usr/src/
+drwxr-xr-x 23 root root     4096 2008-11-24 23:28 linux-source-2.6.24
+paul@laika:~$ find /usr/src -name "e1000_main.c"
+/usr/src/linux-source-2.6.24/drivers/net/e1000/e1000_main.c
+		</screen>
+		<para>Now take a look at <command>/usr/src on Red Hat Enterprise Linux</command>.</para>
+		<screen>
+[paul@RHEL52 ~]$ ls -l /usr/src/
+drwxr-xr-x 5 root root 4096 Dec  5 19:23 kernels
+drwxr-xr-x 7 root root 4096 Oct 11 13:22 redhat
+		</screen>
+		<para>We will have to dig a little deeper to find the kernel source on Red Hat!</para>
+		<screen>
+[paul@RHEL52 ~]$ cd /usr/src/redhat/BUILD/
+[paul@RHEL52 BUILD]$ find . -name "e1000_main.c"
+./kernel-2.6.18/linux-2.6.18.i686/drivers/net/e1000/e1000_main.c
+		</screen>
+	</section>
+	<section><title>downloading the kernel source</title>
+		<section><title>Debian</title>
+			<para>Installing the kernel source on Debian is really simple with <command>aptitude install linux-source</command><indexterm><primary>aptitude(1)</primary></indexterm>. You can do a search for all linux-source packeges first, like in this screenshot.</para>
+			<screen>
+root@barry:~# aptitude search linux-source
+v   linux-source           -
+v   linux-source-2.6       -
+id  linux-source-2.6.15    - Linux kernel source for version 2.6.15
+i   linux-source-2.6.16    - Linux kernel source for version 2.6.16
+p   linux-source-2.6.18    - Linux kernel source for version 2.6.18
+p   linux-source-2.6.24    - Linux kernel source for version 2.6.24
+			</screen>
+			<para>And then use <command>aptitude install</command> to download and install the Debian Linux kernel source code.</para>
+			<screen>
+root@barry:~# aptitude install linux-source-2.6.24
+			</screen>
+			<para>When the aptitude is finished, you will see a new file named <command>/usr/src/linux-source-&#060;version&#062;.tar.bz2</command></para>
+			<screen>
+root@barry:/usr/src# ls -lh
+drwxr-xr-x 20 root root 4.0K 2006-04-04 22:12 linux-source-2.6.15
+drwxr-xr-x 19 root root 4.0K 2006-07-15 17:32 linux-source-2.6.16
+-rw-r--r--  1 root root  45M 2008-12-02 10:56 linux-source-2.6.24.tar.bz2
+			</screen>
+		</section>
+		<section><title>Ubuntu</title>
+			<para>Ubuntu is based on Debian and also uses <command>aptitude</command>, so the task is very similar.</para>
+			<screen>
+root@laika:~# aptitude search linux-source
+i   linux-source           - Linux kernel source with Ubuntu patches
+v   linux-source-2.6       -
+i A linux-source-2.6.24    - Linux kernel source for version 2.6.24
+root@laika:~# aptitude install linux-source
+			</screen>
+			<para>And when aptitude finishes, we end up with a <command>/usr/src/linux-source-&#060;version&#062;.tar.bz</command> file.</para>
+			<screen>
+oot@laika:~# ll /usr/src
+total 45M
+-rw-r--r--  1 root root  45M 2008-11-24 23:30 linux-source-2.6.24.tar.bz2
+			</screen>
+		</section>
+		<section><title>Red Hat Enterprise Linux</title>
+			<para>The Red Hat kernel source is located on the fourth source cdrom. The file is called <command>kernel-2.6.9-42.EL.src.rpm</command> (example for RHELv4u4). It is also available online at ftp://ftp.redhat.com/pub/redhat/linux/enterprise/5Server/en/os/SRPMS/ (example for RHEL5).</para>
+			<para>To download the kernel source on RHEL, use this long wget command (on one line, without the trailing \).</para>
+			<screen>
+wget ftp://ftp.redhat.com/pub/redhat/linux/enterprise/5Server/en/os/\
+SRPMS/kernel-`uname -r`.src.rpm
+			</screen>
+			<para>When the wget download is finished, you end up with a 60M .rpm file.</para>
+			<screen>
+[root@RHEL52 src]# ll
+total 60M
+-rw-r--r-- 1 root root  60M Dec  5 20:54 kernel-2.6.18-92.1.17.el5.src.rpm
+drwxr-xr-x 5 root root 4.0K Dec  5 19:23 kernels
+drwxr-xr-x 7 root root 4.0K Oct 11 13:22 redhat
+			</screen>
+			<para>We will need to perform some more steps before this can be used as kernel source code.</para>
+			<para>First, we issue the <command>rpm -i kernel-2.6.9-42.EL.src.rpm</command> command to install this Red Hat package.</para>
+			<screen>
+[root@RHEL52 src]# ll
+total 60M
+-rw-r--r-- 1 root root  60M Dec  5 20:54 kernel-2.6.18-92.1.17.el5.src.rpm
+drwxr-xr-x 5 root root 4.0K Dec  5 19:23 kernels
+drwxr-xr-x 7 root root 4.0K Oct 11 13:22 redhat
+[root@RHEL52 src]# rpm -i kernel-2.6.18-92.1.17.el5.src.rpm
+			</screen>
+			<para>The we move to the SPECS directory and perform an <command>rpmbuild</command>.</para>
+			<screen>
+[root@RHEL52 ~]# cd /usr/src/redhat/SPECS
+[root@RHEL52 SPECS]# rpmbuild -bp -vv --target=i686 kernel-2.6.spec
+			</screen>
+			<para>The rpmbuild command put the RHEL Linux kernel source code in <command>/usr/src/redhat/BUILD/kernel-&#060;version&#062;/</command>.</para>
+			<screen>
+[root@RHEL52 kernel-2.6.18]# pwd
+/usr/src/redhat/BUILD/kernel-2.6.18
+[root@RHEL52 kernel-2.6.18]# ll
+total 20K
+drwxr-xr-x  2 root root 4.0K Dec  6  2007 config
+-rw-r--r--  1 root root 3.1K Dec  5 20:58 Config.mk
+drwxr-xr-x 20 root root 4.0K Dec  5 20:58 linux-2.6.18.i686
+drwxr-xr-x 19 root root 4.0K Sep 20  2006 vanilla
+drwxr-xr-x  8 root root 4.0K Dec  6  2007 xen
+			</screen>
+		</section>
+	</section>
+</section>

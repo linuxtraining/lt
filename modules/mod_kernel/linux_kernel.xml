@@ -1,0 +1,19 @@
+<section><title>Linux kernel</title>
+	<section><title>kernel versions</title>
+		<para>In 1991 Linux Torvalds wrote (the first version of) the Linux kernel. He put it online, and other people started contributing code. Over 4000 individuals contributed source code to the latest kernel release (version 2.6.27 in November 2008).</para>
+		<para>Major Linux kernel versions used to come in even and odd numbers. Versions <command>2.0</command>, <command>2.2</command>, <command>2.4</command> and <command>2.6</command> are considered stable kernel versions. Whereas <command>2.1</command>, <command>2.3</command> and <command>2.5</command> were unstable (read development) versions. Since the release of 2.6.0 in January 2004, all development has been done in the 2.6 tree. There is currently no v2.7.x and according to Linus the even/stable vs odd/development scheme is abandoned forever.</para>
+	</section>
+	<section><title>uname -r</title>
+		<para>To see your current Linux kernel version, issue the <command>uname -r</command><indexterm><primary>uname(1)</primary></indexterm> command as shown below.</para>
+		<para>This first example shows Linux major version <command>2.6</command> and minor version <command>24</command>. The rest <command>-22-generic</command> is specific to the distribution (Ubuntu in this case).</para>
+		<screen>
+paul@laika:~$ uname -r
+2.6.24-22-generic
+		</screen>
+		<para>The same command on Red Hat Enterprise Linux shows an older kernel (2.6.18) with <command>-92.1.17.el5</command> being specific to the distribution.</para>
+		<screen>
+[paul@RHEL52 ~]$ uname -r
+2.6.18-92.1.17.el5
+		</screen>
+	</section>
+</section>
