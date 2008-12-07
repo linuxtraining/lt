@@ -381,7 +381,7 @@ fi
 		<screen>
 #!/bin/bash
 
-ls *.txt > /dev/null 2>&1
+ls *.txt > /dev/null 2>&#038;1
 if [ $? -ne 0 ] 
 then echo "There are 0 files ending in .txt"
 else
