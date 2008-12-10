@@ -1,55 +1,112 @@
-<section><title>About Installing Software</title>
-	<para>Software for your Linux distribution is not scattered all over the place like some other OS'ses, but is in general managed in a central distributed repository. This means that applications in the repository are tested for your distribution. Installing this software is very easy. The problem begins when you need software from outside of the central repository.</para>
+<section><title>About repositories</title>
+	<para>Software for your Linux distribution is not scattered all over the place, it is in general managed in a central distributed repository. This means that applications in the repository are tested for your distribution. Installing this software is very easy. The problem begins when you need software from outside of the central repository.</para>
 	<para>You can install software from the repository on Linux in different ways. Beginners should use the graphical software installation tool that is provided by the distribution (Synaptic on Debian, Add/Remove Software on Ubuntu, Yast on Suse, ...). More advanced people tend to use the command line (rpm, yum, dpkg, aptitude). A third option is to download vanilla source code and compile the software yourself, providing the application is open source.</para>
 </section>
-<section><title>RPM (Red Hat, Suse, ...)</title>
-	<para>The <command>RPM Package Manager</command><indexterm><primary>rpm</primary></indexterm> can be used on the command line with <command>rpm</command> or in a graphical way going to Applications--System Settings--Add/Remove Applications. Type <command>rpm --help</command> to see some of the options. Software distributed in the rpm format will be named foo-version.platform.rpm .</para>	
-	<para>To obtain a list of all installed software, use the <command>rpm -qa</command> command. To check whether a package is provided by Red Hat, use the <command>--redhatprovides</command> option.</para>
-	<screen>
+<section><title>Red Hat Package Manager</title>
+	<para>The <command>Red Hat Package Manager</command> is used by many distributions. Besides Red Hat, who originally created the <command>.rpm</command> format and Fedora, there is also Mandriva, Red Flag Linux, OpenSUSE and others. The most common front ends (besides <command>rpm</command>) using this tool are <command>yum</command>, <command>YaST</command> and <command>up2date</command>.</para>
+	<section><title>rpm</title>
+		<section><title>About rpm</title>
+			<para>The <command>Red Hat Package Manager</command><indexterm><primary>rpm</primary></indexterm> can be used on the command line with <command>rpm</command> or in a graphical way going to Applications--System Settings--Add/Remove Applications. Type <command>rpm --help</command> to see some of the options.</para>
+			<para>Software distributed in the rpm format will be named <command>foo-version.platform.rpm</command> .</para>	
+		</section>
+		<section><title>rpm -qa</title>
+			<para>To obtain a list of all installed software, use the <command>rpm -qa</command> command.</para>
+			<screen>
+[root@RHEL52 ~]# rpm -qa | grep samba
+system-config-samba-1.2.39-1.el5
+samba-3.0.28-1.el5_2.1
+samba-client-3.0.28-1.el5_2.1
+samba-common-3.0.28-1.el5_2.1
+			</screen>
+		</section>
+		<section><title>rpm -q</title>
+			<para>To verify whether one package is installed, use <command>rpm -q</command>.</para>
+			<screen>
+root@RHELv4u4:~# rpm -q gcc
+gcc-3.4.6-3
+root@RHELv4u4:~# rpm -q laika
+package laika is not installed
+			</screen>
+		</section>
+		<section><title>rpm -q --redhatprovides</title>
+			<para>To check whether a package is provided by Red Hat, use the <command>--redhatprovides</command> option.</para>
+			<screen>
 root@RHELv4u4:~# rpm -q --redhatprovides bash
 bash-3.0-19.3
 root@RHELv4u4:~# rpm -q --redhatprovides gcc
 gcc-3.4.6-3
 root@RHELv4u4:~# rpm -q --redhatprovides laika
 no package provides laika
-root@RHELv4u4:~# 
-	</screen>	
-	<para>To verify whether a package is installed, use -q.</para>
-	<screen>
-root@RHELv4u4:~# rpm -q gcc
-gcc-3.4.6-3
-root@RHELv4u4:~# rpm -q laika
-package laika is not installed
-root@RHELv4u4:~# 
-	</screen>
-	<para>To install or upgrade a package, use the -Uvh switches.</para>
-	<screen>rpm -Uvh gcc-3.4.6-3</screen>
-	<para>To remove a package, use the -e switch.</para>
-	<screen>rpm -e gcc-3.4.6-3</screen>
+			</screen>	
+		</section>
+		<section><title>rpm -Uvh</title>
+			<para>To install or upgrade a package, use the -Uvh switches. The -U switch is the same as -i for install, except that older versions of the software are removed. The -vh switches are for nicer output.</para>
+			<screen>
+root@RHELv4u4:~# rpm -Uvh gcc-3.4.6-3
+			</screen>
+		</section>
+		<section><title>rpm -e</title>
+			<para>To remove a package, use the -e switch.</para>
+			<screen>
+root@RHELv4u4:~# rpm -e gcc-3.4.6-3
+			</screen>
+			<para><command>rpm -e</command> verifies dependencies, and thus will prevent you from accidentaly erasing packages that are needed by other packages.</para>
+			<screen>
+[root@RHEL52 ~]# rpm -e gcc-4.1.2-42.el5
+error: Failed dependencies:
+gcc = 4.1.2-42.el5 is needed by (installed) gcc-c++-4.1.2-42.el5.i386
+gcc = 4.1.2-42.el5 is needed by (installed) gcc-gfortran-4.1.2-42.el5.i386
+gcc is needed by (installed) systemtap-0.6.2-1.el5_2.2.i386
+			</screen>
+		</section>
+		<section><title>/var/lib/rpm</title>
+			<para>The <command>rpm</command> database is located at <command>/var/lib/rpm</command>. This database contains all meta information about packages that are installed (via rpm). It keeps track of all files, which enables complete removes of software.</para>
+		</section>
+	</section>
+	<section><title>yum</title>
+		<para>The <command>Yellowdog Updater, Modified (yum)</command><indexterm><primary>yum</primary></indexterm> is an easier command to work with rpm packages. It is installed by default on Fedora and is optional on Red Hat Enterprise Linux.</para>
+		<para>Issue <command>yum list available</command> to see a list of available packages.</para>
+		<screen>yum list available</screen>
+		<para>To search for a package containing a certain string in the description or name use <command>yum search $string</command>.</para>
+		<screen>yum search $string</screen>
+		<para>To install an application, use <command>yum install $package</command>. Naturally yum will install all the necesary dependencies.</para>
+		<screen>yum install $package</screen>
+		<para>To bring all applications up to date, by downloading and installing them, issue <command>yum update</command>. All software that was installed via yum will be updated to the latest version that is available in the repository.</para>
+		<screen>yum update</screen>
+		<para>The configuration of your yum repositories is done in <command>/etc/yum/yum.conf</command> and <command>/etc/yum/repos.d/</command>.</para>
+	</section>
+	<section><title>up2date</title>
+		<para><command>up2date</command> is the Red Hat Update Agent. It is available on Red Hat Enterprise Linux and serves as a connection to RHN (Red Hat Network). It has simple switches like -d for download, -i for install and -l for list (of packages that can be updated).</para>
+	</section>
 </section>
-<section><title>Yum (Fedora)</title>
-	<para><command>Yum</command><indexterm><primary>yum</primary></indexterm> is an easier way to work with rpm packages. It is installed by default on Fedora.</para>
-	<para>Issue this to see a list of available packages.</para>
-	<screen>yum list available</screen>
-	<para>To install an application.</para>
-	<screen>yum install $appName</screen>
-	<para>To upgrade all applications.</para>
-	<screen>yum update</screen>
-	<para>To search for a package containing a certain string in the description or name.</para>
-	<screen>yum search $string</screen>
-</section>
-<section><title>dpkg and Aptitude (Debian, Ubuntu, ...)</title>
-	<para>Debian uses .deb packages, managed by <command>dpkg</command><indexterm><primary>dpkg</primary></indexterm>, or more commonly today by <command>aptitude</command><indexterm><primary>aptitude</primary></indexterm>. The big advantage of aptitude is it's ease of use and it's power to handle dependencies.</para>
-	<para>To synchronize with the repositories.</para>
-	<screen>aptitude update</screen>
-	<para>To patch and upgrade all software to the latest version..</para>
-	<screen>aptitude upgrade</screen>
-	<para>To install an application with all dependencies.</para>
-	<screen>aptitude install $appName</screen>
-	<para>To search the repositories for applications that contain a certain string in their name or description.</para>
-	<screen>aptitude search $string</screen>
-	<para>To remove an application and all unused files.</para>
-	<screen>aptitude remove $appName</screen>
+<section><title>Debian Package Management</title>
+	<section><title>About .deb</title>
+		<para>The Debian Package Management System is used by Debian, Ubuntu, Linux Mint and all derivatives from Debian and Ubuntu. It uses <command>.deb</command> packages.</para>
+	</section>
+	<section><title>dpkg -l</title>
+		<para>The low level tool to work with <command>.deb</command> packages is <command>dpkg</command>. Here you see how to obtain a list of all installed packages. The ii at the beginning means the package is installed.</para>
+		<screen>
+root@laika:~# dpkg -l | grep gcc-4.2
+ii gcc-4.2      4.2.4-1ubuntu3 The GNU C compiler
+ii gcc-4.2-base 4.2.4-1ubuntu3 The GNU Compiler Collection (base package)
+		</screen>
+	</section>
+	<section><title>dpkg</title>
+		<para>You could use <command>dpkg -i</command> to install a package and <command>dpkg -r</command> to remove a package, but you'd have to manually keep track of dependencies.</para>
+	</section>
+	<section><title>aptitude</title>
+		<para>Most people use <command>aptitude</command> for package management on Debian and Ubuntu Systems.</para>
+		<para>To synchronize with the repositories.</para>
+		<screen>aptitude update</screen>
+		<para>To patch and upgrade all software to the latest version..</para>
+		<screen>aptitude safe-upgrade</screen>
+		<para>To install an application with all dependencies.</para>
+		<screen>aptitude install $package</screen>
+		<para>To search the repositories for applications that contain a certain string in their name or description.</para>
+		<screen>aptitude search $string</screen>
+		<para>To remove an application and all unused files.</para>
+		<screen>aptitude remove $package</screen>
+	</section>
 </section>
 <section><title>Downloading software</title>
 	<para>First and most important, whenever you download software, start by reading the README file!</para>
@@ -69,9 +126,25 @@ make
 make install
 	</screen>
 </section>
-<section><title>Practice Installing software</title>
+<section><title>Practice: Installing software</title>
 	<para>1. Find the Graphical application on all computers to add and remove applications.</para>
-	<para>2. Use aptitude or yum to search for and install the 'dict' and 'wesnoth' applications.</para>
-	<para>3. Search the internet for 'webmin' and install it.</para>
-	<para>4. If time permits, uninstall Samba from the ubuntu machine, download the latest version from samba.org and install it.</para>
+	<para>2. Verify on both systems whether gcc is installed.</para>
+	<para>3. Use aptitude or yum to search for and install the 'dict', 'samba' and 'wesnoth' applications. Did you find all them all ?</para>
+	<para>4. Search the internet for 'webmin' and install it.</para>
+	<para>5. If time permits, uninstall Samba from the ubuntu machine, download the latest version from samba.org and install it.</para>
+</section>
+<section><title>Solution: Installing software</title>
+	<para>1. Find the Graphical application on all computers to add and remove applications.</para>
+	<screen></screen>
+	<para>2. Verify on both systems whether gcc is installed.</para>
+	<screen>dpkg -l | grep gcc</screen>
+	<screen>rpm -qa | grep gcc</screen>
+	<para>3. Use aptitude or yum to search for and install the 'dict', 'samba' and 'wesnoth' applications. Did you find all them all ?</para>
+	<screen>aptitude search wesnoth (Debian, Ubuntu and family)</screen>
+	<screen>yum search wesnoth (Red Hat and family)</screen>
+	<para>4. Search the internet for 'webmin' and install it.</para>
+	<screen>Google should point you to webmin.com.</screen>
+	<screen>There are several formats available there choose .rpm, .deb or .tgz .</screen>
+	<para>5. If time permits, uninstall Samba from the ubuntu machine, download the latest version from samba.org and install it.</para>
+	<screen></screen>
 </section>
