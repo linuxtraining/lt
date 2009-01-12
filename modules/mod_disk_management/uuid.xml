@@ -44,7 +44,7 @@ Filesystem UUID:          7626d73a-2bb6-4937-90ca-e451025d64e8
 </section>
 <section><title>Practice UUID</title>
 <para>1. Find the UUID of one of your ext3 partitions with tune2fs and vol_id. </para>
-<para>2. USe this UUID in /etc/fstab and test that it works when a disk is removed (and the device name is changed). (You can edit settings in vmware to remove a hard disk.)</para>
+<para>2. Use this UUID in /etc/fstab and test that it works when a disk is removed (and the device name is changed). (You can edit settings in vmware to remove a hard disk.)</para>
 <para></para>
 <para></para>
 </section>
