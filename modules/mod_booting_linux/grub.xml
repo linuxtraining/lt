@@ -48,7 +48,7 @@ initrd		/boot/initrd.img-2.6.17-2-686
 	<para>The <command>kernel</command> command point to the kernel(file) that grub needs to load. And <command>initrd</command><indexterm><primary>initrd</primary></indexterm> points to an initial RAM disk to accompany the kernel at system boot before mounting / .</para>
 	</section>
 	<section><title>Chainloading</title>
-	<para>Chainloading refers to grub loading another operating systems bootloader. The <command>chainloader</command><indexterm><primary>chainloader</primary></indexterm> switch receives one opetion: the number of sectors to read and boot. For DOS one sector is enough, so a grub entry for a DOS or OS/2 partition might look like this. Note that MS-DOS requires the boot/root partition to be active!</para>
+	<para>Chainloading refers to grub loading another operating systems bootloader. The <command>chainloader</command><indexterm><primary>chainloader</primary></indexterm> switch receives one option: the number of sectors to read and boot. For DOS one sector is enough, so a grub entry for a DOS or OS/2 partition might look like this. Note that MS-DOS requires the boot/root partition to be active!</para>
 <screen>
 title MS-DOS 6.22
 root  (hd0,1)
