@@ -301,10 +301,27 @@ chapt_router() {
 	}
 
 #
-chapt_samba() {
+chapt_samba_introduction() {
 	MODULES=""
-	chaptitle="Introduction to Samba"
-	add_mod mod_samba/samba.xml  
+	chaptitle="Samba Introduction"
+	add_mod mod_samba/samba_introduction.xml
+	add_mod mod_samba/samba_introduction_practice.xml
+	}
+
+#
+chapt_samba_getting_started() {
+	MODULES=""
+	chaptitle="Samba Getting Started"
+	add_mod mod_samba/samba_getting_started.xml
+	add_mod mod_samba/samba_getting_started_practice.xml
+	}
+
+#
+chapt_samba_read_only_file_server() {
+	MODULES=""
+	chaptitle="Samba Read Only File Server"
+	add_mod mod_samba/samba_read_only_file_server.xml
+	add_mod mod_samba/samba_read_only_file_server_practice.xml
 	}
 
 #
