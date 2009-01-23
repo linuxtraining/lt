@@ -1,111 +1,118 @@
-	<section><title>Read Only File Server</title>
-		<para>Let's start with setting up a very simple read only file server with Samba. Everyone (even anonymous guests) will receive read access.</para>
-		<para>The first step is to create a directory and put some test files in it.</para>
-		<screen>
-[root@RHEL4b samba]# mkdir -p /srv/samba/readonly
-[root@RHEL4b samba]# ls -l /srv/samba/
-total 4
-drwxr-xr-x  2 root root 4096 Jun 22 11:07 readonly
-[root@RHEL4b samba]# cd /srv/samba/readonly/
-[root@RHEL4b readonly]# echo "It is cold today." > winter.txt
-[root@RHEL4b readonly]# echo "It is hot today." > summer.txt
-[root@RHEL4b readonly]# ll
+<section><title>Setting up a directory to share</title>
+	<para>Let's start with setting up a very simple read only file server with Samba. Everyone (even anonymous guests) will receive read access.</para>
+	<para>The first step is to create a directory and put some test files in it.</para>
+	<screen>
+[root@RHEL52 ~]# mkdir -p /srv/samba/readonly
+[root@RHEL52 ~]# cd /srv/samba/readonly/
+[root@RHEL52 readonly]# echo "It is cold today." > winter.txt
+[root@RHEL52 readonly]# echo "It is hot today." > summer.txt
+[root@RHEL52 readonly]# ls -l
 total 8
--rw-r--r--  1 root root 17 Jun 22 11:13 summer.txt
--rw-r--r--  1 root root 18 Jun 22 11:13 winter.txt
-[root@RHEL4b readonly]#
-		</screen>
-		<para>Linux will always require a user account before giving access to files (the files in our example above are owned by root). So we will create a user for our readonly file server and make this user the owner of the directory and all of its files. (Strictly speaking, you can setup a Samba read only file server without creating an extra user account).</para>
-		<screen>
-[root@RHEL4b ~]# useradd -c "Anonymous Samba Access" -p secret -s /bin/false Samba_nobody
-[root@RHEL4b samba]# chown Samba_nobody.Samba_nobody /srv/samba/readonly/
-[root@RHEL4b samba]# chmod 777 /srv/samba/readonly/
-[root@RHEL4b samba]# ls -l /srv/samba/
-total 4
-drwxrwxrwx  2 Samba_nobody Samba_nobody 4096 Jun 22 11:09 readonly
-[root@RHEL4b samba]# cd /srv/samba/readonly/
-[root@RHEL4b readonly]# chown Samba_nobody.Samba_nobody *
-[root@RHEL4b readonly]# ll
-total 8
--rw-r--r--  1 Samba_nobody Samba_nobody 17 Jun 22 11:13 summer.txt
--rw-r--r--  1 Samba_nobody Samba_nobody 18 Jun 22 11:13 winter.txt
-[root@RHEL4b samba]# 
-		</screen>
-		<para>It is time to create the smb.conf file (feel free to test it with testparm). We put our file server in the default workgroup, give it a descriptive server string, and set the security to share level (more on this later). The share is called pubread, and access to the share is enforced by Samba (remember we gave 777 to the directory).</para>
-		<screen>
-[root@RHEL4b samba]# cat smb.conf
+-rw-r--r-- 1 root root 17 Jan 21 05:49 summer.txt
+-rw-r--r-- 1 root root 18 Jan 21 05:49 winter.txt
+[root@RHEL52 readonly]#
+	</screen>
+</section>
+<section><title>smb.conf [global] section</title>
+	<para>In this example the samba server is a member of WORKGROUP (the default workgroup). We also set a descriptive server string, this string is visible to users browsing the network with net view, Windows explorer or smbclient.</para>
+	<screen>
+[root@RHEL52 samba]# head -5 smb.conf
 [global]
-workgroup = WORKGROUP
-server string = Public Anonymous File Server
-security = share
-
+ workgroup = WORKGROUP
+ server string = Public Anonymous File Server
+ netbios name = TEACHER0
+ security = share
+	</screen>
+	<para>You might have noticed line with <command>security = share</command>. This line sets the default security mode for our samba server. Setting the security mode to <command>share</command> will allow clients (smbclient, any windows, another Samba server, ...) to provide a password for each share. This is one way of using the SMB/CIFS protocol. The other way (called <command>user mode</command>) will allow the client to provide a username/password combination, before the server knows which share the client wants to access.</para>
+</section>
+<section><title>smb.conf [share] section</title>
+	<para>The share is called pubread and the path is set to our newly created directory. Everyone is allowed access (<command>guest ok = yes</command>) and security is set to read only.</para>
+	<screen>
 [pubread]
 path = /srv/samba/readonly
 comment = files to read
-read only = Yes
-guest ok = Yes
-[root@RHEL4b samba]# 
-		</screen>
-		<para>After testing with testparm, restart the samba server and verify the existence of the share with smbclient.</para>
-		<screen>
+read only = yes
+guest ok = yes
+	</screen>
+</section>
+<section><title>restart the server</title>
+	<para>After testing with testparm, restart the samba server (so you don't have to wait).</para>
+	<screen>
 [root@RHEL4b readonly]# service smb restart
 Shutting down SMB services:                                [  OK  ]
 Shutting down NMB services:                                [  OK  ]
 Starting SMB services:                                     [  OK  ]
 Starting NMB services:                                     [  OK  ]
-[root@RHEL4b readonly]# smbclient -L 127.0.0.1
-Password: 
-Domain=[WORKGROUP] OS=[Unix] Server=[Samba 3.0.10-1.4E.9]
+	</screen>
+</section>
+<section><title>verify with smbclient</title>
+	<para>You can now verify the existence of the share with smbclient. Our <command>pubread</command> is listed as the fourth share.</para>
+	<screen>
+[root@RHEL52 samba]# smbclient -NL 127.0.0.1
+Domain=[WORKGROUP] OS=[Unix] Server=[Samba 3.0.33-3.7.el5]
 
-Sharename       Type      Comment
----------       ----      -------
-pubread         Disk      files to read
-IPC$            IPC       IPC Service (Public Anonymous File Server)
-ADMIN$          IPC       IPC Service (Public Anonymous File Server)
-Domain=[WORKGROUP] OS=[Unix] Server=[Samba 3.0.10-1.4E.9]
+	Sharename       Type      Comment
+	---------       ----      -------
+	IPC$            IPC       IPC Service (Public Anonymous File Server)
+	global$         Disk 
+	pub0            Disk 
+	pubread         Disk      files to read
+Domain=[WORKGROUP] OS=[Unix] Server=[Samba 3.0.33-3.7.el5]
 
-Server               Comment
----------            -------
-RHEL4B               Public Test Server
-WINXP                
+	Server               Comment
+	---------            -------
+	TEACHER0             Samba 3.0.33-3.7.el5
+	W2003EE 
 
-Workgroup            Master
----------            -------
-WORKGROUP            WINXP
-[root@RHEL4b readonly]#
-		</screen>
-		<para>The final test is to go to a Microsoft Windows computer and read a file on the Samba server. First we use the <command>net use</command><indexterm><primary>net use</primary></indexterm> command to mount the pubread share on the driveletter k.</para>
-		<screen>
-C:\Documents and Settings\paul&#062;net use k: \\rhel4b\pubread
+	Workgroup            Master
+	---------            -------
+	WORKGROUP            W2003EE
+	</screen>
+</section>
+<section><title>verify on Windows</title>
+	<para>The final test is to go to a Microsoft Windows computer and read a file on the Samba server. First we use the <command>net use</command><indexterm><primary>net use</primary></indexterm> command to mount the pubread share on the driveletter k.</para>
+	<screen>
+C:\>net use K: \\teacher0\pubread
 The command completed successfully.
-		</screen>
-		<para>Then we test looking at the contents of the share, and reading the files.</para>
-		<screen>					
-C:\Documents and Settings\paul&#062;k:
-						
-K:\&#062;dir
-Volume in drive K is pubread
-Volume Serial Number is 0D56-11F2
-				
-Directory of K:\
-						
-06/22/2007  11:13 AM    &#060;DIR&#062;          .
-06/22/2007  11:09 AM    &#060;DIR&#062;          ..
-06/22/2007  11:13 AM                18 winter.txt
-06/22/2007  11:13 AM                17 summer.txt
-2 File(s)             35 bytes
-2 Dir(s)   2,763,522,048 bytes free
+	</screen>
+	<para>Then we test looking at the contents of the share, and reading the files.</para>
+	<screen>					
+C:\&#062;dir k:
+ Volume in drive K is pubread
+ Volume Serial Number is 0C82-11F2
 
-K:\&#062;type winter.txt
-It is cold today.
+ Directory of K:\
 
-K:\&#062;
-		</screen>
-		<para>Just to be on the safe side, let us try writing.</para>
-		<screen>
+21/01/2009  05:49    &#060;DIR&#062;          .
+21/01/2009  05:49    &#060;DIR&#062;          ..
+21/01/2009  05:49                17 summer.txt
+21/01/2009  05:49                18 winter.txt
+               2 File(s)             35 bytes
+               2 Dir(s)  13.496.242.176 bytes free
+	</screen>
+	<para>Just to be on the safe side, let us try writing.</para>
+	<screen>
 K:\&#062;echo very cold &#062; winter.txt
 Access is denied.
 
 K:\&#062;
-		</screen>
-	</section>
+	</screen>
+	<para>Or you can use Windows Explorer...</para>
+	<mediaobject><imageobject><imagedata fileref="images/sambareadonly.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>			
+</section>
+<section><title>netcat</title>
+	<para>The Windows command line screenshot is made in a Linux console, using netcat as a pipe to a Windows command shell.</para>
+	<para>The way this works, is by enabling netcat to listen on the windows computer to a certain port, executing cmd.exe when a connection is received. Netcat is similar to cat, in the way that cat does nothing, only netcat does nothing over the network.</para>
+	<para>To enable this connection, type the following on the windows computer (after downloading netcat for windows).</para>
+	<screen>nc -l -p 23 -t -e cmd.exe</screen>
+	<para>And then connect to this machine with netcat from any Linux computer. You end up with a cmd.exe prompt inside your Linux shell.</para>
+	<screen>
+paul@laika:~$ nc 192.168.1.38 23
+Microsoft Windows [Version 5.2.3790]
+(C) Copyright 1985-2003 Microsoft Corp.
+
+C:\>net use k: /delete
+net use k: /delete
+k: was deleted successfully.
+	</screen>
+</section>

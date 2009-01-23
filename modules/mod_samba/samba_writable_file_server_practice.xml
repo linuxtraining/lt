@@ -1,0 +1,8 @@
+<section><title>Practice</title>
+	<para>1. Create a directory and share it with Samba.</para>
+	<para>2. Make sure everyone can read and write files, test writing with smbclient and from a Microsoft computer.</para>
+	<para>3. Verify the ownership of files created by various users.</para>
+	<para>4. Use the "force user" and "force group" directives to force ownership of files created in this shared directory.</para>
+	<para>5. Test that Samba properly registers in a WINS server.</para>
+	<para>6. Test the working of force user with smbclient and/or net use and/or the MS Windows Explorer.</para>
+</section>

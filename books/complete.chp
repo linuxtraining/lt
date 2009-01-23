@@ -325,6 +325,14 @@ chapt_samba_read_only_file_server() {
 	}
 
 #
+chapt_samba_writable_file_server() {
+	MODULES=""
+	chaptitle="Samba Writable File Server"
+	add_mod mod_samba/samba_writable_file_server.xml
+	add_mod mod_samba/samba_writable_file_server_practice.xml
+	}
+
+#
 chapt_scheduling() {
 	MODULES=""
 	chaptitle="Scheduling"

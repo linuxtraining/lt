@@ -1,6 +1,44 @@
-	<section><title>Practice</title>
-		<para>1. Create a directory in a good location (FHS) to share files for everyone to read.</para>
-		<para>2. Make sure the directory is owned properly, put a textfile in it, then share it with Samba.</para>
-		<para>3. Verify from your own and from another computer (smbclient, net use, ...) that the share is accessible for reading.</para>
-		<para>4. Make a backup copy of your smb.conf, name it smb.conf.ReadOnlyFileServer.</para>
-	</section>
+<section><title>Practice: read only file server</title>
+	<para>1. Create a directory in a good location (FHS) to share files for everyone to read.</para>
+	<para>2. Make sure the directory is owned properly and is world accessible.</para>
+	<para>3. Put a textfile in this directory</para>
+	<para>4. Share the directory with Samba.</para>
+	<para>5. Verify from your own and from another computer (smbclient, net use, ...) that the share is accessible for reading.</para>
+	<para>6. Make a backup copy of your smb.conf, name it smb.conf.ReadOnlyFileServer.</para>
+	<para></para>
+	<para></para>
+	<para></para>
+</section>
+<section><title>Solution: read only file server</title>
+	<para>1. Create a directory in a good location (FHS) to share files for everyone to read.</para>
+	<screen>mkdir -p /srv/samba/readonly</screen>
+	<para>2. Make sure the directory is owned properly and is world accessible.</para>
+	<screen>chown root:root /srv/samba/readonly</screen>
+	<screen>chmod 755 /srv/samba/readonly</screen>
+	<para>3. Put a textfile in this directory</para>
+	<screen>echo Hello World > hello.txt</screen>
+	<para>4. Share the directory with Samba.</para>
+	<screen>
+You smb.conf.readonly could look like this:
+[global]
+ workgroup = WORKGROUP
+ server string = Read Only File Server
+ netbios name = STUDENTx
+ security = share
+
+[readonly]
+ path = /srv/samba/readonly
+ comment = read only file share
+ read only = yes
+ guest ok = yes
+	</screen>
+	<screen>test with testparm before going in production!</screen>
+	<para>5. Verify from your own and from another computer (smbclient, net use, ...) that the share is accessible for reading.</para>
+	<screen>On Linux: smbclient -NL 127.0.0.1</screen>
+	<screen>On Windows Explorer: browse to My Network Places</screen>
+	<screen>On Windows cmd.exe: net use L: //studentx/readonly</screen>
+	<para>6. Make a backup copy of your smb.conf, name it smb.conf.ReadOnlyFileServer.</para>
+	<screen>cp smb.conf smb.conf.ReadOnlyFileServer</screen>
+	<para></para>
+	<para></para>
+</section>
