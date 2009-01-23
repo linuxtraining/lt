@@ -1,0 +1,125 @@
+<section><title>Verify installed version</title>
+	<section><title>.rpm based distributions</title>
+		<para>To see the version of samba installed on RedHat, use <command>rpm -q samba</command><indexterm><primary>rpm(8)</primary></indexterm>.</para>
+		<screen>
+[root@RHEL52 ~]# rpm -q samba
+samba-3.0.28-1.el5_2.1
+		</screen>
+		<para>The screenshots above and below this paragraph show that both RHEL4 and RHEL5 have <command>Samba</command><indexterm><primary>samba(7)</primary></indexterm> version 3.0 installed. The last number in the Samba version counts the number of updates or patches. 3.0.28 in RHEL5 has a lot more updates than 3.0.10 in RHEL4.</para>
+		<screen>
+[paul@RHEL4b ~]$  rpm -q samba
+samba-3.0.10-1.4E.9
+		</screen>
+	</section>
+	<section><title>.deb based distributions</title>
+		<para>Use <command>dpkg -l</command> on Debian or Ubuntu. Ubuntu 7.04 below uses Samba 3.0.24, but the Samba server is not installed, only the common files are installed (for mounting smb file systems).</para>
+		<screen>
+paul@laika:~$ dpkg -l | grep samba
+ii  samba-common    3.0.24-2ubuntu1.2    Samba common files used by both...
+		</screen>
+		<para>Linux Mint below uses Samba 3.0.28, and both the Samba server and the common files are installed.</para>
+		<screen>
+paul@laika:~$ dpkg -l | grep samba
+rc  samba           3.0.28a-1ubuntu4.7   a LanManager-like file and prin...
+ii  samba-common    3.0.28a-1ubuntu4.7   Samba common files used by both...
+		</screen>
+	</section>
+</section>
+<section><title>Installing Samba</title>
+	<section><title>.rpm based distributions</title>
+	<para>Samba is installed by default on Red Hat Enterprise Linux. If Samba is not yet installed, then you can use the graphical menu (Applications -- System Settings -- Add/Remove Applications) and select "Windows File Server" in the Server section. The non-graphical way is to use <command>rpm</command> or <command>yum</command>.</para>
+	<para>When you downloaded the .rpm file, you can install Samba like this.</para>
+	<screen>
+[paul@RHEL52 ~]$ rpm -i samba-3.0.28-1.el5_2.1.rpm
+	</screen>
+	<para>When you have a subscription to RHN (Red Hat Network), then <command>yum</command> is an easy tool to use. This command also works on Fedora.</para>
+	<screen>
+[paul@RHEL52 ~]$ yum install samba
+	</screen>
+	</section>
+	<section><title>.deb based distributions</title>
+	<para>Ubuntu and Debian users can use the <command>aptitude</command> program (or use a graphical tool like Synaptic or similar).</para>
+	<screen>
+paul@laika:~$ aptitude install samba-server
+	</screen>
+	</section>
+</section>
+<section><title>Documentation</title>
+	<section><title>Samba HOWTO</title>
+		<para>Samba comes with excellent documentation in html and pdf format (and also as a free download from Samba.org and are for sale as a printed book). Red Hat Enterprise Linux installs the html and pdf version in /usr/share/doc by default.</para>
+		<screen>
+[paul@RHEL4b ~]$ locate Samba-HOWTO-Collection.pdf
+/usr/share/doc/samba-3.0.10/Samba-HOWTO-Collection.pdf
+		</screen>
+		<para>Ubuntu packages the docs as a separate package from Samba.</para>
+		<screen>
+root@laika:~# aptitude search samba | grep -i documentation
+i   samba-doc                       - Samba documentation                       
+i   samba-doc-pdf                   - Samba documentation (PDF format)          
+root@laika:~# find /usr/share/doc/samba-doc-pdf | grep -i howto
+/usr/share/doc/samba-doc-pdf/Samba3-HOWTO.pdf.gz
+		</screen>
+	</section>
+	<section><title>Samba By Example</title>
+		<para>Besides the howto, there is also an excellent book called <command>Samba By Example</command> (again available as paper book in shops, and as a free pdf and html).</para>
+	</section>
+</section>
+<section><title>Samba daemons</title>
+	<para>Samba 3 consists of three daemons, they are named <command>nmbd</command><indexterm><primary>nmbd(8)</primary></indexterm>, <command>smbd</command><indexterm><primary>smbd(8)</primary></indexterm> and <command>winbindd</command><indexterm><primary>winbindd(8)</primary></indexterm>.</para>
+	<section><title>nmbd</title>
+		<para>The <command>nmbd</command> daemon takes care of all the names and naming. It registers and resolves names, and handles browsing. According to the Samba documentation, it should be the first daemon to start.</para>
+		<screen>
+[root@RHEL52 ~]# ps -C nmbd
+  PID TTY          TIME CMD
+ 5681 ?        00:00:00 nmbd
+		</screen>
+	</section>
+	<section><title>smbd</title>
+ 		<para>The <command>smbd</command> daemon manages file transfers and authentication.</para>
+		<screen>
+[root@RHEL52 ~]# ps -C smbd
+  PID TTY          TIME CMD
+ 5678 ?        00:00:00 smbd
+ 5683 ?        00:00:00 smbd
+		</screen>
+	</section>
+	<section><title>winbindd</title>
+		<para>The <command>winbind</command><indexterm><primary>winbindd(8)</primary></indexterm> daemon is only started to handle Microsoft Windows domain membership.</para>
+		<para>The funny thing is that the <command>winbindd</command> daemon is started by the <command>/etc/init.d/winbind</command><indexterm><primary>/etc/init.d/winbind</primary></indexterm> script (two dd's for the daemon and only one d for the script).</para>
+		<screen>
+[root@RHEL52 ~]# /etc/init.d/winbind start
+Starting Winbind services:                                 [  OK  ]
+[root@RHEL52 ~]# ps -C winbindd
+  PID TTY          TIME CMD
+ 5752 ?        00:00:00 winbindd
+ 5754 ?        00:00:00 winbindd
+		</screen>
+		<para>On Debian and Ubuntu, the winbindd daemon is installed via a seperate package called <command>winbind</command>.</para>
+	</section>
+</section>
+<section><title>Starting and stopping Samba</title>
+	<para>You can start the daemons by invoking <command>/etc/init.d/smb start</command><indexterm><primary>/etc/init.d/smb</primary></indexterm> (some systems use <command>/etc/init.d/samba</command><indexterm><primary>/etc/init.d/samba</primary></indexterm>) on any linux.</para>
+	<screen>
+root@laika:~# /etc/init.d/samba stop
+ * Stopping Samba daemons                                    [ OK ] 
+root@laika:~# /etc/init.d/samba start
+ * Starting Samba daemons                                    [ OK ] 
+root@laika:~# /etc/init.d/samba restart
+ * Stopping Samba daemons                                    [ OK ] 
+ * Starting Samba daemons                                    [ OK ] 
+root@laika:~# /etc/init.d/samba status
+ * SMBD is running                                           [ OK ] 
+	</screen>
+	<para>Red Hat derived systems are happy with <command>service smb start</command><indexterm><primary>service(8)</primary></indexterm>.</para>
+	<screen>
+[root@RHEL4b ~]# /etc/init.d/smb start
+Starting SMB services:                                     [  OK  ]
+Starting NMB services:                                     [  OK  ]
+[root@RHEL4b ~]# service smb restart
+Shutting down SMB services:                                [  OK  ]
+Shutting down NMB services:                                [  OK  ]
+Starting SMB services:                                     [  OK  ]
+Starting NMB services:                                     [  OK  ]
+[root@RHEL4b ~]# 
+	</screen>
+</section>

@@ -1,0 +1,111 @@
+	<section><title>Read Only File Server</title>
+		<para>Let's start with setting up a very simple read only file server with Samba. Everyone (even anonymous guests) will receive read access.</para>
+		<para>The first step is to create a directory and put some test files in it.</para>
+		<screen>
+[root@RHEL4b samba]# mkdir -p /srv/samba/readonly
+[root@RHEL4b samba]# ls -l /srv/samba/
+total 4
+drwxr-xr-x  2 root root 4096 Jun 22 11:07 readonly
+[root@RHEL4b samba]# cd /srv/samba/readonly/
+[root@RHEL4b readonly]# echo "It is cold today." > winter.txt
+[root@RHEL4b readonly]# echo "It is hot today." > summer.txt
+[root@RHEL4b readonly]# ll
+total 8
+-rw-r--r--  1 root root 17 Jun 22 11:13 summer.txt
+-rw-r--r--  1 root root 18 Jun 22 11:13 winter.txt
+[root@RHEL4b readonly]#
+		</screen>
+		<para>Linux will always require a user account before giving access to files (the files in our example above are owned by root). So we will create a user for our readonly file server and make this user the owner of the directory and all of its files. (Strictly speaking, you can setup a Samba read only file server without creating an extra user account).</para>
+		<screen>
+[root@RHEL4b ~]# useradd -c "Anonymous Samba Access" -p secret -s /bin/false Samba_nobody
+[root@RHEL4b samba]# chown Samba_nobody.Samba_nobody /srv/samba/readonly/
+[root@RHEL4b samba]# chmod 777 /srv/samba/readonly/
+[root@RHEL4b samba]# ls -l /srv/samba/
+total 4
+drwxrwxrwx  2 Samba_nobody Samba_nobody 4096 Jun 22 11:09 readonly
+[root@RHEL4b samba]# cd /srv/samba/readonly/
+[root@RHEL4b readonly]# chown Samba_nobody.Samba_nobody *
+[root@RHEL4b readonly]# ll
+total 8
+-rw-r--r--  1 Samba_nobody Samba_nobody 17 Jun 22 11:13 summer.txt
+-rw-r--r--  1 Samba_nobody Samba_nobody 18 Jun 22 11:13 winter.txt
+[root@RHEL4b samba]# 
+		</screen>
+		<para>It is time to create the smb.conf file (feel free to test it with testparm). We put our file server in the default workgroup, give it a descriptive server string, and set the security to share level (more on this later). The share is called pubread, and access to the share is enforced by Samba (remember we gave 777 to the directory).</para>
+		<screen>
+[root@RHEL4b samba]# cat smb.conf
+[global]
+workgroup = WORKGROUP
+server string = Public Anonymous File Server
+security = share
+
+[pubread]
+path = /srv/samba/readonly
+comment = files to read
+read only = Yes
+guest ok = Yes
+[root@RHEL4b samba]# 
+		</screen>
+		<para>After testing with testparm, restart the samba server and verify the existence of the share with smbclient.</para>
+		<screen>
+[root@RHEL4b readonly]# service smb restart
+Shutting down SMB services:                                [  OK  ]
+Shutting down NMB services:                                [  OK  ]
+Starting SMB services:                                     [  OK  ]
+Starting NMB services:                                     [  OK  ]
+[root@RHEL4b readonly]# smbclient -L 127.0.0.1
+Password: 
+Domain=[WORKGROUP] OS=[Unix] Server=[Samba 3.0.10-1.4E.9]
+
+Sharename       Type      Comment
+---------       ----      -------
+pubread         Disk      files to read
+IPC$            IPC       IPC Service (Public Anonymous File Server)
+ADMIN$          IPC       IPC Service (Public Anonymous File Server)
+Domain=[WORKGROUP] OS=[Unix] Server=[Samba 3.0.10-1.4E.9]
+
+Server               Comment
+---------            -------
+RHEL4B               Public Test Server
+WINXP                
+
+Workgroup            Master
+---------            -------
+WORKGROUP            WINXP
+[root@RHEL4b readonly]#
+		</screen>
+		<para>The final test is to go to a Microsoft Windows computer and read a file on the Samba server. First we use the <command>net use</command><indexterm><primary>net use</primary></indexterm> command to mount the pubread share on the driveletter k.</para>
+		<screen>
+C:\Documents and Settings\paul&#062;net use k: \\rhel4b\pubread
+The command completed successfully.
+		</screen>
+		<para>Then we test looking at the contents of the share, and reading the files.</para>
+		<screen>					
+C:\Documents and Settings\paul&#062;k:
+						
+K:\&#062;dir
+Volume in drive K is pubread
+Volume Serial Number is 0D56-11F2
+				
+Directory of K:\
+						
+06/22/2007  11:13 AM    &#060;DIR&#062;          .
+06/22/2007  11:09 AM    &#060;DIR&#062;          ..
+06/22/2007  11:13 AM                18 winter.txt
+06/22/2007  11:13 AM                17 summer.txt
+2 File(s)             35 bytes
+2 Dir(s)   2,763,522,048 bytes free
+
+K:\&#062;type winter.txt
+It is cold today.
+
+K:\&#062;
+		</screen>
+		<para>Just to be on the safe side, let us try writing.</para>
+		<screen>
+K:\&#062;echo very cold &#062; winter.txt
+Access is denied.
+
+K:\&#062;
+		</screen>
+	</section>

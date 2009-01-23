@@ -1,0 +1,6 @@
+	<section><title>Practice</title>
+		<para>1. Create a directory in a good location (FHS) to share files for everyone to read.</para>
+		<para>2. Make sure the directory is owned properly, put a textfile in it, then share it with Samba.</para>
+		<para>3. Verify from your own and from another computer (smbclient, net use, ...) that the share is accessible for reading.</para>
+		<para>4. Make a backup copy of your smb.conf, name it smb.conf.ReadOnlyFileServer.</para>
+	</section>

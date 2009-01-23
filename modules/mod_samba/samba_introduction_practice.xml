@@ -1,0 +1,9 @@
+<section><title>Practice: Introduction to Samba</title>
+	<para>0. !! Make sure you know your student number, anything *ANYTHING* you name must include your student number!</para>
+	<para>1. Verify that you can logon to a Linux/Unix computer. Write down the name and ip address of this machine.</para>
+	<para>2. Do the same for all the other (virtual) machines available to you.</para>
+	<para>3. Verify networking by pinging the machines, edit the appropriate hosts files so you can use names. Test the names by pinging them.</para>
+	<para>4. Make sure Samba is installed, write down the version of Samba.</para>
+	<para>5. Open the Official Samba-3 howto pdf file that is installed on your computer. How many A4 pages is this file ? Then look at the same pdf on samba.org, it is updated regularly.</para>
+	<para>6. Stop the Samba server.</para>
+</section>

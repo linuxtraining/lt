@@ -1,0 +1,334 @@
+<section><title>/etc/samba/smb.conf</title>
+<section><title>smbd -b</title>
+	<para>Samba configuration is done in the <command>smb.conf</command><indexterm><primary>/etc/samba/smb.conf</primary></indexterm> file. The file can be edited manually, or you can use a web based interface like webmin or swat to manage it. The file is usually located in /etc/samba. You can find the exact location with <command>smbd -b</command><indexterm><primary>smbd(8)</primary></indexterm>.</para>
+	<screen>
+[root@RHEL4b ~]# smbd -b | grep CONFIGFILE
+CONFIGFILE: /etc/samba/smb.conf
+	</screen>
+</section>
+<section><title>the default smb.conf</title>
+	<para>The default smb.conf file contains a lot of examples with explanations.</para>
+	<screen>
+[paul@RHEL4b ~]$ ls -l /etc/samba/smb.conf 
+-rw-r--r--  1 root root 10836 May 30 23:08 /etc/samba/smb.conf
+	</screen>
+	<para>Also on Ubuntu and Debian, smb.conf is packed with samples and explanations.</para>
+	<screen>
+paul@laika:~$ ls -l /etc/samba/smb.conf 
+-rw-r--r-- 1 root root 10515 2007-05-24 00:21 /etc/samba/smb.conf
+	</screen>
+</section>
+<section><title>minimal smb.conf</title>
+	<para>Below is an example of a very minimalistic smb.conf. It allows samba to start, and to be visible to other computers (Microsoft shows computers in Network Neighborhood or My Network Places).</para>
+	<screen>
+[paul@RHEL4b ~]$ cat /etc/samba/smb.conf
+[global]
+workgroup = WORKGROUP
+[firstshare]
+path = /srv/samba/public
+	</screen>
+	<para>Below is a screenshot of the <command>net view</command><indexterm><primary>net(microsoft)</primary></indexterm> command on Microsoft Windows XP sp2. It shows how the Samba server with the minimalistic smb.conf is visible to Microsoft computers nearby.</para>
+	<screen>
+C:\Documents and Settings\paul>net view
+Server Name            Remark
+
+------------------------------------------------------------------------------
+\\RHEL4B               Samba 3.0.10-1.4E.9 
+\\W2000 
+\\WINXP 
+The command completed successfully.
+	</screen>
+</section>
+<section><title>long lines in smb.conf</title>
+	<para>Some parameters in smb.conf can get a long list of values behind them. You can continue a line (for clarity) on the next by ending the line with a backslash.</para>
+	<screen>
+valid users = Serena, Venus, Lindsay \
+              Kim, Justine, Sabine \
+              Amelie, Marie, Suzanne
+	</screen>
+</section>
+<section><title>curious smb.conf</title>
+	<para>Curious but true: smb.conf accepts synonyms like <command>create mode</command> and <command>create mask</command>, and (sometimes) minor spelling errors like <command>browsable</command> and <command>browseable</command>. And on occasion you can even switch words, the <command>guest only</command> parameter is identical to <command>only guest</command>. And <command>writable = yes</command> is the same as <command>readonly = no</command>.</para>
+</section>
+<section><title>man smb.conf</title>
+	<para>You can access a lot of documentation when typing <command>man smb.conf</command><indexterm><primary>smb.conf(5)</primary></indexterm>.</para>
+	<screen>
+[root@RHEL4b samba]# apropos samba
+cupsaddsmb       (8)  - export printers to samba for windows clients
+lmhosts          (5)  - The Samba NetBIOS hosts file
+net              (8)  - Tool for administration of Samba and remote CIFS servers
+pdbedit          (8)  - manage the SAM database (Database of Samba Users)
+samba            (7)  - A Windows SMB/CIFS fileserver for UNIX
+smb.conf [smb]   (5)  - The configuration file for the Samba suite
+smbpasswd        (5)  - The Samba encrypted password file
+smbstatus        (1)  - report on current Samba connections
+swat             (8)  - Samba Web Administration Tool
+tdbbackup        (8)  - tool for backing up and ... of samba .tdb files
+[root@RHEL4b samba]# 
+	</screen>
+</section>
+</section>
+<section><title>/usr/bin/testparm</title>
+<section><title>syntax check smb.conf</title>
+	<para>To verify the syntax of the smb.conf file, you can use testparm.</para>
+	<screen>
+[paul@RHEL4b ~]$ testparm
+Load smb config files from /etc/samba/smb.conf
+Processing section "[firstshare]"
+Loaded services file OK.
+Server role: ROLE_STANDALONE
+Press enter to see a dump of your service definitions
+	
+[paul@RHEL4b ~]$ 
+	</screen>
+</section>
+<section><title>testparm -v</title>
+	<para>An interesting option is <command>testparm -v</command><indexterm><primary>testparm(1)</primary></indexterm>, which will output all the global options with their default value.</para>
+	<screen>
+[root@RHEL52 ~]# testparm -v | head
+Load smb config files from /etc/samba/smb.conf
+Processing section "[pub0]"
+Processing section "[global$]"
+Loaded services file OK.
+Server role: ROLE_STANDALONE
+Press enter to see a dump of your service definitions
+
+[global]
+	dos charset = CP850
+	unix charset = UTF-8
+	display charset = LOCALE
+	workgroup = WORKGROUP
+	realm = 
+	netbios name = TEACHER0
+	netbios aliases = 
+	netbios scope = 
+	server string = Samba 3.0.28-1.el5_2.1
+[root@RHEL52 ~]# 
+	</screen>
+	<para>There are about 350 default values for smb.conf parameters.</para>
+</section>
+<section><title>testparm -s</title>
+	<para>The samba daemons are constantly (once every 60 seconds) checking the smb.conf file, so it is good practice to keep this file small. But it is also good practice to document your samba configuration, and to explicitly set options that have the same default values. The <command>testparm -s</command><indexterm><primary>testparm(1)</primary></indexterm> option allows you to do both. It will output the smallest possible samba configuration file, while retaining all your settings. The idea is to have your samba configuration in another file (like smb.conf.full) and let testparm parse this for you. The screenshot below shows you how. First the smb.conf.full file with the explicitly set option workgroup to WORKGROUP. </para>
+	<screen>
+[root@RHEL4b samba]# cat smb.conf.full 
+[global]
+workgroup = WORKGROUP
+
+# This is a demo of a documented smb.conf
+# These two lines are removed by testparm -s
+
+server string = Public Test Server
+
+[firstshare]
+path = /srv/samba/public
+	</screen>
+	<para>Next, we execute testparm with the -s option, and redirect stdout to the real smb.conf file.</para>
+	<screen>
+[root@RHEL4b samba]# testparm -s smb.conf.full > smb.conf
+Load smb config files from smb.conf.full
+Processing section "[firstshare]"
+Loaded services file OK.
+	</screen>
+	<para>And below is the end result. The two comment lines and the default option are no longer there.</para>
+	<screen>
+[root@RHEL4b samba]# cat smb.conf
+# Global parameters
+[global]
+server string = Public Test Server
+
+[firstshare]
+path = /srv/samba/public
+[root@RHEL4b samba]# 
+	</screen>
+</section>
+</section>
+<section><title>/usr/bin/smbclient</title>
+<section><title>smbclient looking at Samba</title>
+	<para>With <command>smbclient</command><indexterm><primary>smbclient(1)</primary></indexterm> you can see browsing and share information from your smb server. It will display all your shares, your workgroup, and the name of the Master Browser. The -N switch is added to avoid having to enter an empty password. The -L switch is followed by the name of the host to check.</para>
+	<screen>
+[root@RHEL4b init.d]# smbclient -NL rhel4b
+Anonymous login successful
+Domain=[WORKGROUP] OS=[Unix] Server=[Samba 3.0.10-1.4E.9]
+
+Sharename       Type      Comment
+---------       ----      -------
+firstshare      Disk      
+IPC$            IPC       IPC Service (Public Test Server)
+ADMIN$          IPC       IPC Service (Public Test Server)
+Anonymous login successful
+Domain=[WORKGROUP] OS=[Unix] Server=[Samba 3.0.10-1.4E.9]
+
+Server               Comment
+---------            -------
+RHEL4B               Public Test Server
+WINXP                
+
+Workgroup            Master
+---------            -------
+WORKGROUP            WINXP
+	</screen>
+</section>
+<section><title>smbclient looking at Windows XP</title>
+	<para>The screenshot below uses smbclient to display information about a remote smb server (in this case a Windows XP machine).</para>
+	<screen>
+[root@RHEL4b init.d]# smbclient -NL winxp
+Anonymous login successful
+Domain=[WORKGROUP] OS=[Windows 5.1] Server=[Windows 2000 LAN Manager]
+
+Sharename       Type      Comment
+---------       ----      -------
+Error returning browse list: NT_STATUS_ACCESS_DENIED
+Anonymous login successful
+Domain=[WORKGROUP] OS=[Windows 5.1] Server=[Windows 2000 LAN Manager]
+
+Server               Comment
+---------            -------
+RHEL4B               Public Test Server
+W2000                
+WINXP                
+
+Workgroup            Master
+---------            -------
+WORKGROUP            WINXP
+	</screen>
+</section>
+</section>
+<section><title>SMB can be slow...</title>
+	<para>The remark seen by the <command>net view</command><indexterm><primary>net(Microsoft)</primary></indexterm> command is the default value for the "server string" option. Simply adding this value to the global section in smb.conf and restarting samba will change the option. After a while, the changed option is visible on the Microsoft computers.</para>
+	<screen>
+C:\Documents and Settings\paul>net view
+Server Name            Remark
+	
+------------------------------------------------------------------------------
+\\RHEL4B               Public File Server                                      
+\\W2000                                                                        
+\\WINXP                                                                        
+The command completed successfully.
+	</screen>
+</section>
+<section><title>smbtree</title>
+	<para>Another useful tool to troubleshoot Samba or simply to browse the SMB network is <command>smbtree</command><indexterm><primary>smbtree(1)</primary></indexterm>. In its simplest form, smbtree will do an anonymous browsing on the local subnet. displaying all SMB computers and (if authorized) their shares.</para>
+	<para> Let's take a look at two screenshots of smbtree in action (with blank password). The first one is taken immediately after booting four different computers (one MS Windows 2000, one MS Windows XP, one MS Windows 2003 and one RHEL 4 with Samba 3.0.10).</para>
+	<screen>
+[paul@RHEL4b ~]$ smbtree
+Password: 
+WORKGROUP
+PEGASUS
+	\\WINXP          
+	\\RHEL4B                        Pegasus Domain Member Server
+Error connecting to 127.0.0.1 (Connection refused)
+cli_full_connection: failed to connect to RHEL4B&#060;20&#062; (127.0.0.1)
+	\\HM2003         
+[paul@RHEL4b ~]$
+	</screen>
+	<para>The information displayed in the previous screenshot looks incomplete. The browsing elections are still ongoing, the browse list is not yet distributed to all clients by the (to be elected) browser master. The next screenshot was taken about one minute later. And it shows even less.</para>
+	<screen>
+[paul@RHEL4b ~]$ smbtree
+Password: 
+WORKGROUP
+	\\W2000          
+[paul@RHEL4b ~]$
+	</screen>
+	<para>So we wait a while, and then run smbtree again, this time it looks a lot nicer.</para>
+	<screen>
+[paul@RHEL4b ~]$ smbtree
+Password: 
+WORKGROUP
+	\\W2000          
+PEGASUS
+	\\WINXP          
+	\\RHEL4B                        Pegasus Domain Member Server
+		\\RHEL4B\ADMIN$                 IPC Service (Pegasus Domain Member Server)
+		\\RHEL4B\IPC$                   IPC Service (Pegasus Domain Member Server)
+		\\RHEL4B\domaindata             Active Directory users only
+	\\HM2003         
+[paul@RHEL4b ~]$ smbtree --version
+Version 3.0.10-1.4E.9
+[paul@RHEL4b ~]$ 
+	</screen>
+	<para>I added the version number of smbtree in the previous screenshot, to show you the difference when using the latest version of smbtree (below a screenshot taken from Ubuntu Feisty Fawn). The latest version shows a more complete overview of machines and shares.</para>
+	<screen>
+paul@laika:~$ smbtree --version
+Version 3.0.24
+paul@laika:~$ smbtree
+Password: 
+WORKGROUP
+	\\W2000          
+		\\W2000\firstshare     
+		\\W2000\C$              Default share
+		\\W2000\ADMIN$          Remote Admin
+		\\W2000\IPC$            Remote IPC
+PEGASUS
+	\\WINXP          
+cli_rpc_pipe_open: cli_nt_create failed on pipe \srvsvc to machine WINXP.
+Error was NT_STATUS_ACCESS_DENIED
+	\\RHEL4B                        Pegasus Domain Member Server
+		\\RHEL4B\ADMIN$                 IPC Service (Pegasus Domain Member Server)
+		\\RHEL4B\IPC$                   IPC Service (Pegasus Domain Member Server)
+		\\RHEL4B\domaindata             Active Directory users only
+	\\HM2003         
+cli_rpc_pipe_open: cli_nt_create failed on pipe \srvsvc to machine HM2003.
+Error was NT_STATUS_ACCESS_DENIED
+paul@laika:~$ 
+	</screen>
+	<para>The previous screenshot also provides useful errors on why we cannot see shared info on computers winxp and w2003. Let us try the old smbtree version on our RHEL server, but this time with Administrator credentials (which are the same on all computers).</para>
+	<screen>
+[paul@RHEL4b ~]$ smbtree -UAdministrator%Stargate1
+WORKGROUP
+	 \\W2000          
+PEGASUS
+	 \\WINXP          
+	  	\\WINXP\C$              Default share
+	  	\\WINXP\ADMIN$          Remote Admin
+	  	\\WINXP\share55        
+	  	\\WINXP\IPC$            Remote IPC
+	 \\RHEL4B                 	Pegasus Domain Member Server
+	  	\\RHEL4B\ADMIN$         IPC Service (Pegasus Domain Member Server)
+	  	\\RHEL4B\IPC$           IPC Service (Pegasus Domain Member Server)
+	  	\\RHEL4B\domaindata     Active Directory users only
+	 \\HM2003         
+	  	\\HM2003\NETLOGON       Logon server share 
+	  	\\HM2003\SYSVOL         Logon server share 
+	  	\\HM2003\WSUSTemp       A network share used by Local Publishing ...
+	  	\\HM2003\ADMIN$         Remote Admin
+	  	\\HM2003\tools          
+	  	\\HM2003\IPC$           Remote IPC
+	  	\\HM2003\WsusContent    A network share to be used by Local ...
+	  	\\HM2003\C$             Default share
+[paul@RHEL4b ~]$ 
+	</screen>
+	<para>As you can see, this gives a very nice overview of all SMB computers and their shares.</para>
+</section>
+<section><title>Samba Web Administration Tool (SWAT)</title>
+	<para>Samba comes with a web based tool to manage your samba configuration file. The tool is accessible with a web browser on port 901 of the host system. To enable the tool, first find out whether your system is using the inetd or the xinetd superdaemon.</para>
+	<screen>
+	[root@RHEL4b samba]# ps fax | grep inet
+	15026 pts/0    S+     0:00                      \_ grep inet
+	 2771 ?        Ss     0:00 xinetd -stayalive -pidfile /var/run/xinetd.pid
+	[root@RHEL4b samba]# 
+	</screen>
+	<para>Then edit the inetd.conf or change the disable = yes line in /etc/xinetd.d/swat to disable = no.</para>
+	<screen>
+[root@RHEL4b samba]# cat /etc/xinetd.d/swat 
+# default: off
+# description: SWAT is the Samba Web Admin Tool. Use swat \
+#              to configure your Samba server. To use SWAT, \
+#              connect to port 901 with your favorite web browser.
+service swat
+{
+	port            = 901
+	socket_type     = stream
+	wait            = no
+	only_from       = 127.0.0.1
+	user            = root
+	server          = /usr/sbin/swat
+	log_on_failure  += USERID
+	disable         = no
+}
+[root@RHEL4b samba]# /etc/init.d/xinetd restart
+Stopping xinetd:                                           [  OK  ]
+Starting xinetd:                                           [  OK  ]
+[root@RHEL4b samba]#
+	</screen>
+	<para>Be careful when using SWAT, it erases alle your manually edited comments in smb.conf.</para>
+</section>

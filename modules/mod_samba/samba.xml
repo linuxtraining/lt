@@ -1,29 +1,35 @@
 <section><title>Verify installed version</title>
-<para>To see the version of samba installed on RedHat, use rpm -qa. Looks like <command>samba</command><indexterm><primary>samba</primary></indexterm> 3 in the screenshot here, version 3.0.10.</para>
+<para>To see the version of samba installed on RedHat, use <command>rpm -q samba</command><indexterm><primary>rpm(8)</primary></indexterm>.</para>
 <screen>
-[paul@RHEL4b ~]$  rpm -qa | grep samba
-samba-common-3.0.10-1.4E.9
-samba-client-3.0.10-1.4E.9
-system-config-samba-1.2.21-1
-samba-swat-3.0.10-1.4E.9
-samba-3.0.10-1.4E.9
-[paul@RHEL4b ~]$ 
+[root@RHEL52 ~]# rpm -q samba
+samba-3.0.28-1.el5_2.1
 </screen>
-<para>Use dpkg -l on Debian or Ubuntu. Our Feisty Fawn here uses Samba 3.0.24</para>
+<para>The screenshots above and below this paragraph show that both RHEL4 and RHEL5 have <command>Samba</command><indexterm><primary>samba(7)</primary></indexterm> version 3.0 installed. The last number in the Samba version counts the number of updates or patches. 3.0.28 in RHEL5 has a lot more updates than 3.0.10 in RHEL4.</para>
+<screen>
+[paul@RHEL4b ~]$  rpm -q samba
+samba-3.0.10-1.4E.9
+</screen>
+<para>Use dpkg -l on Debian or Ubuntu. Ubuntu 7.04 below uses Samba 3.0.24, but the Samba server is not installed, only the common files are installed (for mounting smb file systems).</para>
 <screen>
 paul@laika:~$ dpkg -l | grep samba
-ii  samba-common    3.0.24-2ubuntu1.2    Samba common files used by both the...
-paul@laika:~$ 
+ii  samba-common    3.0.24-2ubuntu1.2    Samba common files used by both th...
+</screen>
+<para>Linux Mint below uses Samba 3.0.28, and both the Samba server and the common files are installed.</para>
+<screen>
+paul@laika:~$ dpkg -l | grep samba
+rc  samba           3.0.28a-1ubuntu4.7   a LanManager-like file and printer...
+ii  samba-common    3.0.28a-1ubuntu4.7   Samba common files used by both th...
 </screen>
 </section>
 <section><title>Installing Samba</title>
-	<para>Samba is installed by default on Red Hat Enterprise Linux. If Samba is not yet installed, then the easiest way is to use the graphical menu (Applications -- System Settings -- Add/Remove Applications) and select "Windows File Server" in the Server section. The non-graphical way is to either use rpm -i followed by the samba-version.rpm file.</para>
+	<para>Samba is installed by default on Red Hat Enterprise Linux. If Samba is not yet installed, then you can use the graphical menu (Applications -- System Settings -- Add/Remove Applications) and select "Windows File Server" in the Server section. The non-graphical way is to use rpm or yum.</para>
+	<para>When you downloaded the .rpm file, you can install Samba like this.</para>
 	<screen>
-[paul@RHEL4b ~]$  rpm -i samba-3.0.10-1.4E.9.rpm
+[paul@RHEL52 ~]$ rpm -i samba-3.0.28-1.el5_2.1.rpm
 	</screen>
-	<para>Or if you have a subscription to RHN, then <command>up2date</command> is the tool to use.</para>
+	<para>When you have a subscription to RHN (Red Hat Network), then <command>yum</command> is an easy tool to use.</para>
 	<screen>
-[paul@RHEL4b ~]$  up2date -i samba
+[paul@RHEL52 ~]$ yum install samba
 	</screen>
 	<para>Ubuntu and Debian users can use the aptitude program.</para>
 	<screen>
@@ -31,7 +37,7 @@ paul@laika:~$ aptitude install samba-server
 	</screen>
 </section>
 <section><title>Documentation</title>
-	<para>Obviously there are manual pages for Samba. Don't forget <command>man smb.conf</command><indexterm><primary>man(1)</primary></indexterm>.</para>
+	<para>Obviously there are manual pages for Samba. Don't forget <command>man smb.conf</command><indexterm><primary>smb.conf(5)</primary></indexterm>.</para>
 	<screen>
 [root@RHEL4b samba]# apropos samba
 cupsaddsmb       (8)  - export printers to samba for windows clients
@@ -62,7 +68,7 @@ root@laika:~# find /usr/share/doc/samba-doc-pdf | grep -i howto
 	<para>Besides the howto, there is also an excellent book called <command>Samba by example</command> (again available as book in shops, and as a free pdf and html).</para>
 </section>
 <section><title>smb.conf</title>
-<para>Samba configuration is done in the <command>smb.conf</command><indexterm><primary>/etc/samba/smb.conf</primary></indexterm> file. The file can be edited manually, or you can use a web based interface like webmin or swat to manage it. The file is usually located in /etc/samba. You can find the exact location with <command>smbd -b</command><indexterm><primary>smbd</primary></indexterm>.</para>
+<para>Samba configuration is done in the <command>smb.conf</command><indexterm><primary>/etc/samba/smb.conf</primary></indexterm> file. The file can be edited manually, or you can use a web based interface like webmin or swat to manage it. The file is usually located in /etc/samba. You can find the exact location with <command>smbd -b</command><indexterm><primary>smbd(8)</primary></indexterm>.</para>
 <screen>
 [root@RHEL4b ~]# smbd -b | grep CONFIGFILE
 CONFIGFILE: /etc/samba/smb.conf
@@ -72,28 +78,28 @@ CONFIGFILE: /etc/samba/smb.conf
 <screen>
 [paul@RHEL4b ~]$ ls -l /etc/samba/smb.conf 
 -rw-r--r--  1 root root 10836 May 30 23:08 /etc/samba/smb.conf
-(...)
+</screen>
+<screen>
 paul@laika:~$ ls -l /etc/samba/smb.conf 
 -rw-r--r-- 1 root root 10515 2007-05-24 00:21 /etc/samba/smb.conf
 </screen>
-<para>Below is an example of a very minimalistic smb.conf. It allows samba to start, and to be visible to other computers (Microsoft shows computers in Network Neighborhood or My Network Places). </para>
+<para>Below is an example of a very minimalistic smb.conf. It allows samba to start, and to be visible to other computers (Microsoft shows computers in Network Neighborhood or My Network Places).</para>
 <screen>
 [paul@RHEL4b ~]$ cat /etc/samba/smb.conf
 [global]
 workgroup = WORKGROUP
 [firstshare]
 path = /srv/samba/public
-[paul@RHEL4b ~]$ 
 </screen>
 <para>Below is a screenshot of the <command>net view</command><indexterm><primary>net view</primary></indexterm> command on Microsoft Windows XP sp2. It shows how the Samba server with the minimalistic smb.conf is visible to Microsoft computers nearby.</para>
 <screen>
 C:\Documents and Settings\paul>net view
 Server Name            Remark
 
--------------------------------------------------------------------------------
-\\RHEL4B               Samba 3.0.10-1.4E.9                                     
-\\W2000                                                                        
-\\WINXP                                                                        
+------------------------------------------------------------------------------
+\\RHEL4B               Samba 3.0.10-1.4E.9 
+\\W2000 
+\\WINXP 
 The command completed successfully.
 </screen>
 <para>Some parameters in smb.conf can get a long list of values behind them. You can continue a line (for clarity) on the next by ending the line with a backslash.</para>
@@ -102,7 +108,7 @@ valid users = Serena, Venus, Lindsay \
               Kim, Justine, Sabine \
               Amelie, Marie, Suzanne
 </screen>
-<para>Curious but true, smb.conf accepts synonyms like <command>create mode</command> and <command>create mask</command>, and sometimes minor spelling errors like <command>browsable</command> and <command>browseable</command>. And on occasion you can even switch words, the <command>guest only</command> parameter is identical to <command>only guest</command>.</para>
+<para>Curious but true: smb.conf accepts synonyms like <command>create mode</command> and <command>create mask</command>, and (sometimes) minor spelling errors like <command>browsable</command> and <command>browseable</command>. And on occasion you can even switch words, the <command>guest only</command> parameter is identical to <command>only guest</command>. And <command>writable = yes</command> is the same as <command>readonly = no</command>.</para>
 </section>
 <section><title>testparm</title>
 <para>To verify the syntax of the smb.conf file, you can use testparm.</para>
@@ -116,6 +122,8 @@ Press enter to see a dump of your service definitions
 	
 [paul@RHEL4b ~]$ 
 </screen>
+</section>
+<section><title>testparm -v</title>
 <para>An interesting option is <command>testparm -v</command><indexterm><primary>testparm(1)</primary></indexterm>, which will output all the global options with their default value. The remark seen by the <command>net view</command><indexterm><primary>net view</primary></indexterm> command is the default value for the "server string" option. Simply adding this value to the global section in smb.conf and restarting samba will change the option. After a while, the changed option is visible on the Microsoft computers.</para>
 <screen>
 C:\Documents and Settings\paul>net view
@@ -127,6 +135,8 @@ Server Name            Remark
 \\WINXP                                                                        
 The command completed successfully.
 </screen>
+</section>
+<section><title>testparm -s</title>
 <para>The samba daemons are constantly (once every 60 seconds) checking the smb.conf file, so it is good practice to keep this file small. But it is also good practice to document your samba configuration, and to explicitly set options that have the same default values. The <command>testparm -s</command><indexterm><primary>testparm(1)</primary></indexterm> option allows you to do both. It will output the smallest possible samba configuration file, while retaining all your settings. The idea is to have your samba configuration in another file (like smb.conf.full) and let testparm parse this for you. The screenshot below shows you how. First the smb.conf.full file with the explicitly set option workgroup to WORKGROUP. </para>
 <screen>
 [root@RHEL4b samba]# cat smb.conf.full 

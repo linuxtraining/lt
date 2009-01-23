@@ -1,0 +1,52 @@
+<section><title>Practice: Getting started with Samba</title>
+	<para>1. Take a backup copy of the original smb.conf, name it smb.conf.orig</para>
+	<para>2. Enable SWAT and take a look at it.</para>
+	<para>3. Stop the Samba server.</para>
+	<para>4. Create a minimalistic smb.conf.minimal and test it with testparm.</para>
+	<para>5. Use tesparm -s to create /etc/samba/smb.conf from your smb.conf.minimal .</para>
+	<para>6. Start Samba with your minimal smb.conf.</para>
+	<para>7. Verify with smbclient that your Samba server works.</para>
+	<para>8. Verify that another (Microsoft) computer can see your Samba server.</para>
+	<para>9. Browse the network with net view, smbtree and with Windows Explorer.</para>
+	<para>10. Change the "Server String" parameter in smb.conf. How long does it take before you see the change (net view, smbclient, My Network Places,...) ?</para>
+	<para>11. Will restarting Samba after a change to smb.conf speed up the change ?</para>
+	<para>12. Which computer is the master browser master in your workgroup ? What is the master browser ?</para>
+	<para>13. If time permits (or if you are waiting for other students to finish this practice), then install a sniffer (wireshark) and watch the browser elections.</para>
+	<para></para>
+	<para></para>
+	<para></para>
+</section>
+<section><title>Solution: Getting started with Samba</title>
+	<para>1. Take a backup copy of the original smb.conf, name it smb.conf.orig</para>
+	<screen>cd /etc/samba ; cp smb.conf smb.conf.orig</screen>
+	<para>2. Enable SWAT and take a look at it.</para>
+	<screen>vi /etc/inetd.d/samba (and set disable to no)</screen>
+	<para>3. Stop the Samba server.</para>
+	<screen>/etc/init.d/smb stop (Red Hat)</screen>
+	<screen>/etc/init.d/samba stop (Debian)</screen>
+	<para>4. Create a minimalistic smb.conf.minimal and test it with testparm.</para>
+	<screen>cd /etc/samba ; mkdir my_smb_confs ; cd my_smb_confs</screen>
+	<screen>vi smb.conf.minimal (copy paste from the pdf...)</screen>
+	<screen>testparm smb.conf.minimal</screen>
+	<para>5. Use tesparm -s to create /etc/samba/smb.conf from your smb.conf.minimal .</para>
+	<screen>testparm -s smb.conf.minimal > ../smb.conf</screen>
+	<para>6. Start Samba with your minimal smb.conf.</para>
+	<screen>/etc/init.d/smb restart</screen>
+	<para>7. Verify with smbclient that your Samba server works.</para>
+	<screen>smbclient -NL 127.0.0.1</screen>
+	<para>8. Verify that another (Microsoft) computer can see your Samba server.</para>
+	<screen>smbclient -NL 'ip-address'</screen>
+	<para>9. Browse the network with net view, smbtree and with Windows Explorer.</para>
+	<screen>on Linux: smbtree</screen>
+	<screen>on Windows: net view (and WindowsKey + e)</screen>
+	<para>10. Change the "Server String" parameter in smb.conf. How long does it take before you see the change (net view, smbclient, My Network Places,...) ?</para>
+	<screen>vi /etc/samba/smb.conf</screen>
+	<para>11. Will restarting Samba after a change to smb.conf speed up the change ?</para>
+	<screen>yes</screen>
+	<para>12. Which computer is the master browser master in your workgroup ? What is the master browser ?</para>
+	<screen>The computer that won the elections.</screen>
+	<screen>This machine will make the list visible in My Network Places.</screen>
+	<para>13. If time permits (or if you are waiting for other students to finish this practice), then install a sniffer (wireshark) and watch the browser elections.</para>
+	<screen>On ubuntu: sudo aptitude install wireshark</screen>
+	<screen>then: sudo wireshark, select interface</screen>
+</section>
