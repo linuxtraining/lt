@@ -1,6 +1,6 @@
 <section><title>Practice: securing shares</title>
-	<para>4. Limit access to the sales share to Sandra, Ann and Veronique. Make sure that Roberto cannot access the share.</para>
-	<para>5. Even though the share is writable, Ann should only have read access.</para>
+	<para>4. Limit access to the sales share to sandra, ann and veronique. Make sure that roberto cannot access the share.</para>
+	<para>5. Even though the share is writable, ann should only have read access.</para>
 	<para>6. Set the create mask for files to read and write for everyone, test that it works.</para>
 	<para>7. Limit one shared directory to the 192.168.1.0/24 subnet, and another share to the two computers with ip-addresses 192.168.1.33 and 172.17.18.19.</para>
 	<para>8. Make sure users can only see files and directories that they can read. Test that it works!!</para>
