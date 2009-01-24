@@ -357,6 +357,14 @@ chapt_samba_securing_shares() {
 	}
 
 #
+chapt_samba_domain_member() {
+	MODULES=""
+	chaptitle="Samba Domain Member"
+	add_mod mod_samba/samba_domain_member.xml
+	add_mod mod_samba/samba_domain_member_practice.xml
+	}
+
+#
 chapt_scheduling() {
 	MODULES=""
 	chaptitle="Scheduling"

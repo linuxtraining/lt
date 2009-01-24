@@ -1,8 +1,52 @@
 <section><title>Practice: securing shares</title>
-	<para>4. Limit access to the sales share to sandra, ann and veronique. Make sure that roberto cannot access the share.</para>
-	<para>5. Even though the share is writable, ann should only have read access.</para>
-	<para>6. Set the create mask for files to read and write for everyone, test that it works.</para>
-	<para>7. Limit one shared directory to the 192.168.1.0/24 subnet, and another share to the two computers with ip-addresses 192.168.1.33 and 172.17.18.19.</para>
-	<para>8. Make sure users can only see files and directories that they can read. Test that it works!!</para>
-	<para>9. If time permits (or if you are waiting for other students to finish this practice), then combine the "read only" and "writable" statements to check which one has priority. Then combine them with "read list", "write list", "hosts allow" and "hosts deny". Then combine them with file permissions on the linux filesystem (chmod,chown) and make a table of minimal mandatory settings for readonly/readwrite shared directories.</para>
+	<para>1. Create a writable share called sales, and a readonly share called budget. Test that it works.</para>
+	<para>2. Limit access to the sales share to ann, sandra and veronique.</para>
+	<para>3. Make sure that roberto cannot access the sales share.</para>
+	<para>4. Even though the sales share is writable, ann should only have read access.</para>
+	<para>5. Even though the budget share is read only, sandra should also have write access.</para>
+	<para>6. Limit one shared directory to the 192.168.1.0/24 subnet, and another share to the two computers with ip-addresses 192.168.1.33 and 172.17.18.19.</para>
+	<para>7. Make sure the computer with ip 192.168.1.203 cannot access the budget share.</para>
+	<para>8. Make sure (on the budget share) that users can see only files and directories to which they have access.</para>
+	<para>9. Make sure the sales share is not visible when browsing the network.</para>
+	<para>10. All files created in the sales share should have 640 permissions or less.</para>
+	<para>11. All directories created in the budget share should have 750 permissions or more.</para>
+	<para>12. Permissions for files on the sales share should never be set more than 664.</para>
+	<para>13. Permissions for files on the budget share should never be set less than 500.</para>
+	<para>14. If time permits (or if you are waiting for other students to finish this practice), then combine the "read only" and "writable" statements to check which one has priority.</para>
+	<para>15. If time permits then combine "read list", "write list", "hosts allow" and "hosts deny". Which of these has priority ?</para>
+	<para></para>
+	<para></para>
+	<para></para>
+</section>
+<section><title>Solution: securing shares</title>
+	<para>1. Create a writable share called sales, and a readonly share called budget. Test that it works.</para>
+	<screen>see previous solutions on how to do this...</screen>
+	<para>2. Limit access to the sales share to ann, sandra and veronique.</para>
+	<screen>valid users = ann, sandra, veronique</screen>
+	<para>3. Make sure that roberto cannot access the sales share.</para>
+	<screen>invalid users = roberto</screen>
+	<para>4. Even though the sales share is writable, ann should only have read access.</para>
+	<screen>read list = ann</screen>
+	<para>5. Even though the budget share is read only, sandra should also have write access.</para>
+	<screen>write list = sandra</screen>
+	<para>6. Limit one shared directory to the 192.168.1.0/24 subnet, and another share to the two computers with ip-addresses 192.168.1.33 and 172.17.18.19.</para>
+	<screen>hosts allow = 192.168.1.</screen>
+	<screen>hosts allow = 192.168.1.33, 172.17.18.19</screen>
+	<para>7. Make sure the computer with ip 192.168.1.203 cannot access the budget share.</para>
+	<screen>hosts deny = 192.168.1.203</screen>
+	<para>8. Make sure (on the budget share) that users can see only files and directories to which they have access.</para>
+	<screen>hide unreadable = yes</screen>
+	<para>9. Make sure the sales share is not visible when browsing the network.</para>
+	<screen>browsable = no</screen>
+	<para>10. All files created in the sales share should have 640 permissions or less.</para>
+	<screen>create mask = 640</screen>
+	<para>11. All directories created in the budget share should have 750 permissions or more.</para>
+	<screen>force directory mode = 750</screen>
+	<para>12. Permissions for files on the sales share should never be set more than 664.</para>
+	<screen>security mask = 750</screen>
+	<para>13. Permissions for files on the budget share should never be set less than 500.</para>
+	<screen>force security directory mask = 500</screen>
+	<para>14. If time permits (or if you are waiting for other students to finish this practice), then combine the "read only" and "writable" statements to check which one has priority.</para>
+	<para></para>
+	<para>15. If time permits then combine "read list", "write list", "hosts allow" and "hosts deny". Which of these has priority ?</para>
 </section>

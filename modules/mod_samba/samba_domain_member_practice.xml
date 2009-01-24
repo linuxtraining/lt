@@ -1,0 +1,7 @@
+<section><title>Practice : samba domain member</title>
+	<para>1. Verify that you have a working Active Directory (AD) domain.</para>
+	<para>2. Setup Samba as a member server in the domain.</para>
+	<para>3. Verify the creation of a computer account in AD for your Samba server.</para>
+	<para>4. Verify the automatic creation of AD users in /etc/passwd with wbinfo and getent.</para>
+	<para>5. Connect to Samba shares with AD users, and verify ownership of their files.</para>
+</section>
