@@ -1,0 +1,29 @@
+<section><title>Practice: first samba user account</title>
+	<para>1. Create a user account for use with samba.</para>
+	<para>2. Add this user to samba's user database.</para>
+	<para>3. Create a writable shared directory and use the "force user" and "force group" directives to force ownership of files.</para>
+	<para>4. Test the working of force user with smbclient, net use and Windows Explorer.</para>
+	<para></para>
+	<para></para>
+	<para></para>
+</section>
+<section><title>Solution: first samba user account</title>
+	<para>1. Create a user account for use with samba.</para>
+	<screen>useradd -s /bin/false smbguest</screen>
+	<screen>usermod -c 'samba guest'</screen>
+	<screen>passwd smbguest</screen>
+	<para>2. Add this user to samba's user database.</para>
+	<screen>smbpasswd -a smbguest</screen>
+	<para>3. Create a writable shared directory and use the "force user" and "force group" directives to force ownership of files.</para>
+	<screen>
+[userwrite]
+ path = /srv/samba/userwrite
+ comment = everyone writes files owned by smbguest
+ read only = no
+ guest ok = yes
+ force user = smbguest
+ force group = smbguest
+	</screen>
+	<para>4. Test the working of force user with smbclient, net use and Windows Explorer.</para>
+	<screen>ls -l /srv/samba/userwrite (and verify ownership)</screen>
+</section>
