@@ -1,5 +1,5 @@
 <section><title>Setting up directory to share</title>
-	<para>In this second example, we will create a share where everyone can create files and write to files. Similar to before, we start by creating a directory</para>
+	<para>In this second example, we will create a share where everyone can create files and write to files. Again, we start by creating a directory</para>
 	<screen>
 [root@RHEL52 samba]# mkdir -p /srv/samba/writable
 [root@RHEL52 samba]# chmod 777 /srv/samba/writable/

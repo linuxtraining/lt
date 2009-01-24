@@ -330,5 +330,5 @@ Stopping xinetd:                                           [  OK  ]
 Starting xinetd:                                           [  OK  ]
 [root@RHEL4b samba]#
 	</screen>
-	<para>Be careful when using SWAT, it erases alle your manually edited comments in smb.conf.</para>
+	<para>Be careful when using SWAT, it erases all your manually edited comments in smb.conf.</para>
 </section>

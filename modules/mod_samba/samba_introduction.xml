@@ -46,7 +46,7 @@ paul@laika:~$ aptitude install samba-server
 </section>
 <section><title>Documentation</title>
 	<section><title>Samba HOWTO</title>
-		<para>Samba comes with excellent documentation in html and pdf format (and also as a free download from Samba.org and are for sale as a printed book). Red Hat Enterprise Linux installs the html and pdf version in /usr/share/doc by default.</para>
+		<para>Samba comes with excellent documentation in html and pdf format (and also as a free download from Samba.org and it is for sale as a printed book). Red Hat Enterprise Linux installs the html and pdf version in /usr/share/doc by default.</para>
 		<screen>
 [paul@RHEL4b ~]$ locate Samba-HOWTO-Collection.pdf
 /usr/share/doc/samba-3.0.10/Samba-HOWTO-Collection.pdf
@@ -61,7 +61,7 @@ root@laika:~# find /usr/share/doc/samba-doc-pdf | grep -i howto
 		</screen>
 	</section>
 	<section><title>Samba By Example</title>
-		<para>Besides the howto, there is also an excellent book called <command>Samba By Example</command> (again available as paper book in shops, and as a free pdf and html).</para>
+		<para>Besides the howto, there is also an excellent book called <command>Samba By Example</command> (again available as printed edition in shops, and as a free pdf and html).</para>
 	</section>
 </section>
 <section><title>Samba daemons</title>

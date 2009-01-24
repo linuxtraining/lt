@@ -23,7 +23,7 @@ total 8
  netbios name = TEACHER0
  security = share
 	</screen>
-	<para>You might have noticed line with <command>security = share</command>. This line sets the default security mode for our samba server. Setting the security mode to <command>share</command> will allow clients (smbclient, any windows, another Samba server, ...) to provide a password for each share. This is one way of using the SMB/CIFS protocol. The other way (called <command>user mode</command>) will allow the client to provide a username/password combination, before the server knows which share the client wants to access.</para>
+	<para>You might have noticed the line with <command>security = share</command>. This line sets the default security mode for our samba server. Setting the security mode to <command>share</command> will allow clients (smbclient, any windows, another Samba server, ...) to provide a password for each share. This is one way of using the SMB/CIFS protocol. The other way (called <command>user mode</command>) will allow the client to provide a username/password combination, before the server knows which share the client wants to access.</para>
 </section>
 <section><title>smb.conf [share] section</title>
 	<para>The share is called pubread and the path is set to our newly created directory. Everyone is allowed access (<command>guest ok = yes</command>) and security is set to read only.</para>

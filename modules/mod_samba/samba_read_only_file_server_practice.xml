@@ -1,7 +1,7 @@
 <section><title>Practice: read only file server</title>
 	<para>1. Create a directory in a good location (FHS) to share files for everyone to read.</para>
 	<para>2. Make sure the directory is owned properly and is world accessible.</para>
-	<para>3. Put a textfile in this directory</para>
+	<para>3. Put a textfile in this directory.</para>
 	<para>4. Share the directory with Samba.</para>
 	<para>5. Verify from your own and from another computer (smbclient, net use, ...) that the share is accessible for reading.</para>
 	<para>6. Make a backup copy of your smb.conf, name it smb.conf.ReadOnlyFileServer.</para>
@@ -15,7 +15,7 @@
 	<para>2. Make sure the directory is owned properly and is world accessible.</para>
 	<screen>chown root:root /srv/samba/readonly</screen>
 	<screen>chmod 755 /srv/samba/readonly</screen>
-	<para>3. Put a textfile in this directory</para>
+	<para>3. Put a textfile in this directory.</para>
 	<screen>echo Hello World > hello.txt</screen>
 	<para>4. Share the directory with Samba.</para>
 	<screen>
