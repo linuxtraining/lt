@@ -341,6 +341,22 @@ chapt_samba_first_user_account() {
 	}
 
 #
+chapt_samba_authentication() {
+	MODULES=""
+	chaptitle="Samba Authentication"
+	add_mod mod_samba/samba_authentication.xml
+	add_mod mod_samba/samba_authentication_practice.xml
+	}
+
+#
+chapt_samba_securing_shares() {
+	MODULES=""
+	chaptitle="Samba Securing Shares"
+	add_mod mod_samba/samba_securing_shares.xml
+	add_mod mod_samba/samba_securing_shares_practice.xml
+	}
+
+#
 chapt_scheduling() {
 	MODULES=""
 	chaptitle="Scheduling"

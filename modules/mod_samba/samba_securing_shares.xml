@@ -1,0 +1,64 @@
+	<section><title>Frequently used share settings</title>
+		<section><title>valid users</title>
+			<para>To restrict users per share, you can use the <command>valid users</command> parameter. In the example below, only the users listed as valid will be able to access the tennis share.</para>
+			<screen>
+[tennis]
+	path = /srv/samba/tennis
+	comment = authenticated and valid users only
+	read only = No
+	guest ok = No
+	valid users = serena, kim, venus, justine
+			</screen>
+		</section>
+		<section><title>invalid users</title>
+			<para>If you are paranoia, you can also use <command>invalid users</command> to explicitely deny the listed users access. When a user is in both lists, the user has no access!</para>
+			<screen>
+[tennis]
+	path = /srv/samba/tennis
+	read only = No
+	guest ok = No
+	valid users = kim, serena, venus, justine
+	invalid users = venus
+			</screen>
+		</section>		
+		<section><title>create mask and inherit permissions</title>
+			<para>Similar to umask (but not inverted), you can use the <command>create mask</command> and <command>directory mask</command> to set default permissions for newly created files and directories.</para>
+			<screen>
+[tennis]
+	path = /srv/samba/tennis
+	read only = No
+	guest ok = No
+	create mask = 644
+			</screen>
+			<para>With <command>inherit permissions = Yes</command> you can force newly created files and directories to inherit permissions from their parent directory, overriding the create mask and directory mask settings.</para>
+		</section>
+		<section><title>hosts allow</title>
+			<para>The <command>hosts allow</command> or <command>allow hosts</command> parameter is one of the key advantages of Samba. It allows access control of shares on the ip-address level. To allow only specific hosts to access a share, list the hosts, seperated by comma's.</para>
+			<screen>allow hosts = 192.168.1.5, 192.168.1.40</screen>
+			<para>Allowing entire subnets is done by ending the range with a dot.</para>
+			<screen>allow hosts = 192.168.1.</screen>
+			<para>Subnet masks can be added in the classical way.</para>
+			<screen>allow hosts = 10.0.0.0/255.0.0.0</screen>
+			<para>You can also allow an entire subnet with exceptions.</para>
+			<screen>hosts allow = 10. except 10.0.0.12</screen>
+		</section>
+		<section><title>hosts deny</title>
+			<para>The <command>hosts deny</command> or <command>deny hosts</command> parameter is the logical counterpart of the previous. The syntax is the same as for hosts allow.</para>
+			<screen>hosts deny = 192.168.1.55, 192.168.1.56</screen>
+		</section>
+		<section><title>hide unreadable</title>
+			<para>Setting <command>hide unreadable</command> to yes will prevent users from seeing files that cannot be read by them.</para>
+			<screen>hide unreadable = yes</screen>
+		</section>
+		<section><title>read list</title>
+			<para>One more setting before we go on to the next topic. Even on a writable share, you can set a list of read only users with the <command>read list</command> parameter.</para>
+			<screen>
+[authwrite2]
+	path = /srv/samba/authwrite2
+	comment = authenticated users only
+	read only = No
+	guest ok = No
+	read list = Martina, Roberto
+			</screen>
+		</section>
+	</section>

@@ -44,15 +44,6 @@ smb: \&#062; exit
 		<para>You can set the resolving order that Samba should use with the <command>name resolve order</command> parameter.</para>
 		<screen>name resolve order = wins lmhosts host bcast</screen>
 	</section>
-	<section><title>Practice</title>
-		<para>1. Create a directory and share it with Samba.</para>
-		<para>2. Make sure everyone can read and write files, test writing with smbclient and from a Microsoft computer.</para>
-		<para>3. Verify the ownership of files created by various users.</para>
-		<para>4. Use the "force user" and "force group" directives to force ownership of files created in this shared directory.</para>
-		<para>5. Test that Samba properly registers in a WINS server.</para>
-		<para>6. Test the working of force user with smbclient and/or net use and/or the MS Windows Explorer.</para>
-	</section>
-</chapter>
 <chapter><title>Samba Servers with authentication and restrictions</title>
 	<section><title>Authenticated User Access</title>
 		<para>The goal of this example is to set up a file share accessible to a number of different users. The users will need to authenticate with their password before access to this share is granted. We will first create three randomly named users, each with their own password. First we add these users to linux.</para>

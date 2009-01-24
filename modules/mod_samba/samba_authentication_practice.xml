@@ -1,0 +1,32 @@
+<section><title>Practice : samba authentication</title>
+	<para>0. Make sure you have properly named backups of your smb.conf of the previous practices.</para>
+	<para>1. Create three users (on the Linux and on the samba), remember their passwords!</para>
+	<para>2. Set up a shared directory that is only accessible to authenticated users.</para>
+	<para>3. Use smbclient and a windows computer to access your share, use more than one user account (windows requires a logoff/logon for this).</para>
+	<para>4. Verify that files created by these users belong to them.</para>
+	<para>5. Try to change or delete a file from another user.</para>
+	<para></para>
+	<para></para>
+	<para></para>
+</section>
+<section><title>Solution: samba authentication</title>
+	<para>1. Create three users (on the Linux and on the samba), remember their passwords!</para>
+	<screen>useradd -c 'SMB user1' userx</screen>
+	<screen>passwd userx</screen>
+	<para>2. Set up a shared directory that is only accessible to authenticated users.</para>
+	<screen>The shared section in smb.conf could look like this:</screen>
+	<screen>
+[authwrite]
+ path = /srv/samba/authwrite
+ comment = authenticated users only
+ read only = no  
+ guest ok = no
+	</screen>
+	<para>3. Use smbclient and a windows computer to access your share, use more than one user account (windows requires a logoff/logon for this).</para>
+	<screen>on Linux: smbclient //studentX/authwrite -U user1 password</screen>
+	<screen>on windows net use p: \\studentX\authwrite /user:user2 password</screen>
+	<para>4. Verify that files created by these users belong to them.</para>
+	<screen>ls -l /srv/samba/authwrite</screen>
+	<para>5. Try to change or delete a file from another user.</para>
+	<screen>you should not be able to change or overwrite files from others.</screen>
+</section>
