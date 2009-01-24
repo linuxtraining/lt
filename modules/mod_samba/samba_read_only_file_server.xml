@@ -13,27 +13,29 @@ total 8
 [root@RHEL52 readonly]#
 	</screen>
 </section>
-<section><title>smb.conf [global] section</title>
-	<para>In this example the samba server is a member of WORKGROUP (the default workgroup). We also set a descriptive server string, this string is visible to users browsing the network with net view, Windows explorer or smbclient.</para>
-	<screen>
+<section><title>configure the share</title>
+	<section><title>smb.conf [global] section</title>
+		<para>In this example the samba server is a member of WORKGROUP (the default workgroup). We also set a descriptive server string, this string is visible to users browsing the network with net view, windows explorer or smbclient.</para>
+		<screen>
 [root@RHEL52 samba]# head -5 smb.conf
 [global]
  workgroup = WORKGROUP
  server string = Public Anonymous File Server
  netbios name = TEACHER0
  security = share
-	</screen>
-	<para>You might have noticed the line with <command>security = share</command>. This line sets the default security mode for our samba server. Setting the security mode to <command>share</command> will allow clients (smbclient, any windows, another Samba server, ...) to provide a password for each share. This is one way of using the SMB/CIFS protocol. The other way (called <command>user mode</command>) will allow the client to provide a username/password combination, before the server knows which share the client wants to access.</para>
-</section>
-<section><title>smb.conf [share] section</title>
-	<para>The share is called pubread and the path is set to our newly created directory. Everyone is allowed access (<command>guest ok = yes</command>) and security is set to read only.</para>
-	<screen>
+		</screen>
+		<para>You might have noticed the line with <command>security = share</command>. This line sets the default security mode for our samba server. Setting the security mode to <command>share</command> will allow clients (smbclient, any windows, another Samba server, ...) to provide a password for each share. This is one way of using the SMB/CIFS protocol. The other way (called <command>user mode</command>) will allow the client to provide a username/password combination, before the server knows which share the client wants to access.</para>
+	</section>
+	<section><title>smb.conf [share] section</title>
+		<para>The share is called pubread and the path is set to our newly created directory. Everyone is allowed access (<command>guest ok = yes</command>) and security is set to read only.</para>
+		<screen>
 [pubread]
 path = /srv/samba/readonly
 comment = files to read
 read only = yes
 guest ok = yes
-	</screen>
+		</screen>
+	</section>
 </section>
 <section><title>restart the server</title>
 	<para>After testing with testparm, restart the samba server (so you don't have to wait).</para>
@@ -45,9 +47,10 @@ Starting SMB services:                                     [  OK  ]
 Starting NMB services:                                     [  OK  ]
 	</screen>
 </section>
-<section><title>verify with smbclient</title>
-	<para>You can now verify the existence of the share with smbclient. Our <command>pubread</command> is listed as the fourth share.</para>
-	<screen>
+<section><title>verify the share</title>
+	<section><title>verify with smbclient</title>
+		<para>You can now verify the existence of the share with smbclient. Our <command>pubread</command> is listed as the fourth share.</para>
+		<screen>
 [root@RHEL52 samba]# smbclient -NL 127.0.0.1
 Domain=[WORKGROUP] OS=[Unix] Server=[Samba 3.0.33-3.7.el5]
 
@@ -67,16 +70,16 @@ Domain=[WORKGROUP] OS=[Unix] Server=[Samba 3.0.33-3.7.el5]
 	Workgroup            Master
 	---------            -------
 	WORKGROUP            W2003EE
-	</screen>
-</section>
-<section><title>verify on Windows</title>
-	<para>The final test is to go to a Microsoft Windows computer and read a file on the Samba server. First we use the <command>net use</command><indexterm><primary>net use</primary></indexterm> command to mount the pubread share on the driveletter k.</para>
-	<screen>
+		</screen>
+	</section>
+	<section><title>verify on windows</title>
+		<para>The final test is to go to a Microsoft windows computer and read a file on the Samba server. First we use the <command>net use</command><indexterm><primary>net use(microsoft)</primary></indexterm> command to mount the pubread share on the driveletter k.</para>
+		<screen>
 C:\>net use K: \\teacher0\pubread
 The command completed successfully.
-	</screen>
-	<para>Then we test looking at the contents of the share, and reading the files.</para>
-	<screen>					
+		</screen>
+		<para>Then we test looking at the contents of the share, and reading the files.</para>
+		<screen>					
 C:\&#062;dir k:
  Volume in drive K is pubread
  Volume Serial Number is 0C82-11F2
@@ -89,18 +92,19 @@ C:\&#062;dir k:
 21/01/2009  05:49                18 winter.txt
                2 File(s)             35 bytes
                2 Dir(s)  13.496.242.176 bytes free
-	</screen>
-	<para>Just to be on the safe side, let us try writing.</para>
-	<screen>
+		</screen>
+		<para>Just to be on the safe side, let us try writing.</para>
+		<screen>
 K:\&#062;echo very cold &#062; winter.txt
 Access is denied.
 
 K:\&#062;
-	</screen>
-	<para>Or you can use Windows Explorer...</para>
-	<mediaobject><imageobject><imagedata fileref="images/sambareadonly.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>			
+		</screen>
+		<para>Or you can use windows explorer...</para>
+		<mediaobject><imageobject><imagedata fileref="images/sambareadonly.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>			
+	</section>
 </section>
-<section><title>netcat</title>
+<section><title>a note on netcat</title>
 	<para>The Windows command line screenshot is made in a Linux console, using netcat as a pipe to a Windows command shell.</para>
 	<para>The way this works, is by enabling netcat to listen on the windows computer to a certain port, executing cmd.exe when a connection is received. Netcat is similar to cat, in the way that cat does nothing, only netcat does nothing over the network.</para>
 	<para>To enable this connection, type the following on the windows computer (after downloading netcat for windows).</para>

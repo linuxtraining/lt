@@ -19,7 +19,7 @@ paul@laika:~$ ls -l /etc/samba/smb.conf
 	</screen>
 </section>
 <section><title>minimal smb.conf</title>
-	<para>Below is an example of a very minimalistic smb.conf. It allows samba to start, and to be visible to other computers (Microsoft shows computers in Network Neighborhood or My Network Places).</para>
+	<para>Below is an example of a very minimalistic <command>smb.conf</command>. It allows samba to start, and to be visible to other computers (Microsoft shows computers in Network Neighborhood or My Network Places).</para>
 	<screen>
 [paul@RHEL4b ~]$ cat /etc/samba/smb.conf
 [global]
@@ -27,7 +27,7 @@ workgroup = WORKGROUP
 [firstshare]
 path = /srv/samba/public
 	</screen>
-	<para>Below is a screenshot of the <command>net view</command><indexterm><primary>net(microsoft)</primary></indexterm> command on Microsoft Windows XP sp2. It shows how the Samba server with the minimalistic smb.conf is visible to Microsoft computers nearby.</para>
+	<para>Below is a screenshot of the <command>net view</command><indexterm><primary>net view(microsoft)</primary></indexterm> command on Microsoft Windows XP sp2. It shows how the Samba server with the minimalistic smb.conf is visible to Microsoft computers nearby.</para>
 	<screen>
 C:\Documents and Settings\paul>net view
 Server Name            Remark
@@ -51,7 +51,7 @@ valid users = Serena, Venus, Lindsay \
 	<para>Curious but true: smb.conf accepts synonyms like <command>create mode</command> and <command>create mask</command>, and (sometimes) minor spelling errors like <command>browsable</command> and <command>browseable</command>. And on occasion you can even switch words, the <command>guest only</command> parameter is identical to <command>only guest</command>. And <command>writable = yes</command> is the same as <command>readonly = no</command>.</para>
 </section>
 <section><title>man smb.conf</title>
-	<para>You can access a lot of documentation when typing <command>man smb.conf</command><indexterm><primary>smb.conf(5)</primary></indexterm>.</para>
+	<para>You can access a lot of documentation when typing <command>man smb.conf</command><indexterm><primary>/etc/samba/smb.conf</primary></indexterm>.</para>
 	<screen>
 [root@RHEL4b samba]# apropos samba
 cupsaddsmb       (8)  - export printers to samba for windows clients
@@ -70,7 +70,7 @@ tdbbackup        (8)  - tool for backing up and ... of samba .tdb files
 </section>
 <section><title>/usr/bin/testparm</title>
 <section><title>syntax check smb.conf</title>
-	<para>To verify the syntax of the smb.conf file, you can use testparm.</para>
+	<para>To verify the syntax of the smb.conf file, you can use <command>testparm</command><indexterm><primary>testparm(1)</primary></indexterm>.</para>
 	<screen>
 [paul@RHEL4b ~]$ testparm
 Load smb config files from /etc/samba/smb.conf
@@ -122,7 +122,7 @@ server string = Public Test Server
 [firstshare]
 path = /srv/samba/public
 	</screen>
-	<para>Next, we execute testparm with the -s option, and redirect stdout to the real smb.conf file.</para>
+	<para>Next, we execute testparm with the -s option, and redirect stdout to the real <command>smb.conf</command><indexterm><primary>/etc/samba/smb.conf</primary></indexterm> file.</para>
 	<screen>
 [root@RHEL4b samba]# testparm -s smb.conf.full > smb.conf
 Load smb config files from smb.conf.full
@@ -193,8 +193,8 @@ WORKGROUP            WINXP
 	</screen>
 </section>
 </section>
-<section><title>SMB can be slow...</title>
-	<para>The remark seen by the <command>net view</command><indexterm><primary>net(Microsoft)</primary></indexterm> command is the default value for the "server string" option. Simply adding this value to the global section in smb.conf and restarting samba will change the option. After a while, the changed option is visible on the Microsoft computers.</para>
+<section><title>net view</title>
+	<para>The remark seen by the <command>net view</command><indexterm><primary>net view(microsoft)</primary></indexterm> command is the default value for the "server string" option. Simply adding this value to the global section in smb.conf and restarting samba will change the option. After a while, the changed option is visible on the Microsoft computers.</para>
 	<screen>
 C:\Documents and Settings\paul>net view
 Server Name            Remark
@@ -206,7 +206,7 @@ Server Name            Remark
 The command completed successfully.
 	</screen>
 </section>
-<section><title>smbtree</title>
+<section><title>/usr/bin/smbtree</title>
 	<para>Another useful tool to troubleshoot Samba or simply to browse the SMB network is <command>smbtree</command><indexterm><primary>smbtree(1)</primary></indexterm>. In its simplest form, smbtree will do an anonymous browsing on the local subnet. displaying all SMB computers and (if authorized) their shares.</para>
 	<para> Let's take a look at two screenshots of smbtree in action (with blank password). The first one is taken immediately after booting four different computers (one MS Windows 2000, one MS Windows XP, one MS Windows 2003 and one RHEL 4 with Samba 3.0.10).</para>
 	<screen>
@@ -300,14 +300,14 @@ PEGASUS
 	<para>As you can see, this gives a very nice overview of all SMB computers and their shares.</para>
 </section>
 <section><title>Samba Web Administration Tool (SWAT)</title>
-	<para>Samba comes with a web based tool to manage your samba configuration file. The tool is accessible with a web browser on port 901 of the host system. To enable the tool, first find out whether your system is using the inetd or the xinetd superdaemon.</para>
+	<para>Samba comes with a web based tool to manage your samba configuration file. <command>SWAT</command><indexterm><primary>swat(8)</primary></indexterm> is accessible with a web browser on port 901 of the host system. To enable the tool, first find out whether your system is using the <command>inetd</command><indexterm><primary>inetd(8)</primary></indexterm> or the <command>xinetd</command><indexterm><primary>xinetd(8)</primary></indexterm> superdaemon.</para>
 	<screen>
 	[root@RHEL4b samba]# ps fax | grep inet
 	15026 pts/0    S+     0:00                      \_ grep inet
 	 2771 ?        Ss     0:00 xinetd -stayalive -pidfile /var/run/xinetd.pid
 	[root@RHEL4b samba]# 
 	</screen>
-	<para>Then edit the inetd.conf or change the disable = yes line in /etc/xinetd.d/swat to disable = no.</para>
+	<para>Then edit the <command>inetd.conf</command><indexterm><primary>/etc/inetd.conf</primary></indexterm> or change the disable = yes line in <command>/etc/xinetd.d/swat</command><indexterm><primary>/etc/xinetd.d/swat</primary></indexterm> to disable = no.</para>
 	<screen>
 [root@RHEL4b samba]# cat /etc/xinetd.d/swat 
 # default: off

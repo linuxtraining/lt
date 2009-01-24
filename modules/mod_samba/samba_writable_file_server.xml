@@ -1,12 +1,12 @@
-<section><title>Setting up directory to share</title>
+<section><title>set up a directory to share</title>
 	<para>In this second example, we will create a share where everyone can create files and write to files. Again, we start by creating a directory</para>
 	<screen>
 [root@RHEL52 samba]# mkdir -p /srv/samba/writable
 [root@RHEL52 samba]# chmod 777 /srv/samba/writable/
 	</screen>
 </section>
-<section><title>smb.conf and testparm</title>
-	<para>Then we simply add a share to our file server by editing smb.conf. Below the check with testparm. (We could have changed the description of the server...)</para>
+<section><title>configure the share</title>
+	<para>Then we simply add a share to our file server by editing <command>smb.conf</command><indexterm><primary>/etc/samba/smb.conf</primary></indexterm>. Below the check with testparm. (We could have changed the description of the server...)</para>
 		<screen>
 [root@RHEL52 samba]# testparm
 Load smb config files from /etc/samba/smb.conf
@@ -33,16 +33,16 @@ Press enter to see a dump of your service definitions
 	guest ok = Yes
 	</screen>
 </section>
-<section><title>test connection with Windows</title>
-	<para>Restart samba, then onto the Windows 2003 machine and test the connection to the samba server.</para>
+<section><title>test connection with windows</title>
+	<para>We can now test the connection on a windows 2003 computer. We use the <command>net use</command><indexterm><primary>net use(microsoft)</primary></indexterm> for this.</para>
 	<screen>
 C:\>net use L: \\teacher0\pubwrite
 net use L: \\teacher0\pubwrite
 The command completed successfully.
 	</screen>
 </section>
-<section><title>test writing with Windows</title>
-	<para>We mounted the <command>pubwrite</command> share on the L: drive in Windows. Below we test that we can write to this share.</para>
+<section><title>test writing with windows</title>
+	<para>We mounted the <command>pubwrite</command> share on the L: drive in windows. Below we test that we can write to this share.</para>
 	<screen>
 L:\&#062;echo hoi &#062; hoi.txt
 
@@ -60,7 +60,7 @@ L:\&#062;dir
 	</screen>
 </section>
 <section><title>How is this possible ?</title>
-	<para>Linux (or any Unix) always needs a user account to gain access to a system. The Windows computer did not provide the samba server with a user account or a password. Instead, the Linux owner of the files created through this writable share is the Linux guest account (usually named nobody).</para>
+	<para>Linux (or any Unix) always needs a user account to gain access to a system. The windows computer did not provide the samba server with a user account or a password. Instead, the Linux owner of the files created through this writable share is the Linux guest account (usually named nobody).</para>
 	<screen>
 [root@RHEL52 samba]# ls -l /srv/samba/writable/
 total 4
@@ -68,65 +68,3 @@ total 4
 	</screen>
 	<para>So this is not the cleanest solution. We will need to improve this.</para>
 </section>
-<section><title>Creating a sambanobody user</title>
-	<para> We will create a user for our samba file server and make this user the owner of the directory and all of its files. This anonymous user gets a clear description, but does not get a login shell.</para>
-	<screen>
-[root@RHEL52 samba]# useradd -s /bin/false sambanobody
-[root@RHEL52 samba]# usermod -c "Anonymous Samba Access" sambanobody
-[root@RHEL52 samba]# passwd sambanobody
-Changing password for user sambanobody.
-New UNIX password: 
-Retype new UNIX password: 
-passwd: all authentication tokens updated successfully.
-	</screen>
-</section>
-<section><title>using sambanobody as owner</title>
-	<para>We can use this user as owner of files and directories, instead of using the root account. This approach is clear and more secure.</para>
-	<screen>
-[root@RHEL52 samba]# chown -R sambanobody:sambanobody /srv/samba/
-[root@RHEL52 samba]# ls -al /srv/samba/writable/
-total 12
-drwxrwxrwx 2 sambanobody sambanobody 4096 Jan 21 06:11 .
-drwxr-xr-x 6 sambanobody sambanobody 4096 Jan 21 06:11 ..
--rwxr--r-- 1 sambanobody sambanobody    6 Jan 21 06:16 hoi.txt
-	</screen>
-</section>
-<section><title>telling samba about sambanobody</title>
-	<para>The sambanobody user account that we created in the previous examples is not yet used by samba. It just owns the files and directories that we created for our shares. The goal of this section is to force ownership of files created through the samba share to belong to our sambanobody user. Remember, our server is still accessible to everyone, nobody needs to know this user account or password. We just want a clean Linux server.</para>
-	<para>To accomplish this, we first have to tell Samba about this user. We can do this by adding the account to <command>smbpasswd</command><indexterm><primary>smbpasswd(1)</primary></indexterm>. </para>
-	<screen>
-[root@RHEL52 samba]# smbpasswd -a sambanobody
-New SMB password:
-Retype new SMB password:
-Added user sambanobody.
-	</screen>
-</section>
-<section><title>samba's user database</title>
-	<para>To find out where Samba keeps this information (for now), use <command>smbd -b</command><indexterm><primary>smbd</primary></indexterm>. The PRIVATE_DIR variable will show you where the smbpasswd database is located.</para>
-	<screen>
-[root@RHEL52 samba]# smbd -b | grep PRIVATE
-   PRIVATE_DIR: /etc/samba
-[root@RHEL52 samba]# ls -l smbpasswd 
--rw------- 1 root root 110 Jan 21 06:19 smbpasswd
-	</screen>
-	<para>You can use a simple cat to see the contents of the smbpasswd database. The sambanobody user does have a password (it is secret).</para>
-	<screen>
-[root@RHEL52 samba]# cat smbpasswd 
-sambanobody:503:AE9 ... 9DB309C528E540978:[U          ]:LCT-4976B05B:
-	</screen>
-</section>
-<section><title>forcing this user</title>
-	<para>Now that Samba knows about this user, we can adjust our writable share to force the ownership of files created through it. For this we use the <command>force user</command> and <command>force group</command> options. Now we can be sure that all files in the Samba writable share are owned by the same sambanobody user.</para>
-	<para>Below is the renewed definition of our share in smb.conf.</para>
-	<screen>
-[pubwrite]
- path = /srv/samba/writable
- comment = files to write
- force user = sambanobody
- force group = sambanobody
- read only = no
- guest ok = yes
-	</screen>
-	<para>When you reconnect to the share and write a file, then this sambanobody user will own the newly created file (and nobody needs to know the password).</para>
-</section>
-

@@ -1,4 +1,4 @@
-<section><title>Practice: Getting started with Samba</title>
+<section><title>Practice: getting started with samba</title>
 	<para>1. Take a backup copy of the original smb.conf, name it smb.conf.orig</para>
 	<para>2. Enable SWAT and take a look at it.</para>
 	<para>3. Stop the Samba server.</para>
@@ -16,7 +16,7 @@
 	<para></para>
 	<para></para>
 </section>
-<section><title>Solution: Getting started with Samba</title>
+<section><title>Solution: getting started with samba</title>
 	<para>1. Take a backup copy of the original smb.conf, name it smb.conf.orig</para>
 	<screen>cd /etc/samba ; cp smb.conf smb.conf.orig</screen>
 	<para>2. Enable SWAT and take a look at it.</para>

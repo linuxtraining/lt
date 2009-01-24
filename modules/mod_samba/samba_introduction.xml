@@ -1,4 +1,4 @@
-<section><title>Verify installed version</title>
+<section><title>verify installed version</title>
 	<section><title>.rpm based distributions</title>
 		<para>To see the version of samba installed on RedHat, use <command>rpm -q samba</command><indexterm><primary>rpm(8)</primary></indexterm>.</para>
 		<screen>
@@ -12,7 +12,7 @@ samba-3.0.10-1.4E.9
 		</screen>
 	</section>
 	<section><title>.deb based distributions</title>
-		<para>Use <command>dpkg -l</command> on Debian or Ubuntu. Ubuntu 7.04 below uses Samba 3.0.24, but the Samba server is not installed, only the common files are installed (for mounting smb file systems).</para>
+		<para>Use <command>dpkg -l</command><indexterm><primary>dpkg(8)</primary></indexterm> on Debian or Ubuntu. Ubuntu 7.04 below uses Samba 3.0.24, but the Samba server is not installed, only the common files are installed (for mounting smb file systems).</para>
 		<screen>
 paul@laika:~$ dpkg -l | grep samba
 ii  samba-common    3.0.24-2ubuntu1.2    Samba common files used by both...
@@ -25,9 +25,9 @@ ii  samba-common    3.0.28a-1ubuntu4.7   Samba common files used by both...
 		</screen>
 	</section>
 </section>
-<section><title>Installing Samba</title>
+<section><title>installing Samba</title>
 	<section><title>.rpm based distributions</title>
-	<para>Samba is installed by default on Red Hat Enterprise Linux. If Samba is not yet installed, then you can use the graphical menu (Applications -- System Settings -- Add/Remove Applications) and select "Windows File Server" in the Server section. The non-graphical way is to use <command>rpm</command> or <command>yum</command>.</para>
+	<para>Samba is installed by default on Red Hat Enterprise Linux. If Samba is not yet installed, then you can use the graphical menu (Applications -- System Settings -- Add/Remove Applications) and select "Windows File Server" in the Server section. The non-graphical way is to use <command>rpm</command><indexterm><primary>rpm(8)</primary></indexterm> or <command>yum</command><indexterm><primary>yum(8)</primary></indexterm>.</para>
 	<para>When you downloaded the .rpm file, you can install Samba like this.</para>
 	<screen>
 [paul@RHEL52 ~]$ rpm -i samba-3.0.28-1.el5_2.1.rpm
@@ -38,15 +38,15 @@ ii  samba-common    3.0.28a-1ubuntu4.7   Samba common files used by both...
 	</screen>
 	</section>
 	<section><title>.deb based distributions</title>
-	<para>Ubuntu and Debian users can use the <command>aptitude</command> program (or use a graphical tool like Synaptic or similar).</para>
+	<para>Ubuntu and Debian users can use the <command>aptitude</command><indexterm><primary>aptitude(8)</primary></indexterm> program (or use a graphical tool like Synaptic or similar).</para>
 	<screen>
 paul@laika:~$ aptitude install samba-server
 	</screen>
 	</section>
 </section>
-<section><title>Documentation</title>
-	<section><title>Samba HOWTO</title>
-		<para>Samba comes with excellent documentation in html and pdf format (and also as a free download from Samba.org and it is for sale as a printed book). Red Hat Enterprise Linux installs the html and pdf version in /usr/share/doc by default.</para>
+<section><title>documentation</title>
+	<section><title>samba howto</title>
+		<para>Samba comes with excellent documentation in html and pdf format (and also as a free download from Samba.org and it is for sale as a printed book). Red Hat Enterprise Linux installs the html and pdf version in <command>/usr/share/doc</command><indexterm><primary>/usr/share/doc</primary></indexterm> by default.</para>
 		<screen>
 [paul@RHEL4b ~]$ locate Samba-HOWTO-Collection.pdf
 /usr/share/doc/samba-3.0.10/Samba-HOWTO-Collection.pdf
@@ -60,11 +60,11 @@ root@laika:~# find /usr/share/doc/samba-doc-pdf | grep -i howto
 /usr/share/doc/samba-doc-pdf/Samba3-HOWTO.pdf.gz
 		</screen>
 	</section>
-	<section><title>Samba By Example</title>
+	<section><title>samba by example</title>
 		<para>Besides the howto, there is also an excellent book called <command>Samba By Example</command> (again available as printed edition in shops, and as a free pdf and html).</para>
 	</section>
 </section>
-<section><title>Samba daemons</title>
+<section><title>samba daemons</title>
 	<para>Samba 3 consists of three daemons, they are named <command>nmbd</command><indexterm><primary>nmbd(8)</primary></indexterm>, <command>smbd</command><indexterm><primary>smbd(8)</primary></indexterm> and <command>winbindd</command><indexterm><primary>winbindd(8)</primary></indexterm>.</para>
 	<section><title>nmbd</title>
 		<para>The <command>nmbd</command> daemon takes care of all the names and naming. It registers and resolves names, and handles browsing. According to the Samba documentation, it should be the first daemon to start.</para>
@@ -97,7 +97,7 @@ Starting Winbind services:                                 [  OK  ]
 		<para>On Debian and Ubuntu, the winbindd daemon is installed via a seperate package called <command>winbind</command>.</para>
 	</section>
 </section>
-<section><title>Starting and stopping Samba</title>
+<section><title>starting and stopping samba</title>
 	<para>You can start the daemons by invoking <command>/etc/init.d/smb start</command><indexterm><primary>/etc/init.d/smb</primary></indexterm> (some systems use <command>/etc/init.d/samba</command><indexterm><primary>/etc/init.d/samba</primary></indexterm>) on any linux.</para>
 	<screen>
 root@laika:~# /etc/init.d/samba stop

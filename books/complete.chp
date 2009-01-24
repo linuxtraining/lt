@@ -333,6 +333,14 @@ chapt_samba_writable_file_server() {
 	}
 
 #
+chapt_samba_first_user_account() {
+	MODULES=""
+	chaptitle="Samba First User Account"
+	add_mod mod_samba/samba_first_user_account.xml
+	add_mod mod_samba/samba_first_user_account_practice.xml
+	}
+
+#
 chapt_scheduling() {
 	MODULES=""
 	chaptitle="Scheduling"
