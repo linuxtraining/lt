@@ -12,14 +12,14 @@ security = Domain
 		</screen>
 	</section>
 	<section><title>Linux uid's</title>
-	<para>Linux requires a user account for every user accessing its file system, we need to provide Samba with a range of uid's and gid's that it can use to create these user accounts. The range is determined with the <command>idmap uid</command><indexterm><primary>idmap uid(smb.conf)</primary></indexterm> and the <command>idmap gid</command><indexterm><primary>idmap gid(smb.conf)</primary></indexterm> parameters. The first Active Directory user to connect will receive Linux uid 20000.</para>
+	<para>Linux requires a user account for every user accessing its file system, we need to provide Samba with a range of uid's and gid's that it can use to create these user accounts. The range is determined with the <command>idmap uid</command><indexterm><primary>idmap uid(samba)</primary></indexterm> and the <command>idmap gid</command><indexterm><primary>idmap gid(samba)</primary></indexterm> parameters. The first Active Directory user to connect will receive Linux uid 20000.</para>
 		<screen>
 idmap uid = 20000-22000
 idmap gid = 20000-22000
 		</screen>
 	</section>
 	<section><title>winbind use default domain</title>
-	<para>The <command>winbind use default domain</command><indexterm><primary>winbind(smb.conf)</primary></indexterm> parameter makes sure winbind also operates on users without a domain component in their name.</para>
+	<para>The <command>winbind use default domain</command><indexterm><primary>winbind(samba)</primary></indexterm> parameter makes sure winbind also operates on users without a domain component in their name.</para>
 		<screen>
 winbind use default domain = yes
 		</screen>
