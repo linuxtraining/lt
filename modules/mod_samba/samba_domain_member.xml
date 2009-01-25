@@ -1,61 +1,93 @@
-	<section><title>smb.conf</title>
-		<para>The <command>workgroup</command> option in the global section should match the netbios name of the Active Directory domain. Authentication will not be handled by Samba now, but by the Active Directory Domain Controllers, so we set the <command>security</command> option to domain. Since linux requires a user account for every user accessing its file system, we need to provide Samba with a range of uid's and gid's that it can use to create these user accounts. The first Active Directory user to connect will receive linux uid 20000. Below is our new global section in smb.conf.</para>
+<section><title>changes in smb.conf</title>
+	<section><title>workgroup</title>
+		<para>The <command>workgroup</command> option in the global section should match the netbios name of the Active Directory domain.</para>
 		<screen>
-[global]
-	workgroup = PEGASUS
-	server string = Pegasus Domain Member Server
-	security = Domain
-	idmap uid = 20000-22000
-	idmap gid = 20000-22000
-	winbindd use default domain = Yes
-		</screen>
-		<para>Nothing special is required for the share section in smb.conf. Remember, we do not manually create users in smbpasswd or on the linux (/etc/passwd). Only Active Directory users are allowed access.</para>
-		<screen>
-[domaindata]
-	path = /srv/samba/domaindata
-	comment = Active Directory users only
-	read only = No
+workgroup = STARGATE
 		</screen>
 	</section>
-	<section><title>Joining the Active Directory Domain</title>
-		<para>While the Samba server is stopped, you can use <command>net rpc join</command><indexterm><primary>net rpc join</primary></indexterm> to join the Active Directory Domain.</para>
+	<section><title>security mode</title>
+		<para>Authentication will not be handled by samba now, but by the Active Directory domain controllers, so we set the <command>security</command> option to domain.</para>
 		<screen>
-[root@RHEL4b samba]# net rpc join -UAdministrator%Stargate1
-Joined domain PEGASUS.
-[root@RHEL4b samba]# 
+security = Domain
 		</screen>
-		<para>Time to start Samba followed by <command>winbind</command><indexterm><primary>winbind</primary></indexterm>.</para>
+	</section>
+	<section><title>Linux uid's</title>
+	<para>Linux requires a user account for every user accessing its file system, we need to provide Samba with a range of uid's and gid's that it can use to create these user accounts. The first Active Directory user to connect will receive Linux uid 20000.</para>
+		<screen>
+idmap uid = 20000-22000
+idmap gid = 20000-22000
+		</screen>
+	</section>
+	<section><title>[global] section in smb.conf</title>
+		<para>Below is our new global section in smb.conf.</para>
+		<screen>
+[global]
+ workgroup = STARGATE
+ security = Domain
+ server string = Stargate Domain Member Server
+ idmap uid = 20000-22000
+ idmap gid = 20000-22000
+		</screen>
+	</section>
+	<section><title>[share] section</title>
+		<para>Nothing special is required for the share section in smb.conf. Remember that we do not manually create users in smbpasswd or on the Linux (/etc/passwd). Only Active Directory users are allowed access.</para>
+		<screen>
+[domaindata]
+ path = /srv/samba/domaindata
+ comment = Active Directory users only
+ read only = No
+		</screen>
+	</section>
+</section>
+<section><title>joining an Active Directory domain</title>
+	<para>While the Samba server is stopped, you can use <command>net rpc join</command><indexterm><primary>net rpc join(samba)</primary></indexterm> to join the Active Directory domain.</para>
+	<screen>
+[root@RHEL52 samba]# service smb stop
+Shutting down SMB services:                                [  OK  ]
+Shutting down NMB services:                                [  OK  ]
+[root@RHEL52 samba]# net rpc join -U Administrator
+Password:
+Joined domain STARGATE.
+	</screen>
+	<para>We can verify in the aduc (Active Directory Users and Computers) that a computer account is created for this samba server.</para>
+	<mediaobject><imageobject><imagedata fileref="images/sambacomputeraccount.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>			
+</section>
+<section><title>winbind</title>
+	<section><title>adding winbind to nsswitch.conf</title>
+		<para>The <command>winbind daemon</command><indexterm><primary>winbind(8)</primary></indexterm> is talking with the Active Directory domain.</para>
+		<para>We need to update the <command>/etc/nsswitch.conf</command><indexterm><primary>/etc/nsswitch.conf</primary></indexterm> file now, so user group and host names can be resolved against the winbind daemon.</para>
+		<screen>
+[root@RHEL52 samba]# vi /etc/nsswitch.conf 
+[root@RHEL52 samba]# grep winbind /etc/nsswitch.conf 
+passwd:     files winbind
+group:      files winbind
+hosts:      files dns winbind
+		</screen>
+	</section>
+	<section><title>starting samba and winbindd</title>
+		<para>Time to start Samba followed by <command>winbindd</command><indexterm><primary>winbindd(8)</primary></indexterm>.</para>
 		<screen>
 [root@RHEL4b samba]# service smb start
 Starting SMB services:                                     [  OK  ]
 Starting NMB services:                                     [  OK  ]
-[root@RHEL4b samba]# service winbindd start
+[root@RHEL4b samba]# service winbind start
 Starting winbindd services:                                [  OK  ]
 [root@RHEL4b samba]# 
 		</screen>
 	</section>
-	<section><title>nsswitch.conf</title>
-		<para>We need to update the <command>/etc/nsswitch.conf</command><indexterm><primary>/etc/nsswitch.conf</primary></indexterm> file now, so user group and host names can be resolved against the winbindd daemon.</para>
+</section>
+<section><title>wbinfo</title>
+	<section><title>user query</title>
+		<para>We can use <command>wbinfo -a</command> to verify authentication of a user against Active Directory. Assuming a user account <command>harry</command> with password <command>stargate</command> is just created on the Active Directory, we get the following screenshot.</para>
 		<screen>
-[root@RHEL4b samba]# vi /etc/nsswitch.conf 
-[root@RHEL4b samba]# grep winbindd /etc/nsswitch.conf 
-passwd:     files winbindd
-group:      files winbindd
-hosts:      files dns winbindd
-[root@RHEL4b samba]#
-		</screen>
-	</section>
-	<section><title>winbind</title>
-		<para>The <command>winbind</command><indexterm><primary>winbind</primary></indexterm> daemon is talking with the Active Directory domain. With <command>wbinfo</command><indexterm><primary>wbinfo(1)</primary></indexterm> you can provide winbindd with credentials to talk to Active Directory.</para>
-		<screen>[root@RHEL4b samba]# wbinfo --set-auth-user=Administrator%Stargate1</screen>
-		<para>We can also use <command>wbinfo -a</command> to verify authentication of a user against Active Directory. Assuming a user account Venus with password VenusW is just created on the Active Directory, we get the following screenshot. </para>
-		<screen>
-[root@RHEL4b samba]# wbinfo -a Venus%VenusW
-plaintext password authentication succeeded
+[root@RHEL52 samba]# wbinfo -a harry%stargate
+plaintext password authentication failed
+error code was NT_STATUS_NO_SUCH_USER (0xc0000064)
+error messsage was: No such user
+Could not authenticate user harry%stargate with plaintext password
 challenge/response password authentication succeeded
-[root@RHEL4b samba]# 
 		</screen>
-		<para>We can use <command>getent</command><indexterm><primary>getent(1)</primary></indexterm> to verify that winbindd is working and actually adding the Active directory users to /etc/passwd. The screenshot below shows that Kim and Serena are normal linux users in /etc/passwd, and that the Active Directory user Venus received uid 20000 in /etc/passwd.</para>
+		<para>We can use <command>getent</command><indexterm><primary>getent(1)</primary></indexterm> to verify that winbindd is working and actually adding the Active directory users to /etc/passwd. The screenshot below shows that Kim and Serena are normal Linux users in /etc/passwd, and that the Active Directory user Venus received uid 20000 in /etc/passwd.</para>
 		<screen>
 [root@RHEL4b samba]# getent passwd Kim
 Kim:x:504:504:Kim Clijsters:/home/Kim:/bin/bash
@@ -83,3 +115,4 @@ total 0
 -rwxr--r--  1 maria   20000 0 Jun 22 19:57 Maria.txt
 		</screen>
 	</section>
+</section>
