@@ -12,14 +12,20 @@ security = Domain
 		</screen>
 	</section>
 	<section><title>Linux uid's</title>
-	<para>Linux requires a user account for every user accessing its file system, we need to provide Samba with a range of uid's and gid's that it can use to create these user accounts. The first Active Directory user to connect will receive Linux uid 20000.</para>
+	<para>Linux requires a user account for every user accessing its file system, we need to provide Samba with a range of uid's and gid's that it can use to create these user accounts. The range is determined with the <command>idmap uid</command><indexterm><primary>idmap uid(smb.conf)</primary></indexterm> and the <command>idmap gid</command><indexterm><primary>idmap gid(smb.conf)</primary></indexterm> parameters. The first Active Directory user to connect will receive Linux uid 20000.</para>
 		<screen>
 idmap uid = 20000-22000
 idmap gid = 20000-22000
 		</screen>
 	</section>
+	<section><title>winbind use default domain</title>
+	<para>The <command>winbind use default domain</command><indexterm><primary>winbind(smb.conf)</primary></indexterm> parameter makes sure winbind also operates on users without a domain component in their name.</para>
+		<screen>
+winbind use default domain = yes
+		</screen>
+	</section>
 	<section><title>[global] section in smb.conf</title>
-		<para>Below is our new global section in smb.conf.</para>
+		<para>Below is our new global section in <command>smb.conf</command><indexterm><primary>/etc/samba/smb.conf</primary></indexterm>.</para>
 		<screen>
 [global]
  workgroup = STARGATE
@@ -27,9 +33,10 @@ idmap gid = 20000-22000
  server string = Stargate Domain Member Server
  idmap uid = 20000-22000
  idmap gid = 20000-22000
+ winbind use default domain = yes
 		</screen>
 	</section>
-	<section><title>[share] section</title>
+	<section><title>[share] section in smb.conf</title>
 		<para>Nothing special is required for the share section in smb.conf. Remember that we do not manually create users in smbpasswd or on the Linux (/etc/passwd). Only Active Directory users are allowed access.</para>
 		<screen>
 [domaindata]
@@ -77,42 +84,78 @@ Starting winbindd services:                                [  OK  ]
 	</section>
 </section>
 <section><title>wbinfo</title>
-	<section><title>user query</title>
-		<para>We can use <command>wbinfo -a</command> to verify authentication of a user against Active Directory. Assuming a user account <command>harry</command> with password <command>stargate</command> is just created on the Active Directory, we get the following screenshot.</para>
+	<section><title>verify the trust</title>
+		<para>You can use <command>wbinfo -t</command><indexterm><primary>wbinfo(1)</primary></indexterm> to verify the trust between your samba server and Active Directory.</para>
 		<screen>
-[root@RHEL52 samba]# wbinfo -a harry%stargate
-plaintext password authentication failed
-error code was NT_STATUS_NO_SUCH_USER (0xc0000064)
-error messsage was: No such user
-Could not authenticate user harry%stargate with plaintext password
-challenge/response password authentication succeeded
-		</screen>
-		<para>We can use <command>getent</command><indexterm><primary>getent(1)</primary></indexterm> to verify that winbindd is working and actually adding the Active directory users to /etc/passwd. The screenshot below shows that Kim and Serena are normal Linux users in /etc/passwd, and that the Active Directory user Venus received uid 20000 in /etc/passwd.</para>
-		<screen>
-[root@RHEL4b samba]# getent passwd Kim
-Kim:x:504:504:Kim Clijsters:/home/Kim:/bin/bash
-[root@RHEL4b samba]# getent passwd Serena
-Serena:x:503:503:Serena Williams:/home/Serena:/bin/bash
-[root@RHEL4b samba]# getent passwd Venus
-venus:*:20000:20000::/home/PEGASUS/venus:/bin/false
-		</screen>
-		<para>Not all Active Directory user accounts added to /etc/passwd by winbindd, only those that have been used.</para>
-		<screen>
-[root@RHEL4b samba]# getent passwd Justine
-[root@RHEL4b samba]# wbinfo -a Justine%JustineH
-plaintext password authentication succeeded
-challenge/response password authentication succeeded
-[root@RHEL4b samba]# getent passwd Justine
-justine:*:20001:20000::/home/PEGASUS/justine:/bin/false
-[root@RHEL4b samba]#
-		</screen>
-		<para>All the Active Directory users can now easily connect to the Samba share. Files created by them, belong to them. </para>
-		<screen>
-[root@RHEL4b samba]# ll /srv/samba/domaindata/
-total 0
--rwxr--r--  1 justine 20000 0 Jun 22 19:54 created_by_justine_on_winxp.txt
--rwxr--r--  1 venus   20000 0 Jun 22 19:55 created_by_venus.txt
--rwxr--r--  1 maria   20000 0 Jun 22 19:57 Maria.txt
+[root@RHEL52 ~]# wbinfo -t
+checking the trust secret via RPC calls succeeded
 		</screen>
 	</section>
+	<section><title>list all users</title>
+		<para>We can obtain a list of all user with the <command>wbinfo -u</command> command. The domain is not shown when the <command>winbind use default domain</command> parameter is set.</para>
+		<screen>
+[root@RHEL52 ~]# wbinfo -u
+TEACHER0\serena
+TEACHER0\justine
+TEACHER0\martina
+STARGATE\administrator
+STARGATE\guest
+STARGATE\support_388945a0
+STARGATE\pol
+STARGATE\krbtgt
+STARGATE\arthur
+STARGATE\harry
+		</screen>
+	</section>
+	<section><title>list all groups</title>
+		<para>We can obtain a list of all domain groups with the <command>wbinfo -g</command> command. The domain is not shown when the <command>winbind use default domain</command> parameter is set.</para>
+		<screen>
+[root@RHEL52 ~]# wbinfo -g
+BUILTIN\administrators
+BUILTIN\users
+BATMAN\domain computers
+BATMAN\domain controllers
+BATMAN\schema admins
+BATMAN\enterprise admins
+BATMAN\domain admins
+BATMAN\domain users
+BATMAN\domain guests
+BATMAN\group policy creator owners
+BATMAN\dnsupdateproxy
+		</screen>
+	</section>
+	<section><title>query a user</title>
+		<para>We can use <command>wbinfo -a</command><indexterm><primary>wbinfo(1)</primary></indexterm> to verify authentication of a user against Active Directory. Assuming a user account <command>harry</command> with password <command>stargate</command> is just created on the Active Directory, we get the following screenshot.</para>
+		<screen>
+[root@RHEL52 ~]# wbinfo -a harry%stargate
+plaintext password authentication succeeded
+challenge/response password authentication succeeded
+		</screen>
+	</section>
+</section>
+<section><title>getent</title>
+	<para>We can use <command>getent</command><indexterm><primary>getent(1)</primary></indexterm> to verify that winbindd is working and actually adding the Active directory users to /etc/passwd.</para>
+	<screen>
+[root@RHEL52 ~]# getent passwd harry
+harry:*:20000:20008:harry potter:/home/BATMAN/harry:/bin/false
+[root@RHEL52 ~]# getent passwd arthur
+arthur:*:20001:20008:arthur dent:/home/BATMAN/arthur:/bin/false
+[root@RHEL52 ~]# getent passwd bilbo
+bilbo:*:20002:20008:bilbo baggins:/home/BATMAN/bilbo:/bin/false
+	</screen>
+	<para>If the user already exists locally, then the local user account is shown. This is because winbind is configured in <command>/etc/nsswitch</command><indexterm><primary>/etc/nsswitch.conf</primary></indexterm> after <command>files</command>.</para>
+	<screen>
+[root@RHEL52 ~]# getent passwd paul
+paul:x:500:500:Paul Cobbaut:/home/paul:/bin/bash
+	</screen>
+	<para>All the Active Directory users can now easily connect to the Samba share. Files created by them, belong to them. </para>
+</section>
+<section><title>file ownership</title>
+	<screen>
+[root@RHEL4b samba]# ll /srv/samba/domaindata/
+total 0
+-rwxr--r--  1 justine 20000 0 Jun 22 19:54 create_by_justine_on_winxp.txt
+-rwxr--r--  1 venus   20000 0 Jun 22 19:55 create_by_venus.txt
+-rwxr--r--  1 maria   20000 0 Jun 22 19:57 Maria.txt
+	</screen>
 </section>
