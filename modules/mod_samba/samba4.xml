@@ -1,0 +1,76 @@
+<section><title>Samba 4 alpha 6</title>
+	<para>A quick view on Samba 4 alpha 6 (January 2009). You can also follow this guide http://wiki.samba.org/index.php/Samba4/HOWTO</para>
+	<para>Remove old Samba from Red Hat</para>
+	<screen>yum remove samba</screen>
+	<para>set a fix ip address (Red Hat has an easy GUI)</para>
+	<para>download and untar</para>
+	<screen>samba.org, click 'download info', choose mirror, dl samba4 latest alpha</screen>
+	<para>once untarred, enter the directory and read the howto4.txt</para>
+	<screen>cd samba-4.0.0alpha6/</screen>
+	<screen>more howto4.txt</screen>
+	<para>first we have to configure, compile and install samba4</para>
+	<screen>cd source4/</screen>
+	<screen>./configure</screen>
+	<screen>make</screen>
+	<screen>make install</screen>
+	<para>Then we can use the provision script to setup our realm. I used booi.schot as domain name (instead of example.com).</para>
+	<screen>
+./setup/provision --realm=BOOI.SCHOT --domain=BOOI --adminpass=stargate \
+--server-role='domain controller'
+	</screen>
+	<para>i added a simple share for testing</para>
+	<screen>vi /usr/local/samba/etc/smb.conf</screen>
+	<para>then i started samba</para>
+	<screen>cd /usr/local/samba/sbin/</screen>
+	<screen>./samba</screen>
+	<para>I tested with smbclient, it works</para>
+	<screen>smbclient //localhost/test -Uadministrator%stargate</screen>
+	<para>I checked that bind (and bind-chroot) were installed (yes), so copied the srv records</para>
+	<screen>cp booi.schot.zone /var/named/chroot/etc/</screen>
+	<para>then appended to named.conf</para>
+	<screen>cat named.conf >> /var/named/chroot/etc/named.conf</screen>
+	<para>I followed these steps in the howto4.txt</para>
+	<screen>
+vi /etc/init.d/named  [added two export lines right after start()]
+chmod a+r /usr/local/samba/private/dns.keytab 
+cp krb5.conf /etc/
+vi /var/named/chroot/etc/named.conf
+	--> remove a lot, but keep allow-update { any; };
+	</screen>
+	<para>restart bind (named!), then tested dns with dig, this works (stripped screenshot!)</para>
+	<screen>
+[root@RHEL52 private]# dig _ldap._tcp.dc._msdcs.booi.schot SRV @localhost
+
+; (1 server found)
+;; global options:  printcmd
+;; Got answer:
+;; -HEADER- opcode: QUERY, status: NXDOMAIN, id: 58186
+;; flags: qr rd ra; QUERY: 1, ANSWER: 0, AUTHORITY: 1, ADDITIONAL: 0
+
+;; QUESTION SECTION:
+;_ldap._tcp.dc._msdcs.booi.schot. IN	SRV
+
+;; AUTHORITY SECTION:
+.			10800	IN	SOA	A.ROOT-SERVERS.NET....
+
+;; Query time: 54 msec
+;; SERVER: 127.0.0.1#53(127.0.0.1)
+;; WHEN: Tue Jan 27 20:57:05 2009
+;; MSG SIZE  rcvd: 124
+
+[root@RHEL52 private]# 
+	</screen>
+	<para>made sure /etc/resolv.conf points to himself</para>
+	<screen>
+[root@RHEL52 private]# cat /etc/resolv.conf
+search booi.schot
+nameserver 127.0.0.1
+	</screen>
+	<para>start windows 2003 server, enter the samba4 as DNS!</para>
+	<para>ping the domain, if it doesn't work, then add your redhats hostname and your realm to windows/system32/drivers/etc/hosts</para>
+	<para>join the windows computer to the domain</para>
+	<para>reboot the windows</para>
+	<para>log on with administrator stargate</para>
+	<para>start run dsa.msc to manage samba4</para>
+	<para>create an OU, a user and a GPO, test that it works</para>
+</section>

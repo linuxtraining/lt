@@ -373,6 +373,13 @@ chapt_samba_domain_controller() {
 	}
 
 #
+chapt_samba4() {
+	MODULES=""
+	chaptitle="Samba 4"
+	add_mod mod_samba/samba4.xml
+	}
+
+#
 chapt_scheduling() {
 	MODULES=""
 	chaptitle="Scheduling"
