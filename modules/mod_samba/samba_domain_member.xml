@@ -36,6 +36,15 @@ winbind use default domain = yes
  winbind use default domain = yes
 		</screen>
 	</section>
+	<section><title>realm in /etc/krb5.conf</title>
+		<para>To connect to a Windows 2003 sp2 (or later) you will need to adjust the kerberos realm in <command>/etc/krb5.conf</command> and set both lookup statements to true.</para>
+		<screen>
+[libdefaults]
+ default_realm = STARGATE.LOCAL
+ dns_lookup_realm = true
+ dns_lookup_kdc = true
+		</screen>
+	</section>
 	<section><title>[share] section in smb.conf</title>
 		<para>Nothing special is required for the share section in smb.conf. Remember that we do not manually create users in smbpasswd or on the Linux (/etc/passwd). Only Active Directory users are allowed access.</para>
 		<screen>

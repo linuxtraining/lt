@@ -26,7 +26,6 @@
 		<screen>
 [football]
 	path = /srv/samba/football
-	comment = authenticated users only
 	read only = No
 	guest ok = No
 	read list = martina, roberto
@@ -36,11 +35,10 @@
 		<para>Even on a read only share, you can set a list of users that can write. Use the <command>write list</command><indexterm><primary>write list(samba)</primary></indexterm> parameter.</para>
 		<screen>
 [football]
-	path = /srv/samba/football
-	comment = authenticated users only
-	read only = No
+	path = /srv/samba/golf
+	read only = Yes
 	guest ok = No
-	read list = martina, roberto
+	write list = eddy, jan
 		</screen>
 	</section>
 </section>
