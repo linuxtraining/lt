@@ -143,7 +143,7 @@ arthur:*:20001:20008:arthur dent:/home/BATMAN/arthur:/bin/false
 [root@RHEL52 ~]# getent passwd bilbo
 bilbo:*:20002:20008:bilbo baggins:/home/BATMAN/bilbo:/bin/false
 	</screen>
-	<para>If the user already exists locally, then the local user account is shown. This is because winbind is configured in <command>/etc/nsswitch</command><indexterm><primary>/etc/nsswitch.conf</primary></indexterm> after <command>files</command>.</para>
+	<para>If the user already exists locally, then the local user account is shown. This is because winbind is configured in <command>/etc/nsswitch.conf</command><indexterm><primary>/etc/nsswitch.conf</primary></indexterm> after <command>files</command>.</para>
 	<screen>
 [root@RHEL52 ~]# getent passwd paul
 paul:x:500:500:Paul Cobbaut:/home/paul:/bin/bash

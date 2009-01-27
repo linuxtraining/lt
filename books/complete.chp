@@ -365,6 +365,14 @@ chapt_samba_domain_member() {
 	}
 
 #
+chapt_samba_domain_controller() {
+	MODULES=""
+	chaptitle="Samba Domain Controller"
+	add_mod mod_samba/samba_domain_controller.xml
+	add_mod mod_samba/samba_domain_controller_practice.xml
+	}
+
+#
 chapt_scheduling() {
 	MODULES=""
 	chaptitle="Scheduling"

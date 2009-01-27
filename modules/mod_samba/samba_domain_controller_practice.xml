@@ -1,0 +1,11 @@
+<section><title>Practice</title>
+	<para>1. Setup Samba as a domain controller.</para>
+	<para>2. Create the shares salesdata, salespresentations and meetings. Salesdata must be accessible to all sales people and to all managers. SalesPresentations is only for all sales people. Meetings is only accessible to all managers. Use groups to accomplish this.</para>
+	<para>3. Join a Microsoft computer to your domain. Verify the creation of a computer account in /etc/passwd.</para>
+	<para>4. Setup and verify the proper working of roaming profiles.</para>
+	<para>5. Find information about home directories for users, set them up and verify that users receive their home directory mapped under the H:-drive in MS Windows Explorer.</para>
+	<para>6. Use a couple of samba domain groups with members to set acls on ntfs. Verify that it works!</para>
+	<para>7. Knowing that the &#037;m variable contains the computername, create a seperate log file for every computer(account).</para>
+	<para>8. Knowing that &#037;s contains the client operating system, include a smb.&#037;s.conf file that contains a share. (The share will only be visible to clients with that OS).</para>
+	<para>9. If time permits (or if you are waiting for other students to finish this practice), then combine "valid users" and "invalid users" with groups and usernames with "hosts allow" and "hosts deny" and make a table of which get priority over which.</para>
+</section>
