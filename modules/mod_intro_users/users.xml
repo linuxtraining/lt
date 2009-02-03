@@ -38,7 +38,7 @@ yanina:x:529:529:yanina wickmayer:/home/yanina:/bin/bash
 		</screen>
 		<para>The user named yanina received userid 529 and <command>primary group</command><indexterm><primary>primary group</primary></indexterm> id 529.</para>
 	</section>
-	<section><title>default useradd options</title>	
+	<section><title>/etc/default/useradd</title>	
 		<para>Both Red Hat Enterprise Linux and Debian/Ubuntu have a file called <command>/etc/default/useradd</command><indexterm><primary>/etc/default/useradd</primary></indexterm> that contains some default user options. Besides using cat to display this file, you can also use <command>useradd -D</command><indexterm><primary>useradd -D</primary></indexterm>.</para>
 		<screen>
 [root@RHEL4 ~]# useradd -D

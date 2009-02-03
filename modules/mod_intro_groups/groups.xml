@@ -1,4 +1,4 @@
-<section><title>About Groups</title>
+<section><title>about groups</title>
 	<para>Users can be listed in groups. Groups allow you to set permissions on the group level instead of setting permissions for every individual users. Every Unix or Linux distribution will have a graphical tool to manage groups. Novice users are adviced to use this graphical tool. More experienced users can use commandline tools to manage users, but be careful: some distribution do not allow the mixed use of GUI and CLI tools to manage groups (YaST in Novell Suse). Senior administrators can edit the relevant files directly with vi or vigr.</para>
 </section>
 <section><title>groupadd</title>

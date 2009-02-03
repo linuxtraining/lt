@@ -1,4 +1,4 @@
-	<section><title>Practice Users</title>
+	<section><title>Practice: Users</title>
 		<para>1. Create the users Serena Williams, Venus Williams and Justine Henin. all of them with password set to stargate, with username (lowercase!) as their first name, and their full name in the comment. Verify that the users and their home directory are properly created.</para>
 		<para>2. Create a user called kornuser, give him the Korn shell (/bin/ksh) as his default shell. Log on with this user (on a command line or in a tty).</para>
 		<para>3. Create a user named Einstime without home directory, give him /bin/date as his default logon shell. What happens when you log on with this user ? Can you think of a useful real world example for changing a user's login shell to an application ?</para>

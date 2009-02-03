@@ -1,5 +1,5 @@
 <section><title>Run a program as another user</title>
-	<section><title>About sudo</title>
+	<section><title>about sudo</title>
 		<para>The sudo program allows a user to start a program with the credentials of another user. Before this works, the system administrator has to set up the <command>/etc/sudoers</command> file. This can be useful to delegate administrative tasks to another user (without giving the root password).</para>
 		<para>The screenshot below shows the usage of sudo. User paul received the right to run useradd with the credentials of root. This allows paul to create new users on the system without becoming root and without knowing the root password.</para>
 		<screen>

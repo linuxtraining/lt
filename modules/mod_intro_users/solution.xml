@@ -1,4 +1,4 @@
-	<section><title>Solutions to the practice</title>
+	<section><title>Solution: Users</title>
 		<para>1. Create the users Serena Williams, Venus Williams and Justine Henin. all of them with password set to stargate, with username (lowercase) as their first name, and their full name in the comment. Verify that the users and their home directory are properly created.</para>
 		<para>useradd -c "Serena Williams" serena ; passwd serena</para>
 		<para>useradd -c "Venus Williams" venus ; passwd venus</para>
