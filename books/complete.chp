@@ -250,6 +250,15 @@ chapt_more_bash() {
 	}
 
 #
+chapt_network_sniffing() {
+	MODULES=""
+	chaptitle="Introduction to Network Sniffing"
+	add_mod mod_network_sniffing/sniffing.xml  
+	add_mod mod_network_sniffing/practice.xml  
+	add_mod mod_network_sniffing/solution.xml  
+	}
+
+#
 chapt_network() {
 	MODULES=""
 	chaptitle="Introduction to Networking"

@@ -1,0 +1,46 @@
+<section><title>about sniffing</title>
+	<para>A good network administrator should be able to use a sniffer like <command>wireshark</command> or <command>tcpdump</command> to troubleshoot network problems.</para>
+	<para>A good student will often use a sniffer to learn about networking.</para>
+</section>
+<section><title>wireshark</title>
+	<section><title>installing wireshark</title>
+		<para>This example shows how to install <command>wireshark</command> on <command>.deb</command> based distributions like Ubuntu and Debian.</para>
+		<screen>aptitude install wireshark</screen>
+		<para>On <command>.rpm</command> based distributions you can use <command>yum</command> to install wireshark.</para>
+		<screen>yum install wireshark</screen>
+	</section>
+	<section><title>selecting interface</title>
+		<para>When you first fire up wireshark, you will need to select an interface to sniff. You will see a dialog box that looks similar to this. Choose the interface that you want to sniff.</para>
+		<para>
+	 		<mediaobject><imageobject><imagedata fileref="images/wireshark_capture_interfaces.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+		</para>
+		<para>On some distributions only root is allowed to sniff the network. You might need to use <command>sudo wireshark</command>.</para>
+	</section>
+	<section><title>start sniffing</title>
+		<para>In this example here, we sniffed a ping between two computers. The top pane shows that wireshark recognizes the icmp protocol, and captured all the ping packets between the two computers.</para>
+		<para>
+ 			<mediaobject><imageobject><imagedata fileref="images/wireshark_ping.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+		</para>
+	</section>
+	<section><title>looking inside packets</title>
+		<para>The middle can be expanded. When selecting a line in this panel, you can see the corresponding bytes in the frame in the bottom panel.</para>
+		<para>
+ 			<mediaobject><imageobject><imagedata fileref="images/wireshark_source_mac.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+		</para>
+	</section>
+	<section><title>use filters</title>
+		<para>You might get lost in too many packets. A quick solution to see only the packets that are of interest to you is to apply filters. When you type <command>arp</command> and click apply, you will only see <command>arp</command> packets displayed.</para>
+		<para>You can combine two protocols with a logical <command>or</command> between them. The example below shows how to filter only <command>arp</command> and <command>bootp</command> (or dhcp) packets.</para>
+		<para>
+ 			<mediaobject><imageobject><imagedata fileref="images/wireshark_arp_bootp.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+		</para>
+		<para>This example shows how to filter for <command>dns</command> traffic containing a certain <command>ip address</command>.</para>
+		<para>
+ 			<mediaobject><imageobject><imagedata fileref="images/wireshark_dns_ipaddress.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+		</para>
+	</section>
+</section>
+<section><title>tcpdump</title>
+	<para>to do</para>
+	<para></para>
+</section>
