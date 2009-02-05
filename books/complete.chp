@@ -262,7 +262,7 @@ chapt_network_sniffing() {
 chapt_network() {
 	MODULES=""
 	chaptitle="Introduction to Networking"
-	add_mod mod_network/lt_network.xml     
+	add_mod mod_network/intro_network.xml     
 	add_mod mod_network/about_tcpip.xml     
 	add_mod mod_network/using_tcpip.xml     
 	add_mod mod_network/multiple_ip.xml     
