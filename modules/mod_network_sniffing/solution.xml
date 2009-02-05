@@ -1,0 +1,12 @@
+	<section><title>Solution: network sniffing</title>
+		<para>1. Install wireshark on your computer (not inside a virtual machine).</para>
+		<screen>Debian/Ubuntu: aptitude install wireshark</screen>
+		<screen>Red Hat/Mandriva: yum install wireshark</screen>
+		<para>2. Start a ping between your computer and another computer.</para>
+		<screen>ping $ip_address</screen>
+		<para>3. Start sniffing the network.</para>
+		<screen>(sudo) wireshark</screen>
+		<screen>select an interface (probably eth0)</screen>
+		<para>4. Display only the ping echo's in the top pane using a filter.</para>
+		<screen>type 'icmp' (without quotes) in the filter box, and then click 'apply'</screen>
+	</section>
