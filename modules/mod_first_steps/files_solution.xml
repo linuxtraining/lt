@@ -29,9 +29,9 @@
 	<para>11. Create a directory &#126;/etcbackup and copy all *.conf files from /etc in it. Did you include all subdirectories of /etc ?</para>
 	<screen>cp -r /etc/*.conf &#126;/etcbackup</screen>
 	<screen>Only *.conf files that are directly in /etc/ are copied.</screen>
-	<para>12. Use rename to rename all *.bak files to *.backup . (if you have more than one distro available, try it on all!)</para>
-	<screen>On RHEL: touch 1.bak 2.bak ; rename bak backup *.bak</screen>
-	<screen>On Debian: touch 1.bak 2.bak ; rename 's/bak/backup/' *.bak</screen>
+	<para>12. Use rename to rename all *.conf files to *.backup . (if you have more than one distro available, try it on all!)</para>
+	<screen>On RHEL: touch 1.conf 2.conf ; rename conf backup *.conf</screen>
+	<screen>On Debian: touch 1.conf 2.conf ; rename 's/conf/backup/' *.conf</screen>
 	<para></para>
 	<para></para>
 	<para></para>

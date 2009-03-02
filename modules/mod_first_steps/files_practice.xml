@@ -13,7 +13,7 @@
 	<para>9. Create a directory called &#126;/testbackup and copy all files from &#126;/touched in it.</para>
 	<para>10. Use one command to remove the directory &#126;/testbackup and all files in it.</para>
 	<para>11. Create a directory &#126;/etcbackup and copy all *.conf files from /etc in it. Did you include all subdirectories of /etc ?</para>
-	<para>12. Use rename to rename all *.bak files to *.backup . (if you have more than one distro available, try it on all!)</para>
+	<para>12. Use rename to rename all *.conf files to *.backup . (if you have more than one distro available, try it on all!)</para>
 	<para></para>
 	<para></para>
 </section>
