@@ -1,7 +1,7 @@
-<section><title>Filesystem Hierarchy</title>
-	<para>On http://www.pathname.com/fhs/ we read "The filesystem hierarchy standard has been designed to be used by Unix distribution developers, package developers, and system implementors. However, it is primarily intended to be a reference and is not a tutorial on how to manage a Unix filesystem or directory hierarchy." Below we will discuss a couple of root directories. <emphasis>For a complete reference, you'll have to check with every developer and system administrator in the world ;-)</emphasis></para>
+<section><title>common directories</title>
+	<para>Below we will discuss the most common directories in alphabetical order.</para>
 	<section><title>/bin binaries</title>
-		<para>The <command>/bin</command><indexterm><primary>/bin</primary></indexterm> directory contains binaries for use by all users. According to the FHS /bin/date should exist, and /bin should contain /bin/cat. You will find a bin subdirectory in many other directories. Binaries are sometimes called <command>executables</command><indexterm><primary>executables</primary></indexterm>. In the screenshot below you see a lot of common unix commands like cat, cp, cpio, date, dd, echo, grep and so on. A lot of these will be covered in this book.</para>
+		<para>The <command>/bin</command><indexterm><primary>/bin</primary></indexterm> directory contains binaries for use by all users. According to the FHS /bin should contain <command>/bin/cat</command> and <command>/bin/date</command> (and many more). You will find a bin subdirectory in many other directories. Binaries are sometimes called <command>executables</command><indexterm><primary>executables</primary></indexterm>. In the screenshot below you see common Unix/Linux commands like cat, cp, cpio, date, dd, echo, grep and so on. A lot of these will be covered in this book.</para>
 <screen>
 paul@laika:~$ ls /bin
 archdetect       egrep             mt               setupcon
@@ -28,7 +28,7 @@ cat              kill              pidof            umount
 		</section>
 		<section><title>/dev device files</title>
 			<para>Device files in <command>/dev</command><indexterm><primary>/dev</primary></indexterm> appear to be ordinary files, but are not located on the harddisk. The /dev directory is populated with files when the kernel is recognizing hardware.</para>
-			<section><title>Common physical devices</title>
+			<section><title>common physical devices</title>
 				<para>Common hardware such as hard disk devices are represented by device files in <command>/dev</command>. Below a screenshot of SATA device files on a laptop and then IDE attached drives on a desktop. (The detailed meaning of these devices will be discussed later.)</para>
 				<screen>
 #
@@ -52,7 +52,7 @@ paul@barry:~$ ls /dev/hd*
 				<para>On Linux you will find special devices like <command>/dev/null</command><indexterm><primary>/dev/null</primary></indexterm> which can be considered a black hole, it has unlimited storage, but nothing can be retrieved from it. Technically speaking, anything given to /dev/null will be discarded. /dev/null can be useful to discard unwanted output from commands. <emphasis>/dev/null is not a good location to store all your backups ;-)</emphasis>.</para>
 			</section>
 		</section>
-		<section><title>/etc Configuration Files</title>
+		<section><title>/etc configuration files</title>
 			<para>All of the machine-specific configuration files should be located in <command>/etc</command><indexterm><primary>/etc</primary></indexterm>. Many times the name of a configuration files is the same as the application or daemon or protocol with .conf added as an extension. But there is much more to be found in /etc.</para>
 			<screen>
 paul@laika:~$ ls /etc/*.conf
@@ -72,20 +72,6 @@ paul@laika:~$
 			</screen>
 			<section><title>/etc/X11/</title>
 				<para>The graphical display (aka <command>X Window System</command><indexterm><primary>X Window System</primary></indexterm> or just <command>X</command><indexterm><primary>X</primary></indexterm>) is driven by software from the X.org foundation. The configuration file for your graphical display is <command>/etc/X11/xorg.conf</command><indexterm><primary>/etc/X11/xorg.conf</primary></indexterm>. </para>
-			</section>
-			<section><title>/etc/filesystems</title>
-				<para>When mounting a file system without specifying explicitly the file system, then <command>mount</command><indexterm><primary>mount</primary></indexterm> will first probe <command>/etc/filesystems</command><indexterm><primary>/etc/filesystems</primary></indexterm>. Mount will skip lines with the <command>nodev</command><indexterm><primary>nodev</primary></indexterm> directive, and should this file end with a single * on the last line, then mount will continue probing <command>/proc/filesystems</command><indexterm><primary>/proc/filesystems</primary></indexterm>.</para>
-				<screen>
-paul@RHELv4u4:~$ cat /etc/filesystems 
-ext3
-ext2
-nodev proc
-nodev devpts
-iso9660
-vfat
-hfs
-paul@RHELv4u4:~$
-				</screen>
 			</section>
 			<section><title>/etc/skel/</title>
 				<para>The <command>skeleton</command><indexterm><primary>skeleton</primary></indexterm> directory <command>/etc/skel</command><indexterm><primary>/etc/skel</primary></indexterm> is copied to the home directory of a newly created user. It usually contains hidden files like a <command>.bashrc</command> script.</para>
@@ -150,10 +136,10 @@ paul@laika:~$ ls /lib/libc*
 /lib/libcfont.so.0   /lib/libcom_err.so.2    /lib/libcrypt-2.5.so      
 			</screen>
 			<section><title>/lib/modules</title>
-				<para>Typically, the kernel loads kernel modules from <command>/lib/modules</command><indexterm><primary>/lib/modules</primary></indexterm>. </para>
+				<para>Typically, the kernel loads kernel modules from <command>/lib/modules/$kernel-version</command><indexterm><primary>/lib/modules</primary></indexterm>. This directory is discussed in detail in the Linux kernel chapter.</para>
 			</section>
 			<section><title>/lib32 and /lib64</title>
-				<para>We are now (the year 2007) in a transition between 32-bit and 64-bit systems. So you might encounter directories named <command>/lib32</command><indexterm><primary>/lib32</primary></indexterm> and <command>/lib64</command><indexterm><primary>/lib64</primary></indexterm>, to clarify the register size used at compilation time of the libraries. My current 64-bit laptop has some older 32-bit binaries and libraries for compatibility with legacy applications. The screenshot uses the <command>file</command><indexterm><primary>file(1)</primary></indexterm> utility to point out the difference.</para>
+				<para>We are now in a transition between 32-bit and 64-bit systems. So you might encounter directories named <command>/lib32</command><indexterm><primary>/lib32</primary></indexterm> and <command>/lib64</command><indexterm><primary>/lib64</primary></indexterm>, to clarify the register size used at compilation time of the libraries. My current 64-bit laptop has some older 32-bit binaries and libraries for compatibility with legacy applications. The screenshot uses the <command>file</command><indexterm><primary>file(1)</primary></indexterm> utility to point out the difference.</para>
 				<screen>
 paul@laika:~$ file /lib32/libc-2.5.so 
 /lib32/libc-2.5.so: ELF 32-bit LSB shared object, Intel 80386, \
@@ -165,17 +151,17 @@ version 1 (SYSV), stripped
 				<para>The ELF <command>Executable and Linkable Format</command><indexterm><primary>ELF</primary></indexterm> is used in almost every Unix-like operating system since System V.</para>
 			</section>
 		</section>
-		<section><title>/media for Removable Media</title>
-			<para>The <command>/media</command><indexterm><primary>/media</primary></indexterm> directory serves as a mount point for removable media, meaning devices such as CD-ROM's, digital cameras and various usb-attached devices. Since <command>/media</command> is rather new in the Unix world, you could very well encounter systems running without this directory. Solaris 9 does not have it, Solaris 10 does.</para>
+		<section><title>/media for removable media</title>
+			<para>The <command>/media</command><indexterm><primary>/media</primary></indexterm> directory serves as a mount point for removable media, meaning devices such as CD-ROM's, digital cameras and various usb-attached devices. Since <command>/media</command> is rather new in the Unix world, you could very well encounter systems running without this directory. Solaris 9 does not have it, Solaris 10 does. Most Linux distributions today mount all removable media in <command>/media</command>.</para>
 			<screen>
 paul@laika:~$ ls /media/
 cdrom  cdrom0  usbdisk
 			</screen>
 		</section>
 		<section><title>/mnt standard mount point</title>
-			<para>Older Unixes (and Linuxes) used to mount all kind of stuff under /mnt/something/. According to the FHS, <command>/mnt</command><indexterm><primary>/mnt</primary></indexterm> should only be used to temporarily mount something. But you will most likely witness a lot of systems with more than one directory underneath /mnt used as a mountpoint for various local and remote filesystems.</para>
+			<para>Unix and Linux administrators used to mount all kind of stuff under /mnt/something/. According to the FHS, <command>/mnt</command><indexterm><primary>/mnt</primary></indexterm> should only be used to temporarily mount something. But you will most likely witness a lot of systems with more than one directory underneath /mnt used as a mountpoint for various local and remote filesystems.</para>
 		</section>
-		<section><title>/opt Optional software</title>
+		<section><title>/opt optional software</title>
 			<para>Most of my systems today have an empty <command>/opt</command><indexterm><primary>/opt</primary></indexterm> directory. It is considered outdated, but you might find some systems with add-on software installed in /opt. If that is the case, the package should install all its files in the typical bin, lib, etc subdirectories in /opt/$packagename/. If for example the package is called wp, then it installs in /opt/wp, putting binaries in /opt/wp/bin and manpages in /opt/wp/man. Most of the default software which comes along with the distribution, will not be installed in /opt.</para>
 		</section>
 		<section><title>/proc conversation with the kernel</title>
@@ -291,13 +277,6 @@ platform        : PS3
 machine         : PS3 
 			</screen>
 			<para>Most of the files in /proc are read only, some require root privileges. But some files are writable, a lot of files in <command>/proc/sys</command><indexterm><primary>/proc/sys</primary></indexterm> are writable. Let's discuss some of the files in /proc.</para>
-			<section><title>/proc/cmdline</title>
-				<para>The parameters that were passed to the kernel at boot time are in <command>/proc/cmdline</command><indexterm><primary>/proc/cmdline</primary></indexterm>.</para>
-				<screen>
-paul@RHELv4u4:~$ cat /proc/cmdline 
-ro root=/dev/VolGroup00/LogVol00 rhgb quiet
-				</screen>
-			</section>
 			<section><title>/proc/filesystems</title>
 				<para>The <command>/proc/filesystems</command><indexterm><primary>/proc/filesystems</primary></indexterm> file displays a list of supported file systems. When you mount a file system without explicitly defining one, then mount will first try to probe <command>/etc/filesystems</command><indexterm><primary>/etc/filesystems</primary></indexterm> and then probe <command>/proc/filesystems</command> for all the filesystems in there without the <command>nodev</command><indexterm><primary>nodev</primary></indexterm> label. If /etc/filesystems ends with a line containing nothing but a *, then both files are probed.</para> 
 				<screen>
@@ -381,131 +360,6 @@ paul@laika:~$ ls -lh /proc/kcore
 paul@laika:~$ 
 				</screen>
 			</section>
-			<section><title>/proc/mdstat</title>
-				<para>You can obtain RAID information from the kernel by displaying <command>/proc/mdstat</command><indexterm><primary>/proc/mdstat</primary></indexterm>. With a RAID configured, it looks like this.</para>
-				<screen>
-paul@RHELv4u2:~$ cat /proc/mdstat 
-Personalities : [raid5] 
-md0 : active raid5 sdd1[2] sdc1[1] sdb1[0]
-      2088192 blocks level 5, 64k chunk, algorithm 2 [3/3] [UUU]
-      
-unused devices: &#060;none&#062;
-paul@RHELv4u2:~$ 
-				</screen>
-				<para>When there is no RAID present, the following is displayed.</para>
-				<screen>
-paul@RHELv4u4:~$ cat /proc/mdstat 
-Personalities : 
-unused devices: &#060;none&#062;
-paul@RHELv4u4:~$ 
-				</screen>
-			</section>
-			<section><title>/proc/meminfo</title>
-				<para>You will rarely want to look at <command>/proc/meminfo</command><indexterm><primary>/proc/meminfo</primary></indexterm>...</para>
-			<screen>
-paul@RHELv4u4:~$ cat /proc/meminfo 
-MemTotal:       255864 kB
-MemFree:          5336 kB
-Buffers:         42396 kB
-Cached:         159912 kB
-SwapCached:          0 kB
-Active:         104184 kB
-Inactive:       119724 kB
-HighTotal:           0 kB
-HighFree:            0 kB
-LowTotal:       255864 kB
-LowFree:          5336 kB
-SwapTotal:     1048568 kB
-SwapFree:      1048568 kB
-Dirty:              40 kB
-Writeback:           0 kB
-Mapped:          33644 kB
-Slab:            21956 kB
-CommitLimit:   1176500 kB
-Committed_AS:    82984 kB
-PageTables:        960 kB
-VmallocTotal:   761848 kB
-VmallocUsed:      2588 kB
-VmallocChunk:   759096 kB
-HugePages_Total:     0
-HugePages_Free:      0
-Hugepagesize:     4096 kB
-				</screen>
-				<para> ...since the <command>free</command><indexterm><primary>free(1)</primary></indexterm> command displays the same information in a more user friendly output.</para>
-				<screen>
-paul@RHELv4u4:~$ free -om
-           total      used      free    shared   buffers    cached
-Mem:         249       244         5         0        41       156
-Swap:       1023         0      1023
-paul@RHELv4u4:~$ 
-				</screen>
-			</section>
-			<section><title>/proc/modules</title>
-				<para><command>/proc/modules</command><indexterm><primary>/proc/modules</primary></indexterm> lists all modules loaded by the kernel. The output would be too long to display here, so lets <command>grep</command><indexterm><primary>grep</primary></indexterm> for a few. First vm (from Vmware), which tells us that vmmon and vmnet are both loaded. You can display the same information with <command>lsmod</command><indexterm><primary>lsmod</primary></indexterm>. </para>
-				<screen>
-paul@laika:~$ cat /proc/modules | grep vm
-vmnet 36896 13 - Live 0xffffffff88b21000 (P)
-vmmon 194540 0 - Live 0xffffffff88af0000 (P)
-paul@laika:~$ lsmod | grep vm
-vmnet                  36896  13 
-vmmon                 194540  0 
-paul@laika:~$ 
-				</screen>
-				<para>Some modules depend on others. In the following example, you can see that the nfsd module is used by exportfs, lockd and sunrpc. </para>
-				<screen>
-paul@laika:~$ cat /proc/modules | grep nfsd
-nfsd 267432 17 - Live 0xffffffff88a40000
-exportfs 7808 1 nfsd, Live 0xffffffff88a3d000
-lockd 73520 3 nfs,nfsd, Live 0xffffffff88a2a000
-sunrpc 185032 12 nfs,nfsd,lockd, Live 0xffffffff889fb000
-paul@laika:~$ lsmod | grep nfsd
-nfsd                  267432  17 
-exportfs                7808  1 nfsd
-lockd                  73520  3 nfs,nfsd
-sunrpc                185032  12 nfs,nfsd,lockd
-paul@laika:~$ 
-				</screen>
-			</section>
-			<section><title>/proc/mounts</title>
-				<para>Like the <command>mount</command><indexterm><primary>mount</primary></indexterm> command and the <command>/etc/mtab</command><indexterm><primary>/etc/mtab</primary></indexterm> file, <command>/proc/mounts</command><indexterm><primary>/proc/mounts</primary></indexterm> lists all the mounted file systems. But /proc/mounts displays what the kernel sees, so it is always up to date and correct. You see the device, mount point, file system, read-only or read-write and two zero's.</para>
-				<screen>
-paul@RHELv4u4:~$ cat /proc/mounts 
-rootfs / rootfs rw 0 0
-/proc /proc proc rw,nodiratime 0 0
-none /dev tmpfs rw 0 0
-/dev/root / ext3 rw 0 0
-none /dev tmpfs rw 0 0
-none /selinux selinuxfs rw 0 0
-/proc /proc proc rw,nodiratime 0 0
-/proc/bus/usb /proc/bus/usb usbfs rw 0 0
-/sys /sys sysfs rw 0 0
-none /dev/pts devpts rw 0 0
-/dev/sda1 /boot ext3 rw 0 0
-none /dev/shm tmpfs rw 0 0
-none /proc/sys/fs/binfmt_misc binfmt_misc rw 0 0
-sunrpc /var/lib/nfs/rpc_pipefs rpc_pipefs rw 0 0
-paul@RHELv4u4:~$ 
-				</screen>
-			</section>
-			<section><title>/proc/partitions</title>
-				<para>The <command>/proc/partitions</command><indexterm><primary>/proc/partitions</primary></indexterm> file contains a table with major and minor number of partitioned devices, their number of blocks and the device name in <command>/dev</command><indexterm><primary>/dev</primary></indexterm>. Verify with <command>/proc/devices</command><indexterm><primary>/proc/devices</primary></indexterm> to link the major number to the proper device.</para>
-				<screen>
-paul@RHELv4u4:~$ cat /proc/partitions 
-major minor  #blocks  name
-
-   3     0     524288 hda
-   3    64     734003 hdb
-   8     0    8388608 sda
-   8     1     104391 sda1
-   8     2    8281507 sda2
-   8    16    1048576 sdb
-   8    32    1048576 sdc
-   8    48    1048576 sdd
- 253     0    7176192 dm-0
- 253     1    1048576 dm-1
-paul@RHELv4u4:~$ 
-				</screen>
-			</section>
 			<section><title>/proc/swaps</title>
 				<para>You can find information about <command>swap partition(s)</command><indexterm><primary>swap partition(s)</primary></indexterm> in <command>/proc/swaps</command><indexterm><primary>/proc/swaps</primary></indexterm>.</para>
 				<screen>paul@RHELv4u4:~$ cat /proc/swaps 
@@ -559,7 +413,7 @@ paul@RHELv4u4:~$
 		<section><title>/tmp for temporary files</title>
 			<para>When applications (or Users) need to store temporary data, they should use <command>/tmp</command><indexterm><primary>/tmp</primary></indexterm>. /tmp might take up diskspace, then again, it might also not (as in being mounted inside RAM memory). In any case, files in /tmp can be cleared by the operating system. Never use /tmp to store data that you want to archive.</para>
 		</section>
-		<section><title>/usr Unix System Resources</title>
+		<section><title>/usr Unix system resources</title>
 			<para>Although <command>/usr</command><indexterm><primary>/usr</primary></indexterm> is pronounced like user, never forget that it stands for Unix System Resources. The /usr hierarchy should contain <command>sharable, read only</command> data. Some people even choose to mount /usr as read only. This can be done from its own partition, or from a read only NFS share.</para>
 		</section>
 		<section><title>/var variable data</title>

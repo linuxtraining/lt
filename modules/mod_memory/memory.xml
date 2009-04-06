@@ -1,6 +1,46 @@
 <section><title>About Memory</title>
 	<para>You can display information about RAM memory with <command>free -om</command><indexterm><primary>free(1)</primary></indexterm>, <command>top</command><indexterm><primary>top(1)</primary></indexterm> and cat <command>/proc/meminfo</command><indexterm><primary>/proc/meminfo</primary></indexterm>. You should understand terms like <command>swapping</command><indexterm><primary>swapping</primary></indexterm>, <command>paging</command><indexterm><primary>paging</primary></indexterm> and <command>virtual memory</command><indexterm><primary>virtual memory</primary></indexterm>.</para>
 </section>
+			<section><title>/proc/meminfo</title>
+				<para>You will rarely want to look at <command>/proc/meminfo</command><indexterm><primary>/proc/meminfo</primary></indexterm>...</para>
+			<screen>
+paul@RHELv4u4:~$ cat /proc/meminfo 
+MemTotal:       255864 kB
+MemFree:          5336 kB
+Buffers:         42396 kB
+Cached:         159912 kB
+SwapCached:          0 kB
+Active:         104184 kB
+Inactive:       119724 kB
+HighTotal:           0 kB
+HighFree:            0 kB
+LowTotal:       255864 kB
+LowFree:          5336 kB
+SwapTotal:     1048568 kB
+SwapFree:      1048568 kB
+Dirty:              40 kB
+Writeback:           0 kB
+Mapped:          33644 kB
+Slab:            21956 kB
+CommitLimit:   1176500 kB
+Committed_AS:    82984 kB
+PageTables:        960 kB
+VmallocTotal:   761848 kB
+VmallocUsed:      2588 kB
+VmallocChunk:   759096 kB
+HugePages_Total:     0
+HugePages_Free:      0
+Hugepagesize:     4096 kB
+				</screen>
+				<para> ...since the <command>free</command><indexterm><primary>free(1)</primary></indexterm> command displays the same information in a more user friendly output.</para>
+				<screen>
+paul@RHELv4u4:~$ free -om
+           total      used      free    shared   buffers    cached
+Mem:         249       244         5         0        41       156
+Swap:       1023         0      1023
+paul@RHELv4u4:~$ 
+				</screen>
+			</section>
         <section><title>Swap space</title>
 		<section><title>About swap space</title>
 			<para>When the operating system needs more memory than physically present in RAM, it will use <command>swap space</command><indexterm><primary>swap space</primary></indexterm>. Swap space is located on slower but cheaper memory. Notice that, although hard disks are commonly used for swap space, their access times are one hundred thousand times slower.</para>

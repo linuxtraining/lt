@@ -33,14 +33,32 @@ l2cap                  29505  10 hidp,rfcomm
 	</screen>
 </section>
 <section><title>/proc/modules</title>
-	<para>Naturally, the same information is present in <command>/proc/modules</command><indexterm><primary>/proc/modules</primary></indexterm>. Actually <command>lsmod</command> only reads and reformats the output of /proc/modules.</para>
+	<para><command>/proc/modules</command><indexterm><primary>/proc/modules</primary></indexterm> lists all modules loaded by the kernel. The output would be too long to display here, so lets <command>grep</command><indexterm><primary>grep</primary></indexterm> for the <command>vm</command> module.</para>
+	<para>We see that vmmon and vmnet are both loaded. You can display the same information with <command>lsmod</command><indexterm><primary>lsmod</primary></indexterm>. Actually <command>lsmod</command> only reads and reformats the output of <command>/proc/modules</command>.</para>
 	<screen>
-[root@RHEL52 ~]# head -5 /proc/modules
-autofs4 24517 2 - Live 0xe09bd000
-hidp 23105 2 - Live 0xe09d3000
-rfcomm 42457 0 - Live 0xe0ac1000
-l2cap 29505 10 hidp,rfcomm, Live 0xe0ab8000
-bluetooth 53797 5 hidp,rfcomm,l2cap, Live 0xe09e4000
+paul@laika:~$ cat /proc/modules | grep vm
+vmnet 36896 13 - Live 0xffffffff88b21000 (P)
+vmmon 194540 0 - Live 0xffffffff88af0000 (P)
+paul@laika:~$ lsmod | grep vm
+vmnet                  36896  13 
+vmmon                 194540  0 
+paul@laika:~$ 
+	</screen>
+</section>
+<section><title>module dependencies</title>
+	<para>Some modules depend on others. In the following example, you can see that the nfsd module is used by exportfs, lockd and sunrpc. </para>
+	<screen>
+paul@laika:~$ cat /proc/modules | grep nfsd
+nfsd 267432 17 - Live 0xffffffff88a40000
+exportfs 7808 1 nfsd, Live 0xffffffff88a3d000
+lockd 73520 3 nfs,nfsd, Live 0xffffffff88a2a000
+sunrpc 185032 12 nfs,nfsd,lockd, Live 0xffffffff889fb000
+paul@laika:~$ lsmod | grep nfsd
+nfsd                  267432  17 
+exportfs                7808  1 nfsd
+lockd                  73520  3 nfs,nfsd
+sunrpc                185032  12 nfs,nfsd,lockd
+paul@laika:~$ 
 	</screen>
 </section>
 <section><title>insmod</title>

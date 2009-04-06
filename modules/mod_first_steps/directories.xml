@@ -63,10 +63,11 @@ paul@laika$ cd -
 /etc
  			</screen>
 		</section>
-		<section><title>absolute and relative paths</title>
-			<para>You should be aware of <command>absolute and relative paths</command><indexterm><primary>absolute and relative paths</primary></indexterm> in the filetree. When you type a path starting with a slash, then the root of the filetree is assumed. If you don't start your path with a slash, then the current directory is the assumed starting point.</para>
-			<para>The screenshot below first shows the current directory (/home/paul). From within this directory, you have to type <command>cd /home</command> instead of <command>cd home</command> to go to the /home directory.</para>
-			<screen>
+	</section>
+	<section><title>absolute and relative paths</title>
+		<para>You should be aware of <command>absolute and relative paths</command><indexterm><primary>absolute and relative paths</primary></indexterm> in the filetree. When you type a path starting with a slash, then the root of the filetree is assumed. If you don't start your path with a slash, then the current directory is the assumed starting point.</para>
+		<para>The screenshot below first shows the current directory (/home/paul). From within this directory, you have to type <command>cd /home</command> instead of <command>cd home</command> to go to the /home directory.</para>
+		<screen>
 paul@laika$ pwd
 /home/paul
 paul@laika$ cd home
@@ -74,9 +75,9 @@ bash: cd: home: No such file or directory
 paul@laika$ cd /home
 paul@laika$ pwd
 /home
-			</screen>
-			<para>When inside /home, you have to type <command>cd paul</command> instead of <command>cd /paul</command> to enter the subdirectory paul of the current directory /home.</para>
-			<screen>
+		</screen>
+		<para>When inside /home, you have to type <command>cd paul</command> instead of <command>cd /paul</command> to enter the subdirectory paul of the current directory /home.</para>
+		<screen>
 paul@laika$ pwd
 /home
 paul@laika$ cd /paul
@@ -84,9 +85,9 @@ bash: cd: /paul: No such file or directory
 paul@laika$ cd paul
 paul@laika$ pwd
 /home/paul
-			</screen>
-			<para>In case your current directory is the root directory, then both <command>cd /home</command> and <command>cd home</command> will get you in the /home directory.</para>
-			<screen>
+		</screen>
+		<para>In case your current directory is the root directory, then both <command>cd /home</command> and <command>cd home</command> will get you in the /home directory.</para>
+		<screen>
 paul@laika$ cd /
 paul@laika$ pwd
 /
@@ -99,9 +100,12 @@ paul@laika$ pwd
 paul@laika$ cd /home 
 paul@laika$ pwd
 /home
-			</screen>
-			<para>This was the last screenshot with pwd statements. From now on, the current directory will often be displayed in the prompt. We will explain later in this book, how the shell variable $PS1 can be configured to do this.</para>
-		</section>
+		</screen>
+		<para>This was the last screenshot with pwd statements. From now on, the current directory will often be displayed in the prompt. We will explain later in this book, how the shell variable $PS1 can be configured to do this.</para>
+	</section>
+	<section><title>path completion</title>
+		<para>The <command>tab key</command><indexterm><primary>tab key</primary></indexterm> can help you in typing a path without errors. Typing <command>cd /et</command> followed by the tab key will expand the command line to <command>cd /etc/</command>. When typing <command>cd /Et</command> followed by the tab key, nothing will happen because you typed the wrong path (uppercase E).</para>
+		<para>You will need less key strokes when using the tab key, and you will be sure your typed path is correct!</para>
 	</section>
 	<section><title>ls</title>
 		<para>You can list the contents of a directory with <command>ls</command><indexterm><primary>ls(1)</primary></indexterm>.</para>

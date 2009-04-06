@@ -58,6 +58,49 @@ none                    /sys              sysfs   defaults        0 0
 server12:/mnt/data/iso   /home/iso            nfs     defaults    0 0
 		</screen>
 	</section>
+	<section><title>/etc/filesystems</title>
+		<para>When mounting a file system without specifying explicitly the file system, then <command>mount</command><indexterm><primary>mount</primary></indexterm> will first probe <command>/etc/filesystems</command><indexterm><primary>/etc/filesystems</primary></indexterm>. Mount will skip lines with the <command>nodev</command><indexterm><primary>nodev</primary></indexterm> directive.</para>
+		<screen>
+paul@RHELv4u4:~$ cat /etc/filesystems 
+ext3
+ext2
+nodev proc
+nodev devpts
+iso9660
+vfat
+hfs
+paul@RHELv4u4:~$
+		</screen>
+	</section>
+	<section><title>/proc/filesystems</title>
+		<para>When <command>/etc/filesystems</command> ends with a single * on the last line, then mount will continue probing <command>/proc/filesystems</command><indexterm><primary>/proc/filesystems</primary></indexterm>.</para>
+		<screen>
+[root@RHEL52 ~]# cat /proc/filesystems | grep -v ^nodev
+	ext2
+	iso9660
+	ext3
+		</screen>
+	</section>
+	<section><title>/proc/mounts</title>
+		<para>Like the <command>mount</command><indexterm><primary>mount</primary></indexterm> command and the <command>/etc/mtab</command><indexterm><primary>/etc/mtab</primary></indexterm> file, <command>/proc/mounts</command><indexterm><primary>/proc/mounts</primary></indexterm> lists all the mounted file systems. But /proc/mounts displays what the kernel sees, so it is always up to date and correct. You see the device, mount point, file system, read-only or read-write and two zero's.</para>
+		<screen>
+paul@RHELv4u4:~$ cat /proc/mounts 
+rootfs / rootfs rw 0 0
+/proc /proc proc rw,nodiratime 0 0
+none /dev tmpfs rw 0 0
+/dev/root / ext3 rw 0 0
+none /dev tmpfs rw 0 0
+none /selinux selinuxfs rw 0 0
+/proc /proc proc rw,nodiratime 0 0
+/proc/bus/usb /proc/bus/usb usbfs rw 0 0
+/sys /sys sysfs rw 0 0
+none /dev/pts devpts rw 0 0
+/dev/sda1 /boot ext3 rw 0 0
+none /dev/shm tmpfs rw 0 0
+none /proc/sys/fs/binfmt_misc binfmt_misc rw 0 0
+sunrpc /var/lib/nfs/rpc_pipefs rpc_pipefs rw 0 0
+		</screen>
+	</section>
         <section><title>Disk Usage (du)</title>
                 <para>The <command>du</command><indexterm><primary>du(1)</primary></indexterm> command can summarize disk usage for files and directories. Preventing du to go into subdirectories with the -s option will give you a total for that directory. This option is often used together with -h, so <command>du -sh</command> on a mount point gives the total amount used in that partition.</para>
                 <screen>

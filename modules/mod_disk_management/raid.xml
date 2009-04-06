@@ -164,8 +164,8 @@ Disk /dev/md0 doesn't contain a valid partition table
 		<para>We will use this software RAID 5 array in the next topic, LVM.</para>
 	</section>
 	<section><title>/proc/mdstat</title>
-	<para>The status of the raid devices can be seen in <command>/proc/mdstat</command><indexterm><primary>/proc/mdstat</primary></indexterm>. This example shows a RAID 5 in the process of rebuilding.</para>
-	<screen>
+		<para>The status of the raid devices can be seen in <command>/proc/mdstat</command><indexterm><primary>/proc/mdstat</primary></indexterm>. This example shows a RAID 5 in the process of rebuilding.</para>
+		<screen>
 [root@RHEL5 ~]# cat /proc/mdstat 
 Personalities : [raid6] [raid5] [raid4] 
 md0 : active raid5 sdg1[3] sdf1[1] sde1[0]
@@ -174,16 +174,23 @@ md0 : active raid5 sdg1[3] sdf1[1] sde1[0]
 =0.0min speed=25791K/sec
       
 unused devices: &#062;none&#060;
-	</screen>
-	<para>This example shows an active software RAID 5.</para>
-	<screen>
+		</screen>
+		<para>This example shows an active software RAID 5.</para>
+		<screen>
 [root@RHEL5 ~]# cat /proc/mdstat 
 Personalities : [raid6] [raid5] [raid4] 
 md0 : active raid5 sdg1[2] sdf1[1] sde1[0]
       1677056 blocks level 5, 64k chunk, algorithm 2 [3/3] [UUU]
       
 unused devices: &#062;none&#060;
-	</screen>
+		</screen>
+		<para>When there is no software RAID present, the following is displayed.</para>
+		<screen>
+paul@RHELv4u4:~$ cat /proc/mdstat 
+Personalities : 
+unused devices: &#060;none&#062;
+paul@RHELv4u4:~$ 
+		</screen>
 	</section>
 	<section><title>Removing a software RAID</title>
 		<para>The software raid is visible in /proc/mdstat when active. To remove the raid completely so you can use the disks for other purposes, you first have to stop (de-activate) it with mdadm.</para>

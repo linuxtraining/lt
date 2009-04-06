@@ -34,6 +34,24 @@
 </tgroup>
 </table>
 	</section>
+	<section><title>/proc/partitions</title>
+		<para>The <command>/proc/partitions</command><indexterm><primary>/proc/partitions</primary></indexterm> file contains a table with major and minor number of partitioned devices, their number of blocks and the device name in <command>/dev</command><indexterm><primary>/dev</primary></indexterm>. Verify with <command>/proc/devices</command><indexterm><primary>/proc/devices</primary></indexterm> to link the major number to the proper device.</para>
+		<screen>
+paul@RHELv4u4:~$ cat /proc/partitions 
+major minor  #blocks  name
+
+   3     0     524288 hda
+   3    64     734003 hdb
+   8     0    8388608 sda
+   8     1     104391 sda1
+   8     2    8281507 sda2
+   8    16    1048576 sdb
+   8    32    1048576 sdc
+   8    48    1048576 sdd
+ 253     0    7176192 dm-0
+ 253     1    1048576 dm-1
+		</screen>
+	</section>
 	<section><title>fdisk -l</title>
 		<para>In the <command>fdisk -l</command><indexterm><primary>fdisk(1)</primary></indexterm> example below you can see that two partitions exist on /dev/sdb2. The first partition spans 31 cylinders and contains a Linux swap partition. The second partition is much bigger.</para>
 		<screen>

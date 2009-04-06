@@ -16,4 +16,18 @@ paul@laika:~$ uname -r
 2.6.18-92.1.17.el5
 		</screen>
 	</section>
+	<section><title>/proc/cmdline</title>
+		<para>The parameters that were passed to the kernel at boot time are in <command>/proc/cmdline</command><indexterm><primary>/proc/cmdline</primary></indexterm>.</para>
+		<screen>
+paul@RHELv4u4:~$ cat /proc/cmdline 
+ro root=/dev/VolGroup00/LogVol00 rhgb quiet
+		</screen>
+	</section>
+	<section><title>single user mode</title>
+		<para>When booting the kernel with the <command>single</command> parameter, it starts in <command>single user mode</command><indexterm><primary>single user mode (kernel)</primary></indexterm>. Linux can start in a bash shell with the <command>root</command> user logged on (without password).</para>
+		<para>Some distributions prevent the use of this feature (at kernel compile time).</para>
+	</section>
+	<section><title>init=/bin/bash</title>
+		<para>Normally the kernel invokes <command>init</command> as the first daemon process. Adding <command>init=/bin/bash</command> to the kernel parameters will instead invoke bash (again with root logged on without providing a password).</para>
+	</section>
 </section>
