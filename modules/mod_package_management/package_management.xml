@@ -1,10 +1,22 @@
-<section><title>About repositories</title>
-	<para>Software for your Linux distribution is not scattered all over the place, it is in general managed in a central distributed repository. This means that applications in the repository are tested for your distribution. Installing this software is very easy. The problem begins when you need software from outside of the central repository.</para>
-	<para>You can install software from the repository on Linux in different ways. Beginners should use the graphical software installation tool that is provided by the distribution (Synaptic on Debian, Add/Remove Software on Ubuntu, Yast on Suse, ...). More advanced people tend to use the command line (rpm, yum, dpkg, aptitude). A third option is to download vanilla source code and compile the software yourself, providing the application is open source.</para>
+<section><title>Terminology</title>
+	<section><title>repositories</title>
+		<para>Most software for your Linux distribution is available in a central distributed repository. This means that applications in the repository are tested for your distribution and very easy to install with a GUI or command line installer.</para>
+		<para>The GUI is available via the standard menu (look for Add/Remove Software). The command line is explained below in detail.</para>
+	</section>
+	<section><title>RPM based</title>
+		<para>Red Hat, Fedora, OpenSUSE, Mandriva, Red Flag and others use <command>.rpm</command> packages. The tool to manage software here is called <command>yum</command>, which uses the <command>rpm</command> command in background.</para>
+	</section>
+	<section><title>Debian based</title>
+		<para>Debian, Ubuntu, Linux Mint and all derivatives from Debian and Ubuntu use <command>.deb</command> packages. To manage software on these systems, you can use <command>aptitude</command>. <command>aptitude</command> is a front end for <command>dpkg</command>.</para>
+	</section>
+	<section><title>building from source</title>
+		<para>With <command>open source</command> software, there is always the option to compile software yourself. This is discussed at the end of this chapter.</para>
+	</section>
+	<section><title>dependency</title>
+		<para>Some packages need other packages to function. Tools like <command>aptitude</command> and <command>yum</command> will install all dependencies you need. When using <command>dpkg</command> or the <command>rpm</command> command, or when building from source, you will need to install dependencies yourself.</para>
+	</section>
 </section>
 <section><title>Red Hat Package Manager</title>
-	<para>The <command>Red Hat Package Manager</command> is used by many distributions. Besides Red Hat, who originally created the <command>.rpm</command> format and Fedora, there is also Mandriva, Red Flag Linux, OpenSUSE and others. The most common front ends (besides <command>rpm</command>) using this tool are <command>yum</command>, <command>YaST</command> and <command>up2date</command>.</para>
-	<section><title>rpm</title>
 		<section><title>About rpm</title>
 			<para>The <command>Red Hat Package Manager</command><indexterm><primary>rpm</primary></indexterm> can be used on the command line with <command>rpm</command> or in a graphical way going to Applications--System Settings--Add/Remove Applications. Type <command>rpm --help</command> to see some of the options.</para>
 			<para>Software distributed in the rpm format will be named <command>foo-version.platform.rpm</command> .</para>	
@@ -61,7 +73,6 @@ gcc is needed by (installed) systemtap-0.6.2-1.el5_2.2.i386
 		</section>
 		<section><title>/var/lib/rpm</title>
 			<para>The <command>rpm</command> database is located at <command>/var/lib/rpm</command>. This database contains all meta information about packages that are installed (via rpm). It keeps track of all files, which enables complete removes of software.</para>
-		</section>
 	</section>
 	<section><title>yum</title>
 		<para>The <command>Yellowdog Updater, Modified (yum)</command><indexterm><primary>yum</primary></indexterm> is an easier command to work with rpm packages. It is installed by default on Fedora and is optional on Red Hat Enterprise Linux.</para>
@@ -80,9 +91,6 @@ gcc is needed by (installed) systemtap-0.6.2-1.el5_2.2.i386
 	</section>
 </section>
 <section><title>Debian Package Management</title>
-	<section><title>About .deb</title>
-		<para>The Debian Package Management System is used by Debian, Ubuntu, Linux Mint and all derivatives from Debian and Ubuntu. It uses <command>.deb</command> packages.</para>
-	</section>
 	<section><title>dpkg -l</title>
 		<para>The low level tool to work with <command>.deb</command> packages is <command>dpkg</command>. Here you see how to obtain a list of all installed packages. The ii at the beginning means the package is installed.</para>
 		<screen>
@@ -108,6 +116,9 @@ ii gcc-4.2-base 4.2.4-1ubuntu3 The GNU Compiler Collection (base package)
 		<screen>aptitude remove $package</screen>
 	</section>
 </section>
+	<section><title>alien</title>
+		<para></para>
+	</section>
 <section><title>Downloading software</title>
 	<para>First and most important, whenever you download software, start by reading the README file!</para>
 	<para>Normally the readme will explain what to do after download. You will probably receive a .tar.gz or a .tgz file. Read the documentation, then put the compressed file in a directory. You can use the following to find out where the package wants to install.</para>

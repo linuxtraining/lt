@@ -40,6 +40,17 @@ paul@u810:~$ whatis route
 route (8)            - show / manipulate the IP routing table
 		</screen>
 	</section>
+	<section><title>whereis</title>
+		<para>The location of a manpage can be revealed with <command>whereis</command><indexterm><primary>whereis(1)</primary></indexterm>.</para>
+		<screen>
+paul@laika:~$ whereis -m whois
+whois: /usr/share/man/man1/whois.1.gz
+		</screen>
+		<para>This file is directly readable by <command>man</command><indexterm><primary>man(1)</primary></indexterm>.</para>
+		<screen>
+paul@laika:~$ man /usr/share/man/man1/whois.1.gz
+		</screen>
+	</section>
 	<section><title>man sections</title>
 		<para>By now you will have noticed the numbers between the round brackets. <command>man man</command><indexterm><primary>man man</primary></indexterm> will explain to you that these are section numbers. Executable programs and shell commands reside in section one.</para>
 		<screen>
@@ -67,6 +78,16 @@ route (8)            - show / manipulate the IP routing table
 		<screen>
 paul@laika:~$ man woman
 No manual entry for woman
+		</screen>
+	</section>
+	<section><title>mandb</title>
+		<para>Should you be convinced that a man page exists, but you can't access it, then try running <command>mandb</command><indexterm><primary>mandb(1)</primary></indexterm>.</para>
+		<screen>
+root@laika:~# mandb
+0 man subdirectories contained newer manual pages.
+0 manual pages were added.
+0 stray cats were added.
+0 old database entries were purged.
 		</screen>
 	</section>
 </section>
