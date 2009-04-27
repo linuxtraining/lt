@@ -38,7 +38,7 @@ ii  samba-common    3.0.28a-1ubuntu4.7   Samba common files used by both...
 	</screen>
 	</section>
 	<section><title>.deb based distributions</title>
-	<para>Ubuntu and Debian users can use the <command>aptitude</command><indexterm><primary>aptitude(8)</primary></indexterm> program (or use a graphical tool like Synaptic or similar).</para>
+	<para>Ubuntu and Debian users can use the <command>aptitude</command><indexterm><primary>aptitude(8)</primary></indexterm> program (or use a graphical tool like Synaptic).</para>
 	<screen>
 paul@laika:~$ aptitude install samba-server
 	</screen>
@@ -84,8 +84,8 @@ root@laika:~# find /usr/share/doc/samba-doc-pdf | grep -i howto
 		</screen>
 	</section>
 	<section><title>winbindd</title>
-		<para>The <command>winbind</command><indexterm><primary>winbindd(8)</primary></indexterm> daemon is only started to handle Microsoft Windows domain membership.</para>
-		<para>The funny thing is that the <command>winbindd</command> daemon is started by the <command>/etc/init.d/winbind</command><indexterm><primary>/etc/init.d/winbind</primary></indexterm> script (two dd's for the daemon and only one d for the script).</para>
+		<para>The <command>winbind daemon</command><indexterm><primary>winbindd(8)</primary></indexterm> (winbindd) is only started to handle Microsoft Windows domain membership.</para>
+		<para>Note that <command>winbindd</command> is started by the <command>/etc/init.d/winbind</command><indexterm><primary>/etc/init.d/winbind</primary></indexterm> script (two dd's for the daemon and only one d for the script).</para>
 		<screen>
 [root@RHEL52 ~]# /etc/init.d/winbind start
 Starting Winbind services:                                 [  OK  ]
@@ -122,4 +122,20 @@ Starting SMB services:                                     [  OK  ]
 Starting NMB services:                                     [  OK  ]
 [root@RHEL4b ~]# 
 	</screen>
+</section>
+<section><title>the SMB protocol</title>
+	<section><title>brief history</title>
+		<para>Development of this protocol was started by <command>IBM</command> in the early eighties. By the end of the eighties, most develpment was done by <command>Microsoft</command>. SMB is an application level protocol designed to run on top of NetBIOS/NetBEUI, but can also be run on top of tcp/ip.</para>
+		<para>In 1996 Microsoft was asked to document the protocol. They submitted CIFS (Common Internet File System) as an internet draft, but it never got final rfc status.</para>
+		<para>In 2004 the European Union decided Microsoft should document the protocol to enable other developers to write compatible software. December 20th 2007 Microsoft came to an agreement. The Samba team now has access to SMB/CIFS, Windows for Workgroups and Active Directory documentation.</para>
+	</section>
+	<section><title>broadcasting protocol</title>
+		<para>SMB uses the NetBIOS <command>service location protocol</command>, which is a broadcasting protocol. This means that NetBIOS names have to be unique on the network (even when you have different IP-addresses). Having duplicate names on an SMB network can seriously harm communications.</para>
+	</section>
+	<section><title>NetBIOS names</title>
+		<para>NetBIOS names are similar to hostnames, but are always uppercase and only 15 characters in length. Microsoft Windows computers will broadcast this name on the network.</para>
+	</section>
+	<section><title>network bandwidth</title>
+		<para>Having many broadcasting SMB/CIFS computers on your network can cause bandwidth issues. A solution can be the use of a <command>NetBIOS name server</command> (NBNS) like <command>WINS</command> (Windows Internet Naming Service).</para>
+	</section>
 </section>

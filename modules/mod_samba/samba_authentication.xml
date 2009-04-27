@@ -83,7 +83,7 @@ Access is denied.
 		</screen>
 </section>
 <section><title>testing access with smbclient</title>
-	<para>You can also test connecting with authentication with <command>smbclient</command><indexterm><primary>smbclient(8)</primary></indexterm>. First we test with a wrong password.</para>
+	<para>You can also test connecting with authentication with <command>smbclient</command><indexterm><primary>smbclient(1)</primary></indexterm>. First we test with a wrong password.</para>
 	<screen>
 [root@RHEL52 samba]# smbclient //teacher0/authwrite -U martina wrongpass
 session setup failed: NT_STATUS_LOGON_FAILURE
