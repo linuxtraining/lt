@@ -27,6 +27,22 @@ CONTENT todo
 
 4. add stuff from http://syntra.verwilst.be (we got permission) (assigned:serge)
 
+5. extra topics Serge should write
+   - network sniffing: spoofarp, tcpdump
+   - mail servers, postfix, intro integration with mysql and imap server
+   - backup chapter (rsnapshot, bacula)
+   - ssh: password protected keys, ssh-agent
+   - monitoring: vmstat and dstat, info about interpretation
+   - conceptual difference between NFS and samba
+   - samba 2, 3, 4 and how it relates to windows versions; smb, cifs
+
+6. other stuff 
+   - ldap
+   - ipv6
+   - NIS, yp
+
+7. bugs
+   - logging: explain | named pipes, needs fifo buffer (mkfifo)
 
 
 META todo
