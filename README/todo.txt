@@ -32,9 +32,10 @@ CONTENT todo
    - mail servers, postfix, intro integration with mysql and imap server
    - backup chapter (rsnapshot, bacula)
    - ssh: password protected keys, ssh-agent
-   - monitoring: vmstat and dstat, info about interpretation
+   - monitoring: vmstat and dstat, info about interpretation, atopn vnstat http://humdi.net/vnstat/
    - conceptual difference between NFS and samba
    - samba 2, 3, 4 and how it relates to windows versions; smb, cifs
+   - intro acl's samen 
 
 6. other stuff 
    - ldap
