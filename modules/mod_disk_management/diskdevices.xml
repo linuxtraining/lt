@@ -96,6 +96,15 @@ brw-rw----  1 root disk 8, 2 Aug  4 22:55 /dev/sda2
 </tgroup>
 </table>
 	<para>To get more information about the naming of devices and their major and minor number, visit http://www.lanana.org/docs/device-list/devices.txt .</para>
+	<para>For a complete list of block and character devices, take a look at the devices.txt file in the Documentation directory in the kernel source.</para>
+		<screen>
+paul@laika:~$ find /usr/src | grep 'Documentation/devices.txt'
+/usr/src/linux-source-2.6.24/Documentation/devices.txt
+		</screen>
+		<screen>
+[root@RHEL52 ~]# find /usr/src/ | grep 'Documentation/devices.txt'
+/usr/src/redhat/BUILD/kernel-2.6.18/linux-2.6.18.i686/Documentation/devices.txt
+		</screen>
 	</section>
 	<section><title>Erasing a hard disk</title>
 		<para>Before selling your old hard disk on the internet, it might be a good idea to really erase it. By simply repartitioning or even after a new mkfs command, some people will still be able to read most of the data on the disk. Although technically the <command>badblocks</command><indexterm><primary>badblocks(1)</primary></indexterm> tool is meant to look for bad blocks, you can use it to erase a disk. Since this is really writing to every sector of the disk, it can take a long time!</para>
