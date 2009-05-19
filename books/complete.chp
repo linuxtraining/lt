@@ -99,11 +99,17 @@ chapt_getting_help() {
 	}
 
 #
-chapt_hardware_kernel() {
+chapt_hardware() {
 	MODULES=""
-	chaptitle="Hardware and kernel"
-	add_mod mod_hardware_kernel/hardware.xml   
-	add_mod mod_hardware_kernel/kernel.xml   
+	chaptitle="Hardware Settings"
+	add_mod mod_hardware/hardware.xml   
+	}
+
+#
+chapt_bootfloppy() {
+	MODULES=""
+	chaptitle="Create a bootable floppy"
+	add_mod mod_hardware/bootfloppy.xml   
 	}
 
 #
