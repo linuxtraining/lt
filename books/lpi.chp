@@ -13,7 +13,7 @@ chapt_101_1_Determine_and_configure_hardware_settings() {
 	MODULES=""
 	chaptitle="Topic 101.1 Determine and configure hardware settings"
 	add_mod lpi_101/about_topic_101.1.xml
-	add_mod lpi_101/dummy.xml
+	add_mod lpi_101/topic_101.1.xml
 	}
 
 #
