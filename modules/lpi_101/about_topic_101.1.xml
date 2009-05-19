@@ -1,0 +1,21 @@
+<section><title>About Topic 101.1</title>
+	<para>On the LPI website we read: "Candidates should be able to determine and configure fundamental system hardware." With the following detailed objectives.</para>
+	<screen>
+* Enable and disable integrated peripherals.
+* Configure systems with or without external peripherals such as
+  keyboards.
+* Differentiate between the various types of mass storage devices.
+* Set the correct hardware ID for different devices, especially the
+  boot device.
+* Know the differences between coldplug and hotplug devices.
+* Determine hardware resources for devices.
+* Tools and utilities to list various hardware information (e.g. lsusb,
+  lspci, etc.)
+* Tools and utilities to manipulate USB devices
+* Conceptual understanding of sysfs, udev, hald, dbus
+	</screen>
+	<para></para>
+	<para></para>
+	<para></para>
+	<para></para>
+</section>
