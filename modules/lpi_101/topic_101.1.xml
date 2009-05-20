@@ -105,7 +105,7 @@ root@laika:~# cat /proc/dma
 1: parport0
 4: cascade
 	</screen>
-	<para>PCI devices that are using dma are not listed in /proc/dma, in this case dmesg can be useful. The screenshot below shows that during boot the parallel port received dma channel 1, and the Infrared port received dma channel 3. </para>
+	<para>PCI devices that are using dma are not listed in <command>/proc/dma</command>, in this case <command>dmesg</command><indexterm><primary>dmesg(1)</primary></indexterm> can be useful. The screenshot below shows that during boot the parallel port received dma channel 1, and the Infrared port received dma channel 3. </para>
 	<screen>
 root@laika:~# dmesg | egrep -C 1 'dma 1|dma 3'
 [   20.576000] parport: PnPBIOS parport detected.
