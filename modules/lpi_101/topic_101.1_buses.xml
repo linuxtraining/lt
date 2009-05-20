@@ -85,6 +85,14 @@ paul@laika:~$ cat /proc/interrupts
 24:     1585      1  IO-APIC-fasteoi   VIA82XX-MODEM, VIA8237
 		</screen>
 	</section>
+	<section><title>dmesg</title>
+		<para>You can also use <command>dmesg</command><indexterm><primary>dmesg(1)</primary></indexterm> to find irq's allocated at boot time.</para>
+		<screen>
+paul@laika:~$ dmesg | grep "irq 1[45]"
+[   28.930069] ata3: PATA max UDMA/133 cmd 0x1f0 ctl 0x3f6 bmdma 0x2090 irq 14
+[   28.930071] ata4: PATA max UDMA/133 cmd 0x170 ctl 0x376 bmdma 0x2098 irq 15
+		</screen>
+	</section>
 </section>
 <section><title>io ports</title>
 	<section><title>about io ports</title>
