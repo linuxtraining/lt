@@ -1,4 +1,4 @@
-<section><title>Buses</title>
+<section><title>buses</title>
 	<section><title>about buses</title>
 		<para>Hardware components communicate with the <command>Central Processing Unit</command><indexterm><primary>cpu</primary></indexterm> or <command>cpu</command> over a <command>bus</command><indexterm><primary>bus</primary></indexterm>. The most common buses today are <command>usb</command><indexterm><primary>usb</primary></indexterm>, <command>pci</command><indexterm><primary>pci</primary></indexterm>, <command>agp</command><indexterm><primary>agp</primary></indexterm>,  <command>pci-express</command><indexterm><primary>pci-express</primary></indexterm> and <command>pcmcia</command><indexterm><primary>pcmcia</primary></indexterm> aka <command>pc-card</command><indexterm><primary>pc-card</primary></indexterm>. These are all <command>Plag and Play</command> buses.</para>
 		<para>Older <command>x86</command> computers often had <command>isa</command><indexterm><primary>isa</primary></indexterm> buses, which can be confugred using <command>jumpers</command> or <command>dip switches</command>.</para>
@@ -58,9 +58,15 @@ paul@laika:~$ lspci
 		</screen>
 	</section>
 </section>
-<section><title>Interrupts</title>
-	<para>An <command>interrupt request</command><indexterm><primary>interrupt</primary></indexterm> or <command>IRQ</command><indexterm><primary>IRQ</primary></indexterm> is a request from a device to the CPU. A device raises an interrupt when it requires the attention of the CPU (could be because the device has data ready to be read by the CPU). You can see a listing of interrupts on your system in <command>/proc/interrupts</command><indexterm><primary>/proc/interrupts</primary></indexterm>. Since the introduction of pci, irq's can be shared among devices.</para>
-	<screen>
+<section><title>interrupts</title>
+	<section><title>about interrupts</title>
+		<para>An <command>interrupt request</command><indexterm><primary>interrupt</primary></indexterm> or <command>IRQ</command><indexterm><primary>IRQ</primary></indexterm> is a request from a device to the CPU. A device raises an interrupt when it requires the attention of the CPU (could be because the device has data ready to be read by the CPU).</para>
+ 		<para>Since the introduction of pci, irq's can be shared among devices.</para>
+		<para>Interrupt 0 is always reserved for the timer, interrupt 1 for the keyboard. IRQ 2 is used as a channel for IRQ's 8 to 15, and thus is the same as IRQ 9.</para>
+	</section>
+	<section><title>/proc/interrupts</title>
+		<para>You can see a listing of interrupts on your system in <command>/proc/interrupts</command><indexterm><primary>/proc/interrupts</primary></indexterm>.</para>
+		<screen>
 paul@laika:~$ cat /proc/interrupts 
       CPU0     CPU1       
 0:  1320048     555  IO-APIC-edge      timer
@@ -77,11 +83,16 @@ paul@laika:~$ cat /proc/interrupts
 22:   188352      1  IO-APIC-fasteoi   ra0
 23:   632444      1  IO-APIC-fasteoi   nvidia
 24:     1585      1  IO-APIC-fasteoi   VIA82XX-MODEM, VIA8237
-	</screen>
+		</screen>
+	</section>
 </section>
-<section><title>IO Ports</title>
-	<para>Communication in the other direction, from CPU to device, happens through <command>IO ports</command><indexterm><primary>IO Ports</primary></indexterm>. The CPU writes data or control codes to the IO port of the device. But this is not only a one way communication, the CPU can also use a device's IO port to read status information about the device. Unlike interrupts, ports cannot be shared!</para>
-	<screen>
+<section><title>io ports</title>
+	<section><title>about io ports</title>
+		<para>Communication in the other direction, from CPU to device, happens through <command>IO ports</command><indexterm><primary>IO Ports</primary></indexterm>. The CPU writes data or control codes to the IO port of the device. But this is not only a one way communication, the CPU can also use a device's IO port to read status information about the device. Unlike interrupts, ports cannot be shared!</para>
+	</section>
+	<section><title>/proc/ioports</title>
+		<para>You can see a listing of your system's IO ports via <command>/proc/ioports</command><indexterm><primary>/proc/ioports</primary></indexterm>.</para>
+		<screen>
 [root@RHEL4b ~]# cat /proc/ioports 
 0000-001f : dma1
 0020-0021 : pic1
@@ -96,17 +107,22 @@ paul@laika:~$ cat /proc/interrupts
 0170-0177 : ide1
 02f8-02ff : serial
 ...
-	</screen>
+		</screen>
+	</section>
 </section>
-<section><title>DMA</title>
-	<para>A device that needs a lot of data, interrupts and ports can pose a heavy load on the CPU. With <command>DMA</command><indexterm><primary>dma</primary></indexterm> or <command>Direct Memory Access</command> a device can gain (temporary) access to a specific range of the RAM memory. Looking at <command>/proc/dma</command><indexterm><primary>/proc/dma</primary></indexterm> might not give you the information that you want, since it only contains currently assigned DMA channels for ISA devices.</para>
+<section><title>dma</title>
+	<section><title>about dma</title>
+		<para>A device that needs a lot of data, interrupts and ports can pose a heavy load on the cpu. With <command>dma</command><indexterm><primary>dma</primary></indexterm> or <command>Direct Memory Access</command> a device can gain (temporary) access to a specific range of the <command>ram</command> memory.</para>
+	</section>
+	<section><title>/proc/dma</title>
+		<para>Looking at <command>/proc/dma</command><indexterm><primary>/proc/dma</primary></indexterm> might not give you the information that you want, since it only contains currently assigned <command>dma</command> channels for <command>isa</command> devices.</para>
 		<screen>
 root@laika:~# cat /proc/dma 
 1: parport0
 4: cascade
-	</screen>
-	<para>PCI devices that are using dma are not listed in <command>/proc/dma</command>, in this case <command>dmesg</command><indexterm><primary>dmesg(1)</primary></indexterm> can be useful. The screenshot below shows that during boot the parallel port received dma channel 1, and the Infrared port received dma channel 3. </para>
-	<screen>
+		</screen>
+		<para><command>pci</command> devices that are using dma are not listed in <command>/proc/dma</command>, in this case <command>dmesg</command><indexterm><primary>dmesg(1)</primary></indexterm> can be useful. The screenshot below shows that during boot the parallel port received dma channel 1, and the Infrared port received dma channel 3. </para>
+		<screen>
 root@laika:~# dmesg | egrep -C 1 'dma 1|dma 3'
 [   20.576000] parport: PnPBIOS parport detected.
 [   20.580000] parport0: PC-style at 0x378 (0x778), irq 7, dma 1...
@@ -115,6 +131,6 @@ root@laika:~# dmesg | egrep -C 1 'dma 1|dma 3'
 [   21.204000] pnp: Device 00:0b activated.
 [   21.204000] nsc_ircc_pnp_probe() : From PnP, found firbase 0x2F8...
 [   21.204000] nsc-ircc, chip->init
-root@laika:~#
-	</screen>
+		</screen>
+	</section>
 </section>

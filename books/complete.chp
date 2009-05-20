@@ -48,6 +48,7 @@ chapt_disk_management() {
 	MODULES=""
 	chaptitle="Disk management"
 	add_mod mod_disk_management/diskdevices.xml    
+	add_mod mod_disk_management/diskdevices_practice.xml    
 	add_mod mod_disk_management/partitions.xml     
 	add_mod mod_disk_management/filesystems.xml    
 	add_mod mod_disk_management/mounting.xml       
