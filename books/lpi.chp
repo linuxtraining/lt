@@ -23,7 +23,7 @@ chapt_101_1_Determine_and_configure_hardware_settings() {
 chapt_101_2_Boot_the_system() {
 	MODULES=""
 	chaptitle="Topic 101.2 Boot the system"
-	add_mod lpi_101/dummy.xml
+	add_mod lpi_101/about_topic_101.2.xml
 	}
 
 #

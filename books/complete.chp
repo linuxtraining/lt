@@ -26,14 +26,21 @@ chapt_bind() {
 	}
 
 #
-chapt_booting_linux() {
+chapt_bootloader() {
 	MODULES=""
-	chaptitle="Booting Linux"
-	add_mod mod_booting_linux/boot.xml          
-	add_mod mod_booting_linux/grub.xml          
-	add_mod mod_booting_linux/lilo.xml          
-	add_mod mod_booting_linux/system_init.xml   
-	add_mod mod_booting_linux/practice.xml      
+	chaptitle="Booting the system"
+	add_mod mod_bootloader/boot.xml          
+	add_mod mod_bootloader/grub.xml          
+	add_mod mod_bootloader/lilo.xml          
+	add_mod mod_bootloader/practice.xml      
+	}
+
+#
+chapt_init_system() {
+	MODULES=""
+	chaptitle="init"
+	add_mod mod_init/system_init.xml   
+	add_mod mod_init/practice.xml      
 	}
 
 #
