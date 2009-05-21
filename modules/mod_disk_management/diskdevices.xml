@@ -32,7 +32,7 @@ brw-rw----  1 root disk 8, 2 Aug  4 22:55 /dev/sda2
 	<section><title>ata (ide) device naming</title>
 		<para>All <command>ata</command> drives on your system will start with <command>/dev/hd</command><indexterm><primary>/dev/hdX</primary></indexterm> followed by a unit letter. The master hdd on the first <command>ata controller</command> is /dev/hda, the slave is /dev/hdb. For the second controller, the names of the devices are /dev/hdc and /dev/hdd.</para>
 		
-<table frame='all'><title>IDE device naming</title>
+<table frame='all'><title>ide device naming</title>
 <?dbfo table-width="70%" ?>
 <tgroup cols='3' align='left' colsep='1' rowsep='1'>
 <colspec colname='controller' align="center"/>

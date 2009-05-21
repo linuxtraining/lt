@@ -1,17 +1,19 @@
 <section><title>concepts</title>
 	<section><title>udev</title>
 		<para>The device nodes in <command>/dev</command><indexterm><primary>/dev</primary></indexterm> are managed by <command>udev</command><indexterm><primary>udev</primary></indexterm>. Before <command>udev</command> there was <command>devfs</command><indexterm><primary>devfs</primary></indexterm> and <command>hotplug</command><indexterm><primary>hotplug</primary></indexterm>.</para>
-		<para>Long time ago, the /dev directory tree was static (filled with many devices, even when they were not present). The <command>udev</command> daemon dynamically populates the <command>/dev</command> directory when devices are attached.</para>
-		<para>Configuration of <command>udev</command> can be found in <command>/etc/udev</command><indexterm><primary>/etc/udev</primary></indexterm>. There you will also find <command>/etc/udev/rules.d</command><indexterm><primary>/etc/udev/rules.d</primary></indexterm> a directory that contains the udev rules. When a new device is detected, <command>udev</command> might use a matching rule to name the device, create the device node, or even run certain programs to manage the device.</para>
-		<para>For instance the <command>70-persistent-net</command><indexterm><primary>/etc/udev/rules.d/70-persistent-net</primary></indexterm> rule can determine the alias of a network card, depending on the mac address of the nic.</para>
+		<para>Long time ago, the <command>/dev</command> directory tree was static (filled with many devices, even when they were not present). The <command>udev</command> daemon dynamically populates the <command>/dev</command> directory when devices are attached.</para>
+		<para>Configuration of <command>udev</command> can be found in <command>/etc/udev</command><indexterm><primary>/etc/udev</primary></indexterm>. There you will also find <command>/etc/udev/rules.d</command><indexterm><primary>/etc/udev/rules.d</primary></indexterm> a directory that contains the udev rules. When a new device is detected, <command>udev</command> will look for matching rules to name the device, create the device node, or even run certain programs to manage the device.</para>
+		<para>For instance the <command>70-persistent-net</command><indexterm><primary>/etc/udev/rules.d/70-persistent-net</primary></indexterm> rule can determine the alias of a network card, depending on the mac address.</para>
 	</section>
 	<section><title>dbus</title>
 		<para>Replacing Gnome's <command>bonobo</command> and <command>corba</command> and KDE's <command>dcop</command>, <command>dbus</command><indexterm><primary>dbus</primary></indexterm> provides inter process communication for applications.</para>
-		<para>Applications can register with <command>dbus</command> to offer servicas to (or exchange data with) other applications.</para>
+		<para>Applications can register with <command>dbus</command> to offer services to (or exchange data with) other applications.</para>
 	</section>
 	<section><title>hal</title>
 		<para>A <command>hal</command><indexterm><primary>hal</primary></indexterm> is a <command>Hardware Abstraction Layer</command>. The goal is to provide a simple <command>api</command> for applications to use hardware, independent of the type of hardware.</para>
-		<para>Applications use <command>dbus</command> to talk to the <command>hald</command> daemon. This daemon uses the <command>/sys</command> directory to get information about hotplug events and attached hardware.</para>
+		<para>Applications can use <command>dbus</command> to talk to the <command>hald</command> daemon. This daemon uses the <command>/sys</command> directory to get information about hotplug events and attached hardware.</para>
+		<para>Here is a picture relating udev, dbus, hal and the Linux kernel with applications.</para>
+		<mediaobject><imageobject><imagedata fileref="images/hal.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>	
 	</section>
 	<section><title>sysfs</title>
 		<para>The directory <command>/sys</command><indexterm><primary>/sys</primary></indexterm> is mounted as a sysfs file system.</para>
@@ -20,7 +22,5 @@ paul@laika:~$ mount | grep sysfs
 /sys on /sys type sysfs (rw,noexec,nosuid,nodev)
 		</screen>
 		<para>This directory is a way for the kernel to provide information about devices and drivers to userspace.</para>
-		<para>Here is a picture relating udev, dbus, hal and the Linux kernel with applications.</para>
 	</section>
-</section>
 </section>
