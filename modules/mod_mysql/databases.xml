@@ -1,0 +1,52 @@
+<section><title>MySQL databases</title>
+	<section><title>listing all databases</title>
+		<para>You can use the <command>mysql</command><indexterm><primary>mysql</primary></indexterm> command to take a look at the databases, and to execute SQL queries on them. The screenshots below show you how. First, let's logon to our MySQL server and execute the command <command>show databases;</command><indexterm><primary>show(mysql)</primary></indexterm> to see which databases exist on our mysql server.</para>
+		<screen>
+paul@barry:~$ mysql -u root
+...
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema | 
+| mysql              | 
+| wikidb             | 
++--------------------+
+3 rows in set (0.01 sec)
+		</screen>
+	</section>
+	<section><title>using a database</title>
+		<para>Next we tell mysql to use one particular database with the <command>use $database<command><indexterm><primary>use(mysql)</primary></indexterm> command. This screenshot makes the wikidb database the current db in use.</para>
+		<screen>
+mysql> use wikidb;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+		</screen>
+	</section>
+	<section><title>creating databases</title>
+		<para>You can create a new database with the <command>create database</commnad><indexterm><primary>create(mysql)</primary></indexterm> command.</para>
+		<para></para>
+		<screen>
+mysql> create database demodb;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema | 
+| demodb             | 
+| mysql              | 
++--------------------+
+3 rows in set (0.00 sec)
+		</screen>
+	</section>
+	<section><title>access to databases</title>
+		<para>To give everyone access to a mysql database, use the <command>grant</command><indexterm><primary>grant(mysql)</primary></indexterm> command.</para>
+		<screen>
+mysql&#0062; grant all on demodb.* to paul@localhost IDENTIFIED BY "stargate";
+Query OK, 0 rows affected (0.00 sec)
+		</screen>
+	</section>

@@ -1,0 +1,104 @@
+paul@laika:~$ mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 5
+Server version: 5.0.51a-3ubuntu5.4 (Ubuntu)
+
+Type 'help;' or '\h' for help. Type '\c' to clear the buffer.
+
+mysql> 
+mysql> 
+mysql> show databases
+    -> ;
++--------------------+
+| Database           |
++--------------------+
+| information_schema | 
+| mysql              | 
++--------------------+
+2 rows in set (0.00 sec)
+
+mysql> 
+mysql> 
+mysql> 
+mysql> create database netsec;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema | 
+| mysql              | 
+| netsec             | 
++--------------------+
+3 rows in set (0.00 sec)
+
+mysql> use netsec;
+Database changed
+mysql> show tables;
+Empty set (0.00 sec)
+
+mysql> create table facturen (
+    -> id char(8) NOT NULL,
+    -> klantid char(3) NOT NULL,
+    -> aantaldagen tinyint,
+    -> aantalstuds tinyint,
+    -> dagprijs tinyint,
+    -> omschrijving varchar(100),
+    -> os varchar(10),
+    -> primary key (id)
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> show tables;
++------------------+
+| Tables_in_netsec |
++------------------+
+| facturen         | 
++------------------+
+1 row in set (0.00 sec)
+
+mysql> describe facturen;
++--------------+--------------+------+-----+---------+-------+
+| Field        | Type         | Null | Key | Default | Extra |
++--------------+--------------+------+-----+---------+-------+
+| id           | char(8)      | NO   | PRI | NULL    |       | 
+| klantid      | char(3)      | NO   |     | NULL    |       | 
+| aantaldagen  | tinyint(4)   | YES  |     | NULL    |       | 
+| aantalstuds  | tinyint(4)   | YES  |     | NULL    |       | 
+| dagprijs     | tinyint(4)   | YES  |     | NULL    |       | 
+| omschrijving | varchar(100) | YES  |     | NULL    |       | 
+| os           | varchar(10)  | YES  |     | NULL    |       | 
++--------------+--------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> 
+
+mysql> drop table facturen;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> create table facturen ( id char(8) NOT NULL, klantid char(3) NOT NULL, aantaldagen tinyint, aantalstuds tinyint, dagprijs smallint, omschrijving varchar(100), os varchar(10), btw tinyint, onderklant varchar(30), primary key (id) );
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> insert into facturen values ('20090115','gui','6','4','600','Linux System Administration','Linux','21','NMBS');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into facturen values ('20090128','gui','3','4','600','Linux System Administration','Linux','21','NMBS');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into facturen values ('20090305','cro','4','8','533','Linux Fundamentals','Linux','21','Atos Origin');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from facturen;
++----------+---------+-------------+-------------+----------+-----------------------------+-------+------+-------------+
+| id       | klantid | aantaldagen | aantalstuds | dagprijs | omschrijving                | os    | btw  | onderklant  |
++----------+---------+-------------+-------------+----------+-----------------------------+-------+------+-------------+
+| 20090115 | gui     |           6 |           4 |      600 | Linux System Administration | Linux |   21 | NMBS        | 
+| 20090128 | gui     |           3 |           4 |      600 | Linux System Administration | Linux |   21 | NMBS        | 
+| 20090305 | cro     |           4 |           8 |      533 | Linux Fundamentals          | Linux |   21 | Atos Origin | 
++----------+---------+-------------+-------------+----------+-----------------------------+-------+------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> 
+
