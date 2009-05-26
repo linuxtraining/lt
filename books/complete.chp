@@ -441,4 +441,16 @@ chapt_vnc() {
 	chaptitle="VNC"
 	add_mod mod_vnc/vnc.xml
 	}
+
+#
+chapt_mysql() {
+	MODULES=""
+	chaptitle="Introduction to mysql"
+	add_mod mod_mysql/intro_mysql.xml
+	add_mod mod_mysql/users.xml
+	add_mod mod_mysql/databases.xml
+	add_mod mod_mysql/tables.xml
+	add_mod mod_mysql/records.xml
+	add_mod mod_mysql/triggers.xml
+	}
 	
