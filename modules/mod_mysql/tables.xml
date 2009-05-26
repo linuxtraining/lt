@@ -1,98 +1,16 @@
-<section><title>About MySQL</title>
-	<para>MySQL is a database server that understands Structured Query Laguage (SQL). It is developed by the Swedish Company <command>MySQL AB</command> (www.mysql.com). MySQL is very popular for websites in combination with PHP and Apache.</para>
-</section>
-	<section><title>MySQL users and Groups</title>
-		<para>The installation of MySQL creates a user account and a group account.</para>
-		<screen>
-# Linux laika 2.6.20-2-generic #3 SMP Sat Dec 16 07:43:26 UTC 2006 x86_64 GNU/Linux
-root@laika:~# cat /etc/passwd | grep -i sql
-mysql:x:109:115:MySQL Server,,,:/var/lib/mysql:/bin/false
-root@laika:~# cat /etc/group | grep -i sql
-mysql:x:115:
-		</screen>
-		<screen>
-# Linux barry 2.6.17-2-686 #1 SMP Wed Sep 13 16:34:10 UTC 2006 i686 GNU/Linux
-paul@barry:~$ grep mysql /etc/passwd
-mysql:x:103:105:MySQL Server,,,:/var/lib/mysql:/bin/false
-paul@barry:~$ grep mysql /etc/group
-mysql:x:105:
-		</screen>
-	</section>
-	<section><title>Creating a MySQL root user</title>
-		<para>With the <command>mysqladmin</command> command you can create a root user to administer your MySQL. It is advised to use a different password than the one for your Unix root account. After doing this, any user can issue MySQL root commands using the <emphasis>-u root</emphasis> argument on the commandline.</para>
-		<screen>root@laika:~# mysqladmin -u root password SecretPass</screen>
-		<para>You can now use mysql from the commandline by just typing <command>mysql -u root -p</command> and it will ask you for the password (of the mysql root account). You can create a personal mysql configuration file and put the password inthere, so you don't have to type it every time. In the screenshot below, the MySQL Welcome message is cut.</para>
-		<screen>
-# Linux barry 2.6.17-2-686 #1 SMP Wed Sep 13 16:34:10 UTC 2006 i686 GNU/Linux
-paul@barry:~$ mysql -u root -p
-Enter password:
-&#060;cut MySQL Welcome Message&#062;
-mysql&#062; exit
-Bye
-paul@barry:~$ mysql -u root -pSecretPass
-&#060;cut MySQL Welcome Message&#062;
-mysql&#062; exit
-Bye
-paul@barry:~$ 
-		</screen>
-	</section>
-	<section><title>~/.my.cnf</title>
-		<para>You can keep some MySQL private configuration in your home directory in the hidden file <command>.my.cnf</command>. In the screenshot below we put the root password in .my.cnf.</para>
-		<screen>
-paul@barry:~$ echo "[client]" &#062; .my.cnf
-paul@barry:~$ echo password=SecretPass &#062;&#062; .my.cnf
-paul@barry:~$ cat .my.cnf
-[client]
-password=SecretPass
-paul@barry:~$ mysql -u root
-&#060;cut MySQL Welcome Message&#062;
-mysql&#062;
-		</screen>
-		<para>To give everyone access to a mysql database, use the <command>GRANT</command> command.</para>
-		<screen>
-mysql&#062; GRANT ALL ON wikidb.* to wikiuser@localhost IDENTIFIED BY "wikipass";
-Query OK, 0 rows affected (0.03 sec)
-		</screen>
-	</section>
-	<section><title>Mediawiki backup and restore</title>
-		<para>Mediawiki wikis can use MySQL as a database. To copy a wiki to another server, first take backup of the wikidb, then take backup of /var/lib/mediawiki-1.7/LocalSettings.php and /var/lib/mediawiki-1.7/upload/*. On the other machine, recreate the wikidb, and restore the access of the wikiuser. Restore the backup of wikidb, and restore the copied /var/lib/... files. Restore ownership and rights of these files.</para>
-	</section>
-	<section><title>Backup and restore of MySQL database</title>
-		<para>You can take a backup of a database, or move it to another computer using the <command>mysql</command> and <command>mysqldump</command> commands. In the screenshot below, i take a backup of the wikidb database on the computer named laika. Then i ssh to another computer named barry and copy (with scp) the backup to barry. Then i restore the backup of wikidb on barry.</para>
-		<screen>
-paul@laika:~$ mysqldump -u root wikidb &#062; wikidb_backup_20070101.sql
-paul@laika:~$ ssh barry
-paul@barry:~$ scp laika:~/wikidb_backup_20070101.sql .
-wikidb_backup_20070101.sql                      100% 1629KB 542.9KB/s   00:03    
-paul@barry:~$ mysql -u root wikidb &#060; wikidb_backup_20070101.sql
-paul@barry:~$ 
-		</screen>
-	</section>
-	<section><title>Looking at databases and tables</title>
-		<para>You can use the <command>mysql</command> command to take a look at the databases, and to execute SQL queries on them. The screenshots below show you how. First, let's logon to our MySQL server and execute the commands <command>show databases;</command> and <command>use wikidb;</command>. This gives us a list of all databases on the server.</para>
-		<screen>
-paul@barry:~$ mysql -u root
-...
-mysql> show databases;
-+--------------------+
-| Database           |
-+--------------------+
-| information_schema | 
-| mysql              | 
-| wikidb             | 
-+--------------------+
-3 rows in set (0.01 sec)
-		</screen>
-		<para> This makes the wikidb database the current db in use.</para>
-		<screen>
-mysql> use wikidb;
-Reading table information for completion of table and column names
-You can turn off this feature to get a quicker startup with -A
-
+<section><title>mysql tables</title>
+<section><title>Listing tables</title>
+	<para>You can see a list of tables in the current database with the <command>show tables</command><indexterm><primary>show(mysql)</primary></indexterm> command. Our <command>demodb</command> is still empty.</para>
+	<screen>
+mysql> use demodb;
 Database changed
-		</screen>
-		<para>You can see a list of tables in the wikidb with the <command>show tables;</command> command.</para>
-		<screen>
+mysql> show tables;
+Empty set (0.00 sec)
+	</screen>
+	<para>Whereas the wikidb database in this truncated screenshot has 31 tables defined.</para>
+	<screen>
+mysql> use wikidb;
+Database changed
 mysql> show tables;
 +------------------+
 | Tables_in_wikidb |
@@ -103,151 +21,38 @@ mysql> show tables;
 | filearchive      | 
 | hitcounter       | 
 | image            | 
-| imagelinks       | 
 ...
 31 rows in set (0.00 sec)
-		</screen>
-		<para>To see a description of the structure of a table, issue the <command>describe $tablename</command> command as shown below.</para>
-		<screen>
-mysql> describe externallinks;
-+----------+-----------------+------+-----+---------+-------+
-| Field    | Type            | Null | Key | Default | Extra |
-+----------+-----------------+------+-----+---------+-------+
-| el_from  | int(8) unsigned | NO   | MUL | 0       |       | 
-| el_to    | blob            | NO   | MUL |         |       | 
-| el_index | blob            | NO   | MUL |         |       | 
-+----------+-----------------+------+-----+---------+-------+
-3 rows in set (0.00 sec)
-		</screen>
-		<para>And finally an example of a simple <command>select</command> query to look at the contents of a table.</para>
-		<screen>
-mysql> select * from externallinks;
-+---------+--------------------------------------------+---------------------------------------------+
-| el_from | el_to                                      | el_index                                    |
-+---------+--------------------------------------------+---------------------------------------------+
-|    1405 | http://www.mediawiki.org/wiki/Help:FAQ     | http://org.mediawiki.www./wiki/Help:FAQ     | 
-|       1 | http://www.xkcd.com/c196.html              | http://com.xkcd.www./c196.html              | 
-|       1 | http://www.xkcd.com/c178.html              | http://com.xkcd.www./c178.html              | 
-|       1 | http://www.xkcd.com/c149.html              | http://com.xkcd.www./c149.html              | 
-+---------+--------------------------------------------+---------------------------------------------+
-7 rows in set (0.00 sec)
-		</screen>
-		<para>Type <command>exit;</command> to get back to your Linux command prompt.</para>
-		<screen>
-	mysql> exit
-	Bye
-	paul@barry:~$ 
-		</screen>
-	</section>
-	<section><title>Creating a table</title>
-		<para>Let us walk through the creation of a simple table. First enter the mysql prompt. On Red Hat, root has default access to mysql.</para>
-		<screen>
-[root@RHELv4u3 ~]# mysql
-Welcome to the MySQL monitor.  Commands end with ; or \g.
-Your MySQL connection id is 2 to server version: 4.1.12
-		
-Type 'help;' or '\h' for help. Type '\c' to clear the buffer.
-		</screen>
-		<para>There are only two databases defined, let us use the test database.</para>
-		<screen>
-mysql> show databases;
-+----------+
-| Database |
-+----------+
-| mysql    |
-| test     |
-+----------+
-2 rows in set (0.01 sec)
-
-mysql> use test
-Database changed
-		</screen>
-		<para>There are no tables yet in the test database.</para>
-		<screen>
-mysql> show tables;
-Empty set (0.00 sec)
-		</screen>
-		<para>So we create a table with four records, the first one being the primary key.</para>
-		<screen>
-mysql> create table dieren (
--> id varchar(4) NOT NULL default '',
--> soort enum('reu','teef','kater','kattin') default NULL,
--> naam varchar(12) default NULL,
--> ras varchar(20) default NULL,
--> PRIMARY KEY  (id)
--> );
-Query OK, 0 rows affected (0.01 sec)
-		</screen>
-		<para>Verify the creation of the table</para>
-		<screen>
-mysql> show tables;
-+----------------+
-| Tables_in_test |
-+----------------+
-| dieren         |
-+----------------+
-1 row in set (0.00 sec)
-
-mysql> describe dieren;
-+-------+-------------------------------------+------+-----+---------+-------+
-| Field | Type                                | Null | Key | Default | Extra |
-+-------+-------------------------------------+------+-----+---------+-------+
-| id    | varchar(4)                          |      | PRI |         |       |
-| soort | enum('reu','teef','kater','kattin') | YES  |     | NULL    |       |
-| naam  | varchar(12)                         | YES  |     | NULL    |       |
-| ras   | varchar(20)                         | YES  |     | NULL    |       |
-+-------+-------------------------------------+------+-----+---------+-------+
-4 rows in set (0.00 sec)
-
-mysql> 
-		</screen>
-	</section>
-	<section><title>Populating a table</title>
-		<para>Use <command>INSERT</command> to enter data into the table.</para>
-		<screen>
-mysql> INSERT INTO dieren VALUES ('h17','reu','Pasha','Rottweiler x Pitbull');
-Query OK, 1 row affected (0.01 sec)
-		</screen>
-		<para>And use <command>SELECT</command> to query the table.</para>
-		<screen>
-mysql> select * from dieren;
-+-----+-------+-------+----------------------+
-| id  | soort | naam  | ras                  |
-+-----+-------+-------+----------------------+
-| h17 | reu   | Pasha | Rottweiler x Pitbull |
-+-----+-------+-------+----------------------+
-1 row in set (0.00 sec)
-		
-mysql> select soort,ras from dieren where id='h17';
-+-------+----------------------+
-| soort | ras                  |
-+-------+----------------------+
-| reu   | Rottweiler x Pitbull |
-+-------+----------------------+
-1 row in set (0.01 sec)
-		
-mysql> 
-		</screen>
-	</section>
-	<section><title>Scripting mysql in bash</title>
-		<para>Using the -e option of the mysql command, you can script mysql commands in bash.</para>
-		<screen>
-paul@laika:~$ mysql -uwikiuser -pwikipass -e"show databases"
-+--------------------+
-| Database           |
-+--------------------+
-| information_schema | 
-| wikidb             | 
-+--------------------+
-paul@laika:~$ 
-		</screen>
-		<screen>
-[root@RHELv4u3 ~]# mysql -e"use test;select soort,ras from dieren where id='h17';"
-+-------+----------------------+
-| soort | ras                  |
-+-------+----------------------+
-| reu   | Rottweiler x Pitbull |
-+-------+----------------------+
-[root@RHELv4u3 ~]#
-		</screen>
-	</section>
+	</screen>
+</section>
+<section><title>Creating a table</title>
+	<para>The <command>create table</command><indexterm><primary>create(mysql)</primary></indexterm> command will create a new table.</para>
+	<para>This screenshot shows the creation of a country table. We use the <command>country code</command> as a primary key (all country codes are uniquely defined). Most country codes are two or three letters, so a <command>char</command><indexterm><primary>char(mysql)</primary></indexterm> of three uses less space than a <command>varchar</command><indexterm><primary>varchar(mysql)</primary></indexterm> of three. The <command>country name</command> and the name of the capital are both defined as <command>varchar</command>. The population can be seen as an <command>integer</command><indexterm><primary>integer(mysql)</primary></indexterm>.</para>
+	<screen>
+mysql> create table country (
+    -> countrycode char(3) NOT NULL,
+    -> name varchar(50) NOT NULL,
+    -> population int,
+    -> capitalcity varchar(30),
+    -> primary key (countrycode)
+    -> );
+Query OK, 0 rows affected (0.07 sec)
+	</screen>
+	<para>You are allowed to type the <command>create table</command> command on one long line, but administrators often use multiple lines to improve readability.</para>
+</section>
+<section><title>Describing a table</title>
+	<para>To see a description of the structure of a table, issue the <command>describe $tablename</command><indexterm><primary>describe(mysql)</primary></indexterm> command as shown below.</para>
+	<screen>
+mysql> describe country;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| countrycode | char(3)     | NO   | PRI | NULL    |       | 
+| name        | varchar(50) | NO   |     | NULL    |       | 
+| population  | int(11)     | YES  |     | NULL    |       | 
+| capitalcity | varchar(30) | YES  |     | NULL    |       | 
++-------------+-------------+------+-----+---------+-------+
+4 rows in set (0.03 sec)
+	</screen>
+</section>
+</section>

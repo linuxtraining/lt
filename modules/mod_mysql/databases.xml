@@ -1,6 +1,12 @@
 <section><title>mysql databases</title>
 	<section><title>listing all databases</title>
 		<para>You can use the <command>mysql</command><indexterm><primary>mysql</primary></indexterm> command to take a look at the databases, and to execute SQL queries on them. The screenshots below show you how. First, we log on to our MySQL server and execute the command <command>show databases</command><indexterm><primary>show(mysql)</primary></indexterm> to see which databases exist on our mysql server.</para>
+		<para>Type <command>exit;</command> to get back to your Linux command prompt.</para>
+		<screen>
+	mysql> exit
+	Bye
+	paul@barry:~$ 
+		</screen>
 		<screen>
 paul@barry:~$ mysql -u root
 ...
