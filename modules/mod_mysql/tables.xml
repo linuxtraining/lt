@@ -55,4 +55,11 @@ mysql> describe country;
 4 rows in set (0.03 sec)
 	</screen>
 </section>
+<section><title>Removing a table</title>
+	<para>To remove a table from a database, issue the <command>drop table $tablename</command><indexterm><primary>drop(mysql)</primary></indexterm> command as shown below.</para>
+	<screen>
+mysql> drop table country;
+Query OK, 0 rows affected (0.00 sec)
+	</screen>
+</section>
 </section>

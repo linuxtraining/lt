@@ -1,12 +1,6 @@
 <section><title>mysql databases</title>
 	<section><title>listing all databases</title>
 		<para>You can use the <command>mysql</command><indexterm><primary>mysql</primary></indexterm> command to take a look at the databases, and to execute SQL queries on them. The screenshots below show you how. First, we log on to our MySQL server and execute the command <command>show databases</command><indexterm><primary>show(mysql)</primary></indexterm> to see which databases exist on our mysql server.</para>
-		<para>Type <command>exit;</command> to get back to your Linux command prompt.</para>
-		<screen>
-	mysql> exit
-	Bye
-	paul@barry:~$ 
-		</screen>
 		<screen>
 paul@barry:~$ mysql -u root
 ...
@@ -53,6 +47,29 @@ mysql> show databases;
 		<screen>
 mysql&#0062; grant all on demodb.* to paul@localhost IDENTIFIED BY "stargate";
 Query OK, 0 rows affected (0.00 sec)
+		</screen>
+	</section>
+	<section><title>deleting databases</title>
+		<para>When a database is no longer needed, you can permanently remove it with the <command>drop database</command><indexterm><primary>drop(mysql)</primary></indexterm> command.</para>
+		<screen>
+mysql> drop database demodb;
+Query OK, 1 row affected (0.09 sec)
+		</screen>
+	</section>
+	<section><title>backup and restore databases</title>
+		<para>You can take a backup of a database, or move it to another computer using the <command>mysql</command> and <command>mysqldump</command> commands. In the screenshot below, we take a backup of the wikidb database on the computer named laika.</para>
+		<screen>
+paul@laika:~$ mysqldump -u root wikidb &#062; wikidb_backup_20070101.sql
+		</screen>
+		<para>Then we ssh to another computer named barry and copy (with scp) the backup to barry.</para>
+		<screen>
+paul@laika:~$ ssh barry
+paul@barry:~$ scp laika:~/wikidb_backup_20070101.sql .
+wikidb_backup_20070101.sql                 100% 1629KB 542.9KB/s   00:03
+		</screen>
+		<para>Then we restore the backup of wikidb on barry.</para>
+		<screen>
+paul@barry:~$ mysql -u root wikidb &#060; wikidb_backup_20070101.sql
 		</screen>
 	</section>
 </section>
