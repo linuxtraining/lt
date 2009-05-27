@@ -1,0 +1,30 @@
+	<section><title>Ctrl-Alt-Del</title>
+		<para>When <command>rc</command> is finished starting all those scripts, <command>init</command><indexterm><primary>init</primary></indexterm> will continue to read /etc/inittab. The next line is about what to do when the user hits <command>Ctrl-Alt-Delete</command><indexterm><primary>Ctrl-Alt-Delete</primary></indexterm> on the keyboard.</para>
+		<para>Here is what Debian 4.0 does.</para>
+		<screen>
+root@barry:~# grep -i ctrl /etc/inittab 
+# What to do when CTRL-ALT-DEL is pressed.
+ca:12345:ctrlaltdel:/sbin/shutdown -t1 -a -r now
+		</screen>
+		<para>Which is very similar to the default Red Hat Enterprise Linux 5.2 action.</para>
+		<screen>
+[root@RHEL52 ~]# grep -i ctrl /etc/inittab 
+# Trap CTRL-ALT-DELETE
+ca::ctrlaltdel:/sbin/shutdown -t3 -r now
+		</screen>
+		<para>The details of the <command>shutdown</command> will be discussed later in this chapter.</para>
+	</section>
+	<section><title>UPS and loss of power</title>
+		<screen>
+[root@RHEL52 ~]# grep ^p /etc/inittab 
+pf::powerfail:/sbin/shutdown -f -h +2 "Power Failure; System Shutting Down"
+pr:12345:powerokwait:/sbin/shutdown -c "Power Restored; Shutdown Cancelled"
+		</screen>
+		<para>It will read commands on what to execute in case of <command>powerfailure</command>, <command>powerok</command> and <command>Ctrl-Alt-Delete</command><indexterm><primary>Ctrl-Alt-Delete</primary></indexterm>. The init process never stops keeping an eye on power failures and that triple key combo.</para>
+		<screen>
+root@barry:~# grep ^p /etc/inittab 
+pf::powerwait:/etc/init.d/powerfail start
+pn::powerfailnow:/etc/init.d/powerfail now
+po::powerokwait:/etc/init.d/powerfail stop
+		</screen>
+	</section>

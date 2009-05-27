@@ -75,15 +75,9 @@ exec /etc/init.d/rc S
 			</screen>
 		</section>
 	</section>
-
-		<para></para>
+	<section><title>rc scripts</title>
+		<para>Init will continue to read /etc/inittab and meets this section on Debian Linux.</para>
 		<screen>
-		</screen>
-		<para></para>
-		</section>
-		<section><title>rc scripts</title>
-			<para>Init will continue to read /etc/inittab and meets this section on Debian Linux.</para>
-			<screen>
 l0:0:wait:/etc/init.d/rc 0
 l1:1:wait:/etc/init.d/rc 1
 l2:2:wait:/etc/init.d/rc 2
@@ -91,9 +85,9 @@ l3:3:wait:/etc/init.d/rc 3
 l4:4:wait:/etc/init.d/rc 4
 l5:5:wait:/etc/init.d/rc 5
 l6:6:wait:/etc/init.d/rc 6
-			</screen>
-			<para>On Red Hat Enterprise Linux it is identical except init.d is rc.d.</para>
-			<screen>
+		</screen>
+		<para>On Red Hat Enterprise Linux it is identical except init.d is rc.d.</para>
+		<screen>
 l0:0:wait:/etc/rc.d/rc 0
 l1:1:wait:/etc/rc.d/rc 1
 l2:2:wait:/etc/rc.d/rc 2
@@ -101,31 +95,57 @@ l3:3:wait:/etc/rc.d/rc 3
 l4:4:wait:/etc/rc.d/rc 4
 l5:5:wait:/etc/rc.d/rc 5
 l6:6:wait:/etc/rc.d/rc 6
-			</screen>
-			<para>In both cases, this means that init will start the rc script with as only parameter the runlevel. Actually <command>/etc/inittab</command><indexterm><primary>/etc/inittab</primary></indexterm> has fields seperated by colons. The second field determines the runlevel in which this line should be executed. So in both cases, only one line of the seven will be executed, depending on the runlevel set by <command>initdefault</command>.</para>
-
-			<para>When you take a look in the relevant <command>/etc/rc3.d</command><indexterm><primary>/etc/rc3.d</primary></indexterm> directory, which is real on Debian and a symbolic link to <command>/etc/rc.d/rc3.d</command> on Red Hat, then you will see a lot of (links to) scripts who's name start with either uppercase K or uppercase S.</para>
-
-
- When entering a runlevel, scripts with uppercase S are started in alphabetical order with "start" as the only parameter. When leaving a runlevel, the same happens for scripts starting with K. All this is done by the rc script.</para>
-		</section>
-		<section><title>Power and Ctrl-Alt-Del</title>
-			<para>When rc is finished starting all those scripts, init will continue to read /etc/inittab. It will read commands on what to execute in case of <command>powerfailure</command>, powerok and <command>Ctrl-Alt-Delete</command><indexterm><primary>Ctrl-Alt-Delete</primary></indexterm>. The init process never stops keeping an eye on power failures and that triple key combo.</para>
-			<para>The relevant part on Red Hat Enterprise Linux.</para>
-			<screen>
-[paul@RHEL4b ~]$ grep "\(^c\|^p\)" /etc/inittab 
-ca::ctrlaltdel:/sbin/shutdown -t3 -r now
-pf::powerfail:/sbin/shutdown -f -h +2 "PowerFailure;System Shutting Down"
-pr:12345:powerokwait:/sbin/shutdown -c "PowerRestored;Shutdown Cancelled"
-			</screen>
-			<para>And very similar on Debian Etch.</para>
-			<screen>
-paul@barry:~$ grep "\(^c\|^p\)" /etc/inittab
+		</screen>
+		<para>In both cases, this means that init will start the rc script with the runlevel as the only parameter. Actually <command>/etc/inittab</command><indexterm><primary>/etc/inittab</primary></indexterm> has fields seperated by colons. The second field determines the runlevel in which this line should be executed. So in both cases, only one line of the seven will be executed, depending on the runlevel set by <command>initdefault</command>.</para>
+	</section>
+	<section><title>rc scripts</title>
+		<para>When you take a look any of the <command>/etc/rcX.d</command><indexterm><primary>/etc/rcX.d</primary></indexterm> directories, then you will see a lot of (links to) scripts who's name start with either uppercase K or uppercase S.</para>
+		<screen>
+[root@RHEL52 rc3.d]# ls -l | tail -4
+lrwxrwxrwx 1 root root 19 Oct 11  2008 S98haldaemon -> ../init.d/haldaemon
+lrwxrwxrwx 1 root root 19 Oct 11  2008 S99firstboot -> ../init.d/firstboot
+lrwxrwxrwx 1 root root 11 Jan 21 04:16 S99local -> ../rc.local
+lrwxrwxrwx 1 root root 16 Jan 21 04:17 S99smartd -> ../init.d/smartd
+		</screen>
+		<para>The <command>/etc/rcX.d/</command> directories only contain links to scripts in <command>/etc/init.d</command>. Links allow for the script to have a different name. When entering a runlevel, all scripts that start with uppercase K or uppercase S will be started in alphabetical order. Those that start with K will be started first, with "stop" as the only parameter. The remaining scripts with S will be started with "start" as the only parameter. All this is done by the <command>/etc/rc.d/rc</command><indexterm><primary>/etc/rc.d/rc</primary></indexterm> script on Red Hat and by the <command>/etc/init.d/rc</command><indexterm><primary>/etc/init.d/rc</primary></indexterm> script on Debian.</para>
+	</section>
+	<section><title>Ctrl-Alt-Del</title>
+		<para>When <command>rc</command> is finished starting all those scripts, <command>init</command><indexterm><primary>init</primary></indexterm> will continue to read /etc/inittab. The next line is about what to do when the user hits <command>Ctrl-Alt-Delete</command><indexterm><primary>Ctrl-Alt-Delete</primary></indexterm> on the keyboard.</para>
+		<para>Here is what Debian 4.0 does.</para>
+		<screen>
+root@barry:~# grep -i ctrl /etc/inittab 
+# What to do when CTRL-ALT-DEL is pressed.
 ca:12345:ctrlaltdel:/sbin/shutdown -t1 -a -r now
+		</screen>
+		<para>Which is very similar to the default Red Hat Enterprise Linux 5.2 action.</para>
+		<screen>
+[root@RHEL52 ~]# grep -i ctrl /etc/inittab 
+# Trap CTRL-ALT-DELETE
+ca::ctrlaltdel:/sbin/shutdown -t3 -r now
+		</screen>
+		<para>The details of the <command>shutdown</command> will be discussed later in this chapter.</para>
+	</section>
+	<section><title>UPS and loss of power</title>
+		<screen>
+[root@RHEL52 ~]# grep ^p /etc/inittab 
+pf::powerfail:/sbin/shutdown -f -h +2 "Power Failure; System Shutting Down"
+pr:12345:powerokwait:/sbin/shutdown -c "Power Restored; Shutdown Cancelled"
+		</screen>
+		<para>It will read commands on what to execute in case of <command>powerfailure</command>, <command>powerok</command> and <command>Ctrl-Alt-Delete</command><indexterm><primary>Ctrl-Alt-Delete</primary></indexterm>. The init process never stops keeping an eye on power failures and that triple key combo.</para>
+		<screen>
+root@barry:~# grep ^p /etc/inittab 
 pf::powerwait:/etc/init.d/powerfail start
 pn::powerfailnow:/etc/init.d/powerfail now
 po::powerokwait:/etc/init.d/powerfail stop
- 			</screen>
+		</screen>
+	</section>
+
+
+		</section>
+		<para></para>
+		<screen>
+		</screen>
+		<para></para>
 		</section>
 		<section><title>getty</title>
 			<para>Almost at the end of /etc/inittab, there is a section to start and <command>respawn</command><indexterm><primary>respawn(init)</primary></indexterm> several mingetty's.</para>
