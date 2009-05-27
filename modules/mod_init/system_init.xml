@@ -173,7 +173,7 @@ lrwxrwxrwx 1 root root 16 Jan 21 04:17 S99smartd -> ../init.d/smartd
 	<para><emphasis>Many people equate the word "daemon" with the word "demon", implying some kind of satanic connection between UNIX and the underworld. This is an egregious misunderstanding. "Daemon" is actually a much older form of "demon"; daemons have no particular bias towards good or evil, but rather serve to help define a person's character or personality. The ancient Greeks' concept of a "personal daemon" was similar to the modern concept of a "guardian angel" ...</emphasis>.</para>
 </section>
 <section><title>starting and stopping daemons</title>
-	<para>The K and S scripts are links to the real scripts in <command>/etc/init.d</command><indexterm><primary>/etc/init.d</primary></indexterm>. These can also be used when the system is running to start and stop daemons (or services). Most of them accept the following parameters: start, stop, restart, status.</para>
+	<para>The K and S scripts are links to the real scripts in <command>/etc/init.d/</command><indexterm><primary>/etc/init.d/</primary></indexterm>. These can also be used when the system is running to start and stop daemons (or services). Most of them accept the following parameters: start, stop, restart, status.</para>
 	<para>For example in this screenshot we restart the samba daemon.</para>
 	<screen>
 root@laika:~# /etc/init.d/samba restart
@@ -188,9 +188,69 @@ Shutting down NMB services:                                [  OK  ]
 Starting SMB services:                                     [  OK  ]
 Starting NMB services:                                     [  OK  ]
 	</screen>
+	<para>You might also want to take a look at <command>chkconfig</command><indexterm><primary>chkconfig</primary></indexterm>, <command>update-rc.d</command><indexterm><primary>update-rc.d</primary></indexterm>.</para>
+</section>
+<section><title>chkconfig</title>
+	<para>The purpose of <command>chkconfig</command><indexterm><primary>chkconfig(8)</primary></indexterm> is to relieve system administrators of manually managing all the links and scripts in <command>/etc/init.d</command> and <command>/etc/rcX.d/</command>.</para>
+	<section><title>chkconfig --list</title>
+		<para>Here we use <command>chkconfig</command> to list the status of a service in the different runlevels. You can see that the <command>crond</command> daemon (or service) is only activated in runlevels 2 to 5.</para>
+		<screen>
+[root@RHEL52 ~]# chkconfig --list crond
+crond          	0:off	1:off	2:on	3:on	4:on	5:on	6:off
+		</screen>
+		<para>When you compare the screenshot above with the one below, you can see that <command>off</command> equals to a K link to the script, whereas <command>on</command> equals to an S link.</para>
+		<screen>
+[root@RHEL52 etc]# find ./rc?.d/ -name \*crond -exec ls -l {} \;|cut -b40-
+./rc0.d/K60crond -> ../init.d/crond
+./rc1.d/K60crond -> ../init.d/crond
+./rc2.d/S90crond -> ../init.d/crond
+./rc3.d/S90crond -> ../init.d/crond
+./rc4.d/S90crond -> ../init.d/crond
+./rc5.d/S90crond -> ../init.d/crond
+./rc6.d/K60crond -> ../init.d/crond
+		</screen>
+	</section>
+	<section><title>runlevel configuration</title>
+		<para>Here you see how to use chkconfig to disable (or enable) a service in a certain runlevel.</para>
+		<para>This screenshot shows how to disable <command>crond</command> in runlevel 3.</para>
+		<screen>
+[root@RHEL52 ~]# chkconfig --level 3 crond off
+[root@RHEL52 ~]# chkconfig --list crond
+crond          	0:off	1:off	2:on	3:off	4:on	5:on	6:off
+		</screen>
+		<para>This screenshot shows how to enable <command>crond</command> in runlevels 3 and 4.</para>
+		<screen>
+[root@RHEL52 ~]# chkconfig --level 34 crond on
+[root@RHEL52 ~]# chkconfig --list crond
+crond          	0:off	1:off	2:on	3:on	4:on	5:on	6:off
+		</screen>
+	</section>
+	<section><title>chkconfig configuration</title>
+		<para>Every script in <command>/etc/init.d/</command><indexterm><primary>/etc/init.d/</primary></indexterm> can have (comment) lines to tell chkconfig what to do with the service. The line with <command># chkconfig:</command> contains the runlevels in which the service should be started (2345), followed by the priority for start (90) and stop (60).</para>
+		<screen>
+[root@RHEL52 ~]# head -9 /etc/init.d/crond | tail -5
+# chkconfig: 2345 90 60
+# description: cron is a standard UNIX program that runs user-specified
+#              programs at periodic scheduled times. vixie cron adds a
+#              number of features to the basic UNIX cron, including better
+#              security and more powerful configuration options.
+		</screen>
+	</section>
+	<section><title>enable and disable services</title>
+		<para>Services can be enabled or disabled in all runlevels with one command. Runlevels 0, 1 and 6 are always stopping services (or calling the scripts with <command>stop</command>) even when their name starts with uppercase S.</para>
+		<screen>
+[root@RHEL52 ~]# chkconfig crond off
+[root@RHEL52 ~]# chkconfig --list crond
+crond           0:off   1:off   2:off   3:off   4:off   5:off   6:off
+[root@RHEL52 ~]# chkconfig crond on
+[root@RHEL52 ~]# chkconfig --list crond
+crond           0:off   1:off   2:on    3:on    4:on    5:on    6:off
+		</screen>
+	</section>
+</section>
+<section><title>update-rc.d</title>
 	<para></para>
 	<screen>
 	</screen>
 	<para></para>
-	<para>You might also want to take a look at <command>chkconfig</command><indexterm><primary>chkconfig</primary></indexterm>, <command>update-rc.d</command><indexterm><primary>update-rc.d</primary></indexterm>.</para>
 </section>
