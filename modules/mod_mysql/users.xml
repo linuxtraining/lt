@@ -14,7 +14,7 @@ mysql:x:105:
 		<screen>root@laika:~# mysqladmin -u root password SecretPass</screen>
 	</section>
 	<section><title>mysql client application</title>
-		<para>You can now use mysql from the commandline by just typing <command>mysql -u root -p</command><indexterm><primary>mysql</primary></indexterm> and it will ask you for the password (of the mysql root account). In the screenshot below, the welcome message is cut.</para>
+		<para>You can now use mysql from the commandline by just typing <command>mysql -u root -p</command><indexterm><primary>mysql</primary></indexterm> and you 'll be asked for the password (of the mysql root account). In the screenshot below, the welcome message is cut.</para>
 		<screen>
 # Linux barry 2.6.17-2-686 #1 SMP Wed Sep 13 16:34:10 UTC 2006 i686 GNU/Linux
 paul@barry:~$ mysql -u root -p
@@ -23,7 +23,7 @@ Enter password:
 mysql&#062; exit
 Bye
 		</screen>
-		<para>You can also put the password in clear text on the command line, but that would not be very secure. Anyone with access to your bash history will be able to read your mysql root password.</para>
+		<para>You could also put the password in clear text on the command line, but that would not be very secure. Anyone with access to your bash history would be able to read your mysql root password.</para>
 		<screen>
 paul@barry:~$ mysql -u root -pSecretPass
 &#060;cut MySQL Welcome Message&#062;
@@ -32,7 +32,7 @@ Bye
 		</screen>
 	</section>
 	<section><title>~/.my.cnf</title>
-		<para>You can save private configuration in your home directory in the hidden file <command>.my.cnf</command><indexterm><primary>.my.cnf</primary></indexterm>. In the screenshot below we put the root password in .my.cnf.</para>
+		<para>You can save configuration in your home directory in the hidden file <command>.my.cnf</command><indexterm><primary>.my.cnf</primary></indexterm>. In the screenshot below we put the root password in .my.cnf.</para>
 		<screen>
 paul@barry:~$ echo "[client]" &#062; .my.cnf
 paul@barry:~$ echo password=SecretPass &#062;&#062; .my.cnf

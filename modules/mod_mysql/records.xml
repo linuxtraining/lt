@@ -37,7 +37,7 @@ Query OK, 1 row affected (0.00 sec)
 Rows matched: 1  Changed: 1  Warnings: 0
 		</screen>
 	</section>
-	<section><title>viewing selected record</title>
+	<section><title>viewing selected records</title>
 		<para>Using a <command>where</command> clause in a <command>select</command><indexterm><primary>select(mysql)</primary></indexterm> statement, you can specify which record(s) you want to see.</para>
 		<screen>
 mysql> select * from country where name='Spain';

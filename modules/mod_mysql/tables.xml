@@ -1,5 +1,5 @@
 <section><title>mysql tables</title>
-<section><title>Listing tables</title>
+<section><title>listing tables</title>
 	<para>You can see a list of tables in the current database with the <command>show tables</command><indexterm><primary>show(mysql)</primary></indexterm> command. Our <command>demodb</command> is still empty.</para>
 	<screen>
 mysql> use demodb;
@@ -25,7 +25,7 @@ mysql> show tables;
 31 rows in set (0.00 sec)
 	</screen>
 </section>
-<section><title>Creating a table</title>
+<section><title>creating a table</title>
 	<para>The <command>create table</command><indexterm><primary>create(mysql)</primary></indexterm> command will create a new table.</para>
 	<para>This screenshot shows the creation of a country table. We use the <command>country code</command> as a primary key (all country codes are uniquely defined). Most country codes are two or three letters, so a <command>char</command><indexterm><primary>char(mysql)</primary></indexterm> of three uses less space than a <command>varchar</command><indexterm><primary>varchar(mysql)</primary></indexterm> of three. The <command>country name</command> and the name of the capital are both defined as <command>varchar</command>. The population can be seen as an <command>integer</command><indexterm><primary>integer(mysql)</primary></indexterm>.</para>
 	<screen>
@@ -40,7 +40,7 @@ Query OK, 0 rows affected (0.07 sec)
 	</screen>
 	<para>You are allowed to type the <command>create table</command> command on one long line, but administrators often use multiple lines to improve readability.</para>
 </section>
-<section><title>Describing a table</title>
+<section><title>describing a table</title>
 	<para>To see a description of the structure of a table, issue the <command>describe $tablename</command><indexterm><primary>describe(mysql)</primary></indexterm> command as shown below.</para>
 	<screen>
 mysql> describe country;
@@ -55,7 +55,7 @@ mysql> describe country;
 4 rows in set (0.03 sec)
 	</screen>
 </section>
-<section><title>Removing a table</title>
+<section><title>removing a table</title>
 	<para>To remove a table from a database, issue the <command>drop table $tablename</command><indexterm><primary>drop(mysql)</primary></indexterm> command as shown below.</para>
 	<screen>
 mysql> drop table country;

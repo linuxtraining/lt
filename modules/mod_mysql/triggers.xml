@@ -1,6 +1,6 @@
 <section><title>mysql triggers</title>
 <section><title>using a before trigger</title>
-	<para>Consider the following <command>create table</command><indexterm><primary>create(mysql)</primary></indexterm> command. The last field (<command>amount</command>) is the mulitplication of the two fields named <command>unitprice</command> and <command>unitcount</command>.</para>
+	<para>Consider the following <command>create table</command><indexterm><primary>create(mysql)</primary></indexterm> command. The last field (<command>amount</command>) is the multiplication of the two fields named <command>unitprice</command> and <command>unitcount</command>.</para>
 	<screen>
 mysql> create table invoices (
     -> id char(8) NOT NULL,
