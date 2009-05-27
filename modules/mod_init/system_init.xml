@@ -3,17 +3,12 @@
 	<para>Init starts daemons by using scripts, where each script starts one daemon, and where each script waits for the previous script to finish. This serial process of starting daemons is slow, and although slow booting is not a problem on servers where uptime is measured in years, the recent uptake of Linux on the desktop results in user complaints.</para>
 	<para>To improve Linux startup speed, <command>Canonical</command><indexterm><primary>Canonical</primary></indexterm> has developed <command>upstart</command><indexterm><primary>upstart</primary></indexterm>, which was first used in Ubuntu. Solaris also used init up to Solaris 9, for Solaris 10 <command>Sun</command><indexterm><primary>Sun</primary></indexterm> has developed <command>Service Management Facility</command><indexterm><primary>SMF</primary></indexterm>. Both systems start daemons in parallel and can replace the SysV init scripts. There is also an ongoing effort to create <command>initng</command><indexterm><primary>initng</primary></indexterm> (init next generation).</para>
 </section>
-<section><title>about daemons</title>
-	<para>A <command>daemon</command><indexterm><primary>daemon</primary></indexterm> is a process that runs in background, without a link to a GUI or terminal. Daemons are usually started at system boot, and stay alive until the system shuts down. In more recent technical writings, daemons are often refered to as <command>services</command>.</para>
-	<para>Unix <command>daemons</command> are not to be confused with demons. <command>Evi Nemeth</command><indexterm><primary>Evi Nemeth</primary></indexterm>, co-author of the UNIX System Administration Handbook has the following to say about daemons:</para>
-	<para><emphasis>Many people equate the word "daemon" with the word "demon", implying some kind of satanic connection between UNIX and the underworld. This is an egregious misunderstanding. "Daemon" is actually a much older form of "demon"; daemons have no particular bias towards good or evil, but rather serve to help define a person's character or personality. The ancient Greeks' concept of a "personal daemon" was similar to the modern concept of a "guardian angel" ...</emphasis>.</para>
-</section>
-<section><title>Init</title>
-	<section><title>PID 1</title>
-		<para>The kernel receives system control from the bootloader. After a while the kernel starts the <command>init daemon</command><indexterm><primary>init</primary></indexterm>. The <command>init</command> daemon (<command>/sbin/init</command>) is the first daemon that is started and receives <command>Process ID 1</command> (PID 1). <command>Init</command> never dies.</para>
+<section><title>system init(ialization)</title>
+	<section><title>process id 1</title>
+		<para>The kernel receives system control from the bootloader. After a while the kernel starts the <command>init daemon</command><indexterm><primary>init</primary></indexterm>. The <command>init</command> daemon (<command>/sbin/init</command>) is the first daemon that is started and receives <command>process id 1</command> (PID 1). <command>Init</command> never dies.</para>
 
 	</section>
-	<section><title>/etc/inittab</title>
+	<section><title>configuration in /etc/inittab</title>
 		<para>When <command>/sbin/init</command><indexterm><primary>/sbin/init</primary></indexterm> is started, it will first read its configuration file <command>/etc/inittab</command><indexterm><primary>/etc/inittab</primary></indexterm>. In that file, it will look for the value of initdefault (3 in the screenshot below).</para>
 		<screen>
 [paul@rhel4 ~]$ grep &#094;id /etc/inittab 
@@ -32,7 +27,7 @@ id:3:initdefault:
 #   5 - X11
 #   6 - reboot (Do NOT set initdefault to this)
 		</screen>
-		<para>Runlevel 0 means the system is shutting down. Runlevel 1 is used for troubleshooting, only the root user can log on, and only at the console. Runlevel 3 is typical for servers, whereas runlevel 5 is typical for desktops (graphical logon). Besides runlevels 0, 1 and 6, the use may vary depending on the distribution. Debian and derived Linux systems have full network and GUI logon on runlevels 2 to 5. So always verify the proper meaning of runlevels on your system.</para>
+		<para><command>Runlevel 0</command> means the system is shutting down. <command>Runlevel 1</command> is used for troubleshooting, only the root user can log on, and only at the console. <command>Runlevel 3</command> is typical for servers, whereas <command>runlevel 5</command> is typical for desktops (graphical logon). Besides runlevels 0, 1 and 6, the use may vary depending on the distribution. Debian and derived Linux systems have full network and GUI logon on runlevels 2 to 5. So always verify the proper meaning of runlevels on your system.</para>
 	</section>
 	<section><title>sysinit script</title>
 		<section><title>/etc/rc.d/rc.sysinit</title>
@@ -40,7 +35,7 @@ id:3:initdefault:
 			<screen>
 si::sysinit:/etc/rc.d/rc.sysinit
 			</screen>
-			<para>This means that independent of the selected runlevel, <command>init</command> will run the <command>/etc/rc.d/rc.sysinit</command><indexterm><primary>/etc/rc.d/rc.sysinit</primary></indexterm> script. This script initializes hardware, setting some basic environment, populates /etc/mtab while mounting file systems, starts swap and more.</para>
+			<para>This means that independent of the selected runlevel, <command>init</command> will run the <command>/etc/rc.d/rc.sysinit</command><indexterm><primary>/etc/rc.d/rc.sysinit</primary></indexterm> script. This script initializes hardware, sets some basic environment, populates <command>/etc/mtab</command><indexterm><primary>/etc/mtab</primary></indexterm> while mounting file systems, starts swap and more.</para>
 			<screen>
 [paul@rhel ~]$ egrep -e"^# Ini" -e"^# Sta" -e"^# Che" /etc/rc.d/rc.sysinit
 # Check SELinux status
@@ -54,7 +49,10 @@ si::sysinit:/etc/rc.d/rc.sysinit
 # Start up swapping.
 # Initialize the serial ports.
 			</screen>
-			<para><emphasis>That <command>egrep</command><indexterm><primary>egrep</primary></indexterm> command could also have been written with <command>grep</command><indexterm><primary>grep</primary></indexterm> like this : grep "^# \(Ini\|Sta\|Che\)".</emphasis></para>
+			<para><emphasis>That <command>egrep</command><indexterm><primary>egrep</primary></indexterm> command could also have been written with <command>grep</command><indexterm><primary>grep</primary></indexterm> like this :</emphasis></para>
+			<screen>
+ grep "^# \(Ini\|Sta\|Che\)".
+			</screen>
 		</section>
 		<section><title>/etc/init.d/rcS</title>
 			<para>Debian has the following line after <command>initdefault</command>.</para>
@@ -76,7 +74,7 @@ exec /etc/init.d/rc S
 		</section>
 	</section>
 	<section><title>rc scripts</title>
-		<para>Init will continue to read /etc/inittab and meets this section on Debian Linux.</para>
+		<para>Init will continue to read <command>/etc/inittab</command> and meets this section on Debian Linux.</para>
 		<screen>
 l0:0:wait:/etc/init.d/rc 0
 l1:1:wait:/etc/init.d/rc 1
@@ -86,7 +84,7 @@ l4:4:wait:/etc/init.d/rc 4
 l5:5:wait:/etc/init.d/rc 5
 l6:6:wait:/etc/init.d/rc 6
 		</screen>
-		<para>On Red Hat Enterprise Linux it is identical except init.d is rc.d.</para>
+		<para>On Red Hat Enterprise Linux it is identical except <command>init.d</command> is <command>rc.d</command>.</para>
 		<screen>
 l0:0:wait:/etc/rc.d/rc 0
 l1:1:wait:/etc/rc.d/rc 1
@@ -96,10 +94,10 @@ l4:4:wait:/etc/rc.d/rc 4
 l5:5:wait:/etc/rc.d/rc 5
 l6:6:wait:/etc/rc.d/rc 6
 		</screen>
-		<para>In both cases, this means that init will start the rc script with the runlevel as the only parameter. Actually <command>/etc/inittab</command><indexterm><primary>/etc/inittab</primary></indexterm> has fields seperated by colons. The second field determines the runlevel in which this line should be executed. So in both cases, only one line of the seven will be executed, depending on the runlevel set by <command>initdefault</command>.</para>
+		<para>In both cases, this means that <command>init</command> will start the rc script with the runlevel as the only parameter. Actually <command>/etc/inittab</command><indexterm><primary>/etc/inittab</primary></indexterm> has fields seperated by colons. The second field determines the runlevel in which this line should be executed. So in both cases, only one line of the seven will be executed, depending on the runlevel set by <command>initdefault</command>.</para>
 	</section>
-	<section><title>rc scripts</title>
-		<para>When you take a look any of the <command>/etc/rcX.d</command><indexterm><primary>/etc/rcX.d</primary></indexterm> directories, then you will see a lot of (links to) scripts who's name start with either uppercase K or uppercase S.</para>
+	<section><title>rc directories</title>
+		<para>When you take a look any of the <command>/etc/rcX.d/</command><indexterm><primary>/etc/rcX.d/</primary></indexterm> directories, then you will see a lot of (links to) scripts who's name start with either uppercase K or uppercase S.</para>
 		<screen>
 [root@RHEL52 rc3.d]# ls -l | tail -4
 lrwxrwxrwx 1 root root 19 Oct 11  2008 S98haldaemon -> ../init.d/haldaemon
@@ -107,48 +105,12 @@ lrwxrwxrwx 1 root root 19 Oct 11  2008 S99firstboot -> ../init.d/firstboot
 lrwxrwxrwx 1 root root 11 Jan 21 04:16 S99local -> ../rc.local
 lrwxrwxrwx 1 root root 16 Jan 21 04:17 S99smartd -> ../init.d/smartd
 		</screen>
-		<para>The <command>/etc/rcX.d/</command> directories only contain links to scripts in <command>/etc/init.d</command>. Links allow for the script to have a different name. When entering a runlevel, all scripts that start with uppercase K or uppercase S will be started in alphabetical order. Those that start with K will be started first, with "stop" as the only parameter. The remaining scripts with S will be started with "start" as the only parameter. All this is done by the <command>/etc/rc.d/rc</command><indexterm><primary>/etc/rc.d/rc</primary></indexterm> script on Red Hat and by the <command>/etc/init.d/rc</command><indexterm><primary>/etc/init.d/rc</primary></indexterm> script on Debian.</para>
+		<para>The <command>/etc/rcX.d/</command> directories only contain links to scripts in <command>/etc/init.d/</command>. Links allow for the script to have a different name. When entering a runlevel, all scripts that start with uppercase K or uppercase S will be started in alphabetical order. Those that start with K will be started first, with <command>stop</command> as the only parameter. The remaining scripts with S will be started with <command>start</command> as the only parameter.</para>
+		<para>All this is done by the <command>/etc/rc.d/rc</command><indexterm><primary>/etc/rc.d/rc</primary></indexterm> script on Red Hat and by the <command>/etc/init.d/rc</command><indexterm><primary>/etc/init.d/rc</primary></indexterm> script on Debian.</para>
 	</section>
-	<section><title>Ctrl-Alt-Del</title>
-		<para>When <command>rc</command> is finished starting all those scripts, <command>init</command><indexterm><primary>init</primary></indexterm> will continue to read /etc/inittab. The next line is about what to do when the user hits <command>Ctrl-Alt-Delete</command><indexterm><primary>Ctrl-Alt-Delete</primary></indexterm> on the keyboard.</para>
-		<para>Here is what Debian 4.0 does.</para>
-		<screen>
-root@barry:~# grep -i ctrl /etc/inittab 
-# What to do when CTRL-ALT-DEL is pressed.
-ca:12345:ctrlaltdel:/sbin/shutdown -t1 -a -r now
-		</screen>
-		<para>Which is very similar to the default Red Hat Enterprise Linux 5.2 action.</para>
-		<screen>
-[root@RHEL52 ~]# grep -i ctrl /etc/inittab 
-# Trap CTRL-ALT-DELETE
-ca::ctrlaltdel:/sbin/shutdown -t3 -r now
-		</screen>
-		<para>The details of the <command>shutdown</command> will be discussed later in this chapter.</para>
-	</section>
-	<section><title>UPS and loss of power</title>
-		<screen>
-[root@RHEL52 ~]# grep ^p /etc/inittab 
-pf::powerfail:/sbin/shutdown -f -h +2 "Power Failure; System Shutting Down"
-pr:12345:powerokwait:/sbin/shutdown -c "Power Restored; Shutdown Cancelled"
-		</screen>
-		<para>It will read commands on what to execute in case of <command>powerfailure</command>, <command>powerok</command> and <command>Ctrl-Alt-Delete</command><indexterm><primary>Ctrl-Alt-Delete</primary></indexterm>. The init process never stops keeping an eye on power failures and that triple key combo.</para>
-		<screen>
-root@barry:~# grep ^p /etc/inittab 
-pf::powerwait:/etc/init.d/powerfail start
-pn::powerfailnow:/etc/init.d/powerfail now
-po::powerokwait:/etc/init.d/powerfail stop
-		</screen>
-	</section>
-
-
-		</section>
-		<para></para>
-		<screen>
-		</screen>
-		<para></para>
-		</section>
-		<section><title>getty</title>
-			<para>Almost at the end of /etc/inittab, there is a section to start and <command>respawn</command><indexterm><primary>respawn(init)</primary></indexterm> several mingetty's.</para>
+	<section><title>mingetty</title>
+		<section><title>mingetty in /etc/inittab</title>
+			<para>Almost at the end of <command>/etc/inittab</command><indexterm><primary>/etc/inittab</primary></indexterm> there is a section to start and <command>respawn</command><indexterm><primary>respawn(init)</primary></indexterm> several <command>mingetty</command><indexterm><primary>mingetty</primary></indexterm> daemons.</para>
 			<screen>
 [root@RHEL4b ~]# grep getty /etc/inittab 
 # Run gettys in standard runlevels
@@ -158,65 +120,77 @@ po::powerokwait:/etc/init.d/powerfail stop
 4:2345:respawn:/sbin/mingetty tty4
 5:2345:respawn:/sbin/mingetty tty5
 6:2345:respawn:/sbin/mingetty tty6
-[root@RHEL4b ~]#
 			</screen>
-			<para>A mingetty will display a message on a virtual console and allow you to type a userid and sends that info to the login program. The login program will verify whether that user exists in /etc/passwd and prompt for (and verify) a password. If the password is correct, login passes control to the shell listed in /etc/passwd.</para>
-			<para>So the getty's are started by init, and watched until they die (user exit's the shell and is logged out). When this happens, the init daemon will respawn a new mingetty. So even if you kill the mingetty's, they will be reborn automatically.</para>
+		</section>
+		<section><title>mingetty and /bin/login</title>
+			<para>This <command>/sbin/mingetty</command><indexterm><primary>/sbin/mingetty</primary></indexterm> will display a message on a virtual console and allow you to type a userid. Then it executes the <command>/bin/login</command><indexterm><primary>/bin/login</primary></indexterm> command with that userid. The <command>/bin/login</command> program will verify whether that user exists in <command>/etc/passwd</command><indexterm><primary>/etc/passwd</primary></indexterm> and prompt for (and verify) a password. If the password is correct, <command>/bin/login</command> passes control to the shell listed in <command>/etc/passwd</command>.</para>
+		</section>
+		<section><title>respawning mingetty</title>
+			<para>The mingetty daemons are started by <command>init</command> and watched until they die (user exits the shell and is logged out). When this happens, the <command>init</command> daemon will <command>respawn</command><indexterm><primary>respawn(init)</primary></indexterm> a new mingetty. So even if you <command>kill</command> a mingetty daemon, it will be restarted automatically.</para>
+			<para>This example shows that init respawns mingetty daemons. Look at the PID's of the last two mingetty processes.</para>
 			<screen>
-[root@RHEL4b ~]# ps fax |grep mingetty
- 3038 tty1     Ss+    0:00 /sbin/mingetty tty1
- 3039 tty2     Ss+    0:00 /sbin/mingetty tty2
- 3040 tty3     Ss+    0:00 /sbin/mingetty tty3
- 3041 tty4     Ss+    0:00 /sbin/mingetty tty4
- 3042 tty5     Ss+    0:00 /sbin/mingetty tty5
- 3043 tty6     Ss+    0:00 /sbin/mingetty tty6
-[root@RHEL4b ~]# kill 3038 3039 3040 3041 3042 3043
-[root@RHEL4b ~]# ps fax |grep mingetty
- 4774 tty1     Ss+    0:00 /sbin/mingetty tty1
- 4884 tty2     Ss+    0:00 /sbin/mingetty tty2
- 4974 tty3     Ss+    0:00 /sbin/mingetty tty3
- 5026 tty4     Ss+    0:00 /sbin/mingetty tty4
- 5073 tty5     Ss+    0:00 /sbin/mingetty tty5
- 5098 tty6     Ss+    0:00 /sbin/mingetty tty6
-[root@RHEL4b ~]# 			
+[root@RHEL52 ~]# ps -C mingetty
+  PID TTY          TIME CMD
+ 2407 tty1     00:00:00 mingetty
+ 2408 tty2     00:00:00 mingetty
+ 2409 tty3     00:00:00 mingetty
+ 2410 tty4     00:00:00 mingetty
+ 2411 tty5     00:00:00 mingetty
+ 2412 tty6     00:00:00 mingetty
 			</screen>
+			<para>When we <command>kill</command><indexterm><primary>kill(1)</primary></indexterm> the last two mingettys, then <command>init</command> will notice this and start them again (with a different PID).</para>
+			<screen>
+[root@RHEL52 ~]# kill 2411 2412
+[root@RHEL52 ~]# ps -C mingetty
+  PID TTY          TIME CMD
+ 2407 tty1     00:00:00 mingetty
+ 2408 tty2     00:00:00 mingetty
+ 2409 tty3     00:00:00 mingetty
+ 2410 tty4     00:00:00 mingetty
+ 2821 tty5     00:00:00 mingetty
+ 2824 tty6     00:00:00 mingetty
+			</screen>
+		</section>
+		<section><title>disabling a mingetty</title>
 			<para>You can disable a mingetty for a certain tty by removing the runlevel from the second field in its line in /etc/inittab. Don't forget to tell init about the change of its configuration file with <command>kill -1 1</command><indexterm><primary>kill(1)</primary></indexterm>.</para>
+			<para>The example below shows how to disable mingetty on tty3 to tty6 in runlevels 4 and 5.</para>
+			<screen>
+[root@RHEL52 ~]# grep getty /etc/inittab 
+# Run gettys in standard runlevels
+1:2345:respawn:/sbin/mingetty tty1
+2:2345:respawn:/sbin/mingetty tty2
+3:23:respawn:/sbin/mingetty tty3
+4:23:respawn:/sbin/mingetty tty4
+5:23:respawn:/sbin/mingetty tty5
+6:23:respawn:/sbin/mingetty tty6
+			</screen>
 		</section>
 	</section>
-	<section><title>Starting and stopping daemons</title>
-		<para>The K and S scripts usually are links to the real scripts in <command>/etc/init.d</command><indexterm><primary>/etc/init.d</primary></indexterm> or <command>/etc/rc.d/init.d</command><indexterm><primary>/etc/rc.d/init.d</primary></indexterm>. These can also be used when the system is running to start and stop daemons (or services). Most of them accept the following parameters: start, stop, restart, status.</para>
-		<screen>
+</section>
+<section><title>daemon or demon ?</title>
+	<para>A <command>daemon</command><indexterm><primary>daemon</primary></indexterm> is a process that runs in background, without a link to a GUI or terminal. Daemons are usually started at system boot, and stay alive until the system shuts down. In more recent technical writings, daemons are often refered to as <command>services</command>.</para>
+	<para>Unix <command>daemons</command> are not to be confused with demons. <command>Evi Nemeth</command><indexterm><primary>Evi Nemeth</primary></indexterm>, co-author of the UNIX System Administration Handbook has the following to say about daemons:</para>
+	<para><emphasis>Many people equate the word "daemon" with the word "demon", implying some kind of satanic connection between UNIX and the underworld. This is an egregious misunderstanding. "Daemon" is actually a much older form of "demon"; daemons have no particular bias towards good or evil, but rather serve to help define a person's character or personality. The ancient Greeks' concept of a "personal daemon" was similar to the modern concept of a "guardian angel" ...</emphasis>.</para>
+</section>
+<section><title>starting and stopping daemons</title>
+	<para>The K and S scripts are links to the real scripts in <command>/etc/init.d</command><indexterm><primary>/etc/init.d</primary></indexterm>. These can also be used when the system is running to start and stop daemons (or services). Most of them accept the following parameters: start, stop, restart, status.</para>
+	<para>For example in this screenshot we restart the samba daemon.</para>
+	<screen>
 root@laika:~# /etc/init.d/samba restart
  * Stopping Samba daemons...                               [ OK ] 
  * Starting Samba daemons...                               [ OK ] 
-root@laika:~# 				
-		</screen>
-		<para>You can achieve the same result on Red Hat and derived linuxes with the <command>service</command><indexterm><primary>service(1)</primary></indexterm> command. </para>
-		<screen>
+	</screen>
+	<para>You can achieve the same result on RHEL/Fedora with the <command>service</command><indexterm><primary>service(1)</primary></indexterm> command.</para>
+	<screen>
 [root@RHEL4b ~]# service smb restart
 Shutting down SMB services:                                [  OK  ]
 Shutting down NMB services:                                [  OK  ]
 Starting SMB services:                                     [  OK  ]
 Starting NMB services:                                     [  OK  ]
-[root@RHEL4b ~]# 
-		</screen>
-	</section>
-	<section><title>Display the runlevel</title>
-		<para>You can see your current runlevel with the <command>runlevel</command><indexterm><primary>runlevel(1)</primary></indexterm> or <command>who -r</command><indexterm><primary>who -r</primary></indexterm> commands.</para>
-		<para>The runlevel command is typical linux and will output the previous and the current runlevel. If there was no previous runlevel, then it will mark it with the letter N.</para>
-		<screen>
-[root@RHEL4b ~]# runlevel 
-N 3
-		</screen>
-		<para>The history of who -r dates back to older unixes, and it still works on linux.</para>
-		<screen>
-[root@RHEL4b ~]# who -r
-         run-level 3  Jul 28 09:15                   last=S
-		</screen>
-	</section>
-	<section><title>Changing the runlevel</title>
-		<para>You can switch to another runlevel with the <command>telinit</command><indexterm><primary>telinit(1)</primary></indexterm> command. On Linux <command>/sbin/telinit</command><indexterm><primary>/sbin/telinit</primary></indexterm> is usually a hard link to /sbin/init.</para>
-	</section>
-	<section><title>more info</title>
-	<para>You might also want to take a look at <command>chkconfig</command><indexterm><primary>chkconfig</primary></indexterm>, <command>update-rc.d</command><indexterm><primary>update-rc.d</primary></indexterm>, <command>shutdown</command><indexterm><primary>shutdown</primary></indexterm>, <command>poweroff</command><indexterm><primary>poweroff</primary></indexterm> and passing <command>init=/bin/bash</command> to the kernel.</para>
+	</screen>
+	<para></para>
+	<screen>
+	</screen>
+	<para></para>
+	<para>You might also want to take a look at <command>chkconfig</command><indexterm><primary>chkconfig</primary></indexterm>, <command>update-rc.d</command><indexterm><primary>update-rc.d</primary></indexterm>.</para>
 </section>
