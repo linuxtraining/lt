@@ -1,3 +1,64 @@
+<section><title>runlevels</title>
+	<section><title>display the runlevel</title>
+		<para>You can see your current runlevel with the <command>runlevel</command><indexterm><primary>runlevel(1)</primary></indexterm> or <command>who -r</command><indexterm><primary>who(1)</primary></indexterm> commands.</para>
+		<para>The runlevel command is typical Linux and will output the previous and the current runlevel. If there was no previous runlevel, then it will mark it with the letter N.</para>
+		<screen>
+[root@RHEL4b ~]# runlevel 
+N 3
+		</screen>
+		<para>The history of <command>who -r</command> dates back to Seventies Unix, it still works on Linux.</para>
+		<screen>
+[root@RHEL4b ~]# who -r
+         run-level 3  Jul 28 09:15                   last=S
+		</screen>
+	</section>
+	<section><title>changing the runlevel</title>
+		<para>You can switch to another runlevel with the <command>telinit</command><indexterm><primary>telinit(8)</primary></indexterm> command. On Linux <command>/sbin/telinit</command><indexterm><primary>/sbin/telinit</primary></indexterm> is usually a (hard) link to <command>/sbin/init</command>.</para>
+		<para>This screenshot shows how to switch from runlevel 2 to runlevel 3 without reboot.</para>
+		<screen>
+root@barry:~# runlevel 
+N 2
+root@barry:~# init 3
+root@barry:~# runlevel 
+2 3
+		</screen>
+	</section>
+	<section><title>/sbin/shutdown</title>
+		<para>The <command>shutdown</command><indexterm><primary>shutdown(8)</primary></indexterm> command is used to properly shut down a system.</para>
+		<para>Common switches used with <command>shutdown</command> are <command>-a</command> to use <command>/etc/shutdown.allow</command>, <command>-t</command> to define the number of seconds between the sending of the <command>TERM</command><indexterm><primary>TERM(kill)</primary></indexterm> signal and the <command>KILL(kill)</command><indexterm><primary>shutdown(8)</primary></indexterm> signal.</para>
+		<screen>
+		</screen>
+	</section>
+	<section><title>/sbin/halt reboot poweroff</title>
+		<para></para>
+		<screen>
+		</screen>
+	</section>
+	<section><title>/sbin/shutdown</title>
+		<para></para>
+		<screen>
+		</screen>
+	</section>
+	<section><title>/sbin/shutdown</title>
+		<para></para>
+		<screen>
+		</screen>
+	</section>
+	<section><title>/sbin/shutdown</title>
+		<para></para>
+		<screen>
+		</screen>
+	</section>
+	<section><title>/sbin/shutdown</title>
+		<para></para>
+		<screen>
+		</screen>
+	</section>
+
+	<para><command>shutdown</command><indexterm><primary>shutdown</primary></indexterm>, <command>poweroff</command><indexterm><primary>poweroff</primary></indexterm> </para>
+</section>
+
+
 	<section><title>Ctrl-Alt-Del</title>
 		<para>When <command>rc</command> is finished starting all those scripts, <command>init</command><indexterm><primary>init</primary></indexterm> will continue to read /etc/inittab. The next line is about what to do when the user hits <command>Ctrl-Alt-Delete</command><indexterm><primary>Ctrl-Alt-Delete</primary></indexterm> on the keyboard.</para>
 		<para>Here is what Debian 4.0 does.</para>
@@ -12,7 +73,7 @@ ca:12345:ctrlaltdel:/sbin/shutdown -t1 -a -r now
 # Trap CTRL-ALT-DELETE
 ca::ctrlaltdel:/sbin/shutdown -t3 -r now
 		</screen>
-		<para>The details of the <command>shutdown</command> will be discussed later in this chapter.</para>
+		<para>One noticable difference is that Debian forces shutdown to use <command>/etc/shutdown.allow</command><indexterm><primary>/etc/shutdown.allow</primary></indexterm>, where Red Hat allows everyone to invoke <command>shutdown</command> pressing <command>Ctrl-Alt-Delete</command>. </para>
 	</section>
 	<section><title>UPS and loss of power</title>
 		<screen>
@@ -28,22 +89,3 @@ pn::powerfailnow:/etc/init.d/powerfail now
 po::powerokwait:/etc/init.d/powerfail stop
 		</screen>
 	</section>
-	<section><title>Display the runlevel</title>
-		<para>You can see your current runlevel with the <command>runlevel</command><indexterm><primary>runlevel(1)</primary></indexterm> or <command>who -r</command><indexterm><primary>who -r</primary></indexterm> commands.</para>
-		<para>The runlevel command is typical linux and will output the previous and the current runlevel. If there was no previous runlevel, then it will mark it with the letter N.</para>
-		<screen>
-[root@RHEL4b ~]# runlevel 
-N 3
-		</screen>
-		<para>The history of who -r dates back to older unixes, and it still works on linux.</para>
-		<screen>
-[root@RHEL4b ~]# who -r
-         run-level 3  Jul 28 09:15                   last=S
-		</screen>
-	</section>
-	<section><title>Changing the runlevel</title>
-		<para>You can switch to another runlevel with the <command>telinit</command><indexterm><primary>telinit(1)</primary></indexterm> command. On Linux <command>/sbin/telinit</command><indexterm><primary>/sbin/telinit</primary></indexterm> is usually a hard link to /sbin/init.</para>
-	</section>
-	<section><title>more info</title>
-	<para>You might also want to take a look at <command>chkconfig</command><indexterm><primary>chkconfig</primary></indexterm>, <command>update-rc.d</command><indexterm><primary>update-rc.d</primary></indexterm>, <command>shutdown</command><indexterm><primary>shutdown</primary></indexterm>, <command>poweroff</command><indexterm><primary>poweroff</primary></indexterm> and passing <command>init=/bin/bash</command> to the kernel.</para>
-</section>
