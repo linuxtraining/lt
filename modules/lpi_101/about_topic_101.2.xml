@@ -1,4 +1,4 @@
-<section><title>About Topic 101.1</title>
+<section><title>about topic 101.2</title>
 	<para>On the LPI website we read: "Candidates should be able to guide the system through the booting process." With the following detailed objectives.</para>
 	<screen>
 * Provide common commands to the boot loader and options to the kernel

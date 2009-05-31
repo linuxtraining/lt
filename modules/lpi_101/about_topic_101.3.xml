@@ -1,0 +1,10 @@
+<section><title>about topic 101.3</title>
+	<para>On the LPI website we read: "Candidates should be able to manage the runlevel of the system. This objective includes changing to single user mode, shutdown or rebooting the system. Candidates should be able to alert users before switching runlevel and properly terminate processes. This objective also includes setting the default runlevel.".</para>
+	<screen>
+* Set the default runlevel.
+* Change between run levels including single user mode.
+* Shutdown and reboot from the command line.
+* Alert users before switching runlevels or other major system event.
+* Properly terminate processes.
+	</screen>
+</section>

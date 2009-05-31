@@ -30,7 +30,9 @@ chapt_101_2_Boot_the_system() {
 chapt_101_3_Change_Runlevels_and_shutdown_or_reboot_system() {
 	MODULES=""
 	chaptitle="Topic 101.3 Change runlevels and shutdown or reboot system"
-	add_mod lpi_101/dummy.xml
+	add_mod lpi_101/about_topic_101.3.xml
+	add_mod lpi_101/topic_101.3_init.xml
+	add_mod lpi_101/topic_101.3_runlevels.xml
 	}
 
 #######################################################

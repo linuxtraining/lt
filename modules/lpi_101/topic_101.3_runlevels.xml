@@ -1,0 +1,81 @@
+<section><title>runlevels</title>
+	<section><title>display the runlevel</title>
+		<para>You can see your current runlevel with the <command>runlevel</command><indexterm><primary>runlevel(1)</primary></indexterm> or <command>who -r</command><indexterm><primary>who(1)</primary></indexterm> commands.</para>
+		<para>The runlevel command is typical Linux and will output the previous and the current runlevel. If there was no previous runlevel, then it will mark it with the letter N.</para>
+		<screen>
+[root@RHEL4b ~]# runlevel 
+N 3
+		</screen>
+		<para>The history of <command>who -r</command> dates back to Seventies Unix, it still works on Linux.</para>
+		<screen>
+[root@RHEL4b ~]# who -r
+         run-level 3  Jul 28 09:15                   last=S
+		</screen>
+	</section>
+	<section><title>changing the runlevel</title>
+		<para>You can switch to another runlevel with the <command>telinit</command><indexterm><primary>telinit(8)</primary></indexterm> command. On Linux <command>/sbin/telinit</command><indexterm><primary>/sbin/telinit</primary></indexterm> is usually a (hard) link to <command>/sbin/init</command>.</para>
+		<para>This screenshot shows how to switch from runlevel 2 to runlevel 3 without reboot.</para>
+		<screen>
+root@barry:~# runlevel 
+N 2
+root@barry:~# init 3
+root@barry:~# runlevel 
+2 3
+		</screen>
+	</section>
+	<section><title>/sbin/shutdown</title>
+		<para>The <command>shutdown</command><indexterm><primary>shutdown(8)</primary></indexterm> command is used to properly shut down a system.</para>
+		<para>Common switches used with <command>shutdown</command> are <command>-a</command>, <command>-t</command>, <command>-h</command> and <command>-r</command>.</para>
+		<para>The <command>-a</command> switch forces <command>/sbin/shutdown</command> to use <command>/etc/shutdown.allow</command>. The <command>-t</command> switch is used to define the number of seconds between the sending of the <command>TERM</command><indexterm><primary>SIGTERM</primary></indexterm> signal and the <command>KILL</command><indexterm><primary>SIGKILL</primary></indexterm> signal. The <command>-h</command> switch halts the system instead of changing to runlevel 1. The <command>-r</command> switch tells <command>/sbin/shutdown</command> to reboot after shutting down.</para>
+		<para>This screenshot shows how to use <command>shutdown</command> with five seconds between TERM and KILL signals.</para>
+		<screen>
+root@barry:~# shutdown -t5 -h now 
+		</screen>
+		<para>The <command>now</command> is the time argument. This can be <command>+m</command> for the number of minutes to wait before shutting down (with <command>now</command> as an alias for <command>+0</command>. The command will also accept hh:mm instead of <command>+m</command>.</para>
+	</section>
+	<section><title>halt, reboot and poweroff</title>
+		<para>The binary <command>/sbin/reboot</command> is the same as <command>/sbin/halt</command> and <command>/sbin/poweroff</command>. Depending on the name we use to call the command, it can behave differently.</para>
+		<para>When in runlevel 0 or 6 <command>halt</command><indexterm><primary>halt(8)</primary></indexterm>, <command>reboot</command><indexterm><primary>reboot(8)</primary></indexterm> and <command>poweroff</command><indexterm><primary>poweroff(8)</primary></indexterm> will tell the kernel to <command>halt</command>, <command>reboot</command> or <command>poweroff</command> the system.</para>
+		<para>When not in runlevel 0 or 6, typing <command>reboot</command> as root actually calls the <command>shutdown</command> command with the <command>-r</command> switch and typing <command>poweroff</command> will switch off the power when halting the system.</para>
+	</section>
+	<section><title>/var/log/wtmp</title>
+		<para><command>halt</command>, <command>reboot</command> and <command>poweroff</command> all write to <command>/var/log/wtmp</command><indexterm><primary>/var/log/wtmp</primary></indexterm>. To look at <command>/var/log/wtmp</command>, we need to use th <command>last</command><indexterm><primary>last(1)</primary></indexterm>. </para>
+		<screen>
+[root@RHEL52 ~]# last | grep reboot
+reboot   system boot  2.6.18-128.el5   Fri May 29 11:44   (192+05:01)
+reboot   system boot  2.6.18-128.el5   Wed May 27 12:10    (06:49)
+reboot   system boot  2.6.18-128.el5   Mon May 25 19:34   (1+15:59)
+reboot   system boot  2.6.18-128.el5   Mon Feb  9 13:20   (106+21:13)
+		</screen>
+	</section>
+	<section><title>Ctrl-Alt-Del</title>
+		<para>When <command>rc</command> is finished starting all those scripts, <command>init</command><indexterm><primary>init</primary></indexterm> will continue to read /etc/inittab. The next line is about what to do when the user hits <command>Ctrl-Alt-Delete</command><indexterm><primary>Ctrl-Alt-Delete</primary></indexterm> on the keyboard.</para>
+		<para>Here is what Debian 4.0 does.</para>
+		<screen>
+root@barry:~# grep -i ctrl /etc/inittab 
+# What to do when CTRL-ALT-DEL is pressed.
+ca:12345:ctrlaltdel:/sbin/shutdown -t1 -a -r now
+		</screen>
+		<para>Which is very similar to the default Red Hat Enterprise Linux 5.2 action.</para>
+		<screen>
+[root@RHEL52 ~]# grep -i ctrl /etc/inittab 
+# Trap CTRL-ALT-DELETE
+ca::ctrlaltdel:/sbin/shutdown -t3 -r now
+		</screen>
+		<para>One noticable difference is that Debian forces shutdown to use <command>/etc/shutdown.allow</command><indexterm><primary>/etc/shutdown.allow</primary></indexterm>, where Red Hat allows everyone to invoke <command>shutdown</command> pressing <command>Ctrl-Alt-Delete</command>. </para>
+	</section>
+	<section><title>UPS and loss of power</title>
+		<screen>
+[root@RHEL52 ~]# grep ^p /etc/inittab 
+pf::powerfail:/sbin/shutdown -f -h +2 "Power Failure; System Shutting Down"
+pr:12345:powerokwait:/sbin/shutdown -c "Power Restored; Shutdown Cancelled"
+		</screen>
+		<para>It will read commands on what to execute in case of <command>powerfailure</command>, <command>powerok</command> and <command>Ctrl-Alt-Delete</command><indexterm><primary>Ctrl-Alt-Delete</primary></indexterm>. The init process never stops keeping an eye on power failures and that triple key combo.</para>
+		<screen>
+root@barry:~# grep ^p /etc/inittab 
+pf::powerwait:/etc/init.d/powerfail start
+pn::powerfailnow:/etc/init.d/powerfail now
+po::powerokwait:/etc/init.d/powerfail stop
+		</screen>
+	</section>
+</section>
