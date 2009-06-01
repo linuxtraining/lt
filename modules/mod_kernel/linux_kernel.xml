@@ -52,7 +52,7 @@ kernel:  BIOS-e820: 00000000fffe0000 - 0000000100000000 (reserved)
 kernel: 0MB HIGHMEM available.
 kernel: 512MB LOWMEM available.
 		</screen>
-		<para>This example shows how to use <command>/var/log/messages</command> to see kernel information about <command>dev/sda</command>.</para>
+		<para>This example shows how to use <command>/var/log/messages</command> to see kernel information about <command>/dev/sda</command>.</para>
 		<screen>
 [root@RHEL53 ~]# grep sda /var/log/messages | cut -b24-
 kernel: SCSI device sda: 41943040 512-byte hdwr sectors (21475 MB)
@@ -69,7 +69,7 @@ kernel: EXT3 FS on sda1, internal journal
 		</screen>
 	</section>
 	<section><title>dmesg</title>
-		<para>The <command>dmesg</command> prints out all the kernel bootup messages (from the last boot).</para>
+		<para>The <command>dmesg</command> command prints out all the kernel bootup messages (from the last boot).</para>
 		<screen>
 [root@RHEL53 ~]# dmesg | head
 Linux version 2.6.18-128.el5 (mockbuild@hs20-bc1-5.build.redhat.com)
