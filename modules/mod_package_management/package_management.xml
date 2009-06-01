@@ -1,13 +1,13 @@
 <section><title>Terminology</title>
 	<section><title>repositories</title>
-		<para>Most software for your Linux distribution is available in a central distributed repository. This means that applications in the repository are tested for your distribution and very easy to install with a GUI or command line installer.</para>
+		<para>Most software for your Linux distribution is available in a central distributed <command>repository</command><indexterm><primary>repository</primary></indexterm>. This means that applications in the repository are tested for your distribution and very easy to install with a GUI or command line installer.</para>
 		<para>The GUI is available via the standard menu (look for Add/Remove Software). The command line is explained below in detail.</para>
 	</section>
 	<section><title>RPM based</title>
-		<para>Red Hat, Fedora, OpenSUSE, Mandriva, Red Flag and others use <command>.rpm</command> packages. The tool to manage software here is called <command>yum</command>, which uses the <command>rpm</command> command in background.</para>
+		<para>Red Hat, Fedora, OpenSUSE, Mandriva, Red Flag and others use <command>.rpm</command><indexterm><primary>rpm(8)</primary></indexterm> packages. The tool to manage software here is called <command>yum</command>, which uses the <command>rpm</command> command in background.</para>
 	</section>
 	<section><title>Debian based</title>
-		<para>Debian, Ubuntu, Linux Mint and all derivatives from Debian and Ubuntu use <command>.deb</command> packages. To manage software on these systems, you can use <command>aptitude</command>. <command>aptitude</command> is a front end for <command>dpkg</command>.</para>
+		<para>Debian, Ubuntu, Linux Mint and all derivatives from Debian and Ubuntu use <command>.deb</command><indexterm><primary>deb(5)</primary></indexterm> packages. To manage software on these systems, you can use <command>aptitude</command><indexterm><primary>aptitude(8)</primary></indexterm>. <command>aptitude</command> is a front end for <command>dpkg</command><indexterm><primary>dpkg(8)</primary></indexterm>.</para>
 	</section>
 	<section><title>building from source</title>
 		<para>With <command>open source</command> software, there is always the option to compile software yourself. This is discussed at the end of this chapter.</para>
@@ -72,10 +72,10 @@ gcc is needed by (installed) systemtap-0.6.2-1.el5_2.2.i386
 			</screen>
 		</section>
 		<section><title>/var/lib/rpm</title>
-			<para>The <command>rpm</command> database is located at <command>/var/lib/rpm</command>. This database contains all meta information about packages that are installed (via rpm). It keeps track of all files, which enables complete removes of software.</para>
+			<para>The <command>rpm</command> database is located at <command>/var/lib/rpm</command><indexterm><primary>/var/lib/rpm</primary></indexterm>. This database contains all meta information about packages that are installed (via rpm). It keeps track of all files, which enables complete removes of software.</para>
 	</section>
 	<section><title>yum</title>
-		<para>The <command>Yellowdog Updater, Modified (yum)</command><indexterm><primary>yum</primary></indexterm> is an easier command to work with rpm packages. It is installed by default on Fedora and is optional on Red Hat Enterprise Linux.</para>
+		<para>The <command>Yellowdog Updater, Modified (yum)</command><indexterm><primary>yum(8)</primary></indexterm> is an easier command to work with rpm packages. It is installed by default on Fedora and is optional on Red Hat Enterprise Linux.</para>
 		<para>Issue <command>yum list available</command> to see a list of available packages.</para>
 		<screen>yum list available</screen>
 		<para>To search for a package containing a certain string in the description or name use <command>yum search $string</command>.</para>
@@ -92,7 +92,7 @@ gcc is needed by (installed) systemtap-0.6.2-1.el5_2.2.i386
 </section>
 <section><title>Debian Package Management</title>
 	<section><title>dpkg -l</title>
-		<para>The low level tool to work with <command>.deb</command> packages is <command>dpkg</command>. Here you see how to obtain a list of all installed packages. The ii at the beginning means the package is installed.</para>
+		<para>The low level tool to work with <command>.deb</command> packages is <command>dpkg</command><indexterm><primary>dpkg(8)</primary></indexterm>. Here you see how to obtain a list of all installed packages. The ii at the beginning means the package is installed.</para>
 		<screen>
 root@laika:~# dpkg -l | grep gcc-4.2
 ii gcc-4.2      4.2.4-1ubuntu3 The GNU C compiler
@@ -125,7 +125,7 @@ ii gcc-4.2-base 4.2.4-1ubuntu3 The GNU Compiler Collection (base package)
 	<screen>tar tvzpf $downloadedFile.tgz</screen>
 	<para>You unpack them like with <command>tar xzf</command><indexterm><primary>tar(1)</primary></indexterm>, it will create a directory called applicationName-1.2.3</para>
 	<screen>tar xzf $applicationName.tgz</screen>
-	<para>Replace the z with a j when the file ends in .tar.bz2. The <command>tar</command>, gzip and bzip2 commands are explained in detail later.</para>
+	<para>Replace the z with a j when the file ends in .tar.bz2. The <command>tar</command>, <command>gzip</command> and <command>bzip2</command> commands are explained in detail later.</para>
 	<para>If you download a .deb file, then you'll have to use dpkg to install it, .rpm's can be installed with the rpm command. Sometimes people use the <command>alien</command><indexterm><primary>alien(1)</primary></indexterm> command to convert between package formats.</para>
 </section>
 <section><title>Compiling software</title>
