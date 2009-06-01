@@ -1,4 +1,50 @@
-<section><title>Booting the system</title>
+<section><title>boot terminology</title>
+	<para>The exact order of things that happen depends on the hardware architecture (<command>Intel x86</command> is different from <command>Sun Sparc</command> etc), on the boot loader (<command>grub</command> is different from <command>lilo</command>) and on the operating system (<command>Linux</command>, <command>Solaris</command>, <command>BSD</command> etc). Most of this chapter is focused on booting <command>Linux</command> on <command>Intel x86</command> with <command>grub</command>.</para>
+	<section><title>post</title>
+		<para>A computer starts booting the moment you turn on the power (no kidding). This first process is called <command>post</command> or <command>power on self test</command>. If all goes well then this leads to the <command>bios</command>. If all goes not so well, then you might hear nothing, or hear beeping, or see an error message on the screen, or maybe see smoke coming out of the computer (burning hardware smells bad!).</para>
+	</section>
+	<section><title>bios</title>
+		<para>All <command>Intel x86</command> computers will have a <command>basic input/output system</command> or <command>bios</command> to detect, identify and initialize hardware. The <command>bios</command> then goes looking for a <command>boot device</command>. This can be a floppy, harddisk, cdrom, network card or usb drive.</para>
+		<para>During the <command>bios</command> you can see a message on the screen telling you which key (often <command>Del</command> or <command>F2</command>) to press to enter the <command>bios</command> setup.</para>
+		<mediaobject><imageobject><imagedata fileref="images/bios.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>			
+	</section>
+	<section><title>openboot</title>
+		<para></para>
+		<screen>
+		</screen>
+		<para></para>
+	</section>
+	<section><title>boot device</title>
+		<para></para>
+		<screen>
+		</screen>
+		<para></para>
+	</section>
+	<section><title>master boot record</title>
+		<para></para>
+		<screen>
+		</screen>
+		<para></para>
+	</section>
+	<section><title>BIOS</title>
+		<para></para>
+		<screen>
+		</screen>
+		<para></para>
+	</section>
+	<section><title>bootloader</title>
+		<para></para>
+		<screen>
+		</screen>
+		<para></para>
+	</section>
+	<section><title>kernel</title>
+		<para></para>
+		<screen>
+		</screen>
+		<para></para>
+	</section>
+
 	<para>Booting the system starts (once the hardware is powered on and configured) with a bootloader.</para>
         <para>There are a variety of boot loaders available, most common on intel architecture is <command>GRUB</command><indexterm><primary>grub</primary></indexterm>, which is replacing <command>Lilo</command><indexterm><primary>lilo</primary></indexterm> in many places. When installing Linux on SPARC architecture, you can choose <command>Silo</command><indexterm><primary>silo</primary></indexterm>, Itanium systems can use <command>ELILO</command><indexterm><primary>elilo</primary></indexterm>, IBM S/390 and zSeries use <command>z/IPL</command><indexterm><primary>z/IPL</primary></indexterm> and PowerPC architectures use <command>YABOOT</command><indexterm><primary>yaboot</primary></indexterm> (which means Yet Another boot loader).</para>
 	<para> Once the Linux kernel is loaded, the bootloader turns control over to it. From that moment on, the kernel is in control of the system. After discussing bootloaders, we continue with the init system that starts all the daemons.</para>

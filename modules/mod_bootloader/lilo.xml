@@ -1,6 +1,6 @@
 <section><title>Lilo</title>
-	<section><title>Linux Loader</title>
-		<para><command>Lilo</command><indexterm><primary>lilo</primary></indexterm> used to be the most used Linux bootloader, but is steadily being replaced in x86 with grub.</para>
+	<section><title>Linux loader</title>
+		<para><command>lilo</command><indexterm><primary>lilo</primary></indexterm> used to be the most used Linux bootloader, but is steadily being replaced in <command>x86</command> with <command>grub</command>.</para>
 	</section>
 	<section><title>lilo.conf</title>
 		<para>Here is an example of a typical <command>lilo.conf</command><indexterm><primary>lilo.conf</primary></indexterm> file. The <command>delay</command> switch receives a number in tenths of a second. So the delay below is three seconds, not thirty!</para>
