@@ -1,4 +1,4 @@
-<section><title>Lilo</title>
+<section><title>lilo</title>
 	<section><title>Linux loader</title>
 		<para><command>lilo</command><indexterm><primary>lilo</primary></indexterm> used to be the most used Linux bootloader, but is steadily being replaced in <command>x86</command> with <command>grub</command>.</para>
 	</section>
