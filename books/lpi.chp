@@ -25,8 +25,6 @@ chapt_101_2_Boot_the_system() {
 	chaptitle="Topic 101.2 Boot the system"
 	add_mod lpi_101/about_topic_101.2.xml
 	add_mod lpi_101/topic_101.2_boot.xml
-	add_mod lpi_101/topic_101.2_lilo.xml
-	add_mod lpi_101/topic_101.2_grub.xml
 	add_mod lpi_101/topic_101.2_boot_events.xml
 	}
 
@@ -53,7 +51,9 @@ chapt_102_1_Design_hard_disk_layout() {
 chapt_102_2_Install_a_boot_manager() {
 	MODULES=""
 	chaptitle="Topic 102.2 Install a boot manager"
-	add_mod lpi_101/dummy.xml
+	add_mod lpi_101/about_topic_102.2.xml
+	add_mod lpi_101/topic_102.2_lilo.xml
+	add_mod lpi_101/topic_102.2_grub.xml
 	}
 
 #
