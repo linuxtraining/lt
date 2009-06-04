@@ -68,6 +68,36 @@ gcc is needed by (installed) systemtap-0.6.2-1.el5_2.2.i386
 		<screen>yum update</screen>
 		<para>The configuration of your yum repositories is done in <command>/etc/yum/yum.conf</command> and <command>/etc/yum/repos.d/</command>.</para>
 	</section>
+	<section><title>/etc/yum.conf and repositories</title>
+		<para><command>yum</command>'s configuration can be found in <command>/etc/yum.conf</command><indexterm><primary>/etc/yum.conf</primary></indexterm>. This file will contain the location of a log file and a cache directory for <command>yum</command> and can also contain a list of repositories.</para>
+		<para>Recently <command>yum</command> started accepting several <command>repo</command> files with each file containing a list of <command>repositories</command>. These <command>repo</command> files are located in the <command>/etc/yum.repos.d/</command><indexterm><primary>/etc/yum.repos.d/</primary></indexterm> directory.</para>
+	</section>
+	<section><title>rpm2cpio</title>
+		<para>We can use <command>rpm2cpio</command><indexterm><primary>rpm2cpio(8)</primary></indexterm> to convert an <command>rpm</command> to a <command>cpio</command><indexterm><primary>cpio(1)</primary></indexterm> archive.</para>
+		<screen>
+[root@RHEL53 ~]# file kernel.src.rpm 
+kernel.src.rpm: RPM v3 src PowerPC kernel-2.6.18-92.1.13.el5
+[root@RHEL53 ~]# rpm2cpio kernel.src.rpm > kernel.cpio
+[root@RHEL53 ~]# file kernel.cpio 
+kernel.cpio: ASCII cpio archive (SVR4 with no CRC)
+		</screen>
+		<para>But why would you want to do this ?</para>
+		<para>Perhaps just to see of list of files in the <command>rpm</command> file.</para>
+		<screen>
+[root@RHEL53 ~]# rpm2cpio kernel.src.rpm | cpio -t | head -5
+COPYING.modules
+Config.mk
+Module.kabi_i686
+Module.kabi_i686PAE
+Module.kabi_i686xen
+		</screen>
+		<para>Or to extract one file from an <command>rpm</command> package.</para>
+		<screen>
+[root@RHEL53 ~]# rpm2cpio kernel.src.rpm | cpio -iv Config.mk
+Config.mk
+246098 blocks
+		</screen>
+	</section>
 	<section><title>up2date</title>
 		<para><command>up2date</command> is the Red Hat Update Agent. It is available on Red Hat Enterprise Linux and serves as a connection to RHN (Red Hat Network). It has simple switches like -d for download, -i for install and -l for list (of packages that can be updated).</para>
 	</section>
