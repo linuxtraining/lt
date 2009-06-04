@@ -1,0 +1,74 @@
+<section><title>Red Hat package manager</title>
+		<section><title>about rpm</title>
+			<para>The <command>Red Hat package manager</command><indexterm><primary>rpm</primary></indexterm> can be used on the command line with <command>rpm</command> or in a graphical way going to Applications--System Settings--Add/Remove Applications. Type <command>rpm --help</command> to see some of the options.</para>
+			<para>Software distributed in the rpm format will be named <command>foo-version.platform.rpm</command> .</para>	
+		</section>
+		<section><title>rpm -qa</title>
+			<para>To obtain a list of all installed software, use the <command>rpm -qa</command> command.</para>
+			<screen>
+[root@RHEL52 ~]# rpm -qa | grep samba
+system-config-samba-1.2.39-1.el5
+samba-3.0.28-1.el5_2.1
+samba-client-3.0.28-1.el5_2.1
+samba-common-3.0.28-1.el5_2.1
+			</screen>
+		</section>
+		<section><title>rpm -q</title>
+			<para>To verify whether one package is installed, use <command>rpm -q</command>.</para>
+			<screen>
+root@RHELv4u4:~# rpm -q gcc
+gcc-3.4.6-3
+root@RHELv4u4:~# rpm -q laika
+package laika is not installed
+			</screen>
+		</section>
+		<section><title>rpm -q --redhatprovides</title>
+			<para>To check whether a package is provided by Red Hat, use the <command>--redhatprovides</command> option.</para>
+			<screen>
+root@RHELv4u4:~# rpm -q --redhatprovides bash
+bash-3.0-19.3
+root@RHELv4u4:~# rpm -q --redhatprovides gcc
+gcc-3.4.6-3
+root@RHELv4u4:~# rpm -q --redhatprovides laika
+no package provides laika
+			</screen>	
+		</section>
+		<section><title>rpm -Uvh</title>
+			<para>To install or upgrade a package, use the -Uvh switches. The -U switch is the same as -i for install, except that older versions of the software are removed. The -vh switches are for nicer output.</para>
+			<screen>
+root@RHELv4u4:~# rpm -Uvh gcc-3.4.6-3
+			</screen>
+		</section>
+		<section><title>rpm -e</title>
+			<para>To remove a package, use the -e switch.</para>
+			<screen>
+root@RHELv4u4:~# rpm -e gcc-3.4.6-3
+			</screen>
+			<para><command>rpm -e</command> verifies dependencies, and thus will prevent you from accidentaly erasing packages that are needed by other packages.</para>
+			<screen>
+[root@RHEL52 ~]# rpm -e gcc-4.1.2-42.el5
+error: Failed dependencies:
+gcc = 4.1.2-42.el5 is needed by (installed) gcc-c++-4.1.2-42.el5.i386
+gcc = 4.1.2-42.el5 is needed by (installed) gcc-gfortran-4.1.2-42.el5.i386
+gcc is needed by (installed) systemtap-0.6.2-1.el5_2.2.i386
+			</screen>
+		</section>
+		<section><title>/var/lib/rpm</title>
+			<para>The <command>rpm</command> database is located at <command>/var/lib/rpm</command><indexterm><primary>/var/lib/rpm</primary></indexterm>. This database contains all meta information about packages that are installed (via rpm). It keeps track of all files, which enables complete removes of software.</para>
+	</section>
+	<section><title>yum</title>
+		<para>The <command>Yellowdog Updater, Modified (yum)</command><indexterm><primary>yum(8)</primary></indexterm> is an easier command to work with rpm packages. It is installed by default on Fedora and is optional on Red Hat Enterprise Linux.</para>
+		<para>Issue <command>yum list available</command> to see a list of available packages.</para>
+		<screen>yum list available</screen>
+		<para>To search for a package containing a certain string in the description or name use <command>yum search $string</command>.</para>
+		<screen>yum search $string</screen>
+		<para>To install an application, use <command>yum install $package</command>. Naturally yum will install all the necesary dependencies.</para>
+		<screen>yum install $package</screen>
+		<para>To bring all applications up to date, by downloading and installing them, issue <command>yum update</command>. All software that was installed via yum will be updated to the latest version that is available in the repository.</para>
+		<screen>yum update</screen>
+		<para>The configuration of your yum repositories is done in <command>/etc/yum/yum.conf</command> and <command>/etc/yum/repos.d/</command>.</para>
+	</section>
+	<section><title>up2date</title>
+		<para><command>up2date</command> is the Red Hat Update Agent. It is available on Red Hat Enterprise Linux and serves as a connection to RHN (Red Hat Network). It has simple switches like -d for download, -i for install and -l for list (of packages that can be updated).</para>
+	</section>
+</section>

@@ -299,8 +299,13 @@ chapt_network() {
 chapt_package_management() {
 	MODULES=""
 	chaptitle="Package management"
-	add_mod mod_package_management/package_management.xml
-
+	add_mod mod_package_management/about_packages.xml
+	add_mod mod_package_management/rpm.xml
+	add_mod mod_package_management/deb.xml
+	add_mod mod_package_management/download.xml
+	add_mod mod_package_management/compile.xml
+	add_mod mod_package_management/practice.xml
+	add_mod mod_package_management/solution.xml
 	}
 
 #
