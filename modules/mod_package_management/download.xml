@@ -5,5 +5,5 @@
 	<para>You unpack them like with <command>tar xzf</command><indexterm><primary>tar(1)</primary></indexterm>, it will create a directory called applicationName-1.2.3</para>
 	<screen>tar xzf $applicationName.tgz</screen>
 	<para>Replace the z with a j when the file ends in .tar.bz2. The <command>tar</command>, <command>gzip</command> and <command>bzip2</command> commands are explained in detail later.</para>
-	<para>If you download a .deb file, then you'll have to use dpkg to install it, .rpm's can be installed with the rpm command. Sometimes people use the <command>alien</command><indexterm><primary>alien(1)</primary></indexterm> command to convert between package formats.</para>
+	<para>If you download a <command>.deb</command> file, then you'll have to use <command>dpkg</command> to install it, <command>.rpm</command>'s can be installed with the <command>rpm</command> command.</para>
 </section>
