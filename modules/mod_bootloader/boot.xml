@@ -9,7 +9,7 @@
 		<mediaobject><imageobject><imagedata fileref="images/bios.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 	</section>
 	<section><title>openboot</title>
-		<para>Non <command>x86</command> architectures do not have a <command>bios</command>. Sun <command>sparc</command><indexterm><primary>SPARC</primary></indexterm> systems start with <command>openboot</command><indexterm><primary>OpenBoot(Sun)</primary></indexterm> to test the hardware and to boot the operating system. <command>Bill Callkins</command><indexterm><primary>Bill Callkins</primary></indexterm> explains <command>openboot</command> in his Solaris System Administration books. The details of <command>openboot</command> are not the focus of this course.</para>
+		<para>Sun <command>sparc</command><indexterm><primary>SPARC</primary></indexterm> systems start with <command>openboot</command><indexterm><primary>OpenBoot(Sun)</primary></indexterm> to test the hardware and to boot the operating system. <command>Bill Callkins</command><indexterm><primary>Bill Callkins</primary></indexterm> explains <command>openboot</command> in his Solaris System Administration books. The details of <command>openboot</command> are not the focus of this course.</para>
 	</section>
 	<section><title>boot device</title>
 		<para>The <command>bios</command> will look for a <command>boot device</command> in the order configured in the bios setup. Usually an operating system on a production server boots of a hard disk.</para>

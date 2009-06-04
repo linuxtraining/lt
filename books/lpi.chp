@@ -67,14 +67,16 @@ chapt_102_3_Manage_shared_libraries() {
 chapt_102_4_Use_Debian_package_management() {
 	MODULES=""
 	chaptitle="Topic 102.4 Use Debian package management"
-	add_mod lpi_101/dummy.xml
+	add_mod lpi_101/about_topic_102.4.xml
+	add_mod lpi_101/topic_102.4_deb.xml
 	}
 
 #
 chapt_102_5_Use_RPM_and_YUM_package_management() {
 	MODULES=""
 	chaptitle="Topic 102.5 Use RPM and YUM package management"
-	add_mod lpi_101/dummy.xml
+	add_mod lpi_101/about_topic_102.5.xml
+	add_mod lpi_101/topic_102.5_rpm.xml
 	}
 
 ###################################

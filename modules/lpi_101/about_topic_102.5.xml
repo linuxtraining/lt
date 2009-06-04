@@ -1,0 +1,10 @@
+<section><title>about topic 102.5</title>
+	<para>On the LPI website we read: "Candidates should be able to perform package management using RPM and YUM tools.". With the following detailed objectives.</para>
+	<screen>
+* Install, re-install, upgrade and remove packages using RPM and YUM.
+* Obtain information on RPM packages such as version, status,
+  dependencies, integrity and signatures.
+* Determine what files a package provides, as well as find which
+  package a specific file comes from.
+	</screen>
+</section>

@@ -1,0 +1,11 @@
+<section><title>about topic 102.4</title>
+	<para>On the LPI website we read: "Candidates should be able to perform package management using the Debian package tools." With the following detailed objectives.</para>
+	<screen>
+* Install, upgrade and uninstall Debian binary packages.
+* Find packages containing specific files or libraries which may or
+  may not be installed.
+* Obtain package information like version, content, dependencies,
+  package integrity and installation status (whether or not the
+  package is installed).
+	</screen>
+</section>
