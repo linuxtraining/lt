@@ -17,15 +17,15 @@ samba-3.0.10-1.4E.9
 paul@laika:~$ dpkg -l | grep samba
 ii  samba-common    3.0.24-2ubuntu1.2    Samba common files used by both...
 		</screen>
-		<para>Linux Mint below uses Samba 3.0.28, and both the Samba server and the common files are installed.</para>
+		<para>Ubuntu 9.04 below uses Samba 3.3.2, and both the Samba server and the common files are installed.</para>
 		<screen>
 paul@laika:~$ dpkg -l | grep samba
-rc  samba           3.0.28a-1ubuntu4.7   a LanManager-like file and prin...
-ii  samba-common    3.0.28a-1ubuntu4.7   Samba common files used by both...
+ii samba        2:3.3.2-1ubuntu3 SMB/CIFS file, print, and login server 
+ii samba-common 2:3.3.2-1ubuntu3 common files used by both the Samba ser
 		</screen>
 	</section>
 </section>
-<section><title>installing Samba</title>
+<section><title>installing samba</title>
 	<section><title>.rpm based distributions</title>
 	<para>Samba is installed by default on Red Hat Enterprise Linux. If Samba is not yet installed, then you can use the graphical menu (Applications -- System Settings -- Add/Remove Applications) and select "Windows File Server" in the Server section. The non-graphical way is to use <command>rpm</command><indexterm><primary>rpm(8)</primary></indexterm> or <command>yum</command><indexterm><primary>yum(8)</primary></indexterm>.</para>
 	<para>When you downloaded the .rpm file, you can install Samba like this.</para>
@@ -133,7 +133,7 @@ Starting NMB services:                                     [  OK  ]
 		<para>SMB uses the NetBIOS <command>service location protocol</command>, which is a broadcasting protocol. This means that NetBIOS names have to be unique on the network (even when you have different IP-addresses). Having duplicate names on an SMB network can seriously harm communications.</para>
 	</section>
 	<section><title>NetBIOS names</title>
-		<para>NetBIOS names are similar to hostnames, but are always uppercase and only 15 characters in length. Microsoft Windows computers will broadcast this name on the network.</para>
+		<para>NetBIOS names are similar to hostnames, but are always uppercase and only 15 characters in length. Microsoft Windows computers and Samba servers will broadcast this name on the network.</para>
 	</section>
 	<section><title>network bandwidth</title>
 		<para>Having many broadcasting SMB/CIFS computers on your network can cause bandwidth issues. A solution can be the use of a <command>NetBIOS name server</command> (NBNS) like <command>WINS</command> (Windows Internet Naming Service).</para>

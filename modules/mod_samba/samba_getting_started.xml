@@ -27,15 +27,16 @@ workgroup = WORKGROUP
 [firstshare]
 path = /srv/samba/public
 	</screen>
-	<para>Below is a screenshot of the <command>net view</command><indexterm><primary>net view(microsoft)</primary></indexterm> command on Microsoft Windows XP sp2. It shows how the Samba server with the minimalistic smb.conf is visible to Microsoft computers nearby.</para>
+</section>
+<section><title>net view</title>
+	<para>Below is a screenshot of the <command>net view</command><indexterm><primary>net view(microsoft)</primary></indexterm> command on Microsoft Windows Server 2003 sp2. It shows how a Red Hat Enterprise Linux 5.3 and a Ubuntu 9.04 Samba server, both with a minimalistic smb.conf, are visible to Microsoft computers nearby.</para>
 	<screen>
-C:\Documents and Settings\paul>net view
+C:\Documents and Settings\Administrator>net view
 Server Name            Remark
-
-------------------------------------------------------------------------------
-\\RHEL4B               Samba 3.0.10-1.4E.9 
-\\W2000 
-\\WINXP 
+----------------------------------------------------------------------
+\\LAIKA                Samba 3.3.2                                             
+\\RHEL53               Samba 3.0.33-3.7.el5                                    
+\\W2003                                                                        
 The command completed successfully.
 	</screen>
 </section>
@@ -78,8 +79,6 @@ Processing section "[firstshare]"
 Loaded services file OK.
 Server role: ROLE_STANDALONE
 Press enter to see a dump of your service definitions
-	
-[paul@RHEL4b ~]$ 
 	</screen>
 </section>
 <section><title>testparm -v</title>
@@ -103,7 +102,7 @@ Press enter to see a dump of your service definitions
 	netbios aliases = 
 	netbios scope = 
 	server string = Samba 3.0.28-1.el5_2.1
-[root@RHEL52 ~]# 
+...
 	</screen>
 	<para>There are about 350 default values for smb.conf parameters.</para>
 </section>
@@ -168,8 +167,8 @@ Workgroup            Master
 WORKGROUP            WINXP
 	</screen>
 </section>
-<section><title>smbclient looking at Windows XP</title>
-	<para>The screenshot below uses smbclient to display information about a remote smb server (in this case a Windows XP machine).</para>
+<section><title>smbclient anonymous</title>
+	<para>The screenshot below uses <command>smbclient</command> to display information about a remote smb server (in this case a Windows xp machine).</para>
 	<screen>
 [root@RHEL4b init.d]# smbclient -NL winxp
 Anonymous login successful
@@ -192,23 +191,24 @@ Workgroup            Master
 WORKGROUP            WINXP
 	</screen>
 </section>
-</section>
-<section><title>net view</title>
-	<para>The remark seen by the <command>net view</command><indexterm><primary>net view(microsoft)</primary></indexterm> command is the default value for the "server string" option. Simply adding this value to the global section in smb.conf and restarting samba will change the option. After a while, the changed option is visible on the Microsoft computers.</para>
+<section><title>smbclient with credentials</title>
+	<para>Windows versions after xp sp2 and 2003 sp1 do not accept guest access (the NT_STATUS_ACCESS_DENIED error). This example shows how to provide credentials with <command>smbclient</command>.</para>
 	<screen>
-C:\Documents and Settings\paul>net view
-Server Name            Remark
-	
-------------------------------------------------------------------------------
-\\RHEL4B               Public File Server                                      
-\\W2000                                                                        
-\\WINXP                                                                        
-The command completed successfully.
+[paul@RHEL53 ~]$ smbclient -L w2003 -U administrator%stargate
+Domain=[W2003] OS=[Windows Server 2003 3790 Service Pack 2] Server=...
+
+	Sharename       Type      Comment
+	---------       ----      -------
+	C$              Disk      Default share
+	IPC$            IPC       Remote IPC
+	ADMIN$          Disk      Remote Admin
+...
 	</screen>
+</section>
 </section>
 <section><title>/usr/bin/smbtree</title>
 	<para>Another useful tool to troubleshoot Samba or simply to browse the SMB network is <command>smbtree</command><indexterm><primary>smbtree(1)</primary></indexterm>. In its simplest form, smbtree will do an anonymous browsing on the local subnet. displaying all SMB computers and (if authorized) their shares.</para>
-	<para> Let's take a look at two screenshots of smbtree in action (with blank password). The first one is taken immediately after booting four different computers (one MS Windows 2000, one MS Windows XP, one MS Windows 2003 and one RHEL 4 with Samba 3.0.10).</para>
+	<para> Let's take a look at two screenshots of smbtree in action (with blank password). The first one is taken immediately after booting four different computers (one MS Windows 2000, one MS Windows xp, one MS Windows 2003 and one RHEL 4 with Samba 3.0.10).</para>
 	<screen>
 [paul@RHEL4b ~]$ smbtree
 Password: 
@@ -298,6 +298,23 @@ PEGASUS
 [paul@RHEL4b ~]$ 
 	</screen>
 	<para>As you can see, this gives a very nice overview of all SMB computers and their shares.</para>
+</section>
+<section><title>server string</title>
+	<para>The comment seen by the <command>net view</command><indexterm><primary>net view(microsoft)</primary></indexterm> and the <command>smbclient</command> commands is the default value for the <command>server string</command> option. Simply adding this value to the global section in <command>smb.conf</command> and restarting samba will change the option.</para>
+	<screen>
+[root@RHEL53 samba]# testparm -s 2>/dev/null | grep server
+	server string = Red Hat Server in Paris
+	</screen>
+	<para>After a short while, the changed option is visible on the Microsoft computers.</para>
+	<screen>
+C:\Documents and Settings\Administrator>net view
+Server Name            Remark
+
+-------------------------------------------------------------------------------
+\\LAIKA                Ubuntu 9.04 server in Antwerp                           
+\\RHEL53               Red Hat Server in Paris                                 
+\\W2003 
+	</screen>
 </section>
 <section><title>Samba Web Administration Tool (SWAT)</title>
 	<para>Samba comes with a web based tool to manage your samba configuration file. <command>SWAT</command><indexterm><primary>swat(8)</primary></indexterm> is accessible with a web browser on port 901 of the host system. To enable the tool, first find out whether your system is using the <command>inetd</command><indexterm><primary>inetd(8)</primary></indexterm> or the <command>xinetd</command><indexterm><primary>xinetd(8)</primary></indexterm> superdaemon.</para>
