@@ -62,7 +62,7 @@ guest ok = no
 <section><title>testing access with net use</title>
 	<para>After restarting samba, we test with different users from within Microsoft computers. The screenshots use the <command>net use</command><indexterm><primary>net use(microsoft)</primary></indexterm>First serena from Windows XP.</para>
 	<screen>
-C:\&#062;net use m: \\teacher0\authwrite /user:serena stargate
+C:\&#062;net use m: \\teacher0\authwrite stargate /user:serena
 The command completed successfully.
 
 C:\&#062;m:
@@ -71,7 +71,7 @@ M:\&#062;echo greetings from Serena &#062; serena.txt
 		</screen>
 		<para>The next screenshot is martina on a Windows 2000 computer, she succeeds in writing her files, but fails to overwrite the file from serena.</para>
 		<screen>
-C:\&#062;net use k: \\teacher0\authwrite /user:martina stargate
+C:\&#062;net use k: \\teacher0\authwrite stargate /user:martina
 The command completed successfully.
 
 C:\&#062;k:

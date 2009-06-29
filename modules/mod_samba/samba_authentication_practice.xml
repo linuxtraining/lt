@@ -24,7 +24,7 @@
 	</screen>
 	<para>3. Use smbclient and a windows computer to access your share, use more than one user account (windows requires a logoff/logon for this).</para>
 	<screen>on Linux: smbclient //studentX/authwrite -U user1 password</screen>
-	<screen>on windows net use p: \\studentX\authwrite /user:user2 password</screen>
+	<screen>on windows net use p: \\studentX\authwrite password /user:user2</screen>
 	<para>4. Verify that files created by these users belong to them.</para>
 	<screen>ls -l /srv/samba/authwrite</screen>
 	<para>5. Try to change or delete a file from another user.</para>

@@ -11,7 +11,12 @@
 </section>
 <section><title>Solution: read only file server</title>
 	<para>1. Create a directory in a good location (FHS) to share files for everyone to read.</para>
+	<screen>choose one of these...</screen>
 	<screen>mkdir -p /srv/samba/readonly</screen>
+	<screen>mkdir -p /home/samba/readonly</screen>
+	<screen>/home/paul/readonly is wrong!!</screen>
+	<screen>/etc/samba/readonly is wrong!!</screen>
+	<screen>/readonly is wrong!!</screen>
 	<para>2. Make sure the directory is owned properly and is world accessible.</para>
 	<screen>chown root:root /srv/samba/readonly</screen>
 	<screen>chmod 755 /srv/samba/readonly</screen>
@@ -26,7 +31,7 @@ You smb.conf.readonly could look like this:
  netbios name = STUDENTx
  security = share
 
-[readonly]
+[readonlyX]
  path = /srv/samba/readonly
  comment = read only file share
  read only = yes

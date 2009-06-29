@@ -347,5 +347,10 @@ Stopping xinetd:                                           [  OK  ]
 Starting xinetd:                                           [  OK  ]
 [root@RHEL4b samba]#
 	</screen>
+	<para>Change the <command>only from</command> value to enable swat from remote computers. This examples shows how to provide swat access to all computers in a /24 subnet.</para>
+	<screen>
+[root@RHEL53 xinetd.d]# grep only /etc/xinetd.d/swat 
+	only_from 	= 192.168.1.0/24
+	</screen>
 	<para>Be careful when using SWAT, it erases all your manually edited comments in smb.conf.</para>
 </section>
