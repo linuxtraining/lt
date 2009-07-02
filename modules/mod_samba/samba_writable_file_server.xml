@@ -5,6 +5,12 @@
 [root@RHEL52 samba]# chmod 777 /srv/samba/writable/
 	</screen>
 </section>
+<section><title>share section in smb.conf</title>
+	<para>There are two parameters to make a share writable. We can use <command>read only</command> or <command>writable</command>. This example shows how to use <command>writable</command> to give write access to a share.</para>
+	<screen>writable = yes</screen>
+	<para>And this is an example of using the <command>read only</command> parameter to give write access to a share.</para>
+	<screen>read only = no</screen>
+</section>
 <section><title>configure the share</title>
 	<para>Then we simply add a share to our file server by editing <command>smb.conf</command><indexterm><primary>/etc/samba/smb.conf</primary></indexterm>. Below the check with testparm. (We could have changed the description of the server...)</para>
 		<screen>
