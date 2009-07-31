@@ -234,6 +234,8 @@ chapt_links() {
 	MODULES=""
 	chaptitle="File links"
 	add_mod mod_links/links.xml  
+	add_mod mod_links/practice_links.xml  
+	add_mod mod_links/solution_links.xml  
 	}
 
 #
