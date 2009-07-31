@@ -1,6 +1,8 @@
 <section><title>Solution: sticky and setGID on directory</title>
 	<para>1. Set up a directory, owned by the group sports.</para>
-	<screen>groupadd sports ; mkdir /home/sports ; chown root:sports /home/sports</screen>
+	<screen>groupadd sports</screen>
+	<screen>mkdir /home/sports</screen>
+	<screen>chown root:sports /home/sports</screen>
 	<para>2. Members of the sports group should be able to create files in this directory.</para>
 	<screen>chmod 770 /home/sports</screen>
 	<para>3. All files created in this directory should be group-owned by the sports group.</para>

@@ -44,8 +44,6 @@ root@laika:/home/paul# ls -l FileForPaul
 </section>
 <section><title>special files</title>
 	<para>When you use <command>ls -l</command>, then you can see, for each file, ten characters before the user and group owner. The first character tells us the type of file. Regular files get a <command>-</command>, directories get a <command>d</command>, symbolic links are shown with an <command>l</command>, pipes get a <command>p</command>, character devices a <command>c</command>, block devices a <command>b</command> and sockets an <command>s</command>.</para>
-	
-
 <table frame='all'><title>Unix special files</title>
 <?dbfo table-width="50%" ?>
 <tgroup cols='2' align='left' colsep='1' rowsep='1'>
@@ -91,7 +89,8 @@ root@laika:/home/paul# ls -l FileForPaul
 </table>
 </section>
 <section><title>permissions</title>
-	<para>The nine characters following the file type denote the permissions in three triplets. A permission can be <command>r</command> for read access, <command>w</command> for write access and <command>x</command> for execute. You need the r permission to list (ls) the contents of a directory and x permission to enter (cd) a directory, and you need the w permission to create files in or remove files from a directory.</para>
+	<section><title>rwx</title>
+		<para>The nine characters following the file type denote the permissions in three triplets. A permission can be <command>r</command> for read access, <command>w</command> for write access and <command>x</command> for execute. You need the r permission to list (ls) the contents of a directory and x permission to enter (cd) a directory, and you need the w permission to create files in or remove files from a directory.</para>
 <table frame='all'><title>standard Unix file permissions</title>
 <?dbfo table-width="90%" ?>
 <tgroup cols='3' align='left' colsep='1' rowsep='1'>
@@ -124,7 +123,57 @@ root@laika:/home/paul# ls -l FileForPaul
 </tbody>
 </tgroup>
 </table>
-	<para>Some example combinations on files and directories in this screenshot. The name of the file explains the permissions.</para>
+	</section>
+	<section><title>three sets of rwx</title>
+		<para>We already know that the output of <command>ls -l </command> starts with ten characters for each file. This screenshot shows a regular file (because the first character is a - ).</para>
+		<screen>
+paul@RHELv4u4:~/test$ ls -l proc42.bash
+-rwxr-xr--  1 paul proj 984 Feb  6 12:01 proc42.bash
+		</screen>
+		<para>Below is a table describing the function of all ten characters.</para>
+<table frame='all'><title>Unix file permissions position</title>
+<?dbfo table-width="85%" ?>
+<tgroup cols='3' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="1*" align="center"/>
+<colspec colname='c2' colwidth="1*" align="center"/>
+<colspec colname='c3' colwidth="3*" align="center"/>
+<thead>
+<row>
+  <entry>position</entry>
+  <entry>characters</entry>
+  <entry>function</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>1</entry>
+  <entry>-</entry>
+  <entry>this is a regular file</entry>
+</row>
+<row>
+  <entry>2-4</entry>
+  <entry>rwx</entry>
+  <entry>permissions for the <command>user owner</command></entry>
+</row>
+<row>
+  <entry>5-7</entry>
+  <entry>r-x</entry>
+  <entry>permissions for the <command>group owner</command></entry>
+</row>
+<row>
+  <entry>8-10</entry>
+  <entry>r--</entry>
+  <entry>permissions for <command>others</command></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+		<para>When you are the <command>user owner</command> of a file, then the <command>user owner permissions</command> apply to you. The rest of the permissions have no influence on your access to the file.</para>
+		<para>When you belong to the <command>group</command> that is <command>group owner</command> of a file, then the <command>group owner permissions</command> apply to you. The rest of the permissions have no influence on your access to the file.</para>
+		<para>When you are not the <command>user owner</command> of a file and you do not belong to the <command>group owner</command>, then the <command>others permissions</command> apply to you. The rest of the permissions have no influence on your access to the file.</para>
+	</section>
+	<section><title>permission examples</title>
+		<para>Some example combinations on files and directories in this screenshot. The name of the file explains the permissions.</para>
 	<screen>
 paul@laika:~/perms$ ls -lh
 total 12K
@@ -136,7 +185,8 @@ dr-xr-x--- 2 paul paul 4.0K 2007-02-07 22:25 UserAndGroupEnter
 dr-x------ 2 paul paul 4.0K 2007-02-07 22:25 OmlyUserEnter
 paul@laika:~/perms$ 
 	</screen>
-	<para>It is important to know that the first triplet represents the <command>user owner</command>, the second is the <command>group owner</command>, and the third triplet is all the <command>other</command> users that are not the user owner and are not a member of the group owner.</para>
+	<para>To summarize, the first <command>rwx</command> triplet represents the permissions for the <command>user owner</command>. The second triplet corresponds to the <command>group owner</command>, so it specifies permissions for all members of that group. The third triplet defines permissions for all <command>other</command> users that are not the user owner and are not a member of the group owner.</para>
+	</section>
 </section>
 <section><title>setting permissions (chmod)</title>
 	<para>Permissions can be changed with <command>chmod</command><indexterm><primary>chmod(1)</primary></indexterm>. The first example gives the user owner execute permissions.</para>

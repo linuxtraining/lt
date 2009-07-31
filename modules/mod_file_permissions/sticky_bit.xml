@@ -9,11 +9,16 @@ root@RHELv4u4:~# ls -ld /project55
 drwxr-xr-t  2 root root 4096 Feb  7 17:38 /project55
 root@RHELv4u4:~# 
 	</screen>
-	<para>The sticky bit can also be set with octal permissions, it is binary 1 in the first of four triplets.</para>
+	<para>The <command>sticky bit</command> can also be set with octal permissions, it is binary 1 in the first of four triplets.</para>
 	<screen>
 root@RHELv4u4:~# chmod 1775 /project55/
 root@RHELv4u4:~# ls -ld /project55
 drwxrwxr-t  2 root root 4096 Feb  7 17:38 /project55
 root@RHELv4u4:~# 
+	</screen>
+	<para>You will typically find the <command>sticky bit</command> on the <command>/tmp</command> directory.</para>
+	<screen>
+root@barry:~# ls -ld /tmp
+drwxrwxrwt 6 root root 4096 2009-06-04 19:02 /tmp
 	</screen>
 </section>	
