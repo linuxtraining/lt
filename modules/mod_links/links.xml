@@ -1,6 +1,11 @@
-	<section><title>about inodes</title>
-		<para>To understand links in a file system, you first have to understand what an <command>inode</command><indexterm><primary>inode</primary></indexterm> is. When the file system stores a new file on the hard disk, it stores not only the contents (data) of the file, but also some extra properties like the name of the file, the creation date, the permissions, the owner of the file... and more. All this information (except the name of the file and the data) is stored in the inode of the file.</para>
-		<para>All the inodes are created when you create the file system (with mkfs). Most of them are unused and empty, each inode has a unique number (the inode number). You can see the inode numbers with the <command>ls -li</command><indexterm><primary>ls(1)</primary></indexterm> command.</para>
+<section><title>about inodes</title>
+	<para>To understand links in a file system, you first have to understand what an <command>inode</command><indexterm><primary>inode</primary></indexterm> is.</para>
+	<section><title>an inode contains metadata</title>
+		<para>An <command>inode</command> is a list that contains metadata about a file. When the file system stores a new file on the hard disk, it stores not only the contents (data) of the file, but also some extra properties like the name of the file, the creation date, the permissions, the owner of the file... and more. All this information (except the name of the file and the data) is stored in the inode of the file.</para>
+		<para>All the inodes are created when you create the file system (with mkfs). Most of them are unused and empty.</para>
+	</section>
+	<section><title>unique inode number</title>
+		<para>Each inode has a unique number (the inode number). You can see the inode numbers with the <command>ls -li</command><indexterm><primary>ls(1)</primary></indexterm> command.</para>
 		<screen>
 paul@RHELv4u4:~/test$ touch file1
 paul@RHELv4u4:~/test$ touch file2
@@ -12,7 +17,10 @@ total 12
 817268 -rw-rw-r--  1 paul paul 0 Feb  5 15:38 file3
 paul@RHELv4u4:~/test$ 
 		</screen>
-		<para>Three files created one after the other get three different inodes (the first column). All the information you see with this ls command resides in the inode, except for the filename (which is contained in the directory). Let's put some data in one of the files.</para>
+		<para>Three files created one after the other get three different inodes (the first column). All the information you see with this ls command resides in the inode, except for the filename (which is contained in the directory).</para>
+	</section>
+	<section><title>inode and file contents</title>
+		<para> Let's put some data in one of the files.</para>
 		<screen>
 paul@RHELv4u4:~/test$ ls -li
 total 16
@@ -24,10 +32,12 @@ It is winter now and it is very cold.
 We do not like the cold, we prefer hot summer nights.
 paul@RHELv4u4:~/test$
 		</screen>
-		<para>The data that is displayed by the cat commend is not in the inode, but somewhere else on the disk. But the inode contains a pointer to the data.</para>
+		<para>The data that is displayed by the cat command is not in the inode, but somewhere else on the disk. The inode contains a pointer to that data.</para>
 	</section>
-	<section><title>about directories</title>
-		<para>A <command>directory</command><indexterm><primary>directory</primary></indexterm> is a special kind of file. It contains a table mapping filenames to inodes. Looking at our current directory with <command>ls -ali</command><indexterm><primary>ls(1)</primary></indexterm> will display the contents of the directory file.</para>
+</section>
+<section><title>about directories</title>
+	<section><title>a directory is a table</title>
+		<para>A <command>directory</command><indexterm><primary>directory</primary></indexterm> is a special kind of file that contains a table mapping filenames to inodes. Looking at our current directory with <command>ls -ali</command><indexterm><primary>ls(1)</primary></indexterm> will display the contents of the directory file.</para>
 		<screen>
 paul@RHELv4u4:~/test$ ls -ali
 total 32
@@ -38,9 +48,13 @@ total 32
 817268 -rw-rw-r--   1 paul paul    0 Feb  5 15:38 file3
 paul@RHELv4u4:~/test$ 
 		</screen>
-		<para>You can see five names, and the mapping to their five inodes. The dot <command>.</command><indexterm><primary>.</primary></indexterm> is a mapping to itself, and the dotdot <command>..</command><indexterm><primary>..</primary></indexterm> is a mapping to the parent directory. The three others are mappings to files.</para>
 	</section>
-	<section><title>hard links</title>
+	<section><title>. and ..</title>
+		<para>You can see five names, and the mapping to their five inodes. The dot <command>.</command><indexterm><primary>.</primary></indexterm> is a mapping to itself, and the dotdot <command>..</command><indexterm><primary>..</primary></indexterm> is a mapping to the parent directory. The three other names are mappings to different inodes.</para>
+	</section>
+</section>
+<section><title>hard links</title>
+	<section><title>creating hard links</title>
 		<para>When we create a <command>hard link</command><indexterm><primary>hard link</primary></indexterm> to a file with <command>ln</command><indexterm><primary>ln(1)</primary></indexterm>, then an extra entry is added in the directory. A new file name is mapped to an existing inode.</para>
 		<screen>
 paul@RHELv4u4:~/test$ ln file2 hardlink_to_file2
@@ -53,19 +67,19 @@ total 24
 paul@RHELv4u4:~/test$ 
 		</screen>
 		<para>Both files have the same inode, so they will always have the same permissions and the same owner. And they will both have the same content. Actually, both files are equal now, meaning you can safely remove the original file, the hardlinked file will remain. The inode contains a counter, counting the number of hard links to itself. When the counter drops to zero, then the inode is emptied.</para>
-		<para>You can use the <command>find</command><indexterm><primary>find(1)</primary></indexterm> command to look for files with a certain inode. The screenshot below proves that / and /boot are different partitions, since every <command>inode</command><indexterm><primary>inode</primary></indexterm> number is unique to the partition.</para>
+	</section>
+	<section><title>finding hard links</title>
+		<para>You can use the <command>find</command><indexterm><primary>find(1)</primary></indexterm> command to look for files with a certain inode. The screenshot below shows how to search for all filenames that point to <command>inode</command> 817270. Remember that an <command>inode</command><indexterm><primary>inode</primary></indexterm> number is unique to its partition.</para>
 		<screen>
-paul@RHELv4u4:~/test$ find / -inum 2 2> /dev/null
-/
-/boot
-/var/lib/nfs/rpc_pipefs/lockd
-/proc/self
-paul@RHELv4u4:~/test$ 
+paul@RHELv4u4:~/test$ find / -inum 817270 2> /dev/null
+/home/paul/test/file2
+/home/paul/test/hardlink_to_file2
 		</screen>
 	</section>
-	<section><title>symbolic links</title>
-		<para>Symbolic links (sometimes called <command>soft links</command><indexterm><primary>soft link</primary></indexterm>) do not link to inodes, but create a name to name mapping. Symbolic links are created with <command>ln -s</command>. As you can see below, the <command>symbolic link</command><indexterm><primary>symbolic link</primary></indexterm> gets an inode of its own.</para>
-		<screen>
+</section>
+<section><title>symbolic links</title>
+	<para>Symbolic links (sometimes called <command>soft links</command><indexterm><primary>soft link</primary></indexterm>) do not link to inodes, but create a name to name mapping. Symbolic links are created with <command>ln -s</command>. As you can see below, the <command>symbolic link</command><indexterm><primary>symbolic link</primary></indexterm> gets an inode of its own.</para>
+	<screen>
 paul@RHELv4u4:~/test$ ln -s file2 symlink_to_file2
 paul@RHELv4u4:~/test$ ls -li
 total 32
@@ -75,10 +89,10 @@ total 32
 817270 -rw-rw-r--  2 paul paul 106 Feb  5 17:04 hardlink_to_file2
 817267 lrwxrwxrwx  1 paul paul   5 Feb  5 16:55 symlink_to_file2 -> file2
 paul@RHELv4u4:~/test$ 
-		</screen>
-		<para>Permissions on a symbolic link have no meaning, since the permissions of the target apply. Hard links are limited to their own partition (because they point to an inode), symbolic links can link anywhere (other file systems, even networked).</para>	
-	</section>
-	<section><title>removing links</title>
+	</screen>
+	<para>Permissions on a symbolic link have no meaning, since the permissions of the target apply. Hard links are limited to their own partition (because they point to an inode), symbolic links can link anywhere (other file systems, even networked).</para>	
+</section>
+<section><title>removing links</title>
 	<para>Links can be removed with <command>rm</command><indexterm><primary>rm(1)</primary></indexterm>.</para>
 	<screen>
 paul@laika:~$ touch data.txt
@@ -87,40 +101,4 @@ paul@laika:~$ ln data.txt hl_data.txt
 paul@laika:~$ rm sl_data.txt 
 paul@laika:~$ rm hl_data.txt
 	</screen>	
-	</section>
-	<section><title>Practice: Links</title>
-		<para>1. Create two files named winter.txt and summer.txt, put some text in them.</para>
-		<para>2. Create a hard link to winter.txt named hlwinter.txt.</para>
-		<para>3. Display the inode numbers of these three files, the hard links should have the same inode.</para>
-		<para>4. Use the find command to list the two hardlinked files</para>
-		<para>5. Everything about a file is in the inode, except two things : name them!</para>
-		<para>6. Create a symbolic link to summer.txt called slsummer.txt.</para>
-		<para>7. Find all files with inode number 2. What does this information tell you ?</para>
-		<para>8. Look at the directories /etc/init.d/ /etc/rc.d/ /etc/rc3.d/ ... do you see the links ?</para>
-		<para>9. Look in /lib with ls -l...</para>
-	</section>
-	<section><title>Solutions: Links</title>
-		<para>1. Create two files named winter.txt and summer.txt, put some text in them.</para>
-		<screen>echo cold > winter.txt ; echo hot > summer.txt</screen>
-		<para>2. Create a hard link to winter.txt named hlwinter.txt.</para>
-		<screen>ln winter.txt hlwinter.txt</screen>
-		<para>3. Display the inode numbers of these three files, the hard links should have the same inode.</para>
-		<screen>ls -li winter.txt summer.txt hlwinter.txt</screen>
-		<para>4. Use the find command to list the two hardlinked files</para>
-		<screen>find . -inum xyz</screen>
-		<para>5. Everything about a file is in the inode, except two things : name them!</para>
-		<para>The name of the file is in a directory, and the contents is somewhere on the disk.</para>
-		<para>6. Create a symbolic link to summer.txt called slsummer.txt.</para>
-		<screen>ln -s summer.txt slsummer.txt</screen>
-		<para>7. Find all files with inode number 2. What does this information tell you ?</para>
-		<para>It tells you there is more than one inode table (one for every formatted partition + virtual file systems)</para>
-		<para>8. Look at the directories /etc/init.d/ /etc/rc.d/ /etc/rc3.d/ ... do you see the links ?</para>
-		<screen>ls -l /etc/init.d</screen>
-		<screen>ls -l /etc/rc.d</screen>
-		<screen>ls -l /etc/rc3.d</screen>
-		<para>9. Look in /lib with ls -l...</para>
-		<screen>ls -l /lib</screen>
-		<para></para>
-		<para></para>
-		<para></para>
-	</section>
+</section>

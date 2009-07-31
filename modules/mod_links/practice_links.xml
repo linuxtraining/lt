@@ -1,0 +1,11 @@
+<section><title>Practice: Links</title>
+	<para>1. Create two files named winter.txt and summer.txt, put some text in them.</para>
+	<para>2. Create a hard link to winter.txt named hlwinter.txt.</para>
+	<para>3. Display the inode numbers of these three files, the hard links should have the same inode.</para>
+	<para>4. Use the find command to list the two hardlinked files</para>
+	<para>5. Everything about a file is in the inode, except two things : name them!</para>
+	<para>6. Create a symbolic link to summer.txt called slsummer.txt.</para>
+	<para>7. Find all files with inode number 2. What does this information tell you ?</para>
+	<para>8. Look at the directories /etc/init.d/ /etc/rc.d/ /etc/rc3.d/ ... do you see the links ?</para>
+	<para>9. Look in /lib with ls -l...</para>
+</section>
