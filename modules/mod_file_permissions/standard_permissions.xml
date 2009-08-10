@@ -42,7 +42,7 @@ root@laika:/home/paul# ls -l FileForPaul
 		</screen>
 	</section>
 </section>
-<section><title>special files</title>
+<section><title>list of special files</title>
 	<para>When you use <command>ls -l</command>, then you can see, for each file, ten characters before the user and group owner. The first character tells us the type of file. Regular files get a <command>-</command>, directories get a <command>d</command>, symbolic links are shown with an <command>l</command>, pipes get a <command>p</command>, character devices a <command>c</command>, block devices a <command>b</command> and sockets an <command>s</command>.</para>
 <table frame='all'><title>Unix special files</title>
 <?dbfo table-width="50%" ?>
