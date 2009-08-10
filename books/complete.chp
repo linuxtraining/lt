@@ -69,11 +69,14 @@ chapt_file_permissions() {
 	MODULES=""
 	chaptitle="Standard file permissions"
 	add_mod mod_file_permissions/standard_permissions.xml
-	add_mod mod_file_permissions/practice_standard.xml   
-	add_mod mod_file_permissions/sticky_bit.xml          
-	add_mod mod_file_permissions/setgid_dir.xml       
-	add_mod mod_file_permissions/practice_sst.xml        
-	add_mod mod_file_permissions/solution_sst.xml        
+	add_mod mod_file_permissions/standard_permissions_practice.xml
+	add_mod mod_file_permissions/standard_permissions_solution.xml
+	add_mod mod_file_permissions/sticky_setgid.xml          
+	add_mod mod_file_permissions/sticky_setgid_practice.xml          
+	add_mod mod_file_permissions/sticky_setgid_solution.xml          
+	add_mod mod_file_permissions/acls.xml        
+#	add_mod mod_file_permissions/acls_practice.xml        
+#	add_mod mod_file_permissions/acls_solution.xml        
 	}
 
 #
