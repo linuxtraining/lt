@@ -1,20 +1,48 @@
-<section><title>Practice: File Permissions</title>
+<section><title>Solutions: File Permissions</title>
 	<para>1. As normal user, create a directory ~/permissions. Create a file owned by yourself in there.</para>
+	<screen>mkdir ~/permissions ; touch ~/permissions/myfile.txt</screen>
 	<para>2. Copy a file owned by root from /etc/ to your permissions dir, who owns this file now ?</para>
+	<screen>cp /etc/hosts ~/permissions/</screen>
+	<para>The copy is owned by you.</para>
 	<para>3. As root, create a file in the users ~/permissions directory.</para>
+	<screen>(become root)# touch /home/username/permissions/rootfile</screen>
 	<para>4. As normal user, look at who owns this file created by root.</para>
+	<screen>ls -l ~/permissions</screen>
+	<para>The file created by root is owned by root.</para>
 	<para>5. Change the ownership of all files in ~/permissions to yourself.</para>
+	<screen>chown user ~/permissions/*</screen>
+	<para>You cannot become owner of the file that belongs to root.</para>
 	<para>6. Make sure you have all rights to these files, and others can only read.</para>
+	<screen>chmod 644 (on files)</screen>
+	<screen>chmod 755 (on directories)</screen>
 	<para>7. With chmod, is 770 the same as rwxrwx--- ?</para>
+	<para>yes</para>
 	<para>8. With chmod, is 664 the same as r-xr-xr-- ?</para>
+	<para>No</para>
 	<para>9. With chmod, is 400 the same as r-------- ?</para>
+	<para>yes</para>
 	<para>10. With chmod, is 734 the same as rwxr-xr-- ?</para>
+	<para>no</para>
 	<para>11a. Display the umask in octal and in symbolic form.</para>
+	<screen>umask ; umask -S</screen>
 	<para>11b. Set the umask to 077, but use the symbolic format to set it. Verify that this works.</para>
+	<screen>umask -S u=rwx,go=</screen>
 	<para>12. Create a file as root, give only read to others. Can a normal user read this file ? Test writing to this file with vi.</para>
+	<screen>(become root)</screen>
+	<screen># echo hello > /home/username/root.txt </screen>
+	<screen># chmod 744 /home/username/root.txt</screen>
+	<screen>(become user)</screen>
+	<screen>vi ~/root.txt</screen>
 	<para>13a. Create a file as normal user, give only read to others. Can another normal user read this file ? Test writing to this file with vi.</para>
+	<screen>echo hello > file ; chmod 744 file</screen>
+	<para>Yes, others can read this file</para>
 	<para>13b. Can root read this file ? Can root write to this file with vi ?</para>
+	<para>Yes, root can read and write to this file. Permissions do not apply to root.</para>
 	<para>14. Create a directory that belongs to a group, where every member of that group can read and write to files, and create files. Make sure that people can only delete their own files.</para>
-	<para></para>
+	<screen>mkdir /home/project42 ; groupadd project42</screen>
+	<screen>chgrp project42 /home/project42 ; chmod 775 /home/project42</screen>
+	<para>You can not yet do the last part of this exercise...</para>
+	<para></para>	
+	<para></para>	
 	<para></para>	
 </section>
