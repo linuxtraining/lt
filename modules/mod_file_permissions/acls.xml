@@ -1,6 +1,6 @@
 <section><title>access control lists</title>
 	<section><title>acl in /etc/fstab</title>
-		<para>File systems that support <command>access control lists</command><indexterm><primary>access control list</primary></indexterm> or <command>acls</command><indexterm><primary>acls</primary></indexterm> have to be mounted with the <command>acl</command> option listed in <command>/etc/fstab</command><indexterm><primary>/etc/fstab</primary></indexterm>. In the example below you can see that the root file system has acl support, whereas /home/data does not.</para>
+		<para>File systems that support <command>access control lists</command><indexterm><primary>access control list</primary></indexterm> or <command>acls</command><indexterm><primary>acls</primary></indexterm> have to be mounted with the <command>acl</command> option listed in <command>/etc/fstab</command><indexterm><primary>/etc/fstab</primary></indexterm>. In the example below you can see that the root file system has <command>acl</command> support, whereas /home/data does not.</para>
 		<screen>
 root@laika:~# tail -4 /etc/fstab
 /dev/sda1        /              ext3     acl,relatime    0  1
@@ -24,7 +24,7 @@ other::r--
 		</screen>
 	</section>
 	<section><title>setfacl</title>
-		<para>Writing or changing <command>acls</command> can be done with <command>/usr/bin/setfacl</command><indexterm><primary>/usr/bin/setfacl</primary></indexterm>. This screenshots show how to change the <command>acl</command> of <command>file33</command> with <command>setfacl</command><indexterm><primary>setfacl</primary></indexterm>.</para>
+		<para>Writing or changing <command>acls</command> can be done with <command>/usr/bin/setfacl</command><indexterm><primary>/usr/bin/setfacl</primary></indexterm>. These screenshots show how to change the <command>acl</command> of <command>file33</command> with <command>setfacl</command><indexterm><primary>setfacl</primary></indexterm>.</para>
 		<para>First we add <command>u</command>ser <command>sandra</command> with octal permission <command>7</command> to the <command>acl</command>.</para>
 		<screen>
 paul@laika:~/test$ setfacl -m u:sandra:7 file33
