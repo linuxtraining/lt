@@ -1,4 +1,4 @@
-<section><title>Solutions: File Permissions</title>
+<section><title>Solutios: standard file permissions</title>
 	<para>1. As normal user, create a directory ~/permissions. Create a file owned by yourself in there.</para>
 	<screen>mkdir ~/permissions ; touch ~/permissions/myfile.txt</screen>
 	<para>2. Copy a file owned by root from /etc/ to your permissions dir, who owns this file now ?</para>

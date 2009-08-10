@@ -1,4 +1,4 @@
-<section><title>Practice: sticky and setGID on directory</title>
+<section><title>Practice: sticky and setGID bits</title>
 	<para>1. Set up a directory, owned by the group sports.</para>
 	<para>2. Members of the sports group should be able to create files in this directory.</para>
 	<para>3. All files created in this directory should be group-owned by the sports group.</para>

@@ -29,7 +29,7 @@ other::r--
 		<screen>
 paul@laika:~/test$ setfacl -m u:sandra:7 file33
 		</screen>
-		<para>Then we add the <command>g</command> tennis with octal permission <command>6</command> to the <command>acl</command> of the same file.</para>
+		<para>Then we add the <command>g</command>roup tennis with octal permission <command>6</command> to the <command>acl</command> of the same file.</para>
 		<screen>
 paul@laika:~/test$ setfacl -m g:tennis:6 file33
 		</screen>
@@ -56,7 +56,7 @@ user:sandra:rwx
 paul@laika:~/test$ setfacl -x sandra file33
 paul@laika:~/test$ getfacl file33 | grep sandra
 		</screen>
-		<para>Note that omitting the <command>u</command> or <command>g</command> to define a user account or a group account to set the acl for, will default to a user account.</para>
+		<para>Note that omitting the <command>u</command> or <command>g</command> to define a user account or a group account to set the <command>acl</command> for, will default to a user account.</para>
 	</section>
 	<section><title>remove the complete acl</title>
 		<para>The <command>-b</command> option of the <command>setfacl</command> command will remove the <command>acl</command> from the targeted file.</para>
@@ -89,7 +89,7 @@ other::r--
 	</section>
 	<section><title>eiciel</title>
 		<para>Desktop users might want to use <command>eiciel</command><indexterm><primary>eiciel</primary></indexterm> to manage <command>acls</command><indexterm><primary>acl</primary></indexterm> with a graphical tool.</para>
-		<mediaobject><imageobject><imagedata fileref="images/acls_eiciel.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>			
+		<mediaobject><imageobject><imagedata fileref="images/eiciel_acls.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>			
 		<para>You will need to install <command>eiciel</command> and <command>nautilus-actions</command> to have an extra tab in <command>nautilus</command> to manage <command>acls</command>.</para>
 		<screen>
 paul@laika:~$ sudo aptitude install eiciel nautilus-actions

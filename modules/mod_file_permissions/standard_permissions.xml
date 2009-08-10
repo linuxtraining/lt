@@ -187,9 +187,8 @@ paul@laika:~/perms$
 	</screen>
 	<para>To summarize, the first <command>rwx</command> triplet represents the permissions for the <command>user owner</command>. The second triplet corresponds to the <command>group owner</command>, so it specifies permissions for all members of that group. The third triplet defines permissions for all <command>other</command> users that are not the user owner and are not a member of the group owner.</para>
 	</section>
-</section>
-<section><title>setting permissions (chmod)</title>
-	<para>Permissions can be changed with <command>chmod</command><indexterm><primary>chmod(1)</primary></indexterm>. The first example gives the user owner execute permissions.</para>
+	<section><title>setting permissions (chmod)</title>
+		<para>Permissions can be changed with <command>chmod</command><indexterm><primary>chmod(1)</primary></indexterm>. The first example gives the user owner execute permissions.</para>
 		<screen>
 paul@laika:~/perms$ ls -l permissions.txt 
 -rw-r--r-- 1 paul paul 0 2007-02-07 22:34 permissions.txt
@@ -299,8 +298,6 @@ paul@laika:~/perms$ ls -l permissions.txt
 </tbody>
 </tgroup>
 </table>
-
-
 		<para>This makes <command>777</command><indexterm><primary>777</primary></indexterm> equal to rwxrwxrwx and by the same logic has 654 mean rw-r-xr-- . The <command>chmod</command> command will accept these numbers.</para>
 		<screen>
 paul@laika:~/perms$ chmod 777 permissions.txt 
@@ -326,3 +323,4 @@ paul@laika:~/perms$ ls -l permissions.txt
 		</screen>
 		<para>As you can see, the file is also not executable by default. This is a general security feature among Unixes, newly created files are never executable by default. You have to explicitely do a <command>chmod +x</command><indexterm><primary>chmod +x</primary></indexterm> to make a file executable. This also means that the 1 bit in the umask has no meaning, a umask of 0022 is the same as 0033.</para>
 	</section>
+</section>
