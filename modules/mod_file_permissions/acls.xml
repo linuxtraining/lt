@@ -1,0 +1,97 @@
+<section><title>access control lists</title>
+	<section><title>acl in /etc/fstab</title>
+		<para>File systems that support <command>access control lists</command><indexterm><primary>access control list</primary></indexterm> or <command>acls</command><indexterm><primary>acls</primary></indexterm> have to be mounted with the <command>acl</command> option listed in <command>/etc/fstab</command><indexterm><primary>/etc/fstab</primary></indexterm>. In the example below you can see that the root file system has acl support, whereas /home/data does not.</para>
+		<screen>
+root@laika:~# tail -4 /etc/fstab
+/dev/sda1        /              ext3     acl,relatime    0  1
+/dev/sdb2        /home/data     auto     noacl,defaults  0  0
+pasha:/home/r    /home/pasha    nfs      defaults        0  0
+wolf:/srv/data   /home/wolf     nfs      defaults        0  0
+		</screen>
+		<para></para>
+	</section>
+	<section><title>getfacl</title>
+		<para>Reading <command>acls</command> can be done with <command>/usr/bin/getfacl</command><indexterm><primary>/usr/bin/getfacl</primary></indexterm>. This screenshot shows how to read the <command>acl</command> of <command>file33</command> with <command>getfacl</command><indexterm><primary>getfacl</primary></indexterm>.</para>
+		<screen>
+paul@laika:~/test$ getfacl file33
+# file: file33
+# owner: paul
+# group: paul
+user::rw-
+group::r--
+mask::rwx
+other::r--
+		</screen>
+	</section>
+	<section><title>setfacl</title>
+		<para>Writing or changing <command>acls</command> can be done with <command>/usr/bin/setfacl</command><indexterm><primary>/usr/bin/setfacl</primary></indexterm>. This screenshots show how to change the <command>acl</command> of <command>file33</command> with <command>setfacl</command><indexterm><primary>setfacl</primary></indexterm>.</para>
+		<para>First we add <command>u</command>ser <command>sandra</command> with octal permission <command>7</command> to the <command>acl</command>.</para>
+		<screen>
+paul@laika:~/test$ setfacl -m u:sandra:7 file33
+		</screen>
+		<para>Then we add the <command>g</command> tennis with octal permission <command>6</command> to the <command>acl</command> of the same file.</para>
+		<screen>
+paul@laika:~/test$ setfacl -m g:tennis:6 file33
+		</screen>
+		<para>The result is visible with <command>getfacl</command>.</para>
+		<screen>
+paul@laika:~/test$ getfacl file33 
+# file: file33
+# owner: paul
+# group: paul
+user::rw-
+user:sandra:rwx
+group::r--
+group:tennis:rw-
+mask::rwx
+other::r--
+		</screen>
+	</section>
+	<section><title>remove an acl entry</title>
+		<para>The <ommand>-x</command> option of the <command>setfacl</command> command will remove an <command>acl</command> entry from the targeted file.</para>
+		<screen>
+paul@laika:~/test$ setfacl -m u:sandra:7 file33 
+paul@laika:~/test$ getfacl file33 | grep sandra
+user:sandra:rwx
+paul@laika:~/test$ setfacl -x sandra file33
+paul@laika:~/test$ getfacl file33 | grep sandra
+		</screen>
+		<para>Note that omitting the <command>u</command> or <command>g</command> to define a user account or a group account to set the acl for, will default to a user account.</para>
+	</section>
+	<section><title>remove the complete acl</title>
+		<para>The <ommand>-b</command> option of the <command>setfacl</command> command will remove the <command>acl</command> from the targeted file.</para>
+		<screen>
+paul@laika:~/test$ setfacl -b file33 
+paul@laika:~/test$ getfacl file33 
+# file: file33
+# owner: paul
+# group: paul
+user::rw-
+group::r--
+other::r--
+		</screen>
+	</section>
+	<section><title>the acl mask</title>
+		<para>The <ommand>acl mask</command> defines the maximum effective permissions for any entry in the <command>acl</command>. This <command>mask<command> is calculated every time you execute the <command>setfacl</command> or <command>chmod</command> commands.</para>
+		<para>You can prevent the calculation using the <command>--no-mask</command> switch.</para>
+		<screen>
+paul@laika:~/test$ setfacl --no-mask -m u:sandra:7 file33
+paul@laika:~/test$ getfacl file33
+# file: file33
+# owner: paul
+# group: paul
+user::rw-
+user:sandra:rwx			#effective:rw-
+group::r--
+mask::rw-
+other::r--
+		</screen>
+	</section>
+	<section><title>eiciel</title>
+		<para>Desktop users might want to use <command>eiciel</command><indexterm><primary>eiciel</primary></indexterm> to manage <command>acls</command><indexterm><primary>acl</primary></indexterm> with a graphical tool.</para>
+		<mediaobject><imageobject><imagedata fileref="images/acls_eiciel.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>			
+		<para>You will need to install <command>eiciel</command> and <command>nautilus-actions</command> to have an extra tab in <command>nautilus</command> to manage <command>acls</command>.</para>
+		<screen>
+paul@laika:~$ sudo aptitude install eiciel nautilus-actions
+		</screen>
+	</section>
