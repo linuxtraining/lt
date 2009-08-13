@@ -36,6 +36,7 @@ CONTENT todo
    - conceptual difference between NFS and samba
    - samba 2, 3, 4 and how it relates to windows versions; smb, cifs
    - intro acl's samen 
+   - mtr ipv traceroute and ping
 
 6. other stuff 
    - ldap
@@ -45,6 +46,8 @@ CONTENT todo
 7. bugs
    - logging: explain | named pipes, needs fifo buffer (mkfifo)
 
+8. interesting links
+   - http://www.commandlinefu.com/ zie ook http://www.commandlinefu.com/commands/browse/sort-by-votes
 
 META todo
 
