@@ -69,6 +69,6 @@ Starting applications specified in /root/.vnc/xstartup
 Log file is /root/.vnc/RHELv4u3.localdomain:2.log
 		</screen>
 	</section>
-	<section><title>Practive VNC</title>
+	<section><title>Practice VNC</title>
 		<para>1. Use VNC to connect from one machine to another.</para>
 	</section>

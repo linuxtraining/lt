@@ -208,6 +208,7 @@ sbhe
 svir
 [paul@RHEL4b pipes]$ 
 	</screen>
+	<para>tr -d to delete characters</para>
 </section>
 <section><title>wc</title>
 	<para>Counting words, lines and characters is easy with <command>wc</command><indexterm><primary>wc(1)</primary></indexterm>. </para>
@@ -291,6 +292,7 @@ paul
 root
 [paul@RHEL4b pipes]$
 	</screen>
+	<para>uniq -c counts...</para>
 </section>
 <section><title>find</title>
 	<para>The <command>find</command><indexterm><primary>find(1)</primary></indexterm> tool is used very often in linux. Find is useful at the start of a pipe, to search for files. Here are some examples. In real life, you will want to add 2&#062;/dev/null to the command lines to avoid cluttering your screen with error messages.</para>
@@ -326,6 +328,7 @@ Password:
 [root@RHEL4b ~]# updatedb
 [root@RHEL4b ~]# 
 	</screen>
+	<para>Most Linux distributions will schedule the <command>updatedb</command> to run once every day.</para>
 </section>
 <section><title>diff</title>
 	<para>To compare two files line by line, you can use <command>diff</command><indexterm><primary>diff(1)</primary></indexterm>. To ignore blanks, use <command>diff -b</command>, and to ignore case, use <command>diff -i</command>.</para>
