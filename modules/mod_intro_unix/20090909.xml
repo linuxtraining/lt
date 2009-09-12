@@ -1,0 +1,466 @@
+<section><title>voorstelling leraar</title>
+	<para>De voorbije tien jaar heb ik vooral praktijkervaring opgedaan met installatie, beheer, netwerking en beveiliging van Windows 2000/2003 servers, Solaris 9 en 10 servers en Linux (vooral Red Hat, Debian, SLES/SLED en Ubuntu).</para>
+	<para>Alle vragen ivm systeembeheer en netwerk (dns, dhcp, tcp/ip) zou ik moeten kunnen beantwoorden!</para>
+	<para>Verder kan u een online CV vinden op linkedin.com en op cobbaut.be (zeer oude website).</para>
+</section>
+<section><title>leerplan van de overheid</title>
+	<para>De overheid voorziet een leerplan dat U hier <command>http://ond.vsko.be/dbs/plsql/vwo_ho_m$.startup</command> kan vinden.</para>
+	<para>Het leerplan ziet er als volgt uit:</para>
+	<screen>
+Instapvereisten:
+Vertrouwd zijn met de werking van een operating system en met het
+gebruik van internet.
+
+Verplichte voorafgaande modules:
+geen
+
+Studieduur:
+60 Lt TV
+
+Doelstellingen:
+de cursist:
+-kent de termen en afkortingen in gebruik bij communicatiesystemen
+-kent de basiselementen van datatransmissie
+-kan de parameters capaciteit, snelheid en de beperkingen van een
+ communicatiekanaal situeren;
+-kan de principes van modulatie en de bijbehorende normen benoemen en
+ beschrijven;
+-kan de multiplexeringstechnieken om een communicatiekanaal optimaal
+ te gebruiken benoemen en beschrijven;
+-kan de verschillende communicatiestructuren (topologieën): van
+ punt-tot-punt tot het gebruik van een gemeenschappelijk kanaal (in
+ een Lan, Man, Wan) en hun toepassingen beschrijven;
+-kent de technieken waarbij computers communiceren in een lokaal
+ netwerk via een gemeenschappelijk kanaal (bv. Ethernet) en kan een
+ lokaal netwerk op basis van een gemeenschappelijk kanaal samenstellen;
+-kan de voordelen en noodzakelijkheden van het gebruik van
+ lagenmodellen in datacommunicatie opnoemen en  kan o.m. het klassieke
+ OSI-model beschrijven;
+-kan de structuur en de evolutie en de toepassingen van het Internet
+ schetsen;
+-kent het verschil tussen fysische en logische adressering en kan
+ IP-adressen catalogeren en aanpassen (sub- en supernetten);
+-de verschillende functionaliteiten tussen een server en werkstations
+ weergeven;
+-kan verschillende aspecten van netwerkbeveiliging onderscheiden;
+-onderkent de voordelen en mogelijkheden van internet, extranet en
+ intranet.
+
+Leerinhouden:
+Datacommunicatiemodel:
+-basisbegrippen
+-basiselementen datatransmissie
+  -verband tussen bandbreedte en capaciteit
+-fysieke media en hun eigenschappen.
+  -snelheid
+  -beperkingen
+-modulatie en codering
+-multiplexen
+-topologiën:
+  -point-to-point
+  -multipoint met gemeenschappelijk kanaal
+-voorbeelden van topologiën:
+  -point-to-point: bv. RS-232-C
+  -multipoint: bv. Ethernet
+
+Leerinhouden:
+Voorbeelden aan de hand van de TCP/IP protocolsuite.
+-Adressering (IP-adressen):
+  -IP-adres, netmask, netwerkadres, broadcast-adres
+  -sub- en supernetting
+-Werking van de TCP en IP protocollen.
+  -packetswitching: IP
+  -virtual circuitswitching: TCP
+
+Leerinhouden:    
+Datacommunicatie in de praktijk.
+-Het OSI-model in de praktijk
+-ontstaan en evolutie van Internet
+  -verschil internet, extranet en intranet
+-netwerkbeveiliging
+-servers en werkstations
+
+Methodologische wenken:
+Deze module dient een inleiding te vormen in de datacommunicatie-
+wereld. 
+In de modules Netwerkbeheer 1 en 2 (A.10 - N.2) wordt de opgedane
+kennis aan de praktijk getoetst. 
+Het is echter niet de bedoeling een zuiver theoretische cursus te
+geven. 
+Praktijkvoorbeelden kunnen veel duidelijk maken: bijvoorbeeld
+  -traces van een packetsniffer
+  -verschillende interfaces
+
+
+
+
+
+
+
+	</screen>
+</section>
+<section><title>boeken</title>
+	<para>Dit leerplan wordt bijna volledig besproken in het boek <command>computernetwerken</command> van <command>Andrew S. Tanenbaum</command> ISBN 90 395 0557 8 (in het Engels: Computer Networks, ISBN 0-13-066102-3).</para>
+	<para>Ook <command>Cisco</command> heeft boeken (ter voorbereiding van hun CCNA examens) die de materie uit het leerplan in detail bespreken.</para>
+	<para>Laat me ook nog <command>Communications Systems and Networks</command> vermelden van <command>Ray Horak</command> (ISBN 0 7645 7522 8), ook dit boek behandeld grotendeels de materie uit het leerplan.</para>
+	<para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/boeken.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	</para>
+</section>
+<section><title>eerste les</title>
+	<para>We hebben dit leerplan samen besproken de eerste les. Enkele begrippen uit dit leerplan werden hierbij iets uitgebreider toegelicht.</para>
+	<section><title>operating system</title>
+		<para>Student Arno was er als de kippen bij om <command>operating system</command><indexterm><primary>operating system</primary></indexterm> te vertalen naar <command>besturingssysteem</command><indexterm><primary>besturingssysteem</primary></indexterm>, wat uiteraard correct is.</para>
+		<para>We hebben besproken hoe een <command>besturingssysteem</command> verantwoordelijk is voor het beheer van de hardware, het RAM geheugen (volgens Maite meestal twee tot vier gigabyte vandaag) en applicaties. Een <command>besturingssysteem</command> is zelf software, geschreven door programmeurs. Meer informatie vindt U (zoals meestal) op wikipedia <command>http://nl.wikipedia.org/wiki/Besturingssysteem</command>.</para>
+		<para>Hieronder een overzicht van (recente) Microsoft besturingssystemen. Deze kunnen grotendeels onderverdeeld worden in de (verouderde) opvolgers van <command>MS-DOS</command><indexterm><primary>MS-DOS</primary></indexterm> en de evolutie van <command>Windows NT</command><indexterm><primary>Windows NT</primary></indexterm>.</para>
+<table frame='all'><title>MS-DOS vs Windows NT</title>
+<?dbfo table-width="100%" ?>
+<?dbfo fontsize="7px" ?>
+<tgroup cols='3' align='left' colsep='1' rowsep='1'>
+<colspec colname='jaar' colwidth="1*" align="center"/>
+<colspec colname='DOS' colwidth="3*" align="center"/>
+<colspec colname='NT' colwidth="3*" align="center"/>
+<thead>
+<row>
+  <entry>jaar</entry>
+  <entry>MS-DOS versie</entry>
+  <entry>Windows NT versie</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>1991</entry>
+  <entry>MS-DOS 5.0 + Windows 3.1</entry>
+  <entry>OS/2 3.00 (project)</entry>
+</row>
+<row>
+  <entry>1993</entry>
+  <entry>&nbsp;</entry>
+  <entry>Windows NT 3.1</entry>
+</row>
+<row>
+  <entry>1994</entry>
+  <entry>MS-DOS 6.22 + Windows 3.11</entry>
+  <entry>Windows NT 3.5</entry>
+</row>
+<row>
+  <entry>1995</entry>
+  <entry>Windows 95</entry>
+  <entry>Windows NT 3.51</entry>
+</row>
+<row>
+  <entry>1997</entry>
+  <entry>Windows 98</entry>
+  <entry>Windows NT 4.0</entry>
+</row>
+<row>
+  <entry>2000</entry>
+  <entry>Windows ME</entry>
+  <entry>Windows 2000 (NT 5.0)</entry>
+</row>
+<row>
+  <entry>2001</entry>
+  <entry>&nbsp;</entry>
+  <entry>Windows XP (NT 5.1)</entry>
+</row>
+<row>
+  <entry>2007</entry>
+  <entry>&nbsp;</entry>
+  <entry>Windows Vista (NT 6.0)</entry>
+</row>
+<row>
+  <entry>2009/2010</entry>
+  <entry>&nbsp;</entry>
+  <entry>Windows 7 (NT 6.1)</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+		<para>De MS-DOS lijn eindigde met <command>Windows ME</command><indexterm><primary>Windows ME</primary></indexterm>, maar deze versie werd door bijna iedereen snel van de computer afgegooid en weer vervangen door het immens populaire <command>Windows 98</command><indexterm><primary>Windows 98</primary></indexterm>.</para>
+		<para>IBM en Microsoft werkten in de jaren tachtig samen aan <command>OS/2</command><indexterm><primary>OS/2</primary></indexterm>. Toen IBM werkte aan <command>OS/2 2.0</command> en Microsoft bezig was met OS/2 versie 3.00 eindigde de samenwerking. Even later in 1993 bracht Microsoft <command>OS/2 3.00</command> uit onder de naam <command>Windows NT 3.1</command> (gelijklopend met Windows 3.1).</para>
+		<para>Enkele links:</para>
+		<screen>
+<command>http://nl.wikipedia.org/wiki/OS/2</command>
+<command>http://nl.wikipedia.org/wiki/Windows</command>
+<command>http://nl.wikipedia.org/wiki/MS-DOS</command>
+<command>http://www.microsoft.com</command>
+		</screen>
+	</section>
+	<section><title>geschiedenis van unix</title>
+		<para>We hebben ook even gepraat over de geschiedenis van <command>Unix</command><indexterm><primary>Unix</primary></indexterm> als besturingssysteem. Net zoals het vorige deel over Microsoft behoort ook dit <command>*niet*</command> tot het leerplan, dus houden we het kort.</para>
+		<para>Unix werd in 1969 ontwikkeld door <command>Dennis Ritchie</command><indexterm><primary>Dennis Ritchie</primary></indexterm>, <command>Ken Thompson</command><indexterm><primary>Ken Thompson</primary></indexterm> en <command>Douglas McIlroy</command><indexterm><primary>Douglas McIlroy</primary></indexterm>, onder de naam <command>UNICS</command><indexterm><primary>UNICS</primary></indexterm> (Uniplexed Information and Computing System) in de befaamde <command>Bell Labs</command>. In de jaren tachtig maakte zowat elke grote firma zijn eigen versie van Unix (IBM AIX, HP HP-UX, Sun SunOS (later Solaris), Microsoft Xenix, etc). Vanaf midden jaren 70 was er een dispuut met de universitaire ontwikkelaars uit California. Deze hippies noemden hun Unix <command>BSD</command>, wat we vandaag nog terugvinden in <command>OpenBSD</command>, <command>FreeBSD</command> en <command>NetBSD</command> (ook MacOSX en Solaris hebben BSD-wortels).</para>
+		<para>Wil U meer weten, google dan gerust op 'Unix history' of surf naar <command>wikipedia</command> of lees de inleiding over Unix op www.linux-training.be.</para>
+	</section>
+	<section><title>gpl</title>
+		<para>We weken nog verder af van het leerprogramma toen we over <command>Linux</command> en <command>licenties</command> praatten. De <command>gpl</command> is een licentie die toelaat dat je software mag kopiëren zoveel je maar wil. Je mag gpl software ook verkopen, maar de persoon die dat koopt krijgt dezelfde rechten. Ja mag ook sleutelen aan de <command>broncode</command> van gpl software, op voorwaarde dat je jou aanpassingen ook onder de <command>gpl licentie</command> naar buiten brengt.</para>
+		<para>Deze software noemt men ook wel eens <command>vrije software</command>, dit in tegenstelling tot gesloten software zoals Microsoft producten (waar je geen broncode krijgt, niets mag kopiëren en niets mag aanpassen aan de software).</para>
+		<para>Indien jullie dat wensen gaan we hier uitgebreider op in (strict genomen behoort het niet tot het leerplan).</para>
+	<para>Meer info over gpl en vrije software:</para>
+<screen>
+http://nl.wikipedia.org/wiki/Vrije_software
+http://nl.wikipedia.org/wiki/Richard_M._Stallman
+http://nl.wikipedia.org/wiki/GNU_General_Public_License
+http://people.mech.kuleuven.be/~bruyninc/ictvisie.html
+</screen>
+	</section>
+	<section><title>geschiedenis internet</title>
+		<para>We kwamen terug op het juiste pad (het leerplan) met een beknopte geschiedenis van het internet. We bespraken hoe het internet toch wel meer is dan <command>de blauwe e</command> op de Windows desktop. Het internet bestaat sinds 1969 en omvat behalve het <command>World Wide Web</command> ook diensten zoals <command>smtp (e-mail)</command> en <command>nntp (usenet aka nieuwsgroepen)</command>.</para>
+		<section><title>1969 arpanet</title>
+			<para>Het <command>arpanet</command> was het eerste netwerk van computers dat gebruik maakte van <command>packet switching</command> technologie. Eind 1969 waren vier computers verbonden op dit <command>inter-network</command>. </para>
+			<para>Het <command>arpanet</command> groeide tot 113 verbonden computers in 1983 (toen werd het opgesplitst in het (publieke) arpanet en het militaire <command>milnet</command>).</para>
+		</section>
+		<section><title>packet switching</title>
+			<para>Ter vervanging van vast toegewezen communicatiekanalen werd in de jaren 60 een nieuwe techniek ontwikkeld die alle gegevens die over een netwerk moeten getransporteerd worden opdeelt in kleine packetjes. Elk packetje bepaalt onafhankelijk van alle andere packetjes zijn route naar zijn bestemming. Dit laat toe dat meerdere computers tegelijkertijd gebruik maken van dezelfde (physische) communicatiekanalen.</para>
+			<para>Beknopte uitleg op http://nl.wikipedia.org/wiki/Packet_switching uitgebreide uitleg in het Engels op http://en.wikipedia.org/wiki/Packet_switching .</para>
+		</section>
+		<section><title>jaren 70</title>
+			<para>De jaren 70 zagen ook de creatie van het <command>X.25</command> netwerk, <command>fidonet</command>, <command>compuserve</command>, <command>bulletin board systems</command> en <command>uucp</command>. Al deze netwerken zijn vandaag volledig opgegaan in het <command>internet</command> en <command>tcp/ip</command>.</para>
+		</section>
+		<section><title>tcp/ip</title>
+			<para>Da jaren 70 waren ook de start voor het <command>tcp/ip</command> protocol. Deze protocol stack zullen we later uitgebreid bespreken.</para>
+			<para>Vandaag gebruikt 99 procent van het internet <command>ipv4</command> (Internet Protocol versie 4). De opvolger <command>ipv6</command> is klaar, maar breekt nauwelijks door.</para>
+		</section>
+		<section><title>e-mail</title>
+			<para>Reeds in 1965 bestond er <command>e-mail</command> op mainframe computers. Het <command>@ teken</command> dateert uit 1971. In de jaren 70 kon je e-mailen tussen verschillende netwerken zoals arpanet, vnet(ibm), bitnet, nsfnet en alle computers die uucp spraken.</para>
+			<para>Sinds 1982 bestaat e-mail als <command>SMTP (Simple Mail Transfer Protocol)</command>, gedefineerd oorspronkelijk in <command>rfc 821</command> (later meermaals uitgebreid).</para>
+
+<screen>
+http://nl.wikipedia.org/wiki/SMTP
+http://en.wikipedia.org/wiki/SMTP 
+http://www.rfc-editor.org/rfc/rfc821.txt
+http://www.rfc-editor.org/rfc/rfc5321.txt
+</screen>
+		</section>
+		<section><title>rfc</title>
+			<para>Sinds 1969 maakt men voor elk internet protocol een <command>rfc (Request for Comments)</command>. Een <command>rfc</command> is een (ascii) tekstbestand en bepaald de werking van alle protocols op het internet. Deze tekstbestanden zijn vrij te raadplegen en te implementeren. Enkele voorbeelden van protocols die bepaald zijn door een <command>rfc</command> zijn tcp, ip, ftp, udp, dns, smtp, ntp, dhcp, http en duizenden anderen.</para>
+			<para>Op <command>www.rfc-editor.org</command> vind je alle rfc's. Je kan ook rechtsreeks naar de tekstversie gaan als je de rfc nummer kent (zoals 2131 voor dhcp) via :</para>
+<screen>http://www.rfc-editor.org/rfc/rfc2131.txt</screen>
+			<para>Elke <command>rfc</command> bevat o.a. een datum, opgepast voor humor als je <command>1 april</command> ziet.</para>
+		</section>
+		<section><title>www</title>
+			<para><command>Tim Berners Lee</command> vond dat <command>gopher</command> en <command>ftp</command> niet volstonden, dus kwam hij in 1989 op de proppen met het <command>World Wide Web</command>. Toch was het nog wachten tot de release van eerst de <command>mosaic</command> browser en nadien <command>netscape navigator</command> alvorens dit <command>www</command> populair werd. In de jaren 1996-1997 surft 90 procent van de internetbevolking met netscape navigator op het world wide web.</para>
+			<para>In 1995 kwam <command>Spyglass, Inc</command> met de <command>internet explorer</command> browser op de markt. Deze browser werkte op Windows 95 (zat in het <command>Plus pack</command>) en werd nadien gebundled met <command>Windows 98</command>. Tussen 2001 en 2005 surft meer dan 90 procent van de internetbevolking met de blauwe e van Internet Explorer 6 op het world wide web.</para>
+		</section>
+	</section>
+	<section><title>pots isdn T1</title>
+		<para>Toen <command>T1</command> ter sprake kwam, zaten we in de kern van ons leerplan met <command>pots (Plain Old Telephone System)</command> en <command>isdn (Integrated Services Digital Network)</command>.</para>
+		<section><title>pots</title>
+			<para>Het oude analoge telefoonnetwerk werd gebouwd met simpele <command>twisted pair</command> koperdraden om de menselijke stem over te brengen. Dit netwerk draagt golven tussen 300 en 3400 Hertz, wat overeenkomt met een <command>bandbreedte</command> van 3100 Hertz.</para>
+			<para>In tegenstelling tot het internet is het <command>PSTN (Public Switched Telephone Network)</command> een circuit-switched netwerk. Elke telefoongesprek eis(te) een nagenoeg physieke verbinding tussen de twee sprekers.</para>
+			<para>Omdat dit netwekr (geluids)golven rechtsreeks als communicatie gebruikt, noemt men dit een analoog netwerk.</para>
+		</section>
+		<section><title>isdn</title>
+			<para></para>
+			<para></para>
+		</section>
+	</section>
+	<section><title>sniffer</title>
+	</section>
+	<section><title>kilo 1000 kibi 1024</title>
+	</section>
+	<section><title>sniffer</title>
+	</section>
+</section>
+<section><title>input studenten</title>
+<para></para>
+<para></para>
+<para></para>
+<screen>
+</screen>
+</section>
+<section><title>voorstel cursusinhoud</title>
+<para></para>
+<para></para>
+<para></para>
+<screen>
+</screen>
+</section>
+<section><title>examen</title>
+<para></para>
+<para></para>
+<para></para>
+<screen>
+</screen>
+</section>
+<section><title>we beginnen eraan</title>
+<para></para>
+<para></para>
+<para></para>
+<screen>
+</screen>
+</section>
+
+
+
+
+	<section><title>AT&#038;T Bell Labs</title>
+<table frame='all'><title>Early Unix Timeline</title>
+<?dbfo table-width="100%" ?>
+<?dbfo fontsize="7px" ?>
+<tgroup cols='5' align='left' colsep='1' rowsep='1'>
+<colspec colname='1969-1977' colwidth="3*" align="center"/>
+<colspec colname='1978-1980' colwidth="2*" align="center"/>
+<colspec colname='1981' colwidth="1*" align="center"/>
+<colspec colname='1982' colwidth="1*" align="center"/>
+<colspec colname='X' colwidth="0*" align="center"/>
+<thead>
+<row>
+  <entry>1969-1977</entry>
+  <entry>1978-1980</entry>
+  <entry>1981</entry>
+  <entry>1982</entry>
+  <entry>&nbsp;</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry morerows="5" valign="middle">UNIX Time Sharing System</entry>
+  <entry morerows="2" valign="middle">BSD</entry>
+  <entry morerows="2" valign="middle">4.1BSD</entry>
+  <entry morerows="1" valign="middle">4.1BSD</entry>
+  <entry>&nbsp;</entry>
+</row>
+<row>
+  <entry>&nbsp;</entry>
+</row>
+<row>
+  <entry>SunOS 1.0</entry>
+  <entry>&nbsp;</entry>
+</row>
+<row>
+  <entry morerows="2" valign="middle" namest="1978-1980" nameend="1981">Unix</entry>
+  <entry morerows="2" valign="middle">Unix System III</entry>
+  <entry>&nbsp;</entry>
+</row>
+<row>
+  <entry>&nbsp;</entry>
+</row>
+<row>
+  <entry>&nbsp;</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+	</section>
+	<section><title>The Unix Wars</title>
+		<para>The unity and openness that existed in the Unix world until 1977 was long gone by the end of the eighties. Different vendors of distinct versions of Unix tried to set the standard. Sun and AT&#038;T joined the <command>X/Open</command> group to unify Unix. Other vendors joined the Open Software Foundation or <command>OSF</command>. These struggles were not good for Unix, allowing for new operating system families like OS/2, Novell Netware and Microsoft Windows NT to take big chunks of server market share in the early nineties. The table below shows the evolution of a united <command>Unix</command><indexterm><primary>Unix</primary></indexterm> into several Unixes in the eighties.</para> 
+<table frame='all'><title>Eighties Unix Timeline</title>
+<?dbfo table-width="100%" ?>
+<?dbfo fontsize="7px" ?>
+<tgroup cols='10' align='left' colsep='1' rowsep='1'>
+<colspec colname='1983' align="center"/>
+<colspec colname='1984' align="center"/>
+<colspec colname='1985' align="center"/>
+<colspec colname='1986' align="center"/>
+<colspec colname='1987' align="center"/>
+<colspec colname='1988' align="center"/>
+<colspec colname='1989' align="center"/>
+<colspec colname='1990' align="center"/>
+<colspec colname='1991' align="center"/>
+<colspec colname='1992' align="center"/>
+<thead>
+<row>
+  <entry>1983</entry>
+  <entry>1984</entry>
+  <entry>1985</entry>
+  <entry>1986</entry>
+  <entry>1987</entry>
+  <entry>1988</entry>
+  <entry>1989</entry>
+  <entry>1990</entry>
+  <entry>1991</entry>
+  <entry>1992</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry morerows="1" namest="1983" nameend="1985" valign="middle">4.1BSD</entry>
+  <entry namest="1986" nameend="1990">4.3BSD</entry>
+  <entry namest="1991" nameend="1992">BSD Net/2</entry>
+</row>
+<row>
+  <entry namest="1986" nameend="1987">4.3BSD</entry>
+  <entry namest="1988" nameend="1992">NeXTSTEP</entry>
+</row>
+<row>
+  <entry namest="1983" nameend="1985">SunOS1.0</entry>
+  <entry namest="1986" nameend="1987">SunOS3.2</entry>
+  <entry morerows="1" namest="1988" nameend="1990" valign="middle">SystemVr4</entry>
+  <entry namest="1991" nameend="1992">Solaris</entry>
+</row>
+<row>
+  <entry namest="1983" nameend="1987">System V</entry>
+  <entry namest="1991" nameend="1992">UnixWare</entry>
+</row>
+<row>
+  <entry namest="1983" nameend="1985">System V</entry>
+  <entry namest="1986" nameend="1992">AIX</entry>
+</row>
+<row>
+  <entry>III + V</entry>
+  <entry namest="1984" nameend="1992">HP-UX</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+		</section>
+		<section><title>University of California, Berkeley</title>
+			<para>Students of Berkeley were happy to join in the development of Bell Labs Unix, but were not so happy with the restrictive licensing. Unix was open source software, but it still required purchase of a license. So during the eighties, they rewrote all the Unix tools, until they had a complete Unix-like operating system. By 1991, the <command>BSD</command><indexterm><primary>BSD</primary></indexterm> (Berkeley Software Distribution) branch of Unix was completely separate from the Bell Labs Unix. <command>NetBSD</command><indexterm><primary>NetBSD</primary></indexterm>, <command>FreeBSD</command><indexterm><primary>FreeBSD</primary></indexterm> and <command>OpenBSD</command><indexterm><primary>OpenBSD</primary></indexterm> are three current Unix-like operating systems derived from the 1991 <command>BSD Net/2</command><indexterm><primary>BSD Net/2</primary></indexterm> codebase. Sun Solaris, Microsoft Windows NT and Apple Mac OS X all used source code from BSD. The table below shows operating systems still in use today that are in a way derived from the 1978-1981 BSD codebase.</para>
+<table frame='all'><title>Current BSD Timeline</title>
+<?dbfo table-width="100%" ?>
+<tgroup cols='10' align='left' colsep='1' rowsep='1'>
+<colspec colname='1991' align="center" colwidth="1*"/>
+<colspec colname='1992' align="center" colwidth="1*"/>
+<colspec colname='1993' align="center" colwidth="1*"/>
+<colspec colname='1994' align="center" colwidth="1*"/>
+<colspec colname='1995' align="center" colwidth="1*"/>
+<colspec colname='1996' align="center" colwidth="1*"/>
+<colspec colname='1997' align="center" colwidth="1*"/>
+<colspec colname='1998' align="center" colwidth="1*"/>
+<colspec colname='1999' align="center" colwidth="1*"/>
+<colspec colname='2000' align="center" colwidth="3*"/>
+<thead>
+<row>
+  <entry>1991</entry>
+  <entry>1992</entry>
+  <entry>1993</entry>
+  <entry>1994</entry>
+  <entry>1995</entry>
+  <entry>1996</entry>
+  <entry>1997</entry>
+  <entry>1998</entry>
+  <entry>1999</entry>
+  <entry>2000-2008</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry morerows="2" namest="1991" nameend="1992" valign="middle">BSD Net/2</entry>
+  <entry namest="1993" nameend="2000">FreeBSD</entry>
+</row>
+<row>
+  <entry namest="1993" nameend="2000">NetBSD</entry>
+</row>
+<row>
+  <entry namest="1993" nameend="1995">NetBSD</entry>
+  <entry namest="1996" nameend="2000">OpenBSD</entry>
+</row>
+<row>
+  <entry namest="1991" nameend="1998">NeXTSTEP</entry>
+  <entry namest="1999" nameend="2000">Mac OS X</entry>
+</row>
+<row>
+  <entry namest="1991" nameend="2000">Solaris</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+		</section>
+		<section><title>GNU's not Unix</title>
+			<para>Largely because of unhappiness with the restrictive licensing on existing Unix implementations, <command>Richard Stallman</command><indexterm><primary>Richard Stallman</primary></indexterm> initiated the <command>GNU Project</command><indexterm><primary>GNU Project</primary></indexterm> in 1983. The GNU project aims to create free software. Development of the GNU operating system started, aiming to create a complete Unix-like branch, seperate from the two other (BSD and Bell Labs).  Today the GNU compiler <command>gcc</command><indexterm><primary>gcc</primary></indexterm> and most other GNU utilities (like <command>bash</command><indexterm><primary>bash</primary></indexterm>) are among the most popular on many Unix-like systems. The official kernel of this project is <command>GNU/Hurd</command><indexterm><primary>GNU/Hurd</primary></indexterm>, but you can hardly call that kernel a finished product.</para>
+		</section>	
+		<section><title>Linux</title>
+			<para>Where <command>GNU/Hurd</command> failed, the Linux kernel succeeded! In 1991 a Finnish student named <command>Linus Torvalds</command><indexterm><primary>Linus Torvalds</primary></indexterm> started writing his own operating system for his intel 80386 computer. In January 1992, Linus decided to release Linux under the GNU GPL. Thanks to this, thousands of developers are now working on the Linux kernel. Linus Torvalds is in charge of the kernel developers.</para>
+			<para>Contrary to popular believe, they are not all volunteers. Today big companies like Red Hat, Novell, IBM, Intel, SGI, Oracle, Montavista, Google, HP, NetApp, Cisco, Fujitsu, Broadcom and others are actively paying developers to work on the Linux kernel. According to the Linux Foundation "over 3700 individual developers from over 200 different companies have contributed to the kernel between 2005 and april 2008". 1057 developers from 186 different companies contributed code to make kernel version 2.6.23 into 2.6.24.</para>
+		</section>
