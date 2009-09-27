@@ -465,3 +465,29 @@ chapt_mysql() {
 	add_mod mod_mysql/triggers.xml
 	}
 	
+#
+# cursus in NL voor cvo-tsm hieronder
+# Datacommunicatie en netwerken
+#
+
+#
+chapt_20090909() {
+	MODULES=""
+	chaptitle="inleiding"
+	add_mod mod_cvotsm/20090909.xml
+	}
+
+#
+chapt_20090916() {
+	MODULES=""
+	chaptitle="basisterminologie netwerken"
+	add_mod mod_cvotsm/20090916.xml
+	}
+
+#
+chapt_20090923() {
+	MODULES=""
+	chaptitle="reis door lagen"
+	add_mod mod_cvotsm/20090923.xml
+	}
+
