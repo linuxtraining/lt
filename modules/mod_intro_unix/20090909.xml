@@ -211,7 +211,11 @@ http://people.mech.kuleuven.be/~bruyninc/ictvisie.html
 		</section>
 		<section><title>packet switching</title>
 			<para>Ter vervanging van vast toegewezen communicatiekanalen werd in de jaren 60 een nieuwe techniek ontwikkeld die alle gegevens die over een netwerk moeten getransporteerd worden opdeelt in kleine packetjes. Elk packetje bepaalt onafhankelijk van alle andere packetjes zijn route naar zijn bestemming. Dit laat toe dat meerdere computers tegelijkertijd gebruik maken van dezelfde (physische) communicatiekanalen.</para>
-			<para>Beknopte uitleg op http://nl.wikipedia.org/wiki/Packet_switching uitgebreide uitleg in het Engels op http://en.wikipedia.org/wiki/Packet_switching .</para>
+			<para>Beknopte uitleg de Nederlandstalige wikipedia pagina, uitgebreidde uitleg in het Engels.</para>
+<screen>
+http://nl.wikipedia.org/wiki/Packet_switching
+http://en.wikipedia.org/wiki/Packet_switching
+</screen>
 		</section>
 		<section><title>jaren 70</title>
 			<para>De jaren 70 zagen ook de creatie van het <command>X.25</command> netwerk, <command>fidonet</command>, <command>compuserve</command>, <command>bulletin board systems</command> en <command>uucp</command>. Al deze netwerken zijn vandaag volledig opgegaan in het <command>internet</command> en <command>tcp/ip</command>.</para>
@@ -232,7 +236,7 @@ http://www.rfc-editor.org/rfc/rfc5321.txt
 </screen>
 		</section>
 		<section><title>rfc</title>
-			<para>Sinds 1969 maakt men voor elk internet protocol een <command>rfc (Request for Comments)</command>. Een <command>rfc</command> is een (ascii) tekstbestand en bepaald de werking van alle protocols op het internet. Deze tekstbestanden zijn vrij te raadplegen en te implementeren. Enkele voorbeelden van protocols die bepaald zijn door een <command>rfc</command> zijn tcp, ip, ftp, udp, dns, smtp, ntp, dhcp, http en duizenden anderen.</para>
+			<para>Sinds 1969 maakt men voor elk internet protocol een <command>rfc (Request for Comments)</command>. Een <command>rfc</command> is een (ascii) tekstbestand en bepaalt de werking van alle protocols op het internet. Deze tekstbestanden zijn vrij te raadplegen en te implementeren. Enkele voorbeelden van protocols die bepaald zijn door een <command>rfc</command> zijn tcp, ip, ftp, udp, dns, smtp, ntp, dhcp, http en duizenden anderen.</para>
 			<para>Op <command>www.rfc-editor.org</command> vind je alle rfc's. Je kan ook rechtsreeks naar de tekstversie gaan als je de rfc nummer kent (zoals 2131 voor dhcp) via :</para>
 <screen>http://www.rfc-editor.org/rfc/rfc2131.txt</screen>
 			<para>Elke <command>rfc</command> bevat o.a. een datum, opgepast voor humor als je <command>1 april</command> ziet.</para>
@@ -247,220 +251,37 @@ http://www.rfc-editor.org/rfc/rfc5321.txt
 		<section><title>pots</title>
 			<para>Het oude analoge telefoonnetwerk werd gebouwd met simpele <command>twisted pair</command> koperdraden om de menselijke stem over te brengen. Dit netwerk draagt golven tussen 300 en 3400 Hertz, wat overeenkomt met een <command>bandbreedte</command> van 3100 Hertz.</para>
 			<para>In tegenstelling tot het internet is het <command>PSTN (Public Switched Telephone Network)</command> een circuit-switched netwerk. Elke telefoongesprek eis(te) een nagenoeg physieke verbinding tussen de twee sprekers.</para>
-			<para>Omdat dit netwekr (geluids)golven rechtsreeks als communicatie gebruikt, noemt men dit een analoog netwerk.</para>
+			<para>Omdat dit netwerk (geluids)golven rechtsreeks als communicatie gebruikt, noemt men dit een analoog netwerk.</para>
 		</section>
 		<section><title>isdn</title>
-			<para></para>
+			<para>Het <command>isdn</command> ofte <command>Integrated Services Digital Network</command> is recenter dan <command>pots</command> en is digitaal. Oorspronkelijk was <command>isdn</command> enkel te verkrijgen in stedelijke gebieden, de dag van vandaag is het overbodig gemaakt door <command>(a)dsl</command> en internet via de <command>kabel</command>.</para>
+			<para>Een isdn <command>bearer</command> kanaal heeft een bandbreedte van 64kbits, en wordt met de letter B aangegeven. De meest courante isdn connecties werden genoteerd als <command>2B+D</command>, wat betekent dat er twee bearer kanalen van 64kbits voorzien zijn, samen met een 16kbits Data kanaal. Dit wordt ook <command>BRI</command> of <command>Basic Rate Interface</command> genoemd.</para>
+		</section>
+		<section><title>T1</title>
+			<para>Een <command>T1</command> is een <command>23B+D</command> isdn verbinding in de USA. En ook al spreekt men van een <command>T1</command> in de rest van de wereld, eigenlijk gebruikt men dan een <command>E1</command> ofte <command>30B+D</command>. Een <command>T1/E1</command> noemt men ook een <command>PRI (Primary Rate Interface)</command>.</para>
+			<para>Als oefening rekenen we effe de totale bandbreedte van deze verbindingen.</para>
 			<para></para>
 		</section>
 	</section>
-	<section><title>sniffer</title>
-	</section>
 	<section><title>kilo 1000 kibi 1024</title>
+		<para>Hoeveel bytes is een kilobyte ? Sinds de beginjaren van de informatika was het antwoord hierop eenduidig 1024 bytes. Ook al is in andere wetenschappelijke domeinen een kilo steeds gelijk aan 1000. Een megabyte is dus 1024 maal 1024 bytes, een gigabyte is 1024 megabyte, en een terabyte is 1024 gigabyte.</para>
+		<para>Sinds kort is er echter een standaard die zegt dat ook in de informatika, en vooral voor harde schijven, een kilo gelijk zet aan 1000, een mega aan 1.000.000 en een giga aan 1000 mega. Bereken even het verschil in grootte tussen een disk van 400 gigabyte met giga=1024x1024x1024 en giga=1000x1000x1000.</para>
+		<para></para>
+		<para>De nieuwe standaard zegt ook dat kilo=1000 en kibi=1024, mega=1000 kilo en mebi = 1024 kibi. Kan je nog volgen ? Behalve voor RAM geheugen, daar blijft een kilo = 1024 en een mega = 1024 kilo. U volgt nog steeds ?</para>
+		<para>Wikipedia heeft een uitgebreid overzicht van de kilo-1000 versus kilo-1024 geschiedenis, en de geboorte van kibibytes en gibibytes.</para>
+		<screen>
+http://en.wikipedia.org/wiki/Binary_prefix
+		</screen>
 	</section>
 	<section><title>sniffer</title>
+		<para>Op het netwerk, op de bekabeling, reizen vele packetjes (hopelijk) naar hun bestemming. Als je een sniffer gebruikt, dan kan je al deze packetjes zien (en bewaren). Een sniffer is dus een software die toelaat dat je alles ziet wat er gebeurt op het netwerk. </para>
+		<para>De gekendste en meest gebruikte sniffer heet <command>wireshark</command> (vroeger <command>ethereal</command>). We zullen deze sniffer in de klas gebruiken om meer inzicht te krijgen in een netwerk.</para>
+		<para></para>
+		<para></para>
 	</section>
 </section>
 <section><title>input studenten</title>
-<para></para>
-<para></para>
-<para></para>
-<screen>
-</screen>
+	<para>Iedereen kreeg de vraag waarom hij/zij aanwezig was in deze cursus. Sommige studenten hadden een praktische invalshoek, zowat de helft volgt de cursus als onderdeel van het diploma graduaat informatika.</para>
+	<para>Er zijn belangrijke zaken die in deze cursus moeten aan bod komen, zoals ip-adressering, dns, dhcp, de tcp/ip stack en alle basisbegrippen netwerken.</para>
+	<para>Ik blijf wel rekening houden met input van de groep om de cursus boeiend (en nuttig) te maken.</para>
 </section>
-<section><title>voorstel cursusinhoud</title>
-<para></para>
-<para></para>
-<para></para>
-<screen>
-</screen>
-</section>
-<section><title>examen</title>
-<para></para>
-<para></para>
-<para></para>
-<screen>
-</screen>
-</section>
-<section><title>we beginnen eraan</title>
-<para></para>
-<para></para>
-<para></para>
-<screen>
-</screen>
-</section>
-
-
-
-
-	<section><title>AT&#038;T Bell Labs</title>
-<table frame='all'><title>Early Unix Timeline</title>
-<?dbfo table-width="100%" ?>
-<?dbfo fontsize="7px" ?>
-<tgroup cols='5' align='left' colsep='1' rowsep='1'>
-<colspec colname='1969-1977' colwidth="3*" align="center"/>
-<colspec colname='1978-1980' colwidth="2*" align="center"/>
-<colspec colname='1981' colwidth="1*" align="center"/>
-<colspec colname='1982' colwidth="1*" align="center"/>
-<colspec colname='X' colwidth="0*" align="center"/>
-<thead>
-<row>
-  <entry>1969-1977</entry>
-  <entry>1978-1980</entry>
-  <entry>1981</entry>
-  <entry>1982</entry>
-  <entry>&nbsp;</entry>
-</row>
-</thead>
-<tbody>
-<row>
-  <entry morerows="5" valign="middle">UNIX Time Sharing System</entry>
-  <entry morerows="2" valign="middle">BSD</entry>
-  <entry morerows="2" valign="middle">4.1BSD</entry>
-  <entry morerows="1" valign="middle">4.1BSD</entry>
-  <entry>&nbsp;</entry>
-</row>
-<row>
-  <entry>&nbsp;</entry>
-</row>
-<row>
-  <entry>SunOS 1.0</entry>
-  <entry>&nbsp;</entry>
-</row>
-<row>
-  <entry morerows="2" valign="middle" namest="1978-1980" nameend="1981">Unix</entry>
-  <entry morerows="2" valign="middle">Unix System III</entry>
-  <entry>&nbsp;</entry>
-</row>
-<row>
-  <entry>&nbsp;</entry>
-</row>
-<row>
-  <entry>&nbsp;</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-	</section>
-	<section><title>The Unix Wars</title>
-		<para>The unity and openness that existed in the Unix world until 1977 was long gone by the end of the eighties. Different vendors of distinct versions of Unix tried to set the standard. Sun and AT&#038;T joined the <command>X/Open</command> group to unify Unix. Other vendors joined the Open Software Foundation or <command>OSF</command>. These struggles were not good for Unix, allowing for new operating system families like OS/2, Novell Netware and Microsoft Windows NT to take big chunks of server market share in the early nineties. The table below shows the evolution of a united <command>Unix</command><indexterm><primary>Unix</primary></indexterm> into several Unixes in the eighties.</para> 
-<table frame='all'><title>Eighties Unix Timeline</title>
-<?dbfo table-width="100%" ?>
-<?dbfo fontsize="7px" ?>
-<tgroup cols='10' align='left' colsep='1' rowsep='1'>
-<colspec colname='1983' align="center"/>
-<colspec colname='1984' align="center"/>
-<colspec colname='1985' align="center"/>
-<colspec colname='1986' align="center"/>
-<colspec colname='1987' align="center"/>
-<colspec colname='1988' align="center"/>
-<colspec colname='1989' align="center"/>
-<colspec colname='1990' align="center"/>
-<colspec colname='1991' align="center"/>
-<colspec colname='1992' align="center"/>
-<thead>
-<row>
-  <entry>1983</entry>
-  <entry>1984</entry>
-  <entry>1985</entry>
-  <entry>1986</entry>
-  <entry>1987</entry>
-  <entry>1988</entry>
-  <entry>1989</entry>
-  <entry>1990</entry>
-  <entry>1991</entry>
-  <entry>1992</entry>
-</row>
-</thead>
-<tbody>
-<row>
-  <entry morerows="1" namest="1983" nameend="1985" valign="middle">4.1BSD</entry>
-  <entry namest="1986" nameend="1990">4.3BSD</entry>
-  <entry namest="1991" nameend="1992">BSD Net/2</entry>
-</row>
-<row>
-  <entry namest="1986" nameend="1987">4.3BSD</entry>
-  <entry namest="1988" nameend="1992">NeXTSTEP</entry>
-</row>
-<row>
-  <entry namest="1983" nameend="1985">SunOS1.0</entry>
-  <entry namest="1986" nameend="1987">SunOS3.2</entry>
-  <entry morerows="1" namest="1988" nameend="1990" valign="middle">SystemVr4</entry>
-  <entry namest="1991" nameend="1992">Solaris</entry>
-</row>
-<row>
-  <entry namest="1983" nameend="1987">System V</entry>
-  <entry namest="1991" nameend="1992">UnixWare</entry>
-</row>
-<row>
-  <entry namest="1983" nameend="1985">System V</entry>
-  <entry namest="1986" nameend="1992">AIX</entry>
-</row>
-<row>
-  <entry>III + V</entry>
-  <entry namest="1984" nameend="1992">HP-UX</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-		</section>
-		<section><title>University of California, Berkeley</title>
-			<para>Students of Berkeley were happy to join in the development of Bell Labs Unix, but were not so happy with the restrictive licensing. Unix was open source software, but it still required purchase of a license. So during the eighties, they rewrote all the Unix tools, until they had a complete Unix-like operating system. By 1991, the <command>BSD</command><indexterm><primary>BSD</primary></indexterm> (Berkeley Software Distribution) branch of Unix was completely separate from the Bell Labs Unix. <command>NetBSD</command><indexterm><primary>NetBSD</primary></indexterm>, <command>FreeBSD</command><indexterm><primary>FreeBSD</primary></indexterm> and <command>OpenBSD</command><indexterm><primary>OpenBSD</primary></indexterm> are three current Unix-like operating systems derived from the 1991 <command>BSD Net/2</command><indexterm><primary>BSD Net/2</primary></indexterm> codebase. Sun Solaris, Microsoft Windows NT and Apple Mac OS X all used source code from BSD. The table below shows operating systems still in use today that are in a way derived from the 1978-1981 BSD codebase.</para>
-<table frame='all'><title>Current BSD Timeline</title>
-<?dbfo table-width="100%" ?>
-<tgroup cols='10' align='left' colsep='1' rowsep='1'>
-<colspec colname='1991' align="center" colwidth="1*"/>
-<colspec colname='1992' align="center" colwidth="1*"/>
-<colspec colname='1993' align="center" colwidth="1*"/>
-<colspec colname='1994' align="center" colwidth="1*"/>
-<colspec colname='1995' align="center" colwidth="1*"/>
-<colspec colname='1996' align="center" colwidth="1*"/>
-<colspec colname='1997' align="center" colwidth="1*"/>
-<colspec colname='1998' align="center" colwidth="1*"/>
-<colspec colname='1999' align="center" colwidth="1*"/>
-<colspec colname='2000' align="center" colwidth="3*"/>
-<thead>
-<row>
-  <entry>1991</entry>
-  <entry>1992</entry>
-  <entry>1993</entry>
-  <entry>1994</entry>
-  <entry>1995</entry>
-  <entry>1996</entry>
-  <entry>1997</entry>
-  <entry>1998</entry>
-  <entry>1999</entry>
-  <entry>2000-2008</entry>
-</row>
-</thead>
-<tbody>
-<row>
-  <entry morerows="2" namest="1991" nameend="1992" valign="middle">BSD Net/2</entry>
-  <entry namest="1993" nameend="2000">FreeBSD</entry>
-</row>
-<row>
-  <entry namest="1993" nameend="2000">NetBSD</entry>
-</row>
-<row>
-  <entry namest="1993" nameend="1995">NetBSD</entry>
-  <entry namest="1996" nameend="2000">OpenBSD</entry>
-</row>
-<row>
-  <entry namest="1991" nameend="1998">NeXTSTEP</entry>
-  <entry namest="1999" nameend="2000">Mac OS X</entry>
-</row>
-<row>
-  <entry namest="1991" nameend="2000">Solaris</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-
-		</section>
-		<section><title>GNU's not Unix</title>
-			<para>Largely because of unhappiness with the restrictive licensing on existing Unix implementations, <command>Richard Stallman</command><indexterm><primary>Richard Stallman</primary></indexterm> initiated the <command>GNU Project</command><indexterm><primary>GNU Project</primary></indexterm> in 1983. The GNU project aims to create free software. Development of the GNU operating system started, aiming to create a complete Unix-like branch, seperate from the two other (BSD and Bell Labs).  Today the GNU compiler <command>gcc</command><indexterm><primary>gcc</primary></indexterm> and most other GNU utilities (like <command>bash</command><indexterm><primary>bash</primary></indexterm>) are among the most popular on many Unix-like systems. The official kernel of this project is <command>GNU/Hurd</command><indexterm><primary>GNU/Hurd</primary></indexterm>, but you can hardly call that kernel a finished product.</para>
-		</section>	
-		<section><title>Linux</title>
-			<para>Where <command>GNU/Hurd</command> failed, the Linux kernel succeeded! In 1991 a Finnish student named <command>Linus Torvalds</command><indexterm><primary>Linus Torvalds</primary></indexterm> started writing his own operating system for his intel 80386 computer. In January 1992, Linus decided to release Linux under the GNU GPL. Thanks to this, thousands of developers are now working on the Linux kernel. Linus Torvalds is in charge of the kernel developers.</para>
-			<para>Contrary to popular believe, they are not all volunteers. Today big companies like Red Hat, Novell, IBM, Intel, SGI, Oracle, Montavista, Google, HP, NetApp, Cisco, Fujitsu, Broadcom and others are actively paying developers to work on the Linux kernel. According to the Linux Foundation "over 3700 individual developers from over 200 different companies have contributed to the kernel between 2005 and april 2008". 1057 developers from 186 different companies contributed code to make kernel version 2.6.23 into 2.6.24.</para>
-		</section>
