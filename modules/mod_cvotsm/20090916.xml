@@ -1,0 +1,84 @@
+<section><title>lan-wan-man</title>
+	<section><title>lan</title>
+		<para>Een <command>LAN (Local Area Network)</command> is een lokaal netwerk. Dit kan een klaslokaal zijn, of een verdiep, of zelfs een gebouw. Men spreekt over een LAN omdat de computers dicht bij elkaar staan. Heden wordt een LAN meestal bepaald omdat de computers verbonden zijn met <command>ethernet</command>.</para>
+		<para>Een LAN kan bestaan uit meerdere kleine LAN's.</para>
+	</section>
+	<section><title>wan</title>
+		<para>Een <command>WAN (Wide Area Network)</command> is een netwerk waar de computers ver uit elkaar staan. Een WAN is dus het omgekeerde van een LAN. Een WAN gebruikt voornamelijk <command>X.25</command>, <command>Frame Relay</command> of <command>ATM</command> om computers te verbinden die enkele of enkele duizenden kilometers van elkaar verwijderd zijn.</para>
+		<para>Cisco is gekend voor WAN technologie</para>
+	</section>
+	<section><title>man</title>
+		<para>Een <command>MAN (Metropolitan Area Network</command> is een term die soms gebruikt wordt voor een netwerk dat meerdere gebouwen in dezelfde agglomeratie omvat.</para>
+	</section>
+	<para>Heel soms wordt er gesproken over een PAN (Personal Area Network) of CAN (Campus Area Network).</para>
+</section>
+<section><title>OSI model</title>
+	<para>Elke cursus over datacommunicatie en netwerken bespreekt het <command>OSI-model</command>, deze cursus is daarop geen uitzondering.</para>
+	<para>In 1977 richtte de ISO (International Organization for Standardization) het OSI (Open Systems Interconnection) op. Het OSI creerde een zeven-lagen model om de werking van computernetwerken te beschrijven. De zeven lagen zijn (van 7 naar 1) Application, Presentation, Session, Transport, Network, Data Link en Physical. </para>
+	<para>Er is heden geen populair protocol dat de zeven lagen ook effectief correct implementeert. In de praktijk worden vooral de lagen twee en drie vernoemd om toestellen duidelijk te onderscheiden.</para>
+	<para>We bespreken elke laag (layer) even apart.</para>
+	<section><title>layer 7: application</title>
+		<para>De <command>application layer</command> beschrijft applicaties. Op het internet vandaag betekent dat vooral dns, http, ntp, smtp, snmp, ssh, ftp, X, pop3, imap, irc, telnet en tftp.</para>
+	</section>
+	<section><title>layer 6: presentation</title>
+		<para>De <command>presentation layer</command> beschrijft data-formaten.</para>
+	</section>
+	<section><title>layer 5: session</title>
+		<para>De <command>session layer</command> beschrijft sessies tussen applicaties. Als je een website bezoekt, dan heeft jou computer een sessie met de webserver.</para>
+	</section>
+	<section><title>layer 4: transport</title>
+		<para>De <command>transport layer</command> beschrijft het knip en plakwerk om data te segmenteren in segmenten (of <command>datagrams</command>). Typisch vandaag vind je hier de <command>tcp</command> en <command>udp</command> protocollen.</para>
+	</section>
+	<section><title>layer 3: network</title>
+		<para>Met de <command>network layer</command> komen we in een boeiende materie. Het <command>IP</command> protocol nestelt zich in deze laag en gaat door ons uitgebreid besproken worden. We zullen ook <command>IpSec</command>, <command>icmp</command> en <command>igmp</command> kort bespreken en demonstreren.</para>
+		<para>Deze laag is verantwoordelijk voor de adressering van individuele packetjes, en zorgt ervoor dat packetjes van de bron tot aan de bestemming komen (bijvoorbeeld van je laptop naar een webserver).</para>
+	</section>
+	<section><title>layer 2: data link</title>
+		<para>Ook de <command>data link</command> laag gaat regelmatig onze aandacht opeisen. Deze laag zorgt voor de communicatie tussen computers (of nodes) die rechtstreeks met elkaar verbonden zijn (zoals de computers in deze klas, of nodes aan beide uiteinden van een T1 leased line).</para>
+		<para>We bespreken in de les later het <command>arp</command> protocol van deze laag.</para>
+	</section>
+	<section><title>layer 1: physical</title>
+		<para>De <command>physical layer</command> beschrijft stekkers en elektromagnetische signalen van een fysieke verbinding tussen nodes.</para>
+		<para>In deze laag vinden we bijvoorbeeld <command>ethernet</command>, <command>wi-fi</command>, <command>kabels</command> en <command>modems</command>, adsl, isdn, T1, gsm, Bluetooth, Firewire, usb, irda.</para>
+	</section>
+</section>
+
+<section><title>osi-model versus DoD</title>
+<para>Het zeven-lagen model van het OSI is verdrongen door het vier-lagen model van <command>tcp/ip</command>. Deze protocol stack is vooral in de jaren zeventig ontwikkeld door <command>DARPA (Defense Advanced Research Projects Agency)</command>, een onderdeel van het Amerikaanse Department of Defense (DoD). Vandaar dat het tcp/ip model ook wel het DoD model wordt genoemd.</para>
+<para>De vier lagen van dit model zijn : Application (ongeveer laag 5-6-7 osi), Transport (ongeveer laag 4), Internet (osi laag 3) en Link Layer (osi laag 2). Op het internet zijn heel wat grafiekjes te vinden die beide lagen naast elkaar zetten, sommige doen dit correcter dan anderen.</para>
+</section>
+
+<section><title>toestellen en lagen</title>
+<para>In een netwerk vinden we heel wat toestellen (devices). We zetten ze even laag per laag op een rijtje. </para>
+	<section><title>physical</title>
+		<para>Toestellen in laag 1 zijn in principe onzichtbaar op ons netwerk. We kunnen ze niet allemaal eenvoudig met software detecteren. We vinden hier onder andere de <command>netwerkkaart</command>, de <command>repeater</command>, de <command>hub</command> en de <command>modem</command>.</para>
+		<para>De <command>netwerkkaart</command> of <command>nic (Network Interface Card)</command> of ook <command>network adapter</command> is tegenwoordig een vast onderdeel elke computer. De netwerkkaart ontvangt electrische signalen en zet deze om in bytes (en omgekeerd). De netwerkkaart controleert ook of een packetje van het netwerk wel voor haar is of niet. Indien niet, dan gooit de netwerkkaart dit packetje weg (<command>drop</command>).</para>
+		<para>De meeste netwerkkaarten vandaag zijn <command>ethernet</command> kaarten met een 48-bit uniek <command>mac-adres</command>. Enkele jaren terug waren ook <command>Token Ring</command> kaarten courant in gebruik.</para>
+		<para>Een <command>repeater</command> is een versterker. Elektrische signalen verzwakken, dus als de netwerkkabel te lang is, dan kan een repeater het signaal versterken.</para>
+		<para>Een <command>hub</command> wordt ook wel een <command>multiport repeater</command> genoemd. Net zoals een <command>repeater</command> zal ook een hub het elektrische signaal versterken. Daar waar een repeater tussen twee kabels zit, zit een hub tussen meerdere kabels, en versterkt hij het signaal naar alle verbonden kabels.</para>
+		<para>Hubs kunnen <command>actief</command> of <command>passief</command> zijn. Een passieve hub versterkt het elektrische signaal, en logischerwijs ook de ruis op het kanaal. Teveel passieve hubs achter elkaar zorgt voor een te grote versterking van de ruis, waardoor het signaal verloren kan gaan.</para>
+		<para>Een <command>actieve hub</command> is slimmer dan een passieve hub. In plaats van het signaal gewoon te versterken, leest een actieve hub de bits van een signaal, en stuurt deze bits naar alle verbonden kanalen. Op deze manier treedt er geen ruisversterking op.</para>
+		<para>Een <command>modem</command> (<command>modulator/demodulator</command>) is een toestel dat (in het geval van een <command>pots-modem</command>) bits omzet in geluid, en omgekeerd aan de andere kant van de lijn dit geluid weer omzet in dezelfde bits.</para>
+		<para>Een <command>kabel modem</command> zoals die van Telenet of Brutele vertaalt bits naar frequenties die oorspronkelijk bedoeld waren om TV-signalen door te sturen. Ook <command>ADSL</command> modems gebruiken een frequentie die buiten de menselijke stem liggen.</para>
+	</section>
+
+	<section><title>data link</title>
+		<para>In deze laag vinden we toestellen zoals een <command>bridge</command> en een <command>switch</command>. In dat laatste geval uiteraard een <command>layer 2 switch</command>.</para>
+		<para>Een <command>bridge</command> en <command>switch</command> zijn beide slimmer dan een hub of repeater, in de zin dat deze laatste niet weten wat een mac-adres is. Een bridge en een switch interpreteren het mac-adres om te weten of (in het geval van de bridge) en waar (in het geval van de switch) ze het packetje doorsturen.</para>
+		<para>Een echte bridge is zeldzaam vandaag (want een switch kan alles wat een bridge kan).</para>
+	</section>
+	<section><title>network</title>
+		<para>De <command>router</command> en de <command>layer 3 switch</command> zijn typische layer 3 toestellen. Toestellen in deze laag weten wat een ip-adres is, en kunnen uiteraard ook alles wat <command>layer 2 devices</command> kunnen.</para>
+		<para>Een echte router verbind netwerken (bijvoorbeeld ethernet met T1, of ADSL met WiFi), maar de term wordt ook gebruikt voor ethernet-ethernet toestellen.</para>
+		<para>Een layer 3 switch kent bijvoorbeeld <command>igmp</command> en wordt ook gebruikt om sniffen van het netwerk te verhinderen.</para>
+	</section>
+	<section><title>hogere lagen</title>
+		<para>Een <command>gateway</command> is een toestel dat protocols vertaalt, bijvoorbeeld <command>NetBIOS</command> naar <command>tcp/ip</command>.</para>
+	</section>
+</section>
+<section><title>unicast-multicast-broadcast-anycast</title>
+	<para>Wanneer een signaal gestuurd wordt naar iedereen heet dit <command>broadcast</command>.</para>
+	<para>Gaat een signaal naar een eenduidige unieke bestemming, dan is dit een <command>unicast</command>.</para>
+	<para>Is het signaal bedoelt voor leden van een groep, dan spreken we over een <command>multicast</command>.</para>
+	<para>Nieuw tegenwoordig, en in de praktijk gebruikt door de <command>root name servers</command> van internet is de <command>anycast</command>. Een <command>anycast</command> is een signaal naar de dichtsbijzijnde van een groep.</para>
+</section>
