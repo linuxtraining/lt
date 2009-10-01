@@ -1,0 +1,128 @@
+<section><title>supernetting</title>
+<para>Stel u eens voor dat computers binair rekenen ipv decimaal ;-)</para>
+<para>Computers rekenen met bits en bytes, mensen rekenen decimaal. Onze computers zien een ip adres als een 32bit getal, hetzelfde geld voor de subnet mask. De drie subnet masks die we tot nu toe kennen zijn decimaal en binair voorgesteld in de volgende tabel:</para>
+<screen>
+255.0.0.0         11111111.00000000.00000000.00000000
+255.255.0.0       11111111.11111111.00000000.00000000
+255.255.255.0     11111111.11111111.11111111.00000000
+</screen>
+<para>Zoals je ziet begint de subnet mask binair steeds met eentjes (alle eendjes zwemmen in het water) en eindigt steeds met nulletjes. Wat als we nu een eentje (kwaak) meer of minder zetten ?</para>
+<para>Onze verkorte notatie laat toe om dit snel te noteren. We schrijven simpelweg 172.16.0.0/17 ipv 172.16.0.0/16 . Maar wat zijn de gevolgen hiervan ?</para>
+<para>Ten eerste is een eentje meer (kwakwak) hetzelfde als het halveren van het aantal computers in het netwerk. Want we vergroten het network id en verkleinen het aantal mogelijke host id's. Een eentje minder (kwaak) wil dan weer zeggen dat we dubbel zoveel computers op ons netwerk kunnen zetten.</para>
+<para>Reken zelf even na hoeveel hosts je in een netwerk kan zetten als de host id 8 bits breed is:</para>
+<screen>
+192.168.42.0/24 --> 256 - 2 = 254 hosts
+</screen>
+<para>Bij negen bits kunnen we tellen tot 512 (min twee), dus passen er 510 hosts in het netwerk. Hieronder volgt een volledige tabel.  pc nr webserver</para>
+<para></para>
+<para></para>
+<para></para>
+</section>
+<section><title>ip routing</title>
+<para></para>
+<para></para>
+<screen>
+</screen>
+</section>
+<section><title>te weinig ip adressen ?</title>
+<para></para>
+<para></para>
+<screen>
+</screen>
+</section>
+<section><title>static - dynamic - zeroconf</title>
+<para></para>
+<para></para>
+<screen>
+</screen>
+</section>
+<section><title>nat</title>
+<para></para>
+<para></para>
+<screen>
+</screen>
+</section>
+<section><title>RIR - ARIN - RIPE ...</title>
+<para></para>
+<para></para>
+<screen>
+</screen>
+</section>
+<section><title>ascii-parity</title>
+<para></para>
+<para></para>
+<screen>
+</screen>
+</section>
+<section><title>Hoe verbinden met internet ? proxy - nat - rechtstreeks ...</title>
+<para></para>
+<para></para>
+<screen>
+</screen>
+</section>
+<section><title>stp-utp-cat5-ster-bus-mesh-hybrid</title>
+<para></para>
+<para></para>
+<screen>
+</screen>
+</section>
+<section><title>bandbreedte</title>
+<para></para>
+<para></para>
+<screen>
+</screen>
+</section>
+<section><title>pots-isdn-x25-dsl-adsl-T1-T3-E1</title>
+<para></para>
+<para></para>
+<screen>
+</screen>
+</section>
+<section><title>token ring, ethernet csma/cd, fddi, atm, …</title>
+<para></para>
+<para></para>
+<screen>
+</screen>
+</section>
+<section><title>sna, ipx/spx, appletalk, netbeui, tcp/ip</title>
+<para></para>
+<para></para>
+<screen>
+</screen>
+</section>
+<section><title>ppp, slip, pppoe, pppoa, pptp, l2tp, ipsec</title>
+<para></para>
+<para></para>
+<screen>
+</screen>
+</section>
+<section><title>repeater, hub, switch, bridge, router, vlan, firewall, …</title>
+<para></para>
+<para></para>
+<screen>
+</screen>
+</section>
+<section><title>internet, intranet, extranet</title>
+<para></para>
+<para></para>
+<screen>
+</screen>
+</section>
+<section><title>irda, wi-fi, bluetooth</title>
+<para></para>
+<para></para>
+<screen>
+</screen>
+</section>
+<section><title>wep, wpa, wpa2, kismet, aircrack, war driving</title>
+<para></para>
+<para></para>
+<screen>
+</screen>
+</section>
+<section><title>multiplexen-moduleren etc</title>
+<para></para>
+<para></para>
+<screen>
+</screen>
+</section>
