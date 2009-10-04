@@ -491,3 +491,31 @@ chapt_20090923() {
 	add_mod mod_cvotsm/20090923.xml
 	}
 
+#
+chapt_20090930() {
+	MODULES=""
+	chaptitle="ip adressen"
+	add_mod mod_cvotsm/20090930.xml
+	}
+
+#
+chapt_tellen() {
+	MODULES=""
+	chaptitle="tellen"
+	add_mod mod_cvotsm/tellen.xml
+	}
+
+#
+chapt_20091007() {
+	MODULES=""
+	chaptitle="supernetting"
+	add_mod mod_cvotsm/20091007.xml
+	}
+
+#
+chapt_testokt() {
+	MODULES=""
+	chaptitle="test oktober"
+	add_mod mod_cvotsm/testokt.xml
+	}
+
