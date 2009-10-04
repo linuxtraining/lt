@@ -4,7 +4,7 @@
 http://nl.wikipedia.org/wiki/Binair
 http://nl.wikipedia.org/wiki/Hexadecimaal
 	</screen>
-	<para>De volgende table geeft een overzicht van decimale, hexadecimale en binaire cijfers.</para>
+	<para>De volgende tabel geeft een overzicht van decimale, hexadecimale en binaire cijfers.</para>
 <table frame='all'><title>binair en hexadecimaal tellen</title>
 <?dbfo table-width="70%" ?>
 <tgroup cols='3' align='left' colsep='1' rowsep='1'>
@@ -102,7 +102,8 @@ http://nl.wikipedia.org/wiki/Hexadecimaal
 </tbody>
 </tgroup>
 </table>
-
+	<para></para>
+	<para></para>
 	<para>Iedereen weet dat <command>1 == 01</command> en dat <command>1 == 001</command>. Als we een getal laten voorafgaan door nullen, dan verandert het getal niet. We kunnen de tabel dus ook als volgt schrijven:</para>
 <table frame='all'><title>getallen met voorafgaande nullen</title>
 <?dbfo table-width="70%" ?>
@@ -119,9 +120,9 @@ http://nl.wikipedia.org/wiki/Hexadecimaal
 </thead>
 <tbody>
 <row>
+  <entry>00</entry>
   <entry>0</entry>
-  <entry>0</entry>
-  <entry>0</entry>
+  <entry>0000</entry>
 </row>
 <row>
   <entry>01</entry>

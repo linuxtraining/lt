@@ -1,6 +1,6 @@
 <section><title>ip adressen</title>
 	<para>Een <command>ip-adres</command> is een 32-bit getal dat als logisch adres aan een computer wordt gegeven. Een <command>ip adres</command> is de unieke identificatie van een <command>host</command> op laag 3.</para>
-	<para>Theoretisch hebben we ip 4294967296 adressen. In decimale octetjes schrijven we dat van 0.0.0.0 tot 255.255.255.255, in hexadecimale bytes is dat van 00:00:00:00 tot FF:FF:FF:FF en binair is dat van 00000000.00000000.00000000.00000000 tot 11111111.11111111.11111111.11111111. </para>
+	<para>Theoretisch hebben we 4294967296 ip adressen (256*256*256*256). In decimale octetjes schrijven we dat van 0.0.0.0 tot 255.255.255.255, in hexadecimale bytes is dat van 00:00:00:00 tot FF:FF:FF:FF en binair is dat van 00000000.00000000.00000000.00000000 tot 11111111.11111111.11111111.11111111.</para>
 </section>
 <section><title>private en publieke adressen</title>
 	<para>Om een geldig <command>ip adres</command> te hebben op het <command>internet</command>, moet je dit aankopen bij je lokale <command>RIR (Regional Internet Registry)</command>. Voor Europa is dit <command>RIPE NCC (Réseaux IP Européens Network Coordination Centre)</command> in Amsterdam.</para>
@@ -9,11 +9,38 @@
 	<section><title>private adressen</title>
 		<para>Er zijn drie reeksen gereserveerd voor prive gebruik. Deze ip-adressen zijn niet te gebruiken op internet (ze werken niet). Technisch kan je zeggen dat routers op internet alle packetjes voor deze adresssen automatisch verwerpen.</para>
 		<para>De drie reeksen zijn:</para>
-		<screen>
-van 10.0.0.0 tot 10.255.255.255
-van 172.16.0.0 tot 172.31.255.255
-van 192.168.0.0 tot 192.168.255.255
-		</screen>
+<table frame='all'><title>private ip adressen</title>
+<?dbfo table-width="90%" ?>
+<tgroup cols='3' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="1*" align="center"/>
+<colspec colname='c2' colwidth="1*" align="center"/>
+<colspec colname='c3' colwidth="2*" align="center"/>
+<thead>
+<row>
+  <entry>eerste ip adres</entry>
+  <entry>laatste ip adres</entry>
+  <entry>aantal adressen in de reeks</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>10.0.0.0</entry>
+  <entry>10.255.255.255</entry>
+  <entry>16777216 (+16 miljoen)</entry>
+</row>
+<row>
+  <entry>172.16.0.0</entry>
+  <entry>172.31.255.255</entry>
+  <entry>1048576 (+1 miljoen)</entry>
+</row>
+<row>
+  <entry>192.168.0.0</entry>
+  <entry>192.168.255.255</entry>
+  <entry>65536 (+65 duizend)</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
 		<para>De volledige definitie van deze reeksen vind u in <command>rfc 1918</command>.</para>
 		<screen>http://www.rfc-editor.org/rfc/rfc1918.txt</screen>
 	</section>
@@ -23,6 +50,7 @@ van 192.168.0.0 tot 192.168.255.255
 		<screen>
 van 127.0.0.0 tot 127.255.255.255
 		</screen>
+		<para>Meestal wordt <command>localhost</command> vertaald naar <command>127.0.0.1</command>.</para>
 	</section>
 	<section><title>zeroconf adressen</title>
 		<para>Een <command>zeroconf</command> adres wordt ook wel een <command>link local</command> adres genoemd. Het is een ip adres dat begint met <command>169.254</command> en dan twee willekeurig gekozen bytes. Microsoft noemt dit <command>APIPA (Automatic Private IP Adressing)</command>.</para>
@@ -31,7 +59,9 @@ van 127.0.0.0 tot 127.255.255.255
 van 169.254.0.0 tot 169.254.255.255
 		</screen>
 		<para>Als een computer in de praktijk in een bedrijf een <command>zeroconf</command> adres heeft, dan wil dit meestal zeggen dat de netwerkbekabeling van de computer onderbroken is. Soms duidt zo'n adres op een probleem met de <command>dhcp server</command>.</para>
-		<para><command>Oefening:</command> Duidt voor de volgende ip adressen aan waarvoor ze dienen (privaat, publiek, loopback of zeroconf)</para> 
+	</section>
+	<section><title>Oefening</title>
+		<para>Duid voor de volgende ip adressen aan waarvoor ze dienen (privaat, publiek, loopback of zeroconf)</para> 
 		<screen>
 ip adres          doel
 --------          ----
@@ -66,7 +96,7 @@ klasse D: 224-239
 klasse E: 240-255
 </screen>
 <para>Alle ip adressen die beginnen met een getal lager dan 127 zijn dus klasse A adressen (onthou dat 127 zelf gereserveerd is voor de loopback adapter).</para>
-<para><command>Oefening:</command> Duidt voor de volgende ip adressen steeds de correcte klasse aan:</para>
+<para><command>Oefening:</command> Duid voor de volgende ip adressen steeds de correcte klasse aan:</para>
 <screen>
 ip adres                klasse
 --------                ------
