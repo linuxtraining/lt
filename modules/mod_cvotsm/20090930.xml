@@ -62,71 +62,159 @@ van 169.254.0.0 tot 169.254.255.255
 	</section>
 	<section><title>Oefening</title>
 		<para>Duid voor de volgende ip adressen aan waarvoor ze dienen (privaat, publiek, loopback of zeroconf)</para> 
-		<screen>
-ip adres          doel
---------          ----
-
-192.168.244.16    privaat
-
-191.238.2.21
-
-169.254.33.42
-
-127.0.0.1
-
-9.33.42.12
-
-10.11.12.13
-
-171.191.29.33
-
-172.18.33.42
-
-		</screen>
+<table frame='all'><title>oefening gereserveerde ip adressen</title>
+<?dbfo table-width="70%" ?>
+<tgroup cols='2' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="1*" align="center"/>
+<colspec colname='c2' colwidth="1*" align="center"/>
+<thead>
+<row>
+  <entry>ip adres</entry>
+  <entry>gereserveerd doel</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>192.168.244.16</entry>
+  <entry>privaat</entry>
+</row>
+<row>
+  <entry>195.238.2.21</entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>169.254.33.42</entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>127.0.0.1</entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>9.33.42.12</entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>10.11.12.13</entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>171.191.42.33</entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>172.18.33.42</entry>
+  <entry></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
 	</section>
 </section>
 <section><title>classful addressing</title>
 <para><command>IP adressen</command> zijn onverdeeld in klassen. Een adres van <command>klasse A</command> begint binair met als meest significante bit een 0. Een <command>klasse B</command> adres begint binair met 10, <command>klasse C</command> met 110, <command>klasse D</command> met 1110 en tenslotte <command>klasse E</command> met 1111.</para>
 <para>De eerste byte decimaal omgerekend komen we tot de volgende indeling van ip adressen:</para>
-<screen>
-klasse A: 0-127
-klasse B: 128-191
-klasse C: 192-223
-klasse D: 224-239
-klasse E: 240-255
-</screen>
+<table frame='all'><title>ip address classes</title>
+<?dbfo table-width="80%" ?>
+<tgroup cols='3' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="1*" align="center"/>
+<colspec colname='c2' colwidth="1*" align="left"/>
+<colspec colname='c3' colwidth="2*" align="center"/>
+<thead>
+<row>
+  <entry>class</entry>
+  <entry>first bit(s)</entry>
+  <entry>first decimal byte</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>A</entry>
+  <entry>0</entry>
+  <entry>0-127</entry>
+</row>
+<row>
+  <entry>B</entry>
+  <entry>10</entry>
+  <entry>128-191</entry>
+</row>
+<row>
+  <entry>C</entry>
+  <entry>110</entry>
+  <entry>192-223</entry>
+</row>
+<row>
+  <entry>D</entry>
+  <entry>1110</entry>
+  <entry>224-239</entry>
+</row>
+<row>
+  <entry>E</entry>
+  <entry>1111</entry>
+  <entry>240-255</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
 <para>Alle ip adressen die beginnen met een getal lager dan 127 zijn dus klasse A adressen (onthou dat 127 zelf gereserveerd is voor de loopback adapter).</para>
 <para><command>Oefening:</command> Duid voor de volgende ip adressen steeds de correcte klasse aan:</para>
-<screen>
-ip adres                klasse
---------                ------
-
-192.168.1.5
-
-9.101.12.33               A
-
-188.33.42.33
-
-9.42.12.33
-
-230.19.4.42
-
-11.19.6.200
-
-191.192.193.194
-
-134.0.0.2
-</screen>
+<table frame='all'><title>oefening classful ip addressing</title>
+<?dbfo table-width="70%" ?>
+<tgroup cols='2' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="3*" align="center"/>
+<colspec colname='c2' colwidth="2*" align="center"/>
+<thead>
+<row>
+  <entry>ip adres</entry>
+  <entry>klasse ?</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>192.168.42.33</entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>9.101.12.01</entry>
+  <entry>A</entry>
+</row>
+<row>
+  <entry>188.33.42.33</entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>9.42.12.33</entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>230.19.4.42</entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>11.19.6.200</entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>191.192.193.194</entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>134.0.0.42</entry>
+  <entry></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
 </section>
 <section><title>default subnet masks</title>
 <para>Klasse A, B en C hebben een standaard <command>subnet mask</command>. Klasse A heeft een subnet mask waar de eerste 8 bits gelijk zijn aan 1 (en de rest aan 0). Bij klasse B zijn de eerste 16 bits een 1, en bij klasse C de eerste 24 bits.</para>
 <para>Dit geeft ons de volgende tabel</para>
 <table frame='all'><title>default subnet mask</title>
-<?dbfo table-width="70%" ?>
+<?dbfo table-width="80%" ?>
 <tgroup cols='3' align='left' colsep='1' rowsep='1'>
-<colspec colname='klasse' align="center"/>
-<colspec colname='bits' align="center"/>
-<colspec colname='subnet' align="center"/>
+<colspec colname='klasse' colwidth="2*" align="center"/>
+<colspec colname='bits' colwidth="4*" align="center"/>
+<colspec colname='subnet' colwidth="5*" align="center"/>
 <thead>
 <row>
   <entry>klasse</entry>
@@ -160,16 +248,16 @@ ip adres                klasse
 	<para>De rest van het ip-adres is dan het <command>host id</command>. Het <command>network id</command> bepaalt het netwerk waarin een computer zich bevind, het <command>host id</command> is uniek voor een host binnen het netwerk.</para>
 	<para>Een overzichtje met voorbeelden:</para>
 <table frame='all'><title>network id en host id</title>
-<?dbfo table-width="90%" ?>
+<?dbfo table-width="95%" ?>
 <tgroup cols='4' align='left' colsep='1' rowsep='1'>
-<colspec colname='c1' align="center"/>
-<colspec colname='c2' align="center"/>
-<colspec colname='c3' align="center"/>
-<colspec colname='c4' align="center"/>
+<colspec colname='c1' colwidth="2*" align="center"/>
+<colspec colname='c2' colwidth="3*" align="center"/>
+<colspec colname='c3' colwidth="2*" align="center"/>
+<colspec colname='c4' colwidth="1*" align="center"/>
 <thead>
 <row>
   <entry>ip adres</entry>
-  <entry>subnet mask</entry>
+  <entry>default subnet mask</entry>
   <entry>network id</entry>
   <entry>host id</entry>
 </row>
@@ -179,31 +267,43 @@ ip adres                klasse
   <entry>192.168.1.42</entry>
   <entry>255.255.255.0</entry>
   <entry>192.168.1.0</entry>
-  <entry>.42</entry>
+  <entry>42</entry>
 </row>
 <row>
   <entry>192.168.1.33</entry>
   <entry>255.255.255.0</entry>
   <entry>192.168.1.0</entry>
-  <entry>.33</entry>
+  <entry>33</entry>
 </row>
 <row>
   <entry>192.168.12.1</entry>
   <entry>255.255.255.0</entry>
   <entry>192.168.12.0</entry>
-  <entry>.1</entry>
+  <entry>1</entry>
+</row>
+<row>
+  <entry>172.16.12.1</entry>
+  <entry>255.255.0.0</entry>
+  <entry>172.16.0.0</entry>
+  <entry>12.1</entry>
+</row>
+<row>
+  <entry>172.16.33.42</entry>
+  <entry>255.255.0.0</entry>
+  <entry>172.16.0.0</entry>
+  <entry>33.42</entry>
 </row>
 <row>
   <entry>10.3.0.4</entry>
   <entry>255.0.0.0</entry>
   <entry>10.0.0.0</entry>
-  <entry>.3.0.4</entry>
+  <entry>3.0.4</entry>
 </row>
 <row>
   <entry>10.33.0.42</entry>
   <entry>255.0.0.0</entry>
   <entry>10.0.0.0</entry>
-  <entry>.33.0.42</entry>
+  <entry>33.0.42</entry>
 </row>
 </tbody>
 </tgroup>
@@ -260,18 +360,86 @@ ip adres                klasse
 <section><title>subnet notatie</title>
 <para>We kunnen de notatie van <command>ip adres/subnet mask</command> afkorten als we voor de subnet mask enkel het aantal bits vernoemen dat op 1 staat. Zo wordt 255.0.0.0 gelijk aan /8, wordt 255.255.0.0 gelijk aan /16 en 255.255.255.0 gelijk aan /24.</para>
 <para>Afgekort kunnen we dus 192.168.1.42/24 schrijven ipv 192.168.1.42 met subnet mask 255.255.255.0 .</para>
+<table frame='all'><title>cidr notatie</title>
+<?dbfo table-width="80%" ?>
+<tgroup cols='3' align='left' colsep='1' rowsep='1'>
+<colspec colname='klasse' colwidth="1*" align="center"/>
+<colspec colname='bits' colwidth="2*" align="center"/>
+<colspec colname='subnet' colwidth="1*" align="center"/>
+<thead>
+<row>
+  <entry>klasse</entry>
+  <entry>default subnet mask</entry>
+  <entry>notatie</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>A</entry>
+  <entry>255.0.0.0</entry>
+  <entry>/8</entry>
+</row>
+<row>
+  <entry>B</entry>
+  <entry>255.255.0.0</entry>
+  <entry>/16</entry>
+</row>
+<row>
+  <entry>C</entry>
+  <entry>255.255.255.0</entry>
+  <entry>/24</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
 </section>
 <section><title>computers in een netwerk tellen</title>
 <para>Hoeveel computers kan je zetten in een netwerk ? Hou rekening met de <command>network id</command> die zelf al een ip adres gebruikt. Elk netwerk heeft ook een <command>broadcast</command> adres (alle decimale delen van het host id zijn dan 255).</para>
 <para>Bijvoorbeeld:</para>
-<screen>
-network           network id      broadcast ip      number of hosts
--------           ----------      ------------      ---------------
 
-192.168.1.0/24    192.168.1.0     192.168.1.255     256-2=254
-192.168.15.0/24   192.168.15.0    192.168.15.255    256-2=254
-172.16.0.0/16     172.16.0.0      172.16.255.255    256*256-2=65534
-</screen>
+<table frame='all'><title>aantal computers in een subnet</title>
+<?dbfo table-width="100%" ?>
+<tgroup cols='4' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="7*" align="center"/>
+<colspec colname='c2' colwidth="6*" align="center"/>
+<colspec colname='c3' colwidth="7*" align="center"/>
+<colspec colname='c4' colwidth="13*" align="center"/>
+<thead>
+<row>
+  <entry>network</entry>
+  <entry>network id</entry>
+  <entry>broadcast ip</entry>
+  <entry>max aantal hosts</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>192.168.1.0/24</entry>
+  <entry>192.168.1.0</entry>
+  <entry>192.168.1.255</entry>
+  <entry>256 - 2 = 254</entry>
+</row>
+<row>
+  <entry>192.168.15.0/24</entry>
+  <entry>192.168.15.0</entry>
+  <entry>192.168.15.255</entry>
+  <entry>256 - 2 = 254</entry>
+</row>
+<row>
+  <entry>172.16.0.0/16</entry>
+  <entry>172.16.0.0</entry>
+  <entry>172.16.255.255</entry>
+  <entry>256*256 - 2 = 65534</entry>
+</row>
+<row>
+  <entry>10.0.0.0/8</entry>
+  <entry>10.0.0.0</entry>
+  <entry>10.255.255.255</entry>
+  <entry>256*256*256 - 2 = 16777214</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
 </section>
 <section><title>te weinig ip adressen ?</title>
 	<para>Is vier miljard dan niet genoeg ? We verspillen enorm veel ip adressen door de verkoop van klasse A en klasse B aan organizaties die eigenlijk veel minder adressen nodig hebben.</para>
