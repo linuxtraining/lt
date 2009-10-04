@@ -112,8 +112,8 @@ Praktijkvoorbeelden kunnen veel duidelijk maken: bijvoorbeeld
 	<section><title>operating system</title>
 		<para>Student Arno was er als de kippen bij om <command>operating system</command><indexterm><primary>operating system</primary></indexterm> te vertalen naar <command>besturingssysteem</command><indexterm><primary>besturingssysteem</primary></indexterm>, wat uiteraard correct is.</para>
 		<para>We hebben besproken hoe een <command>besturingssysteem</command> verantwoordelijk is voor het beheer van de hardware, het RAM geheugen (volgens Maite meestal twee tot vier gigabyte vandaag) en applicaties. Een <command>besturingssysteem</command> is zelf software, geschreven door programmeurs. Meer informatie vindt U (zoals meestal) op wikipedia <command>http://nl.wikipedia.org/wiki/Besturingssysteem</command>.</para>
-		<para>Hieronder een overzicht van (recente) Microsoft besturingssystemen. Deze kunnen grotendeels onderverdeeld worden in de (verouderde) opvolgers van <command>MS-DOS</command><indexterm><primary>MS-DOS</primary></indexterm> en de evolutie van <command>Windows NT</command><indexterm><primary>Windows NT</primary></indexterm>.</para>
-<table frame='all'><title>MS-DOS vs Windows NT</title>
+		<para>Hieronder een overzicht van (recente) Microsoft besturingssystemen. Deze kunnen grotendeels onderverdeeld worden in de (verouderde) opvolgers van <command>ms-dos</command><indexterm><primary>ms-dos</primary></indexterm> en de evolutie van <command>Windows NT</command><indexterm><primary>Windows NT</primary></indexterm>.</para>
+<table frame='all'><title>ms-dos vs Windows NT</title>
 <?dbfo table-width="100%" ?>
 <?dbfo fontsize="7px" ?>
 <tgroup cols='3' align='left' colsep='1' rowsep='1'>
