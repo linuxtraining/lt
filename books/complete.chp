@@ -519,3 +519,17 @@ chapt_testokt() {
 	add_mod mod_cvotsm/testokt.xml
 	}
 
+#
+chapt_testoktopl() {
+	MODULES=""
+	chaptitle="test oktober oplossing"
+	add_mod mod_cvotsm/testoktopl.xml
+	}
+
+#
+chapt_20091014() {
+	MODULES=""
+	chaptitle="supernetting, router, nat"
+	add_mod mod_cvotsm/20091014.xml
+	}
+
