@@ -96,6 +96,10 @@ Removing user serena from group sports
 sports:!:serena:venus,harry
 [root@RHEL4b ~]#
 	</screen>
+	<para>To remove all group administrators form a group, use the <command>gpasswd</command> command to set an empty administrators list.</para>
+	<screen>
+[root@RHEL4b ~]# gpasswd -A "" sports
+	</screen>
 </section>
 <section><title>vigr</title>
 	<para>Similar to vipw, the <command>vigr</command><indexterm><primary>vigr(1)</primary></indexterm> must be used to manually edit the /etc/group file, since it will do proper locking of the file. Only experienced senior administrators should use vi or vigr to manage groups.</para>
