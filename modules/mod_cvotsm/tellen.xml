@@ -1,5 +1,5 @@
 <section><title>binair en hexadecimaal</title>
-	<para>Tussen haakjes, we hebben vorige les geleerd om binair en hexadecimaal te tellen. Was U afwezig, bestudeer dan de inhoud van volgende links:</para>
+	<para>Tussen haakjes, we hebben vorige les geleerd om <command>binair</command><indexterm><primary>binair</primary></indexterm> en <command>hexadecimaal</command><indexterm><primary>hexadecimaal</primary></indexterm> te tellen. Was U afwezig, bestudeer dan de inhoud van volgende links:</para>
 	<screen>
 http://nl.wikipedia.org/wiki/Binair
 http://nl.wikipedia.org/wiki/Hexadecimaal
@@ -203,7 +203,7 @@ http://nl.wikipedia.org/wiki/Hexadecimaal
 </tgroup>
 </table>
 
-	<para>Wat volgt zijn nog enkele veel voorkomende getallen in de wereld van ip adressen.</para>
+	<para>Wat volgt zijn nog enkele veel voorkomende getallen in de wereld van <command>ip adressen</command><indexterm><primary>ip adres</primary></indexterm>.</para>
 <table frame='all'><title>veelgebruikte getallen in ip</title>
 <?dbfo table-width="70%" ?>
 <tgroup cols='3' align='left' colsep='1' rowsep='1'>

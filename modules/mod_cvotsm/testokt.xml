@@ -7,7 +7,7 @@ NAAM:
 </section>
 
 <section><title>network id</title>
-<para>Vul de volgende tabel aan met de correcte <command>network id's</command>.</para>
+<para>Vul de volgende tabel aan met de correcte <command>network id's</command><indexterm><primary>network id</primary></indexterm>.</para>
 <table frame='all'><title>network id</title>
 <?dbfo table-width="90%" ?>
 <tgroup cols='2' align='left' colsep='1' rowsep='1'>
@@ -46,7 +46,7 @@ NAAM:
 </section>
 
 <section><title>host id</title>
-<para>Vul de volgende tabel aan met de correcte <command>host id's</command>.</para>
+<para>Vul de volgende tabel aan met de correcte <command>host id's</command><indexterm><primary>host id</primary></indexterm>.</para>
 <table frame='all'><title>host id</title>
 <?dbfo table-width="90%" ?>
 <tgroup cols='2' align='left' colsep='1' rowsep='1'>
@@ -85,7 +85,7 @@ NAAM:
 </section>
 
 <section><title>subnet mask</title>
-<para>Vul de volgende tabel aan met de correcte <command>subnet mask</command>.</para>
+<para>Vul de volgende tabel aan met de correcte <command>subnet mask</command><indexterm><primary>subnet mask</primary></indexterm>.</para>
 <table frame='all'><title>subnet mask</title>
 <?dbfo table-width="90%" ?>
 <tgroup cols='2' align='left' colsep='1' rowsep='1'>
@@ -163,7 +163,7 @@ NAAM:
 </section>
 
 <section><title>layer 3 broadcast</title>
-<para>Vul de volgende tabel aan met het <command>broadcast ip adres</command> van het netwerk.</para>
+<para>Vul de volgende tabel aan met het <command>broadcast ip adres</command><indexterm><primary>broadcast ip</primary></indexterm> van het netwerk.</para>
 <table frame='all'><title>broadcast ip</title>
 <?dbfo table-width="90%" ?>
 <tgroup cols='2' align='left' colsep='1' rowsep='1'>
@@ -203,7 +203,7 @@ NAAM:
 
 
 <section><title>binair tellen</title>
-<para>Vul de volgende tabel aan met het <command>binaire equivalent</command> van het decimale getal.</para>
+<para>Vul de volgende tabel aan met het <command>binaire equivalent</command><indexterm><primary>binair</primary></indexterm> van het decimale getal.</para>
 <table frame='all'><title>binair tellen</title>
 <?dbfo table-width="90%" ?>
 <tgroup cols='2' align='left' colsep='1' rowsep='1'>
@@ -242,7 +242,7 @@ NAAM:
 </section>
 
 <section><title>hexadecimaal tellen</title>
-<para>Vul de volgende tabel aan met het <command>hexadecimale equivalent</command> van het decimale getal.</para>
+<para>Vul de volgende tabel aan met het <command>hexadecimale equivalent</command><indexterm><primary>hexadecimaal</primary></indexterm> van het decimale getal.</para>
 <table frame='all'><title>hexadecimaal tellen</title>
 <?dbfo table-width="90%" ?>
 <tgroup cols='2' align='left' colsep='1' rowsep='1'>
@@ -281,7 +281,7 @@ NAAM:
 </section>
 
 <section><title>ip vraagje</title>
-<para>Welke ip range is gereserveerd voor <command>zeroconf</command> (APIPA) ?</para>
+<para>Welke ip range is gereserveerd voor <command>zeroconf</command><indexterm><primary>zeroconf</primary></indexterm> (APIPA) ?</para>
 <screen>
 
 

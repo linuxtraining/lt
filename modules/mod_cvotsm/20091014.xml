@@ -1,5 +1,5 @@
 <section><title>binaire subnets decimaal voorstellen</title>
-<para>We weten al dat 255 decimaal gelijk is aan 11111111 binair (en dat 0 decimaal gelijk is aan 00000000 binair). Een binair subnet mask begint steeds met eentjes, en eindigt met nulletjes. De volgende tabel kan dus handig zijn bij het decimaal neerschrijven van een binair subnet mask.</para>
+<para>We weten al dat 255 <command>decimaal</command><indexterm><primary>decimaal</primary></indexterm> gelijk is aan 11111111 <command>binair</command><indexterm><primary>binair</primary></indexterm> (en dat 0 decimaal gelijk is aan 00000000 binair). Een binair <command>subnet mask</command><indexterm><primary>subnet mask</primary></indexterm> begint steeds met eentjes, en eindigt met nulletjes. De volgende tabel kan dus handig zijn bij het decimaal neerschrijven van een binair subnet mask.</para>
 <table frame='all'><title>decimale waarde binaire subnet bytes</title>
 <?dbfo table-width="70%" ?>
 <tgroup cols='2' align='left' colsep='1' rowsep='1'>
@@ -53,7 +53,7 @@
 </table>
 </section>
 <section><title>32 binaire subnet masks</title>
-<para>Bij supernetting zijn er theoretisch 32 binaire subnet masks ipv de drie classful (255.255.255.0, 255.255.0.0, 255.0.0.0). We zetten ze alle 32 op een rijtje.</para>
+<para>Bij supernetting zijn er theoretisch 32 <command>binaire</command><indexterm><primary>binair</primary></indexterm> <command>subnet masks</command><indexterm><primary>subnet mask</primary></indexterm> ipv de drie <command>classful</command><indexterm><primary>classful</primary></indexterm> (255.255.255.0, 255.255.0.0, 255.0.0.0). We zetten ze alle 32 op een rijtje.</para>
 <table frame='all'><title>32 binaire subnets</title>
 <?dbfo table-width="70%" ?>
 <tgroup cols='2' align='left' colsep='1' rowsep='1'>
@@ -199,8 +199,8 @@
 </table>
 </section>
 <section><title>aantal computers</title>
-<para>We kunnen de tabel uitbreiden met een kolom die het aantal computers telt dat we in deze binaire netwerkjes kunnen plaatsen.</para>
-<para>De simpelste formule om het aantal computers in een subnet te berekenen is twee verheffen tot de macht 'het aantal bits op 0 in de subnet' min twee. Bij 16 bits op 1 wordt dat dus 2 tot de zestiende min twee. In de tabel gebruiken we 256 ipv twee tot de achtste.</para>
+<para>We kunnen de tabel uitbreiden met een kolom die het aantal computers telt dat we in deze <command>binaire</command><indexterm><primary>binair</primary></indexterm> netwerkjes kunnen plaatsen.</para>
+<para>De simpelste formule om het aantal computers in een <command>subnet</command><indexterm><primary>subnet</primary></indexterm> te berekenen is twee verheffen tot de macht 'het aantal bits op 0 in de subnet' min twee. Bij 16 bits op 1 wordt dat dus 2 tot de zestiende min twee. In de tabel gebruiken we 256 ipv twee tot de achtste.</para>
 <table frame='all'><title>aantal computers in binaire subnets</title>
 <?dbfo table-width="90%" ?>
 <tgroup cols='3' align='left' colsep='1' rowsep='1'>
@@ -336,7 +336,7 @@
 <para>Zie ook eens op <command>http://www.rfc-editor.org/rfc/rfc1878.txt</command>.</para>
 </section>
 <section><title>network id en host id vinden</title>
-<para>Als we een ip adres krijgen, kunnen we dan het <command>network id</command> en het <command>host id</command> vinden ?</para>
+	<para>Als we een <command>ip adres</command><indexterm><primary>ip adres</primary></indexterm> krijgen, kunnen we dan het <command>network id</command><indexterm><primary>network id</primary></indexterm> en het <command>host id</command><indexterm><primary>host id</primary></indexterm> vinden ?</para>
 <para>We zullen beginnen met een simpel classful voorbeeld: <command>192.168.1.5/24</command>.</para>
 <screen>
 ip adres    : 192.168.  1.5
@@ -950,14 +950,14 @@ host id     :           <command>3.233</command>
 <screen>
 192.168.5.0/24 --> 256 - 2 = 254 computers
 </screen>
-<para>Je weet ook uit de tabel hierboven dat een <command>/26</command> subnet mask volstaat voor elk individueel verdiep. Je verdeelt jou /24 netwerk in vier /26 netwerken.</para>
+<para>Je weet ook uit de tabel hierboven dat een <command>/26</command> <command>subnet mask</command><indexterm><primary>subnet mask</primary></indexterm> volstaat voor elk individueel verdiep. Je verdeelt jou /24 netwerk in vier /26 netwerken.</para>
 <para>We bekijken dit eerst binair:</para>
 <screen>
 192.168.5.0 == 11000000.10101000.00000101.00000000
 /24 mask    == 11111111.11111111.11111111.00000000
 /26 mask    == 11111111.11111111.11111111.11000000
 </screen>
-<para>We moeten dus twee bits toevoegen aan de /24 netword id om een /26 network id te maken. Twee bits kunnen exact vier mogelijke waarden hebben: 00, 01, 10 of 11. We komen dus tot de volgende vier nieuwe /26 network id's.</para>
+<para>We moeten dus twee <command>bits</command><indexterm><primary>bit</primary></indexterm> toevoegen aan de /24 <command>netword id</command><indexterm><primary>network id</primary></indexterm> om een /26 network id te maken. Twee bits kunnen exact vier mogelijke waarden hebben: 00, 01, 10 of 11. We komen dus tot de volgende vier nieuwe /26 network id's.</para>
 <screen>
 /26 network id 1 == 11000000.10101000.00000101.<command>00</command>000000
 /26 network id 2 == 11000000.10101000.00000101.<command>01</command>000000
@@ -1002,5 +1002,5 @@ host id     :           <command>3.233</command>
 </tbody>
 </tgroup>
 </table>
-<para>Tussen haakjes, nu zijn we echt aan het supernetten. Want in de routers van buitenaf staat er enkel 192.168.5.0/24 als bestemming, terwijl er intern eigenlijk vier /26 netwerkjes zijn.</para>
+<para>Tussen haakjes, nu zijn we echt aan het <command>supernetten</command><indexterm><primary>supernet</primary></indexterm>. Want in de routers van buitenaf staat er enkel 192.168.5.0/24 als bestemming, terwijl er intern eigenlijk vier /26 netwerkjes zijn.</para>
 </section>

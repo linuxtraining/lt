@@ -4,7 +4,7 @@
 	<para>Verder kan u een online CV vinden op linkedin.com en op cobbaut.be (zeer oude website).</para>
 </section>
 <section><title>leerplan van de overheid</title>
-	<para>De overheid voorziet een leerplan dat U hier <command>http://ond.vsko.be/dbs/plsql/vwo_ho_m$.startup</command> kan vinden.</para>
+	<para>De overheid voorziet een <command>leerplan</command><indexterm><primary>leerplan</primary></indexterm> dat U hier <command>http://ond.vsko.be/dbs/plsql/vwo_ho_m$.startup</command> kan vinden.</para>
 	<para>Het leerplan ziet er als volgt uit:</para>
 	<screen>
 Instapvereisten:
@@ -100,8 +100,8 @@ Praktijkvoorbeelden kunnen veel duidelijk maken: bijvoorbeeld
 	</screen>
 </section>
 <section><title>boeken</title>
-	<para>Dit leerplan wordt bijna volledig besproken in het boek <command>computernetwerken</command> van <command>Andrew S. Tanenbaum</command> ISBN 90 395 0557 8 (in het Engels: Computer Networks, ISBN 0-13-066102-3).</para>
-	<para>Ook <command>Cisco</command> heeft boeken (ter voorbereiding van hun CCNA examens) die de materie uit het leerplan in detail bespreken.</para>
+	<para>Dit leerplan wordt bijna volledig besproken in het boek <command>computernetwerken</command><indexterm><primary>computernetwerken</primary></indexterm> van <command>Andrew S. Tanenbaum</command><indexterm><primary>Andrew S. Tanenbaum</primary></indexterm> ISBN 90 395 0557 8 (in het Engels: Computer Networks, ISBN 0-13-066102-3).</para>
+	<para>Ook <command>Cisco</command><indexterm><primary>Cisco</primary></indexterm> heeft boeken (ter voorbereiding van hun CCNA examens) die de materie uit het leerplan in detail bespreken.</para>
 	<para>Laat me ook nog <command>Communications Systems and Networks</command> vermelden van <command>Ray Horak</command> (ISBN 0 7645 7522 8), ook dit boek behandeld grotendeels de materie uit het leerplan.</para>
 	<para>
 	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/boeken.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
@@ -188,12 +188,12 @@ Praktijkvoorbeelden kunnen veel duidelijk maken: bijvoorbeeld
 	</section>
 	<section><title>geschiedenis van unix</title>
 		<para>We hebben ook even gepraat over de geschiedenis van <command>Unix</command><indexterm><primary>Unix</primary></indexterm> als besturingssysteem. Net zoals het vorige deel over Microsoft behoort ook dit <command>*niet*</command> tot het leerplan, dus houden we het kort.</para>
-		<para>Unix werd in 1969 ontwikkeld door <command>Dennis Ritchie</command><indexterm><primary>Dennis Ritchie</primary></indexterm>, <command>Ken Thompson</command><indexterm><primary>Ken Thompson</primary></indexterm> en <command>Douglas McIlroy</command><indexterm><primary>Douglas McIlroy</primary></indexterm>, onder de naam <command>UNICS</command><indexterm><primary>UNICS</primary></indexterm> (Uniplexed Information and Computing System) in de befaamde <command>Bell Labs</command>. In de jaren tachtig maakte zowat elke grote firma zijn eigen versie van Unix (IBM AIX, HP HP-UX, Sun SunOS (later Solaris), Microsoft Xenix, etc). Vanaf midden jaren 70 was er een dispuut met de universitaire ontwikkelaars uit California. Deze hippies noemden hun Unix <command>BSD</command>, wat we vandaag nog terugvinden in <command>OpenBSD</command>, <command>FreeBSD</command> en <command>NetBSD</command> (ook MacOSX en Solaris hebben BSD-wortels).</para>
-		<para>Wil U meer weten, google dan gerust op 'Unix history' of surf naar <command>wikipedia</command> of lees de inleiding over Unix op www.linux-training.be.</para>
+		<para>Unix werd in 1969 ontwikkeld door <command>Dennis Ritchie</command><indexterm><primary>Dennis Ritchie</primary></indexterm>, <command>Ken Thompson</command><indexterm><primary>Ken Thompson</primary></indexterm> en <command>Douglas McIlroy</command><indexterm><primary>Douglas McIlroy</primary></indexterm>, onder de naam <command>UNICS</command><indexterm><primary>UNICS</primary></indexterm> (Uniplexed Information and Computing System) in de befaamde <command>Bell Labs</command>. In de jaren tachtig maakte zowat elke grote firma zijn eigen versie van Unix (IBM AIX, HP HP-UX, Sun SunOS (later Solaris), Microsoft Xenix, etc). Vanaf midden jaren 70 was er een dispuut met de universitaire ontwikkelaars uit California. Deze hippies noemden hun Unix <command>BSD</command><indexterm><primary>BSD</primary></indexterm>, wat we vandaag nog terugvinden in <command>OpenBSD</command><indexterm><primary>OpenBSD</primary></indexterm>, <command>FreeBSD</command><indexterm><primary>FreeBSD</primary></indexterm> en <command>NetBSD</command><indexterm><primary>NetBSD</primary></indexterm> (ook MacOSX en Solaris hebben BSD-wortels).</para>
+		<para>Wil U meer weten, google dan gerust op 'Unix history' of surf naar <command>wikipedia</command><indexterm><primary>wikipedia</primary></indexterm> of lees de inleiding over Unix op www.linux-training.be.</para>
 	</section>
 	<section><title>gpl</title>
-		<para>We weken nog verder af van het leerprogramma toen we over <command>Linux</command> en <command>licenties</command> praatten. De <command>gpl</command> is een licentie die toelaat dat je software mag kopiëren zoveel je maar wil. Je mag gpl software ook verkopen, maar de persoon die dat koopt krijgt dezelfde rechten. Ja mag ook sleutelen aan de <command>broncode</command> van gpl software, op voorwaarde dat je jou aanpassingen ook onder de <command>gpl licentie</command> naar buiten brengt.</para>
-		<para>Deze software noemt men ook wel eens <command>vrije software</command>, dit in tegenstelling tot gesloten software zoals Microsoft producten (waar je geen broncode krijgt, niets mag kopiëren en niets mag aanpassen aan de software).</para>
+		<para>We weken nog verder af van het leerprogramma toen we over <command>Linux</command><indexterm><primary>Linux</primary></indexterm> en <command>licenties</command> praatten. De <command>gpl</command><indexterm><primary>GPL</primary></indexterm> is een licentie die toelaat dat je software mag kopiëren zoveel je maar wil. Je mag gpl software ook verkopen, maar de persoon die dat koopt krijgt dezelfde rechten. Ja mag ook sleutelen aan de <command>broncode</command><indexterm><primary>open source</primary></indexterm> van gpl software, op voorwaarde dat je jou aanpassingen ook onder de <command>gpl licentie</command> naar buiten brengt.</para>
+		<para>Deze software noemt men ook wel eens <command>vrije software</command><indexterm><primary>vrije software</primary></indexterm>, dit in tegenstelling tot gesloten software zoals Microsoft producten (waar je geen broncode krijgt, niets mag kopiëren en niets mag aanpassen aan de software).</para>
 		<para>Indien jullie dat wensen gaan we hier uitgebreider op in (strict genomen behoort het niet tot het leerplan).</para>
 	<para>Meer info over gpl en vrije software:</para>
 <screen>
@@ -204,10 +204,10 @@ http://people.mech.kuleuven.be/~bruyninc/ictvisie.html
 </screen>
 	</section>
 	<section><title>geschiedenis internet</title>
-		<para>We kwamen terug op het juiste pad (het leerplan) met een beknopte geschiedenis van het internet. We bespraken hoe het internet toch wel meer is dan <command>de blauwe e</command> op de Windows desktop. Het internet bestaat sinds 1969 en omvat behalve het <command>World Wide Web</command> ook diensten zoals <command>smtp (e-mail)</command> en <command>nntp (usenet aka nieuwsgroepen)</command>.</para>
+		<para>We kwamen terug op het juiste pad (het leerplan) met een beknopte geschiedenis van het internet. We bespraken hoe het internet toch wel meer is dan <command>de blauwe e</command> op de Windows desktop. Het internet bestaat sinds 1969 en omvat behalve het <command>World Wide Web</command><indexterm><primary>world wide web</primary></indexterm> ook diensten zoals <command>smtp (e-mail)</command><indexterm><primary>smtp</primary></indexterm> en <command>nntp (usenet aka nieuwsgroepen)</command><indexterm><primary>nntp</primary></indexterm>.</para>
 		<section><title>1969 arpanet</title>
-			<para>Het <command>arpanet</command> was het eerste netwerk van computers dat gebruik maakte van <command>packet switching</command> technologie. Eind 1969 waren vier computers verbonden op dit <command>inter-network</command>. </para>
-			<para>Het <command>arpanet</command> groeide tot 113 verbonden computers in 1983 (toen werd het opgesplitst in het (publieke) arpanet en het militaire <command>milnet</command>).</para>
+			<para>Het <command>arpanet</command><indexterm><primary>arpanet</primary></indexterm> was het eerste netwerk van computers dat gebruik maakte van <command>packet switching</command><indexterm><primary>packet switching</primary></indexterm> technologie. Eind 1969 waren vier computers verbonden op dit <command>inter-network</command>. </para>
+			<para>Het <command>arpanet</command> groeide tot 113 verbonden computers in 1983 (toen werd het opgesplitst in het (publieke) arpanet en het militaire <command>milnet</command><indexterm><primary>milnet</primary></indexterm>).</para>
 		</section>
 		<section><title>packet switching</title>
 			<para>Ter vervanging van vast toegewezen communicatiekanalen werd in de jaren 60 een nieuwe techniek ontwikkeld die alle gegevens die over een netwerk moeten getransporteerd worden opdeelt in kleine packetjes. Elk packetje bepaalt onafhankelijk van alle andere packetjes zijn route naar zijn bestemming. Dit laat toe dat meerdere computers tegelijkertijd gebruik maken van dezelfde (physische) communicatiekanalen.</para>
@@ -218,15 +218,15 @@ http://en.wikipedia.org/wiki/Packet_switching
 </screen>
 		</section>
 		<section><title>jaren 70</title>
-			<para>De jaren 70 zagen ook de creatie van het <command>X.25</command> netwerk, <command>fidonet</command>, <command>compuserve</command>, <command>bulletin board systems</command> en <command>uucp</command>. Al deze netwerken zijn vandaag volledig opgegaan in het <command>internet</command> en <command>tcp/ip</command>.</para>
+			<para>De jaren 70 zagen ook de creatie van het <command>X.25</command><indexterm><primary>X.25</primary></indexterm> netwerk, <command>fidonet</command><indexterm><primary>fidonet</primary></indexterm>, <command>compuserve</command>, <command>bulletin board systems</command><indexterm><primary>BBS</primary></indexterm> en <command>uucp</command><indexterm><primary>uucp</primary></indexterm>. Al deze netwerken zijn vandaag volledig opgegaan in het <command>internet</command><indexterm><primary>internet</primary></indexterm> en <command>tcp/ip</command><indexterm><primary>tcp/ip</primary></indexterm>.</para>
 		</section>
 		<section><title>tcp/ip</title>
 			<para>Da jaren 70 waren ook de start voor het <command>tcp/ip</command> protocol. Deze protocol stack zullen we later uitgebreid bespreken.</para>
-			<para>Vandaag gebruikt 99 procent van het internet <command>ipv4</command> (Internet Protocol versie 4). De opvolger <command>ipv6</command> is klaar, maar breekt nauwelijks door.</para>
+			<para>Vandaag gebruikt 99 procent van het internet <command>ipv4</command><indexterm><primary>ipv4</primary></indexterm> (Internet Protocol versie 4). De opvolger <command>ipv6</command><indexterm><primary>ipv6</primary></indexterm> is klaar, maar breekt nauwelijks door.</para>
 		</section>
 		<section><title>e-mail</title>
-			<para>Reeds in 1965 bestond er <command>e-mail</command> op mainframe computers. Het <command>@ teken</command> dateert uit 1971. In de jaren 70 kon je e-mailen tussen verschillende netwerken zoals arpanet, vnet(ibm), bitnet, nsfnet en alle computers die uucp spraken.</para>
-			<para>Sinds 1982 bestaat e-mail als <command>SMTP (Simple Mail Transfer Protocol)</command>, gedefineerd oorspronkelijk in <command>rfc 821</command> (later meermaals uitgebreid).</para>
+			<para>Reeds in 1965 bestond er <command>e-mail</command><indexterm><primary>e-mail</primary></indexterm> op mainframe computers. Het <command>@ teken</command> dateert uit 1971. In de jaren 70 kon je e-mailen tussen verschillende netwerken zoals arpanet, vnet(ibm), bitnet, nsfnet en alle computers die uucp spraken.</para>
+			<para>Sinds 1982 bestaat e-mail als <command>SMTP (Simple Mail Transfer Protocol)</command><indexterm><primary>smtp</primary></indexterm>, gedefineerd oorspronkelijk in <command>rfc 821</command> (later meermaals uitgebreid).</para>
 
 <screen>
 http://nl.wikipedia.org/wiki/SMTP
@@ -236,46 +236,46 @@ http://www.rfc-editor.org/rfc/rfc5321.txt
 </screen>
 		</section>
 		<section><title>rfc</title>
-			<para>Sinds 1969 maakt men voor elk internet protocol een <command>rfc (Request for Comments)</command>. Een <command>rfc</command> is een (ascii) tekstbestand en bepaalt de werking van alle protocols op het internet. Deze tekstbestanden zijn vrij te raadplegen en te implementeren. Enkele voorbeelden van protocols die bepaald zijn door een <command>rfc</command> zijn tcp, ip, ftp, udp, dns, smtp, ntp, dhcp, http en duizenden anderen.</para>
+			<para>Sinds 1969 maakt men voor elk internet protocol een <command>rfc (Request for Comments)</command>. Een <command>rfc</command><indexterm><primary>rfc</primary></indexterm> is een (ascii) tekstbestand en bepaalt de werking van alle protocols op het internet. Deze tekstbestanden zijn vrij te raadplegen en te implementeren. Enkele voorbeelden van protocols die bepaald zijn door een <command>rfc</command> zijn tcp, ip, ftp, udp, dns, smtp, ntp, dhcp, http en duizenden anderen.</para>
 			<para>Op <command>www.rfc-editor.org</command> vind je alle rfc's. Je kan ook rechtsreeks naar de tekstversie gaan als je de rfc nummer kent (zoals 2131 voor dhcp) via :</para>
 <screen>http://www.rfc-editor.org/rfc/rfc2131.txt</screen>
 			<para>Elke <command>rfc</command> bevat o.a. een datum, opgepast voor humor als je <command>1 april</command> ziet.</para>
 		</section>
 		<section><title>www</title>
-			<para><command>Tim Berners Lee</command> vond dat <command>gopher</command> en <command>ftp</command> niet volstonden, dus kwam hij in 1989 op de proppen met het <command>World Wide Web</command>. Toch was het nog wachten tot de release van eerst de <command>mosaic</command> browser en nadien <command>netscape navigator</command> alvorens dit <command>www</command> populair werd. In de jaren 1996-1997 surft 90 procent van de internetbevolking met netscape navigator op het world wide web.</para>
-			<para>In 1995 kwam <command>Spyglass, Inc</command> met de <command>internet explorer</command> browser op de markt. Deze browser werkte op Windows 95 (zat in het <command>Plus pack</command>) en werd nadien gebundled met <command>Windows 98</command>. Tussen 2001 en 2005 surft meer dan 90 procent van de internetbevolking met de blauwe e van Internet Explorer 6 op het world wide web.</para>
+			<para><command>Tim Berners Lee</command><indexterm><primary>Tim Berners Lee</primary></indexterm> vond dat <command>gopher</command><indexterm><primary>gopher</primary></indexterm> en <command>ftp</command><indexterm><primary>ftp</primary></indexterm> niet volstonden, dus kwam hij in 1989 op de proppen met het <command>World Wide Web</command><indexterm><primary>world wide web</primary></indexterm>. Toch was het nog wachten tot de release van eerst de <command>mosaic</command><indexterm><primary>mosaic</primary></indexterm> browser en nadien <command>netscape navigator</command><indexterm><primary>netscape</primary></indexterm> alvorens dit <command>www</command><indexterm><primary>www</primary></indexterm> populair werd. In de jaren 1996-1997 surft 90 procent van de internetbevolking met netscape navigator op het world wide web.</para>
+			<para>In 1995 kwam <command>Spyglass, Inc</command><indexterm><primary>SpyGlass</primary></indexterm> met de <command>internet explorer</command><indexterm><primary>internet explorer</primary></indexterm> browser op de markt. Deze browser werkte op Windows 95 (zat in het <command>Plus pack</command>) en werd nadien gebundled met <command>Windows 98</command>. Tussen 2001 en 2005 surft meer dan 90 procent van de internetbevolking met de blauwe e van Internet Explorer 6 op het world wide web.</para>
 		</section>
 	</section>
 	<section><title>pots isdn T1</title>
-		<para>Toen <command>T1</command> ter sprake kwam, zaten we in de kern van ons leerplan met <command>pots (Plain Old Telephone System)</command> en <command>isdn (Integrated Services Digital Network)</command>.</para>
+		<para>Toen <command>T1</command> ter sprake kwam, zaten we in de kern van ons leerplan met <command>pots (Plain Old Telephone System)</command> en <command>isdn (Integrated Services Digital Network)</command><indexterm><primary>isdn</primary></indexterm>.</para>
 		<section><title>pots</title>
-			<para>Het oude analoge telefoonnetwerk werd gebouwd met simpele <command>twisted pair</command> koperdraden om de menselijke stem over te brengen. Dit netwerk draagt golven tussen 300 en 3400 Hertz, wat overeenkomt met een <command>bandbreedte</command> van 3100 Hertz.</para>
-			<para>In tegenstelling tot het internet is het <command>PSTN (Public Switched Telephone Network)</command> een circuit-switched netwerk. Elke telefoongesprek eis(te) een nagenoeg physieke verbinding tussen de twee sprekers.</para>
+			<para>Het oude analoge telefoonnetwerk werd gebouwd met simpele <command>twisted pair</command><indexterm><primary>twisted pair</primary></indexterm> koperdraden om de menselijke stem over te brengen. Dit netwerk draagt golven tussen 300 en 3400 Hertz, wat overeenkomt met een <command>bandbreedte</command> van 3100 Hertz.</para>
+			<para>In tegenstelling tot het internet is het <command>PSTN (Public Switched Telephone Network)</command><indexterm><primary>pstn</primary></indexterm> een circuit-switched netwerk. Elke telefoongesprek eis(te) een nagenoeg physieke verbinding tussen de twee sprekers.</para>
 			<para>Omdat dit netwerk (geluids)golven rechtsreeks als communicatie gebruikt, noemt men dit een analoog netwerk.</para>
 		</section>
 		<section><title>isdn</title>
-			<para>Het <command>isdn</command> ofte <command>Integrated Services Digital Network</command> is recenter dan <command>pots</command> en is digitaal. Oorspronkelijk was <command>isdn</command> enkel te verkrijgen in stedelijke gebieden, de dag van vandaag is het overbodig gemaakt door <command>(a)dsl</command> en internet via de <command>kabel</command>.</para>
-			<para>Een isdn <command>bearer</command> kanaal heeft een bandbreedte van 64kbits, en wordt met de letter B aangegeven. De meest courante isdn connecties werden genoteerd als <command>2B+D</command>, wat betekent dat er twee bearer kanalen van 64kbits voorzien zijn, samen met een 16kbits Data kanaal. Dit wordt ook <command>BRI</command> of <command>Basic Rate Interface</command> genoemd.</para>
+			<para>Het <command>isdn</command> ofte <command>Integrated Services Digital Network</command><indexterm><primary>isdn</primary></indexterm> is recenter dan <command>pots</command><indexterm><primary>pots</primary></indexterm> en is digitaal. Oorspronkelijk was <command>isdn</command> enkel te verkrijgen in stedelijke gebieden, de dag van vandaag is het overbodig gemaakt door <command>(a)dsl</command><indexterm><primary>adsl</primary></indexterm> en internet via de <command>kabel</command>.</para>
+			<para>Een isdn <command>bearer</command> kanaal heeft een bandbreedte van 64kbits, en wordt met de letter B aangegeven. De meest courante isdn connecties werden genoteerd als <command>2B+D</command><indexterm><primary>2B+D(isdn)</primary></indexterm>, wat betekent dat er twee bearer kanalen van 64kbits voorzien zijn, samen met een 16kbits Data kanaal. Dit wordt ook <command>BRI</command> of <command>Basic Rate Interface</command><indexterm><primary>bri(isdn)</primary></indexterm> genoemd.</para>
 		</section>
 		<section><title>T1</title>
-			<para>Een <command>T1</command> is een <command>23B+D</command> isdn verbinding in de USA. En ook al spreekt men van een <command>T1</command> in de rest van de wereld, eigenlijk gebruikt men dan een <command>E1</command> ofte <command>30B+D</command>. Een <command>T1/E1</command> noemt men ook een <command>PRI (Primary Rate Interface)</command>.</para>
+			<para>Een <command>T1</command><indexterm><primary>T1</primary></indexterm> is een <command>23B+D</command><indexterm><primary>23B+D(isdn)</primary></indexterm> isdn verbinding in de USA. En ook al spreekt men van een <command>T1</command> in de rest van de wereld, eigenlijk gebruikt men dan een <command>E1</command><indexterm><primary>E1(isdn)</primary></indexterm> ofte <command>30B+D</command><indexterm><primary>30B+D(isdn)</primary></indexterm>. Een <command>T1/E1</command> noemt men ook een <command>PRI (Primary Rate Interface)</command><indexterm><primary>PRI(isdn)</primary></indexterm>.</para>
 			<para>Als oefening rekenen we effe de totale bandbreedte van deze verbindingen.</para>
 			<para></para>
 		</section>
 	</section>
 	<section><title>kilo 1000 kibi 1024</title>
-		<para>Hoeveel bytes is een kilobyte ? Sinds de beginjaren van de informatika was het antwoord hierop eenduidig 1024 bytes. Ook al is in andere wetenschappelijke domeinen een kilo steeds gelijk aan 1000. Een megabyte is dus 1024 maal 1024 bytes, een gigabyte is 1024 megabyte, en een terabyte is 1024 gigabyte.</para>
+		<para>Hoeveel bytes is een <command>kilobyte</command><indexterm><primary>kilobyte</primary></indexterm> ? Sinds de beginjaren van de informatika was het antwoord hierop eenduidig 1024 bytes. Ook al is in andere wetenschappelijke domeinen een kilo steeds gelijk aan 1000. Een <command>megabyte</command><indexterm><primary>megabyte</primary></indexterm> is dus 1024 maal 1024 bytes, een <command>gigabyte</command><indexterm><primary>gigabyte</primary></indexterm> is 1024 megabyte, en een <command>terabyte</command><indexterm><primary>terabyte</primary></indexterm> is 1024 gigabyte.</para>
 		<para>Sinds kort is er echter een standaard die zegt dat ook in de informatika, en vooral voor harde schijven, een kilo gelijk zet aan 1000, een mega aan 1.000.000 en een giga aan 1000 mega. Bereken even het verschil in grootte tussen een disk van 400 gigabyte met giga=1024x1024x1024 en giga=1000x1000x1000.</para>
 		<para></para>
 		<para>De nieuwe standaard zegt ook dat kilo=1000 en kibi=1024, mega=1000 kilo en mebi = 1024 kibi. Kan je nog volgen ? Behalve voor RAM geheugen, daar blijft een kilo = 1024 en een mega = 1024 kilo. U volgt nog steeds ?</para>
-		<para>Wikipedia heeft een uitgebreid overzicht van de kilo-1000 versus kilo-1024 geschiedenis, en de geboorte van kibibytes en gibibytes.</para>
+		<para>Wikipedia heeft een uitgebreid overzicht van de kilo-1000 versus kilo-1024 geschiedenis, en de geboorte van <command>kibibytes</command><indexterm><primary>kibibyte</primary></indexterm> en <command>gibibytes</command><indexterm><primary>gibibyte</primary></indexterm>.</para>
 		<screen>
 http://en.wikipedia.org/wiki/Binary_prefix
 		</screen>
 	</section>
 	<section><title>sniffer</title>
-		<para>Op het netwerk, op de bekabeling, reizen vele packetjes (hopelijk) naar hun bestemming. Als je een sniffer gebruikt, dan kan je al deze packetjes zien (en bewaren). Een sniffer is dus een software die toelaat dat je alles ziet wat er gebeurt op het netwerk. </para>
-		<para>De gekendste en meest gebruikte sniffer heet <command>wireshark</command> (vroeger <command>ethereal</command>). We zullen deze sniffer in de klas gebruiken om meer inzicht te krijgen in een netwerk.</para>
+		<para>Op het netwerk, op de bekabeling, reizen vele packetjes (hopelijk) naar hun bestemming. Als je een sniffer gebruikt, dan kan je al deze packetjes zien (en bewaren). Een <command>sniffer</command><indexterm><primary>sniffer</primary></indexterm> is dus een software die toelaat dat je alles ziet wat er gebeurt op het netwerk. </para>
+		<para>De gekendste en meest gebruikte sniffer heet <command>wireshark</command><indexterm><primary>wireshark</primary></indexterm> (vroeger <command>ethereal</command><indexterm><primary>ethereal</primary></indexterm>). We zullen deze sniffer in de klas gebruiken om meer inzicht te krijgen in een netwerk.</para>
 		<para></para>
 		<para></para>
 	</section>

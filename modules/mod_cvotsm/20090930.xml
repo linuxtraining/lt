@@ -1,13 +1,13 @@
 <section><title>ip adressen</title>
-	<para>Een <command>ip-adres</command> is een 32-bit getal dat als logisch adres aan een computer wordt gegeven. Een <command>ip adres</command> is de unieke identificatie van een <command>host</command> op laag 3.</para>
+	<para>Een <command>ip-adres</command><indexterm><primary>ip adres</primary></indexterm> is een 32-bit getal dat als logisch adres aan een computer wordt gegeven. Een <command>ip adres</command> is de unieke identificatie van een <command>host</command> op laag 3.</para>
 	<para>Theoretisch hebben we 4294967296 ip adressen (256*256*256*256). In decimale octetjes schrijven we dat van 0.0.0.0 tot 255.255.255.255, in hexadecimale bytes is dat van 00:00:00:00 tot FF:FF:FF:FF en binair is dat van 00000000.00000000.00000000.00000000 tot 11111111.11111111.11111111.11111111.</para>
 </section>
 <section><title>private en publieke adressen</title>
-	<para>Om een geldig <command>ip adres</command> te hebben op het <command>internet</command>, moet je dit aankopen bij je lokale <command>RIR (Regional Internet Registry)</command>. Voor Europa is dit <command>RIPE NCC (Réseaux IP Européens Network Coordination Centre)</command> in Amsterdam.</para>
-	<para>In de meeste gevallen is het de <command>isp (Internet Service Provider)</command> die deze aankoop doet, eindgebruikers merken daar weinig van.</para>
+	<para>Om een geldig <command>ip adres</command> te hebben op het <command>internet</command>, moet je dit aankopen bij je lokale <command>RIR (Regional Internet Registry)</command><indexterm><primary>regional internet registry</primary></indexterm>. Voor Europa is dit <command>RIPE NCC (Réseaux IP Européens Network Coordination Centre)</command><indexterm><primary>ripe</primary></indexterm> in Amsterdam.</para>
+	<para>In de meeste gevallen is het de <command>isp (Internet Service Provider)</command><indexterm><primary>isp</primary></indexterm> die deze aankoop doet, eindgebruikers merken daar weinig van.</para>
 	<para>Niet alle <command>ip adressen</command> zijn geldig op internet. Sommige reeksen zijn gereserveerd voor speciale doeleinden.</para>
 	<section><title>private adressen</title>
-		<para>Er zijn drie reeksen gereserveerd voor prive gebruik. Deze ip-adressen zijn niet te gebruiken op internet (ze werken niet). Technisch kan je zeggen dat routers op internet alle packetjes voor deze adresssen automatisch verwerpen.</para>
+		<para>Er zijn drie reeksen gereserveerd voor <command>prive</command><indexterm><primary>private ip ranges</primary></indexterm> gebruik. Deze ip-adressen zijn niet te gebruiken op internet (ze werken niet). Technisch kan je zeggen dat routers op internet alle packetjes voor deze adresssen automatisch verwerpen.</para>
 		<para>De drie reeksen zijn:</para>
 <table frame='all'><title>private ip adressen</title>
 <?dbfo table-width="90%" ?>
@@ -46,15 +46,15 @@
 	</section>
 	<section><title>loopback adressen</title>
 		<para>Elke <command>tcp/ip stack</command> heeft een virtuele <command>loopback interface</command>. Dit is een ip adres dat gebruikt wordt om naar de computer zelf te wijzen (en om te testen of <command>tcp/ip</command> wel werkend is).</para>
-		<para>Meestal is dit <command>127.0.0.1</command>, vaak wijst de hele reeks echter naar ditzelfde adres.</para>
+		<para>Meestal is dit <command>127.0.0.1</command><indexterm><primary>127.0.0.1</primary></indexterm>, vaak wijst de hele reeks echter naar ditzelfde adres.</para>
 		<screen>
 van 127.0.0.0 tot 127.255.255.255
 		</screen>
-		<para>Meestal wordt <command>localhost</command> vertaald naar <command>127.0.0.1</command>.</para>
+		<para>Meestal wordt <command>localhost</command><indexterm><primary>localhost</primary></indexterm> vertaald naar <command>127.0.0.1</command>.</para>
 	</section>
 	<section><title>zeroconf adressen</title>
-		<para>Een <command>zeroconf</command> adres wordt ook wel een <command>link local</command> adres genoemd. Het is een ip adres dat begint met <command>169.254</command> en dan twee willekeurig gekozen bytes. Microsoft noemt dit <command>APIPA (Automatic Private IP Adressing)</command>.</para>
-		<para>Een host die automatisch een ip adres zou moeten krijgen van <command>dhcp</command>, maar dit niet krijgt, kan zichzelf van een <command>zeroconf</command> adres voorzien. De host zal op het lokale netwerk (de <command>local link</command>) eerst testen dat geen enkele andere host dit adres gebruikt, alvorens het aan zichzelf toe te wijzen.</para>
+		<para>Een <command>zeroconf</command><indexterm><primary>zeroconf</primary></indexterm> adres wordt ook wel een <command>link local</command><indexterm><primary>link local</primary></indexterm> adres genoemd. Het is een ip adres dat begint met <command>169.254</command><indexterm><primary>169.254.x.y</primary></indexterm> en dan twee willekeurig gekozen bytes. Microsoft noemt dit <command>APIPA (Automatic Private IP Adressing)</command><indexterm><primary>apipa</primary></indexterm>.</para>
+		<para>Een host die automatisch een ip adres zou moeten krijgen van <command>dhcp</command><indexterm><primary>dhcp</primary></indexterm>, maar dit niet krijgt, kan zichzelf van een <command>zeroconf</command> adres voorzien. De host zal op het lokale netwerk (de <command>local link</command>) eerst testen dat geen enkele andere host dit adres gebruikt, alvorens het aan zichzelf toe te wijzen.</para>
 		<screen>
 van 169.254.0.0 tot 169.254.255.255
 		</screen>
@@ -112,7 +112,7 @@ van 169.254.0.0 tot 169.254.255.255
 	</section>
 </section>
 <section><title>classful addressing</title>
-<para><command>IP adressen</command> zijn onverdeeld in klassen. Een adres van <command>klasse A</command> begint binair met als meest significante bit een 0. Een <command>klasse B</command> adres begint binair met 10, <command>klasse C</command> met 110, <command>klasse D</command> met 1110 en tenslotte <command>klasse E</command> met 1111.</para>
+	<para><command>IP adressen</command><indexterm><primary>ip adres</primary></indexterm> zijn onverdeeld in klassen. Een adres van <command>klasse A</command><indexterm><primary>class A</primary></indexterm> begint binair met als meest significante bit een 0. Een <command>klasse B</command><indexterm><primary>class B</primary></indexterm> adres begint binair met 10, <command>klasse C</command><indexterm><primary>class C</primary></indexterm> met 110, <command>klasse D</command> met 1110 en tenslotte <command>klasse E</command> met 1111.</para>
 <para>De eerste byte decimaal omgerekend komen we tot de volgende indeling van ip adressen:</para>
 <table frame='all'><title>ip address classes</title>
 <?dbfo table-width="80%" ?>
@@ -207,7 +207,7 @@ van 169.254.0.0 tot 169.254.255.255
 </table>
 </section>
 <section><title>default subnet masks</title>
-<para>Klasse A, B en C hebben een standaard <command>subnet mask</command>. Klasse A heeft een subnet mask waar de eerste 8 bits gelijk zijn aan 1 (en de rest aan 0). Bij klasse B zijn de eerste 16 bits een 1, en bij klasse C de eerste 24 bits.</para>
+<para>Klasse A, B en C hebben een standaard <command>subnet mask</command><indexterm><primary>subnet mask</primary></indexterm>. Klasse A heeft een subnet mask waar de eerste 8 bits gelijk zijn aan 1 (en de rest aan 0). Bij klasse B zijn de eerste 16 bits een 1, en bij klasse C de eerste 24 bits.</para>
 <para>Dit geeft ons de volgende tabel</para>
 <table frame='all'><title>default subnet mask</title>
 <?dbfo table-width="80%" ?>
@@ -243,9 +243,9 @@ van 169.254.0.0 tot 169.254.255.255
 </table>
 </section>
 <section><title>network id en host id</title>
-	<para>Bij het uitvoeren van <command>ifconfig</command> op een Unix/Linux en <command>ipconfig</command> op een MS Windows computer merkt U dat U steeds een <command>ip adres</command> en en <command>subnet mask</command> krijgt. De combinatie van die twee bepaalt in welk netwerk een computer zich bevindt.</para>
-	<para>Als het subnet mask gelijk is aan 255.0.0.0, dan vormt de eerste byte van het ip-adres aangevuld met nullen het <command>network id</command>. Bij 255.255.0.0 als subnet mask zijn er twee bytes (aangevuld met nullen) die het <command>network id</command> vormen. Bij 255.255.255.0 zijn er drie bytes (en een nul) die het <command>network id</command> vormen.</para>
-	<para>De rest van het ip-adres is dan het <command>host id</command>. Het <command>network id</command> bepaalt het netwerk waarin een computer zich bevind, het <command>host id</command> is uniek voor een host binnen het netwerk.</para>
+	<para>Bij het uitvoeren van <command>ifconfig</command><indexterm><primary>ifconfig(Unix)</primary></indexterm> op een Unix/Linux en <command>ipconfig</command><indexterm><primary>ipconfig(MS)</primary></indexterm> op een MS Windows computer merkt U dat U steeds een <command>ip adres</command><indexterm><primary>ip adres</primary></indexterm> en en <command>subnet mask</command><indexterm><primary>subnet mask</primary></indexterm> krijgt. De combinatie van die twee bepaalt in welk netwerk een computer zich bevindt.</para>
+	<para>Als het subnet mask gelijk is aan 255.0.0.0, dan vormt de eerste byte van het ip-adres aangevuld met nullen het <command>network id</command><indexterm><primary>network id</primary></indexterm>. Bij 255.255.0.0 als subnet mask zijn er twee bytes (aangevuld met nullen) die het <command>network id</command> vormen. Bij 255.255.255.0 zijn er drie bytes (en een nul) die het <command>network id</command> vormen.</para>
+	<para>De rest van het ip-adres is dan het <command>host id</command>. Het <command>network id</command> bepaalt het netwerk waarin een computer zich bevind, het <command>host id</command><indexterm><primary>host id</primary></indexterm> is uniek voor een host binnen het netwerk.</para>
 	<para>Een overzichtje met voorbeelden:</para>
 <table frame='all'><title>network id en host id</title>
 <?dbfo table-width="95%" ?>
@@ -311,8 +311,8 @@ van 169.254.0.0 tot 169.254.255.255
 </section>
 <section><title>Lokale computer of niet ?</title>
 	<para>Wat is het nu van het kennen van een <command>network id</command>? Wel het <command>network id</command> bepaald of een computer lokaal in je netwerk staat of niet.</para>
-	<para>Indien je wil communiceren met een andere computer, dan heb je zijn <command>ip-adres</command> nodig. Als die computer dan op hetzelfde netwerk zit, dan doe jou computer een <command>arp</command> om het <command>MAC adres</command> van de andere computer te vinden. Als die computer echter op een ander netwerk zet, dan stuurt jou computer het packetje naar de <command>router</command>.</para>
-	<para>Alvorens over te gaan tot een <command>arp</command> (voor die andere computer of voor de router) zal jou computer het <command>network id</command> van jou computer vergelijken met dat van de andere computer. Indien gelijk, dan betreft het een computer op hetzelfde netwerk, indien verschillend, dan staat die computer achter de router.</para>
+	<para>Indien je wil communiceren met een andere computer, dan heb je zijn <command>ip-adres</command> nodig. Als die computer dan op hetzelfde netwerk zit, dan doe jou computer een <command>arp</command><indexterm><primary>arp</primary></indexterm> om het <command>MAC adres</command><indexterm><primary>MAC</primary></indexterm> van de andere computer te vinden. Als die computer echter op een ander netwerk zet, dan stuurt jou computer het packetje naar de <command>router</command>.</para>
+	<para>Alvorens over te gaan tot een <command>arp</command> (voor die andere computer of voor de router) zal jou computer het <command>network id</command> van jou computer vergelijken met dat van de andere computer. Indien gelijk, dan betreft het een computer op hetzelfde netwerk, indien verschillend, dan staat die computer achter de <command>router</command><indexterm><primary>router</primary></indexterm>.</para>
 	<para>Een overzichtje met voorbeelden (gebruik standaard subnet mask):</para>
 <table frame='all'><title>locale or remote computer?</title>
 <?dbfo table-width="98%" ?>
@@ -358,7 +358,7 @@ van 169.254.0.0 tot 169.254.255.255
 </table>
 </section>
 <section><title>subnet notatie</title>
-<para>We kunnen de notatie van <command>ip adres/subnet mask</command> afkorten als we voor de subnet mask enkel het aantal bits vernoemen dat op 1 staat. Zo wordt 255.0.0.0 gelijk aan /8, wordt 255.255.0.0 gelijk aan /16 en 255.255.255.0 gelijk aan /24.</para>
+	<para>We kunnen de notatie van <command>ip adres/subnet mask</command><indexterm><primary>cidr</primary></indexterm> afkorten als we voor de subnet mask enkel het aantal bits vernoemen dat op 1 staat. Zo wordt 255.0.0.0 gelijk aan /8, wordt 255.255.0.0 gelijk aan /16 en 255.255.255.0 gelijk aan /24.</para>
 <para>Afgekort kunnen we dus 192.168.1.42/24 schrijven ipv 192.168.1.42 met subnet mask 255.255.255.0 .</para>
 <table frame='all'><title>cidr notatie</title>
 <?dbfo table-width="80%" ?>
@@ -394,10 +394,10 @@ van 169.254.0.0 tot 169.254.255.255
 </table>
 </section>
 <section><title>computers in een netwerk tellen</title>
-<para>Hoeveel computers kan je zetten in een netwerk ? Hou rekening met de <command>network id</command> die zelf al een ip adres gebruikt. Elk netwerk heeft ook een <command>broadcast</command> adres (alle decimale delen van het host id zijn dan 255).</para>
+<para>Hoeveel computers kan je zetten in een netwerk ? Hou rekening met de <command>network id</command><indexterm><primary>network id</primary></indexterm> die zelf al een ip adres gebruikt. Elk netwerk heeft ook een <command>broadcast</command><indexterm><primary>broadcast</primary></indexterm> adres (alle decimale delen van het host id zijn dan 255).</para>
 <para>Bijvoorbeeld:</para>
 
-<table frame='all'><title>aantal computers in een subnet</title>
+<table frame='all'><title>aantal computers in een subnet<indexterm><primary>subnet mask</primary></indexterm></title>
 <?dbfo table-width="100%" ?>
 <tgroup cols='4' align='left' colsep='1' rowsep='1'>
 <colspec colname='c1' colwidth="7*" align="center"/>
@@ -443,8 +443,8 @@ van 169.254.0.0 tot 169.254.255.255
 </section>
 <section><title>te weinig ip adressen ?</title>
 	<para>Is vier miljard dan niet genoeg ? We verspillen enorm veel ip adressen door de verkoop van klasse A en klasse B aan organizaties die eigenlijk veel minder adressen nodig hebben.</para>
-	<para>Wat doe je als je 300 adressen nodig hebt ? Of 2000 ? Je kan kiezen voor een klasse B range, maar dan verspil je meer dan 90 procent. Je kan ook zeggen dat 8 klasse C adressen voldoen voor 2000 computers, maar dan vergroot je de <command>routing tables</command> weer.</para>
-	<para>Je kan het tekort verzachten door <command>nat</command> te gebruiken. Eerst bekijken we hoe <command>classless ip addressing</command> met <command>binaire subnet masks</command> ofte <command>supernetting</command> mitigerend kan werken.</para>
+	<para>Wat doe je als je 300 adressen nodig hebt ? Of 2000 ? Je kan kiezen voor een klasse B<indexterm><primary>class B</primary></indexterm> range, maar dan verspil je meer dan 90 procent. Je kan ook zeggen dat 8 klasse C<indexterm><primary>class C</primary></indexterm> adressen voldoen voor 2000 computers, maar dan vergroot je de <command>routing tables</command> weer.</para>
+	<para>Je kan het tekort verzachten door <command>nat</command> te gebruiken. Eerst bekijken we hoe <command>classless ip addressing</command> met <command>binaire subnet masks</command><indexterm><primary>subnet mask</primary></indexterm> ofte <command>supernetting</command> mitigerend kan werken.</para>
 <screen>
 </screen>
 </section>
