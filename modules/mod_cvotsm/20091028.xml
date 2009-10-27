@@ -1,0 +1,260 @@
+<section><title>over modems</title>
+	<para>Over modems is heel wat te zeggen, modems hebben een essentiele rol gespeeld in de ontwikkeling van internet.</para>
+	<section><title>modulatie-demodulatie</title>
+		<para>Per definitie is een modem een modulator-demodulator. Modulatie is het encoderen van digitale informatie (zoals bits) over een analoog signaal (zoals het geluid over een telefoonverbinding). Demodulatie is het terug omzetten van dit analoge signaal naar (hopelijk dezelfde) bits.</para>
+		<para>Een modem is dus een interface tussen de computer en het telefoonnetwerk, en laat toe dat twee computers (digitaal) met elkaar praten over de (analoge) telefoon.</para>
+	</section>
+	<section><title>baud</title>
+		<para>Het moduleren van digitale informatie gebeurt in <command>symbolen</command>. Een symbool is een eenheid van digitale informatie die gecodeerd (gemoduleerd) is in een analoog signaal. Zo een eenheid van digitale informatie is bijvoorbeeld een bit (deze kan 0 of 1 zijn). Maar het kan evengoed een koppel bits zijn (mogelijke symbolen zijn dan 00, 01, 10 en 11). </para>
+		<para>Indien een modem 300 symbolen per seconde kan zenden of ontvangen, spreken we van een <command>modulatie rate</command> of <command>baud rate</command> van 300.</para>
+	</section>
+	<section><title>bit rate</title>
+		<para>De <command>bit rate</command> van de modem hangt af van de gebruikte symbolen. In het geval dat elk symbool slechts 1 bit bevat, is de bit rate gelijk aan de baud rate. Bevat elk symbool twee bits, dan is de bit rate het dubbel van de baud rate.</para>
+	</section>
+	<section><title>bits per seconde</title>
+		<para>De <command>bit rate</command> kan je meten in bits per seconde (<command>bit/s</command> of <command>bps</command>) of ook in kilo- mega- giga- en terabits per seconde (ook geschreven als Mbit/s, Mbps, Gbit/s, Gbps, Tbit/s, Tbps). In tegenstelling tot de kibi vs kilo discussie bij harde schijven, is hier een kilo altijd gelijk geweest aan 1000 en een mega altijd aan 1000 kilo (enzoverder).</para>
+	</section>
+	<section><title>pariteit</title>
+		<para>Pariteit is een eenvoudige controle op fouten tijdens de transmissie.</para>
+		<para></para>
+	</section>
+	<section><title>seventies V. standaarden</title>
+		<para>De bandbreedte (soms ook snelheid genoemd) in bits per seconde hangt af van de gebruikte standaard. De <command>V.21</command> standaard van 1962 liet toe om 300 bit/s te halen met een baud rate van 300 (mbv FSK). De <command>V.22</command> standaard uit 1976 haalde 1200 bit/s gebruik makend van 600 baud (mbv PSK).</para>
+		<para></para>
+	</section>
+	<section><title>eighties V. standaarden</title>
+		<para>De jaren 80 zagen een evolutie van 2400 bit/s over 600 baud (de V.22bis standaard) naar 9600 bit/s over 2400 baud. Deze laatste werd in 1989 bereikt met de <command>V.32</command> standaard.</para>
+		<para></para>
+	</section>
+	<section><title>nineties V. standaarden</title>
+		<para>1991 zag de 14.4 kbit/s, dit werd verdubbelt in 1994 en verdrievoudigt in 1996 om vanaf 1998 een tijdje te verblijven op de veelgebrukte <command>V.90</command> standaard van 56 kilobits per seconde.</para>
+		<para>Nadien zijn we overgeschakeld op andere technologien zoals DSL en DOCSIS.</para>
+	</section>
+</section>
+<section><title>over DSL</title>
+	<section><title>DSL</title>
+		<para>DSL is een verzamelnaam voor verschillende <command>digital subscriber loop</command> implementaties zoals SDSL, IDSL, ADSL, ADSL2 etc.</para>
+		<para>Typisch aan DSL is dat je een DSL-splitter nodig hebt om de lage voice-tonen (die naar de klassieke telefoon moeten) te scheiden van de hoge tonen (boven 25kHz) die DSL gebruikt voor data, en die naar de xDSL modem moeten.</para>
+		<para>In tegenstelling tot wat sommige mensen denken, maakt de DSL technologie geen gebruik van het echte <command>pots</command> netwerk, maar enkel van de <command>local loop</command>.</para>
+	</section>
+	<section><title>DSL</title>
+		<para></para>
+		<para></para>
+	</section>
+	<section><title>DSL</title>
+		<para></para>
+		<para></para>
+	</section>
+<para>Meer info te vinden in het Engels hier: http://en.wikipedia.org/wiki/Modem</para>
+<para></para>
+<para></para>
+<para>sdsl adsl adsl2 adsl2+ docsis v1 docsis v2 docsis v3 vdsl vdsl2</para>
+<para>parity ascii</para>
+<screen>
+</screen>
+</section>
+<section><title>over mobiele data</title>
+<para>gsm gprs edge umts </para>
+<para></para>
+<screen>
+</screen>
+</section>
+<section><title>over WAN</title>
+<para>T1, E1, T2... T5, OC-xx</para>
+<para></para>
+<screen>
+</screen>
+</section>
+<section><title>over LAN</title>
+<para>token ring 4 16 ethernet fast-ethernet fddi firewire-ieee1394 infiniband atm ?</para>
+<para></para>
+<screen>
+</screen>
+</section>
+<section><title>over wireless</title>
+<para>802.11a g WiMAX Super G 802.11n</para>
+<para>irDa Bluetooth</para>
+<screen>
+</screen>
+</section>
+<section><title>over bandbreedte</title>
+<para>Bandbreedte is een belangrijk onderdeel in het leerplan. Laten we deze eens nader bestuderen.</para>
+<para></para>
+<screen>
+</screen>
+</section>
+
+
+
+<section><title>Hoe een webserver maken</title>
+<para>zelf op windows via IIS</para>
+<para>zelf op alle OS via Apache</para>
+<para>via je isp</para>
+<screen>
+</screen>
+</section>
+<section><title>plaatsing switches en hubs</title>
+<para>spanning tree</para>
+<para>vlan</para>
+<screen>
+</screen>
+</section>
+<section><title>static - dynamic - zeroconf</title>
+<para></para>
+<para></para>
+<screen>
+</screen>
+</section>
+<section><title>nat</title>
+<para></para>
+<para></para>
+<screen>
+</screen>
+</section>
+<section><title>RIR - ARIN - RIPE ...</title>
+<para></para>
+<para></para>
+<screen>
+</screen>
+</section>
+<section><title>ascii-parity</title>
+<para></para>
+<para></para>
+<screen>
+</screen>
+</section>
+<section><title>Hoe verbinden met internet ? proxy - nat - rechtstreeks ...</title>
+<para></para>
+<para></para>
+<screen>
+</screen>
+</section>
+<section><title>stp-utp-cat5-ster-bus-mesh-hybrid</title>
+<para></para>
+<para></para>
+<screen>
+</screen>
+</section>
+<section><title>bandbreedte</title>
+<para></para>
+<para></para>
+<screen>
+</screen>
+</section>
+<section><title>pots-isdn-x25-dsl-adsl-T1-T3-E1</title>
+<para></para>
+<para></para>
+<screen>
+</screen>
+</section>
+<section><title>token ring, ethernet csma/cd, fddi, atm, …</title>
+<para></para>
+<para></para>
+<screen>
+</screen>
+</section>
+<section><title>sna, ipx/spx, appletalk, netbeui, tcp/ip</title>
+<para></para>
+<para></para>
+<screen>
+</screen>
+</section>
+<section><title>ppp, slip, pppoe, pppoa, pptp, l2tp, ipsec</title>
+<para></para>
+<para></para>
+<screen>
+</screen>
+</section>
+<section><title>repeater, hub, switch, bridge, router, vlan, firewall, …</title>
+<para></para>
+<para></para>
+<screen>
+</screen>
+</section>
+<section><title>internet, intranet, extranet</title>
+<para></para>
+<para></para>
+<screen>
+</screen>
+</section>
+<section><title>irda, wi-fi, bluetooth</title>
+<para></para>
+<para></para>
+<screen>
+</screen>
+</section>
+<section><title>wep, wpa, wpa2, kismet, aircrack, war driving</title>
+<para></para>
+<para></para>
+<screen>
+</screen>
+</section>
+<section><title>multiplexen-moduleren etc</title>
+<para></para>
+<para></para>
+<screen>
+</screen>
+</section>
+<section><title>router</title>
+<para>We weten al een aantal zaken over een router: er zijn veel routers op internet, routers verbinden een netwerk met een ander netwerk, routers zitten als toestel op laag 3, het ip adres achter <command>default gateway</command> wijst naar je lokale router en sommige routers zijn nat.</para>
+<para>In dit hoofdstuk gaan we iets technischer werken.</para>
+<para></para>
+<screen>
+</screen>
+<para></para>
+<screen>
+</screen>
+
+<table frame='all'><title>decimale waarde binaire subnet bytes</title>
+<?dbfo table-width="70%" ?>
+<tgroup cols='2' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="1*" align="center"/>
+<colspec colname='c2' colwidth="1*" align="center"/>
+<thead>
+<row>
+  <entry>binair subnet mask</entry>
+  <entry>decimaal getal</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>11111111</entry>
+  <entry>255</entry>
+</row>
+<row>
+  <entry>11111110</entry>
+  <entry>254</entry>
+</row>
+<row>
+  <entry>11111100</entry>
+  <entry>252</entry>
+</row>
+<row>
+  <entry>11111000</entry>
+  <entry>248</entry>
+</row>
+<row>
+  <entry>11110000</entry>
+  <entry>240</entry>
+</row>
+<row>
+  <entry>11100000</entry>
+  <entry>224</entry>
+</row>
+<row>
+  <entry>11000000</entry>
+  <entry>192</entry>
+</row>
+<row>
+  <entry>10000000</entry>
+  <entry>128</entry>
+</row>
+<row>
+  <entry>00000000</entry>
+  <entry>0</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</section>
+
