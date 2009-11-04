@@ -397,7 +397,7 @@
 	<section><title>Replace all ( &#058;1,$ s&#047;foo&#047;bar&#047;g )</title>
 		<para>To replace all occurences of the string foo in bar, first switch to ex mode with &#058; . Then tell vi which lines to use, for example 1,&#036; will do the replace all from the first to the last line. You can write 1,5 to only process the first five lines. The s&#047;foo&#047;bar&#047;g will replace all occurences of foo with bar.</para>
 <table frame='all'><title>replace</title>
-<?dbfo table-width="98%" ?>
+<?dbfo table-width="90%" ?>
 <tgroup cols='2' align='center' colsep='1' rowsep='1'>
 <colspec colname='c1' colwidth="2*" align="center"/>
 <colspec colname='c2' colwidth="5*" align="left"/>
@@ -441,6 +441,74 @@
 <row>
   <entry>:r !cmd</entry>
   <entry>execute cmd and paste its output</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+	</section>
+	<section><title>text buffers</title>
+		<para>There are 36 buffers in vi to store text. You can use them with the <command>"</command> character.</para>
+<table frame='all'><title>text buffers</title>
+<?dbfo table-width="80%" ?>
+<tgroup cols='2' align='center' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="1*" align="center"/>
+<colspec colname='c2' colwidth="5*" align="left"/>
+<thead>
+<row>
+  <entry>command</entry>
+  <entry>action</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>"add</entry>
+  <entry>delete current line and put text in buffer a</entry>
+</row>
+<row>
+  <entry>"g7yy</entry>
+  <entry>copy seven lines into buffer g</entry>
+</row>
+<row>
+  <entry>"ap</entry>
+  <entry>paste from buffer a</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+	</section>
+	<section><title>multiple files</title>
+		<para>You can edit multiple files with vi. Here are some tips.</para>
+<table frame='all'><title>multiple files</title>
+<?dbfo table-width="80%" ?>
+<tgroup cols='2' align='center' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="2*" align="center"/>
+<colspec colname='c2' colwidth="4*" align="left"/>
+<thead>
+<row>
+  <entry>command</entry>
+  <entry>action</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>vi file1 file2 file3</entry>
+  <entry>start editing three files</entry>
+</row>
+<row>
+  <entry>:args</entry>
+  <entry>lists files and marks active file</entry>
+</row>
+<row>
+  <entry>:n</entry>
+  <entry>start editing the next file</entry>
+</row>
+<row>
+  <entry>:e</entry>
+  <entry>toggle with last edited file</entry>
+</row>
+<row>
+  <entry>:rew</entry>
+  <entry>rewind file pointer to first file</entry>
 </row>
 </tbody>
 </tgroup>
