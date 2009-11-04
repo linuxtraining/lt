@@ -15,7 +15,7 @@
 <tbody>
 <row>
   <entry>Esc</entry>
-  <entry>Set vi(m) in command mode.</entry>
+  <entry>set vi(m) in command mode.</entry>
 </row>
 </tbody>
 </tgroup>
@@ -68,7 +68,7 @@
 <table frame='all'><title>replace and delete</title>
 <?dbfo table-width="80%" ?>
 <tgroup cols='2' align='center' colsep='1' rowsep='1'>
-<colspec colname='c1' colwidth="1*" align="center"/>
+<colspec colname='c1' colwidth="2*" align="center"/>
 <colspec colname='c2' colwidth="5*" align="left"/>
 <thead>
 <row>
@@ -89,41 +89,412 @@
   <entry>r</entry>
   <entry>replace the character below the cursor</entry>
 </row>
+<row>
+  <entry>p</entry>
+  <entry>paste (here the last deleted character)</entry>
+</row>
+<row>
+  <entry>xp</entry>
+  <entry>switch two characters</entry>
+</row>
 </tbody>
 </tgroup>
 </table>
 	</section>
-	<section><title>Undo and repeat (u .)</title>
+	<section><title>undo and repeat (u .)</title>
 		<para>When in command mode, you can undo your mistakes with u. You can do your mistakes twice with . (in other words the . will repeat your last command).</para>
+<table frame='all'><title>undo and repeat</title>
+<?dbfo table-width="80%" ?>
+<tgroup cols='2' align='center' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="1*" align="center"/>
+<colspec colname='c2' colwidth="5*" align="left"/>
+<thead>
+<row>
+  <entry>command</entry>
+  <entry>action</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>u</entry>
+  <entry>undo the last action</entry>
+</row>
+<row>
+  <entry>.</entry>
+  <entry>repeat the last action</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
 	</section>
-	<section><title>Cut, copy and paste a line (dd yy p P)</title>
+	<section><title>cut, copy and paste a line (dd yy p P)</title>
 		<para>When in command mode, dd will cut the current line. yy will copy the current line. You can paste the last copied or cut line after (p) or before (P) the current line.</para>
+<table frame='all'><title>cut, copy and paste a line</title>
+<?dbfo table-width="80%" ?>
+<tgroup cols='2' align='center' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="1*" align="center"/>
+<colspec colname='c2' colwidth="5*" align="left"/>
+<thead>
+<row>
+  <entry>command</entry>
+  <entry>action</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>dd</entry>
+  <entry>cut the current line</entry>
+</row>
+<row>
+  <entry>yy</entry>
+  <entry>(yank yank) copy the current line</entry>
+</row>
+<row>
+  <entry>p</entry>
+  <entry>paste after the current line</entry>
+</row>
+<row>
+  <entry>P</entry>
+  <entry>paste before the current line</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
 	</section>
-	<section><title>Cut, copy and paste lines (3dd 2yy)</title>
+	<section><title>cut, copy and paste lines (3dd 2yy)</title>
 		<para>When in command mode, before typing dd or yy, you can type a number to repeat the command a number of times. Thus, 5dd will cut 5 lines and 4yy will copy (yank) 4 lines. That last one will be noted by vi in the bottom left corner as "4 line yanked".</para>
+<table frame='all'><title>cut, copy and paste lines</title>
+<?dbfo table-width="80%" ?>
+<tgroup cols='2' align='center' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="1*" align="center"/>
+<colspec colname='c2' colwidth="5*" align="left"/>
+<thead>
+<row>
+  <entry>command</entry>
+  <entry>action</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>3dd</entry>
+  <entry>cut three lines</entry>
+</row>
+<row>
+  <entry>4yy</entry>
+  <entry>copy four lines</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
 	</section>
-	<section><title>Start and end of a line (0 or &#094; and $)</title>
+	<section><title>start and end of a line (0 or &#094; and $)</title>
 		<para>When in command mode, the 0 and the caret &#094; will bring you to the start of the current line, whereas the $ will put the cursor at the end of the current line. You can add 0 and $ to the d command, d0 will delete every character between the current character and the start of the line. Likewise d$ will delete everything from the current character till the end of the line. Similarly y0 and y$ will yank till start and end of the current line.</para>
+<table frame='all'><title>start and end of line</title>
+<?dbfo table-width="80%" ?>
+<tgroup cols='2' align='center' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="1*" align="center"/>
+<colspec colname='c2' colwidth="5*" align="left"/>
+<thead>
+<row>
+  <entry>command</entry>
+  <entry>action</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>0</entry>
+  <entry>jump to start of current line</entry>
+</row>
+<row>
+  <entry>&#094;</entry>
+  <entry>jump to start of current line</entry>
+</row>
+<row>
+  <entry>$</entry>
+  <entry>jump to end of current line</entry>
+</row>
+<row>
+  <entry>d0</entry>
+  <entry>delete until start of line</entry>
+</row>
+<row>
+  <entry>d$</entry>
+  <entry>delete until end of line</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
 	</section>
-	<section><title>Join two lines (J)</title>
-		<para>When in command mode, pressing J will append the next line to the current line.</para>
+	<section><title>join two lines (J) and more</title>
+		<para>When in command mode, pressing <command>J</command> will append the next line to the current line. With <command>yyp</command> you duplicate a line and with <command>ddp</command> you switch two lines.</para>
+<table frame='all'><title>join two lines</title>
+<?dbfo table-width="80%" ?>
+<tgroup cols='2' align='center' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="1*" align="center"/>
+<colspec colname='c2' colwidth="5*" align="left"/>
+<thead>
+<row>
+  <entry>command</entry>
+  <entry>action</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>J</entry>
+  <entry>join two lines</entry>
+</row>
+<row>
+  <entry>yyp</entry>
+  <entry>duplicate a line</entry>
+</row>
+<row>
+  <entry>ddp</entry>
+  <entry>switch two lines</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
 	</section>
-	<section><title>Words (w b)</title>
-		<para>When in command mode, w will jump you to the next word, and b will get you to the previous word. w and b can also be combined with d and y to copy and cut words (dw db yw yb).</para>
+	<section><title>words (w b)</title>
+		<para>When in command mode, <command>w</command> will jump you to the next word, and <command>b</command> will get you to the previous word. w and b can also be combined with d and y to copy and cut words (dw db yw yb).</para>
+<table frame='all'><title>words</title>
+<?dbfo table-width="80%" ?>
+<tgroup cols='2' align='center' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="1*" align="center"/>
+<colspec colname='c2' colwidth="5*" align="left"/>
+<thead>
+<row>
+  <entry>command</entry>
+  <entry>action</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>w</entry>
+  <entry>forward one word</entry>
+</row>
+<row>
+  <entry>b</entry>
+  <entry>back one word</entry>
+</row>
+<row>
+  <entry>3w</entry>
+  <entry>forward three words</entry>
+</row>
+<row>
+  <entry>dw</entry>
+  <entry>delete one word</entry>
+</row>
+<row>
+  <entry>yw</entry>
+  <entry>yank (copy) one word</entry>
+</row>
+<row>
+  <entry>5yb</entry>
+  <entry>yank five words back</entry>
+</row>
+<row>
+  <entry>7dw</entry>
+  <entry>delete seven words</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
 	</section>
-	<section><title>Save (or not) and exit (:w :q :q! )</title>
-		<para>Pressing the colon : will allow you to give instructions to vi. :w will write (save) the file, :q will quit un unchanged file without saving, :q! will quit vi discarding changes. :wq will save and quit and is the same as typing ZZ in command mode.</para>
+	<section><title>save (or not) and exit (:w :q :q! )</title>
+		<para>Pressing the colon : will allow you to give instructions to vi (technically speaking, typing the colon ill open the <command>ex</command> editor). <command>:w</command> will write (save) the file, <command>:q</command> will quit un unchanged file without saving, <command>:q!</command> will quit vi discarding changes. <command>:wq</command> will save and quit and is the same as typing <command>ZZ</command> in command mode.</para>
+<table frame='all'><title>save and exit vi</title>
+<?dbfo table-width="80%" ?>
+<tgroup cols='2' align='center' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="1*" align="center"/>
+<colspec colname='c2' colwidth="4*" align="left"/>
+<thead>
+<row>
+  <entry>command</entry>
+  <entry>action</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>:w</entry>
+  <entry>save (write)</entry>
+</row>
+<row>
+  <entry>:w fname</entry>
+  <entry>save as fname</entry>
+</row>
+<row>
+  <entry>:q</entry>
+  <entry>quit</entry>
+</row>
+<row>
+  <entry>:wq</entry>
+  <entry>save and quit</entry>
+</row>
+<row>
+  <entry>ZZ</entry>
+  <entry>save and quit</entry>
+</row>
+<row>
+  <entry>:q!</entry>
+  <entry>quit (losing your changes)</entry>
+</row>
+<row>
+  <entry>:w!</entry>
+  <entry>save (and write to non-writable file!)</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+	<para>This last one is a bit special. With <command>:w!</command> vi will try to chmod the file to get write permission (this works when you are the owner) and will chmod it back when the write succeeds. This should always work when you are root (and the file system is writable).</para>
 	</section>
 	<section><title>Searching (/ ?)</title>
-		<para>When in command mode typing / will allow you to search in vi for strings (can be a regular expression). Typing /foo will do a forward search for the string foo, typing ?bar will do a backward search for bar.</para>
+		<para>When in command mode typing / will allow you to search in vi for strings (can be a regular expression). Typing /foo will do a forward search for the string foo and typing ?bar will do a backward search for bar.</para>
+<table frame='all'><title>searching</title>
+<?dbfo table-width="90%" ?>
+<tgroup cols='2' align='center' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="1*" align="center"/>
+<colspec colname='c2' colwidth="4*" align="left"/>
+<thead>
+<row>
+  <entry>command</entry>
+  <entry>action</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>/string</entry>
+  <entry>forward search for string</entry>
+</row>
+<row>
+  <entry>?string</entry>
+  <entry>backward search for string</entry>
+</row>
+<row>
+  <entry>n</entry>
+  <entry>go to next occurence of search string</entry>
+</row>
+<row>
+  <entry>/^string</entry>
+  <entry>forward search string at beginning of line</entry>
+</row>
+<row>
+  <entry>/string$</entry>
+  <entry>forward search string at end of line</entry>
+</row>
+<row>
+  <entry>/br[aeio]l</entry>
+  <entry>search for bral brel bril and brol</entry>
+</row>
+<row>
+  <entry>/\&#060;he\&#062;</entry>
+  <entry>search for the word <command>he</command> (and not for <command>he</command>re or t<command>he</command>)</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
 	</section>
 	<section><title>Replace all ( &#058;1,$ s&#047;foo&#047;bar&#047;g )</title>
 		<para>To replace all occurences of the string foo in bar, first switch to ex mode with &#058; . Then tell vi which lines to use, for example 1,&#036; will do the replace all from the first to the last line. You can write 1,5 to only process the first five lines. The s&#047;foo&#047;bar&#047;g will replace all occurences of foo with bar.</para>
+<table frame='all'><title>replace</title>
+<?dbfo table-width="98%" ?>
+<tgroup cols='2' align='center' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="2*" align="center"/>
+<colspec colname='c2' colwidth="5*" align="left"/>
+<thead>
+<row>
+  <entry>command</entry>
+  <entry>action</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>:4,8 s/foo/bar/g</entry>
+  <entry>replace foo with bar on lines 4 to 8</entry>
+</row>
+<row>
+  <entry>:1,$ s/foo/bar/g</entry>
+  <entry>replace foo with bar on all lines</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
 	</section>
 	<section><title>Reading files (:r :r !cmd)</title>
 		<para>When in command mode, :r foo will read the file named foo, :r !foo will execute the command foo. The result will be put at the current location. Thus :r !ls will put a listing of the current directory in your textfile.</para>
+<table frame='all'><title>read files and input</title>
+<?dbfo table-width="80%" ?>
+<tgroup cols='2' align='center' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="1*" align="center"/>
+<colspec colname='c2' colwidth="5*" align="left"/>
+<thead>
+<row>
+  <entry>command</entry>
+  <entry>action</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>:r fname</entry>
+  <entry>(read) file fname and paste contents</entry>
+</row>
+<row>
+  <entry>:r !cmd</entry>
+  <entry>execute cmd and paste its output</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
 	</section>
-	<section><title>Setting options</title>
+	<section><title>abbreviations</title>
+		<para>With <command>:ab</command> you can put abbreviations in vi. Use <command>:una</command> to undo the abbreviation.</para>
+<table frame='all'><title>abbreviations</title>
+<?dbfo table-width="80%" ?>
+<tgroup cols='2' align='center' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="4*" align="center"/>
+<colspec colname='c2' colwidth="7*" align="left"/>
+<thead>
+<row>
+  <entry>command</entry>
+  <entry>action</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>:ab str long string</entry>
+  <entry>abbreviate <command>str</command> to be 'long string'</entry>
+</row>
+<row>
+  <entry>:una str</entry>
+  <entry>un-abbreviate str</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+	</section>
+	<section><title>key mappings</title>
+		<para>Similarly to abbreviations, you can use mappings with <command>:map</command> for command mode and <command>:map!</command> for insert mode.</para>
+<table frame='all'><title>mapping</title>
+<?dbfo table-width="80%" ?>
+<tgroup cols='2' align='center' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="1*" align="center"/>
+<colspec colname='c2' colwidth="1*" align="left"/>
+<thead>
+<row>
+  <entry>command</entry>
+  <entry>action</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>map &#060;F6&#062; :set number!&#060;bar&#062;set number?&#060;CR&#062;</entry>
+  <entry>map <command>F6</command> to toggle the 'set number' option</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+	</section>
+	<section><title>setting options</title>
 		<para>Some options that you can set in vim.</para>
 		<screen>
 :set number  ( also try :se nu )
@@ -135,10 +506,13 @@
 :set tx   (CR/LF style endings)
 :set notx
 		</screen>
-		<para>You can set these options (and much more) in <command>~/.vimrc</command><indexterm><primary>.vimrc</primary></indexterm></para>
+		<para>You can set these options (and much more) in <command>~/.vimrc</command><indexterm><primary>.vimrc</primary></indexterm> for vim or in <command>~/.exrc</command><indexterm><primary>.exrc</primary></indexterm> for standard vi.</para>
 		<screen>
 paul@barry:~$ cat ~/.vimrc
 set number
+set tabstop=8
+set textwidth=78
+map &#060;F6&#062; :set number!&#060;bar&#062;set number?&#060;CR&#062;
 paul@barry:~$
 		</screen>
 	</section>
