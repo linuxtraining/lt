@@ -121,111 +121,24 @@
 </section>
 
 <section><title>WPA</title>
-	<para>WPA staat voor <command>Wi-Fi Protected Access</command> is ontworpen als reactie op de zwakke WEP beveiliging.</para>
+	<para>WPA staat voor <command>Wi-Fi Protected Access</command> is ontworpen als reactie op de zwakke WEP beveiliging. WPA is ondertussen zelf vervangen door WPA2. WPA beveiliging met een simpele passphrase (pre-shared key) kan binnen de minuut gekraakt worden. WPA2 (dat AES gebruikt) is wel veilig als je een goeie 64-hex string gebruikt.</para>
+</section>
+
+<section><title>ramen en muren</title>
+	<para>Om te verhinderen dat je (corporate) netwerk ook op de parking beschikbaar is, kan je speciale verf op de muur plaatsen (of een film op de ruiten) om radiogolven bewust te absorberen.</para>
+</section>
+
+</section>
+
+<section><title>radius, ssh en ipsec</title>
 	<para></para>
-<screen>
-</screen>
 </section>
 
-<section><title></title>
-	<para></para>
-	<para></para>
-<screen>
-</screen>
-</section>
-
-<section><title></title>
-	<para></para>
-	<para></para>
-<screen>
-</screen>
-</section>
-
-<section><title></title>
-	<para></para>
-	<para></para>
-<screen>
-</screen>
-</section>
-
-
-
-</section>
-
-<section><title>ssh en ipsec</title>
-	<para></para>
-	<para></para>
-<screen>
-</screen>
-</section>
-
-
-<section><title></title>
-<para>rfid</para>
-<para>wireless energy transfer</para>
-<screen>
-</screen>
-</section>
-
-
-<section><title>to do</title>
-<para>nat proxy verbinden met internet</para>
-<para>dhcp</para>
-<para>rir arin ripe</para>
-<para>ascii ebcdic</para>
-<para>gsm gprs edge umts </para>
-<para>T1, E1, T2... T5, OC-xx</para>
-<para>token ring 4 16 ethernet fast-ethernet fddi firewire-ieee1394 infiniband atm ?</para>
-<para>802.11a g WiMAX Super G 802.11n</para>
-<para>irDa wi-fi firewire Bluetooth</para>
-<para></para>
-</section>
-<section><title>Hoe een webserver maken</title>
-<para>zelf op windows via IIS</para>
-<para>zelf op alle OS via Apache</para>
-<para>via je isp</para>
-<screen>
-</screen>
-</section>
-<section><title>plaatsing switches en hubs</title>
-<para>spanning tree</para>
-<para>vlan</para>
-<screen>
-</screen>
-</section>
-<section><title>stp-utp-cat5-ster-bus-mesh-hybrid</title>
-<para></para>
-<para></para>
-<screen>
-</screen>
-</section>
-<section><title>token ring, ethernet csma/cd, fddi, atm, …</title>
-<para></para>
-<para></para>
-<screen>
-</screen>
-</section>
-<section><title>sna, ipx/spx, appletalk, netbeui, tcp/ip</title>
-<para></para>
-<para></para>
-<screen>
-</screen>
-</section>
-<section><title>ppp, slip, pppoe, pppoa, pptp, l2tp, ipsec</title>
-<para></para>
-<para></para>
-<screen>
-</screen>
-</section>
-<section><title>repeater, hub, switch, bridge, router, vlan, firewall, …</title>
-<para></para>
-<para></para>
-<screen>
-</screen>
-</section>
-<section><title>wep, wpa, wpa2, kismet, aircrack, war driving</title>
-<para></para>
-<para></para>
-<screen>
-</screen>
+<section><title>planning ?</title>
+	<para>18/11: huiswerk + wireless (+ demo?)</para>
+	<para>25/11: demo-dag (ip, subnets, dns, dhcp + hoe webserver maken...)</para>
+	<para>02/12: Hoe netwerk bouwen (VLAN, switches, ...) + terminologie</para>
+	<para>09/12: ??</para>
+	<para>16/12: herhaling alles + vragen</para>
+	<para>06/01: examen (multiple choice)</para>
 </section>
