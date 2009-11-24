@@ -1,0 +1,199 @@
+<section><title>wireless</title>
+	<para>Wireless is veel trager dan bijvoorbeeld utp kabels, maar meestal wel snel genoeg (sneller dus) dan gangbare thuis-internet verbindinen.</para>
+	<para>Wireless ofte draadloos wil zeggen dat we alles bekijken wat golven van energie gebruikt om (data) te communiceren. Eerst eens kijken wat een golf is.</para>
+	<para>Een golf (voor zover we die gebruiken bij datacommunicatie) beweegt zich voort in de lucht (of in een ander medium) met een bepaalde frequentie en amplitude. We laten voor het gemak de lichtgolven en electromagnetische golven even buiten beschouwing.</para>
+</section>
+
+<section><title>frequentie</title>
+	<para>Frequentie wordt uitgedrukt in <command>Hertz</command>. Een golf met een frequentie van 440 Hertz ontvang je 440 keer in zijn geheel per seconde. Tussen haakjes, 440Hz is de basisfrequentie voor het stemmen van instrumenten (ook wel kamertoon genoemd).</para>
+	<para>De meeste golven in deze cursus hebben echter een veel hogere frequentie, daarom gebruiken we onder andere kHz, MHz, GHz en THz (voor elke orde van 1000).</para>
+	<para><command>Heinrich Hertz</command>(1857-02-27 - 1894-01-01) was een Hamburgs natuurkundige die vooral bezig was met elektromagnetisme en lichtgolven. Hij was de eerste om het bestaan van <command>VHF</command> en <command>UHF</command> aan te tonen.</para>
+</section>
+
+<section><title>spectrum</title>
+	<para>UHF en VHF zijn onderdelen van het volledige radiospectrum, gaande van 3 Hz tot 300 Ghz.</para>
+<screen>http://nl.wikipedia.org/wiki/Radiospectrum
+</screen>
+	<para>De AM-radiouitzendingen (de langegolf) zitten bijvoorbeeld in de LF band (Low Frequency). FM en (analoge)TV utizendingen gebruiken de VHF (30-300Mhz). Een toontje hoger zitten UHF-TV, GSM, onze microgolfoven, wireless LAN en Bluetooth. UHF golven zijn tussen de 10 centimeter en 1 meter lang, en overbruggen moeiteloos afstanden tot 100km. UHF wordt ook opgevangen door sattellietschotel antennes.</para>
+	<para>Het spectrum is bepaald door de <command>ITU</command> (http://www.itu.int).</para>
+</section>
+
+
+<section><title>amplitude</title>
+	<para><command>Amplitude</command> is de grootte van de golf.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/amplitude.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>Een geluidsgolf is bijvoorbeeld sterker (of groter) als hij vertrekt bij uw mond, dan wanneer hij aankomt bij iemands oor (toch als je zonder versterkers in een open ruimte spreekt). Bij geluidsgolven wordt deze amplitude gemeten als luchtdruk (in <command>pascal</command> dus).</para>
+</section>
+
+
+<section><title>fase</title>
+	<para>De fase van een golf kan uitgedrukt worden in graden, waarbij 360 graden gelijk is aan 1 golflengte. Verschillende golven kunnen met elkaar in fase zijn, of niet.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/fase.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>Sommige mensen zetten bass-luidsprekers per ongeluk in tegenfase.</para>
+</section>
+
+<section><title>golflengte</title>
+	<para>De <command>golflengte</command> is de lengte in meter van een golf, te meten van top tot top (of eender welk ander puntenkoppel met dezelfde fase).</para>
+</section>
+
+<section><title>IEEE 802.11</title>
+	<para>De <command>IEEE 802.11</command> standaarden beschrijven draadloze radiogolf communicatie voor computers in een WLAN (wireless local area network). De gebruikte frequenties zijn 2.4, 3.6 en 5GHz.</para>
+	<para>De meest gebruikte van deze standaarden zijn de 802.11a, 802.11b en 802.11g.</para>
+	<section><title>802.11a</title>
+		<para>De <command>IEEE 802.11a</command> standaard dateert al uit 1999 en werkt op de 5GHz band. De theoretische maximum bandbreedte die je met deze standaard haals is 54Mbit/s (net zoals modems wordt er teruggevallen op lagere snelheden bij het handshaken).</para>
+		<para>Deze standaard gebruikt 12 kanalen.</para>
+	</section>
+
+	<section><title>802.11b</title>
+		<para>De <command>IEEE 802.11b</command> standaard (ook uit 1999) is beperkt tot maximaal 11Mbit/s, maar is wel al tien jaar beschikbaar in de praktijk. Bijkomend voordeel op de 802.11a is dat deze de 2.4GHz band gebruikt ipv de 5GHz (deze laatste wordt makkelijker geabsorbeerd door muren).</para>
+		<para>Nadeel is dan weer dat de 2.4GHz band een vrije band is, er is dus interferentie mogelijk met andere draadloze toestellen (en ook met microgolfovens).</para>
+	</section>
+
+	<section><title>802.11g</title>
+		<para>In 2003 kwam met op de proppen met de <command>IEE 802.11g</command> standaard. Deze werkt ook in het 2.4GHz spectrum, maar wel aan maximaal 54Mbit (in de praktijk 22Mbit bruikbare data).</para>
+		<para>Al sinds januari 2003 (dus nog voordat de standaard er was) zijn er triband (ondersteuning voor a,b en g) producten op de markt.</para>
+	</section>
+
+	<section><title>802.11n</title>
+		<para>Sinds vorige maand is er een nieuwe standaard, de <command>802.11n</command> met een theoretische bandbreedte van 600Mbit/s. De toestellen zijn al wel sinds twee jaar te koop.</para>
+		<screen>http://en.wikipedia.org/wiki/IEEE_802.11n-2009</screen>
+	</section>
+
+	<section><title>kanalen</title>
+		<para>Een band zoals bijvoorbeeld de 2.4GHz band wordt de een IEEE 802.11 standaard steeds onderverdeeld in <command>kanalen</command>. De 2.4Ghz band beschikt eigenlijk over alle frequenties van 2.400 Ghz tot en met 2.499 GHz. Vanaf het eerste kanaal op 2.412 GHz is er om de 5Mhz een nieuw kanaal. Alle kanalen zijn 22MHz breed, er is dus overlapping.</para>
+		<screen>http://en.wikipedia.org/wiki/List_of_WLAN_channels</screen>
+		<para>Het is aan te raden om enkel de kanalen 1, 6 en 11 te gebruiken als het bereik van de access points elkaar overlapt. Het gebruik van de kanalen 1, 4, 8 en 11 kan voor problemen zorgen (als je ze dom plaatst).</para>
+		<screen>http://www.cisco.com/en/US/docs/wireless/technology/channel/deployment/guide/Channel.html</screen>
+	</section>
+	<section><title>bonding</title>
+		<para>Producten die kanalen samen gebruiken (bonding) om 108Mbit aan te bieden, zijn niet beschreven in een standaard en zijn zeker niet met alle draadloze clients compatibel.</para>
+	</section>
+	<section><title>bandbreedte?</title>
+		<para>In de praktijk wordt door de asynchroniteit van deze standaarden en de overhead van de lagen een veel lagere doorvoer van data gehaald dan de geadverteerde 54Mbit (of 11Mbit).</para>
+	</section>
+</section>
+
+<section><title>WiMAX</title>
+	<para><command>WiMAX</command> is de marketing naam voor de <command>IEEE 802.16</command> standaard om mobiele draadloze toegang te voorzien met een bereik van enkele kilometer en een bandbreedte tussen 1 en 20Mbit. Steden zoals Leuven, Gent en Aalst beschikken over een WiMAX netwerk (van Clearwire).</para>
+	<para>Praktijkervaring leert dat de technologie nog in de kinderschoenen staat (of dat clearwire het aantal stations duidelijk onderschat). Er zijn (of waren) plannen bij Clearwire om heel Belgie te dekken met WiMAX (maar vandaag is er nog geen verbinding in Antwerpen bv).</para>
+</section>
+
+<section><title>Wi-fi</title>
+	<para>Dit is een handelsmerk, meestal gebruikt voor WLAN (Wireless LAN) toestellen.</para>
+</section>
+
+<section><title>Access Point</title>
+	<para>Een <command>Wireless Access Point</command> is een toestel dat draadloze verbindingen toelaat van client devices (wireless pc-cards etc). Meestal is de <command>access point</command> verbonden met een bekabeld netwerk.</para>
+	<para>Deze toestellen kunnen meestal verschillende draadloze WLAN (of Bluetooth) standaarden aan, en kunnen een kanaal kiezen.</para>
+	<para>De meeste <command>access points</command> die thuis staan zijn tegelijk ook router (nat), ethernet hub en dhcp en dns server voor alle computers in het thuisnetwerk. </para>
+</section>
+
+<section><title>hotspot</title>
+	<para>Een <command>hotspot</command> is een plaats waar draadloos internet beschikbaar is. Zowel laptops, netbooks als pda en smartphones kunnen gebruik maken van hotspots.</para>
+	<para>Beveiliging van hotspots (of wireless in het algemeen) is een heel groot onderwerp...</para>
+</section>
+
+<section><title>draadloze beveiliging</title>
+<para>Het grote verschil met bekabelde netwerken, is dat je geen firewall in de lucht kan hangen om je draadloze netwerk te beveiligen.</para>
+
+<section><title>per ongeluk</title>
+	<para>Heel wat software zoekt automatisch een netwerk, heel wat draadloze toestellen (modems) staan standaard open voor deze automatische zoekopdrachten. Het is dus perfect mogelijk dat je per ongeluk op een ander zijn draadloos netwerk surft.</para>
+</section>
+
+<section><title>MAC beveiliging</title>
+	<para>Je kan de meeste <command>access points</command> beveiligen door enkel bepaalde MAC-adressen toe te laten. Maar zoals jullie weten is het MAC-adres eem essentieel onderdeel van elk ethernet frame, en door elke sniffer gewoon te lezen.</para>
+	<para>MAC filtering beschermt je wel tegen 'per ongeluk'.</para>
+</section>
+
+<section><title>Denial of Service</title>
+	<para>Niet echt een hack, maar wel lastig als je er mee te maken krijgt.</para>
+</section>
+
+<section><title>IP beveiliging</title>
+	<para>Je kan de draadloze DHCP server afzetten, en enkel werken met (enkele) toegelaten vaste ip-adressen.</para>
+</section>
+
+<section><title>WEP</title>
+	<para>WEP staat voor <command>Wired Equivalency Privacy/Protocol</command> en is een verouderde standaard om draadloze netwerken te beveiligen.</para>
+	<para>De WEP standaard dateert uit 1997, sinds 2001 zijn er tools te vinden om WEP te kraken. Als reactie hierop werd WPA ontworpen.</para>
+	<para>WEP bestaat (of bestond) in een 40bit en een 128bit standaard (danku USA). Een grotere sleutel wil zeggen dat er meer pakketjes moeten gesnift worden alvorens je de key kan berekenen (kraken). Een goeie crack-tool genereerd zelf binnen enkele minuten de nodige traffiek om de WEP-sleutel te achterhalen. (Sinds 2007 is publiek aangetoond dat dit ook binnen de enkele seconden kan.</para>
+<screen>http://eprint.iacr.org/2007/120.pdf</screen>
+</section>
+
+<section><title>WPA</title>
+	<para>WPA staat voor <command>Wi-Fi Protected Access</command> is ontworpen als reactie op de zwakke WEP beveiliging. WPA is ondertussen zelf vervangen door WPA2. WPA beveiliging met een simpele passphrase (pre-shared key) kan binnen de minuut gekraakt worden. WPA2 (dat AES gebruikt) is wel veilig als je een goeie 64-hex string gebruikt.</para>
+</section>
+
+<section><title>ramen en muren</title>
+	<para>Om te verhinderen dat je (corporate) netwerk ook op de parking beschikbaar is, kan je speciale verf op de muur plaatsen (of een film op de ruiten) om radiogolven bewust te absorberen.</para>
+</section>
+
+</section>
+
+<section><title>radius, ssh en ipsec</title>
+	<para></para>
+	<para></para>
+<screen>
+</screen>
+</section>
+
+<section><title>to do</title>
+<para>nat proxy verbinden met internet</para>
+<para>dhcp</para>
+<para>rir arin ripe</para>
+<para>ascii ebcdic</para>
+<para>gsm gprs edge umts </para>
+<para>T1, E1, T2... T5, OC-xx</para>
+<para>token ring 4 16 ethernet fast-ethernet fddi firewire-ieee1394 infiniband atm ?</para>
+<para>irDa firewire Bluetooth</para>
+<para></para>
+</section>
+<section><title>Hoe een webserver maken</title>
+<para>zelf op windows via IIS</para>
+<para>zelf op alle OS via Apache</para>
+<para>via je isp</para>
+<screen>
+</screen>
+</section>
+<section><title>plaatsing switches en hubs</title>
+<para>spanning tree</para>
+<para>vlan</para>
+<screen>
+</screen>
+</section>
+<section><title>stp-utp-cat5-ster-bus-mesh-hybrid</title>
+<para></para>
+<para></para>
+<screen>
+</screen>
+</section>
+<section><title>token ring, ethernet csma/cd, fddi, atm, …</title>
+<para></para>
+<para></para>
+<screen>
+</screen>
+</section>
+<section><title>sna, ipx/spx, appletalk, netbeui, tcp/ip</title>
+<para></para>
+<para></para>
+<screen>
+</screen>
+</section>
+<section><title>ppp, slip, pppoe, pppoa, pptp, l2tp, ipsec</title>
+<para></para>
+<para></para>
+<screen>
+</screen>
+</section>
+<section><title>repeater, hub, switch, bridge, router, vlan, firewall, …</title>
+<para></para>
+<para></para>
+<screen>
+</screen>
+</section>
+<section><title>wep, wpa, wpa2, kismet, aircrack, war driving</title>
+<para></para>
+<para></para>
+<screen>
+</screen>
+</section>
