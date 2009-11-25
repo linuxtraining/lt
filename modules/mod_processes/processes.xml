@@ -258,7 +258,7 @@ sleep 2000
 </section>
 <section><title>Zombiecreator ;-)</title>
 <para>This is a procedure to create zombies on Linux.</para>
-<para>First create a script that contains one line: sleep 5000. Make it executable (chmod +x). Then start this script and use Ctrl-Z to background the script. Use ps -C sleep to find the PID of the sleep process. Then do a kill -9 of this PID. ps -C sleep now shows a defunct sleep. ps -fax and top will show a zombie sleep process.</para>
+<para>First create a script that contains one line: sleep 5000. Make it executable (chmod +x). Then start this script and use Ctrl-Z to stop ( as in pause ) the script. Use ps -C sleep to find the PID of the sleep process. Then do a kill -9 of this PID. ps -C sleep now shows a defunct sleep. ps -fax and top will show a zombie sleep process.</para>
 </section>
 	<section><title>Practice</title>
 		<para>1. Explain in detail where the numbers come from in the next screenshot. When are the variables replaced by their value ? By which shell ?</para>
