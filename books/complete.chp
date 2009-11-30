@@ -508,7 +508,7 @@ chapt_tellen() {
 #
 chapt_20091007() {
 	MODULES=""
-	chaptitle="supernetting"
+	chaptitle="binaire subnets"
 	add_mod mod_cvotsm/20091007.xml
 	}
 
@@ -529,7 +529,56 @@ chapt_testoktopl() {
 #
 chapt_20091014() {
 	MODULES=""
-	chaptitle="supernetting, router, nat"
+	chaptitle="supernetten"
 	add_mod mod_cvotsm/20091014.xml
+	}
+
+#
+chapt_20091015() {
+	MODULES=""
+	chaptitle="huiswerk"
+	add_mod mod_cvotsm/20091015.xml
+	}
+
+#
+chapt_20091015b() {
+	MODULES=""
+	chaptitle="huiswerk oplossing"
+	add_mod mod_cvotsm/20091015b.xml
+	}
+
+#
+chapt_20091021() {
+	MODULES=""
+	chaptitle="DNS"
+	add_mod mod_cvotsm/20091021.xml
+	}
+
+#
+chapt_20091028() {
+	MODULES=""
+	chaptitle="modems"
+	add_mod mod_cvotsm/20091028.xml
+	}
+
+#
+chapt_20091117() {
+	MODULES=""
+	chaptitle="wireless"
+	add_mod mod_cvotsm/20091117.xml
+	}
+
+#
+chapt_20091119() {
+	MODULES=""
+	chaptitle="demo DNS"
+	add_mod mod_cvotsm/20091119.xml
+	}
+
+#
+chapt_20091128() {
+	MODULES=""
+	chaptitle="next"
+	add_mod mod_cvotsm/20091128.xml
 	}
 
