@@ -468,6 +468,13 @@ paul@laika:~/test$
 	<screen>find . -name "*.txt"</screen>
 	<para>The shell will expand the *.txt to all files in the current directory that end in .txt. Then find will give you a syntax error.</para>
 	<screen>find . -name *.txt</screen>
+	<para>3. use find with the -newer option related to a marker file>/para>
+	<screen>touch -t 200901302359 marker_date
+find . -type f -newer marker_date </screen>
+	<para>4. the same as 3. but add a negation to create an "older than" statement</para>
+	<screen>touch -t 200808312359 marker_date_start
+touch -t 2008100100 marker_date_end
+find . -type f -newer marker -_date_start ! -newer marker_date_end </screen>
 	<para>14. The one line spell checker.</para>
 	<screen>
 [paul]$ echo "The zun is shining today" > text.txt
