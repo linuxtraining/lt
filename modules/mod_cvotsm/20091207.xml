@@ -1,0 +1,51 @@
+<section><title>inleiding</title>
+	<para>Wat volgt is een demo van het opzetten van een DHCP server. Eerst op Windows 2003 zoals we in de klas vorige week gedaan hebben, dan op Linux (De w2003 komt later...).</para>
+	<para></para>
+
+<section><title>vier broadcasts</title>
+	<para>We weten nog dat dhcp werkt met broadcasts. Als een dhcp client opstart, dan stuurt die een <command>DHCPdiscover</command>. Alle dhcp servers antwoorden met een <command>DHCPoffer</command>. De client kiest een van de offers (volgens de rfc het eerste offer) en stuurt een <command>DHCPrequest</command>. De server antwoordt dan (meestal) met een <command>DHCPack</command>(knowledge). U ziet een sniff hiervan hieronder.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/wireshark_dhcp_four_broadcasts.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>Pas na deze vier broadcasts mag de client de ip-configuratie die hij gekregen heeft gebruiken. Dit tot aan het einde van de lease periode.</para>
+</section>
+
+<section><title>dhcp server op Linux</title>
+	<para>De eerste stap op Linux hier is om via <command>ssh</command> een beveiligde verbinding te maken met de server.</para>
+	<screen>
+paul@laika:~$ ssh root@192.168.1.200
+root@192.168.1.200's password: 
+Last login: Sat Dec  5 18:31:54 2009
+[root@localhost ~]# 
+	</screen>
+	<para>Tweede stap is om even te kijken in het <command>/etc/dhcpd.conf</command> bestand (om te zien of er al iets gedefinieerd is). Er is nog geen bestaande config, het bestand wijst ons naar een voorbeeld config genaamd <command>dhcpd.conf.sample</command>.</para>
+	<screen>
+[root@localhost ~]# cat /etc/dhcpd.conf 
+#
+# DHCP Server Configuration file.
+#   see /usr/share/doc/dhcp*/dhcpd.conf.sample  
+	</screen>
+	<para>We passen het voorbeeldje een beetje aan en copieren de volgende configuratie naar <command>/etc/dhcpd.conf</command>.</para>
+	<screen>
+subnet 192.168.1.0 netmask 255.255.255.0 {
+	range 192.168.1.140 192.168.1.159
+	option routers               192.168.1.1;
+	option subnet-mask           255.255.255.0;
+	option domain-name           "classdemo.local";
+	option domain-name-servers   192.168.1.1;
+	default-lease-time           21600;
+	max-lease-time               43200;
+}
+	</screen>
+	<para>U herkent hierboven (hopelijk) dezelfde opties als in de Windows 2003 DHCP Server wizard.</para>
+</section>
+
+<section><title>dhcp client</title>
+	<para>Hieronder een voorbeeldje van een Windows 2003 computer die client is van een RHEL5 dhcp server.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/dhcp_w2003_client.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+</section>
+
+<section><title>d</title>
+	<para></para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+</section>
+
+</section>
