@@ -4,7 +4,7 @@
 
 <section><title>hubs</title>
 	<para>We weten nog dat hubs in principe veredelde versterkers zijn die signalen die ze binnenkrijgen doorsturen naar alle andere poorten. Hubs zijn de domste dingen en zitten in laag 1.</para>
-	<para>We beschikken over een GeoStax/E 16-port hub en over een 5-port 3Com OfficeConnect 'switch' (die behalve 802.1p eigenlijk een hub is).</para>
+	<para>We beschikken over een GeoStax/E 16-port hub en over een 5-port 3Com OfficeConnect 'switch' (die behalve 802.1p en 10/100Mbit detectie eigenlijk een hub is).</para>
 </section>
 
 <section><title>switches</title>
@@ -44,7 +44,7 @@ http://en.wikipedia.org/wiki/Ethernet_crossover_cable
 	<para>Als je laptop geen seriële poort meer heeft, dan kan een serial-to-usb dongle je verder helpen.</para>
 	<screen>
 http://en.wikipedia.org/wiki/Null_modem
-http://nl.wikipedia.org/wiki/Seri%C3%ABle_poort
+http://nl.wikipedia.org/wiki/Seriële_poort
 http://en.wikipedia.org/wiki/D-subminiature
 	</screen>
 </section>
@@ -72,41 +72,19 @@ http://en.wikipedia.org/wiki/D-subminiature
 
 <section><title>stp</title>
 	<para>Het <command>spanning tree protocol</command> of <command>stp</command> ...</para>
-	<para>Een voorbeeldje van <command>stp</command> aan het werk (met dank aan Ghost die deze tekeningen onder CC Attribution 3.0 op wikipedia heeft gezet).</para>
+	<para>Een voorbeeldje van <command>stp</command> aan het werk (met dank aan GhosT die deze tekeningen onder CC Attribution 3.0 op wikipedia heeft gezet).</para>
 	<para>Hieronder een netwerk bestaande uit 6 segmenten (letters a tot f), gescheiden door zeven switches (cijfers 3, 4, 5, 7, 12, 24, 92). Zonder <command>stp</command> zouden er eindeloze lussen ontstaan (van bijvoorbeeld arp broadcasts).</para>
 	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/Spanning_tree_protocol_at_work_1.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 	<para>De eerste actie van <command>stp</command> is om een <command>root bridge</command> te verkiezen (herinner U dat bridges en switches beide op layer 2 zitten). De switch met de laagste <command>bridge id</command> wordt verkozen toto <command>root bridge</command>.</para>
-	<para>Een <command>bridge id<command> is een combinatie van een in te stellen prioriteit (een geheel getal) en het mac adres. Enkel bij gelijke prioriteit wint de bridge(switch) met het laagste mac adres. In ons voorbeeld is switch nr 3 verkozen tot root bridge.</para>
+	<para>Een <command>bridge id</command> is een combinatie van een in te stellen prioriteit (een geheel getal) en het mac adres. Enkel bij gelijke prioriteit wint de bridge(switch) met het laagste mac adres. In ons voorbeeld is switch nr 3 verkozen tot root bridge.</para>
 	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/Spanning_tree_protocol_at_work_2.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 	<para>Vervolgens zoekt elke switch de kortste weg naar de <command>root bridge</command>. In ons voorbeeld hier heeft elk netwerk een <command>cost</command> van 1 gekregen, maar in de praktijk kan dit verschillen. Elke switch benoemt de poort van die kortste weg de <command>root port</command> (RP).</para>
 	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/Spanning_tree_protocol_at_work_3.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-	<para></para>
+	<para>Vervolgens wordt er voor elk netwerksegment de poort gezocht die de kortste weg aanduidt naar de <command>root bridge</command>. Deze poort wordt dan de <command>designated port</command>(DP) voor dat netwerksegment genoemd.</para>
 	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/Spanning_tree_protocol_at_work_4.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-	<para></para>
+	<para>Alle overige poortten worden geblocked (Blocked Ports).</para>
 	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/Spanning_tree_protocol_at_work_5.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-	<para></para>
+	<para>Als het netwerk (door een losse kabel bijvoorbeeld) hertekend wordt, dan berekent <command>stp</command> automatisch de nieuwe koste weg naar de <command>root bridge</command>, met bijhorende herbenoeming van <command>root ports</command> en <command>designated ports</command>.</para>
 	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/Spanning_tree_protocol_at_work_6.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 	<para></para>
 </section>
-
-<section><title>n</title>
-	<para></para>
-	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/screenshot_rhel5_vs_w2003_logon.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-	<screen>
-	</screen>
-</section>
-
-<section><title>n</title>
-	<para></para>
-	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/screenshot_rhel5_vs_w2003_logon.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-	<screen>
-	</screen>
-</section>
-
-<section><title>n</title>
-	<para></para>
-	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/screenshot_rhel5_vs_w2003_logon.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-	<screen>
-	</screen>
-</section>
-
