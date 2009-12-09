@@ -443,7 +443,7 @@ paul@laika:~/test$
 	<para>6. Put a sorted list of all bash users, with their username, userid and home directory in bashusers.info.</para>
 	<para>7. Make a list of all non-bash and non-korn users.</para>
 	<para>8. Make a list of all files (not directories) in /etc/ that contain the string smb, nmb or samba.</para>
-	<para>9. Look at the output of /sbin/ifconfig. Make an ipconfig command that shows only the nic name (eth0), the ip address and the subnet mask.</para>
+	<para>9. Look at the output of /sbin/ifconfig. Make an ifconfig command that shows only the nic name (eth0), the ip address and the subnet mask.</para>
 	<para>10. Make a command abc that removes all non-letters from a file (and replaces them with spaces).</para>
 	<para>11. Count the number of *.conf files in /etc and all its subdirs.</para>	
 	<para>12. Two commands that do the same thing: copy *.odf files to /backup/ . What would be a reason to replace the first command with the second ? Again, this is an important question.</para>
