@@ -576,9 +576,30 @@ chapt_20091119() {
 	}
 
 #
-chapt_20091128() {
+chapt_20091130() {
 	MODULES=""
-	chaptitle="next"
-	add_mod mod_cvotsm/20091128.xml
+	chaptitle="zelf netwerk bouwen"
+	add_mod mod_cvotsm/20091130.xml
+	}
+
+#
+chapt_20091207() {
+	MODULES=""
+	chaptitle="demo DHCP"
+	add_mod mod_cvotsm/20091207.xml
+	}
+
+#
+chapt_20091216() {
+	MODULES=""
+	chaptitle="demo router en webserver"
+	add_mod mod_cvotsm/20091216.xml
+	}
+
+#
+chapt_20091217() {
+	MODULES=""
+	chaptitle="extra tekeningen"
+	add_mod mod_cvotsm/20091217.xml
 	}
 
