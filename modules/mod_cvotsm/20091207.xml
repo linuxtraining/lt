@@ -1,6 +1,7 @@
 <section><title>inleiding</title>
-	<para>Wat volgt is een demo van het opzetten van een DHCP server. Eerst op Windows 2003 zoals we in de klas vorige week gedaan hebben, dan op Linux (De w2003 komt later...).</para>
+	<para>Wat volgt is een demo van het opzetten van een DHCP server. Eerst op Windows 2003 Server zoals we in de klas vorige week gedaan hebben, dan op Red Hat Linux Server.</para>
 	<para></para>
+</section>
 
 <section><title>vier broadcasts</title>
 	<para>We weten nog dat dhcp werkt met broadcasts. Als een dhcp client opstart, dan stuurt die een <command>DHCPdiscover</command>. Alle dhcp servers antwoorden met een <command>DHCPoffer</command>. De client kiest een van de offers (volgens de rfc het eerste offer) en stuurt een <command>DHCPrequest</command>. De server antwoordt dan (meestal) met een <command>DHCPack</command>(knowledge). U ziet een sniff hiervan hieronder.</para>
@@ -8,15 +9,25 @@
 	<para>Pas na deze vier broadcasts mag de client de ip-configuratie die hij gekregen heeft gebruiken. Dit tot aan het einde van de lease periode.</para>
 </section>
 
+<section><title>dhcp server op windows</title>
+	<para>De installatie verloopt geheel gelijk aan die van Microsoft Windows 2003 DNS server, we beperken ons tot een enkel screenshot hier.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/dhcp_w2003_install.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+
+	<para>Zoals de meeste Windows settings wordt je ook hier een wizard kado gedaan die je begeleidt door de setup van een nieuwe scope (of range).</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/dhcp_w2003_new_scope.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+
+	<para>Elke setting krijgt een aparte pagina in de wizard. Hieronder de vraag naar de range van ip-adressen.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/dhcp_w2003_range.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+
+	<para>Als een client een ip-adres (of een ip-configuratie met subnet+router+dns+...) krijgt, dan is dit altijd tijdelijk. Als de helft van deze <command>lease time</command> bereikt is, dan zal de client terug een <command>DHCPrequest</command> broadcasten. Meestal komt er dan een <command>DHCPack</command> van de server, met een nieuwe (meestal dezelfde) lease time.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/dhcp_w2003_lease_time.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+
+	<para>Eens de wizard doorlopen, en de scope geactiveerd, kan je alle settings en alle leases bekijken via de DHCP tool (eigenlijk een dhcp snapin voor de mmc).</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/dhcp_w2003_done.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+</section>
+
 <section><title>dhcp server op Linux</title>
-	<para>De eerste stap op Linux hier is om via <command>ssh</command> een beveiligde verbinding te maken met de server.</para>
-	<screen>
-paul@laika:~$ ssh root@192.168.1.200
-root@192.168.1.200's password: 
-Last login: Sat Dec  5 18:31:54 2009
-[root@localhost ~]# 
-	</screen>
-	<para>Tweede stap is om even te kijken in het <command>/etc/dhcpd.conf</command> bestand (om te zien of er al iets gedefinieerd is). Er is nog geen bestaande config, het bestand wijst ons naar een voorbeeld config genaamd <command>dhcpd.conf.sample</command>.</para>
+	<para>Eerste stap is om even te kijken in het <command>/etc/dhcpd.conf</command> bestand (om te zien of er al iets gedefinieerd is). Er is nog geen bestaande config, het bestand wijst ons naar een voorbeeld config genaamd <command>dhcpd.conf.sample</command>.</para>
 	<screen>
 [root@localhost ~]# cat /etc/dhcpd.conf 
 #
@@ -32,7 +43,6 @@ subnet 192.168.1.0 netmask 255.255.255.0 {
 	option domain-name           "classdemo.local";
 	option domain-name-servers   192.168.1.1;
 	default-lease-time           21600;
-	max-lease-time               43200;
 }
 	</screen>
 	<para>U herkent hierboven (hopelijk) dezelfde opties als in de Windows 2003 DHCP Server wizard.</para>
@@ -41,11 +51,4 @@ subnet 192.168.1.0 netmask 255.255.255.0 {
 <section><title>dhcp client</title>
 	<para>Hieronder een voorbeeldje van een Windows 2003 computer die client is van een RHEL5 dhcp server.</para>
 	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/dhcp_w2003_client.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-</section>
-
-<section><title>d</title>
-	<para></para>
-	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-</section>
-
 </section>

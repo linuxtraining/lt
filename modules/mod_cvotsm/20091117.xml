@@ -1,5 +1,5 @@
 <section><title>wireless</title>
-	<para>Wireless is veel trager dan bijvoorbeeld utp kabels, maar meestal wel snel genoeg (sneller dus) dan gangbare thuis-internet verbindinen.</para>
+	<para>Wireless is veel trager dan bijvoorbeeld utp kabels, maar meestal wel snel genoeg (sneller dus) dan gangbare thuis-internet verbindingen.</para>
 	<para>Wireless ofte draadloos wil zeggen dat we alles bekijken wat golven van energie gebruikt om (data) te communiceren. Eerst eens kijken wat een golf is.</para>
 	<para>Een golf (voor zover we die gebruiken bij datacommunicatie) beweegt zich voort in de lucht (of in een ander medium) met een bepaalde frequentie en amplitude. We laten voor het gemak de lichtgolven en electromagnetische golven even buiten beschouwing.</para>
 </section>
@@ -7,7 +7,7 @@
 <section><title>frequentie</title>
 	<para>Frequentie wordt uitgedrukt in <command>Hertz</command>. Een golf met een frequentie van 440 Hertz ontvang je 440 keer in zijn geheel per seconde. Tussen haakjes, 440Hz is de basisfrequentie voor het stemmen van instrumenten (ook wel kamertoon genoemd).</para>
 	<para>De meeste golven in deze cursus hebben echter een veel hogere frequentie, daarom gebruiken we onder andere kHz, MHz, GHz en THz (voor elke orde van 1000).</para>
-	<para><command>Heinrich Hertz</command>(1857-02-27 - 1894-01-01) was een Hamburgs natuurkundige die vooral bezig was met elektromagnetisme en lichtgolven. Hij was de eerste om het bestaan van <command>VHF</command> en <command>UHF</command> aan te tonen.</para>
+	<para><command>Heinrich Hertz</command> (1857-02-27 - 1894-01-01) was een Hamburgs natuurkundige die vooral bezig was met elektromagnetisme en lichtgolven. Hij was de eerste om het bestaan van <command>VHF</command> en <command>UHF</command> aan te tonen.</para>
 </section>
 
 <section><title>spectrum</title>

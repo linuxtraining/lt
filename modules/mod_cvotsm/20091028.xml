@@ -62,14 +62,14 @@
 		<para>Met de <command>local loop</command> bedoelen we de laatste paar kilometer draad van de telefooncentrale tot aan uw woning. In heel wat landen is de (oude) publieke telefoonmaatschappij de eigenaar van deze laatste kilometer tot aan uw huis. Sommige landen hebben een wetgeving die verplicht om deze <command>local loop</command> te delen met concurrenten.</para>
 	</section>
 	<section><title>ATM</title>
-		<para>ATM is ontwikkeld in de jaren 80 met realtime audio en video over het entwerk als doel. ATM werkt met zeer kleine cellen om <command>jitter</command> te voorkomen. Het is immers onaanvaardbaar dat packetjes te laat komen tijdens een telefoongesprek.</para>
+		<para>ATM is ontwikkeld in de jaren 80 met realtime audio en video over het netwerk als doel. ATM werkt met zeer kleine cellen om <command>jitter</command> te voorkomen. Het is immers onaanvaardbaar dat packetjes te laat komen tijdens een telefoongesprek.</para>
 		<para>Naast een DSLAM (in dezelfde telefooncentrale) staat soms een ATM verbonden met een ISP.</para>
 	</section>
 	<section><title>IP-DSLAM</title>
 		<para>Een IP-DSLAM is een DSLAM die rechtstreeks IP spreekt met routers (in tegenstelling tot de normale DSLAM die ATM gebruikt om daarna via een ATM-IP router te verbinden met IP.</para>
 	</section>
 	<section><title>IDSL</title>
-		<para>IDSL is DSL over ISDN. Het grote verschil met SDSL en ADSL is dat er bij ISDL geen gebruik wordt gemaakt van het klassieke voice-telefoonnetwerk. Alle data gaat over het ISDN netwerk. Nadeel is dan weer dat je niet tegelijk kan internetten en telefoneren (als je enkel over ISDN beschikt).</para>
+		<para>IDSL is DSL over ISDN. Het grote verschil met SDSL en ADSL is dat er bij IDSL geen gebruik wordt gemaakt van het klassieke voice-telefoonnetwerk. Alle data gaat over het ISDN netwerk. Nadeel is dan weer dat je niet tegelijk kan internetten en telefoneren (als je enkel over ISDN beschikt).</para>
 		<para></para>
 	</section>
 	<section><title>multiplexen</title>

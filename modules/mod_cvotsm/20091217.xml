@@ -1,0 +1,24 @@
+<section><title>tekening DNS</title>
+	<para>Hieronder op vraag van Carry en Marjan  een tekening zoals ik ze gemaakt heb in de klas. Het gaat hier enkel over DNS. Als ik tijd vind, dan vul ik dit hoofdstukje wel aan met tekeningen over HTTP, DHCP en SMTP.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/dns.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>0. Ik surf thuis op mijn laptop naar http://www.linux-training.be, we volgen het DNS verhaal om tot aan de webserver te geraken waar deze website staat. De laptop staat helemaal links op de tekening, de webserver staat helemaal rechts (ip 88.151.243.8)</para>
+	<para>Voor deze test heb ik even rechtstreeks het ip-adres van de EDPNET DNS server in de laptop gezet. Alternatief had ik ook het ip-adres van mijn routerke (alias dns/dhcp/adslmodem/nat) kunnen ingeven, wat iets meer uitwerking vraagt.</para>
+	<para>1. De laptop vraagt aan de DNS server van mijn ISP EDPNET de A record van www.linux-training.be.</para>
+	<para>2. De DNS server van EDPNET vraagt (*) in een <command>iteratieve query</command> aan een root server (hier de H root server in de USA) waar zich www.linux-training.be bevindt. (* Tenzij dit antwoord nog in zijn cache zit, DNS is een caching protocol.)</para>
+	<para>3. De root server antwoordt met een verwijzing naar de DNS server die verantwoordelijk is voor de hele .be zone. Als je snift dan zie je dat er een hele lijst van .be servers wordt gegeven en kan je zien dat deze lijst zowel namen als IP-addressen bevat.</para>
+	<para>4. De DNS server van EDPNET vraagt, wederom iteratief, waar www.linux-training.be is aan een van de .be DNS servers (de eerste uit de lijst van de vorige stap was a.ns.dns.be).</para>
+	<para>5. De .be DNS server antwoordt met een reeks namen en bijhorende ip adressen van <command>openminds</command> (het hosting bedrijf waar de www.linux-training.be) webserver staat.</para>
+	<para>6. De DNS server van EDPNET heeft nu de DNS server gevonden die verantwoordelijk (authoritative) is voor linux-training.be en vraagt aan deze de A record voor www.linux-training.be.</para>
+	<para>7. De DNS server ns1.openminds.be antwoordt met de gezochte A record 88.151.243.8.</para>
+	<para>8. De DNS server van EDPNET geeft dit antwoord aan de laptop. De laptop kan nu rechtstreeks de webserver bereiken (maar dat is een ander verhaal).</para>
+	<para>In dit verhaal heeft de laptop een <command>recursieve query</command> gedaan, hij wil een volledig antwoord. De root servers en de .be servers antwoorden niet op recursieve queries, enkel op iteratieve!</para>
+</section>
+
+<section><title>tekening 2</title>
+	<para></para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para></para>
+	<para></para>
+	<para></para>
+</section>
+
