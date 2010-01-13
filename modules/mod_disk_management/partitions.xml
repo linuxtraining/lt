@@ -177,7 +177,7 @@ root@RHELv4u2:~#
 		</screen>
 	</section>
 	<section><title>logical drives</title>
-		<para>The partition table does not contain information about logical drives. So the dd backup of the mbr only works for primary and extended partitions. To backup the partition table inlcuding the logical drives, you can use <command>sfdisk</command><indexterm><primary>sfdisk(1)</primary></indexterm>. The following command will copy the mbs and the logical drive information from /dev/sda to /dev/sdb.</para>
+		<para>The partition table does not contain information about logical drives. So the dd backup of the mbr only works for primary and extended partitions. To backup the partition table inlcuding the logical drives, you can use <command>sfdisk</command><indexterm><primary>sfdisk(1)</primary></indexterm>. The following command will copy the mbr and the logical drive information from /dev/sda to /dev/sdb.</para>
 		<screen>sfdisk -d /dev/sda | sfdisk /dev/sdb</screen>
 	</section>
 	<section><title>Practice Partitions</title>
