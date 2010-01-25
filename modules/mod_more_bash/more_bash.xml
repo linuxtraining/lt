@@ -116,9 +116,9 @@ Where is the summer ?
 [paul@RHELv4u3 ~]$
 			</screen>
 			<para>Note that the order of redirections is significant. For example, the command</para>
-			<screen>ls > dirlist 2>&1</screen>
+			<screen>ls > dirlist 2>&amp;1</screen>
 			<para>directs both standard output (file descriptor 1) and standard error (file descriptor 2) to the file dirlist, while the command</para>
-			<screen>ls 2>&1 > dirlist</screen>
+			<screen>ls 2>&amp;1 > dirlist</screen>
 			<para>directs only the standard output to file dirlist, because the standard error was made a copy of the standard output before the standard output was redirected to dirlist. </para>
 		</section>
 		<section><title>input redirection</title>
