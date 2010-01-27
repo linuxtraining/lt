@@ -5,7 +5,9 @@ book=$2
 
 . config/functions.sh
 
-books=$( ls books | grep .cfg$ | sed s/.cfg// )
+export BOOKDIR=./config/books
+
+books=$( ls $BOOKDIR | grep .cfg$ | sed s/.cfg// )
 
 help() {
 	echo
@@ -13,7 +15,6 @@ help() {
 	echo
 	echo $0 "check\t\tcheck some settings"
 	echo $0 "clean\t\tdelete output dir"
-	echo $0 "install\tdownload static build environment to ../static"
 	echo $0 "build [BOOK]\tbuild book"
 	echo
 	echo Available books: $books
@@ -23,6 +24,8 @@ help() {
 clean() {
 	echo "Removing ./output/ directory"
 	[ -d output ] && ( rm -rf output || exit 0 )
+	# let's also purge the old static dir, which contents were moved to lib and put under source control
+	[ -d static ] && ( rm -rf static || exit 0 )
 	}
 
 check() {
@@ -64,7 +67,7 @@ build_header() {
 		"config/reviewers" \
 		"$PUBDATE" \
 		"$YEAR" \
-		"$VERSIONSTRING"					>> $headerfile	 
+		"$VERSIONSTRING"				>> $headerfile	 
         echo "</bookinfo>"                                      >> $headerfile
 	}
 
@@ -110,8 +113,8 @@ build_body() {
 	}
 
 build_book() {
-	echo -n "Parsing config books/$book.cfg ... "
-	. books/$book.cfg && echo "OK" || ( echo "Error!" ; exit )
+	echo -n "Parsing config $BOOKDIR/$book.cfg ... "
+	. $BOOKDIR/$book.cfg && echo "OK" || ( echo "Error!" ; exit )
 
 	echo "Generating book $book (titled \"$BOOKTITLE\")"
 	[ -d ./output ] || mkdir ./output
@@ -144,7 +147,7 @@ build_book() {
 	if 	[ $DEBUG = "2" ]; then REDIR=""
 	elif 	[ $DEBUG = "3" ]; then REDIR="--execdebug"
 	else	REDIR=">./output/errors.txt 2>&1"; fi
-	eval $(echo ./static/fop-0.95beta/fop -xml $xmlfile -xsl $XSLFILE -pdf $pdffile $REDIR)
+	eval $(echo ./lib/fop/fop -xml $xmlfile -xsl $XSLFILE -pdf $pdffile $REDIR)
 	ln -s $filename.pdf output/book.pdf
 	}
 
@@ -159,10 +162,6 @@ case "$command" in
 	;;
   clean)
 	clean
-	;;
-
-  install)
-	README/install_environment.cmd 
 	;;
   build)
 	check
