@@ -35,8 +35,8 @@ set_ROOTDIR() {
 		else ROOTDIR=$1
 		fi
 	if [ 	   -d $ROOTDIR \
-		-a -d $ROOTDIR/books \
 		-a -d $ROOTDIR/config \
+		-a -d $ROOTDIR/config/books \
 		-a -d $ROOTDIR/images \
 		-a -d $ROOTDIR/lib \
 		-a -d $ROOTDIR/modules ]
