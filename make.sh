@@ -67,7 +67,8 @@ build_header() {
 		"config/reviewers" \
 		"$PUBDATE" \
 		"$YEAR" \
-		"$VERSIONSTRING"				>> $headerfile	 
+		"$VERSIONSTRING" \
+		"$TEACHER"					>> $headerfile	 
         echo "</bookinfo>"                                      >> $headerfile
 	}
 

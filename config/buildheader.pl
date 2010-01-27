@@ -9,6 +9,7 @@ my $reviewersfile = shift @ARGV;
 my $pubdate = shift @ARGV;
 my $year = shift @ARGV;
 my $releaseinfo = shift @ARGV;
+my $teacher = shift @ARGV;
 
 open AUTH,"<$authorsfile" or die "Can't open authors $authorsfile";
 while(<AUTH>){
@@ -52,11 +53,19 @@ while(<REVW>){
 }
 close REVW;
 
-foreach $author (@AUTHORS) {
-	print "<author>\n";
-	print "<firstname>$author->{firstname}</firstname>\n";
-	print "<surname>$author->{lastname}</surname>\n";
-	print "</author>\n";
+if ($teacher) {
+		print "<author>\n";
+		print "<firstname></firstname>\n";
+		print "<surname>$teacher</surname>\n";
+		print "</author>\n";
+	}
+else {
+	foreach $author (@AUTHORS) {
+		print "<author>\n";
+		print "<firstname>$author->{firstname}</firstname>\n";
+		print "<surname>$author->{lastname}</surname>\n";
+		print "</author>\n";
+	}
 }
 
 print "<pubdate>$pubdate</pubdate>\n";
