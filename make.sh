@@ -150,6 +150,7 @@ build_book() {
 	else	REDIR=">./output/errors.txt 2>&1"; fi
 	eval $(echo ./lib/fop/fop -xml $xmlfile -xsl $XSLFILE -pdf $pdffile $REDIR)
 	ln -s $filename.pdf output/book.pdf
+	ln output/$filename.pdf 
 	}
 
 ##############
