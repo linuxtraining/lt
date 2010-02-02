@@ -163,10 +163,12 @@ brel
 		<screen>>foo</screen>
 	</section>
 	<section><title>swapping stdout and stderr</title>
-		<para>When filtering an output stream, e.g. through a pipe ( | ) you only can filter <command>stdout</command>. Say you want to filter out some unimportant error, out of the <command>stderr</command> stream. This cannot be done directly, and you need to 'swap'  <command>stdout</command> and <command>stderr</command>. This can be done by using a 4th stream referred to with number 3:</para>
+		<para>When filtering an output stream, e.g. through a regular pipe ( | ) you only can filter <command>stdout</command>. Say you want to filter out some unimportant error, out of the <command>stderr</command> stream. This cannot be done directly, and you need to 'swap'  <command>stdout</command> and <command>stderr</command>. This can be done by using a 4th stream referred to with number 3:</para>
 		<screen>3&#062;&#038;1 1&#062;&#038;2 2&#062;&#038;3</screen>
 		<para>This Tower Of Hanoi like construction uses a temporary stream 3, to be able to swap stdout (1) and stderr (2). The following is an example of how to filter out all lines in the stderr stream, containing $uninterestingerror.</para>
 		<screen>/usr/bin/$somecommand 3&#062;&#038;1 1&#062;&#038;2 2&#062;&#038;3 | grep -v $uninterestingerror  3&#062;&#038;1 1&#062;&#038;2 2&#062;&#038;3</screen>
+		<para>But in tghis example, it can be done in a much shorter way, by using a pipe on STDERR:</para>
+		<screen>/usr/bin/$somecommand |&#038; grep -v $uninterestingerror  </screen>
 	</section>
 	<section><title>Practice: more bash</title>
 		<para>1. Take a backup copy of /etc/bashrc, /etc/profile, ~/.profile, ~/.bashrc and ~/.bash_profile (put them in ~/profilebackups).</para>
