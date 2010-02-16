@@ -22,8 +22,17 @@ help() {
 	}
 
 clean() {
-	echo "Removing ./output/ directory"
-	[ -d output ] && ( rm -rf output || exit 0 )
+	# echo "Removing ./output/ directory"
+	# [ -d output ] && ( rm -rf output || exit 0 )
+
+	echo "Cleaning up ./output/ directory"
+	# We don't need the .xml files
+	rm -rf ./output/*.xml 2> /dev/null
+	# We don't need the previous errors.txt
+	[ -f output/errors.txt ] && ( rm -rf output/errors.txt || exit 0 )
+	# Symlink creation fails unless we remove this symlink first
+	[ -f output/book.pdf ] && ( rm -rf output/book.pdf || exit 0 )
+
 	# let's also purge the old static dir, which contents were moved to lib and put under source control
 	[ -d static ] && ( rm -rf static || exit 0 )
 	}
@@ -150,7 +159,8 @@ build_book() {
 	else	REDIR=">./output/errors.txt 2>&1"; fi
 	eval $(echo ./lib/fop/fop -xml $xmlfile -xsl $XSLFILE -pdf $pdffile $REDIR)
 	ln -s $filename.pdf output/book.pdf
-	ln output/$filename.pdf 
+	# imho this messes up an otherwise clean root directory...
+	# ln output/$filename.pdf 
 	}
 
 ##############
