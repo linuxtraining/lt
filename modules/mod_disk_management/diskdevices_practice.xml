@@ -1,10 +1,12 @@
-<section><title>Practice hard disk devices</title>
-	<para>1. Use dmesg to make a list of hard disk devices (ide,ata,sata,scsi) detected at bootup.</para>
-	<para>2. Use fdisk to find the total size of all hard disk devices on your system.</para>
-	<para>3. Stop a virtual machine, add two virtual 1 gigabyte scsi hard disks and one virtual 100 megabyte scsi hard disk. If possible, also add one virtual 200 megabyte ide disk.</para>
-	<para>4. Use dmesg (with grep) to verify that all the new disks are properly detected at bootup.</para>
-	<para>5. Verify that you can see the disks devices in /dev.</para>
-	<para>6. Use fdisk (with grep and /dev/null) to display the total size of the new disks.</para>
-	<para>7. Use badblocks to completely erase one of the smaller hard disks.</para>
-	<para>8. Look at /proc/scsi/scsi.</para>
+<section><title>Practice: hard disk devices</title>
+	<para><command>About this lab:</command> To practice working with hard disks, you will need some hard disks. When there are no physical hard disk available, you can use virtual disks in <command>vmware</command> or <command>VirtualBox</command>. The teacher will help you in attaching a couple of ATA and/or SCSI disks to a virtual machine. The results of this lab can be used in the next three labs (partitions, file systems, mounting). It is adviced to attach at least one IDE and three equally sized SCSI disks to the virtual machine.</para>
+	<para>1. Use <command>dmesg</command> to make a list of hard disk devices detected at bootup.</para>
+	<para>2. Use <command>fdisk</command> to find the total size of all hard disk devices on your system.</para>
+	<para>3. Stop a virtual machine, add three virtual 1 gigabyte scsi hard disks and one virtual 400 megabyte ide hard disk. If possible, also add another virtual 400 megabyte ide disk.</para>
+	<para>4. Use <command>dmesg</command> to verify that all the new disks are properly detected at bootup.</para>
+	<para>5. Verify that you can see the disks devices in <command>/dev</command>.</para>
+	<para>6. Use <command>fdisk</command> (with grep and /dev/null) to display the total size of the new disks.</para>
+	<para>7. Use <command>badblocks</command> to completely erase one of the smaller hard disks.</para>
+	<para>8. Look at <command>/proc/scsi/scsi</command>.</para>
+	<para>9. If possible, install <command>lsscsi</command> and use it to list the scsi disks.</para>
 </section>

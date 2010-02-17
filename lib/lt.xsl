@@ -7,6 +7,7 @@
 <xsl:param name="toc.section.depth" select="'2'"/>
 
 <xsl:param name="section.autolabel" select="'1'"/>
+<xsl:param name="section.autolabel.max.depth" select="'2'"/>
 <xsl:param name="section.label.includes.component.label" select="'1'"/>
 
 <xsl:attribute-set name="toc.line.properties">

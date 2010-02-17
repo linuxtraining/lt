@@ -31,7 +31,7 @@ clean() {
 	# We don't need the previous errors.txt
 	[ -f output/errors.txt ] && ( rm -rf output/errors.txt || exit 0 )
 	# Symlink creation fails unless we remove this symlink first
-	[ -f output/book.pdf ] && ( rm -rf output/book.pdf || exit 0 )
+	[ -h output/book.pdf ] && ( rm -rf output/book.pdf || exit 0 )
 
 	# let's also purge the old static dir, which contents were moved to lib and put under source control
 	[ -d static ] && ( rm -rf static || exit 0 )
