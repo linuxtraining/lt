@@ -1,0 +1,10 @@
+<section><title>practice: file systems</title>
+	<para>1. List the filesystems that are known by your system.</para>
+	<para>2. Create an <command>ext2</command> filesystem on the 200MB partition.</para>
+	<para>3. Create an <command>ext3</command> filesystem on the 400MB partition and one of the 300MB logical drives.</para>
+	<para>4. Set the reserved space for root on the logical drive to 0 percent.</para>
+	<para>5. Verify your work with <command>fdisk</command> and <command>df</command>.</para>
+	<para></para>
+	<para></para>
+	<para></para>
+</section>
