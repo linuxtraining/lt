@@ -1,0 +1,11 @@
+<section><title>practice: mounting file systems</title>
+	<para>1. Mount the small 200MB partition on /home/project22.</para>
+	<para>2. Mount the big 400MB primary partition on /mnt, the copy some files to it (everything in /etc). Then umount, and mount the fiel system as read only on /srv/nfs/salesnumbers.</para>
+	<para>3. Verify your work with fdisk, df, mount. Also look in /etc and /proc to interesting files.</para>
+	<para>4. Make both mounts permanent, test that it works.</para>
+	<para>5. What happens when you mount a partition on a directory that contains some files ?</para>
+	<para>6. What happens when you mount two partitions on the same mountpoint ?</para>
+	<para>7. Describe the difference between these file searching commands: find, locate, updatedb, whereis, apropos and which.</para>
+	<para>8. Perform a file system check on the partition mounted at /srv/nfs/salesnumbers.</para>
+</section>
+

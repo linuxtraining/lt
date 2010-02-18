@@ -65,6 +65,7 @@ chapt_disk_management() {
 	add_mod mod_disk_management/filesystems_practice.xml    
 	add_mod mod_disk_management/filesystems_solution.xml    
 	add_mod mod_disk_management/mounting.xml       
+	add_mod mod_disk_management/mounting_practice.xml       
 	add_mod mod_disk_management/uuid.xml           
 	add_mod mod_disk_management/raid.xml           
 	}

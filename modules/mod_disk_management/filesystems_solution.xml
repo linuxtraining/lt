@@ -1,4 +1,4 @@
-<section><title>practice: file systems</title>
+<section><title>Solution: file systems</title>
 	<para>1. List the filesystems that are known by your system.</para>
 	<screen>man fs</screen>
 	<screen>cat /proc/filesystems</screen>
