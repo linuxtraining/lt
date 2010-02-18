@@ -98,8 +98,10 @@ root@pasha:~# du -sh /home/reet
 		</section>
 	</section>
 	<section><title>permanent mounts</title>
-		<para>Until now, we performed all mounts manually. This works nice, until the next reboot. Luckily there is a way to tell your computer to automatically mount certain file systems during boot. This is done using the file system table located in the <command>/etc/fstab</command><indexterm><primary>/etc/fstab</primary></indexterm> file. Below is a sample <command>/etc/fstab</command> file.</para>
-		<screen>
+		<para>Until now, we performed all mounts manually. This works nice, until the next reboot. Luckily there is a way to tell your computer to automatically mount certain file systems during boot.</para>
+		<section><title>/etc/fstab</title>
+			<para>This is done using the file system table located in the <command>/etc/fstab</command><indexterm><primary>/etc/fstab</primary></indexterm> file. Below is a sample <command>/etc/fstab</command> file.</para>
+			<screen>
 root@RHELv4u2:~# cat /etc/fstab 
 /dev/VolGroup00/LogVol00 /                ext3    defaults        1 1
 LABEL=/boot             /boot             ext3    defaults        1 2
@@ -108,11 +110,17 @@ none                    /dev/shm          tmpfs   defaults        0 0
 none                    /proc             proc    defaults        0 0
 none                    /sys              sysfs   defaults        0 0
 /dev/VolGroup00/LogVol01 swap             swap    defaults        0 0
-		</screen>
-		<para>By adding the following line, we can automate the mounting of a file system.</para>
-		<screen>
+			</screen>
+			<para>By adding the following line, we can automate the mounting of a file system.</para>
+			<screen>
 /dev/sdb1                /home/project55      ext2    defaults    0 0
-		</screen>
+			</screen>
+		</section>
+		<section><title>mount /mountpoint</title>
+			<para>Adding an entry to <command>/etc/fstab</command> has the added advantage that you can simplify the <command>mount</command> command. The command in the screenshot below forces <command>mount</command> to look for the partition info in <command>/etc/fstab</command>.</para>
+			<screen># mount /home/project55
+			</screen>
+		</section>
 	</section>
 </section>
 

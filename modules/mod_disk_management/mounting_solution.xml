@@ -1,12 +1,37 @@
 <section><title>practice: mounting file systems</title>
 	<para>1. Mount the small 200MB partition on /home/project22.</para>
+	<screen>mkdir /home/project22
+mount /dev/sdc1 /home/project22</screen>
 	<para>2. Mount the big 400MB primary partition on /mnt, the copy some files to it (everything in /etc). Then umount, and mount the file system as read only on /srv/nfs/salesnumbers. Where are the files you copied ?</para>
+	<screen>mount /dev/sdb1 /mnt
+cp -r /etc /mnt
+ls -l /mnt</screen>
+	<screen>umount /mnt
+ls -l /mnt</screen>
+	<screen>mkdir -p /srv/nfs/salesnumbers
+mount /dev/sdb1 /srv/nfs/salesnumbers</screen>
+	<screen>You see the files in /srv/nfs/salenumbers now...</screen>
+	<screen>But physically they are on ext3 on partition /dev/sdb1</screen>
 	<para>3. Verify your work with <command>fdisk</command>, <command>df</command> and <command>mount</command>. Also look in <command>/etc/mtab</command> and <command>/proc/mounts</command>.</para>
+	<screen>fdisk -l
+df -h
+mount</screen>
+	<screen>All three the above commands should show your mounted partitions.</screen>
+	<screen>grep project22 /etc/mtab
+grep project22 /proc/mounts</screen>
 	<para>4. Make both mounts permanent, test that it works.</para>
+	<screen>add the following lines to /etc/fstab</screen>
+	<screen>/dev/sdc1 /home/project22 auto defaults 0 0
+/dev/sdb1 /srv/nfs/salesnumbers auto defaults 0 0</screen>
 	<para>5. What happens when you mount a file system on a directory that contains some files ?</para>
+	<screen>The files are hidden until <command>umount</command>.</screen>
 	<para>6. What happens when you mount two file systems on the same mountpoint ?</para>
+	<screen>Only the last mounted fs is visible.</screen>
 	<para>7. (optional) Describe the difference between these file searching commands: find, locate, updatedb, whereis, apropos and which.</para>
+	<screen>man is your friend</screen>
 	<para>8. (optional) Perform a file system check on the partition mounted at /srv/nfs/salesnumbers.</para>
+	<screen>better to unmount first before
+# fsck /dev/sdb1</screen>
 	<para></para>
 	<para></para>
 	<para></para>
