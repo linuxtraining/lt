@@ -59,6 +59,8 @@ chapt_disk_management() {
 	add_mod mod_disk_management/diskdevices_practice.xml    
 	add_mod mod_disk_management/diskdevices_solution.xml    
 	add_mod mod_disk_management/partitions.xml     
+	add_mod mod_disk_management/partitions_practice.xml     
+	add_mod mod_disk_management/partitions_solution.xml     
 	add_mod mod_disk_management/filesystems.xml    
 	add_mod mod_disk_management/mounting.xml       
 	add_mod mod_disk_management/uuid.xml           

@@ -9,4 +9,7 @@
 	<para>7. Use <command>badblocks</command> to completely erase one of the smaller hard disks.</para>
 	<para>8. Look at <command>/proc/scsi/scsi</command>.</para>
 	<para>9. If possible, install <command>lsscsi</command> and use it to list the scsi disks.</para>
+	<para></para>
+	<para></para>
+	<para></para>
 </section>

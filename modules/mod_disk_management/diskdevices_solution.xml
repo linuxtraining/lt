@@ -61,4 +61,7 @@ root@rhel53 ~# lsscsi
 [0:0:3:0]    disk    VBOX     HARDDISK         1.0   /dev/sdb
 [0:0:6:0]    disk    VBOX     HARDDISK         1.0   /dev/sdc
 	</screen>
+	<para></para>
+	<para></para>
+	<para></para>
 </section>

@@ -1,12 +1,8 @@
-<section><title>Partitions</title>
-	<section><title>About Partitions</title>
-		<para>Linux requires you to create one or more <command>partitions</command><indexterm><primary>partition</primary></indexterm> aka <command>slices</command><indexterm><primary>slice</primary></indexterm>. <emphasis>Please don't break your head on the difference between a partition and a slice. Different tools have different interpretations of which is which.</emphasis> Although partitions reside on the same hard disk device, you can (almost) see them as independent of each other.</para>
-		<para>A partition's <command>geometry</command> and size is usually defined by a starting and ending cylinder (sometimes by head or even sector). Partitions can be of type <command>primary</command><indexterm><primary>primary partition</primary></indexterm> (maximum four), <command>extended</command><indexterm><primary>extended partition</primary></indexterm> (maximum one) or <command>logical</command><indexterm><primary>logical drive</primary></indexterm> (contained within the extended partition). Each partition has a <command>type field</command> that contains a code. This determines the computers operating system or the partitions file system.</para>
-	</section>
-	<section><title>Partition naming</title>
-		<para>We saw before that hard disk devices are named /dev/hdx or /dev/sdx with x depending on the hardware configuration. Next is the partition number, starting the count at 1. Hence the four (possible) primary partitions are numbered 1 to 4. Logical partition counting always starts at 5. Thus /dev/hda2 is the second partition on the first ATA hard disk device, and /dev/hdb5 is the first logical partition on the second ATA hard disk device. Same for SCSI, /dev/sdb3 is the third partition on the second SCSI disk.</para>
-
-<table frame='all'><title>Partition naming</title>
+<section><title>partitions</title>
+	<section><title>about partitions</title>
+		<para>Linux requires you to create one or more <command>partitions</command><indexterm><primary>partition</primary></indexterm>. The next paragraphs will explain how to create and use partitions.</para>
+		<para>A partition's <command>geometry</command> and size is usually defined by a starting and ending cylinder (sometimes by sector). Partitions can be of type <command>primary</command><indexterm><primary>primary partition</primary></indexterm> (maximum four), <command>extended</command><indexterm><primary>extended partition</primary></indexterm> (maximum one) or <command>logical</command><indexterm><primary>logical drive</primary></indexterm> (contained within the extended partition). Each partition has a <command>type field</command> that contains a code. This determines the computers operating system or the partitions file system.</para>
+<table frame='all'><title>primary, extended and logical partitions</title>
 <?dbfo table-width="50%" ?>
 <tgroup cols='2' align='left' colsep='1' rowsep='1'>
 <colspec colname='c1' colwidth="3*" align="center"/>
@@ -34,6 +30,56 @@
 </tgroup>
 </table>
 	</section>
+	<section><title>partition naming</title>
+		<para>We saw before that hard disk devices are named /dev/hdx or /dev/sdx with x depending on the hardware configuration. Next is the partition number, starting the count at 1. Hence the four (possible) primary partitions are numbered 1 to 4. Logical partition counting always starts at 5. Thus /dev/hda2 is the second partition on the first ATA hard disk device, and /dev/hdb5 is the first logical partition on the second ATA hard disk device. Same for SCSI, /dev/sdb3 is the third partition on the second SCSI disk.</para>
+<table frame='all'><title>Partition naming</title>
+<?dbfo table-width="85%" ?>
+<tgroup cols='2' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="2*" align="center"/>
+<colspec colname='c2' colwidth="7*" align="center"/>
+<thead>
+<row>
+  <entry>partition</entry>
+  <entry>device</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>/dev/hda1</entry>
+  <entry>first primary partition on /dev/hda</entry>
+</row>
+<row>
+  <entry>/dev/hda2</entry>
+  <entry>second primary or extended partition on /dev/hda</entry>
+</row>
+<row>
+  <entry>/dev/sda5</entry>
+  <entry>first logical drive on /dev/sda</entry>
+</row>
+<row>
+  <entry>/dev/sdb6</entry>
+  <entry>second logical on /dev/sdb</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+	</section>
+	<section><title>discovering all partitions</title>
+	<section><title>fdisk -l</title>
+		<para>In the <command>fdisk -l</command><indexterm><primary>fdisk(1)</primary></indexterm> example below you can see that two partitions exist on <command>/dev/sdb2</command>. The first partition spans 31 cylinders and contains a Linux swap partition. The second partition is much bigger.</para>
+		<screen>
+root@laika:~# fdisk -l /dev/sdb
+
+Disk /dev/sdb: 100.0 GB, 100030242816 bytes
+255 heads, 63 sectors/track, 12161 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+
+   Device Boot    Start      End     Blocks   Id  System
+/dev/sdb1             1       31     248976   82  Linux swap / Solaris
+/dev/sdb2            32    12161   97434225   83  Linux
+root@laika:~#		
+		</screen>
+	</section>
 	<section><title>/proc/partitions</title>
 		<para>The <command>/proc/partitions</command><indexterm><primary>/proc/partitions</primary></indexterm> file contains a table with major and minor number of partitioned devices, their number of blocks and the device name in <command>/dev</command><indexterm><primary>/dev</primary></indexterm>. Verify with <command>/proc/devices</command><indexterm><primary>/proc/devices</primary></indexterm> to link the major number to the proper device.</para>
 		<screen>
@@ -51,26 +97,14 @@ major minor  #blocks  name
  253     0    7176192 dm-0
  253     1    1048576 dm-1
 		</screen>
-	</section>
-	<section><title>fdisk -l</title>
-		<para>In the <command>fdisk -l</command><indexterm><primary>fdisk(1)</primary></indexterm> example below you can see that two partitions exist on /dev/sdb2. The first partition spans 31 cylinders and contains a Linux swap partition. The second partition is much bigger.</para>
-		<screen>
-root@laika:~# fdisk -l /dev/sdb
-
-Disk /dev/sdb: 100.0 GB, 100030242816 bytes
-255 heads, 63 sectors/track, 12161 cylinders
-Units = cylinders of 16065 * 512 = 8225280 bytes
-
-   Device Boot    Start      End     Blocks   Id  System
-/dev/sdb1             1       31     248976   82  Linux swap / Solaris
-/dev/sdb2            32    12161   97434225   83  Linux
-root@laika:~#		
-		</screen>
+		<para>The <command>major</command><indexterm><primary>major number</primary></indexterm> number corresponds to the device type (or driver) and can be found in <command>/proc/devices</command><indexterm><primary>/proc/devices</primary></indexterm>. In this case 3 corresponds to <command>ide</command><indexterm><primary>ide</primary></indexterm> and 8 to <command>sd</command>. The <command>major</command> number determines the <command>device driver</command><indexterm><primary>device driver</primary></indexterm> to be used with this device.</para>
+		<para>The <command>minor</command><indexterm><primary>minor number</primary></indexterm> number is a unique identification of an instance of this device type. The <command>devices.txt</command><indexterm><primary>devices.txt</primary></indexterm> file in the kernel tree contains a full list of major and minor numbers.</para>
 	</section>
 	<section><title>other tools</title>
-		<para>You might be interested in more GUI-oriented alternatives to fdisk and parted like cfdisk, sfdisk and gparted.</para>
+		<para>You might be interested in alternatives to fdisk like <command>parted</command>, <command>cfdisk</command>, <command>sfdisk</command> and <command>gparted</command>. This course mainly uses <command>fdisk</command> to partition hard disks.</para>
 	</section>
-	<section><title>Partitioning new disks</title>
+	</section>
+	<section><title>partitioning new disks</title>
 		<para>In the example below, we bought a new disk for our system. After the new hardware is properly attached, you can use <command>fdisk</command> and <command>parted</command><indexterm><primary>parted(1)</primary></indexterm> to create the necessary partition(s). This example uses fdisk, but there is nothing wrong with using parted.</para>
 		<para>First, we check with <command>fdisk -l</command> whether Linux can see the new disk. Yes it does, the new disk is seen as /dev/sdb, but it does not have any partitions yet.</para>
 		<screen>
@@ -162,31 +196,29 @@ Device Boot      Start         End      Blocks   Id  System
 root@RHELv4u2:~# 
 		</screen>
 	</section>
-	<section><title>Master Boot Record</title>
-		<para>The partition table information (primary and extended partitions) is written in the <command>Master Boot Record</command><indexterm><primary>master boot record</primary></indexterm> or <command>MBR</command><indexterm><primary>mbr</primary></indexterm>. You can use <command>dd</command><indexterm><primary>dd(1)</primary></indexterm> to copy the mbr to a file.</para>
+	<section><title>about the partition table</title>
+	<section><title>master boot record</title>
+		<para>The <command>partition table</command><indexterm><primary>partition table</primary></indexterm> information (primary and extended partitions) is written in the <command>master boot record</command><indexterm><primary>master boot record</primary></indexterm> or <command>mbr</command><indexterm><primary>mbr</primary></indexterm>. You can use <command>dd</command><indexterm><primary>dd(1)</primary></indexterm> to copy the mbr to a file.</para>
 		<para>This example copies the master boot record from the first SCSI hard disk.</para>
 		<screen>dd if=/dev/sda of=/SCSIdisk.mbr bs=512 count=1</screen>
 		<para>The same tool can also be used to wipe out all information about partitions on a disk. This example writes zeroes over the master boot record.</para>
 		<screen>dd if=/dev/zero of=/dev/sda bs=512 count=1</screen>
+		<para>Or to wipe out the whole partition or disk.</para>
+		<screen>dd if=/dev/zero of=/dev/sda</screen>
 	</section>
 	<section><title>partprobe</title>
-		<para>Don't forget that after restoring a Master Boot Record with dd, that you need to force the kernel to reread the partition table with  <command>partprobe</command><indexterm><primary>partprobe(1)</primary></indexterm>. After running partprobe, the partitions can be used again.</para>
+		<para>Don't forget that after restoring a <command>master boot record</command> with <command>dd</command>, that you need to force the kernel to reread the partition table with <command>partprobe</command><indexterm><primary>partprobe(1)</primary></indexterm>. After running <command>partprobe</command>, the partitions can be used again.</para>
 		<screen>
 [root@RHEL5 ~]# partprobe 
 [root@RHEL5 ~]#
 		</screen>
 	</section>
 	<section><title>logical drives</title>
-		<para>The partition table does not contain information about logical drives. So the dd backup of the mbr only works for primary and extended partitions. To backup the partition table inlcuding the logical drives, you can use <command>sfdisk</command><indexterm><primary>sfdisk(1)</primary></indexterm>. The following command will copy the mbr and the logical drive information from /dev/sda to /dev/sdb.</para>
+		<para>The <command>partition table</command><indexterm><primary>partition table</primary></indexterm> does not contain information about <command>logical drives</command><indexterm><primary>logical drives</primary></indexterm>. So the <command>dd</command> backup of the <command>mbr</command><indexterm><primary>mbr</primary></indexterm> only works for primary and extended partitions. To backup the partition table inlcuding the logical drives, you can use <command>sfdisk</command><indexterm><primary>sfdisk(1)</primary></indexterm>.</para>
+		<para>This example shows how to backup all partition and logical drive information to a file.</para>
+		<screen>sfdisk -d /dev/sda &#060; parttable.sda.sfdisk</screen>
+		<para>The following example copies the <command>mbr</command> and all <command>logical drive</command> info from /dev/sda to /dev/sdb.</para>
 		<screen>sfdisk -d /dev/sda | sfdisk /dev/sdb</screen>
 	</section>
-	<section><title>Practice Partitions</title>
-		<para>1. Use fdisk and df to display existing partitions and sizes. Compare the output of the two commands.</para>
-		<para>2. Create a 50MB primary partition on a small disk.</para>
-		<para>3. Create a 200MB primary partition and two 100MB logical drives on a big disk.</para>
-		<para>4. Use df and fdisk -l to verify your work.</para>
-		<para>5. Take a backup of the partition table containing your 200MB primary and 100MB logical drives. Destroy the partitions with fdisk. Then restore your backup.</para>
-		<para></para>
-		<para></para>
 	</section>
 </section>
