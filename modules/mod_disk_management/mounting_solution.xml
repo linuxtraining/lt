@@ -1,4 +1,4 @@
-<section><title>practice: mounting file systems</title>
+<section><title>solution: mounting file systems</title>
 	<para>1. Mount the small 200MB partition on /home/project22.</para>
 	<screen>mkdir /home/project22
 mount /dev/sdc1 /home/project22</screen>
