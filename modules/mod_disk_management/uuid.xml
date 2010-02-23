@@ -65,3 +65,4 @@ initrd		/boot/initrd.img-2.6.31-19-generic
 	</screen>
 	<para>The screenshot above contains only four lines. The line starting with <command>root=</command> is the continuation of the <command>kernel</command> line.</para>
 </section>
+</section>
