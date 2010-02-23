@@ -432,7 +432,6 @@ chapt_samba4() {
 chapt_scheduling() {
 	MODULES=""
 	chaptitle="Scheduling"
-	add_mod mod_scheduling/about.xml    
 	add_mod mod_scheduling/at.xml       
 	add_mod mod_scheduling/cron.xml     
 	add_mod mod_scheduling/practice.xml 
