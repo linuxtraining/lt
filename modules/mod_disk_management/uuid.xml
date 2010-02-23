@@ -8,7 +8,7 @@ root@laika:~# vol_id --uuid /dev/sda1
 825d4b79-ec40-4390-8a71-9261df8d4c82
 		</screen>
 	</section>
-	<section><title>/lib/udev/vold_id</title>
+	<section><title>/lib/udev/vol_id</title>
 		<para>Red Hat Enterprise Linux 5 puts <command>vol_id</command> in <command>/lib/udev/vol_id</command>, which is not in the $PATH. The syntax is also a bit different from Debian/Ubuntu.</para>
 		<screen>
 root@rhel53 ~# /lib/udev/vol_id -u /dev/hda1
