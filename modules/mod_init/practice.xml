@@ -1,24 +1,18 @@
-<section><title>Practice</title>
-	<para>1. Take a copy of the kernel, initrd and System.map files in /boot in /boot, naming them 3.0 instead of 2.6. Then add a stanza in grub for this 3.0 files.</para>
-        <para>2. Change /etc/inittab so that only two mingetty's are respawned. Kill the other mingetty's and verify that they don't come back.</para>
-        <para>3. Use the Red Hat Enterprise Linux virtual machine. Go to runlevel 5, display the current and previous runlevel, then go back to runlevel 3.</para>
-        <para>4. Is the sysinit script on your computers setting or changing the PATH environment variable ?</para>
+<section><title>practice: init</title>
+        <para>1. Change /etc/inittab so that only two mingetty's are respawned. Kill the other mingetty's and verify that they don't come back.</para>
+        <para>2. Use the Red Hat Enterprise Linux virtual machine. Go to runlevel 5, display the current and previous runlevel, then go back to runlevel 3.</para>
+        <para>3. Is the sysinit script on your computers setting or changing the PATH environment variable ?</para>
+	<para>4. List all init.d scripts that are started in runlevel 2.</para>
         <para>5. Write a script that acts like a daemon script in /etc/init.d/. It should have a case statement to act on start/stop/restart and status. Test the script!</para>
         <para>6. Have your script started automatically in runlevel 3, test that it works. If it works, also try stopping it in a runlevel.</para>
         <para>7. If time permits, use chkconfig to setup your script in runlevels 2 and 3.</para>
 	<para></para>
 	<para></para>
+	<para></para>
 </section>
-<section><title>Solutions</title>
-	<para>1. The files should look like in this screenshot, verify the names in /boot. You could do a reboot and test your stanza.</para>
-	<screen>
-[root@RHEL5 ~]# grep 3.0.18 /boot/grub/menu.lst 
-title Red Hat Enterprise Linux Server (3.0.18)
-	kernel /vmlinuz-3.0.18 ro root=/dev/VolGroup00/LogVol00 rhgb quiet
-	initrd /initrd-3.0.18.img
-[root@RHEL5 ~]# 
-	</screen>
-	<para>2. Killing the mingetty's will result in init respawning them. You can edit /etc/inittab so it looks like the screenshot below. Don't forget to also run kill -1 1. </para>
+<section><title>solutions : init</title>
+        <para>1. Change /etc/inittab so that only two mingetty's are respawned. Kill the other mingetty's and verify that they don't come back.</para>
+	<para>Killing the mingetty's will result in init respawning them. You can edit /etc/inittab so it looks like the screenshot below. Don't forget to also run <command>kill -1 1</command>.</para>
 	<screen>
 [root@RHEL5 ~]# grep tty /etc/inittab 
 # Run gettys in standard runlevels
@@ -30,12 +24,23 @@ title Red Hat Enterprise Linux Server (3.0.18)
 6:2:respawn:/sbin/mingetty tty6
 [root@RHEL5 ~]# 
 	</screen>
-	<para>3. use the telinit (or init) and runlevel commands</para>
-	<para>4. On Red Hat, grep for PATH in /etc/rc.sysinit, on Debian/Ubuntu check /etc/rc.local. The answer is probably no, but on RHEL5 the rc.sysinit script does set the HOSTNAME variable.</para>
+        <para>2. Use the Red Hat Enterprise Linux virtual machine. Go to runlevel 5, display the current and previous runlevel, then go back to runlevel 3.</para>
+	<screen>
+init 5 (watch the console for the change taking place)
+runlevel
+init 3 (again you can follow this on the console)
+	</screen>
+        <para>3. Is the sysinit script on your computers setting or changing the PATH environment variable ?</para>
+	<para>On Red Hat, grep for PATH in /etc/rc.sysinit, on Debian/Ubuntu check /etc/rc.local. The answer is probably no, but on RHEL5 the rc.sysinit script does set the HOSTNAME variable.</para>
 	<screen>
 [root@RHEL5 etc]# grep HOSTNAME rc.sysinit
 	</screen>
-	<para>5. The script could look something like this.</para>
+	<para>4. List all init.d scripts that are started in runlevel 2.</para>
+	<screen>
+root@RHEL5 ~# chkconfig --list | grep '2:on'
+	</screen>
+        <para>5. Write a script that acts like a daemon script in /etc/init.d/. It should have a case statement to act on start/stop/restart and status. Test the script!</para>
+	<para>The script could look something like this.</para>
 	<screen>
 #!/bin/bash
 # /etc/init.d/pold
@@ -63,5 +68,8 @@ esac
 
 exit 0
 	</screen>
+        <para>7. If time permits, use chkconfig to setup your script in runlevels 2 and 3.</para>
+	<para></para>
+	<para></para>
 	<para></para>
 </section>
