@@ -1,0 +1,70 @@
+<section><title>solution : init</title>
+        <para>1. Change <command>/etc/inittab</command> so that only two mingetty's are respawned. Kill the other <command>mingetty's</command> and verify that they don't come back.</para>
+	<para>Killing the mingetty's will result in init respawning them. You can edit <command>/etc/inittab</command> so it looks like the screenshot below. Don't forget to also run <command>kill -1 1</command>.</para>
+	<screen>
+[root@RHEL5 ~]# grep tty /etc/inittab 
+# Run gettys in standard runlevels
+1:2345:respawn:/sbin/mingetty tty1
+2:2345:respawn:/sbin/mingetty tty2
+3:2:respawn:/sbin/mingetty tty3
+4:2:respawn:/sbin/mingetty tty4
+5:2:respawn:/sbin/mingetty tty5
+6:2:respawn:/sbin/mingetty tty6
+[root@RHEL5 ~]# 
+	</screen>
+        <para>2. Use the Red Hat Enterprise Linux virtual machine. Go to runlevel 5, display the current and previous runlevel, then go back to runlevel 3.</para>
+	<screen>
+init 5 (watch the console for the change taking place)
+runlevel
+init 3 (again you can follow this on the console)
+	</screen>
+        <para>3. Is the sysinit script on your computers setting or changing the PATH environment variable ?</para>
+	<para>On Red Hat, grep for PATH in <command>/etc/rc.sysinit</command>, on Debian/Ubuntu check <command>/etc/rc.local</command> and <command>/etc/ini.t/rc.local</command>. The answer is probably no, but on RHEL5 the <command>rc.sysinit</command> script does set the HOSTNAME variable.</para>
+	<screen>
+[root@RHEL5 etc]# grep HOSTNAME rc.sysinit
+	</screen>
+	<para>4. List all init.d scripts that are started in runlevel 2.</para>
+	<screen>
+root@RHEL5 ~# chkconfig --list | grep '2:on'
+	</screen>
+        <para>5. Write a script that acts like a daemon script in <command>/etc/init.d/</command>. It should have a case statement to act on start/stop/restart and status. Test the script!</para>
+	<para>The script could look something like this.</para>
+	<screen>
+#!/bin/bash
+#
+# chkconfig: 345 99 01 
+# description: pold demo script
+#
+# /etc/init.d/pold
+#
+
+case "$1" in
+  start)
+     echo -n "Starting pold..."
+     sleep 1;
+     touch /var/lock/subsys/pold
+     echo "done."
+     echo pold started >> /var/log/messages
+     ;;
+  stop)
+     echo -n "Stopping pold..."
+     sleep 1;
+     rm -rf /var/lock/subsys/pold
+     echo "done."
+     echo pold stopped >> /var/log/messages
+     ;;
+  *)
+     echo "Usage: /etc/init.d/pold {start|stop}"
+     exit 1
+     ;;
+esac
+exit 0
+	</screen>
+	<para>The <command>touch /var/lock/subsys/pold</command> is mandatory and must be the same filename as the scriptname, if you want the stop sequence (the K01pold link) to be run.</para>
+        <para>6. Use <command>chkconfig</command> to setup your script to start in runlevels 3,4 and 5, and to stop in any other runlevel.</para>
+	<screen>chkconfig --add pold</screen>
+	<para>The command above will only work when the <command># chkconfig:</command> and <command># description:</command> lines in the pold script are there.</para>
+	<para></para>
+	<para></para>
+	<para></para>
+</section>
