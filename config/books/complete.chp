@@ -39,9 +39,10 @@ chapt_bootloader() {
 chapt_init_system() {
 	MODULES=""
 	chaptitle="init"
-	add_mod mod_init/system_init.xml   
+	add_mod mod_init/init.xml   
 	add_mod mod_init/runlevels.xml   
-	add_mod mod_init/practice.xml      
+	add_mod mod_init/init_practice.xml      
+	add_mod mod_init/init_solution.xml      
 	}
 
 #
