@@ -127,7 +127,7 @@ root ~#
 	<para>You can also create a text file with names of files and directories to archive, and then supply this file to tar with the -T flag.</para>
 	<screen>
 root@RHELv4u4:~# find /etc -name *.conf > files_to_archive.txt
-root@RHELv4u4:~# echo /home -iname *.pdf >> files_to_archive.txt
+root@RHELv4u4:~# find /home -name *.pdf >> files_to_archive.txt
 root@RHELv4u4:~# tar cpzf /backup/backup.tgz -T files_to_archive.txt 
 	</screen>
 	<para>The tar utility can receive filenames from the find command, with the help of xargs.</para>
