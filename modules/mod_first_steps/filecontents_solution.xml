@@ -1,6 +1,6 @@
 <section><title>Solution: File contents</title>
-	<para>1. Display the first 12 lines of /etc/X11/xorg.conf.</para>
-	<screen>head -12 /etc/X11/xorg.conf</screen>
+	<para>1. Display the first 12 lines of /etc/services.</para>
+	<screen>head -12 /etc/services</screen>
 	<para>2. Display the last line of /etc/passwd.</para>
 	<screen>tail -1 /etc/passwd</screen>
 	<para>3. Use cat to create a file named count.txt that looks like this:</para>
