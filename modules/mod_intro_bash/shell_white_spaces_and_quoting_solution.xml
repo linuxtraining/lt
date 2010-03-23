@@ -14,7 +14,7 @@
 		<screen>echo -e "one \ntwo \nthree"</screen>
 		<para>5. Execute <command>cd /var</command> and <command>ls</command> in an embedded shell.</para>
 		<screen>echo $(cd /var ; ls)</screen>
-		<para>The <command>echo</command> command is only needed to show the result of the <command>ls</command> command. Omitting will result in the shell trying to execute the first file as a command.</para>a
+		<para>The <command>echo</command> command is only needed to show the result of the <command>ls</command> command. Omitting will result in the shell trying to execute the first file as a command.</para>
 		<para>6. Create the variable embvar in an embedded shell and echo it. Does the variable exist in your current shell now ?</para>
 		<screen>$(embvar=emb;echo $embvar) ; echo $embvar (the last echo fails).</screen>
 		<screen>$embvar does not exist in your current shell</screen>
