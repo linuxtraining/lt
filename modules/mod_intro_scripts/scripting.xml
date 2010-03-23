@@ -1,8 +1,10 @@
-	<section><title>Hello World</title>
-		<para>Just like in every programming course, we start with a simple Hello World script. The following script will output Hello World.</para>
+<section><title>about shell scripting</title>
+	<para><command>bash</command> has support for programming constructs that can be saved as scripts. These scripts in turn then become more <command>bash</command> commands. Many Linux commands are scripts. And scripts run whenever a user logs on, or a service is started.</para>
+	<para>This means that system administrators also need basic knowledge of scripting to understand how their servers and their applications are started, updated, upgraded, patched, maintained, configured and removed. And also to understand how a user environment is built.</para>
+</section>
+	<section><title>hello world</title>
+		<para>Just like in every programming course, we start with a simple <command>hello world</command> script. The following script will output <command>Hello World</command>.</para>
 		<screen>
-#!/bin/bash
-# Hello World Script
 echo Hello World
 		</screen>
 		<para>After creating this simple script in vi, you'll have to <command>chmod +x</command><indexterm><primary>chmod +x</primary></indexterm> the script to make it executable. And unless you add the scripts directory to your path, you'll have to type the path to the script for the shell to be able to find it.</para>
@@ -11,6 +13,21 @@ echo Hello World
 [paul@RHEL4a ~]$ ./hello_world 
 Hello World
 [paul@RHEL4a ~]$ 
+		</screen>
+	</section>
+	<section><title>she-bang</title>
+		<para>Let's expand our example a little further by putting <command>#!/bin/bash</command> on the first line of the script. The <command>#!</command> is called a <command>she-bang</command>. When the <command>she-bang</command> are the first two characters of the script, </para>
+		<screen>
+#!/bin/bash
+echo Hello World
+		</screen>
+	</section>
+	<section><title>comment</title>
+		<para>Let's expand our example a little further.</para>
+		<screen>
+#!/bin/bash
+# Hello World Script
+echo Hello World
 		</screen>
 	</section>
 	<section><title>Variables</title>

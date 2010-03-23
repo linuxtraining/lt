@@ -1,0 +1,35 @@
+<section><title>Introduction</title>
+	<para>Dynamically linked libraries or shared objects .so</para>
+	<para></para>
+	<screen></screen>
+</section>
+<section><title>ldd</title>
+	<para>list dependencies</para>
+	<para></para>
+	<screen>
+paul@deb503:~$ ldd /bin/cat
+	linux-gate.so.1 =>  (0xb7f54000)
+	libc.so.6 => /lib/i686/cmov/libc.so.6 (0xb7deb000)
+	/lib/ld-linux.so.2 (0xb7f55000)
+</screen>
+</section>
+<section><title>/etc/ld.so.conf</title>
+	<para>and /etc/ld.so.conf.d</para>
+	<para></para>
+	<screen></screen>
+</section>
+<section><title>ldconfig</title>
+	<para></para>
+	<para></para>
+	<screen></screen>
+</section>
+<section><title>LD_LIBRARY_PATH</title>
+	<para></para>
+	<para></para>
+	<screen></screen>
+</section>
+<section><title></title>
+	<para></para>
+	<para></para>
+	<screen></screen>
+</section>
