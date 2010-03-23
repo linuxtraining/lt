@@ -19,7 +19,7 @@
 		<screen>$(embvar=emb;echo $embvar) ; echo $embvar (the last echo fails).</screen>
 		<screen>$embvar does not exist in your current shell</screen>
 		<para>7. Explain what "set -x" does. Can this be useful ?</para>
-		<screen>I can be useful to display shell expansion for troubleshooting your command.</screen>
+		<screen>It can be useful to display shell expansion for troubleshooting your command.</screen>
 		<para>8. Given the following screenshot, add exactly four characters to that command line so that the total output is FirstMiddleLast.</para>
 		<screen>
 [paul@RHEL4b ~]$ echo  First; echo  Middle; echo  Last
