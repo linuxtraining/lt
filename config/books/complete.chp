@@ -245,6 +245,7 @@ chapt_libraries() {
 	MODULES=""
 	chaptitle="Library Management"
 	add_mod mod_libraries/libraries.xml
+	}
 
 #
 chapt_links() {
