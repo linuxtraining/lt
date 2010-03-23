@@ -174,7 +174,6 @@ chapt_intro_groups() {
 chapt_intro_scripts() {
 	MODULES=""
 	chaptitle="Introduction to scripting"
-	add_mod mod_intro_scripts/about_scripting.xml 
 	add_mod mod_intro_scripts/scripting.xml       
 	}
 
@@ -240,6 +239,12 @@ chapt_keys() {
 	chaptitle="Keyboard settings"
 	add_mod mod_keys/keys.xml
 	}
+
+#
+chapt_libraries() {
+	MODULES=""
+	chaptitle="Library Management"
+	add_mod mod_libraries/libraries.xml
 
 #
 chapt_links() {
