@@ -11,11 +11,9 @@
 	<para>10. Explain the difference between the following commands:</para>	
 	<screen>echo</screen>
 	<screen>/bin/echo</screen>
-	<para>The 'echo' will be interpreted by the shell as the builtin echo command. The '/bin/echo' will make the shell execute the echo binary located in the /bin directory.</para>
 	<para>11. Explain the difference between the following commands:</para>	
 	<screen>echo Hello</screen>
 	<screen>echo -n Hello</screen>
-	<para>The -n option of the echo command will prevent echo from echoing a trailing newline. 'echo Hello' will echo six characters in total, 'echo -n hello' only echoes five characters.</para>
 	<para></para>	
 	<para></para>	
 </section>
