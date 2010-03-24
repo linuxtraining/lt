@@ -288,6 +288,7 @@ chapt_monitoring() {
 chapt_more_bash() {
 	MODULES=""
 	chaptitle="More about bash"
+	add_mod mod_intro_users/user_environment.xml   
 	add_mod mod_more_bash/more_bash.xml  
 	}
 
