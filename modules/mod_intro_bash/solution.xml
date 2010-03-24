@@ -36,7 +36,8 @@
 		<para>17. You receive information that one of your servers was cracked, the cracker probably replaced the ls command. You know that the echo command is safe to use. Can echo replace ls ? How can you list the files in the current directory with echo ?</para>
 		<screen>echo *</screen>
 		<para>18. The cd command is also compromised, can echo be used to list files in other directories ? Explain how this works (list the contents of /etc and /bin without ls). </para>
-		<screen>echo /etc/*.conf # the shell expands the directory for you</screen>
+		<screen>echo /etc/* # the shell expands the directory for you</screen>
+		<screen>echo /bin/* </screen>
 		<para>19. Is there another command besides cd to change directories ?</para>
 		<screen>pushd popd</screen>
 		<para>20. Make sure bash remembers the last 5000 commands you typed.</para>

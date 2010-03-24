@@ -7,10 +7,15 @@
 	<para>list dependencies</para>
 	<para></para>
 	<screen>
-paul@deb503:~$ ldd /bin/cat
-	linux-gate.so.1 =>  (0xb7f54000)
-	libc.so.6 => /lib/i686/cmov/libc.so.6 (0xb7deb000)
-	/lib/ld-linux.so.2 (0xb7f55000)
+paul@RHEL5 ~$ ldd /bin/su
+	linux-gate.so.1 =>  (0x003f7000)
+	libpam.so.0 => /lib/libpam.so.0 (0x00d5c000)
+	libpam_misc.so.0 => /lib/libpam_misc.so.0 (0x0073c000)
+	libcrypt.so.1 => /lib/libcrypt.so.1 (0x00aa4000)
+	libdl.so.2 => /lib/libdl.so.2 (0x00800000)
+	libc.so.6 => /lib/libc.so.6 (0x00ec1000)
+	libaudit.so.0 => /lib/libaudit.so.0 (0x0049f000)
+	/lib/ld-linux.so.2 (0x4769c000)
 </screen>
 </section>
 <section><title>/etc/ld.so.conf</title>
@@ -27,6 +32,27 @@ paul@deb503:~$ ldd /bin/cat
 	<para></para>
 	<para></para>
 	<screen></screen>
+</section>
+<section><title>/etc/ld.so.cache</title>
+	<para></para>
+	<para></para>
+	<screen></screen>
+</section>
+<section><title>dpkg -S</title>
+	<para>Find out on Debian/Ubuntu to which package a library belongs</para>
+	<para></para>
+	<screen>
+paul@deb503:/lib$ dpkg -S libext2fs.so.2.4 
+e2fslibs: /lib/libext2fs.so.2.4
+</screen>
+</section>
+<section><title>rpm -qf</title>
+	<para>Find out on Red Hat/Fedora to which package a library belongs</para>
+	<para></para>
+	<screen>
+paul@RHEL5 ~$ rpm -qf /lib/libext2fs.so.2.4 
+e2fsprogs-libs-1.39-8.el5
+</screen>
 </section>
 <section><title></title>
 	<para></para>
