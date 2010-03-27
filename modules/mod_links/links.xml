@@ -1,11 +1,31 @@
-<section><title>about inodes</title>
+<section><title>inodes</title>
 	<para>To understand links in a file system, you first have to understand what an <command>inode</command><indexterm><primary>inode</primary></indexterm> is.</para>
-	<section><title>an inode contains metadata</title>
-		<para>An <command>inode</command> is a list that contains metadata about a file. When the file system stores a new file on the hard disk, it stores not only the contents (data) of the file, but also some extra properties like the name of the file, the creation date, the permissions, the owner of the file... and more. All this information (except the name of the file and the data) is stored in the inode of the file.</para>
-		<para>All the inodes are created when you create the file system (with mkfs). Most of them are unused and empty.</para>
+	<section><title>inode contents</title>
+		<para>An <command>inode</command> is a data structure that contains metadata about a file. When the file system stores a new file on the hard disk, it stores not only the contents (data) of the file, but also some extra properties like the name of the file, the creation date, the permissions, the owner of the file... and more. All this information (except the name of the file and the contents of the file) is stored in the <command>inode</command> of the file.</para>
+		<para>The <command>ls -l</command> command will display some of the inode contents, as seen in this screenshot.</para>
+		<screen>
+root@rhel53 ~# ls -ld /home/project42/
+drwxr-xr-x 4 root pro42 4.0K Mar 27 14:29 /home/project42/
+		</screen>
 	</section>
-	<section><title>unique inode number</title>
-		<para>Each inode has a unique number (the inode number). You can see the inode numbers with the <command>ls -li</command><indexterm><primary>ls(1)</primary></indexterm> command.</para>
+	<section><title>inode table</title>
+		<para>The <command>inode table</command><indexterm><primary>inode table</primary></indexterm> contains all <command>inodes</command> and is created when you create the file system (with mkfs). You can use the <command>dh -i</command><indexterm><primary>df -i</primary></indexterm> command to see how many <command>inodes</command> are used and free on mounted file systems.</para>
+		<screen>
+oot@rhel53 ~# df -i
+Filesystem            Inodes   IUsed   IFree IUse% Mounted on
+/dev/mapper/VolGroup00-LogVol00
+                     4947968  115326 4832642    3% /
+/dev/hda1              26104      45   26059    1% /boot
+tmpfs                  64417       1   64416    1% /dev/shm
+/dev/sda1             262144    2207  259937    1% /home/project42
+/dev/sdb1              74400    5519   68881    8% /home/project33
+/dev/sdb5                  0       0       0    -  /home/sales
+/dev/sdb6             100744      11  100733    1% /home/research
+		</screen>
+		<para>In the <command>df -i</command> screenshot above you can see the <command>inode</command> usage for several mounted <command>file systens</command>. You don't see numbers for <command>/dev/sdb5</command> because it is a <command>fat</command> file system.</para>
+	</section>
+	<section><title>inode number</title>
+		<para>Each <command>inode</command> has a unique number (the inode number). You can see the <command>inode</command> numbers with the <command>ls -li</command><indexterm><primary>ls(1)</primary></indexterm> command.</para>
 		<screen>
 paul@RHELv4u4:~/test$ touch file1
 paul@RHELv4u4:~/test$ touch file2
