@@ -257,7 +257,7 @@ Feb 14 19:55:28 rhel4a paul: l4 emerg
 	<section><title>Rotating logs</title>
 		<para>A lot of log files are always growing in size. To keep this within bounds, you might want to use <command>logrotate</command><indexterm><primary>logrotate(1)</primary></indexterm> to rotate, compress, remove and mail logfiles. More info on the logrotate command in the scheduling chapter.</para>
 	</section>
-	<section><title>Practice Logging</title>
+	<section><title>Practice : logging</title>
 		<para>1. Display the /var/run/utmp file.</para>
 		<para>2. Display the /var/log/wtmp file.</para>
 		<para>3. Use the lastlog and lastb commands, understand the difference.</para>
@@ -266,4 +266,27 @@ Feb 14 19:55:28 rhel4a paul: l4 emerg
 		<para>6. Configure /var/log/Mysu.log, all the su to root messages should go in that log. Test that it works!</para>
 		<para>7. Send the local5 messages to the syslog server of your neighbour. Test that it works.</para>
 		<para>8. Write a script that executes logger to local4 every 5 seconds (different message). Use tail -f and watch on your local4 log files. </para>
+	</section>
+	<section><title>Solution : logging</title>
+		<para>1. Display the /var/run/utmp file.</para>
+		<screen>who</screen>
+		<para>2. Display the /var/log/wtmp file.</para>
+		<screen>last</screen>
+		<para>3. Use the lastlog and lastb commands, understand the difference.</para>
+		<screen>lastlog : when users last logged on</screen>
+		<screen>lastb: failed (bad) login attempts</screen>
+		<para>4. Examine syslog to find the location of the log file containing ssh failed logins.</para>
+		<screen>RHEL: /var/log/secure</screen>
+		<screen>Debian/Ubuntu: /var/log/auth.log</screen>
+		<para>5. Configure syslog to put local4.error and above messages in /var/log/l4e.log and local4.info only .info in /var/log/l4i.log. Test that it works with the logger tool!</para>
+		<screen>echo local4.error /var/log/l4e.log >> /etc/syslog.conf</screen>
+		<screen>/etc/init.d/syslog restart</screen>
+		<screen>logger -p local4.error "l4 error test"</screen>
+		<screen>cat /var/log/l4e.log</screen>
+		<para>6. Configure /var/log/Mysu.log, all the su to root messages should go in that log. Test that it works!</para>
+		<screen></screen>
+		<para>7. Send the local5 messages to the syslog server of your neighbour. Test that it works.</para>
+		<screen></screen>
+		<para>8. Write a script that executes logger to local4 every 5 seconds (different message). Use tail -f and watch on your local4 log files. </para>
+		<screen></screen>
 	</section>
