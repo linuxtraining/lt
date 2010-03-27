@@ -1,27 +1,27 @@
 <section><title>about shells</title>
 	<section><title>several shells</title>
 		<para>The command line interface used on most Linux systems is <command>bash</command><indexterm><primary>/bin/bash</primary></indexterm>, which stands for <command>Bourne again shell</command><indexterm><primary>Bourne again shell</primary></indexterm>. Bash incorporates features from <command>sh</command><indexterm><primary>/bin/sh</primary></indexterm> (the original Bourne shell), <command>csh</command><indexterm><primary>/bin/csh</primary></indexterm> (the C shell) and <command>ksh</command><indexterm><primary>/bin/ksh</primary></indexterm> (the Korn shell). Ubuntu recently started including the <command>dash</command><indexterm><primary>/bin/dash</primary></indexterm> (Debian ash) shell.</para>
-		<para>This chapter will explain general features of a shell using mainly the <command>/bin/bash</command> shell. Important differences in <command>/bin/ksh</command> will be mentioned seperately.</para>
+		<para>This chapter will explain general features of a shell using mainly the <command>/bin/bash</command> shell. Important differences in <command>/bin/ksh</command> will be mentioned separately.</para>
 	</section>
-	<section><title>external or builtin commands</title>
-		<para>Not all commands are external to the shell, some are builtin. <command>External commands</command> are programs that have their own binary and reside somewhere on the system in a directory. Many external commands are located in /bin or / sbin. <command>Builtin commands</command> are functions inside the shell program.</para>
+	<section><title>external or built-in commands</title>
+		<para>Not all commands are external to the shell, some are built-in. <command>External commands</command> are programs that have their own binary and reside somewhere on the system in a directory. Many external commands are located in /bin or / sbin. <command>Builtin commands</command> are functions inside the shell program.</para>
 	</section>
 	<section><title>type</title>
-		<para>To find out whether a command given to the shell will be executed as an <command>external command</command> or as a <command>builtin command</command>, use the <command>type</command><indexterm><primary>type(shell)</primary></indexterm> command.</para>
+		<para>To find out whether a command given to the shell will be executed as an <command>external command</command> or as a <command>built-in command</command>, use the <command>type</command><indexterm><primary>type(shell)</primary></indexterm> command.</para>
 		<screen>
 paul@laika:~$ type cd
 cd is a shell builtin
 paul@laika:~$ type cat
 cat is /bin/cat
 		</screen>
-		<para>You can also use this shell builtin to show you whether the command is aliased or not.</para>
+		<para>You can also use this shell built-in to show you whether the command is aliased or not.</para>
 		<screen>
 paul@laika:~$ type ls
 ls is aliased to `ls --color=auto'
 		</screen>
 	</section>
 	<section><title>running external commands</title>
-		<para>Careful, some commands exist both as a shell builtin and as an external command. When an external command exists with the same name as a builtin command, then the builtin will take priority. You will need to provide the full path to execute the external command.</para>
+		<para>Careful, some commands exist both as a shell built-in and as an external command. When an external command exists with the same name as a built-in command, then the built-in will take priority. You will need to provide the full path to execute the external command.</para>
 		<screen>
 paul@laika:~$ type -a echo
 echo is a shell builtin
@@ -31,7 +31,7 @@ Running the external echo command...
 		</screen>
 	</section>
 	<section><title>which</title>
-		<para>The <command>which</command><indexterm><primary>which(1)</primary></indexterm> command will look for binaries in the <command>PATH</command><indexterm><primary>$PATH</primary></indexterm> environment variable. (Variables are explained later). In the screenshot below, it looks like cd is builtin, and ls cp rm mv mkdir pwd and which are external commands.</para> 
+		<para>The <command>which</command><indexterm><primary>which(1)</primary></indexterm> command will look for binaries in the <command>PATH</command><indexterm><primary>$PATH</primary></indexterm> environment variable. (Variables are explained later). In the screenshot below, it looks like cd is built-in, and ls cp rm mv mkdir pwd and which are external commands.</para> 
 		<screen>
 [root@RHEL4b ~]# which cp ls mv rm cd mkdir pwd which
 /bin/cp
@@ -81,7 +81,7 @@ ls: winter.txt: No such file or directory
 rm: remove regular empty file `winter.txt'? no
 [paul@RHELv4u3 ~]$ 
 			</screen>
-			<para>Some distributions enable default aliases to protect users from accidentaly erasing files ('rm -i', 'mv -i', 'cp -i')</para>
+			<para>Some distributions enable default aliases to protect users from accidentally erasing files ('rm -i', 'mv -i', 'cp -i')</para>
 		</section>
 		<section><title>viewing aliases</title>
 			<para>You can give multiple aliases as arguments to the <command>alias</command> command to get a small list. Not providing any argument will give you a complete list of current aliases.</para>

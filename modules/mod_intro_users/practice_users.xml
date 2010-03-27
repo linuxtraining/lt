@@ -10,7 +10,7 @@
 		<para>7. Now try changing the password of serena to serena as serena.</para>
 		<para>8. Make sure every new user needs to change his password every 10 days.</para>
 		<para>9. Set the warning number of days to four for the kornuser.</para>
-		<para>10a. Set the password of two seperate users to stargate. Look at the encrypted stargate's in /etc/shadow and explain.</para>
+		<para>10a. Set the password of two separate users to stargate. Look at the encrypted stargate's in /etc/shadow and explain.</para>
 		<para>10b. Take a backup as root of /etc/shadow. Use vi to copy an encrypted stargate to another user. Can this other user now log on with stargate as a password ?</para>
 		<para>11. Put a file in the skeleton directory and check whether it is copied to user's home directory. When is the skeleton directory copied ?</para>
 		<para>12. Why use vipw instead of vi ? What could be the problem when using vi or vim ?</para>

@@ -145,7 +145,7 @@ ermion
 	</screen>
 </section>
 <section><title>tr</title>
-	<para>You can translate characters with <command>tr</command><indexterm><primary>tr(1)</primary></indexterm>. The screenshot translates all occurences of e to E.</para>
+	<para>You can translate characters with <command>tr</command><indexterm><primary>tr(1)</primary></indexterm>. The screenshot translates all occurrences of e to E.</para>
 	<screen>
 [paul@RHEL4b pipes]$ cat tennis.txt 
 Amelie Mauresmo, Fra
@@ -182,7 +182,7 @@ five
 [paul@RHEL4b pipes]$ cat count.txt | tr '\n' ' '
 one two three four five [paul@RHEL4b pipes]$
 	</screen>
-	<para>The tr filter can also be used to squeeze multiple occurences of a character to one.</para>
+	<para>The tr filter can also be used to squeeze multiple occurrences of a character to one.</para>
 	<screen>
 [paul@RHEL4b pipes]$ cat spaces.txt 
 one    two        three
@@ -261,7 +261,7 @@ Italy, Rome, 50
 Iran, Teheran, 70
 [paul@RHEL4b pipes]$ 
 	</screen>
-	<para>The screenshot below shows the difference between an alfabetical sort and a numerical sort (both on the third column).</para>
+	<para>The screenshot below shows the difference between an alphabetical sort and a numerical sort (both on the third column).</para>
 	<screen>
 [paul@RHEL4b pipes]$ sort -k3 country.txt 
 Belgium, Brussels, 10

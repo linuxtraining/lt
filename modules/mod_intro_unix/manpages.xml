@@ -66,7 +66,7 @@ paul@laika:~$ man /usr/share/man/man1/whois.1.gz
 		</screen>
 	</section>
 	<section><title>man $section $file</title>
-		<para>So when refering to the man page of the passwd command, this is usually written as <command>passwd(1)</command>. Whereas the passwd file is explained in section five, thus the man page is referenced as <command>passwd(5)</command>. The screenshot explains how to open the man page in the correct section.</para>
+		<para>So when referring to the man page of the passwd command, this is usually written as <command>passwd(1)</command>. Whereas the passwd file is explained in section five, thus the man page is referenced as <command>passwd(5)</command>. The screenshot explains how to open the man page in the correct section.</para>
 		<screen>
 [paul@RHEL52 ~]$ man passwd      # opens the lowest section (1)
 [paul@RHEL52 ~]$ man 5 passwd    # opens a page from section 5

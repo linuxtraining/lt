@@ -24,10 +24,10 @@ cat              kill              pidof            umount
 </screen>
 		</section>
 		<section><title>/boot static files to boot the system</title>
-			<para>The <command>/boot</command><indexterm><primary>/boot</primary></indexterm> directory contains all files needed to boot the computer. These files don't change very often. On Linux systems you typically find the <command>/boot/grub</command><indexterm><primary>/boot/grub</primary></indexterm> directory here. This /boot/grub contains <command>/boot/grub/menu.lst</command><indexterm><primary>/boot/grub/menu.lst</primary></indexterm> (the grub configuration file is often linked to <command>/boot/grub/grub.conf</command><indexterm><primary>/boot/grub/grub.conf</primary></indexterm>), which defines the bootmenu that is being displayed before the kernel starts.</para>
+			<para>The <command>/boot</command><indexterm><primary>/boot</primary></indexterm> directory contains all files needed to boot the computer. These files don't change very often. On Linux systems you typically find the <command>/boot/grub</command><indexterm><primary>/boot/grub</primary></indexterm> directory here. This /boot/grub contains <command>/boot/grub/menu.lst</command><indexterm><primary>/boot/grub/menu.lst</primary></indexterm> (the grub configuration file is often linked to <command>/boot/grub/grub.conf</command><indexterm><primary>/boot/grub/grub.conf</primary></indexterm>), which defines the boot menu that is being displayed before the kernel starts.</para>
 		</section>
 		<section><title>/dev device files</title>
-			<para>Device files in <command>/dev</command><indexterm><primary>/dev</primary></indexterm> appear to be ordinary files, but are not located on the harddisk. The /dev directory is populated with files when the kernel is recognizing hardware.</para>
+			<para>Device files in <command>/dev</command><indexterm><primary>/dev</primary></indexterm> appear to be ordinary files, but are not located on the hard disk. The /dev directory is populated with files when the kernel is recognizing hardware.</para>
 			<section><title>common physical devices</title>
 				<para>Common hardware such as hard disk devices are represented by device files in <command>/dev</command>. Below a screenshot of SATA device files on a laptop and then IDE attached drives on a desktop. (The detailed meaning of these devices will be discussed later.)</para>
 				<screen>
@@ -46,7 +46,7 @@ paul@barry:~$ ls /dev/hd*
 				<para>Besides representing physical hardware, some device files are special. These special devices can be very useful.</para>
 			</section>
 			<section><title>/dev/tty and /dev/pts</title>
-				<para>For example <command>/dev/tty1</command><indexterm><primary>/dev/tty1</primary></indexterm> represents a terminal or console attached to the system. (Don't break your head on the exact terminology of 'terminal' or 'console', what we mean here is a commandline interface.) When typing commands in a terminal that is part of a graphical interface like Gnome or KDE, then your terminal will be represented as <command>/dev/pts/1</command><indexterm><primary>/dev/pts/1</primary></indexterm> (1 can be another number).</para>
+				<para>For example <command>/dev/tty1</command><indexterm><primary>/dev/tty1</primary></indexterm> represents a terminal or console attached to the system. (Don't break your head on the exact terminology of 'terminal' or 'console', what we mean here is a command line interface.) When typing commands in a terminal that is part of a graphical interface like Gnome or KDE, then your terminal will be represented as <command>/dev/pts/1</command><indexterm><primary>/dev/pts/1</primary></indexterm> (1 can be another number).</para>
 			</section>
 			<section><title>/dev/null</title>
 				<para>On Linux you will find special devices like <command>/dev/null</command><indexterm><primary>/dev/null</primary></indexterm> which can be considered a black hole, it has unlimited storage, but nothing can be retrieved from it. Technically speaking, anything given to /dev/null will be discarded. /dev/null can be useful to discard unwanted output from commands. <emphasis>/dev/null is not a good location to store all your backups ;-)</emphasis>.</para>
@@ -159,13 +159,13 @@ cdrom  cdrom0  usbdisk
 			</screen>
 		</section>
 		<section><title>/mnt standard mount point</title>
-			<para>Unix and Linux administrators used to mount all kind of stuff under /mnt/something/. According to the FHS, <command>/mnt</command><indexterm><primary>/mnt</primary></indexterm> should only be used to temporarily mount something. But you will most likely witness a lot of systems with more than one directory underneath /mnt used as a mountpoint for various local and remote filesystems.</para>
+			<para>Unix and Linux administrators used to mount all kind of stuff under /mnt/something/. According to the FHS, <command>/mnt</command><indexterm><primary>/mnt</primary></indexterm> should only be used to temporarily mount something. But you will most likely witness a lot of systems with more than one directory underneath /mnt used as a mount point for various local and remote filesystems.</para>
 		</section>
 		<section><title>/opt optional software</title>
 			<para>Most of my systems today have an empty <command>/opt</command><indexterm><primary>/opt</primary></indexterm> directory. It is considered outdated, but you might find some systems with add-on software installed in /opt. If that is the case, the package should install all its files in the typical bin, lib, etc subdirectories in /opt/$packagename/. If for example the package is called wp, then it installs in /opt/wp, putting binaries in /opt/wp/bin and manpages in /opt/wp/man. Most of the default software which comes along with the distribution, will not be installed in /opt.</para>
 		</section>
 		<section><title>/proc conversation with the kernel</title>
-		<para><command>/proc</command><indexterm><primary>/proc</primary></indexterm> is another special directory, appearing to be ordinary files, but not taking up diskspace. It is actually a view on the kernel, or better on what the kernel sees, and a means to talk to the kernel directly. <command>/proc</command> is a proc filesystem.</para>
+		<para><command>/proc</command><indexterm><primary>/proc</primary></indexterm> is another special directory, appearing to be ordinary files, but not taking up disk space. It is actually a view on the kernel, or better on what the kernel sees, and a means to talk to the kernel directly. <command>/proc</command> is a proc filesystem.</para>
 			<screen>
 paul@RHELv4u4:~$ mount -t proc
 none on /proc type proc (rw)
@@ -411,7 +411,7 @@ paul@RHELv4u4:~$
 		</screen>
 		</section>
 		<section><title>/tmp for temporary files</title>
-			<para>When applications (or Users) need to store temporary data, they should use <command>/tmp</command><indexterm><primary>/tmp</primary></indexterm>. /tmp might take up diskspace, then again, it might also not (as in being mounted inside RAM memory). In any case, files in /tmp can be cleared by the operating system. Never use /tmp to store data that you want to archive.</para>
+			<para>When applications (or Users) need to store temporary data, they should use <command>/tmp</command><indexterm><primary>/tmp</primary></indexterm>. /tmp might take up disk space, then again, it might also not (as in being mounted inside RAM memory). In any case, files in /tmp can be cleared by the operating system. Never use /tmp to store data that you want to archive.</para>
 		</section>
 		<section><title>/usr Unix system resources</title>
 			<para>Although <command>/usr</command><indexterm><primary>/usr</primary></indexterm> is pronounced like user, never forget that it stands for Unix System Resources. The /usr hierarchy should contain <command>sharable, read only</command> data. Some people even choose to mount /usr as read only. This can be done from its own partition, or from a read only NFS share.</para>
@@ -478,8 +478,8 @@ paul@RHELv4u4:~$
 		<para>The first ls will show block(b) devices, the second ls shows character(c) devices. Can you tell the difference between block and character devices ?</para>
 		<para>Block devices are always written to (or read from) in blocks. For hard disks, blocks of 512 bytes are common. Character devices act as a stream of characters (or bytes). Mouse and keyboard are typical character devices.</para>
 		<para>6. Use cat to display /etc/hosts and /etc/resolv.conf. What is your idea about the purpose of these files ?</para>
-		<screen><command>/etc/hosts</command><indexterm><primary>/etc/hosts</primary></indexterm> contains hostnames with their ip-address</screen>
-		<screen><command>/etc/resolv.conf</command><indexterm><primary>/etc/resolv.conf</primary></indexterm> should contain the ip-address of a DNS name server.</screen>
+		<screen><command>/etc/hosts</command><indexterm><primary>/etc/hosts</primary></indexterm> contains hostnames with their ip address</screen>
+		<screen><command>/etc/resolv.conf</command><indexterm><primary>/etc/resolv.conf</primary></indexterm> should contain the ip address of a DNS name server.</screen>
 		<para>7. Are there any files in /etc/skel/ ? Check also for hidden files.</para>
 		<screen>Issue "ls -al /etc/skel/". Yes, there should be hidden files there.</screen>
 		<para>8. Display /proc/cpuinfo. On what architecture is your Linux running ?</para>

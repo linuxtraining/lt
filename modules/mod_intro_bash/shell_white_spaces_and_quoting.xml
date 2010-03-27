@@ -1,6 +1,6 @@
 <section><title>white space and quoting</title>
 	<section><title>white space removal</title>
-		<para>Before execution, the shell looks at the command line. Parts that are seperated by one or more consecutive <command>white spaces</command> (or tabs) are considered separate arguments. The first argument is the command to be executed, the other arguments are given to the command as arguments.</para>
+		<para>Before execution, the shell looks at the command line. Parts that are separated by one or more consecutive <command>white spaces</command> (or tabs) are considered separate arguments. The first argument is the command to be executed, the other arguments are given to the command as arguments.</para>
 		<para>This explains why the following four different command lines are the same after <command>shell expansion</command><indexterm><primary>shell expansion</primary></indexterm>.</para>
 		<screen>
 [paul@RHELv4u3 ~]$ echo Hello World
@@ -53,7 +53,7 @@ A line with     a tab
 A line with     a tab
 [paul@RHEL4b ~]$ 
 		</screen>
-		<para>The echo command can generate more than white spaces, tabs and newlines. Look in the man page for a list of options (and don't forget that echo can be both builtin and external).</para>
+		<para>The echo command can generate more than white spaces, tabs and newlines. Look in the man page for a list of options (and don't forget that echo can be both built-in and external).</para>
 	</section>
 	<section><title>shell embedding</title>
 		<para>Shells can be embedded on the command line, or in other words the command line scan can spawn new processes, containing a fork of the current shell. You can use variables to prove that new shells are created. In the screenshot below, the variable $var1 only exists in the (temporary) sub shell.</para>

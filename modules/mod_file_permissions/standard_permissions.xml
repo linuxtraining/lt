@@ -321,6 +321,6 @@ paul@laika:~/perms$ ls -l permissions.txt
 -rw-rw-r--  1 Harry Harry 0 Jul 24 06:03 test
 [Harry@RHEL4b ~]$
 		</screen>
-		<para>As you can see, the file is also not executable by default. This is a general security feature among Unixes, newly created files are never executable by default. You have to explicitely do a <command>chmod +x</command><indexterm><primary>chmod +x</primary></indexterm> to make a file executable. This also means that the 1 bit in the umask has no meaning, a umask of 0022 is the same as 0033.</para>
+		<para>As you can see, the file is also not executable by default. This is a general security feature among Unixes, newly created files are never executable by default. You have to explicitly do a <command>chmod +x</command><indexterm><primary>chmod +x</primary></indexterm> to make a file executable. This also means that the 1 bit in the umask has no meaning, a umask of 0022 is the same as 0033.</para>
 	</section>
 </section>

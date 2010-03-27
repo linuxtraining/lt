@@ -15,7 +15,7 @@
 		<mediaobject><imageobject><imagedata fileref="images/wikipedia.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 	</section>
 	<section><title>The Linux Documentation Project</title>
-		<para>On <command>www.tldp.org</command><indexterm><primary>http://www.tldp.org</primary></indexterm> you will find a lot of documentation, faqs, howtos and man pages about Linux and many other programs running on Linux.</para>
+		<para>On <command>www.tldp.org</command><indexterm><primary>http://www.tldp.org</primary></indexterm> you will find a lot of documentation, faqs, how to's and man pages about Linux and many other programs running on Linux.</para>
 	</section>
 	<section><title>Red Hat</title>
 		<para>Red Hat has a lot of info online at <command>http://www.redhat.com/docs/manuals/</command><indexterm><primary>http://www.redhat.com/docs/manuals/</primary></indexterm> in both pdf and html format. These manuals are good, but unfortunately not always up to date.</para>

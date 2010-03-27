@@ -50,7 +50,7 @@ exit
 		</screen>
 	</section>
 	<section><title>fork and exec</title>
-		<para>A process starts another process in two fases. First the process creates a <command>fork</command><indexterm><primary>fork</primary></indexterm> of itself, an identical copy. Then the forked process executes an <command>exec</command><indexterm><primary>exec</primary></indexterm> to replace the forked process with the target child process.</para>
+		<para>A process starts another process in two phases. First the process creates a <command>fork</command><indexterm><primary>fork</primary></indexterm> of itself, an identical copy. Then the forked process executes an <command>exec</command><indexterm><primary>exec</primary></indexterm> to replace the forked process with the target child process.</para>
 		<screen>
 [paul@RHEL4b ~]$ echo $$
 4224
@@ -305,7 +305,7 @@ sleep 2000
 		<para>4. Kill your script with the kill command.</para>
 		<para>5. Run your script again, now use top to display only your script and the init process.</para>
 		<para>6. Use top to kill your script.</para>
-		<para>7. Use top, organise all processes by memory usage.</para>
+		<para>7. Use top, organize all processes by memory usage.</para>
 		<para>8. Write a script with a 'while true' loop that does some calculation. Copy this script.</para>
 		<para>9. Start the while script. Start the copy of it in a nice way. Do you see the difference with top ? with ps ?</para>
 		<para>10. Kill all your running scripts.</para>

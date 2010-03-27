@@ -239,7 +239,7 @@ isit.txt exists!
 		</screen>
 	</section>
 	<section><title>let</title>
-		<para>The <command>let</command><indexterm><primary>let</primary></indexterm> command allows for evalutation of arithmetic expressions.</para>
+		<para>The <command>let</command><indexterm><primary>let</primary></indexterm> command allows for evaluation of arithmetic expressions.</para>
 		<screen>
 [paul@RHEL4b ~]$ let x="3 + 4" ; echo $x
 7
@@ -372,7 +372,7 @@ Product:   5 x 2 = 10
 		<para>6. Improve the previous script to congratulate the user if the sum equals the product.</para>
 		<para>7. Improve the script from question 2. to complain if it does not receive exactly two parameters.</para>
 		<para>8. Write a script that counts from 3 to 7 and then from 7 to 3, and all this three times, once with a for loop, once with a while loop and once with a until loop. Show the teacher that it works!</para>
-		<para>9. Write a script that asks for a filename. Verify existance of the file, then verify that you own the file, and whether it is writable. If not, then make it writable.</para>
+		<para>9. Write a script that asks for a filename. Verify existence of the file, then verify that you own the file, and whether it is writable. If not, then make it writable.</para>
 		<para>10. Make a configuration file for the previous script. Put a logging switch in the config file, logging means writing detailed output of everything the script does to a log file in /tmp.</para>
 		<para>11. Make the case statement in "Wild Animals Helpdesk Advice" case insensitive. Use shopt (with the correct toggled option) for this, but reset the value back to it's original after the end of the case statement. (A solution is available in appendix 1, but try to find it yourself.)</para>
 		<para>12. If time permits (or if you are waiting for other students to finish this practice), take a look at linux system scripts in /etc/init.d and /etc/rc.d and try to understand them. Where does execution of a script start in /etc/init.d/samba ? There are also some hidden scripts in ~, we will discuss them later.</para>

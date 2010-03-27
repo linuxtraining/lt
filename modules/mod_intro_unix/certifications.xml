@@ -14,7 +14,7 @@
 			</section>
 		</section>
 		<section><title>Red Hat Certified Engineer</title>
-			<para>The big difference with most certs is that there are no multiple choice questions for <command>RHCE</command><indexterm><primary>RHCE</primary></indexterm>. Red Hat Certified Engineers have taken a live exam consisting of two parts. First they have to troubleshoot and maintain an existing but broken setup (scoring at least 80 percent), second they have to install and configure a machine (scoring at least 70 percent).</para>
+			<para>The big difference with most certifications is that there are no multiple choice questions for <command>RHCE</command><indexterm><primary>RHCE</primary></indexterm>. Red Hat Certified Engineers have taken a live exam consisting of two parts. First they have to troubleshoot and maintain an existing but broken setup (scoring at least 80 percent), second they have to install and configure a machine (scoring at least 70 percent).</para>
 		</section>
 		<section><title>MySQL</title>
 			<para>There are two tracks for MySQL certification; Certified MySQL 5.0 Developer (CMDEV) and Certified MySQL 5.0 DBA (CMDBA). The <command>CMDEV</command><indexterm><primary>CMDEV</primary></indexterm> is focused at database application developers, the <command>CMDBA</command><indexterm><primary>CMDBA</primary></indexterm> is for database administrators. Both tracks require two exams each. The MySQL cluster DBA certification requires CMDBA certification and passing the CMCDBA exam.</para>
@@ -26,6 +26,6 @@
 			<para>Sun uses the classical formula of multiple choice exams for certification. Passing two exams for an operating system gets you the Solaris Certified Administrator for Solaris X title.</para>
 		</section>
 		<section><title>Other certifications</title>
-			<para>There are many other less known certs like EC council's Certified Ethical Hacker, CompTIA's Linux+ and Sair's Linux GNU.</para>
+			<para>There are many other less known certifications like EC council's Certified Ethical Hacker, CompTIA's Linux+ and Sair's Linux GNU.</para>
 		</section>
 	</section>

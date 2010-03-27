@@ -86,7 +86,7 @@ ls: test: No such file or directory
 			</section>
 		</section>
 		<section><title>cp</title>
-			<para>To copy a file, use <command>cp</command><indexterm><primary>cp(1)</primary></indexterm> with a source and a target argument. If the target is a directory, then the sourcefiles are copied in that target directory.</para>
+			<para>To copy a file, use <command>cp</command><indexterm><primary>cp(1)</primary></indexterm> with a source and a target argument. If the target is a directory, then the source files are copied in that target directory.</para>
 			<screen>
 paul@laika:~/test$ touch FileA
 paul@laika:~/test$ ls
@@ -160,7 +160,7 @@ paul@laika:~/test$ ls
 ABC.txt
 paul@laika:~/test$
 			</screen>
-			<para>When you need to rename only one file, then <command>mv</command> is the prefered command to use.</para>
+			<para>When you need to rename only one file, then <command>mv</command> is the preferred command to use.</para>
 		</section>
 		<section><title>rename</title>
 			<para>The <command>rename</command><indexterm><primary>rename(1)</primary></indexterm> command can also be used, but it has a more complex syntax to enable renaming of many files at once. Below two examples, the first switches all occurrences of txt in png for all filenames ending in .txt. The second example switches all occurrences of uppercase ABC in lowercase abc for all filenames ending in .png . The following syntax will work on debian and ubuntu (prior to Ubuntu 7.10).</para>

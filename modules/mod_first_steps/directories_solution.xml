@@ -21,13 +21,13 @@
 	<screen>ls /bin /sbin</screen>	
 	<para>11. Stay where you are, and list the contents of &#126;.</para>
 	<screen>ls &#126;</screen>	
-	<para>12. List all the files (including hidden files) in your homedirectory.</para>
+	<para>12. List all the files (including hidden files) in your home directory.</para>
 	<screen>ls -al &#126;</screen>	
 	<para>13. List the files in /boot in a human readable format.</para>
 	<screen>ls -lh /boot</screen>	
-	<para>14. Create a directory testdir in your homedirectory.</para>
+	<para>14. Create a directory testdir in your home directory.</para>
 	<screen>mkdir &#126;/testdir</screen>	
-	<para>15. Change to the /etc directory, stay here and create a directory newdir in your homedirectory.</para>
+	<para>15. Change to the /etc directory, stay here and create a directory newdir in your home directory.</para>
 	<screen>cd /etc ; mkdir &#126;/newdir</screen>	
 	<para>16. Create in one command the directories &#126;/dir1/dir2/dir3 (dir3 is a subdirectory from dir2, and dir2 is a subdirectory from dir1 ).</para>
 	<screen>mkdir -p &#126;/dir1/dir2/dir3</screen>	

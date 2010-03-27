@@ -1,5 +1,5 @@
 <section><title>Solution: about shells</title>
-	<para>1. Is tac a shell builtin command ?</para>
+	<para>1. Is tac a shell built-in command ?</para>
 	<screen>type tac</screen>
 	<para>2. Is there an existing alias for rm ?</para>
 	<screen>alias rm</screen>
@@ -7,7 +7,7 @@
 	<screen>man rm</screen>
 	<screen>touch testfile</screen>
 	<screen>rm -i testfile</screen>
-	<para>4. Execute: <command>alias rm='rm -i'</command> . Test your alias with a testfile. Does this work as expected ?</para>
+	<para>4. Execute: <command>alias rm='rm -i'</command> . Test your alias with a test file. Does this work as expected ?</para>
 	<screen>touch testfile</screen>
 	<screen>rm testfile (should ask for confirmation!)</screen>
 	<para>5. List all current aliases.</para>
@@ -24,7 +24,7 @@
 	<para>10. Explain the difference between the following commands:</para>	
 	<screen>echo</screen>
 	<screen>/bin/echo</screen>
-	<para>The <command>echo</command> will be interpreted by the shell as the builtin echo command. The <command>/bin/echo</command> will make the shell execute the echo binary located in the /bin directory.</para>
+	<para>The <command>echo</command> will be interpreted by the shell as the built-in echo command. The <command>/bin/echo</command> will make the shell execute the echo binary located in the /bin directory.</para>
 	<para>11. Explain the difference between the following commands:</para>	
 	<screen>echo Hello</screen>
 	<screen>echo -n Hello</screen>

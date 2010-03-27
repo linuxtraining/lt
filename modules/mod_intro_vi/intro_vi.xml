@@ -64,7 +64,7 @@
 </table>
 	</section>
 	<section><title>replace and delete a character (r x X)</title>
-		<para>When in command mode (it doensn't hurt to hit the escape key more than once) you can use the x key to delete the current character. Big X key (or shift x) will delete the character left of the cursor. Also when in command mode, you can use the r key to replace one single character. The r key will bring you in insert mode for just one key press, and will return you immediately to command mode.</para>
+		<para>When in command mode (it doesn't hurt to hit the escape key more than once) you can use the x key to delete the current character. Big X key (or shift x) will delete the character left of the cursor. Also when in command mode, you can use the r key to replace one single character. The r key will bring you in insert mode for just one key press, and will return you immediately to command mode.</para>
 <table frame='all'><title>replace and delete</title>
 <?dbfo table-width="80%" ?>
 <tgroup cols='2' align='center' colsep='1' rowsep='1'>
@@ -372,7 +372,7 @@
 </row>
 <row>
   <entry>n</entry>
-  <entry>go to next occurence of search string</entry>
+  <entry>go to next occurrence of search string</entry>
 </row>
 <row>
   <entry>/^string</entry>
@@ -395,7 +395,7 @@
 </table>
 	</section>
 	<section><title>Replace all ( &#058;1,$ s&#047;foo&#047;bar&#047;g )</title>
-		<para>To replace all occurences of the string foo in bar, first switch to ex mode with &#058; . Then tell vi which lines to use, for example 1,&#036; will do the replace all from the first to the last line. You can write 1,5 to only process the first five lines. The s&#047;foo&#047;bar&#047;g will replace all occurences of foo with bar.</para>
+		<para>To replace all occurrences of the string foo in bar, first switch to ex mode with &#058; . Then tell vi which lines to use, for example 1,&#036; will do the replace all from the first to the last line. You can write 1,5 to only process the first five lines. The s&#047;foo&#047;bar&#047;g will replace all occurences of foo with bar.</para>
 <table frame='all'><title>replace</title>
 <?dbfo table-width="90%" ?>
 <tgroup cols='2' align='center' colsep='1' rowsep='1'>
@@ -421,7 +421,7 @@
 </table>
 	</section>
 	<section><title>Reading files (:r :r !cmd)</title>
-		<para>When in command mode, :r foo will read the file named foo, :r !foo will execute the command foo. The result will be put at the current location. Thus :r !ls will put a listing of the current directory in your textfile.</para>
+		<para>When in command mode, :r foo will read the file named foo, :r !foo will execute the command foo. The result will be put at the current location. Thus :r !ls will put a listing of the current directory in your text file.</para>
 <table frame='all'><title>read files and input</title>
 <?dbfo table-width="80%" ?>
 <tgroup cols='2' align='center' colsep='1' rowsep='1'>

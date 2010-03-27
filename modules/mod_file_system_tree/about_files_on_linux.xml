@@ -11,7 +11,7 @@ It is very cold!
 	</screen>
 </section>
 <section><title>everything is a file</title>
-	<para>A directory is a special kind of file, but it is still a file. Even a terminal window or a hard disk are represented somewhere in de file system hierarchy by a file. It will become clear troughout this course that everything on Linux is a file.</para>
+	<para>A directory is a special kind of file, but it is still a file. Even a terminal window or a hard disk are represented somewhere in de file system hierarchy by a file. It will become clear throughout this course that everything on Linux is a file.</para>
 </section>
 <section><title>/ (the root directory)</title>
 	<para>All Linux systems have a directory structure that starts at the <command>root directory</command><indexterm><primary>root directory</primary></indexterm>. The root directory is represented by a slash, like this: <command>/</command><indexterm><primary>/</primary></indexterm> . Everything that exists on your linux system can be found below this root directory. Let's take a brief look at the contents of the root directory.</para>

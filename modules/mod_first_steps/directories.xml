@@ -1,7 +1,7 @@
 <section><title>Working with directories</title>
-	<para>To explore the Linux filetree, you will need some tools. Here's a small overview of the most common commands to work with directories. These commands are available on any Linux system.</para>
+	<para>To explore the Linux file tree, you will need some tools. Here's a small overview of the most common commands to work with directories. These commands are available on any Linux system.</para>
 	<section><title>pwd</title>
-		<para>The <command>you are here</command> sign can be displayed with the <command>pwd</command><indexterm><primary>pwd</primary></indexterm> command (Print Working Directory). Go ahead, try it: open a commandline interface (like gnome-terminal, konsole, xterm or a tty) and type <command>pwd</command>. The tool displays your <command>current directory</command><indexterm><primary>current directory</primary></indexterm>.</para>
+		<para>The <command>you are here</command> sign can be displayed with the <command>pwd</command><indexterm><primary>pwd</primary></indexterm> command (Print Working Directory). Go ahead, try it: open a command line interface (like gnome-terminal, konsole, xterm or a tty) and type <command>pwd</command>. The tool displays your <command>current directory</command><indexterm><primary>current directory</primary></indexterm>.</para>
 		<screen>
 paul@laika:~$ pwd
 /home/paul
@@ -65,7 +65,7 @@ paul@laika$ cd -
 		</section>
 	</section>
 	<section><title>absolute and relative paths</title>
-		<para>You should be aware of <command>absolute and relative paths</command><indexterm><primary>absolute and relative paths</primary></indexterm> in the filetree. When you type a path starting with a slash, then the root of the filetree is assumed. If you don't start your path with a slash, then the current directory is the assumed starting point.</para>
+		<para>You should be aware of <command>absolute and relative paths</command><indexterm><primary>absolute and relative paths</primary></indexterm> in the file tree. When you type a path starting with a slash, then the root of the file tree is assumed. If you don't start your path with a slash, then the current directory is the assumed starting point.</para>
 		<para>The screenshot below first shows the current directory (/home/paul). From within this directory, you have to type <command>cd /home</command> instead of <command>cd home</command> to go to the /home directory.</para>
 		<screen>
 paul@laika$ pwd
@@ -172,7 +172,7 @@ drwxr-xr-x 2 paul paul 4.0K 2007-01-08 12:22 stuff
 		</section>
 	</section>
 	<section><title>mkdir</title>
-		<para>Walking around the Unix filetree is fun, but it is even more fun to create your own directories with <command>mkdir</command><indexterm><primary>mkdir</primary></indexterm>. You have to give at least one parameter to <command>mkdir</command>, the name of the new directory to be created. Think before you type a leading / . </para>
+		<para>Walking around the Unix file tree is fun, but it is even more fun to create your own directories with <command>mkdir</command><indexterm><primary>mkdir</primary></indexterm>. You have to give at least one parameter to <command>mkdir</command>, the name of the new directory to be created. Think before you type a leading / . </para>
 		<screen>
 paul@laika:~$ mkdir MyDir
 paul@laika:~$ cd MyDir

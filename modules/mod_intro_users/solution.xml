@@ -27,7 +27,7 @@ tail /etc/passwd ; tail /etc/shadow ; ls /home </screen>
 		<screen>For all new users: vi /etc/login.defs (and change PASS_MAX_DAYS to 10)</screen>
 		<para>9. Set the warning number of days to four for the kornuser.</para>
 		<screen>chage -W 4 kornuser</screen>
-		<para>10a. Set the password of two seperate users to stargate. Look at the encrypted stargate's in /etc/shadow and explain.</para>
+		<para>10a. Set the password of two separate users to stargate. Look at the encrypted stargate's in /etc/shadow and explain.</para>
 		<para>If you used passwd, then the salt will be different for the two encrypted passwords.</para>
 		<para>10b. Take a backup as root of /etc/shadow. Use vi to copy an encrypted stargate to another user. Can this other user now log on with stargate as a password ?</para>
 		<screen>Yes.</screen>

@@ -118,7 +118,7 @@ three four
 		</screen>
 	</section>
 	<section><title>delineate variables</title>
-		<para>Until now, we have seen that bash interpretes a variable starting from a dollar sign, until the first occurence of a non-alphanumerical character that is not an underscore. In some situations, this can be a problem. This issue can be resolved with curly braces like in this example.</para>
+		<para>Until now, we have seen that bash interpretes a variable starting from a dollar sign, until the first occurrence of a non-alphanumerical character that is not an underscore. In some situations, this can be a problem. This issue can be resolved with curly braces like in this example.</para>
 		<screen>
 [paul@RHEL4b ~]$ prefix=Super
 [paul@RHEL4b ~]$ echo Hello $prefixman and $prefixgirl
