@@ -261,6 +261,8 @@ chapt_logging() {
 	MODULES=""
 	chaptitle="Logging"
 	add_mod mod_logging/logging.xml        
+	add_mod mod_logging/logging_practice.xml        
+	add_mod mod_logging/logging_solution.xml        
 	}
 
 #
