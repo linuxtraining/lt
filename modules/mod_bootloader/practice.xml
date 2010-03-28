@@ -1,28 +1,34 @@
-<section><title>Practice</title>
-	<para>1. Take a copy of the kernel, initrd and System.map files in /boot in /boot, naming them 3.0 instead of 2.6.</para>
+<section><title>Practice : bootloader</title>
+	<para>1. Make a copy of the kernel, initrd and System.map files in /boot.  Put the copies also in /boot but replace 2.6.x with 3.0 (just imagine that Linux 3.0 is out.).</para>
 	<para>2. Add a stanza in grub for the 3.0 files. Make sure the title is different.</para>
-	<para>3. Reboot and test the new stanza.</para>
+	<para>3. Set the boot menu timeout to 30 seconds.</para>
+	<para>4. Reboot and test the new stanza.</para>
 	<para></para>
 	<para></para>
 	<para></para>
 </section>
-<section><title>Solutions</title>
-	<para>1. Take a copy of the kernel, initrd and System.map files in /boot in /boot, naming them 3.0 instead of 2.6.</para>
+<section><title>Solution : bootloader</title>
+	<para>1. Make a copy of the kernel, initrd and System.map files in /boot.  Put the copies also in /boot but replace 2.6.x with 3.0 (just imagine that Linux 3.0 is out.).</para>
 	<screen>
 cd /boot
 cp vmlinuz-2.6.18-8.e15 vmlinuz-3.0
 cp initrd-2.6.18-8.e15.img initrd-3.0.img
 cp System.map-2.6.18-8.e15 System.map-3.0
 	</screen>
+	<para>Do not forget the initrd file ends in .img .</para>
 	<para>2. Add a stanza in grub for the 3.0 files. Make sure the title is different.</para>
 	<screen>
 [root@RHEL5 ~]# grep 3.0 /boot/grub/menu.lst 
 title Red Hat Enterprise Linux Server (3.0)
 	kernel /vmlinuz-3.0 ro root=/dev/VolGroup00/LogVol00 rhgb quiet
 	initrd /initrd-3.0.img
-[root@RHEL5 ~]# 
 	</screen>
-	<para>3. Reboot and test the new stanza.</para>
+	<para>3. Set the boot menu timeout to 30 seconds.</para>
+	<screen>
+[root@RHEL5 ~]# grep time /boot/grub/menu.lst 
+timeout=30
+	</screen>
+	<para>4. Reboot and test the new stanza.</para>
 	<para></para>
 	<para></para>
 	<para></para>
