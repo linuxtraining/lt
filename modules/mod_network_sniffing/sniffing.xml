@@ -41,6 +41,45 @@
 	</section>
 </section>
 <section><title>tcpdump</title>
-	<para>to do</para>
-	<para></para>
+	<para>Sniffing on the command line can be done with <command>tcpdump</command>. Here are some examples.</para>
+	<para>Using the <command>tcpdump host $ip</command> command displays all traffic with one host (192.168.1.38 in this example).</para>
+	<screen>
+root@ubuntu910:~# tcpdump host 192.168.1.38
+tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
+listening on eth0, link-type EN10MB (Ethernet), capture size 96 bytes
+</screen>
+	<para>Capturing only ssh (tcp port 22) traffic can be done with <command>tcpdump tcp port $port</command>. This screenshot is cropped to 76 characters for readability in the pdf.</para>
+	<screen>
+root@deb503:~# tcpdump tcp port 22
+tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
+listening on eth1, link-type EN10MB (Ethernet), capture size 96 bytes
+14:22:20.716313 IP deb503.local.37973 > rhel53.local.ssh: P 666050963:66605
+14:22:20.719936 IP rhel53.local.ssh > deb503.local.37973: P 1:49(48) ack 48
+14:22:20.720922 IP rhel53.local.ssh > deb503.local.37973: P 49:113(64) ack 
+14:22:20.721321 IP rhel53.local.ssh > deb503.local.37973: P 113:161(48) ack
+14:22:20.721820 IP deb503.local.37973 > rhel53.local.ssh: . ack 161 win 200
+14:22:20.722492 IP rhel53.local.ssh > deb503.local.37973: P 161:225(64) ack
+14:22:20.760602 IP deb503.local.37973 > rhel53.local.ssh: . ack 225 win 200
+14:22:23.108106 IP deb503.local.54424 > ubuntu910.local.ssh: P 467252637:46
+14:22:23.116804 IP ubuntu910.local.ssh > deb503.local.54424: P 1:81(80) ack
+14:22:23.116844 IP deb503.local.54424 > ubuntu910.local.ssh: . ack 81 win 2
+^C
+10 packets captured
+10 packets received by filter
+0 packets dropped by kernel
+	</screen>
+	<para>Same as above, but write the output to a file with the <command>tcpdump -w $filename</command> command.</para>
+	<screen>
+root@ubuntu910:~# tcpdump -w sshdump.tcpdump tcp port 22
+tcpdump: listening on eth0, link-type EN10MB (Ethernet), capture size 96 bytes
+^C
+17 packets captured
+17 packets received by filter
+0 packets dropped by kernel
+	</screen>
+	<para>With <command>tcpdump -r $filename</command> the file created above can be displayed.</para>
+	<screen>
+root@ubuntu910:~# tcpdump -r sshdump.tcpdump
+	</screen>
+	<para>Many more examples can be found in the manual page of <command>tcpdump</command>.</para>
 </section>
