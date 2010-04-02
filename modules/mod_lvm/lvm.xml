@@ -180,7 +180,7 @@
   Found volume group "VolGroup00" using metadata type lvm2
 [root@RHEL5 ~]#
 	</screen>
-	<para>LVM will run the vgscan automatically at bootup, so if you add hotswap devices, then you will need to run vgscan to update /etc/lvm/.cache with the new devices.</para>
+	<para>LVM will run the vgscan automatically at boot-up, so if you add hot swap devices, then you will need to run vgscan to update /etc/lvm/.cache with the new devices.</para>
 	</section>
 	<section><title>vgdisplay</title>
 		<para>The <command>vgdisplay</command><indexterm><primary>vgdisplay(1)</primary></indexterm> command will give you more detailed information about a volume group (or about all volume groups if you omit the argument).</para>
@@ -373,9 +373,9 @@
 [root@RHEL5 ~]# vgchange -xn vg1
   Volume group "vg1" successfully changed
 [root@RHEL5 ~]# vgextend vg1 /dev/sdg
-  Volume group vg1 is not resizeable.
+  Volume group vg1 is not resizable.
 		</screen>
-		<para>You can also use vgchange to change most other properties of a Volume Group. This example changes the maximum nhumber of Logical Volumes and maximum number of Physical Volumes that vg1 can serve.</para>
+		<para>You can also use vgchange to change most other properties of a Volume Group. This example changes the maximum number of Logical Volumes and maximum number of Physical Volumes that vg1 can serve.</para>
 		<screen>
 [root@RHEL5 ~]# vgdisplay vg1 | grep -i max
   MAX LV                0
@@ -555,7 +555,7 @@ Disk /dev/sdb: 1181 MB, 1181115904 bytes
 /dev/sdb1               1         143     1148616   83  Linux
 Disk /dev/sdc: 429 MB, 429496320 bytes
 </screen>
-<para>You also know how to prepare disks for lvm with <command>pvcreate</command><indexterm><primary>pvcreate(1)</primary></indexterm>, and how to create a volume group with <command>vgcreate</command><indexterm><primary>vgcreate(1)</primary></indexterm>. This example adds both the partitiond disk and the untouched disk to the volume group named <command>vg2</command>.</para>
+<para>You also know how to prepare disks for lvm with <command>pvcreate</command><indexterm><primary>pvcreate(1)</primary></indexterm>, and how to create a volume group with <command>vgcreate</command><indexterm><primary>vgcreate(1)</primary></indexterm>. This example adds both the partitioned disk and the untouched disk to the volume group named <command>vg2</command>.</para>
 <screen>
 [root@RHEL5 ~]# pvcreate /dev/sdb1
   Physical volume "/dev/sdb1" successfully created

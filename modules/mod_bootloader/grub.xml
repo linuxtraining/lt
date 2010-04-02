@@ -1,7 +1,7 @@
 <section><title>grub</title>
 <section><title>about grub</title>
 	<para>The most common bootloader on linux systems today is <command>grub</command><indexterm><primary>grub</primary></indexterm>. On almost all Intel based systems grub is replacing <command>lilo</command><indexterm><primary>lilo</primary></indexterm> (the <command>Li</command>nux <command>lo</command>ader). Even <command>Solaris</command> switched to <command>grub</command> on <command>x86</command> architecture.</para>
-	<para>One of the big advantages of <command>grub</command> over <command>lilo</command> is the capability to change the configuration during boot (by pressing <command>e</command> to edit the boot commandline).</para>
+	<para>One of the big advantages of <command>grub</command> over <command>lilo</command> is the capability to change the configuration during boot (by pressing <command>e</command> to edit the boot command line).</para>
 </section>
 <section><title>/boot/grub/menu.lst</title>
 	<para><command>grub</command>'s configuration file is called <command>menu.lst</command><indexterm><primary>/boot/grub/menu.lst</primary></indexterm> and is located in <command>/boot/grub</command><indexterm><primary>/boot/grub/</primary></indexterm>. The screenshot below show the location and size of <command>menu.lst</command> on Debian.</para>

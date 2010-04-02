@@ -35,7 +35,7 @@
 		</section>
 	</section>
 	<section><title>Building a software RAID array</title>
-		<para>You can do this during the installation with Disk Druid (easy), or afterwards using the commandline (not so easy). </para>
+		<para>You can do this during the installation with Disk Druid (easy), or afterwards using the command line (not so easy). </para>
 		<para>First, you have to attach some disks to your computer. In this scenario, three brand new disks of one gigabyte each are added. Check with <command>fdisk -l</command><indexterm><primary>fdisk(1)</primary></indexterm> that they are connected.</para>
 		<screen>
 root@RHELv4u2:~# fdisk -l

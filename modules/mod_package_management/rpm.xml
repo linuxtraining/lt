@@ -44,7 +44,7 @@ root@RHELv4u4:~# rpm -Uvh gcc-3.4.6-3
 			<screen>
 root@RHELv4u4:~# rpm -e gcc-3.4.6-3
 			</screen>
-			<para><command>rpm -e</command> verifies dependencies, and thus will prevent you from accidentaly erasing packages that are needed by other packages.</para>
+			<para><command>rpm -e</command> verifies dependencies, and thus will prevent you from accidentailly erasing packages that are needed by other packages.</para>
 			<screen>
 [root@RHEL52 ~]# rpm -e gcc-4.1.2-42.el5
 error: Failed dependencies:
@@ -62,7 +62,7 @@ gcc is needed by (installed) systemtap-0.6.2-1.el5_2.2.i386
 		<screen>yum list available</screen>
 		<para>To search for a package containing a certain string in the description or name use <command>yum search $string</command>.</para>
 		<screen>yum search $string</screen>
-		<para>To install an application, use <command>yum install $package</command>. Naturally yum will install all the necesary dependencies.</para>
+		<para>To install an application, use <command>yum install $package</command>. Naturally yum will install all the necessary dependencies.</para>
 		<screen>yum install $package</screen>
 		<para>To bring all applications up to date, by downloading and installing them, issue <command>yum update</command>. All software that was installed via yum will be updated to the latest version that is available in the repository.</para>
 		<screen>yum update</screen>

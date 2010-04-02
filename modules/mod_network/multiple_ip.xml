@@ -1,6 +1,6 @@
 <section><title>multiple IP adresses</title>
 	<section><title>Binding multiple ip-addresses</title>
-		<para>To bind more than one ip-addres to the same interface, use <command>ifcfg-eth0:0</command><indexterm><primary>ifcfg(1)</primary></indexterm>, where the last zero can be anything else. Only two directives are required in the file. </para>
+		<para>To bind more than one ip-address to the same interface, use <command>ifcfg-eth0:0</command><indexterm><primary>ifcfg(1)</primary></indexterm>, where the last zero can be anything else. Only two directives are required in the file. </para>
 		<screen>
 root@RHELv4u2:/etc/sysconfig/network-scripts# cat ifcfg-eth0:0
 DEVICE=eth0:0

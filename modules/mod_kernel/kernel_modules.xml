@@ -1,9 +1,9 @@
 <section><title>Linux kernel modules</title>
 <section><title>about kernel modules</title>
-	<para>The Linux kernel is a monolithic kernel with loadable modules. These modules contain parts of the kernel used typically for device drivers, file systems and network protocols. Most of the time the necesarry kernel modules are loaded automatically and dynamically without administrator interaction.</para>
+	<para>The Linux kernel is a monolithic kernel with loadable modules. These modules contain parts of the kernel used typically for device drivers, file systems and network protocols. Most of the time the necessary kernel modules are loaded automatically and dynamically without administrator interaction.</para>
 </section>
 <section><title>/lib/modules</title>
-	<para>The modules are stored in the <command>/lib/modules/&#060;kernel-version&#062;</command><indexterm><primary>/lib/modules</primary></indexterm> directory. There is a seperate directory for each kernel that was compiled for your system.</para>
+	<para>The modules are stored in the <command>/lib/modules/&#060;kernel-version&#062;</command><indexterm><primary>/lib/modules</primary></indexterm> directory. There is a separate directory for each kernel that was compiled for your system.</para>
 	<screen>
 paul@laika:~$ ll /lib/modules/
 total 12K
@@ -92,7 +92,7 @@ depends:        slhc
 	</screen>
 </section>
 <section><title>modprobe</title>
-	<para>The big advantage of <command>modprobe</command><indexterm><primary>modprobe(1)</primary></indexterm> over <command>insmod</command><indexterm><primary>insmod(1)</primary></indexterm> is that modprobe will load all necessary modules, whereas insmod requires manual loading of depedencies. Another advantage is that you don't need to point to the filename with full path.</para>
+	<para>The big advantage of <command>modprobe</command><indexterm><primary>modprobe(1)</primary></indexterm> over <command>insmod</command><indexterm><primary>insmod(1)</primary></indexterm> is that modprobe will load all necessary modules, whereas insmod requires manual loading of dependencies. Another advantage is that you don't need to point to the filename with full path.</para>
 	<para>This screenshot shows how modprobe loads the isdn module, automatically loading slhc in background.</para>
 		<screen>
 [root@RHEL52 kernel]# lsmod | grep isdn

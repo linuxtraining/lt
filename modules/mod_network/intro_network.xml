@@ -12,7 +12,7 @@
 		</section>
 		<section><title>short introduction to the physical layer</title>
 			<para>The physical layer, or <command>layer 1</command>, is all about voltage, electrical signals and mechanical connections. Some networks might still use <command>coax</command> cables, but most will have migrated to <command>utp</command> (cat 5 or better) with <command>rj45</command> connectors.</para>
-			<para>Devices like <command>repeaters</command> and <command>hubs</command> are part of this layer. You cannot use software to 'see' a <command>repeater</command> or <command>hub</command> on the network. The only thing these devices are doing is amplifying electrical signals on cables. <command>Passive hubs</command> are multiport amplifiers that amplify an incoming electrical signal on all other connections. <command>Active hubs</command> do this by reading and restransmitting bits, without interpreting any meaning in those bits.</para>
+			<para>Devices like <command>repeaters</command> and <command>hubs</command> are part of this layer. You cannot use software to 'see' a <command>repeater</command> or <command>hub</command> on the network. The only thing these devices are doing is amplifying electrical signals on cables. <command>Passive hubs</command> are multiport amplifiers that amplify an incoming electrical signal on all other connections. <command>Active hubs</command> do this by reading and retransmitting bits, without interpreting any meaning in those bits.</para>
 			<para>Network technologies like <command>csma/cd</command> and <command>token ring</command> are defined on this layer.</para>
 			<para>This is all we have to say about <command>layer 1</command> in this book.</para>
 		</section>
@@ -24,7 +24,7 @@
 		<section><title>short introduction to the network layer</title>
 			<para><command>Layer 3</command> is about ip packets. This layer gives every host a unique 32-bit ip address. But <command>ip</command> is not the only protocol on this layer, there is also icmp, igmp, ipv6 and more. A complete list can be found in the <command>/etc/protocols</command> file.</para>
 			<para>On this layer we find devices like <command>routers</command> and layer 3 switches, devices that know (and have) an ip address.</para>
-			<para>In tcp/ip this layer is commonly refered to as the <command>internet layer</command>.</para>
+			<para>In tcp/ip this layer is commonly referred to as the <command>internet layer</command>.</para>
 		</section>
 		<section><title>short introduction to the transport layer</title>
 			<para>We will discuss the <command>tcp</command> and <command>udp</command> protocols in the context of layer 4. The DoD model calls this the host-to-host layer.</para>
@@ -60,12 +60,12 @@
 		<para>The official website for the rfc's is <command>http://www.rfc-editor.org</command>. This website contains all rfc's in plain text, for example rfc2132 (which defines dhcp and bootp) is accessible at http://www.rfc-editor.org/rfc/rfc2132.txt.</para>
 	</section>
 	<section><title>lan - man - wan</title>
-		<para>The term <command>lan</command> is used for local area networks, as opposed to a <command>wan</command> for wide area networks. The difference between the two is determined by the <command>distance</command> between the computers, and not by the number of computers in a network. Some protocols like ATM are disigned for use in a <command>wan</command>, others like ethernet are designed for use in a <command>lan</command>.</para>
+		<para>The term <command>lan</command> is used for local area networks, as opposed to a <command>wan</command> for wide area networks. The difference between the two is determined by the <command>distance</command> between the computers, and not by the number of computers in a network. Some protocols like ATM are designed for use in a <command>wan</command>, others like ethernet are designed for use in a <command>lan</command>.</para>
 		<para>A <command>man</command> is defined as a metropolitan area network (usually connecting buildings that are close to each other. A MAN often uses <command>fddi</command> or even <command>ethernet</command> for connectivity.</para>
 	</section>
 	<section><title>unicast - multicast - broadcast</title>
 		<para>A <command>unicast</command> communication originates from one computer and is destined for one computer. A <command>broadcast</command> is meant for all, and a <command>multicast</command> is for a group of computers.</para>
-		<para>Careful, a layer 2 broadcast is very different from a layer 3 broadcast. A layer two broadcast is received by all network cards on the same segment (it does not pass any router), whereas a layer 3 broadcast is receiveid by all hosts in the same ip subnet.</para>
+		<para>Careful, a layer 2 broadcast is very different from a layer 3 broadcast. A layer two broadcast is received by all network cards on the same segment (it does not pass any router), whereas a layer 3 broadcast is received by all hosts in the same ip subnet.</para>
 	</section>
 	<section><title>internet - intranet - extranet</title>
 		<para>The <command>internet</command> is a global network. It connects many networks using the tcp/ip protocol.</para>

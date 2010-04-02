@@ -1,9 +1,9 @@
 <section><title>About</title>
 	<para>The past couple of years the installation of linux has become a lot easier then before, at least for end users installing a distro like Ubuntu, Fedora, Debian or Mandrake on their home computer. Servers usually come pre-installed, and if not pre-installed, then setup of a linux server today is very easy.</para>
-	<para>Linux can be installaed in many different ways. End users most commonly use cdrom's or dvd's for installation, most of the time with a working internet connection te receive updates. Administrators might prefer network installations using protocols like <command>tftp</command><indexterm><primary>tftp</primary></indexterm>, <command>bootp</command><indexterm><primary>bootp</primary></indexterm>, <command>rarp</command><indexterm><primary>rarp</primary></indexterm> and/or <command>nfs</command><indexterm><primary>nfs</primary></indexterm> or response file solutions like <command>Red Hat Kickstart</command><indexterm><primary>kickstart</primary></indexterm> or <command>Solaris Jumpstart</command><indexterm><primary>Jumpstart</primary></indexterm>.</para>
+	<para>Linux can be installed in many different ways. End users most commonly use cdrom's or dvd's for installation, most of the time with a working internet connection te receive updates. Administrators might prefer network installations using protocols like <command>tftp</command><indexterm><primary>tftp</primary></indexterm>, <command>bootp</command><indexterm><primary>bootp</primary></indexterm>, <command>rarp</command><indexterm><primary>rarp</primary></indexterm> and/or <command>nfs</command><indexterm><primary>nfs</primary></indexterm> or response file solutions like <command>Red Hat Kickstart</command><indexterm><primary>kickstart</primary></indexterm> or <command>Solaris Jumpstart</command><indexterm><primary>Jumpstart</primary></indexterm>.</para>
 </section>
 <section><title>Installation by cdrom</title>
-	<para>Installation of linux from cdrom is easy! Most distributions ask very few questions during install (keyboard type, language, username) and detect all the hardware themselves. There is usually no need to retrieve thrid-party drivers from the internet. The GUI installation gives options like Desktop (for end users), Workstation (for developers), Server or minimal (usually without graphical interface).</para>
+	<para>Installation of linux from cdrom is easy! Most distributions ask very few questions during install (keyboard type, language, username) and detect all the hardware themselves. There is usually no need to retrieve third-party drivers from the internet. The GUI installation gives options like Desktop (for end users), Workstation (for developers), Server or minimal (usually without graphical interface).</para>
 </section>
 <section><title>Installation with rarp and tftp</title>
 	<para>Installing over the network involves powering on the machine, have it find a rarpd server to get an ip-address, then let it find an tftps server to get an installation image copied to the machine. This image can then boot. The procedure below demonstrates how to setup three Sun SPARC servers with Ubuntu Linux, using a Debian Linux machine to host the tftp, bootp and nfs daemons.</para>
@@ -49,7 +49,7 @@ filename "/export/kickstart"
 next-server remote.installation.server
 	</screen>
 	<para>Leaving out the <command>next-server</command> line will result in the client looking for the file on the dhcp server itself.</para>
-	<para>Booting from cdrom with kickstart reauires the following commnad at the <command>boot:</command> prompt.</para>
+	<para>Booting from cdrom with kickstart requires the following command at the <command>boot:</command> prompt.</para>
 	<screen>linux ks=cdrom:/ks.cfg
 	</screen>
 	<para>When the kickstart file is on the network, use nfs or http like in these examples.</para>

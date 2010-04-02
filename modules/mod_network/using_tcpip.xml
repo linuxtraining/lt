@@ -108,7 +108,7 @@ HWADDR=00:0C:29:6A:34:D8
 ONBOOT=yes
 TYPE=Ethernet
 			</screen>
-			<para>Besides <command>dhcp</command><indexterm><primary>dhcp</primary></indexterm> and <command>bootp</command><indexterm><primary>bootp</primary></indexterm> the BOOTPROTO variable can be <command>static</command> or <command>none</command>, both meaning there should be no protocol used at boottime to set the interface values. The BROADCAST variable is no longer needed, it will be calculated.</para>
+			<para>Besides <command>dhcp</command><indexterm><primary>dhcp</primary></indexterm> and <command>bootp</command><indexterm><primary>bootp</primary></indexterm> the BOOTPROTO variable can be <command>static</command> or <command>none</command>, both meaning there should be no protocol used at boot time to set the interface values. The BROADCAST variable is no longer needed, it will be calculated.</para>
 			<para>The HWADDR can be used to make sure that the nic's get the correct name when multiple nic's are present in the computer. It can not be used to set the MAC address of a nic. For this, you need to specify the MACADDR variable. Do not use HWADDR and MACADDR in the same ifcfg file.</para>
 		</section>
 	</section>

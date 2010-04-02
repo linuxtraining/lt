@@ -1,6 +1,6 @@
 <section><title>uuid and filesystems</title>
 <section><title>about unique objects</title>
-	<para>A <command>uuid</command><indexterm><primary>uuid</primary></indexterm> or <command>universally unique identifier</command><indexterm><primary> universally unique identifier</primary></indexterm>is used to uniquely identify objects. This 128bit standard allows anyone to create a unique <command>uuid</command>.</para>
+	<para>A <command>uuid</command><indexterm><primary>uuid</primary></indexterm> or <command>universally unique identifier</command><indexterm><primary> universally unique identifier</primary></indexterm> is used to uniquely identify objects. This 128bit standard allows anyone to create a unique <command>uuid</command>.</para>
 	<section><title>/sbin/vol_id</title>
 		<para>Below we use the <command>vol_id</command><indexterm><primary>vol_id(1)</primary></indexterm> utility to display the <command>uuid</command> of an <command>ext3</command> file system.</para>
 		<screen>
@@ -37,7 +37,7 @@ Filesystem UUID:          7626d73a-2bb6-4937-90ca-e451025d64e8
 [root@RHEL5 ~]# grep UUID /etc/fstab 
 UUID=7626d73a-2bb6-4937-90ca-e451025d64e8 /home/pro42 ext3 defaults 0 0
 	</screen>
-	<para>Now we can mount the volume using the mountpoint defined in /etc/fstab.</para>
+	<para>Now we can mount the volume using the mount point defined in /etc/fstab.</para>
 	<screen>
 [root@RHEL5 ~]# mount /home/pro42
 [root@RHEL5 ~]# df -h | grep 42

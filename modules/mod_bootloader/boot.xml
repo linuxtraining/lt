@@ -4,7 +4,7 @@
 		<para>A computer starts booting the moment you turn on the power (no kidding). This first process is called <command>post</command><indexterm><primary>POST</primary></indexterm> or <command>power on self test</command><indexterm><primary>Power On Self Test</primary></indexterm>. If all goes well then this leads to the <command>bios</command>. If all goes not so well, then you might hear nothing, or hear beeping, or see an error message on the screen, or maybe see smoke coming out of the computer (burning hardware smells bad!).</para>
 	</section>
 	<section><title>bios</title>
-		<para>All <command>Intel x86</command> computers will have a <command>basic input/output system</command> or <command>bios</command><indexterm><primary>BIOS</primary></indexterm> to detect, identify and initialize hardware. The <command>bios</command> then goes looking for a <command>boot device</command>. This can be a floppy, harddisk, cdrom, network card or usb drive.</para>
+		<para>All <command>Intel x86</command> computers will have a <command>basic input/output system</command> or <command>bios</command><indexterm><primary>BIOS</primary></indexterm> to detect, identify and initialize hardware. The <command>bios</command> then goes looking for a <command>boot device</command>. This can be a floppy, hard disk, cdrom, network card or usb drive.</para>
 		<para>During the <command>bios</command> you can see a message on the screen telling you which key (often <command>Del</command> or <command>F2</command>) to press to enter the <command>bios</command> setup.</para>
 		<mediaobject><imageobject><imagedata fileref="images/bios.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 	</section>

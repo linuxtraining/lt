@@ -19,7 +19,7 @@ brw-rw----  1 root disk 8, 2 Aug  4 22:55 /dev/sda2
 			<para>Old hard disks (and floppy disks) use <command>cylinder-head-sector</command><indexterm><primary>CHS</primary></indexterm> addressing to access a sector on the disk. Most current disks use <command>LBA (Logical Block Addressing)</command><indexterm><primary>LBA</primary></indexterm>.</para>
 		</section>	
 		<section><title>ide or scsi</title>
-			<para>Actually, the title should be <command>ata</command><indexterm><primary>ata</primary></indexterm> or <command>scsi</command><indexterm><primary>scsi</primary></indexterm>, since ide is an ata-compatible device. Most desktops use <command>ata devices</command>, most servers use <command>scsi</command>.</para>
+			<para>Actually, the title should be <command>ata</command><indexterm><primary>ata</primary></indexterm> or <command>scsi</command><indexterm><primary>scsi</primary></indexterm>, since ide is an ata compatible device. Most desktops use <command>ata devices</command>, most servers use <command>scsi</command>.</para>
 		</section>	
 		<section><title>ata</title>
 			<para>An <command>ata controller</command> allows two devices per bus, one <command>master</command><indexterm><primary>master (hard disk device)</primary></indexterm> and one <command>slave</command><indexterm><primary>slave (hard disk device)</primary></indexterm>. Unless your controller and devices support <command>cable select</command><indexterm><primary>cable select</primary></indexterm>, you have to set this manually with jumpers.</para>
@@ -27,7 +27,7 @@ brw-rw----  1 root disk 8, 2 Aug  4 22:55 /dev/sda2
 		</section>	
 		<section><title>scsi</title>
 			<para>A <command>scsi controller</command> allows more than two devices. When using <command>SCSI (small computer system interface)</command>, each device gets a unique <command>scsi id</command><indexterm><primary>scsi id</primary></indexterm>. The <command>scsi controller</command> also needs a <command>scsi id</command>, do not use this id for a scsi-attached device.</para>
-			<para>Older 8-bit SCSI is now called <command>narrow</command>, whereas 16-bit is <command>wide</command>. When the bus speeds was doubled to 10Mhz, this was known as <command>fast SCSI</command>. Doubling to 20Mhz made it <command>ultra SCSI</command>. Take a look at http://en.wikipedia.org/wiki/SCSI for more SCSI-standards. </para>
+			<para>Older 8-bit SCSI is now called <command>narrow</command>, whereas 16-bit is <command>wide</command>. When the bus speeds was doubled to 10Mhz, this was known as <command>fast SCSI</command>. Doubling to 20Mhz made it <command>ultra SCSI</command>. Take a look at http://en.wikipedia.org/wiki/SCSI for more SCSI standards. </para>
 		</section>
 	</section>
 	<section><title>device naming</title>
@@ -68,7 +68,7 @@ brw-rw----  1 root disk 8, 2 Aug  4 22:55 /dev/sda2
 </tbody>
 </tgroup>
 </table>
-			<para>It is possible to have only <command>/dev/hda</command> and <command>/dev/hdd</command>. The first one is a single ata harddisk, the second one is the cdrom (by default configured as slave).</para>.
+			<para>It is possible to have only <command>/dev/hda</command> and <command>/dev/hdd</command>. The first one is a single ata hard disk, the second one is the cdrom (by default configured as slave).</para>.
 		</section>
 		<section><title>scsi device naming</title>
 			<para><command>scsi</command> drives follow a similar scheme, but all start with <command>/dev/sd</command><indexterm><primary>/dev/sdX</primary></indexterm>. When you run out of letters (after /dev/sdz), you can continue with /dev/sdaa and /dev/sdab and so on. (We will see later on that <command>lvm</command> volumes are commonly seen as /dev/md0, /dev/md1 etc.)</para>

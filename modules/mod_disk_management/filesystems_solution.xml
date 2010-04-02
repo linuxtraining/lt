@@ -2,7 +2,7 @@
 	<para>1. List the filesystems that are known by your system.</para>
 	<screen>man fs</screen>
 	<screen>cat /proc/filesystems</screen>
-	<screen>cat /etc/filesystems (not on all Linuxes)</screen>
+	<screen>cat /etc/filesystems (not on all Linux distributions)</screen>
 	<para>2. Create an <command>ext2</command> filesystem on the 200MB partition.</para>
 	<screen>mke2fs /dev/sdc1 (replace sdc1 with the correct partition)</screen>
 	<para>3. Create an <command>ext3</command> filesystem on the 400MB partition and one of the 300MB logical drives.</para>

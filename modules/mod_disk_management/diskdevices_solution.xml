@@ -1,5 +1,5 @@
 <section><title>Solution: hard disk devices</title>
-	<para>1. Use <command>dmesg</command> to make a list of hard disk devices detected at bootup.</para>
+	<para>1. Use <command>dmesg</command> to make a list of hard disk devices detected at boot-up.</para>
 	<screen>Some possible answers...</screen>
 	<screen>dmesg | grep -i disk</screen>
 	<screen>Looking for ATA disks: dmesg | grep hd[abcd]</screen>
@@ -10,7 +10,7 @@
 	<screen>fdisk -l</screen>
 	<para>3. Stop a virtual machine, add three virtual 1 gigabyte scsi hard disks and one virtual 400 megabyte ide hard disk. If possible, also add another virtual 400 megabyte ide disk.</para>
 	<screen>This exercise happens in the settings of vmware or VirtualBox.</screen>
-	<para>4. Use <command>dmesg</command> to verify that all the new disks are properly detected at bootup.</para>
+	<para>4. Use <command>dmesg</command> to verify that all the new disks are properly detected at boot-up.</para>
 	<screen>See 1.</screen>
 	<para>5. Verify that you can see the disks devices in <command>/dev</command>.</para>
 	<screen>SCSI+SATA: ls -l /dev/sd*</screen>

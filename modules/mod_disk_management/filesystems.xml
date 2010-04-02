@@ -23,7 +23,7 @@ root@rhel53 ~# cat /proc/filesystems  | grep -v nodev
 			<para>The <command>vfat</command><indexterm><primary>vfat</primary></indexterm> file system exists in a couple of forms : <command>fat12</command> for floppy disks, <command>fat16</command><indexterm><primary>fat16</primary></indexterm> on <command>ms-dos</command>, and <command>fat32</command><indexterm><primary>fat32</primary></indexterm> for larger disks. The Linux <command>vfat</command> implementation supports all of these, but vfat lacks a lot of features like security and links. <command>fat</command> disks can be read by every operating system, and are used a lot for digital cameras, <command>usb</command> sticks and to exchange data between different OS'ses on a home user's computer.</para>
 		</section>
 		<section><title>iso 9660</title>
-			<para><command>iso 9660</command><indexterm><primary>iso9660</primary></indexterm> is the standard format for cdrom's. Chances are you will encounter this file system also on your harddisk in the form of images of cdrom's (often with the .iso extension). The <command>iso 9660</command> standard limits filenames to the 8.3 format. The Unix world didn't like this, and thus added the <command>rock ridge</command><indexterm><primary>rock ridge</primary></indexterm> extensions, which allows for filenames up to 255 characters and Unix-style file-modes, ownership and symbolic links. Another extensions to <command>iso 9660</command> is <command>joliet</command><indexterm><primary>joliet</primary></indexterm>, which adds 64 unicode characters to the filename. The <command>el torito</command><indexterm><primary>el torito</primary></indexterm> standard extends <command>iso 9660</command> to be able to boot from CD-ROM's.</para>
+			<para><command>iso 9660</command><indexterm><primary>iso9660</primary></indexterm> is the standard format for cdroms. Chances are you will encounter this file system also on your hard disk in the form of images of cdroms (often with the .iso extension). The <command>iso 9660</command> standard limits filenames to the 8.3 format. The Unix world didn't like this, and thus added the <command>rock ridge</command><indexterm><primary>rock ridge</primary></indexterm> extensions, which allows for filenames up to 255 characters and Unix-style file-modes, ownership and symbolic links. Another extensions to <command>iso 9660</command> is <command>joliet</command><indexterm><primary>joliet</primary></indexterm>, which adds 64 unicode characters to the filename. The <command>el torito</command><indexterm><primary>el torito</primary></indexterm> standard extends <command>iso 9660</command> to be able to boot from CD-ROM's.</para>
 		</section>
 		<section><title>udf</title>
 			<para>Most optical media today (including cd's and dvd's) use <command>udf</command><indexterm><primary>udf</primary></indexterm>, the Universal Disk Format.</para>
@@ -105,7 +105,7 @@ Reserved block count:     10430
 /sbin/e2fsck   /sbin/fsck.cramfs  /sbin/fsck.ext3  /sbin/fsck.vfat
 [root@RHEL4b ~]#
 		</screen>
-		<para>The last column in <command>/etc/fstab</command><indexterm><primary>/etc/fstab</primary></indexterm> is used to determine whether a file system should be checked at bootup.</para>
+		<para>The last column in <command>/etc/fstab</command><indexterm><primary>/etc/fstab</primary></indexterm> is used to determine whether a file system should be checked at boot-up.</para>
 		<screen>
 [paul@RHEL4b ~]$ grep ext /etc/fstab 
 /dev/VolGroup00/LogVol00   /             ext3    defaults        1 1

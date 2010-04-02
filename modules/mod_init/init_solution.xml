@@ -60,7 +60,7 @@ case "$1" in
 esac
 exit 0
 	</screen>
-	<para>The <command>touch /var/lock/subsys/pold</command> is mandatory and must be the same filename as the scriptname, if you want the stop sequence (the K01pold link) to be run.</para>
+	<para>The <command>touch /var/lock/subsys/pold</command> is mandatory and must be the same filename as the script name, if you want the stop sequence (the K01pold link) to be run.</para>
         <para>6. Use <command>chkconfig</command> to setup your script to start in runlevels 3,4 and 5, and to stop in any other runlevel.</para>
 	<screen>chkconfig --add pold</screen>
 	<para>The command above will only work when the <command># chkconfig:</command> and <command># description:</command> lines in the pold script are there.</para>

@@ -158,13 +158,13 @@ Jul 30 06:27:36 sshd[5019]: Failed password for invalid user roberto f\
 rom ::ffff:192.168.1.52 port 41064 ssh2
 [root@RHEL4b ~]# 
 			</screen>
-			<para>You can enable this yourself, with a custom logfile by adding the following line tot syslog.conf.</para>
+			<para>You can enable this yourself, with a custom log file by adding the following line tot syslog.conf.</para>
 			<screen>auth.*,authpriv.*                 /var/log/customsec.log</screen>
 		</section>
 	</section>
 	<section><title>Syslogd daemon</title>
 		<section><title>About syslog</title>
-			<para>The standard method of logging on Linux is through the <command>syslogd</command><indexterm><primary>syslogd</primary></indexterm> daemon. Syslog was developed by <command>Eric Allman</command><indexterm><primary>Eric Allman</primary></indexterm> for sendmail, but quickly became a standard among many Unix applications and was much later written as rfc 3164. The syslog daemon can receive messages on udp <command>port 514</command> from many applications (and appliances), and can append to logfiles, print, display messages on terminals and forward logs to other syslogd daemons on other machines. The syslogd daemon is configured in <command>/etc/syslog.conf</command><indexterm><primary>/etc/syslog.conf</primary></indexterm>.</para>
+			<para>The standard method of logging on Linux is through the <command>syslogd</command><indexterm><primary>syslogd</primary></indexterm> daemon. Syslog was developed by <command>Eric Allman</command><indexterm><primary>Eric Allman</primary></indexterm> for sendmail, but quickly became a standard among many Unix applications and was much later written as rfc 3164. The syslog daemon can receive messages on udp <command>port 514</command> from many applications (and appliances), and can append to log files, print, display messages on terminals and forward logs to other syslogd daemons on other machines. The syslogd daemon is configured in <command>/etc/syslog.conf</command><indexterm><primary>/etc/syslog.conf</primary></indexterm>.</para>
 			<para>Each line in the configuration file uses a <command>facility</command> to determine where the message is coming from. It also contains a <command>level</command> for the severity of the message, and an <command>action</command> to decide on what to do with the message.</para>
 		</section>
 		<section><title>Facilities</title>
@@ -202,7 +202,7 @@ emerg (panic)
 		<section><title>Actions</title>
 			<para>The default action is to send a message to the username listed as action. When the action is prefixed with a <command>/</command> then syslog will send the message to the file (which can be a regular file, but also a printer or terminal). The <command>&#064;</command> sign prefix will send the message on to another syslog server. Here is a list of all possible actions.</para>
 			<screen>
-root,user1      list of users, seperated by comma's
+root,user1      list of users, separated by comma's
 *               message to all logged on users
 /               file (can be a printer, a console, a tty, ...)
 -/              file, but don't sync after every write
@@ -255,5 +255,5 @@ Feb 14 19:55:28 rhel4a paul: l4 emerg
 		<para>You might want to use the <command>tail -f</command><indexterm><primary>tail(1)</primary></indexterm> command to look at the last lines of a log file. The -f option will dynamically display lines that are appended to the log. You can do the same with other commands by preceding them with the <command>watch</command><indexterm><primary>watch(1)</primary></indexterm> command.</para>
 	</section>
 	<section><title>Rotating logs</title>
-		<para>A lot of log files are always growing in size. To keep this within bounds, you might want to use <command>logrotate</command><indexterm><primary>logrotate(1)</primary></indexterm> to rotate, compress, remove and mail logfiles. More info on the logrotate command in the scheduling chapter.</para>
+		<para>A lot of log files are always growing in size. To keep this within bounds, you might want to use <command>logrotate</command><indexterm><primary>logrotate(1)</primary></indexterm> to rotate, compress, remove and mail log files. More info on the logrotate command in the scheduling chapter.</para>
 	</section>

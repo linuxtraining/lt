@@ -25,7 +25,7 @@ grep project22 /proc/mounts</screen>
 /dev/sdb1 /srv/nfs/salesnumbers auto defaults 0 0</screen>
 	<para>5. What happens when you mount a file system on a directory that contains some files ?</para>
 	<screen>The files are hidden until <command>umount</command>.</screen>
-	<para>6. What happens when you mount two file systems on the same mountpoint ?</para>
+	<para>6. What happens when you mount two file systems on the same mount point ?</para>
 	<screen>Only the last mounted fs is visible.</screen>
 	<para>7. (optional) Describe the difference between these file searching commands: find, locate, updatedb, whereis, apropos and which.</para>
 	<screen>man is your friend</screen>
