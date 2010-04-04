@@ -1,6 +1,6 @@
 <section><title>control operators</title>
 	<section><title>; semicolon</title>
-		<para>You can put two or more commands on the same line, separated by a semicolon <command>;</command><indexterm><primary>;</primary></indexterm>. The scan will then go until each semicolon, and the lines will be executed sequentially, with the shell waiting for each command to end before starting the next one.</para>
+		<para>You can put two or more commands on the same line, separated by a semicolon <command>;</command><indexterm><primary>;</primary></indexterm> . The shell will scan the line until it reaches the semicolon. All the arguments before this semicolon will be considered a separate command from all the arguments after the semicolon. Both series will be executed sequentially, with the shell waiting for each command to end before starting the next one.</para>
 		<screen>
 [paul@RHELv4u3 ~]$ echo Hello
 Hello
@@ -13,7 +13,7 @@ World
 		</screen>
 	</section>
 	<section><title>&#038; ampersand</title>
-		<para>When on the other hand you end a line with an ampersand <command>&#038;</command><indexterm><primary>&#038;</primary></indexterm>, then the shell will not wait for the command to finish. You will get your shell prompt back, and the command is executed in background. You will get a message when it has finished executing in background.</para>
+		<para>When a line ends with an ampersand <command>&#038;</command><indexterm><primary>&#038;</primary></indexterm>, then the shell will not wait for the command to finish. You will get your shell prompt back, and the command is executed in background. You will get a message when this command has finished executing in background.</para>
 		<screen>
 [paul@RHELv4u3 ~]$ sleep 20 &#038;
 [1] 7925
@@ -25,18 +25,15 @@ World
 		<para>The technical explanation of what happens in this case is explained in the chapter about <command>processes</command>.</para>
 	</section>
 	<section><title>&#038;&#038; double ampersand</title>
-		<para>You can control execution of commands with <command>&#038;&#038;</command><indexterm><primary>&#038;&#038;</primary></indexterm> denoting a logical AND. With &#038;&#038; the second command is only executed when the first one succeeds (returns a zero exit status). </para>
+		<para>The shell will interprete <command>&#038;&#038;</command><indexterm><primary>&#038;&#038;</primary></indexterm> as a <command>logical AND</command>. With <command>&#038;&#038;</command> the second command is only executed if the first one succeeds (returns a zero exit status). </para>
 			<screen>
-paul@barry:~$ echo first &#038;&#038; echo second ; echo third
+paul@barry:~$ echo first &#038;&#038; echo second
 first
 second
-third
-paul@barry:~$ zecho first &#038;&#038; echo second ; echo third
+paul@barry:~$ zecho first &#038;&#038; echo second
 -bash: zecho: command not found
-third
-paul@barry:~$
 			</screen>
-			<para>Another example of the same <command>logical AND</command><indexterm><primary>logical AND</primary></indexterm> principle.</para>
+			<para>Another example of the same <command>logical AND</command><indexterm><primary>logical AND</primary></indexterm> principle. This example starts with a working <command>cd</command> followed by <command>ls</command>, then a non-working <command>cd</command> which is <command>not</command> followed by <command>ls</command>.</para>
 			<screen>
 [paul@RHELv4u3 ~]$ cd gen &#038;&#038; ls
 file1  file3  File55  fileab  FileAB   fileabc
@@ -47,7 +44,7 @@ file2  File4  FileA   Fileab  fileab2
 			</screen>
 	</section>
 	<section><title>|| double vertical bar</title>
-			<para>The reverse is true for || . Meaning the second command is only executed when the first command fails (or in other words: returns a non-zero exit status).</para>
+			<para>The <command>||</command><indexterm><primary>||</primary></indexterm> represents a <command>logical OR</command>. This means the second command is only executed when the first command fails (returns a non-zero exit status).</para>
 			<screen>
 paul@barry:~$ echo first || echo second ; echo third
 first
@@ -69,7 +66,7 @@ file2  File4  FileA   Fileab  fileab2
 			</screen>
 	</section>
 	<section><title>Combining &#038;&#038; and ||</title>
-			<para>You can use the logical AND and OR to echo whether a command worked or not.</para>
+			<para>You can use this logical AND and logical OR to write an <command>if-then-else</command> structure on the command line. This example uses <command>echo</command> to display whether the <command>rm</command> command was successful.</para>
 			<screen>
 paul@laika:~/test$ rm file1 &#038;&#038; echo It worked! || echo It failed!
 It worked!
@@ -89,7 +86,7 @@ paul@barry:~/test$
 			</screen>
 	</section>
 	<section><title>\ escaping special characters</title>
-		<para>When you want to use one of the shell control characters, but without the shell interpreting them, then you can <command>escape</command><indexterm><primary>shell escaping</primary></indexterm> them with a backslash <command>\</command><indexterm><primary>\</primary></indexterm>.</para>
+		<para>The backslash <command>\</command><indexterm><primary>\</primary></indexterm> character enables the use of control characters, but without the shell interpreting them. This is called <command>escaping</command><indexterm><primary>shell escaping</primary></indexterm> characters.</para>
 		<screen>
 [paul@RHELv4u3 ~]$ echo hello \; world
 hello ; world
