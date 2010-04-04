@@ -1,35 +1,48 @@
-<section><title>Solution: about shells</title>
-	<para>1. Is tac a shell built-in command ?</para>
+<section><title>solution: about shells</title>
+	<para>1. Is <command>tac</command> a shell built-in command ?</para>
 	<screen>type tac</screen>
-	<para>2. Is there an existing alias for rm ?</para>
+	<para>2. Is there an existing alias for <command>rm</command> ?</para>
 	<screen>alias rm</screen>
-	<para>3. Read the man page of rm, make sure you understand the -i option of rm. Create and rm a file to test the -i option.</para>
+	<para>3. Read the man page of <command>rm</command>, make sure you understand the <command>-i</command> option of rm. Create and remove a file to test the -i option.</para>
 	<screen>man rm</screen>
 	<screen>touch testfile</screen>
 	<screen>rm -i testfile</screen>
 	<para>4. Execute: <command>alias rm='rm -i'</command> . Test your alias with a test file. Does this work as expected ?</para>
 	<screen>touch testfile</screen>
-	<screen>rm testfile (should ask for confirmation!)</screen>
+	<screen>rm testfile (should ask for confirmation)</screen>
 	<para>5. List all current aliases.</para>
 	<screen>alias</screen>
 	<para>6. Create an alias called 'city' that echoes your hometown.</para>
-	<screen>alias city='echo Antwerpen'</screen>
+	<screen>alias city='echo Antwerp'</screen>
 	<para>7. Use your alias to test that it works.</para>
-	<screen>city (it should display Antwerpen)</screen>
-	<para>8. Remove your city alias.</para>
+	<screen>city (it should display Antwerp)</screen>
+	<para>8. Execute <command>set -x</command> to display shell expansion for every command.</para>
+	<screen>set -x</screen>
+	<para>9. Test the functionality of <command>set -x</command> by executing your <command>city</command> and <command>rm</command> aliases.</para>
+	<screen>shell should display the resolved aliases and then execute the command, like this:</screen>
+	<screen>paul@deb503:~$ set -x
+paul@deb503:~$ city
++ echo antwerp
+antwerp
+	</screen>
+	<para>10 Execute <command>set +x</command> to stop displaying shell expansion.</para>
+	<screen>set +x</screen>
+	<para>11. Remove your city alias.</para>
 	<screen>unalias city</screen>
-	<para>9. What is the location of the cat and the passwd commands ?</para>
+	<para>12. What is the location of the cat and the passwd commands ?</para>
 	<screen>which cat (probably /bin/cat)</screen>
 	<screen>which passwd (probably /usr/bin/passwd)</screen>
-	<para>10. Explain the difference between the following commands:</para>	
+	<para>13. Explain the difference between the following commands:</para>	
 	<screen>echo</screen>
 	<screen>/bin/echo</screen>
-	<para>The <command>echo</command> will be interpreted by the shell as the built-in echo command. The <command>/bin/echo</command> will make the shell execute the echo binary located in the /bin directory.</para>
-	<para>11. Explain the difference between the following commands:</para>	
+	<para>The <command>echo</command> command will be interpreted by the shell as the <command>built-in echo</command> command. The <command>/bin/echo</command> command will make the shell execute the <command>echo binary</command> located in the <command>/bin</command> directory.</para>
+	<para>14. Explain the difference between the following commands:</para>	
 	<screen>echo Hello</screen>
 	<screen>echo -n Hello</screen>
 	<para>The -n option of the echo command will prevent echo from echoing a trailing newline. <command>echo Hello</command> will echo six characters in total, <command>echo -n hello</command> only echoes five characters.</para>
-	<para></para>	
-	<para></para>	
-	<para></para>	
+	<para></para>
+	<para></para>
+	<para></para>
+	<para></para>
+	<para></para>
 </section>
