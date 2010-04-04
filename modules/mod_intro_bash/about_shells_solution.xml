@@ -1,3 +1,4 @@
+<?hard-pagebreak?>
 <section><title>solution: about shells</title>
 	<para>1. Is <command>tac</command> a shell built-in command ?</para>
 	<screen>type tac</screen>
