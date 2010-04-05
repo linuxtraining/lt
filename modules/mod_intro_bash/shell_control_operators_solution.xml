@@ -21,8 +21,11 @@
 	<screen>echo \""Hello World with strange' characters \ * [ } ~ \\ . "\"</screen>
 	<para>9. Use one echo command to display three words on three lines.</para>
 	<screen>echo -e "one \ntwo \nthree"</screen>
-	<para></para>
-	<para></para>
-	<para></para>
-	<para></para>
+	<para>10. Echo <command>it worked</command> when <command>touch test42</command> works, and echo <command>it failed</command> when the touch failed. All on one command line. Test this line in your home directory and in <command>/bin/</command> .</para>
+	<screen>paul@deb503:~$ cd ; touch test42 &#038;&#038; echo it worked || echo it failed
+it worked
+paul@deb503:~$ cd /bin; touch test42 &#038;&#038; echo it worked || echo it failed
+touch: cannot touch `test42': Permission denied
+it failed
+	</screen>
 </section>

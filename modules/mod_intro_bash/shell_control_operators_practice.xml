@@ -10,7 +10,5 @@
 	<para>7. Execute <command>sleep 200</command> in background (do not wait for it to finish).</para>
 	<para>8. Use echo to display "Hello World with strange' characters \ * [ }  ~ \\ ." (including all quotes)</para>
 	<para>9. Use one echo command to display three words on three lines.</para>
-	<para></para>
-	<para></para>
-	<para></para>
+	<para>10. Echo <command>it worked</command> when <command>touch test42</command> works, and echo <command>it failed</command> when the touch failed. All on one command line. Test this line in your home directory and in <command>/bin/</command> .</para>
 </section>

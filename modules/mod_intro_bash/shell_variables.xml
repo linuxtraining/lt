@@ -1,16 +1,8 @@
+<?hard-pagebreak?>
 <section><title>shell variables</title>
 	<section><title>$ dollar sign</title>
 		<para>Another important character interpreted by the shell is the dollar sign <command>$</command><indexterm><primary>$ (shell variables)</primary></indexterm>. The shell will look for an <command>environment variable</command><indexterm><primary>environment variable</primary></indexterm> named like the string behind the dollar sign and replace it with the value of the variable (or with nothing if the variable does not exist).</para>
-		<para>An example of the $USER variable. The example shows that shell variables are case sensitive!</para>
-		<screen>
-[paul@RHELv4u3 ~]$ echo Hello $USER
-Hello paul
-[paul@RHELv4u3 ~]$ echo Hello $user
-Hello
-		</screen>
-	</section>
-	<section><title>common variables</title>
-		<para>Some more examples using $HOSTNAME, $USER, $UID, $SHELL and $HOME.</para>
+		<para>Some examples using $HOSTNAME, $USER, $UID, $SHELL and $HOME.</para>
 		<screen>
 [paul@RHELv4u3 ~]$ echo This is the $SHELL shell
 This is the /bin/bash shell
@@ -22,8 +14,34 @@ The userid of paul is 500
 My homedir is /home/paul
 		</screen>
 	</section>
+	<section><title>case sensitive</title>
+		<para>An example of the $USER variable. The example shows that shell variables are case sensitive!</para>
+		<screen>
+[paul@RHELv4u3 ~]$ echo Hello $USER
+Hello paul
+[paul@RHELv4u3 ~]$ echo Hello $user
+Hello
+		</screen>
+	</section>
+	<section><title>PS1 prompt</title>
+		<para>The <command>$PS1</command> variable determines your shell prompt. You can use backslash escaped special characters like <command>\u</command> for the username or <command>\w</command> for the working directory. The bash manual has a complete reference.</para>
+		<para>In this example we change the value of <command>$PS1</command> a couple of times.</para>
+		<screen>
+paul@deb503:~$ PS1=prompt
+prompt
+promptPS1='prompt '
+prompt 
+prompt PS1='> '
+> 
+> PS1='\u@\h$ '
+paul@deb503$ 
+paul@deb503$ PS1='\u@\h:\W$'
+paul@deb503:~$
+</screen>
+		<screen></screen>
+	</section>
 	<section><title>$? dollar question mark</title>
-		<para>The exit code of the previous command is stored in the shell variable $?. Actually <command>$?</command><indexterm><primary>$? (shell variables)</primary></indexterm> is a shell parameter and not a variable, you cannot assign a value to $?.</para>
+		<para>The exit code of the previous command is stored in the shell variable <command>$?</command>. Actually <command>$?</command><indexterm><primary>$? (shell variables)</primary></indexterm> is a shell parameter and not a variable, you cannot assign a value to <command>$?</command>.</para>
 		<screen>
 paul@laika:~/test$ touch file1 ; echo $?
 0
