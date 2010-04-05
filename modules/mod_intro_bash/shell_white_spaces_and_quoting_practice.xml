@@ -1,11 +1,12 @@
-<section><title>Practice: white space and quoting</title>
-	<para>1. Display <command>A B    C</command> with two spaces between B and C.</para>
+<?hard-pagebreak?>
+<section><title>practice: white space and quoting</title>
+	<para>1. Display <command>A B  C</command> with two spaces between B and C.</para>
 	<para>2. Complete the following command (do not use spaces) to display exactly the following output:</para>
 	<screen>echo -e "4+4=8" ; echo -e "10+14=24"</screen>
-	<screen>4+4     =8</screen>
-	<screen>10+14   =24</screen>
+	<screen>4+4     =8
+10+14   =24</screen>
 	<para>3. Use echo to display the following exactly:</para>
-	<screen>""\\`;     "_+</screen>
+	<screen>??\\</screen>
 	<para>4. Use one echo command to display three words on three lines.</para>
 	<para>5. Execute <command>cd /var</command> and <command>ls</command> in an embedded shell.</para>
 	<para>6. Create the variable embvar in an embedded shell and echo it. Does the variable exist in your current shell now ?</para>
@@ -16,9 +17,6 @@
 First
 Middle
 Last
-[paul@RHEL4b ~]$
 	</screen>
-	<para></para>
-	<para></para>
-	<para></para>	
+	<para>9. Display the <command>type</command> of the <command>passwd</command> command using the <command>which</command> command inside back ticks.</para>
 </section>

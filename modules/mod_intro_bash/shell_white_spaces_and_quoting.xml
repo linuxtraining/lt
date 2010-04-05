@@ -1,6 +1,7 @@
-<section><title>white space and quoting</title>
+<?hard-pagebreak?>
+<section><title>shell arguments</title>
 	<section><title>white space removal</title>
-		<para>Before execution, the shell looks at the command line. Parts that are separated by one or more consecutive <command>white spaces</command> (or tabs) are considered separate arguments. The first argument is the command to be executed, the other arguments are given to the command as arguments.</para>
+		<para>Before execution, the shell looks at the command line. Parts that are separated by one or more consecutive <command>white spaces</command> (or tabs) are considered separate <command>arguments</command>. The first <command>argument</command> is the command to be executed, the other <command>arguments</command> are given to the command.</para>
 		<para>This explains why the following four different command lines are the same after <command>shell expansion</command><indexterm><primary>shell expansion</primary></indexterm>.</para>
 		<screen>
 [paul@RHELv4u3 ~]$ echo Hello World
@@ -14,9 +15,10 @@ Hello World
 [paul@RHELv4u3 ~]$ 
 		</screen>
 		<para>The echo command will separate the different arguments it recieves from the shell by a white space.</para>
+		<para>It is important for troubleshooting any script to know that the shell cuts your command line in distinct arguments.</para>
 	</section>
 	<section><title>single quotes</title>
-		<para>You can prevent the removal of white spaces by quoting the spaces.</para>
+		<para>You can prevent the removal of white spaces by quoting the spaces. In the screenshot below the <command>echo</command> receives only one <command>argument</command>.</para>
 		<screen>
 [paul@RHEL4b ~]$ echo 'A line with      single    quotes'
 A line with      single    quotes
@@ -24,13 +26,13 @@ A line with      single    quotes
 		</screen>
 	</section>
 	<section><title>double quotes</title>
-		<para>You can also prevent the removal of white spaces by double quoting the spaces.</para>
+		<para>You can also prevent the removal of white spaces by double quoting the spaces. Same as above, <command>echo</command> only receives one <command>argument</command>.</para>
 		<screen>
 [paul@RHEL4b ~]$ echo "A line with      double    quotes"
 A line with      double    quotes
 [paul@RHEL4b ~]$
 		</screen>
-		<para>The only difference between single and double quotes is the parsing of shell variables. You can already see what happens in this screenshot.</para>
+		<para>The only difference between single and double quotes is the parsing of shell <command>variables</command>. You can already see what happens in this screenshot.</para>
 		<screen>
 paul@laika:~$ echo 'My user is $USER'
 My user is $USER
@@ -39,7 +41,7 @@ My user is paul
 		</screen>
 	</section>
 	<section><title>echo and quotes</title>
-		<para>Quoted lines can include special escaped characters recognized by the <command>echo</command> command (when using <command>echo -e</command><indexterm><primary>echo(1)</primary></indexterm>). The screenshot below shows how to use escaped n for a newline and escaped t for a tab (usually eight white spaces).</para>
+		<para>Quoted lines can include special escaped characters recognized by the <command>echo</command> command (when using <command>echo -e</command><indexterm><primary>echo(1)</primary></indexterm>). The screenshot below shows how to use <command>\n</command> for a newline and <command>\t</command> for a tab (usually eight white spaces).</para>
 		<screen>
 [paul@RHEL4b ~]$ echo -e "A line with \na newline"
 A line with 
@@ -67,19 +69,22 @@ A line with     a tab
 [paul@RHELv4u3 gen]$ 
 		</screen>
 		<para>You can embed a shell in an <command>embedded shell</command><indexterm><primary>embedding(shell)</primary></indexterm>, this is called <command>nested embedding</command> of shells.</para>
+		<para>This screenshot shows an embedded shell inside an embedded shell.</para>
 		<screen>
-$ P=Parent;
-$ echo $P$C$G - $(C=Child;echo $P$C$G - ;echo $(G=Grand;echo $P$C$G))
-Parent - ParentChild - ParentChildGrand
+paul@deb503:~$ A=shell
+paul@deb503:~$ echo $C$B$A $(B=sub;echo $C$B$A; echo $(A=sub;echo $C$B$A))
+shell subshell subsub
 		</screen>
-		<para>Single embedding can be useful to avoid changing your current directory. The screenshot below uses back ticks instead of dollar-bracket to embed.</para>
+	</section>
+	<section><title>back ticks</title>
+		<para>Single embedding can be useful to avoid changing your current directory. The screenshot below uses <command>back ticks</command> instead of dollar-bracket to embed.</para>
 		<screen>
 [paul@RHELv4u3 ~]$ echo `cd /etc; ls -d * | grep pass`
 passwd passwd- passwd.OLD
 [paul@RHELv4u3 ~]$ 
 		</screen>
 	</section>
-	<section><title>backticks and single quotes</title>
+	<section><title>back ticks or single quotes</title>
 		<para>Placing the embedding between <command>backticks</command><indexterm><primary>backticks</primary></indexterm> uses one character less than the dollar and parenthesis combo. Be careful however, backticks are often confused with single quotes. The technical difference between <command>'</command><indexterm><primary>'(single quote)</primary></indexterm> and <command>`</command><indexterm><primary>`(backtick)</primary></indexterm> is significant! You can not use backticks to nest embedded shells.</para>
 		<screen>
 [paul@RHELv4u3 gen]$ echo `var1=5;echo $var1`
