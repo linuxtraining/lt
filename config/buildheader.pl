@@ -76,9 +76,9 @@ while(<ABSTR>) {
 	if(/AUTHORSCONTACT/) {
 		$contacts = "<itemizedlist>\n";
 		foreach $author (@AUTHORS) {
-			$contacts .= "<listitem>$author->{firstname} $author->{lastname}: ";
+			$contacts .= "<listitem><para>$author->{firstname} $author->{lastname}: ";
 			$contacts .= join(", ",($author->{email},$author->{http}));
-			$contacts .= "</listitem>\n";
+			$contacts .= "</para></listitem>\n";
 		}
 		$contacts .= "</itemizedlist>\n";
 		s/AUTHORSCONTACT/$contacts/;
@@ -102,9 +102,9 @@ while(<ABSTR>) {
 	if(/CONTRIBUTORS/) {
 		$contributors = "<itemizedlist>\n";
 		foreach $contributor (@CONTRIBUTORS) {
-			$contributors .= "<listitem>$contributor->{firstname} $contributor->{lastname}: ";
+			$contributors .= "<listitem><para>$contributor->{firstname} $contributor->{lastname}: ";
 			$contributors .= join(", ",($contributor->{email},$contributor->{http}));
-			$contributors .= "</listitem>\n";
+			$contributors .= "</para></listitem>\n";
 		}
 		$contributors .= "</itemizedlist>\n";
 		s/CONTRIBUTORS/$contributors/;
@@ -113,9 +113,9 @@ while(<ABSTR>) {
 	if(/REVIEWERS/) {
 		$reviewers = "<itemizedlist>\n";
 		foreach $reviewer (@REVIEWERS) {
-			$reviewers .= "<listitem>$reviewer->{firstname} $reviewer->{lastname}: ";
+			$reviewers .= "<listitem><para>$reviewer->{firstname} $reviewer->{lastname}: ";
 			$reviewers .= join(", ",($reviewer->{email},$reviewer->{http}));
-			$reviewers .= "</listitem>\n";
+			$reviewers .= "</para></listitem>\n";
 		}
 		$reviewers .= "</itemizedlist>\n";
 		s/REVIEWERS/$reviewers/;
