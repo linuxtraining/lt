@@ -1,0 +1,75 @@
+<?hard-pagebreak?>
+	<section><title>Practice</title>
+		<para>1. Explain in detail where the numbers come from in the next screenshot. When are the variables replaced by their value ? By which shell ?</para>
+		<screen>
+[paul@RHEL4b ~]$ echo $$ $PPID
+4224 4223
+[paul@RHEL4b ~]$ bash -c "echo $$ $PPID"
+4224 4223
+[paul@RHEL4b ~]$ bash -c 'echo $$ $PPID'
+5059 4224
+[paul@RHEL4b ~]$ bash -c `echo $$ $PPID`
+4223: 4224: command not found
+		</screen>
+		<para>2. Write a script that echoes its process ID and then sleeps for an hour. Find your script with ps.</para>
+		<para>3. Read the man page of ps and find your script by command name with ps.</para>
+		<para>4. Kill your script with the kill command.</para>
+		<para>5. Run your script again, now use top to display only your script and the init process.</para>
+		<para>6. Use top to kill your script.</para>
+		<para>7. Use top, organize all processes by memory usage.</para>
+		<para>8. Write a script with a 'while true' loop that does some calculation. Copy this script.</para>
+		<para>9. Start the while script. Start the copy of it in a nice way. Do you see the difference with top ? with ps ?</para>
+		<para>10. Kill all your running scripts.</para>
+		<para>11. Start editing the while script, put it in background. Same for the copy script. List your background jobs.</para>
+		<para>12. Start the sleep script in background. List the background jobs. Activate the copy script to foreground.</para>
+		<para></para>
+		<para></para>	
+	</section>
+	<section><title>Solutions to the Practice</title>
+		<para>1. The current bash shell will replace the $$ and $PPID while scanning the line, and before executing the echo command.</para>
+		<screen>
+			[paul@RHEL4b ~]$ echo $$ $PPID
+			4224 4223
+		</screen>
+		<para>The variables are now double quoted, but the current bash shell will replace $$ and $PPID while scanning the line, and before executing the bach -c command.</para>
+		<screen>
+			[paul@RHEL4b ~]$ bash -c "echo $$ $PPID"
+			4224 4223
+		</screen>
+		<para>The variables are now single quoted. The current bash shell will not replace the $$ and the $PPID. The bash -c command will be executed before the variables replaced with their value. This latter bash is the one replacing the $$ and $PPID with their value.</para>
+		<screen>
+			[paul@RHEL4b ~]$ bash -c 'echo $$ $PPID'
+			5059 4224
+		</screen>
+		<para>With backticks the shell will still replace both variable before the embedded echo is executed. The result of this echo is the two process id's. These are given as commands to bash -c. But two numbers are not commands!</para>
+		<screen>
+[paul@RHEL4b ~]$ bash -c `echo $$ $PPID`
+4223: 4224: command not found
+		</screen>
+		<para>2. The script can look like this.</para>
+		<screen>
+#!/bin/bash
+
+echo My Process ID = $$
+sleep 3600
+		</screen>	
+		<para>3. ps -C sleep</para>	
+		<para>4. kill (followed by the PID)</para>	
+		<para>5. top p 1,6705 (replace 6705 with your PID)</para>	
+		<para>6. when inside top, press k</para>	
+		<para>7. use the greater than and smaller than keys from within top</para>	
+		<para>8. an example of an (almost) endless loop:</para>
+		<screen>
+let i=1;
+while [ $i -gt 0 ] ;
+do
+   let i++;
+done
+		</screen>	
+		<para>9. it will show up as 'bash' in top</para>	
+		<para></para>	
+		<para></para>	
+		<para></para>	
+		<para></para>	
+		<para></para>	
+	</section>

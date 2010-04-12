@@ -342,7 +342,11 @@ chapt_pipes_filters() {
 chapt_processes() {
 	MODULES=""
 	chaptitle="Process management"
-	add_mod mod_processes/processes.xml  
+	add_mod mod_processes/processes_intro.xml  
+	add_mod mod_processes/processes_kill.xml  
+	add_mod mod_processes/processes_priorities.xml  
+	add_mod mod_processes/processes_jobs.xml  
+	add_mod mod_processes/processes_labs.xml  
 	}
 
 #

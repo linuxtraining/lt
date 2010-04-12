@@ -1,0 +1,132 @@
+<section><title>about processes</title>
+	<section><title>process</title>
+		<para>A <command>process</command><indexterm><primary>process</primary></indexterm> is compiled source code that is currently running on the system.</para>
+	</section>
+	<section><title>PID</title>
+		<para>All processes have a <command>process ID</command><indexterm><primary>process ID</primary></indexterm> or <command>PID</command><indexterm><primary>PID</primary></indexterm>.</para>
+	</section>
+	<section><title>PPID</title>
+		<para>Every process has a parent process (with a <command>PPID</command><indexterm><primary>PPID</primary></indexterm>). The <command>child</command> process is often started by the <command>parent</command> process.</para>
+	</section>
+	<section><title>init</title>
+		<para>The <command>init</command><indexterm><primary>init</primary></indexterm> process always has process ID 1. The <command>init</command> process is started by the <command>kernel</command> itself so technically it does not have a parent process. <command>init</command> serves as a <command>foster parent</command> for <command>orphaned</command> processes.</para>
+	</section>
+	<section><title>kill</title>
+		<para>When a process stops running, the process dies, when you want a process to die, you <command>kill</command><indexterm><primary>kill(1)</primary></indexterm> it.</para>
+	</section>
+	<section><title>daemon</title>
+		<para>Processes that start at system startup and keep running forever are called <command>daemon</command><indexterm><primary>daemon</primary></indexterm> processes or <command>daemons</command>. These <command>daemons</command> never die.</para>
+	</section>
+	<section><title>zombie</title>
+		<para>When a process is killed, but it still shows up on the system, then the process is referred to as <command>zombie</command><indexterm><primary>zombie</primary></indexterm>. You cannot kill zombies, because they are already dead.</para>
+	</section>
+</section>
+<section><title>basic process management</title>
+	<section><title>$$ and $PPID</title>
+		<para>Some shell environment variables contain information about processes. The <command>$$</command><indexterm><primary>$$</primary></indexterm> variable will hold your current <command>process ID</command>, and <command>$PPID</command><indexterm><primary>$PPID</primary></indexterm> contains the <command>parent PID</command>. Actually <command>$$</command> is a shell parameter and not a variable, you cannot assign a value to it.</para>
+		<para>Below we use <command>echo</command><indexterm><primary>echo(1)</primary></indexterm> to display the values of <command>$$</command> and <command>$PPID</command>.</para>
+		<screen>
+[paul@RHEL4b ~]$ echo $$ $PPID
+4224 4223
+		</screen>
+	</section>
+	<section><title>parent and child</title>
+		<para>Processes have a <command>parent-child</command> relationship. Every process has a parent process.</para>
+		<para>When starting a new <command>bash</command> you can use <command>echo</command> to verify that the <command>pid</command> from before is the <command>ppid</command> of the new shell. The <command>child</command> process from above is now the <command>parent</command> process.</para>
+		<screen>
+[paul@RHEL4b ~]$ bash
+[paul@RHEL4b ~]$ echo $$ $PPID
+4812 4224
+		</screen>
+		<para>Typing <command>exit</command> will end the current process and brings us back to our original values for <command>$$</command> and <command>$PPID</command>.</para>
+		<screen>
+[paul@RHEL4b ~]$ echo $$ $PPID
+4812 4224
+[paul@RHEL4b ~]$ exit
+exit
+[paul@RHEL4b ~]$ echo $$ $PPID
+4224 4223
+[paul@RHEL4b ~]$
+		</screen>
+	</section>
+	<section><title>fork and exec</title>
+		<para>A process starts another process in two phases. First the process creates a <command>fork</command><indexterm><primary>fork</primary></indexterm> of itself, an identical copy. Then the forked process executes an <command>exec</command><indexterm><primary>exec</primary></indexterm> to replace the forked process with the target child process.</para>
+		<screen>
+[paul@RHEL4b ~]$ echo $$
+4224
+[paul@RHEL4b ~]$ bash
+[paul@RHEL4b ~]$ echo $$ $PPID
+5310 4224
+[paul@RHEL4b ~]$
+		</screen>
+	</section>
+	<section><title>exec</title>
+		<para>With the <command>exec</command> command, you can execute a process without forking a new process. In the following screenshot a <command>Korn shell</command> (ksh) is started and is being replaced with a <command>bash shell</command> using the <command>exec</command> command. The <command>pid</command> of the <command>bash shell</command> is the same as the <command>pid</command> of the <command>Korn shell</command>. Exiting the child <command>bash shell</command> will get me back to the parent <command>bash</command>, not to the <command>Korn shell</command> (which does not exist anymore).</para>
+		<screen>
+[paul@RHEL4b ~]$ echo $$
+4224                                # PID of bash
+[paul@RHEL4b ~]$ ksh
+$ echo $$ $PPID
+5343 4224                           # PID of ksh and bash
+$ exec bash
+[paul@RHEL4b ~]$ echo $$ $PPID
+5343 4224                           # PID of bash and bash
+[paul@RHEL4b ~]$ exit
+exit
+[paul@RHEL4b ~]$ echo $$
+4224
+		</screen>
+	</section>
+	<section><title>ps</title>
+		<para>One of the most common tools on Linux to look at processes is <command>ps</command><indexterm><primary>ps</primary></indexterm>. The following screenshot shows the parent child relationship between three bash processes.</para>
+		<screen>
+[paul@RHEL4b ~]$ echo $$ $PPID
+4224 4223
+[paul@RHEL4b ~]$ bash
+[paul@RHEL4b ~]$ echo $$ $PPID
+4866 4224
+[paul@RHEL4b ~]$ bash
+[paul@RHEL4b ~]$ echo $$ $PPID
+4884 4866
+[paul@RHEL4b ~]$ ps fx
+  PID TTY      STAT   TIME COMMAND
+ 4223 ?        S      0:01 sshd: paul@pts/0 
+ 4224 pts/0    Ss     0:00  \_ -bash
+ 4866 pts/0    S      0:00      \_ bash
+ 4884 pts/0    S      0:00          \_ bash
+ 4902 pts/0    R+     0:00              \_ ps fx
+[paul@RHEL4b ~]$ exit
+exit
+[paul@RHEL4b ~]$ ps fx
+  PID TTY      STAT   TIME COMMAND
+ 4223 ?        S      0:01 sshd: paul@pts/0 
+ 4224 pts/0    Ss     0:00  \_ -bash
+ 4866 pts/0    S      0:00      \_ bash
+ 4903 pts/0    R+     0:00          \_ ps fx
+[paul@RHEL4b ~]$ exit
+exit
+[paul@RHEL4b ~]$ ps fx
+  PID TTY      STAT   TIME COMMAND
+ 4223 ?        S      0:01 sshd: paul@pts/0 
+ 4224 pts/0    Ss     0:00  \_ -bash
+ 4904 pts/0    R+     0:00      \_ ps fx
+[paul@RHEL4b ~]$ 		</screen>
+		<para>On Linux, <command>ps fax</command><indexterm><primary>ps fax</primary></indexterm> is often used. On Solaris <command>ps -ef</command><indexterm><primary>ps -ef</primary></indexterm> (which also works on Linux) is common. Here is a partial output from <command>ps fax</command>.</para>
+		<screen>
+[paul@RHEL4a ~]$ ps fax
+PID TTY      STAT   TIME COMMAND
+1 ?        S      0:00 init [5]
+
+...
+
+3713 ?        Ss     0:00 /usr/sbin/sshd
+5042 ?        Ss     0:00  \_ sshd: paul [priv]
+5044 ?        S      0:00      \_ sshd: paul@pts/1 
+5045 pts/1    Ss     0:00          \_ -bash
+5077 pts/1    R+     0:00              \_ ps fax
+		</screen>
+	</section>
+	<section><title>top</title>
+		<para>Another popular tool on Linux is <command>top</command><indexterm><primary>top(1)</primary></indexterm>. The <command>top</command> tool can order processes according to CPU usage or other properties. You can also kill processes from within top. In case of trouble, top is often the first tool to fire up, since it also provides you memory and swap space information.</para>
+	</section>
+</section>

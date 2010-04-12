@@ -1,0 +1,63 @@
+<?hard-pagebreak?>
+<section><title>jobs</title>
+		<para>Some processes can be frozen with the <command>Ctrl-Z</command><indexterm><primary>Ctrl-Z</primary></indexterm> key combination. This sends a SIGSTOP to the process. When doing this in vi, the vi goes to the background, and can be seen with the <command>jobs</command><indexterm><primary>jobs</primary></indexterm> command. Processes started with an ampersand (&#038;) at the end of the command line can also be seen with <command>jobs</command>.</para>
+		<screen>
+[paul@RHEL4a ~]$ vi procdemo.txt
+
+[5]+  Stopped                 vim procdemo.txt
+[paul@RHEL4a ~]$ jobs
+[5]+  Stopped                 vim procdemo.txt
+[paul@RHEL4a ~]$ find / &#062; allfiles.txt 2&#062; /dev/null &#038;
+[6] 5230
+[paul@RHEL4a ~]$ jobs
+[5]+  Stopped                 vim procdemo.txt
+[6]-  Running                 find / &#062;allfiles.txt 2&#062;/dev/null &#038;
+[paul@RHEL4a ~]$
+		</screen>
+		<para>An interesting option is <command>jobs -p</command> to see the PID of background jobs.</para>
+		<screen>
+[paul@RHEL4b ~]$ sleep 500 &#038;
+[1] 4902
+[paul@RHEL4b ~]$ sleep 400 &#038;
+[2] 4903
+[paul@RHEL4b ~]$ jobs -p
+4902
+4903
+[paul@RHEL4b ~]$ ps `jobs -p`
+  PID TTY      STAT   TIME COMMAND
+ 4902 pts/0    S      0:00 sleep 500
+ 4903 pts/0    S      0:00 sleep 400
+[paul@RHEL4b ~]$
+	</screen>
+</section>
+<section><title>fg</title>
+	<para>Running the <command>fg</command><indexterm><primary>fg(1)</primary></indexterm> command will bring a background job to the foreground. The number of the background job to bring forward is the parameter of fg.</para>
+	<screen>
+[paul@RHEL5 ~]$ jobs
+[1]   Running                 sleep 1000 &#038;
+[2]-  Running                 sleep 1000 &#038;
+[3]+  Running                 sleep 2000 &#038;
+[paul@RHEL5 ~]$ fg 3
+sleep 2000
+	</screen>
+</section>
+<section><title>bg</title>
+<para>Jobs that are stopped in background can be started in background with <command>bg</command><indexterm><primary>bg(1)</primary></indexterm>. Below an example of the sleep command (stopped with Ctrl-Z) that is reactivated in background with bg.</para>
+<screen>
+[paul@RHEL5 ~]$ jobs
+[paul@RHEL5 ~]$ sleep 5000 &#038;
+[1] 6702
+[paul@RHEL5 ~]$ sleep 3000
+
+[2]+  Stopped                 sleep 3000
+[paul@RHEL5 ~]$ jobs
+[1]-  Running                 sleep 5000 &#038;
+[2]+  Stopped                 sleep 3000
+[paul@RHEL5 ~]$ bg 2
+[2]+ sleep 3000 &#038;
+[paul@RHEL5 ~]$ jobs
+[1]-  Running                 sleep 5000 &#038;
+[2]+  Running                 sleep 3000 &#038;
+[paul@RHEL5 ~]$ 
+</screen>
+</section>
