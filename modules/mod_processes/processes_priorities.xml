@@ -25,13 +25,13 @@ paul@ubuntu910:~/procs$
 		<screen>
 paul@ubuntu910:~/procs$ cp /bin/cat proj33
 paul@ubuntu910:~/procs$ cp /bin/cat proj42
-paul@ubuntu910:~/procs$ echo -n x | ./proj33 - pipe33a &#060; pipe33b &#038;
+paul@ubuntu910:~/procs$ echo -n x | ./proj33 - pipe33a &#062; pipe33b &#038;
 [1] 1670
-paul@ubuntu910:~/procs$ ./proj33 &#062;pipe33b &#060;pipe33a &#038;
+paul@ubuntu910:~/procs$ ./proj33 &#060;pipe33b &#062;pipe33a &#038;
 [2] 1671
-paul@ubuntu910:~/procs$ echo -n z | ./proj42 - pipe42a &#060; pipe42b &#038;
+paul@ubuntu910:~/procs$ echo -n z | ./proj42 - pipe42a &#062; pipe42b &#038;
 [3] 1673
-paul@ubuntu910:~/procs$ ./proj42 &#062;pipe42b &#060;pipe42a &#038;
+paul@ubuntu910:~/procs$ ./proj42 &#060;pipe42b &#062;pipe42a &#038;
 [4] 1674
 		</screen>
 		<para>The commands you see above will create two <command>proj33</command> processes that use <command>cat</command> to bounce the x character between <command>pipe33a</command> and <command>pipe33b</command>. And ditto for the z character and <command>proj42</command>.</para>
@@ -72,7 +72,7 @@ paul@ubuntu910:~$ renice +8 1671
 		<para>Normal users can attribute a <command>nice value</command> from zero to 20 to processes they own. Only the <command>root</command> user can use negative nice values. Be very careful with negative nice values, since they can make it impossible to use the keyboard or ssh to a system.</para>
 	</section>
 	<section><title>impact of nice values</title>
-		<para>The impact of a nice value on running processes can vary. The screenshot below shows the result of our <command>renice +8</command> command.</para>
+		<para>The impact of a nice value on running processes can vary. The screenshot below shows the result of our <command>renice +8</command> command. Look at the <command>%CPU</command> values.</para>
 		<screen>
   PID USER      PR  NI  VIRT  RES  SHR S %CPU %MEM    TIME+  COMMAND
  1674 paul      20   0  2972  616  524 S 46.6  0.1   0:22.37 proj42

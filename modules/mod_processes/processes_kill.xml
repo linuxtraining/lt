@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>killing processes</title>
+<section><title>signalling processes</title>
 	<section><title>kill</title>
 		<para>The <command>kill</command><indexterm><primary>kill(1)</primary></indexterm> command will kill (or stop) a process. The screenshot shows how to use a standard <command>kill</command> to stop the process with <command>pid</command> 1942.</para>
 		<screen>
@@ -8,7 +8,7 @@ paul@ubuntu910:~$
 		</screen>
 		<para>By using the <command>kill</command> we are sending a <command>signal</command> to the process.</para>
 	</section>
-	<section><title>signals</title>
+	<section><title>list signals</title>
 		<para>Running processes can receive signals from each other or from the users. You can have a list of signals by typing <command>kill -l</command><indexterm><primary>kill(1)</primary></indexterm>, that is a letter <command>l</command>, not the number 1.</para>
 		<screen>
 [paul@RHEL4a ~]$ kill -l
@@ -62,23 +62,6 @@ action $"Sending all processes the TERM signal..." /sbin/killall5 -15
 action $"Sending all processes the KILL signal..."  /sbin/killall5 -9
 		</screen>
 	</section>
-	<section><title>pgrep</title>
-		<para>Similar to the <command>ps -C</command>, you can also use <command>pgrep</command><indexterm><primary>pgrep(1)</primary></indexterm> to search for a process by its command name.</para>
-		<screen>
-[paul@RHEL5 ~]$ sleep 1000 &#038;
-[1] 32558
-[paul@RHEL5 ~]$ pgrep sleep
-32558
-[paul@RHEL5 ~]$ ps -C sleep
-  PID TTY          TIME CMD
-32558 pts/3    00:00:00 sleep
-		</screen>
-		<para>You can also list the command name of the process with pgrep.</para>
-		<screen>
-paul@laika:~$ pgrep -l sleep
-9661 sleep
-		</screen>
-	</section>
 	<section><title>pkill</title>
 		<para>You can use the <command>pkill</command><indexterm><primary>pkill(1)</primary></indexterm> command to kill a process by its command name.</para>
 		<screen>
@@ -96,5 +79,10 @@ PID to kill: 1932
 
 Kill PID 1932 with signal [15]: 9
 		</screen>
+	</section>
+	<section><title>SIGSTOP and SIGCONT</title>
+		<para>A running process can be <command>suspended</command> when it receives a <command>SIGSTOP</command> signal. This is the same as <command>kill -19</command> on Linux, but might have a different number in other Unix systems.</para>
+		<para>A <command>suspended</command> process does not use any <command>cpu cycles</command>, but it stays in memory and can be re-animated with a <command>SIGCONT</command> signal (<command>kill -18</command> on Linux).</para>
+		<para>Both signals will be used in the section about <command>background</command> processes.</para>
 	</section>
 </section>

@@ -133,6 +133,23 @@ PID TTY      STAT   TIME COMMAND
 5077 pts/1    R+     0:00              \_ ps fax
 		</screen>
 	</section>
+	<section><title>pgrep</title>
+		<para>Similar to the <command>ps -C</command>, you can also use <command>pgrep</command><indexterm><primary>pgrep(1)</primary></indexterm> to search for a process by its command name.</para>
+		<screen>
+[paul@RHEL5 ~]$ sleep 1000 &#038;
+[1] 32558
+[paul@RHEL5 ~]$ pgrep sleep
+32558
+[paul@RHEL5 ~]$ ps -C sleep
+  PID TTY          TIME CMD
+32558 pts/3    00:00:00 sleep
+		</screen>
+		<para>You can also list the command name of the process with pgrep.</para>
+		<screen>
+paul@laika:~$ pgrep -l sleep
+9661 sleep
+		</screen>
+	</section>
 	<section><title>top</title>
 		<para>Another popular tool on Linux is <command>top</command><indexterm><primary>top(1)</primary></indexterm>. The <command>top</command> tool can order processes according to <command>cpu usage</command> or other properties. You can also <command>kill</command> processes from within top. Press <command>h</command> inside <command>top</command> for help.</para>
 		<para>In case of trouble, top is often the first tool to fire up, since it also provides you memory and swap space information.</para>
