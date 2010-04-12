@@ -1,6 +1,15 @@
 <?hard-pagebreak?>
-<section><title>signals (kill)</title>
-	<para>Running processes can receive signals from each other, or from the users. You can have a list of signals by typing <command>kill -l</command><indexterm><primary>kill(1)</primary></indexterm>, that is a letter l, not the number 1.</para>
+<section><title>killing processes</title>
+	<section><title>kill</title>
+		<para>The <command>kill</command><indexterm><primary>kill(1)</primary></indexterm> command will kill (or stop) a process. The screenshot shows how to use a standard <command>kill</command> to stop the process with <command>pid</command> 1942.</para>
+		<screen>
+paul@ubuntu910:~$ kill 1942
+paul@ubuntu910:~$
+		</screen>
+		<para>By using the <command>kill</command> we are sending a <command>signal</command> to the process.</para>
+	</section>
+	<section><title>signals</title>
+		<para>Running processes can receive signals from each other or from the users. You can have a list of signals by typing <command>kill -l</command><indexterm><primary>kill(1)</primary></indexterm>, that is a letter <command>l</command>, not the number 1.</para>
 		<screen>
 [paul@RHEL4a ~]$ kill -l
 1) SIGHUP       2) SIGINT       3) SIGQUIT      4) SIGILL
@@ -21,23 +30,41 @@
 64) SIGRTMAX
 [paul@RHEL4a ~]$ 
 		</screen>
-		<para>It is common on Linux to use the first signal <command>SIGHUP</command><indexterm><primary>SIGHUP</primary></indexterm> (or HUP or 1) to tell a process that it should re-read its configuration file. Thus, the <command>kill -1 1</command> command forces the init process to re-read its configuration file. It is up to the developer of the process to decide whether the process can do this running, or whether it needs to stop and start. The <command>killall</command><indexterm><primary>killall(1)</primary></indexterm> command will also default to sending a <command>signal 15</command><indexterm><primary>SIGTERM</primary></indexterm> to the processes.</para>
-		<para>The <command>SIGTERM</command> (15) is used to ask a process to stop running, normally the process should die. If it refuses to die, then you can issue the <command>kill -9</command><indexterm><primary>kill(1)</primary></indexterm> command (aka the <command>sure kill</command>). The <command>SIGKILL</command><indexterm><primary>SIGKILL</primary></indexterm> (9) signal is the only one that a developer cannot intercept. The signal goes directly to the kernel, which will stop the running process (without giving it a chance to save data). When using the kill command without specifying a signal, it defaults to <command>SIGTERM</command>. </para>
+	</section>
+	<section><title>kill -1 (SIGHUP)</title>
+		<para>It is common on Linux to use the first signal <command>SIGHUP</command><indexterm><primary>SIGHUP</primary></indexterm> (or HUP or 1) to tell a process that it should re-read its configuration file. Thus, the <command>kill -1 1</command> command forces the <command>init</command> process (<command>init</command> always runs with <command>pid 1</command>) to re-read its configuration file.</para>
 		<screen>
-[paul@RHEL4a ~]$ ps fax | grep cat
-5087 pts/1    S     10:04              \_ cat - pipe1
-5088 pts/1    R     10:06              \_ cat
-5090 pts/1    SN     4:26              \_ cat - pipe3
-5091 pts/1    RN     4:28              \_ cat
-5220 pts/1    S+     0:00              \_ grep cat
-[paul@RHEL4a ~]$ kill 5087
-[1]   Terminated              echo -n x | cat - pipe1 >pipe2
-[paul@RHEL4a ~]$
+root@deb503:~# kill -1 1
+root@deb503:~#
+		</screen>
+		<para>It is up to the developer of the process to decide whether the process can do this running, or whether it needs to stop and start. It is up to the user to read the documentation of the program.</para>
+	</section>
+	<section><title>kill -15 (SIGTERM)</title>
+		<para>The <command>SIGTERM</command> signal is also called a <command>standard kill</command>. Whenever <command>kill</command> is executed without specifying the signal, a <command>kill -15</command> is assumed.</para>
+		<para>Both commands in the screenshot below are identical.</para>
+		<screen>
+paul@ubuntu910:~$ kill 1942
+paul@ubuntu910:~$ kill -15 1942
 		</screen>
 	</section>
-<section><title>pgrep</title>
-<para>Similar to the <command>ps -C</command>, you can also use <command>pgrep</command><indexterm><primary>pgrep(1)</primary></indexterm> to search for a process by its command name.</para>
-<screen>
+	<section><title>kill -9 (SIGKILL)</title>
+		<para>The <command>SIGKILL</command> is different from most other signals in that it is not being sent to the process, but to the <command>Linux kernel</command>. A <command>kill -9</command> is also called a <command>sure kill</command>. The <command>kernel</command> will shoot down the process. As a developer you have no means to intercept a <command>kill -9</command> signal.</para>
+		<screen>
+root@rhel53 ~# kill -9 3342
+		</screen>
+	</section>
+	<section><title>killall</title>
+		<para>The <command>killall</command><indexterm><primary>killall(1)</primary></indexterm> command will also default to sending a <command>signal 15</command><indexterm><primary>SIGTERM</primary></indexterm> to the processes.</para>
+		<para>This command and its SysV counterpart <command>killall5</command> can by used when shutting down the system. This screenshot shows how Red Hat Enterprise Linux 5.3 uses <command>killall5</command> when halting the system.</para>
+		<screen>
+root@rhel53 ~# grep killall /etc/init.d/halt
+action $"Sending all processes the TERM signal..." /sbin/killall5 -15
+action $"Sending all processes the KILL signal..."  /sbin/killall5 -9
+		</screen>
+	</section>
+	<section><title>pgrep</title>
+		<para>Similar to the <command>ps -C</command>, you can also use <command>pgrep</command><indexterm><primary>pgrep(1)</primary></indexterm> to search for a process by its command name.</para>
+		<screen>
 [paul@RHEL5 ~]$ sleep 1000 &#038;
 [1] 32558
 [paul@RHEL5 ~]$ pgrep sleep
@@ -45,23 +72,29 @@
 [paul@RHEL5 ~]$ ps -C sleep
   PID TTY          TIME CMD
 32558 pts/3    00:00:00 sleep
-[paul@RHEL5 ~]$ 
-</screen>
-<para>You can also list the command name of the process with pgrep.</para>
-<screen>
+		</screen>
+		<para>You can also list the command name of the process with pgrep.</para>
+		<screen>
 paul@laika:~$ pgrep -l sleep
 9661 sleep
-paul@laika:~$ 
-</screen>
-</section>
-<section><title>pkill</title>
-<para>You can use the <command>pkill</command><indexterm><primary>pkill(1)</primary></indexterm> command to kill a process by its command name.</para>
-<screen>
+		</screen>
+	</section>
+	<section><title>pkill</title>
+		<para>You can use the <command>pkill</command><indexterm><primary>pkill(1)</primary></indexterm> command to kill a process by its command name.</para>
+		<screen>
 [paul@RHEL5 ~]$ sleep 1000 &#038;
 [1] 30203
 [paul@RHEL5 ~]$ pkill sleep
 [1]+  Terminated              sleep 1000
 [paul@RHEL5 ~]$ 
-</screen>
-<para>to do pgrep bij andere, killen met top...</para>
+		</screen>
+	</section>
+	<section><title>top</title>
+		<para>Inside <command>top</command><indexterm><primary>top</primary></indexterm> the <command>k</command> key allows you to select a <command>signal</command> and <command>pid</command> to kill. Below is a partial screenshot of the line just below the summary in <command>top</command> after pressing <command>k</command>.</para>
+		<screen>
+PID to kill: 1932
+
+Kill PID 1932 with signal [15]: 9
+		</screen>
+	</section>
 </section>

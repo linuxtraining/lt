@@ -1,9 +1,9 @@
-<section><title>about processes</title>
+<section><title>terminology</title>
 	<section><title>process</title>
 		<para>A <command>process</command><indexterm><primary>process</primary></indexterm> is compiled source code that is currently running on the system.</para>
 	</section>
 	<section><title>PID</title>
-		<para>All processes have a <command>process ID</command><indexterm><primary>process ID</primary></indexterm> or <command>PID</command><indexterm><primary>PID</primary></indexterm>.</para>
+		<para>All processes have a <command>process id</command><indexterm><primary>process id</primary></indexterm> or <command>PID</command><indexterm><primary>PID</primary></indexterm>.</para>
 	</section>
 	<section><title>PPID</title>
 		<para>Every process has a parent process (with a <command>PPID</command><indexterm><primary>PPID</primary></indexterm>). The <command>child</command> process is often started by the <command>parent</command> process.</para>
@@ -28,6 +28,13 @@
 		<screen>
 [paul@RHEL4b ~]$ echo $$ $PPID
 4224 4223
+		</screen>
+	</section>
+	<section><title>pidof</title>
+		<para>You can find all process id's by name using the <command>pidof</command><indexterm><primary>pidof(1)</primary></indexterm> command.</para>
+		<screen>
+root@rhel53 ~# pidof mingetty
+2819 2798 2797 2796 2795 2794
 		</screen>
 	</section>
 	<section><title>parent and child</title>
@@ -127,6 +134,7 @@ PID TTY      STAT   TIME COMMAND
 		</screen>
 	</section>
 	<section><title>top</title>
-		<para>Another popular tool on Linux is <command>top</command><indexterm><primary>top(1)</primary></indexterm>. The <command>top</command> tool can order processes according to CPU usage or other properties. You can also kill processes from within top. In case of trouble, top is often the first tool to fire up, since it also provides you memory and swap space information.</para>
+		<para>Another popular tool on Linux is <command>top</command><indexterm><primary>top(1)</primary></indexterm>. The <command>top</command> tool can order processes according to <command>cpu usage</command> or other properties. You can also <command>kill</command> processes from within top. Press <command>h</command> inside <command>top</command> for help.</para>
+		<para>In case of trouble, top is often the first tool to fire up, since it also provides you memory and swap space information.</para>
 	</section>
 </section>
