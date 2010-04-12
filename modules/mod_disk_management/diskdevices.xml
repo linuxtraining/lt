@@ -68,7 +68,7 @@ brw-rw----  1 root disk 8, 2 Aug  4 22:55 /dev/sda2
 </tbody>
 </tgroup>
 </table>
-			<para>It is possible to have only <command>/dev/hda</command> and <command>/dev/hdd</command>. The first one is a single ata hard disk, the second one is the cdrom (by default configured as slave).</para>.
+			<para>It is possible to have only <command>/dev/hda</command> and <command>/dev/hdd</command>. The first one is a single ata hard disk, the second one is the cdrom (by default configured as slave).</para>
 		</section>
 		<section><title>scsi device naming</title>
 			<para><command>scsi</command> drives follow a similar scheme, but all start with <command>/dev/sd</command><indexterm><primary>/dev/sdX</primary></indexterm>. When you run out of letters (after /dev/sdz), you can continue with /dev/sdaa and /dev/sdab and so on. (We will see later on that <command>lvm</command> volumes are commonly seen as /dev/md0, /dev/md1 etc.)</para>
