@@ -1,0 +1,14 @@
+<?hard-pagebreak?>
+<section><title>practice : basic process management</title>
+	<para>1. Use <command>ps</command> to search for the <command>init</command> process by name.</para>
+	<para>2. What is the <command>process id</command> of the <command>init</command> process ?</para>
+	<para>3. Use the <command>who am i</command> command to determine your terminal name.</para>
+	<para>4. Using your terminal name from above, use <command>ps</command> to find all processes associated with your terminal.</para>
+	<para>5. What is the <command>process id</command> of your shell ?</para>
+	<para>6. What is the <command>parent process id</command> of your shell ?</para>
+	<para>7. Start two instances of the <command>sleep 3342</command> in background.</para>
+	<para>8. Locate the <command>process id</command> of all <command>sleep</command> commands.</para>
+	<para>9. Display only those two <command>sleep</command> processes in <command>top</command>. Then quit top.</para>
+	<para>10. Use a <command>standard kill</command> to kill one of the <command>sleep</command> processes.</para>
+	<para>11. Use one command to kill all <command>sleep</command> processes.</para>
+</section>
