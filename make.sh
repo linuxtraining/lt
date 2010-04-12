@@ -40,7 +40,7 @@ clean() {
 check() {
 	if [ -z $REVISION ] ; then get_revision ; fi
 	VERSIONSTRING=lt-$MAJOR.$MINOR.$REVISION
-	echo "Subversion repository:\t$SVN_PROJECTDIR"
+	echo -e "Subversion repository:\t$SVN_PROJECTDIR"
 	echo "Current version:\t$VERSIONSTRING"
 	echo
 	}
