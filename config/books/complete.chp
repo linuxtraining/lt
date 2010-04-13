@@ -161,6 +161,7 @@ chapt_intro_bash() {
 	add_mod mod_intro_bash/shell_history.xml    
 	add_mod mod_intro_bash/practice.xml              
 	add_mod mod_intro_bash/solution.xml              
+	add_mod mod_intro_bash/bash_io.xml              
 	}
 
 #
@@ -201,6 +202,7 @@ chapt_intro_users() {
 	add_mod mod_intro_users/sudo.xml   
 	add_mod mod_intro_users/practice_users.xml
 	add_mod mod_intro_users/solution.xml
+	add_mod mod_intro_users/user_environment.xml   
 	}
 
 #
@@ -290,7 +292,6 @@ chapt_monitoring() {
 chapt_more_bash() {
 	MODULES=""
 	chaptitle="More about bash"
-	add_mod mod_intro_users/user_environment.xml   
 	add_mod mod_more_bash/more_bash.xml  
 	}
 

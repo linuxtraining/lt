@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>solution: white space and quoting</title>
+<section><title>solution: shell arguments</title>
 	<para>1. Display <command>A B  C</command> with two spaces between B and C.</para>
 	<screen>echo "A B  C"</screen>
 	<para>2. Complete the following command (do not use spaces) to display exactly the following output:</para>

@@ -23,7 +23,7 @@ Hello paul
 Hello
 		</screen>
 	</section>
-	<section><title>PS1 prompt</title>
+	<section><title>$PS1</title>
 		<para>The <command>$PS1</command> variable determines your shell prompt. You can use backslash escaped special characters like <command>\u</command> for the username or <command>\w</command> for the working directory. The bash manual has a complete reference.</para>
 		<para>In this example we change the value of <command>$PS1</command> a couple of times.</para>
 		<screen>
@@ -39,6 +39,30 @@ paul@deb503$ PS1='\u@\h:\W$'
 paul@deb503:~$
 </screen>
 		<screen></screen>
+	</section>
+	<section><title>$PATH</title>
+		<para>The <command>$PATH</command><indexterm><primary>$PATH</primary></indexterm> variable is very important, it determines where the shell is looking for commands to execute (unless the command is built-in). The shell will not look in the current directory for commands to execute! (Looking for executables in the current directory provided an easy way to crack DOS computers). If you want the shell to look in the current directory, then add a . to your path.</para>
+		<screen>
+[[paul@RHEL4b ~]$ echo $PATH
+/usr/kerberos/bin:/usr/local/bin:/bin:/usr/bin:
+[paul@RHEL4b ~]$ PATH=$PATH:.
+[paul@RHEL4b ~]$ echo $PATH
+/usr/kerberos/bin:/usr/local/bin:/bin:/usr/bin:.
+[paul@RHEL4b ~]$ 
+		</screen>
+		<para>Your path might be different when using su instead of <command>su -</command><indexterm><primary>su -</primary></indexterm> because the latter will take on the environment of the target user. The root user will have some sbin directories added to the PATH variable.</para>
+		<screen>
+[paul@RHEL3 ~]$ su
+Password: 
+[root@RHEL3 paul]# echo $PATH
+/usr/local/bin:/bin:/usr/bin:/usr/X11R6/bin
+[root@RHEL3 paul]# exit
+[paul@RHEL3 ~]$ su -
+Password: 
+[root@RHEL3 ~]# echo $PATH
+/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:
+[root@RHEL3 ~]#
+		</screen>
 	</section>
 	<section><title>$? dollar question mark</title>
 		<para>The exit code of the previous command is stored in the shell variable <command>$?</command>. Actually <command>$?</command><indexterm><primary>$? (shell variables)</primary></indexterm> is a shell parameter and not a variable, you cannot assign a value to <command>$?</command>.</para>

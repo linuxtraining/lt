@@ -1,4 +1,4 @@
-<section><title>Bash shell options</title>
+<section><title>bash shell options</title>
 	<para>Both <command>set</command><indexterm><primary>set</primary></indexterm> and <command>unset</command><indexterm><primary>unset</primary></indexterm> are built-in shell commands. They can be used to set options of the bash shell itself. The next example will clarify this. By default, the shell will treat unset variables as a variable having no value. By setting the -u option, the shell will treat any reference to unset variables as an error. See the man page of bash for more information.</para>
 	<screen>
 [paul@RHEL4b ~]$ echo $var123
