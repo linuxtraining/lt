@@ -125,7 +125,7 @@ system_u:system_r:init_t            1 ?        00:00:01 init
 dr-xr-xr-x  root root system_u:system_r:init_t         /proc/1/
 	</screen>
 	<para>It is not a coincidence that the domain of the init process and the type of /proc/1/ are both <command>init_t</command>.</para>
-	<para>Don't try to use <command>chcon</command><indexterm><primary>chcon(1)</primary></indexterm> on /proc! It will not work.</para>.
+	<para>Don't try to use <command>chcon</command><indexterm><primary>chcon(1)</primary></indexterm> on /proc! It will not work.</para>
 </section>
 <section><title>Transition</title>
 	<para>An <command>SELinux Transition</command><indexterm><primary>transition(SELinux)</primary></indexterm> (aka an SELinux Labelling) determines the security context that will be assigned. A transition of process domains is used when you execute a process. A transition of file type happens when you create a file.</para>

@@ -35,8 +35,7 @@ paul@laika:~$ sudo dd if=/dev/sda count=1 bs=16 skip=24 2>/dev/null|od -c
 	</section>
 	<section><title>kernel</title>
 		<para>The goal of all this is to load an operating system, or rather the <command>kernel</command> of an operating system. A typical bootloader like <command>grub</command> will copy a kernel from hard disk to memory, and will then hand control of the computer to the kernel (execute the kernel).</para>
+		<para> Once the Linux kernel is loaded, the bootloader turns control over to it. From that moment on, the kernel is in control of the system. After discussing bootloaders, we continue with the init system that starts all the daemons.</para>
 	</section>
-
-	<para> Once the Linux kernel is loaded, the bootloader turns control over to it. From that moment on, the kernel is in control of the system. After discussing bootloaders, we continue with the init system that starts all the daemons.</para>
 </section>
 

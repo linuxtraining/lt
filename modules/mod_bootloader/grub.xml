@@ -61,7 +61,7 @@ boot
 	</section>
 	<section><title>kernel</title>
 		<para>The <command>kernel</command><indexterm><primary>kernel(grub)</primary></indexterm> command points to the location of the kernel. To boot Linux this means booting a <command>gzip</command><indexterm><primary>gzip(1)</primary></indexterm> compressed <command>zImage</command><indexterm><primary>zImage</primary></indexterm> or <command>bzip2</command><indexterm><primary>bzip2(1)</primary></indexterm> compressed <command>bzImage</command><indexterm><primary>bzImage</primary></indexterm>.</para>
-a		<para>This screenshot shows a typical <command>kernel</command> command used to load a Debian kernel.</para>
+		<para>This screenshot shows a typical <command>kernel</command> command used to load a Debian kernel.</para>
 		<screen>
 kernel  /boot/vmlinuz-2.6.17-2-686 root=/dev/hda1 ro
 		</screen>
