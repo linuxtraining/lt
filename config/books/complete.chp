@@ -350,7 +350,8 @@ chapt_processes() {
 	add_mod mod_processes/processes_priorities_practice.xml
 	add_mod mod_processes/processes_priorities_solution.xml
 	add_mod mod_processes/processes_jobs.xml
-	add_mod mod_processes/processes_labs.xml
+	add_mod mod_processes/processes_jobs_practice.xml
+	add_mod mod_processes/processes_jobs_solution.xml
 	}
 
 #
