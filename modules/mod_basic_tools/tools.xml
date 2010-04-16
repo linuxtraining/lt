@@ -1,0 +1,157 @@
+<section><title>tools</title>
+	<section><title>find</title>
+		<para>The <command>find</command><indexterm><primary>find(1)</primary></indexterm> tool is used very often in linux. Find is useful at the start of a pipe, to search for files. Here are some examples. In real life, you will want to add 2&#062;/dev/null to the command lines to avoid cluttering your screen with error messages.</para>
+		<para>Find all files in /etc and put the list in etcfiles.txt</para>
+		<screen>find /etc &#062; etcfiles.txt</screen>
+		<para>Find all files of the entire system and put the list in allfiles.txt</para>
+		<screen>find / &#062; allfiles.txt</screen>
+		<para>Find files that end in .conf in the current directory (and all subdirs).</para>
+		<screen>find . -name "*.conf"</screen>
+		<para>Find files of type file (so not directory or pipe...) that end in .conf.</para>
+		<screen>find . -type f -name "*.conf"</screen>
+		<para>Find files of type directory that end in .bak.</para>
+		<screen>find /data -type d -name "*.bak"</screen>
+		<para>Find files that are newer than file44.txt</para>
+		<screen>find . -newer fil44.txt</screen>
+		<para>Find can also execute another command on every file found. This example will look for *.odf files and copy them to /backup/.</para>
+		<screen>find "/data/*.odf" -exec cp {} /backup/ \;</screen>
+		<para>Find can also execute, after your confirmation, another command on every file found. This example will remove *.odf files if you approve of it for every file found.</para>
+		<screen>find "/data/*.odf" -ok rm {} \;</screen>
+		<para>The find tool can do much more, see the man page.</para>
+	</section>
+	<section><title>locate</title>
+		<para>The <command>locate</command><indexterm><primary>locate(1)</primary></indexterm> tool is very different from <command>find</command> in that it uses an index to locate files. This is a lot faster than traversing all the directories, but it also means that it is always outdated. If the index does not exist yet, then you have to create it (as root on Red Hat Enterprise Linux) with the <command>updatedb</command><indexterm><primary>updatedb(1)</primary></indexterm> command.</para>
+		<screen>
+[paul@RHEL4b ~]$ locate Samba
+warning: locate: could not open database: /var/lib/slocate/slocate.db:...
+warning: You need to run the 'updatedb' command (as root) to create th...
+Please have a look at /etc/updatedb.conf to enable the daily cron job.
+[paul@RHEL4b ~]$ updatedb 
+fatal error: updatedb: You are not authorized to create a default sloc...
+[paul@RHEL4b ~]$ su -
+Password: 
+[root@RHEL4b ~]# updatedb
+[root@RHEL4b ~]# 
+		</screen>
+		<para>Most Linux distributions will schedule the <command>updatedb</command> to run once every day.</para>
+	</section>
+	<section><title>diff</title>
+		<para>To compare two files line by line, you can use <command>diff</command><indexterm><primary>diff(1)</primary></indexterm>. To ignore blanks, use <command>diff -b</command>, and to ignore case, use <command>diff -i</command>.</para>
+		<para>In this examples diff tells you 2c2 the second line in file one was changed with the second line in file two.</para>
+		<screen>
+[paul@RHEL4b test]$ cat &#062; count.txt
+one
+two
+three
+four
+[paul@RHEL4b test]$ cat &#062; count2.txt
+one
+Two
+three
+four
+[paul@RHEL4b test]$ diff count.txt count2.txt 
+2c2
+&#060; two
+---
+&#062; Two
+[paul@RHEL4b test]$
+		</screen>
+		<para>Another example of diff. The second file now has one more line than the first file. After line 2, a line was added as line 3 (2a3) to the second file.</para>
+		<screen>
+[paul@RHEL4b test]$ cat &#062; count.txt 
+one
+two
+four
+[paul@RHEL4b test]$ cat &#062; count2.txt 
+one
+two
+three
+four
+[paul@RHEL4b test]$ diff count.txt count2.txt 
+2a3
+&#062; three
+[paul@RHEL4b test]$
+		</screen>
+	</section>
+	<section><title>compress</title>
+		<para>Users never have enough space, so compression comes in handy. The <command>compress</command><indexterm><primary>compress(1)</primary></indexterm> command can make files take up less space. You can get the original back with <command>uncompress</command><indexterm><primary>uncompress(1)</primary></indexterm>. In the backup chapter we will also discuss gzip, gunzip, bzip2 and bunzip2.</para>
+		<screen>
+[paul@RHEL4b test]$ ls -lh
+total 19M
+-rw-rw-r--  1 paul paul 19M Jul 26 04:21 allfiles.txt
+[paul@RHEL4b test]$ compress allfiles.txt 
+[paul@RHEL4b test]$ ls -lh
+total 3.2M
+-rw-rw-r--  1 paul paul 3.2M Jul 26 04:21 allfiles.txt.Z
+[paul@RHEL4b test]$ uncompress allfiles.txt 
+[paul@RHEL4b test]$ ls -lh
+total 19M
+-rw-rw-r--  1 paul paul 19M Jul 26 04:21 allfiles.txt
+[paul@RHEL4b test]$ 
+		</screen>
+	</section>
+	<section><title>others</title>
+		<para>gzip/gunzip bzip2/bunzip2 zcat bzcat zmore bzmore date cal sleep</para>
+	</section>
+	<section><title>Practice tools and filters</title>
+		<para>1. Explain the difference between these two commands. This question is very important. If you don't know the answer, then look back at the bash chapters.</para>
+		<screen>find . -name "*.txt"</screen>
+		<screen>find . -name *.txt</screen>
+		<para>2. Explain the difference between these two statements. Will they both work when there are 200 .odf files in /data/ ? How about when there are 2 million .odf files ?</para>
+		<screen>find /data -name "*.odf" > data_odf.txt</screen>
+		<screen>find /data/*.odf > data_odf.txt</screen>
+	<para>3. Write a find command that finds all files created after january 30th this year.</para>	
+	<para>4. Write a find command that finds all *.odf files created in september last year.</para>
+	<para>5. Put a sorted list of all bash users in bashusers.txt.</para>
+	<para>6. Put a sorted list of all bash users, with their username, userid and home directory in bashusers.info.</para>
+	<para>7. Make a list of all non-bash and non-korn users.</para>
+	<para>8. Make a list of all files (not directories) in /etc/ that contain the string smb, nmb or samba.</para>
+	<para>9. Look at the output of /sbin/ifconfig. Make an ipconfig command that shows only the nic name (eth0), the ip address and the subnet mask.</para>
+	<para>10. Make a command abc that removes all non-letters from a file (and replaces them with spaces).</para>
+	<para>11. Count the number of *.conf files in /etc and all its subdirs.</para>	
+	<para>12. Two commands that do the same thing: copy *.odf files to /backup/ . What would be a reason to replace the first command with the second ? Again, this is an important question.</para>
+	<screen>cp -r /data/*.odf /backup/</screen>
+	<screen>find /data -name "*.odf" -exec cp {} /backup/ \;</screen>
+	<para>13. Create a file called loctest.txt. Can you find this file with locate ? Why not ? How do you make locate find this file ?</para>
+	<para>14. Create a file named text.txt that contains this sentence: The zun is shining today. Create a file DICT that contains the words "is shining sun the today", one word on each line. The first file is a text, the second file is a dictionary. Now create a spell checker that uses those two files and outputs the misspelled words (in this case that would be 'zun').</para>
+	<para>15. Use find and -exec to rename all .htm files to .html.</para>	
+	<para>16. Find the hexadecimal byte value for ascii characters : " 'space' 'tab' A and a .</para>	
+	<para>17. List all files in the current directory of size between 10 and 20 bytes.</para>
+	<para>18. List all files in your home directory that have more than one hard link (hint: use the find tool).</para>	
+	<para></para>	
+	<para></para>	
+	<para>Always take time to properly <command>document</command> every script that you write!</para>
+	<para></para>	
+	<para>Image copied from <command>xkcd.com</command><indexterm><primary>http://xkcd.com</primary></indexterm>.</para>
+	<mediaobject><imageobject><imagedata fileref="images/command_line_fu.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>	
+	<para></para>	
+	</section>
+	<section><title>Solutions: tools and filters</title>
+	<para>1. The shell will not touch the *.txt because it is between double quotes. The find tool will look in the current directory for all files ending in .txt.</para>
+	<screen>find . -name "*.txt"</screen>
+	<para>The shell will expand the *.txt to all files in the current directory that end in .txt. Then find will give you a syntax error.</para>
+	<screen>find . -name *.txt</screen>
+	<para>3. use find with the -newer option related to a marker file</para>
+	<screen>touch -t 200901302359 marker_date
+find . -type f -newer marker_date </screen>
+	<para>4. the same as 3. but add a negation to create an "older than" statement</para>
+	<screen>touch -t 200808312359 marker_date_start
+touch -t 2008100100 marker_date_end
+find . -type f -newer marker -_date_start ! -newer marker_date_end </screen>
+	<para>14. The one line spell checker.</para>
+	<screen>
+[paul]$ echo "The zun is shining today" > text.txt
+[paul]$ cat > DICT
+is
+shining
+sun
+the
+today
+[paul]$ cat text.txt| tr 'A-Z ' 'a-z\n' |sort|uniq|comm -2 -3 - DICT
+zun
+[paul]$
+	</screen>
+	<para>18. Use find to look in your home directory(~) for regular files(-type f) that do not(!) have one hard link(-links 1).</para>
+	<screen>find ~ ! -links 1 -type f</screen>
+	</section>
+</section>
