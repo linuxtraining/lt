@@ -19,6 +19,13 @@ chapt_backup() {
 	}
 
 #
+chapt_basic_tools() {
+	MODULES=""
+	chaptitle="Basic Unix tools"
+	add_mod mod_basic_tools/tools.xml
+	}
+
+#
 chapt_bind() {
 	MODULES=""
 	chaptitle="Introduction to bind"
