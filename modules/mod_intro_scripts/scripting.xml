@@ -512,4 +512,9 @@ else
 fi
 		</screen>
 		<para>12. If time permits (or if you are waiting for other students to finish this practice), take a look at linux system scripts in /etc/init.d and /etc/rc.d and try to understand them. Where does execution of a script start in /etc/init.d/samba ? There are also some hidden scripts in ~, we will discuss them later.</para>
+	<para>Always take time to properly <command>document</command> every script that you write!</para>
+	<para></para>	
+	<para>Image copied from <command>xkcd.com</command><indexterm><primary>http://xkcd.com</primary></indexterm>.</para>
+	<mediaobject><imageobject><imagedata fileref="images/command_line_fu.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>	
+	<para></para>	
 	</section>

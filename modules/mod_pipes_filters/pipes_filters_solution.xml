@@ -1,0 +1,49 @@
+<?hard-pagebreak?>
+<section><title>solution : pipes and filters</title>
+	<para>1. Put a sorted list of all bash users in bashusers.txt.</para>
+	<screen>grep bash /etc/passwd | cut -d: -f1 | sort &#062; bashusers.txt</screen>
+	<para>2. Put a sorted list of all logged on users in onlineusers.txt.</para>
+	<screen>who | cut -d' ' -f1 | sort &#062; onlineusers.txt</screen>
+	<para>3. Make a list of all files in <command>/etc</command> that contain the string samba.</para>
+	<screen>ls /etc | grep samba</screen>
+	<para>4. Make a sorted list of all files in <command>/etc</command> that contain the case insensitive string samba.</para>
+	<screen>ls /etc | grep -i samba | sort</screen>
+	<para>5. Look at the output of <command>/sbin/ifconfig</command>. Write a line that displays only ip address and the subnet mask.</para>
+	<screen>/sbin/ifconfig | head -2 | grep 'inet ' | tr -s ' ' | cut -d' ' -f3,5</screen>
+	<para>6. Write a line that removes all non-letters from a stream.</para>
+	<screen>paul@deb503:~$ cat text
+This is, yes really! , a text with ?&#038;* too many str$ang# characters ;-)
+paul@deb503:~$ cat text | tr -d ',!$?.*&#038;^%#@;()-'
+This is yes really  a text with  too many strang characters
+	</screen>
+	<para>7. Write a line that receives a textfile, and outputs all words on a separate line.</para>
+	<screen>
+paul@deb503:~$ cat text2 
+it is very cold today without the sun
+
+paul@deb503:~$ cat text2 | tr ' ' '\n'
+it
+is
+very
+cold
+today
+without
+the
+sun
+	</screen>
+	<para>8. Write a spell checker on the command line. (There might be a dictionary in <command>/usr/share/dict/</command> .)</para>
+	<screen>
+paul@rhel ~$ echo "The zun is shining today" > text
+
+paul@rhel ~$ cat > DICT
+is
+shining
+sun
+the
+today
+
+paul@rhel ~$ cat text | tr 'A-Z ' 'a-z\n' | sort | uniq | comm -23 - DICT
+zun
+	</screen>
+	<para>You could also add the solution from question number 6 to remove non-letters, and <command>tr -s ' '</command> to remove redundant spaces.</para>
+</section>

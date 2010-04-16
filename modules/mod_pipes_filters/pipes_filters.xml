@@ -403,67 +403,16 @@ paul
 root
 		</screen>
 	</section>
-	<section><title></title>
+	<section><title>grep | cut</title>
+		<para>Display a list of all bash user accounts on this computer. Users accounts are explained in detail later.</para>
+		<screen>paul@deb503:~$ grep bash /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+paul:x:1000:1000:paul,,,:/home/paul:/bin/bash
+serena:x:1001:1001::/home/serena:/bin/bash
+paul@deb503:~$ grep bash /etc/passwd | cut -d: -f1
+root
+paul
+serena
+</screen>
 	</section>
-</section>
-<section><title>Practice tools and filters</title>
-	<para>1. Explain the difference between these two commands. This question is very important. If you don't know the answer, then look back at the bash chapters.</para>
-	<screen>find . -name "*.txt"</screen>
-	<screen>find . -name *.txt</screen>
-	<para>2. Explain the difference between these two statements. Will they both work when there are 200 .odf files in /data/ ? How about when there are 2 million .odf files ?</para>
-	<screen>find /data -name "*.odf" > data_odf.txt</screen>
-	<screen>find /data/*.odf > data_odf.txt</screen>
-	<para>3. Write a find command that finds all files created after january 30th this year.</para>	
-	<para>4. Write a find command that finds all *.odf files created in september last year.</para>
-	<para>5. Put a sorted list of all bash users in bashusers.txt.</para>
-	<para>6. Put a sorted list of all bash users, with their username, userid and home directory in bashusers.info.</para>
-	<para>7. Make a list of all non-bash and non-korn users.</para>
-	<para>8. Make a list of all files (not directories) in /etc/ that contain the string smb, nmb or samba.</para>
-	<para>9. Look at the output of /sbin/ifconfig. Make an ipconfig command that shows only the nic name (eth0), the ip address and the subnet mask.</para>
-	<para>10. Make a command abc that removes all non-letters from a file (and replaces them with spaces).</para>
-	<para>11. Count the number of *.conf files in /etc and all its subdirs.</para>	
-	<para>12. Two commands that do the same thing: copy *.odf files to /backup/ . What would be a reason to replace the first command with the second ? Again, this is an important question.</para>
-	<screen>cp -r /data/*.odf /backup/</screen>
-	<screen>find /data -name "*.odf" -exec cp {} /backup/ \;</screen>
-	<para>13. Create a file called loctest.txt. Can you find this file with locate ? Why not ? How do you make locate find this file ?</para>
-	<para>14. Create a file named text.txt that contains this sentence: The zun is shining today. Create a file DICT that contains the words "is shining sun the today", one word on each line. The first file is a text, the second file is a dictionary. Now create a spell checker that uses those two files and outputs the misspelled words (in this case that would be 'zun').</para>
-	<para>15. Use find and -exec to rename all .htm files to .html.</para>	
-	<para>16. Find the hexadecimal byte value for ascii characters : " 'space' 'tab' A and a .</para>	
-	<para>17. List all files in the current directory of size between 10 and 20 bytes.</para>
-	<para>18. List all files in your home directory that have more than one hard link (hint: use the find tool).</para>	
-	<para></para>	
-	<para></para>	
-	<para>Always take time to properly <command>document</command> every script that you write!</para>
-	<para></para>	
-	<para>Image copied from <command>xkcd.com</command><indexterm><primary>http://xkcd.com</primary></indexterm>.</para>
-	<mediaobject><imageobject><imagedata fileref="images/command_line_fu.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>	
-	<para></para>	
-</section>
-<section><title>Solutions: tools and filters</title>
-	<para>1. The shell will not touch the *.txt because it is between double quotes. The find tool will look in the current directory for all files ending in .txt.</para>
-	<screen>find . -name "*.txt"</screen>
-	<para>The shell will expand the *.txt to all files in the current directory that end in .txt. Then find will give you a syntax error.</para>
-	<screen>find . -name *.txt</screen>
-	<para>3. use find with the -newer option related to a marker file</para>
-	<screen>touch -t 200901302359 marker_date
-find . -type f -newer marker_date </screen>
-	<para>4. the same as 3. but add a negation to create an "older than" statement</para>
-	<screen>touch -t 200808312359 marker_date_start
-touch -t 2008100100 marker_date_end
-find . -type f -newer marker -_date_start ! -newer marker_date_end </screen>
-	<para>14. The one line spell checker.</para>
-	<screen>
-[paul]$ echo "The zun is shining today" > text.txt
-[paul]$ cat > DICT
-is
-shining
-sun
-the
-today
-[paul]$ cat text.txt| tr 'A-Z ' 'a-z\n' |sort|uniq|comm -2 -3 - DICT
-zun
-[paul]$
-	</screen>
-	<para>18. Use find to look in your home directory(~) for regular files(-type f) that do not(!) have one hard link(-links 1).</para>
-	<screen>find ~ ! -links 1 -type f</screen>
 </section>
