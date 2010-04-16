@@ -1,0 +1,10 @@
+<?hard-pagebreak?>
+<section><title>practice : i/o redirection</title>
+	<para>1. Use <command>ls</command> to output the contents of the <command>/etc/</command> directory to a file called <command>etc.txt</command>.</para>
+	<para>2. Activate the <command>noclobber</command> shell option.</para>
+	<para>3. Verify that <command>nocclobber</command> is active by repeating your <command>ls</command> on <command>/etc/</command>.</para>
+	<para>4. When listing all shell options, which character represents the <command>noclobber</command> option ?</para>
+	<para>5. Deactivate the <command>noclobber</command> option.</para>
+	<para>6. Make sure you have two shells open on the same computer. Create an empty <command>tailing.txt</command> file. Then type <command>tail -f tailing.txt</command>. Use the second shell to <command>append</command> a line of text to that file. Verify that the first shell displays this line.</para>
+	<para>7. Create a file that contains the names of five people. Use <command>cat</command> and output redirection to create the file and use a <command>here document</command> to end the input.</para>
+</section>
