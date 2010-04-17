@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>solution : basic Unix tools</title>
+<section><title>practice : basic Unix tools</title>
 	<para>1. Explain the difference between these two commands. This question is very important. If you don't know the answer, then look back at the <command>shell</command> chapter.</para>
 	<screen>find /data -name "*.txt"</screen>
 	<screen>find /data -name *.txt</screen>
