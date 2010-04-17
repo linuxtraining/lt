@@ -1,7 +1,7 @@
-<section><title>tools</title>
+<section><title>common tools</title>
 	<section><title>find</title>
-		<para>The <command>find</command><indexterm><primary>find(1)</primary></indexterm> tool is used very often in linux. Find is useful at the start of a pipe, to search for files. Here are some examples. In real life, you will want to add 2&#062;/dev/null to the command lines to avoid cluttering your screen with error messages.</para>
-		<para>Find all files in /etc and put the list in etcfiles.txt</para>
+		<para>The <command>find</command><indexterm><primary>find(1)</primary></indexterm> command can be very useful at the start of a pipe, to search for files. Here are some examples. You might want to add <command>2&#062;/dev/null</command> to the command lines to avoid cluttering your screen with error messages.</para>
+		<para>Find all files in <command>/etc</command> and put the list in etcfiles.txt</para>
 		<screen>find /etc &#062; etcfiles.txt</screen>
 		<para>Find all files of the entire system and put the list in allfiles.txt</para>
 		<screen>find / &#062; allfiles.txt</screen>
@@ -9,15 +9,14 @@
 		<screen>find . -name "*.conf"</screen>
 		<para>Find files of type file (so not directory or pipe...) that end in .conf.</para>
 		<screen>find . -type f -name "*.conf"</screen>
-		<para>Find files of type directory that end in .bak.</para>
+		<para>Find files of type directory that end in .bak .</para>
 		<screen>find /data -type d -name "*.bak"</screen>
-		<para>Find files that are newer than file44.txt</para>
-		<screen>find . -newer fil44.txt</screen>
+		<para>Find files that are newer than file42.txt</para>
+		<screen>find . -newer file42.txt</screen>
 		<para>Find can also execute another command on every file found. This example will look for *.odf files and copy them to /backup/.</para>
 		<screen>find "/data/*.odf" -exec cp {} /backup/ \;</screen>
 		<para>Find can also execute, after your confirmation, another command on every file found. This example will remove *.odf files if you approve of it for every file found.</para>
 		<screen>find "/data/*.odf" -ok rm {} \;</screen>
-		<para>The find tool can do much more, see the man page.</para>
 	</section>
 	<section><title>locate</title>
 		<para>The <command>locate</command><indexterm><primary>locate(1)</primary></indexterm> tool is very different from <command>find</command> in that it uses an index to locate files. This is a lot faster than traversing all the directories, but it also means that it is always outdated. If the index does not exist yet, then you have to create it (as root on Red Hat Enterprise Linux) with the <command>updatedb</command><indexterm><primary>updatedb(1)</primary></indexterm> command.</para>
@@ -35,63 +34,136 @@ Password:
 		</screen>
 		<para>Most Linux distributions will schedule the <command>updatedb</command> to run once every day.</para>
 	</section>
-	<section><title>diff</title>
-		<para>To compare two files line by line, you can use <command>diff</command><indexterm><primary>diff(1)</primary></indexterm>. To ignore blanks, use <command>diff -b</command>, and to ignore case, use <command>diff -i</command>.</para>
-		<para>In this examples diff tells you 2c2 the second line in file one was changed with the second line in file two.</para>
-		<screen>
-[paul@RHEL4b test]$ cat &#062; count.txt
-one
-two
-three
-four
-[paul@RHEL4b test]$ cat &#062; count2.txt
-one
-Two
-three
-four
-[paul@RHEL4b test]$ diff count.txt count2.txt 
-2c2
-&#060; two
----
-&#062; Two
-[paul@RHEL4b test]$
+	<section><title>date</title>
+		<para>The <command>date</command><indexterm><primary>date</primary></indexterm> can display the date, time, timezone and more.</para>
+		<screen>paul@rhel55 ~$ date
+Sat Apr 17 12:44:30 CEST 2010
 		</screen>
-		<para>Another example of diff. The second file now has one more line than the first file. After line 2, a line was added as line 3 (2a3) to the second file.</para>
-		<screen>
-[paul@RHEL4b test]$ cat &#062; count.txt 
-one
-two
-four
-[paul@RHEL4b test]$ cat &#062; count2.txt 
-one
-two
-three
-four
-[paul@RHEL4b test]$ diff count.txt count2.txt 
-2a3
-&#062; three
-[paul@RHEL4b test]$
+		<para>The date string can be customized to display the format of your choice. Check the manual page for more options.</para>
+		<screen>paul@rhel55 ~$ date +'%A %d-%m-%Y'
+Saturday 17-04-2010
+		</screen>
+		<para>Time on any Unix is calculated in number of seconds since 1969 (the first second being the first second of the first of January 1970). Use <command>date +%s</command> to display Unix time in seconds.</para>
+		<screen>paul@rhel55 ~$ date +%s
+1271501080
+		</screen>
+		<para>When will this seconds counter reach two thousand million ?</para>
+		<screen>paul@rhel55 ~$ date -d '1970-01-01 + 2000000000 seconds'
+Wed May 18 04:33:20 CEST 2033
 		</screen>
 	</section>
-	<section><title>compress</title>
-		<para>Users never have enough space, so compression comes in handy. The <command>compress</command><indexterm><primary>compress(1)</primary></indexterm> command can make files take up less space. You can get the original back with <command>uncompress</command><indexterm><primary>uncompress(1)</primary></indexterm>. In the backup chapter we will also discuss gzip, gunzip, bzip2 and bunzip2.</para>
+	<section><title>cal</title>
+		<para>The <command>cal</command><indexterm><primary>cal</primary></indexterm> command displays the current month, with the current day highlighted.</para>
 		<screen>
-[paul@RHEL4b test]$ ls -lh
-total 19M
--rw-rw-r--  1 paul paul 19M Jul 26 04:21 allfiles.txt
-[paul@RHEL4b test]$ compress allfiles.txt 
-[paul@RHEL4b test]$ ls -lh
-total 3.2M
--rw-rw-r--  1 paul paul 3.2M Jul 26 04:21 allfiles.txt.Z
-[paul@RHEL4b test]$ uncompress allfiles.txt 
-[paul@RHEL4b test]$ ls -lh
-total 19M
--rw-rw-r--  1 paul paul 19M Jul 26 04:21 allfiles.txt
-[paul@RHEL4b test]$ 
+paul@rhel55 ~$ cal
+     April 2010     
+Su Mo Tu We Th Fr Sa
+             1  2  3
+ 4  5  6  7  8  9 10
+11 12 13 14 15 16 17
+18 19 20 21 22 23 24
+25 26 27 28 29 30
+		</screen>
+		<para>You can select any month in the past or the future.</para>
+		<screen>paul@rhel55 ~$ cal 2 1970
+   February 1970    
+Su Mo Tu We Th Fr Sa
+ 1  2  3  4  5  6  7
+ 8  9 10 11 12 13 14
+15 16 17 18 19 20 21
+22 23 24 25 26 27 28
 		</screen>
 	</section>
-	<section><title>others</title>
-		<para>gzip/gunzip bzip2/bunzip2 zcat bzcat zmore bzmore date cal sleep</para>
+	<section><title>sleep</title>
+		<para>The <command>sleep</command><indexterm><primary>sleep</primary></indexterm> is sometimes used in scripts to wait a couple of seconds. This example shows a five second sleep.</para>
+		<screen>paul@rhel55 ~$ sleep 5
+paul@rhel55 ~$</screen>
+	</section>
+	<section><title>time</title>
+		<para>With <command>time</command><indexterm><primary>time</primary></indexterm> you can display how long it takes to execute a command. The <command>date</command> command takes only a little time.</para>
+		<screen>
+paul@rhel55 ~$ time date
+Sat Apr 17 13:08:27 CEST 2010
+
+real    0m0.014s
+user    0m0.008s
+sys     0m0.006s
+		</screen>
+		<para>This <command>sleep 5</command> takes five <command>real</command> seconds to execute, but consumes little <command>cpu time</command>.</para>
+		<screen>
+paul@rhel55 ~$ time sleep 5
+
+real    0m5.018s
+user    0m0.005s
+sys     0m0.011s
+		</screen>
+		<para>This <command>bzip2</command> command compresses a file and uses a lot of <command>cpu time</command>.</para>
+		<screen>
+paul@rhel55 ~$ time bzip2 text.txt 
+
+real    0m2.368s
+user    0m0.847s
+sys     0m0.539s
+		</screen>
+	</section>
+</section>
+<section><title>compression tools</title>
+	<section><title>gzip - gunzip</title>
+		<para>Users never have enough space, so compression comes in handy. The <command>gzip</command><indexterm><primary>gzip(1)</primary></indexterm> command can make files take up less space.</para>
+		<screen>
+paul@rhel55 ~$ ls -lh text.txt 
+-rw-rw-r-- 1 paul paul 6.4M Apr 17 13:11 text.txt
+paul@rhel55 ~$ gzip text.txt 
+paul@rhel55 ~$ ls -lh text.txt.gz 
+-rw-rw-r-- 1 paul paul 760K Apr 17 13:11 text.txt.gz
+		</screen>
+		<para>You can get the original back with <command>gunzip</command><indexterm><primary>gunzip(1)</primary></indexterm>.</para>
+		<screen>
+paul@rhel55 ~$ gunzip text.txt.gz 
+paul@rhel55 ~$ ls -lh text.txt
+-rw-rw-r-- 1 paul paul 6.4M Apr 17 13:11 text.txt
+		</screen>
+	</section>
+	<section><title>bzip2 - bunzip2</title>
+		<para>Files can also be compressed with <command>bzip2</command><indexterm><primary>bzip2</primary></indexterm> which takes a little more time than <command>gzip</command>, but compresses better.</para>
+		<screen>
+paul@rhel55 ~$ bzip2 text.txt 
+paul@rhel55 ~$ ls -lh text.txt.bz2 
+-rw-rw-r-- 1 paul paul 569K Apr 17 13:11 text.txt.bz2
+		</screen>
+		<para>Files can be uncompressed again with <command>bunzip2</command><indexterm><primary>bunzip2</primary></indexterm>.</para>
+		<screen>
+paul@rhel55 ~$ bunzip2 text.txt.bz2 
+paul@rhel55 ~$ ls -lh text.txt 
+-rw-rw-r-- 1 paul paul 6.4M Apr 17 13:11 text.txt
+		</screen>
+	</section>
+	<section><title>zcat - zmore</title>
+		<para>Text files that are compressed with <command>gzip</command><indexterm><primary>gzip</primary></indexterm> can be viewed with <command>zcat</command><indexterm><primary>zcat</primary></indexterm> and <command>zmore</command><indexterm><primary>zmore</primary></indexterm>.</para>
+		<screen>
+paul@rhel55 ~$ head -4 text.txt 
+/
+/opt
+/opt/VBoxGuestAdditions-3.1.6
+/opt/VBoxGuestAdditions-3.1.6/routines.sh
+paul@rhel55 ~$ gzip text.txt 
+paul@rhel55 ~$ zcat text.txt.gz | head -4
+/
+/opt
+/opt/VBoxGuestAdditions-3.1.6
+/opt/VBoxGuestAdditions-3.1.6/routines.sh
+		</screen>
+	</section>
+	<section><title>bzcat - bzmore</title>
+		<para>And in the same way <command>bzcat</command><indexterm><primary>bzcat</primary></indexterm> and <command>bzmore</command><indexterm><primary>bzmore</primary></indexterm> can display files compressed with <command>bzip2</command><indexterm><primary>bzip2</primary></indexterm>.</para>
+		<screen>
+paul@rhel55 ~$ bzip2 text.txt 
+paul@rhel55 ~$ bzcat text.txt.bz2 | head -4
+/
+/opt
+/opt/VBoxGuestAdditions-3.1.6
+/opt/VBoxGuestAdditions-3.1.6/routines.sh
+		</screen>
 	</section>
 	<section><title>Practice tools and filters</title>
 		<para>1. Explain the difference between these two commands. This question is very important. If you don't know the answer, then look back at the bash chapters.</para>
