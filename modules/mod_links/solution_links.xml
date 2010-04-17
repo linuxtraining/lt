@@ -1,4 +1,5 @@
-<section><title>Solutions: Links</title>
+<?hard-pagebreak?>
+<section><title>solution : Links</title>
 	<para>1. Create two files named winter.txt and summer.txt, put some text in them.</para>
 	<screen>echo cold > winter.txt ; echo hot > summer.txt</screen>
 	<para>2. Create a hard link to winter.txt named hlwinter.txt.</para>
@@ -19,7 +20,6 @@
 	<screen>ls -l /etc/rc3.d</screen>
 	<para>9. Look in /lib with ls -l...</para>
 	<screen>ls -l /lib</screen>
-	<para></para>
-	<para></para>
-	<para></para>
+	<para>10. Use <command>find</command> to look in your home directory for regular files that do not(!) have one hard link.</para>
+	<screen>find ~ ! -links 1 -type f</screen>
 </section>
