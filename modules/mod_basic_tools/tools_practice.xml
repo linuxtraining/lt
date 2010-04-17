@@ -1,0 +1,17 @@
+<?hard-pagebreak?>
+<section><title>solution : basic Unix tools</title>
+	<para>1. Explain the difference between these two commands. This question is very important. If you don't know the answer, then look back at the <command>shell</command> chapter.</para>
+	<screen>find /data -name "*.txt"</screen>
+	<screen>find /data -name *.txt</screen>
+	<para>2. Explain the difference between these two statements. Will they both work when there are 200 <command>.odf</command> files in <command>/data</command> ? How about when there are 2 million .odf files ?</para>
+	<screen>find /data -name "*.odf" > data_odf.txt</screen>
+	<screen>find /data/*.odf > data_odf.txt</screen>
+	<para>3. Write a find command that finds all files created after January 30th 2010.</para>	
+	<para>4. Write a find command that finds all *.odf files created in September 2009.</para>
+	<para>5. Count the number of *.conf files in /etc and all its subdirs.</para>
+	<para>6. Two commands that do the same thing: copy *.odf files to /backup/ . What would be a reason to replace the first command with the second ? Again, this is an important question.</para>
+	<screen>cp -r /data/*.odf /backup/</screen>
+	<screen>find /data -name "*.odf" -exec cp {} /backup/ \;</screen>
+	<para>7. Create a file called <command>loctest.txt</command>. Can you find this file with <command>locate</command> ? Why not ? How do you make locate find this file ?</para>
+	<para>8. Use find and -exec to rename all .htm files to .html.</para>	
+</section>

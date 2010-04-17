@@ -1,43 +1,40 @@
+<?hard-pagebreak?>
 <section><title>solution : basic Unix tools</title>
 	<para>1. Explain the difference between these two commands. This question is very important. If you don't know the answer, then look back at the <command>shell</command> chapter.</para>
-	<screen>find . -name "*.txt"</screen>
-	<screen>find . -name *.txt</screen>
-	<para>When <command>*.txt</command> is quoted then the shell will not touch it. The <command>find</command> tool will look in the current directory for all files ending in <command>.txt</command>.</para>
-	<para>When <command>*.txt</command> is not quoted then the shell might expand this (when one or more files that ends in .txt exist in the current directory). The <command>find</command> might show a different result, or can result in a syntax error.</para>
-	<screen>find . -name *.txt</screen>
-	<para>2. Explain the difference between these two statements. Will they both work when there are 200 .odf files in /data/ ? How about when there are 2 million .odf files ?</para>
+	<screen>find /data -name "*.txt"</screen>
+	<screen>find /data -name *.txt</screen>
+	<para>When <command>*.txt</command> is quoted then the shell will not touch it. The <command>find</command> tool will look in the <command>/data</command> for all files ending in <command>.txt</command>.</para>
+	<para>When <command>*.txt</command> is not quoted then the shell might expand this (when one or more files that ends in <command>.txt</command> exist in the current directory). The <command>find</command> might show a different result, or can result in a syntax error.</para>
+	<para>2. Explain the difference between these two statements. Will they both work when there are 200 <command>.odf</command> files in <command>/data</command> ? How about when there are 2 million .odf files ?</para>
 	<screen>find /data -name "*.odf" > data_odf.txt</screen>
 	<screen>find /data/*.odf > data_odf.txt</screen>
 	<para>The first <command>find</command> will output all <command>.odf</command> filenames in <command>/data</command> and all subdirectories. The shell will redirect this to a file.</para>
-	<para>The second find will output all files named <command>.odf</command> in <command>/data</command> and will also output all files that exist in directories named <command>*.odf</command> (in /data).</para>
-	<para>3. Write a find command that finds all files created after January 30th 2010..</para>	
+	<para>The second find will output all files named <command>.odf</command> in <command>/data</command> and will also output all files that exist in directories named <command>*.odf</command> (in <command>/data</command>).</para>
+	<para>With two million files the command line would be expanded beyond the maximum that the shell can accept. The last part of the command line would be lost.</para>
+	<para>3. Write a find command that finds all files created after January 30th 2010.</para>	
 	<screen>touch -t 201001302359 marker_date
 find . -type f -newer marker_date </screen>
 	<para>4. Write a find command that finds all *.odf files created in September 2009.</para>
-	<screen>
-touch -t 200908312359 marker_start
+	<screen>touch -t 200908312359 marker_start
 touch -t 200910010000 marker_end
 find . -type f -newer marker - marker_start ! -newer marker_end </screen>
 	<para>5. Count the number of *.conf files in /etc and all its subdirs.</para>
 	<screen>find /etc -type f -name '*.conf' | wc -l</screen>
 	
-	<para>12. Two commands that do the same thing: copy *.odf files to /backup/ . What would be a reason to replace the first command with the second ? Again, this is an important question.</para>
+	<para>6. Two commands that do the same thing: copy *.odf files to /backup/ . What would be a reason to replace the first command with the second ? Again, this is an important question.</para>
 	<screen>cp -r /data/*.odf /backup/</screen>
 	<screen>find /data -name "*.odf" -exec cp {} /backup/ \;</screen>
-	<para>13. Create a file called loctest.txt. Can you find this file with locate ? Why not ? How do you make locate find this file ?</para>
-	<para>14. Create a file named text.txt that contains this sentence: The zun is shining today. Create a file DICT that contains the words "is shining sun the today", one word on each line. The first file is a text, the second file is a dictionary. Now create a spell checker that uses those two files and outputs the misspelled words (in this case that would be 'zun').</para>
-	<para>15. Use find and -exec to rename all .htm files to .html.</para>	
-	<para>16. Find the hexadecimal byte value for ascii characters : " 'space' 'tab' A and a .</para>	
-	<para>17. List all files in the current directory of size between 10 and 20 bytes.</para>
-	<para>18. List all files in your home directory that have more than one hard link (hint: use the find tool).</para>	
-	<para></para>	
-	<para></para>	
-	<para>Always take time to properly <command>document</command> every script that you write!</para>
-	<para></para>	
-	<para>Image copied from <command>xkcd.com</command><indexterm><primary>http://xkcd.com</primary></indexterm>.</para>
-	<mediaobject><imageobject><imagedata fileref="images/command_line_fu.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>	
-	<para></para>	
-	<para>18. Use find to look in your home directory(~) for regular files(-type f) that do not(!) have one hard link(-links 1).</para>
-	<screen>find ~ ! -links 1 -type f</screen>
-	</section>
+	<para>The first might fail when there are too many files to fit on one command line.</para>
+	<para>7. Create a file called <command>loctest.txt</command>. Can you find this file with <command>locate</command> ? Why not ? How do you make locate find this file ?</para>
+	<para>You cannot locate this with <command>locate</command> because it is not yet in the index.</para>
+	<screen>updatedb</screen>
+	<para>8. Use find and -exec to rename all .htm files to .html.</para>	
+	<screen>
+paul@rhel55 ~$ find . -name '*.htm'
+./one.htm
+./two.htm
+paul@rhel55 ~$ find . -name '*.htm' -exec mv {} {}l \;
+paul@rhel55 ~$ find . -name '*.htm*'
+./one.html
+./two.html</screen>
 </section>
