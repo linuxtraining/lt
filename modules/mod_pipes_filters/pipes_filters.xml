@@ -373,7 +373,7 @@ jump5 jump7
 
 	</section>
 </section>
-<section><title>Some pipeline examples</title>
+<section><title>some pipeline examples</title>
 	<section><title>who | wc</title>
 		<para>How many users are logged on to this system ?</para>
 		<screen>

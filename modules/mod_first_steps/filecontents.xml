@@ -1,4 +1,5 @@
-<section><title>File contents</title>
+<?hard-pagebreak?>
+<section><title>file contents</title>
 	<section><title>head</title>
 		<para>You can use <command>head</command><indexterm><primary>head(1)</primary></indexterm> to display the first ten lines of a file.</para>
 		<screen>

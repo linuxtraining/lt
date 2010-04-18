@@ -1,4 +1,4 @@
-<section><title>Working with directories</title>
+<section><title>working with directories</title>
 	<para>To explore the Linux file tree, you will need some tools. Here's a small overview of the most common commands to work with directories. These commands are available on any Linux system.</para>
 	<section><title>pwd</title>
 		<para>The <command>you are here</command> sign can be displayed with the <command>pwd</command><indexterm><primary>pwd</primary></indexterm> command (Print Working Directory). Go ahead, try it: Open a command line interface (like gnome-terminal, konsole, xterm, or a tty) and type <command>pwd</command>. The tool displays your <command>current directory</command><indexterm><primary>current directory</primary></indexterm>.</para>

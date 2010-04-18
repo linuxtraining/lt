@@ -1,4 +1,5 @@
-<section><title>Solution: File contents</title>
+<?hard-pagebreak?>
+<section><title>solution : file contents</title>
 	<para>1. Display the first 12 lines of /etc/services.</para>
 	<screen>head -12 /etc/services</screen>
 	<para>2. Display the last line of /etc/passwd.</para>
@@ -24,6 +25,4 @@ Five
 	<screen>strings /usr/bin/passwd</screen>
 	<para>9. Use ls to find the biggest file in /etc.</para>	
 	<screen>cd ; ls -lrS /etc</screen>
-	<para></para>
-	<para></para>
 </section>

@@ -1,4 +1,5 @@
-<section><title>Solution: Working with directories</title>
+<?hard-pagebreak?>
+<section><title>solution : working with directories</title>
 	<para>1. Display your current directory.</para>
 	<screen>pwd</screen>	
 	<para>2. Change to the /etc directory.</para>
@@ -51,7 +52,4 @@ paul@laika:/lib$ popd
 /bin
 paul@laika:/bin$ 
 	</screen>
-	<para></para>
-	<para></para>
-	<para></para>	
 </section>

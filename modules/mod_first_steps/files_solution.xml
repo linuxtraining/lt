@@ -1,4 +1,5 @@
-<section><title>Solution: Working with files</title>
+<?hard-pagebreak?>
+<section><title>solution : working with files</title>
 	<para>1. List the files in the /bin directory</para>
 	<screen>ls /bin</screen>
 	<para>2. Display the type of file of /bin/cat, /etc/passwd and /usr/bin/passwd.</para>
@@ -32,7 +33,4 @@
 	<para>12. Use rename to rename all *.conf files to *.backup . (if you have more than one distro available, try it on all!)</para>
 	<screen>On RHEL: touch 1.conf 2.conf ; rename conf backup *.conf</screen>
 	<screen>On Debian: touch 1.conf 2.conf ; rename 's/conf/backup/' *.conf</screen>
-	<para></para>
-	<para></para>
-	<para></para>
 </section>

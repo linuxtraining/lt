@@ -1,4 +1,5 @@
-<section><title>Practice: Working with files</title>
+<?hard-pagebreak?>
+<section><title>practice : working with files</title>
 	<para>1. List the files in the /bin directory</para>
 	<para>2. Display the type of file of /bin/cat, /etc/passwd and /usr/bin/passwd.</para>
 	<para>3a. Download wolf.jpg and book.pdf from http://www.linux-training.be (wget http://www.linux-training.be/studentfiles/wolf.jpg)</para>
@@ -14,6 +15,4 @@
 	<para>10. Use one command to remove the directory &#126;/testbackup and all files in it.</para>
 	<para>11. Create a directory &#126;/etcbackup and copy all *.conf files from /etc in it. Did you include all subdirectories of /etc ?</para>
 	<para>12. Use rename to rename all *.conf files to *.backup . (if you have more than one distro available, try it on all!)</para>
-	<para></para>
-	<para></para>
 </section>
