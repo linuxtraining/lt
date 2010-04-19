@@ -222,9 +222,9 @@ chapt_intro_users() {
 chapt_intro_vi() {
 	MODULES=""
 	chaptitle="Introduction to vi"
-	add_mod mod_intro_vi/about_vi.xml  
-	add_mod mod_intro_vi/intro_vi.xml  
-	add_mod mod_intro_vi/practice_vi.xml  
+	add_mod mod_intro_vi/vi.xml  
+	add_mod mod_intro_vi/vi_practice.xml  
+	add_mod mod_intro_vi/vi_solution.xml  
 	}
 
 #
