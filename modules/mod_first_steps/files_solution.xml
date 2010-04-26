@@ -8,7 +8,7 @@
 	<screen>wget http://www.linux-training.be/studentfiles/wolf.jpg</screen>
 	<screen>wget http://www.linux-training.be/studentfiles/book.pdf</screen>
 	<para>3b. Display the type of file of wolf.jpg and book.pdf</para>
-	<screen>file wolf.jpg wolf.pdf</screen>
+	<screen>file wolf.jpg book.pdf</screen>
 	<para>3c. Rename wolf.jpg to wolf.pdf (use mv).</para>
 	<screen>mv wolf.jpg wolf.pdf</screen>
 	<para>3d. Display the type of file of wolf.pdf and book.pdf.</para>
