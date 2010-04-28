@@ -12,9 +12,9 @@
 	<screen>/sbin/ifconfig | head -2 | grep 'inet ' | tr -s ' ' | cut -d' ' -f3,5</screen>
 	<para>6. Write a line that removes all non-letters from a stream.</para>
 	<screen>paul@deb503:~$ cat text
-This is, yes really! , a text with ?&#038;* too many str$ang# characters ;-)
+This is, yes really! , a text with ?&#038;* too many str$ange# characters ;-)
 paul@deb503:~$ cat text | tr -d ',!$?.*&#038;^%#@;()-'
-This is yes really  a text with  too many strang characters
+This is yes really  a text with  too many strange characters
 	</screen>
 	<para>7. Write a line that receives a textfile, and outputs all words on a separate line.</para>
 	<screen>
