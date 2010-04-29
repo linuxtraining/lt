@@ -22,7 +22,7 @@ tmpfs                  64417       1   64416    1% /dev/shm
 /dev/sdb5                  0       0       0    -  /home/sales
 /dev/sdb6             100744      11  100733    1% /home/research
 		</screen>
-		<para>In the <command>df -i</command> screenshot above you can see the <command>inode</command> usage for several mounted <command>file systens</command>. You don't see numbers for <command>/dev/sdb5</command> because it is a <command>fat</command> file system.</para>
+		<para>In the <command>df -i</command> screenshot above you can see the <command>inode</command> usage for several mounted <command>file systems</command>. You don't see numbers for <command>/dev/sdb5</command> because it is a <command>fat</command> file system.</para>
 	</section>
 	<section><title>inode number</title>
 		<para>Each <command>inode</command> has a unique number (the inode number). You can see the <command>inode</command> numbers with the <command>ls -li</command><indexterm><primary>ls(1)</primary></indexterm> command.</para>
