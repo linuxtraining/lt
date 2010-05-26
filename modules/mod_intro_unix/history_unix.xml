@@ -9,7 +9,7 @@
 <colspec colname='1978-1980' colwidth="2*" align="center"/>
 <colspec colname='1981' colwidth="1*" align="center"/>
 <colspec colname='1982' colwidth="1*" align="center"/>
-<colspec colname='X' colwidth="0*" align="center"/>
+<colspec colname='X' colwidth="0" align="center"/>
 <thead>
 <row>
   <entry>1969-1977</entry>
