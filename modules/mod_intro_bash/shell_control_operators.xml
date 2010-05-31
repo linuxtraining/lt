@@ -1,7 +1,7 @@
 <?hard-pagebreak?>
 <section><title>control operators</title>
 	<section><title>; semicolon</title>
-		<para>You can put two or more commands on the same line, separated by a semicolon <command>;</command><indexterm><primary>;</primary></indexterm> . The shell will scan the line until it reaches the semicolon. All the arguments before this semicolon will be considered a separate command from all the arguments after the semicolon. Both series will be executed sequentially, with the shell waiting for each command to end before starting the next one.</para>
+		<para>You can put two or more commands on the same line separated by a semicolon <command>;</command><indexterm><primary>;</primary></indexterm> . The shell will scan the line until it reaches the semicolon. All the arguments before this semicolon will be considered a separate command from all the arguments after the semicolon. Both series will be executed sequentially with the shell waiting for each command to finish before starting the next one.</para>
 		<screen>
 [paul@RHELv4u3 ~]$ echo Hello
 Hello
@@ -14,7 +14,7 @@ World
 		</screen>
 	</section>
 	<section><title>&#038; ampersand</title>
-		<para>When a line ends with an ampersand <command>&#038;</command><indexterm><primary>&#038;</primary></indexterm>, then the shell will not wait for the command to finish. You will get your shell prompt back, and the command is executed in background. You will get a message when this command has finished executing in background.</para>
+		<para>When a line ends with an ampersand <command>&#038;</command><indexterm><primary>&#038;</primary></indexterm>, the shell will not wait for the command to finish. You will get your shell prompt back, and the command is executed in background. You will get a message when this command has finished executing in background.</para>
 		<screen>
 [paul@RHELv4u3 ~]$ sleep 20 &#038;
 [1] 7925
@@ -26,7 +26,7 @@ World
 		<para>The technical explanation of what happens in this case is explained in the chapter about <command>processes</command>.</para>
 	</section>
 	<section><title>&#038;&#038; double ampersand</title>
-		<para>The shell will interprete <command>&#038;&#038;</command><indexterm><primary>&#038;&#038;</primary></indexterm> as a <command>logical AND</command>. With <command>&#038;&#038;</command> the second command is only executed if the first one succeeds (returns a zero exit status). </para>
+		<para>The shell will interprete <command>&#038;&#038;</command><indexterm><primary>&#038;&#038;</primary></indexterm> as a <command>logical AND</command>. When using <command>&#038;&#038;</command> the second command is executed only if the first one succeeds (returns a zero exit status). </para>
 			<screen>
 paul@barry:~$ echo first &#038;&#038; echo second
 first
@@ -45,7 +45,7 @@ file2  File4  FileA   Fileab  fileab2
 			</screen>
 	</section>
 	<section><title>|| double vertical bar</title>
-			<para>The <command>||</command><indexterm><primary>||</primary></indexterm> represents a <command>logical OR</command>. This means the second command is only executed when the first command fails (returns a non-zero exit status).</para>
+			<para>The <command>||</command><indexterm><primary>||</primary></indexterm> represents a <command>logical OR</command>. The second command is executed only when the first command fails (returns a non-zero exit status).</para>
 			<screen>
 paul@barry:~$ echo first || echo second ; echo third
 first
@@ -78,7 +78,7 @@ paul@laika:~/test$
 			</screen>
 	</section>
 	<section><title># pound sign</title>
-		<para>Anything written after a pound sign (#) is ignored by the shell. This is useful to write <command>shell comment</command><indexterm><primary>shell comment</primary></indexterm>, but has no influence on the command execution or shell expansion.</para>
+		<para>Everything written after a <command>pound sign</command> (#) is ignored by the shell. This is useful to write a <command>shell comment</command><indexterm><primary>shell comment</primary></indexterm>, but has no influence on the command execution or shell expansion.</para>
 			<screen>
 paul@barry:~$ mkdir test    # we create a directory
 paul@barry:~$ cd test       #### we enter the directory
@@ -87,7 +87,7 @@ paul@barry:~/test$
 			</screen>
 	</section>
 	<section><title>\ escaping special characters</title>
-		<para>The backslash <command>\</command><indexterm><primary>\</primary></indexterm> character enables the use of control characters, but without the shell interpreting them. This is called <command>escaping</command><indexterm><primary>shell escaping</primary></indexterm> characters.</para>
+		<para>The backslash <command>\</command><indexterm><primary>\</primary></indexterm> character enables the use of control characters, but without the shell interpreting it, this is called <command>escaping</command><indexterm><primary>shell escaping</primary></indexterm> characters.</para>
 		<screen>
 [paul@RHELv4u3 ~]$ echo hello \; world
 hello ; world
@@ -100,7 +100,7 @@ escaping \?*"'
 		</screen>
 	</section>
 	<section><title>end of line backslash</title>
-		<para>Lines ending in a backslash are continued on the next line. The shell is not interpreting the newline character and will wait with shell expansion and execution of the command line until a newline without backslash is encountered.</para>
+		<para>Lines ending in a backslash are continued on the next line. The shell does not interpret the newline character and will wait on shell expansion and execution of the command line until a newline without backslash is encountered.</para>
 			<screen>
 [paul@RHEL4b ~]$ echo This command line \
 > is split in three \

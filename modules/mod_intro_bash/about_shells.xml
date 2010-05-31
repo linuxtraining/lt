@@ -1,10 +1,10 @@
 <section><title>about shells</title>
 	<section><title>several shells</title>
-		<para>The command line interface used on most Linux systems is <command>bash</command><indexterm><primary>/bin/bash</primary></indexterm>, which stands for <command>Bourne again shell</command><indexterm><primary>Bourne again shell</primary></indexterm>. The <command>bash</command> shell incorporates features from <command>sh</command><indexterm><primary>/bin/sh</primary></indexterm> (the original Bourne shell), <command>csh</command><indexterm><primary>/bin/csh</primary></indexterm> (the C shell) and <command>ksh</command><indexterm><primary>/bin/ksh</primary></indexterm> (the Korn shell). Ubuntu recently started including the <command>dash</command><indexterm><primary>/bin/dash</primary></indexterm> (Debian ash) shell.</para>
-		<para>This chapter will explain general features of a shell using mainly the <command>/bin/bash</command> shell. Important differences in <command>/bin/ksh</command> will be mentioned separately.</para>
+		<para>The command line interface used on most Linux systems is <command>bash</command><indexterm><primary>/bin/bash</primary></indexterm>, which stands for <command>Bourne again shell</command><indexterm><primary>Bourne again shell</primary></indexterm>. The <command>bash</command> shell incorporates features from <command>sh</command><indexterm><primary>/bin/sh</primary></indexterm> (the original Bourne shell), <command>csh</command><indexterm><primary>/bin/csh</primary></indexterm> (the C shell), and <command>ksh</command><indexterm><primary>/bin/ksh</primary></indexterm> (the Korn shell). Ubuntu recently started including the <command>dash</command><indexterm><primary>/bin/dash</primary></indexterm> (Debian ash) shell.</para>
+		<para>This chapter will explain general features of a shell mainly using the <command>/bin/bash</command> shell. Important differences in <command>/bin/ksh</command> will be mentioned separately.</para>
 	</section>
 	<section><title>external or built-in commands</title>
-		<para>Not all commands are external to the shell, some are built-in. <command>External commands</command> are programs that have their own binary and reside somewhere on the system in a directory. Many external commands are located in /bin or / sbin. <command>Builtin commands</command> are functions inside the shell program.</para>
+		<para>Not all commands are external to the shell, some are built-in. <command>External commands</command> are programs that have their own binary and reside somewhere in the file system. Many external commands are located in <command>/bin</command><indexterm><primary>/bin</primary></indexterm> or <command>/sbin</command><indexterm><primary>/sbin</primary></indexterm>. <command>Builtin commands</command> are functions inside the shell program itself.</para>
 	</section>
 	<section><title>type</title>
 		<para>To find out whether a command given to the shell will be executed as an <command>external command</command> or as a <command>built-in command</command>, use the <command>type</command><indexterm><primary>type(shell)</primary></indexterm> command.</para>
@@ -14,14 +14,14 @@ cd is a shell builtin
 paul@laika:~$ type cat
 cat is /bin/cat
 		</screen>
-		<para>You can also use this shell built-in to show you whether the command is aliased or not.</para>
+		<para>You can also use this command to show you whether the command is aliased or not.</para>
 		<screen>
 paul@laika:~$ type ls
 ls is aliased to `ls --color=auto'
 		</screen>
 	</section>
 	<section><title>running external commands</title>
-		<para>Careful, some commands exist both as a shell built-in and as an external command. When an external command exists with the same name as a built-in command, then the built-in will take priority. You will need to provide the full path to execute the external command.</para>
+		<para>Some commands have both built-in and external versions. When one of these commands is executed, the builtin version takes priority. To run the external version, you must enter the full path to the command.</para>
 		<screen>
 paul@laika:~$ type -a echo
 echo is a shell builtin
@@ -31,7 +31,7 @@ Running the external echo command...
 		</screen>
 	</section>
 	<section><title>which</title>
-		<para>The <command>which</command><indexterm><primary>which(1)</primary></indexterm> command will look for binaries in the <command>PATH</command><indexterm><primary>$PATH</primary></indexterm> environment variable. (Variables are explained later). In the screenshot below, it looks like cd is built-in, and ls cp rm mv mkdir pwd and which are external commands.</para> 
+		<para>The <command>which</command><indexterm><primary>which(1)</primary></indexterm> command will search for binaries in the <command>PATH</command><indexterm><primary>$PATH</primary></indexterm> environment variable. (Variables will be explained later.) In the screenshot below, it is determined that cd is built-in, and ls, cp, rm, mv, mkdir, pwd, and which are external commands.</para> 
 		<screen>
 [root@RHEL4b ~]# which cp ls mv rm cd mkdir pwd which
 /bin/cp
@@ -46,7 +46,7 @@ Running the external echo command...
 	</section>
 	<section><title>alias</title>
 		<section><title>create an alias</title>
-			<para>The shell will allow you to create aliases. Aliases can be used to create an easier to remember <command>alias</command><indexterm><primary>alias(bash)</primary></indexterm> for an existing command.</para>
+			<para>The shell allows you to create <command>aliases</command><indexterm><primary>alias(bash)</primary></indexterm>. Aliases are often used to create an easier to remember name for an existing command or to easily supply parameters.</para>
 			<screen>
 [paul@RHELv4u3 ~]$ cat count.txt 
 one
@@ -68,7 +68,7 @@ paul@laika:~$
 			</screen>
 		</section>
 		<section><title>default options</title>
-			<para>Aliases can be used to supply commands with default options. The example below shows how to make the -i option default when typing rm.</para>
+			<para>Aliases can be used to supply commands with default options. The example below shows how to set the <command>-i</command> option default when typing <command>rm</command><indexterm><primary>/bin/rm</primary></indexterm>.</para>
 			<screen>
 [paul@RHELv4u3 ~]$ rm -i winter.txt 
 rm: remove regular file `winter.txt'? no
@@ -84,7 +84,7 @@ rm: remove regular empty file `winter.txt'? no
 			<para>Some distributions enable default aliases to protect users from accidentally erasing files ('rm -i', 'mv -i', 'cp -i')</para>
 		</section>
 		<section><title>viewing aliases</title>
-			<para>You can give multiple aliases as arguments to the <command>alias</command> command to get a small list. Not providing any argument will give you a complete list of current aliases.</para>
+			<para>You can provide one or more aliases as arguments to the <command>alias</command> command to get their definitions. Providing no arguments gives a complete list of current aliases.</para>
 			<screen>
 paul@laika:~$ alias c ll
 alias c='clear'
@@ -117,11 +117,11 @@ Smurfs are blue
 		</screen>
 	</section>
 	<section><title>shell expansion</title>
-		<para>The shell is very important, because every command on your Linux system is processed and changed by the shell. After you type the command, but before the command is executed the shell might change your command line! The manual page of a typical shell contains more than one hundred pages.</para>
-    		<para>One of the primary features of a shell is to perform a <command>command line scan</command><indexterm><primary>command line scan</primary></indexterm>. When you enter a command on the shell's command prompt, and press the enter key, then the shell will start scanning that line. While scanning the line, the shell might make a lot of changes to the command line you typed. This process is called <command>shell expansion</command><indexterm><primary>shell expansion</primary></indexterm>. After the shell has finished scanning and changing that line, the line will be executed. Shell expansion is influenced by the following topics : control operators, white space removal, filename generation, variables, escaping, embedding and shell aliases. All these topics are discussed in the next sections.</para>
+		<para>The shell is very important because every command on your Linux system is processed and most likely changed by the shell. After you type the command, but before the command is executed, the shell might change your command line! The manual page of a typical shell contains more than one hundred pages.</para>
+    		<para>One of the primary features of a shell is to perform a <command>command line scan</command><indexterm><primary>command line scan</primary></indexterm>. When you enter a command at the shell's command prompt and press the enter key, then the shell will start scanning that line. While scanning the line, the shell may make many changes to the command line you typed. This process is called <command>shell expansion</command><indexterm><primary>shell expansion</primary></indexterm>. After the shell has finished scanning and modifying that line, it will be executed. Shell expansion is influenced by the following topics: control operators, white space removal, filename generation, variables, escaping, embedding, and shell aliases. All of these topics are discussed in the next sections.</para>
 	</section>
         <section><title>displaying shell expansion</title>
-                <para>You can display the shell expansion with <command>set -x</command><indexterm><primary>set -x</primary></indexterm>, and stop displaying it with <command>set +x</command><indexterm><primary>set +x</primary></indexterm>. You might want to use this further on in this course, or when in doubt about what exactly the shell is doing with your command.</para>
+                <para>You can display the shell expansion with <command>set -x</command><indexterm><primary>set -x</primary></indexterm>, and stop displaying it with <command>set +x</command><indexterm><primary>set +x</primary></indexterm>. You might want to use this further on in this course, or when in doubt about exactly what the shell is doing with your command.</para>
                 <screen>
 [paul@RHELv4u3 ~]$ set -x
 ++ echo -ne '\033]0;paul@RHELv4u3:~\007'

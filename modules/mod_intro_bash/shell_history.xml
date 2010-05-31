@@ -29,7 +29,7 @@ uname -r
 2.6.9-34.EL
 [paul@RHELv4u3 ~]$ 
 		</screen>
-		<para>You can also use the bash with one or more characters, bash will then repeat the last command that started with those characters. But this can be very very dangerous, you have to be sure about the last command in your current shell history that starts with those characters!</para>
+		<para>You can also use bang followed by one or more characters, <command>bash</command> will then repeat the last command that started with those characters. But this can be very very dangerous, you have to be sure about the last command in your current shell history that starts with those characters!</para>
 		<screen>
 [paul@RHEL4b ~]$ ls file4
 file4
