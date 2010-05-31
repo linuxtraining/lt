@@ -1,8 +1,8 @@
 <?hard-pagebreak?>
 <section><title>shell variables</title>
 	<section><title>$ dollar sign</title>
-		<para>Another important character interpreted by the shell is the dollar sign <command>$</command><indexterm><primary>$ (shell variables)</primary></indexterm>. The shell will look for an <command>environment variable</command><indexterm><primary>environment variable</primary></indexterm> named like the string behind the dollar sign and replace it with the value of the variable (or with nothing if the variable does not exist).</para>
-		<para>Some examples using $HOSTNAME, $USER, $UID, $SHELL and $HOME.</para>
+		<para>Another important character interpreted by the shell is the dollar sign <command>$</command><indexterm><primary>$ (shell variables)</primary></indexterm>. The shell will look for an <command>environment variable</command><indexterm><primary>environment variable</primary></indexterm> named like the string following the <command>dollar sign</command> and replace it with the value of the variable (or with nothing if the variable does not exist).</para>
+		<para>These are some examples using $HOSTNAME, $USER, $UID, $SHELL, and $HOME.</para>
 		<screen>
 [paul@RHELv4u3 ~]$ echo This is the $SHELL shell
 This is the /bin/bash shell
@@ -15,7 +15,7 @@ My homedir is /home/paul
 		</screen>
 	</section>
 	<section><title>case sensitive</title>
-		<para>An example of the $USER variable. The example shows that shell variables are case sensitive!</para>
+		<para>An example is the $USER variable. The example shows that shell variables are case sensitive!</para>
 		<screen>
 [paul@RHELv4u3 ~]$ echo Hello $USER
 Hello paul
@@ -65,7 +65,7 @@ Password:
 		</screen>
 	</section>
 	<section><title>$? dollar question mark</title>
-		<para>The exit code of the previous command is stored in the shell variable <command>$?</command>. Actually <command>$?</command><indexterm><primary>$? (shell variables)</primary></indexterm> is a shell parameter and not a variable, you cannot assign a value to <command>$?</command>.</para>
+		<para>The exit code of the previous command is stored in the shell variable <command>$?</command>. Actually <command>$?</command><indexterm><primary>$? (shell variables)</primary></indexterm> is a shell parameter and not a variable, since you cannot assign a value to <command>$?</command>.</para>
 		<screen>
 paul@laika:~/test$ touch file1 ; echo $?
 0
@@ -83,7 +83,7 @@ rm: cannot remove `file1': No such file or directory
 				
 [paul@RHELv4u3 gen]$
 		</screen>
-		<para>There is however the <command>nounset</command><indexterm><primary>nounset(shell)</primary></indexterm> shell attribute that you can use to generate an error when a variable does not exist.</para>
+		<para>There is, however, the <command>nounset</command><indexterm><primary>nounset(shell)</primary></indexterm> shell attribute that you can use to generate an error when a variable does not exist.</para>
 		<screen>
 paul@laika:~$ set -u
 paul@laika:~$ echo $Myvar
@@ -96,7 +96,7 @@ paul@laika:~$
 		<para>In the bash shell <command>set -u</command> is identical to <command>set -o nounset</command> and likewise <command>set +u</command> is identical to <command>set +o nounset</command>.</para>
 	</section>
 	<section><title>creating and setting variables</title>
-		<para>The example creates the variable $MyVar and sets its value.</para>
+		<para>This example creates the variable $MyVar and sets its value.</para>
 		<screen>
 [paul@RHELv4u3 gen]$ MyVar=555
 [paul@RHELv4u3 gen]$ echo $MyVar
@@ -105,7 +105,7 @@ paul@laika:~$
 		</screen>
 	</section>
 	<section><title>set</title>			
-		<para>You can use the <command>set</command><indexterm><primary>set(shell)</primary></indexterm> command to display a list of environment variables. On Ubuntu and Debian systems, the set command will end the list of shell variables with a list of shell functions, use <command>set | more</command> to see the variables then.</para>
+		<para>You can use the <command>set</command><indexterm><primary>set(shell)</primary></indexterm> command to display a list of environment variables. On Ubuntu and Debian systems, the set command will also list shell functions after the shell variables. Use <command>set | more</command> to see the variables then.</para>
 	</section>
 	<section><title>unset</title>			
 		<para>Use the <command>unset</command><indexterm><primary>unset(shell)</primary></indexterm> command to remove a variable from your shell environment.</para>
@@ -118,7 +118,7 @@ paul@laika:~$
 		</screen>
 	</section>
 	<section><title>env</title>			
-		<para>The <command>env</command><indexterm><primary>env(1)</primary></indexterm> command can also be useful for other neat things, like starting a clean shell (a shell without any inherited environment). The <command>env -i</command><indexterm><primary>env(1)</primary></indexterm> command clears the environment for the subshell. Notice that bash will set the $SHELL variable on startup.</para>
+		<para>The <command>env</command><indexterm><primary>env(1)</primary></indexterm> command can also be useful for other neat things, such as starting a clean shell (a shell without any inherited environment). The <command>env -i</command><indexterm><primary>env(1)</primary></indexterm> command clears the environment for the subshell. Notice that bash will set the $SHELL variable on startup.</para>
 		<screen>
 [paul@RHEL4b ~]$ bash -c 'echo $SHELL $HOME $USER'
 /bin/bash /home/paul paul
@@ -126,7 +126,7 @@ paul@laika:~$
 /bin/bash
 [paul@RHEL4b ~]$
 		</screen>
-		<para>You can also use the env tool to set the LANG variable (or any other) for an instance of bash with one command. The example below uses this to show the influence of the LANG variable on file globbing.</para>
+		<para>You can also use the <command>env</command> command to set the $LANG, or any other, variable for just one instance of bash with one command. The example below uses this to show the influence of the $LANG variable on file globbing.</para>
 		<screen>
 [paul@RHEL4b test]$ env LANG=C bash -c 'ls File[a-z]'
 Filea  Fileb
@@ -160,7 +160,7 @@ three four
 		</screen>
 	</section>
 	<section><title>delineate variables</title>
-		<para>Until now, we have seen that bash interpretes a variable starting from a dollar sign, until the first occurrence of a non-alphanumerical character that is not an underscore. In some situations, this can be a problem. This issue can be resolved with curly braces like in this example.</para>
+		<para>Until now, we have seen that bash interpretes a variable starting from a dollar sign, continuing until the first occurrence of a non-alphanumeric character that is not an underscore. In some situations, this can be a problem. This issue can be resolved with curly braces like in this example.</para>
 		<screen>
 [paul@RHEL4b ~]$ prefix=Super
 [paul@RHEL4b ~]$ echo Hello $prefixman and $prefixgirl

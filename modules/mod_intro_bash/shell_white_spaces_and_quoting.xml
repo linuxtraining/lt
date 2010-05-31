@@ -1,7 +1,7 @@
 <?hard-pagebreak?>
 <section><title>shell arguments</title>
 	<section><title>white space removal</title>
-		<para>Before execution, the shell looks at the command line. Parts that are separated by one or more consecutive <command>white spaces</command> (or tabs) are considered separate <command>arguments</command>. The first <command>argument</command> is the command to be executed, the other <command>arguments</command> are given to the command.</para>
+		<para>Before execution, the shell scans at the command line. Parts that are separated by one or more consecutive <command>white spaces</command> (or tabs) are considered separate <command>arguments</command>, any white space is removed. The first <command>argument</command> is the command to be executed, the other <command>arguments</command> are given to the command. The shell effectively cuts your command into one or more arguments.</para>
 		<para>This explains why the following four different command lines are the same after <command>shell expansion</command><indexterm><primary>shell expansion</primary></indexterm>.</para>
 		<screen>
 [paul@RHELv4u3 ~]$ echo Hello World
@@ -12,13 +12,12 @@ Hello World
 Hello World
 [paul@RHELv4u3 ~]$    echo      Hello      World
 Hello World
-[paul@RHELv4u3 ~]$ 
 		</screen>
-		<para>The echo command will separate the different arguments it recieves from the shell by a white space.</para>
+		<para>The <command>echo</command> command will display each argument it receives from the shell. The <command>echo</command> command will also add a new whitespace between the arguments it received.</para>
 		<para>It is important for troubleshooting any script to know that the shell cuts your command line in distinct arguments.</para>
 	</section>
 	<section><title>single quotes</title>
-		<para>You can prevent the removal of white spaces by quoting the spaces. In the screenshot below the <command>echo</command> receives only one <command>argument</command>.</para>
+		<para>You can prevent the removal of white spaces by quoting the spaces. The contents of the quoted string are considered as one argument. In the screenshot below the <command>echo</command> receives only one <command>argument</command>.</para>
 		<screen>
 [paul@RHEL4b ~]$ echo 'A line with      single    quotes'
 A line with      single    quotes
@@ -32,7 +31,7 @@ A line with      single    quotes
 A line with      double    quotes
 [paul@RHEL4b ~]$
 		</screen>
-		<para>The only difference between single and double quotes is the parsing of shell <command>variables</command>. You can already see what happens in this screenshot.</para>
+		<para>The only difference between single and double quotes is the parsing of shell <command>variables</command>. You can already see the difference in this screenshot.</para>
 		<screen>
 paul@laika:~$ echo 'My user is $USER'
 My user is $USER
@@ -55,10 +54,10 @@ A line with     a tab
 A line with     a tab
 [paul@RHEL4b ~]$ 
 		</screen>
-		<para>The echo command can generate more than white spaces, tabs and newlines. Look in the man page for a list of options (and don't forget that echo can be both built-in and external).</para>
+		<para>The echo command can generate more than white spaces, tabs and newlines. Look in the man page for a list of options (and remember that echo may be both built-in and external).</para>
 	</section>
 	<section><title>shell embedding</title>
-		<para>Shells can be embedded on the command line, or in other words the command line scan can spawn new processes, containing a fork of the current shell. You can use variables to prove that new shells are created. In the screenshot below, the variable $var1 only exists in the (temporary) sub shell.</para>
+		<para>Shells can be embedded on the command line, or in other words, the command line scan can spawn new processes containing a fork of the current shell. You can use variables to prove that new shells are created. In the screenshot below, the variable $var1 only exists in the (temporary) sub shell.</para>
 		<screen>
 [paul@RHELv4u3 gen]$ echo $var1
 
@@ -85,7 +84,7 @@ passwd passwd- passwd.OLD
 		</screen>
 	</section>
 	<section><title>back ticks or single quotes</title>
-		<para>Placing the embedding between <command>backticks</command><indexterm><primary>backticks</primary></indexterm> uses one character less than the dollar and parenthesis combo. Be careful however, backticks are often confused with single quotes. The technical difference between <command>'</command><indexterm><primary>'(single quote)</primary></indexterm> and <command>`</command><indexterm><primary>`(backtick)</primary></indexterm> is significant! You can not use backticks to nest embedded shells.</para>
+		<para>Placing the embedding between <command>backticks</command><indexterm><primary>backticks</primary></indexterm> uses one character less than the dollar and parenthesis combo. Be careful however, backticks are often confused with single quotes. The technical difference between <command>'</command><indexterm><primary>'(single quote)</primary></indexterm> and <command>`</command><indexterm><primary>`(backtick)</primary></indexterm> is significant! You can not use <command>backticks</command> to nest embedded shells.</para>
 		<screen>
 [paul@RHELv4u3 gen]$ echo `var1=5;echo $var1`
 5

@@ -1,6 +1,6 @@
 <section><title>shell history</title>
 	<section><title>history variables</title>
-		<para>The <command>bash</command> shell will remember the commands you type, so you can easily repeat previous commands. Some variables are defining this process: <command>$HISTFILE</command><indexterm><primary>$HISTFILE</primary></indexterm> points to the location of the history file, <command>$HISTSIZE</command><indexterm><primary>$HISTSIZE</primary></indexterm> will tell you how many commands will be remembered in your current shell session, <command>$HISTFILESIZE</command><indexterm><primary>$HISTFILESIZE</primary></indexterm> is the truncate limit for the number of commands in the history file. Your shell session history is written to the file when exiting the shell. This screenshot lists some history variables in bash.</para>
+		<para>The <command>bash</command> shell will remember the commands you type so you can easily repeat previous commands. Some variable definitions are used for this: <command>$HISTFILE</command><indexterm><primary>$HISTFILE</primary></indexterm> points to the location of the history file, <command>$HISTSIZE</command><indexterm><primary>$HISTSIZE</primary></indexterm> will tell you how many commands will be remembered in your current shell session, and <command>$HISTFILESIZE</command><indexterm><primary>$HISTFILESIZE</primary></indexterm> is the limit of the number of commands that will be kept in the history file. The file will be truncated when this limit is exceeded. Your shell session history is written to the file when exiting the shell. This screenshot lists some history variables in bash.</para>
 		<screen>
 [paul@RHELv4u3 ~]$ echo $HISTFILE
 /home/paul/.bash_history
@@ -17,7 +17,7 @@ HISTSIZE=5000
 		</screen>
 	</section>
 	<section><title>repeating commands in bash</title>
-		<para>To repeat the last command in bash, type <command>!!</command><indexterm><primary>!!</primary></indexterm>. This is pronounced as <command>bang bang</command>. To repeat older commands, use <command>history</command><indexterm><primary>history</primary></indexterm> to display your history and type <command>!</command><indexterm><primary>!</primary></indexterm> followed by a number. The shell will echo the command and execute it.</para>
+		<para>To repeat the last command in bash, type <command>!!</command><indexterm><primary>!!</primary></indexterm>. This is pronounced as <command>bang bang</command>. To repeat older commands, use <command>history</command><indexterm><primary>history</primary></indexterm> to display the shell command history and type <command>!</command><indexterm><primary>!</primary></indexterm> followed by a number. The shell will echo the command and execute it.</para>
 		<screen>
 [paul@RHELv4u3 ~]$ history
 2  cat /etc/redhat-release 
@@ -29,7 +29,7 @@ uname -r
 2.6.9-34.EL
 [paul@RHELv4u3 ~]$ 
 		</screen>
-		<para>You can also use bang followed by one or more characters, <command>bash</command> will then repeat the last command that started with those characters. But this can be very very dangerous, you have to be sure about the last command in your current shell history that starts with those characters!</para>
+		<para>You can also use bang followed by one or more characters, <command>bash</command> will then repeat the last command that started with those characters. But this can be very dangerous, you have to be certain that the last command in your current shell history that starts with those characters is the command you wish to execute.</para>
 		<screen>
 [paul@RHEL4b ~]$ ls file4
 file4
@@ -43,7 +43,7 @@ file4
 ls file5
 file5
 		</screen>
-		<para>The history command can also receive the count of history lines required.</para>
+		<para>The history command can also receive a value indicating the number of the most recent history lines to display.</para>
 		<screen>
 [paul@RHEL4b ~]$ history 4
   422  ls file4
@@ -54,7 +54,7 @@ file5
 		</screen>
 	</section>
 	<section><title>repeating commands in ksh</title>
-		<para>Repeating a command in the Korn shell is very similar. The Korn shell also knows the <command>history</command> command, but uses the letter <command>r</command> to recall lines from history.</para>
+		<para>Repeating a command in the Korn shell is very similar. The Korn shell also has the <command>history</command> command, but uses the letter <command>r</command> to recall lines from history.</para>
 		<para>This screenshot shows the history command. Note the different meaning of the parameter.</para>
 		<screen>
 $ history 17
