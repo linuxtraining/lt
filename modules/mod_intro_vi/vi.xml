@@ -1,10 +1,10 @@
 <section><title>about vi(m)</title>
-<para>The editor <command>vi</command><indexterm><primary>vi(1)</primary></indexterm> is installed on almost every Unix. Linux will very often install <command>vim</command><indexterm><primary>vim(1)</primary></indexterm> (<command>vi improved</command>) which is similar. Every system administrator should know <command>vi(m)</command>, because it is an easy tool to solve problems.</para>
+<para>The <command>vi</command><indexterm><primary>vi(1)</primary></indexterm> editor is installed on almost every Unix. Linux will very often install <command>vim</command><indexterm><primary>vim(1)</primary></indexterm> (<command>vi improved</command>) which is similar. Every system administrator should know <command>vi(m)</command>, because it is an easy tool to solve problems.</para>
 <para>The <command>vi</command> editor is not intuitive, but once you get to know it, <command>vi</command> becomes a very powerful application. Most Linux distributions will include the <command>vimtutor</command><indexterm><primary>vimtutor(1)</primary></indexterm> which is a 45 minute lesson in <command>vi(m)</command>.</para>
 </section>
 <section><title>introduction to using vi(m)</title>
 	<section><title>command mode and insert mode</title>
-		<para>The vi editor starts in <command>command mode</command><indexterm><primary>command mode(vi)</primary></indexterm>. In command mode, you can type commands. Some commands will bring you into <command>insert mode</command><indexterm><primary>insert mode(vi)</primary></indexterm>. In insert mode, you can type text. The <command>escape key</command> will bring you back to command mode.</para>
+		<para>The vi editor starts in <command>command mode</command><indexterm><primary>command mode(vi)</primary></indexterm>. In command mode, you can type commands. Some commands will bring you into <command>insert mode</command><indexterm><primary>insert mode(vi)</primary></indexterm>. In insert mode, you can type text. The <command>escape key</command> will return you to command mode.</para>
 <table frame='all'><title>getting to command mode</title>
 <?dbfo table-width="80%" ?>
 <tgroup cols='2' align='center' colsep='1' rowsep='1'>
@@ -68,12 +68,12 @@
 </table>
 	</section>
 	<section><title>replace and delete a character (r x X)</title>
-		<para>When in command mode (it doesn't hurt to hit the escape key more than once) you can use the x key to delete the current character. Big X key (or shift x) will delete the character left of the cursor. Also when in command mode, you can use the r key to replace one single character. The r key will bring you in insert mode for just one key press, and will return you immediately to command mode.</para>
+		<para>When in command mode (it doesn't hurt to hit the escape key more than once) you can use the x key to delete the current character. The big X key (or shift x) will delete the character left of the cursor. Also when in command mode, you can use the r key to replace one single character. The r key will bring you in insert mode for just one key press, and will return you immediately to command mode.</para>
 <table frame='all'><title>replace and delete</title>
-<?dbfo table-width="80%" ?>
+<?dbfo table-width="90%" ?>
 <tgroup cols='2' align='center' colsep='1' rowsep='1'>
-<colspec colname='c1' colwidth="2*" align="center"/>
-<colspec colname='c2' colwidth="5*" align="left"/>
+<colspec colname='c1' colwidth="1*" align="center"/>
+<colspec colname='c2' colwidth="4*" align="left"/>
 <thead>
 <row>
   <entry>command</entry>
@@ -95,7 +95,7 @@
 </row>
 <row>
   <entry>p</entry>
-  <entry>paste (here the last deleted character)</entry>
+  <entry>paste after the cursor (here the last deleted character)</entry>
 </row>
 <row>
   <entry>xp</entry>
@@ -106,7 +106,7 @@
 </table>
 	</section>
 	<section><title>undo and repeat (u .)</title>
-		<para>When in command mode, you can undo your mistakes with u. You can do your mistakes twice with . (in other words the . will repeat your last command).</para>
+		<para>When in command mode, you can undo your mistakes with u. You can do your mistakes twice with . (in other words, the . will repeat your last command).</para>
 <table frame='all'><title>undo and repeat</title>
 <?dbfo table-width="80%" ?>
 <tgroup cols='2' align='center' colsep='1' rowsep='1'>
@@ -260,7 +260,7 @@
 </table>
 	</section>
 	<section><title>words (w b)</title>
-		<para>When in command mode, <command>w</command> will jump you to the next word, and <command>b</command> will get you to the previous word. w and b can also be combined with d and y to copy and cut words (dw db yw yb).</para>
+		<para>When in command mode, <command>w</command> will jump to the next word and <command>b</command> will move to the previous word. w and b can also be combined with d and y to copy and cut words (dw db yw yb).</para>
 <table frame='all'><title>words</title>
 <?dbfo table-width="80%" ?>
 <tgroup cols='2' align='center' colsep='1' rowsep='1'>
@@ -306,7 +306,7 @@
 </table>
 	</section>
 	<section><title>save (or not) and exit (:w :q :q! )</title>
-		<para>Pressing the colon : will allow you to give instructions to vi (technically speaking, typing the colon ill open the <command>ex</command> editor). <command>:w</command> will write (save) the file, <command>:q</command> will quit un unchanged file without saving, <command>:q!</command> will quit vi discarding changes. <command>:wq</command> will save and quit and is the same as typing <command>ZZ</command> in command mode.</para>
+		<para>Pressing the colon : will allow you to give instructions to vi (technically speaking, typing the colon will open the <command>ex</command> editor). <command>:w</command> will write (save) the file, <command>:q</command> will quit an unchanged file without saving, and <command>:q!</command> will quit vi discarding any changes. <command>:wq</command> will save and quit and is the same as typing <command>ZZ</command> in command mode.</para>
 <table frame='all'><title>save and exit vi</title>
 <?dbfo table-width="80%" ?>
 <tgroup cols='2' align='center' colsep='1' rowsep='1'>
@@ -341,7 +341,7 @@
 </row>
 <row>
   <entry>:q!</entry>
-  <entry>quit (losing your changes)</entry>
+  <entry>quit (discarding your changes)</entry>
 </row>
 <row>
   <entry>:w!</entry>
@@ -350,7 +350,7 @@
 </tbody>
 </tgroup>
 </table>
-	<para>This last one is a bit special. With <command>:w!</command> vi will try to chmod the file to get write permission (this works when you are the owner) and will chmod it back when the write succeeds. This should always work when you are root (and the file system is writable).</para>
+	<para>The last one is a bit special. With <command>:w!</command> <command>vi</command> will try to <command>chmod</command><indexterm><primary>chmod(1)</primary></indexterm> the file to get write permission (this works when you are the owner) and will <command>chmod</command> it back when the write succeeds. This should always work when you are root (and the file system is writable).</para>
 	</section>
 	<section><title>Searching (/ ?)</title>
 		<para>When in command mode typing / will allow you to search in vi for strings (can be a regular expression). Typing /foo will do a forward search for the string foo and typing ?bar will do a backward search for bar.</para>
@@ -399,7 +399,7 @@
 </table>
 	</section>
 	<section><title>Replace all ( &#058;1,$ s&#047;foo&#047;bar&#047;g )</title>
-		<para>To replace all occurrences of the string foo in bar, first switch to ex mode with &#058; . Then tell vi which lines to use, for example 1,&#036; will do the replace all from the first to the last line. You can write 1,5 to only process the first five lines. The s&#047;foo&#047;bar&#047;g will replace all occurences of foo with bar.</para>
+		<para>To replace all occurrences of the string foo with bar, first switch to ex mode with &#058; . Then tell vi which lines to use, for example 1,&#036; will do the replace all from the first to the last line. You can write 1,5 to only process the first five lines. The s&#047;foo&#047;bar&#047;g will replace all occurences of foo with bar.</para>
 <table frame='all'><title>replace</title>
 <?dbfo table-width="90%" ?>
 <tgroup cols='2' align='center' colsep='1' rowsep='1'>
@@ -545,26 +545,9 @@
 </table>
 	</section>
 	<section><title>key mappings</title>
-		<para>Similarly to abbreviations, you can use mappings with <command>:map</command> for command mode and <command>:map!</command> for insert mode.</para>
-<table frame='all'><title>mapping</title>
-<?dbfo table-width="80%" ?>
-<tgroup cols='2' align='center' colsep='1' rowsep='1'>
-<colspec colname='c1' colwidth="1*" align="center"/>
-<colspec colname='c2' colwidth="1*" align="left"/>
-<thead>
-<row>
-  <entry>command</entry>
-  <entry>action</entry>
-</row>
-</thead>
-<tbody>
-<row>
-  <entry>map &#060;F6&#062; :set number!&#060;bar&#062;set number?&#060;CR&#062;</entry>
-  <entry>map <command>F6</command> to toggle the 'set number' option</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
+		<para>Similarly to their abbreviations, you can use mappings with <command>:map</command> for command mode and <command>:map!</command> for insert mode.</para>
+		<para>This example shows how to set the F6 function key to toggle between <command>set number</command> and <command>set nonumber</command>. The &#060;bar&#062; seperates the two commands, <command>set number!</command> toggles the state and <command>set number?</command> reports the current state.</para>
+		<screen>:map &#060;F6&#062; :set number!&#060;bar&#062;set number?&#060;CR&#062;</screen>
 	</section>
 	<section><title>setting options</title>
 		<para>Some options that you can set in vim.</para>
