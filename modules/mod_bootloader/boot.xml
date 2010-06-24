@@ -11,6 +11,9 @@
 	<section><title>openboot</title>
 		<para>Sun <command>sparc</command><indexterm><primary>SPARC</primary></indexterm> systems start with <command>openboot</command><indexterm><primary>OpenBoot(Sun)</primary></indexterm> to test the hardware and to boot the operating system. <command>Bill Callkins</command><indexterm><primary>Bill Callkins</primary></indexterm> explains <command>openboot</command> in his Solaris System Administration books. The details of <command>openboot</command> are not the focus of this course.</para>
 	</section>
+	<section><title>boot password</title>
+		<para>The <command>bios</command> allows you to set a password. Do not forget this password, or you will have to open up the hardware to reset it. You can sometimes set a password to boot the system, and another password to protect the <command>bios</command> from being modified.</para>
+	</section>
 	<section><title>boot device</title>
 		<para>The <command>bios</command> will look for a <command>boot device</command> in the order configured in the bios setup. Usually an operating system on a production server boots of a hard disk.</para>
 		<mediaobject><imageobject><imagedata fileref="images/bootdevice.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>

@@ -50,6 +50,19 @@ hiddenmenu
 title Debian Lenny
 		</screen>
 	</section>
+	<section><title>password</title>
+		<para>You can add a password to prevent interactive selection of a boot environment while <command>grub</command> is running.</para>
+		<screen>
+password --md5 $1$Ec.id/$T2C2ahI/EG3WRRsmmu/HN/
+		</screen>
+		<para>Use the grub interactive shell to create the password hash.</para>
+		<screen>
+grub> md5crypt
+
+Password: ********
+Encrypted: $1$Ec.id/$T2C2ahI/EG3WRRsmmu/HN/
+		</screen>
+	</section>
 </section>
 <section><title>stanza commands</title>
 	<para>Every <command>operating system</command> or <command>kernel</command> that you want to boot with <command>grub</command> will have a <command>stanza</command><indexterm><primary>stanza(grub)</primary></indexterm> aka an <command>entry</command> of a couple of lines. Listed here are some of the common <command>stanza</command> commands.</para>
