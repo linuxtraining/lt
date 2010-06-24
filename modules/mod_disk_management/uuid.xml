@@ -1,3 +1,4 @@
+<?hard-pagebreak?>
 <section><title>uuid and filesystems</title>
 <section><title>about unique objects</title>
 	<para>A <command>uuid</command><indexterm><primary>uuid</primary></indexterm> or <command>universally unique identifier</command><indexterm><primary> universally unique identifier</primary></indexterm> is used to uniquely identify objects. This 128bit standard allows anyone to create a unique <command>uuid</command>.</para>

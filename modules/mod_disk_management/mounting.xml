@@ -16,7 +16,7 @@ root@RHELv4u2:~# mount -t ext2 /dev/sdb1 /home/project55/
  			<para>Once mounted, the new file system is accessible to users.</para>
 		</section>
 		<section><title>/etc/filesystems</title>
-			<para>Actually the explicit <command>-t ext2</command> option to set the file system is not always necessary. The <command>mount</command> command is able to automatically detect a lot of file systems on partitions.</para>
+			<para>Actually the explicit <command>-t ext2</command> option to set the file system is not always necessary. The <command>mount</command> command is able to automatically detect a lot of file systems.</para>
 			<para>When mounting a file system without specifying explicitly the file system, then <command>mount</command><indexterm><primary>mount</primary></indexterm> will first probe <command>/etc/filesystems</command><indexterm><primary>/etc/filesystems</primary></indexterm>. Mount will skip lines with the <command>nodev</command><indexterm><primary>nodev</primary></indexterm> directive.</para>
 			<screen>
 paul@RHELv4u4:~$ cat /etc/filesystems 
@@ -121,6 +121,50 @@ none                    /sys              sysfs   defaults        0 0
 			<screen># mount /home/project55
 			</screen>
 		</section>
+	</section>
+	<section><title>securing mounts</title>
+		<para>File systems can be secured with several <command>mount options</command>. Here are some examples.</para>
+		<section><title>ro</title>
+			<para>The <command>ro</command> option will mount a file system as read only, preventing anyone from writing.</para>
+			<screen>root@rhel53 ~# mount -t ext2 -o ro /dev/hdb1 /home/project42
+root@rhel53 ~# touch /home/project42/testwrite
+touch: cannot touch `/home/project42/testwrite': Read-only file system</screen>
+		</section>
+		<section><title>noexec</title>
+			<para>The <command>noexec</command> option will prevent the execution of binaries and scripts on the mounted file system.</para>
+			<screen>root@rhel53 ~# mount -t ext2 -o noexec /dev/hdb1 /home/project42
+root@rhel53 ~# cp /bin/cat /home/project42
+root@rhel53 ~# /home/project42/cat /etc/hosts
+-bash: /home/project42/cat: Permission denied
+root@rhel53 ~# echo echo hello > /home/project42/helloscript
+root@rhel53 ~# chmod +x /home/project42/helloscript 
+root@rhel53 ~# /home/project42/helloscript 
+-bash: /home/project42/helloscript: Permission denied</screen>
+		</section>
+		<section><title>nosuid</title>
+			<para>The <command>nosuid</command> option will ignore <command>setuid</command> bit set binaries on the mounted file system.</para>
+			<para>Note that you can still set the <command>setuid</command> bit on files.</para>
+			<screen>root@rhel53 ~# mount -o nosuid /dev/hdb1 /home/project42
+root@rhel53 ~# cp /bin/sleep /home/project42/
+root@rhel53 ~# chmod 4555 /home/project42/sleep 
+root@rhel53 ~# ls -l /home/project42/sleep 
+-r-sr-xr-x 1 root root 19564 Jun 24 17:57 /home/project42/sleep
+			</screen>
+			<para>But users cannot exploit the <command>setuid</command> feature.</para>
+			<screen>
+root@rhel53 ~# su - paul
+[paul@rhel53 ~]$ /home/project42/sleep 500 &#038;
+[1] 2876
+[paul@rhel53 ~]$ ps -f 2876
+UID        PID  PPID  C STIME TTY      STAT   TIME CMD
+paul      2876  2853  0 17:58 pts/0    S      0:00 /home/project42/sleep 500
+[paul@rhel53 ~]$</screen>
+		</section>
+		<section><title>noacl</title>
+			<para>To prevent cluttering permissions with <command>acl's</command>, use the <command>noacl</command> option.</para>
+			<screen>root@rhel53 ~# mount -o noacl /dev/hdb1 /home/project42</screen>
+		</section>
+		<para>More <command>mount options</command> can be found in the manual page of <command>mount</command>.</para>
 	</section>
 </section>
 

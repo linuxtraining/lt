@@ -1,3 +1,4 @@
+<?hard-pagebreak?>
 <section><title>solution: mounting file systems</title>
 	<para>1. Mount the small 200MB partition on /home/project22.</para>
 	<screen>mkdir /home/project22
@@ -32,8 +33,5 @@ grep project22 /proc/mounts</screen>
 	<para>8. (optional) Perform a file system check on the partition mounted at /srv/nfs/salesnumbers.</para>
 	<screen>better to unmount first before
 # fsck /dev/sdb1</screen>
-	<para></para>
-	<para></para>
-	<para></para>
 </section>
 

@@ -1,10 +1,8 @@
+<?hard-pagebreak?>
 <section><title>practice: uuid and filesystems</title>
 	<para>1. Find the <command>uuid</command> of one of your <command>ext3</command> partitions with <command>tune2fs</command> and <command>vol_id</command>.</para>
 	<para>2. Use this <command>uuid</command> in <command>/etc/fstab</command> and test that it works with a simple <command>mount</command>.</para>
 	<para>3. (optional) Test it also by removing a disk (so the device name is changed). You can edit settings in vmware/Virtualbox to remove a hard disk.</para>
 	<para>4. Display the <command>root=</command> directive in <command>/boot/grub/menu.lst</command>. (We see later in the course how to maintain this file.)</para>
 	<para>5. (optional) Replace the <command>/dev/xxx</command> in <command>/boot/grub/menu.lst</command> with a <command>uuid</command> (use an extra stanza for this). Test that it works.</para>
-	<para></para>
-	<para></para>
-	<para></para>
 </section>
