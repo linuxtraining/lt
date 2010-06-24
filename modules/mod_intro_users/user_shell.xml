@@ -1,4 +1,5 @@
-<section><title>User Shell</title>
+<?hard-pagebreak?>
+<section><title>user shell</title>
 	<section><title>login shell</title>
 		<para>The <command>/etc/passwd</command> file determines the login shell for the user. In the screenshot below you can see that user annelies receives the /bin/bash shell, and user laura receives the /bin/ksh shell when they login.</para>
 		<screen>

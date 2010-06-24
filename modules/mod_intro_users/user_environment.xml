@@ -1,3 +1,4 @@
+<?hard-pagebreak?>
 <section><title>shell environment</title>
 	<para>It is nice to have these preset and custom aliases and variables, but where do they all come from ? The shell uses a number of startup files that are checked (and executed) whenever the shell is invoked. What follows is an overview of startup scripts.</para>
 	<section><title>/etc/profile</title>
