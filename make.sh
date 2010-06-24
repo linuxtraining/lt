@@ -5,6 +5,8 @@ book=$2
 
 . config/functions.sh
 
+export FOP_OPTS="-Xms512m -Xmx512m"
+
 export BOOKDIR=./config/books
 
 books=$( ls $BOOKDIR | grep .cfg$ | sed s/.cfg// )
