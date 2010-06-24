@@ -1,9 +1,8 @@
-	<section><title>Practice: network sniffing</title>
-		<para>1. Install wireshark on your computer (not inside a virtual machine).</para>
-		<para>2. Start a ping between your computer and another computer.</para>
-		<para>3. Start sniffing the network.</para>
-		<para>4. Display only the ping echo's in the top pane using a filter.</para>
-		<para>5. Now ping to a name (like www.linux-training.be) and try to sniff the DNS query and response. Which DNS server was used ? Was it a tcp or udp query and response ?</para>
-		<para></para>
-		<para></para>	
-	</section>
+<?hard-pagebreak?>
+<section><title>practice: network sniffing</title>
+	<para>1. Install wireshark on your computer (not inside a virtual machine).</para>
+	<para>2. Start a ping between your computer and another computer.</para>
+	<para>3. Start sniffing the network.</para>
+	<para>4. Display only the ping echo's in the top pane using a filter.</para>
+	<para>5. Now ping to a name (like www.linux-training.be) and try to sniff the DNS query and response. Which DNS server was used ? Was it a tcp or udp query and response ?</para>
+</section>

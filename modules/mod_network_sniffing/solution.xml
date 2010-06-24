@@ -1,18 +1,19 @@
-	<section><title>Solution: network sniffing</title>
-		<para>1. Install wireshark on your computer (not inside a virtual machine).</para>
-		<screen>Debian/Ubuntu: aptitude install wireshark</screen>
-		<screen>Red Hat/Mandriva/Fedora: yum install wireshark</screen>
-		<para>2. Start a ping between your computer and another computer.</para>
-		<screen>ping $ip_address</screen>
-		<para>3. Start sniffing the network.</para>
-		<screen>(sudo) wireshark</screen>
-		<screen>select an interface (probably eth0)</screen>
-		<para>4. Display only the ping echo's in the top pane using a filter.</para>
-		<screen>type 'icmp' (without quotes) in the filter box, and then click 'apply'</screen>
-		<para>5. Now ping to a name (like www.linux-training.be) and try to sniff the DNS query and response. Which DNS server was used ? Was it a tcp or udp query and response ?</para>
-		<screen>First start the sniffer.</screen>
-		<screen>Enter 'dns' in the filter box and click apply.</screen>
-		<screen>
+<?hard-pagebreak?>
+<section><title>solution: network sniffing</title>
+	<para>1. Install wireshark on your computer (not inside a virtual machine).</para>
+	<screen>Debian/Ubuntu: aptitude install wireshark</screen>
+	<screen>Red Hat/Mandriva/Fedora: yum install wireshark</screen>
+	<para>2. Start a ping between your computer and another computer.</para>
+	<screen>ping $ip_address</screen>
+	<para>3. Start sniffing the network.</para>
+	<screen>(sudo) wireshark</screen>
+	<screen>select an interface (probably eth0)</screen>
+	<para>4. Display only the ping echo's in the top pane using a filter.</para>
+	<screen>type 'icmp' (without quotes) in the filter box, and then click 'apply'</screen>
+	<para>5. Now ping to a name (like www.linux-training.be) and try to sniff the DNS query and response. Which DNS server was used ? Was it a tcp or udp query and response ?</para>
+	<screen>First start the sniffer.</screen>
+	<screen>Enter 'dns' in the filter box and click apply.</screen>
+	<screen>
 root@ubuntu910:~# ping www.linux-training.be
 PING www.linux-training.be (88.151.243.8) 56(84) bytes of data.
 64 bytes from fosfor.openminds.be (88.151.243.8): icmp_seq=1 ttl=58 time=14.9 ms
@@ -21,9 +22,7 @@ PING www.linux-training.be (88.151.243.8) 56(84) bytes of data.
 --- www.linux-training.be ping statistics ---
 2 packets transmitted, 2 received, 0% packet loss, time 1002ms
 rtt min/avg/max/mdev = 14.984/15.539/16.095/0.569 ms</screen>
-		<para>The wireshark screen should look something like this.</para>
-		<mediaobject><imageobject><imagedata fileref="images/wireshark_dns_sniff.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-		<para>The details in wireshark will say the DNS query was inside a udp packet.</para>
-		<para></para>
-		<para></para>
-	</section>
+	<para>The wireshark screen should look something like this.</para>
+	<mediaobject><imageobject><imagedata fileref="images/wireshark_dns_sniff.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>The details in wireshark will say the DNS query was inside a udp packet.</para>
+</section>
