@@ -1,3 +1,4 @@
+<?hard-pagebreak?>
 <section><title>solution : init</title>
         <para>1. Change <command>/etc/inittab</command> so that only two mingetty's are respawned. Kill the other <command>mingetty's</command> and verify that they don't come back.</para>
 	<para>Killing the mingetty's will result in init respawning them. You can edit <command>/etc/inittab</command> so it looks like the screenshot below. Don't forget to also run <command>kill -1 1</command>.</para>
