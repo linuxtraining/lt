@@ -1,23 +1,23 @@
 <section><title>xinetd and inetd</title>
-	<section><title>About the superdaemon</title>
-		<para>Back when resources like RAM memory were limited, a super-server was devised to listen to all sockets and start the appropriate daemon only when needed. Services like swat, telnet and vmware are typically served by such a super-server. The <command>xinetd</command> superserver is more recent than <command>inetd</command><indexterm><primary>inetd</primary></indexterm>. We will discuss the configuration both daemons.</para>
-		<para>Recent Linux distributions like RHEL5 and Ubuntu8.04 do not install inetd or xinetd by default.</para>
+	<section><title>the superdaemon</title>
+		<para>Back when resources like RAM memory were limited, a super-server was devised to listen to all sockets and start the appropriate daemon only when needed. Services like <command>swat</command>, <command>telnet</command> and <command>ftp</command> are typically served by such a super-server. The <command>xinetd</command> superdaemon is more recent than <command>inetd</command><indexterm><primary>inetd</primary></indexterm>. We will discuss the configuration both daemons.</para>
+		<para>Recent Linux distributions like RHEL5 and Ubuntu10.04 do not activate <command>inetd</command> or <command>xinetd</command> by default, unless an application requires it.</para>
 	</section>
 	<section><title>inetd or xinetd</title>
-		<para>First verify whether your computer is running inetd or xinetd. This Debian 4.0 Etch is running inetd.</para>
+		<para>First verify whether your computer is running <command>inetd</command> or <command>xinetd</command>. This Debian 4.0 Etch is running <command>inetd</command>.</para>
 		<screen>
 root@barry:~# ps fax | grep inet
  3870 ?        Ss     0:00 /usr/sbin/inetd
 		</screen>
-		<para>This Red Hat Enterprise Linux 4 update 4 is running xinetd.</para>
+		<para>This Red Hat Enterprise Linux 4 update 4 is running <command>xinetd</command>.</para>
 		<screen>
 [root@RHEL4b ~]# ps fax | grep inet
  3003 ?        Ss     0:00 xinetd -stayalive -pidfile /var/run/xinetd.pid
 		</screen>
 		<para>Both daemons have the same functionality (listening to many ports, starting other daemons when they are needed), but they have different configuration files.</para>
 	</section>
-	<section><title>The superdaemon xinetd</title>
-		<para>The <command>xinetd</command><indexterm><primary>xinetd</primary></indexterm> daemon is often called a superdaemon because it listens to a lot of incoming connections, and starts other daemons when they are needed. When a connection request is received, xinetd will first check TCP wrappers (/etc/hosts.allow and /etc/hosts.deny) and then give control of the connection to the other daemon. This superdaemon is configured through <command>/etc/xinetd.conf</command><indexterm><primary>/etc/xinetd.conf</primary></indexterm> and the files in the directory <command>/etc/xinetd.d</command><indexterm><primary>/etc/xinetd.d</primary></indexterm>. Let's first take a look at /etc/xinetd.conf.</para>
+	<section><title>xinetd superdaemon</title>
+		<para>The <command>xinetd</command><indexterm><primary>xinetd</primary></indexterm> daemon is often called a superdaemon because it listens to a lot of incoming connections, and starts other daemons when they are needed. When a connection request is received, <command>xinetd</command> will first check TCP wrappers (/etc/hosts.allow and /etc/hosts.deny) and then give control of the connection to the other daemon. This superdaemon is configured through <command>/etc/xinetd.conf</command><indexterm><primary>/etc/xinetd.conf</primary></indexterm> and the files in the directory <command>/etc/xinetd.d</command><indexterm><primary>/etc/xinetd.d</primary></indexterm>. Let's first take a look at /etc/xinetd.conf.</para>
 		<screen>
 paul@RHELv4u2:~$ cat /etc/xinetd.conf 
 #
@@ -68,7 +68,7 @@ paul@RHELv4u2:~$
 		<para>The services should be listed in the <command>/etc/services</command><indexterm><primary>/etc/services</primary></indexterm> file. Port determines the service port, and must be the same as the port specified in /etc/services. The <command>socket_type</command> should be set to <command>stream</command> for tcp services (and to dgram for udp). The <command>log_on_failure +=</command> concats the userid to the log message formatted in /etc/xinetd.conf. The last setting <command>disable</command> can be set to yes or no. Setting this to <command>no</command> means the service is enabled! </para>
 		<para>Check the xinetd and xinetd.conf manual pages for many more configuration options.</para>
 	</section>
-	<section><title>The superdaemon inetd</title>
+	<section><title>inetd superdaemon</title>
 		<para>This superdaemon has only one configuration file <command>/etc/inetd.conf</command><indexterm><primary>/etc/inetd.conf</primary></indexterm>. Every protocol or daemon that it is listening for, gets one line in this file.</para>
 		<screen>
 root@barry:~# grep ftp /etc/inetd.conf 
@@ -81,7 +81,7 @@ paul@laika:~$ grep vmware /etc/inetd.conf
 #902 stream tcp nowait root /usr/sbin/vmware-authd vmware-authd
 		</screen>
 	</section>
-	<section><title>Practice</title>
+	<section><title>practice: inetd and xinetd</title>
 		<para>1. Verify on all systems whether they are using xinetd or inetd.</para>
 		<para>2. Look at the configuration files.</para>
 		<para>3. (If telnet is installable, then replace swat in these questions with telnet) Is swat installed ? If not, then install swat and look at the changes in the (x)inetd configuration. Is swat enabled or disabled ?</para>
