@@ -140,10 +140,10 @@ chainloader +1
 <section><title>stanza examples</title>
 	<para>This is a screenshot of a typical <command>Debian 4.0</command> stanza.</para>
 	<screen>
-title		Debian GNU/Linux, kernel 2.6.17-2-686
-root		(hd0,0)
-kernel		/boot/vmlinuz-2.6.17-2-686 root=/dev/hda1 ro 
-initrd		/boot/initrd.img-2.6.17-2-686
+title   Debian GNU/Linux, kernel 2.6.17-2-686
+root    (hd0,0)
+kernel  /boot/vmlinuz-2.6.17-2-686 root=/dev/hda1 ro 
+initrd  /boot/initrd.img-2.6.17-2-686
 	</screen>
 	<para>Here a screenshot of a typical <command>Red Hat Enterprise Linux</command> stanza.</para>
 	<screen>
@@ -153,10 +153,21 @@ title Red Hat Enterprise Linux Server (2.6.18-128.el5)
  initrd /initrd-2.6.18-98.el5.img
 	</screen>
 </section>
+<section><title>editing grub at boot time</title>
+	<para>At boot time, when the <command>grub</command> menu is displayed, you can type <command>e</command> to edit the current stanza. This enables you to add parameters to the kernel.</para>
+	<para>One such parameter, useful when you lost the root password, is <command>single</command>. This will boot the kernel in single user mode (although some distributions will still require you to type the root password.</para>
+	<screen>
+kernel  /boot/vmlinuz-2.6.17-2-686 root=/dev/hda1 ro single
+	</screen>
+	<para>Another option to reset a root password is to use an <command>init=/bin/bash</command> parameter.</para>
+	<screen>
+kernel  /boot/vmlinuz-2.6.17-2-686 root=/dev/hda1 ro init=/bin/bash
+	</screen>
+</section>
 <section><title>installing grub</title>
 	<para>Run the <command>grub-install</command><indexterm><primary>grub-install</primary></indexterm> command to install <command>grub</command>. The command requires a destination for overwriting the <command>boot sector</command> or <command>mbr</command>.</para>
-<screen>
+	<screen>
 # grub-install /dev/hda
-</screen>
+	</screen>
 </section>
 </section>
