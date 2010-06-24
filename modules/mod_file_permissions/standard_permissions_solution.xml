@@ -1,4 +1,5 @@
-<section><title>Solution: standard file permissions</title>
+<?hard-pagebreak?>
+<section><title>solution: standard file permissions</title>
 	<para>1. As normal user, create a directory ~/permissions. Create a file owned by yourself in there.</para>
 	<screen>mkdir ~/permissions ; touch ~/permissions/myfile.txt</screen>
 	<para>2. Copy a file owned by root from /etc/ to your permissions dir, who owns this file now ?</para>
@@ -42,7 +43,4 @@
 	<screen>mkdir /home/project42 ; groupadd project42</screen>
 	<screen>chgrp project42 /home/project42 ; chmod 775 /home/project42</screen>
 	<para>You can not yet do the last part of this exercise...</para>
-	<para></para>	
-	<para></para>	
-	<para></para>	
 </section>

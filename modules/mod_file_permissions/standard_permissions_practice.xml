@@ -1,4 +1,5 @@
-<section><title>Practice: standard file permissions</title>
+<?hard-pagebreak?>
+<section><title>practice: standard file permissions</title>
 	<para>1. As normal user, create a directory ~/permissions. Create a file owned by yourself in there.</para>
 	<para>2. Copy a file owned by root from /etc/ to your permissions dir, who owns this file now ?</para>
 	<para>3. As root, create a file in the users ~/permissions directory.</para>
@@ -15,6 +16,4 @@
 	<para>13a. Create a file as normal user, give only read to others. Can another normal user read this file ? Test writing to this file with vi.</para>
 	<para>13b. Can root read this file ? Can root write to this file with vi ?</para>
 	<para>14. Create a directory that belongs to a group, where every member of that group can read and write to files, and create files. Make sure that people can only delete their own files.</para>
-	<para></para>
-	<para></para>	
 </section>
