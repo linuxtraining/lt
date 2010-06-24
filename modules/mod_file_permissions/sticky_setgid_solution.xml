@@ -1,17 +1,32 @@
-<section><title>Solution: sticky and setGID bits</title>
-	<para>1. Set up a directory, owned by the group sports.</para>
+<?hard-pagebreak?>
+<section><title>solution: sticky and setGID bits</title>
+	<para>1a. Set up a directory, owned by the group sports.</para>
 	<screen>groupadd sports</screen>
 	<screen>mkdir /home/sports</screen>
 	<screen>chown root:sports /home/sports</screen>
-	<para>2. Members of the sports group should be able to create files in this directory.</para>
+	<para>1b. Members of the sports group should be able to create files in this directory.</para>
 	<screen>chmod 770 /home/sports</screen>
-	<para>3. All files created in this directory should be group-owned by the sports group.</para>
+	<para>1c. All files created in this directory should be group-owned by the sports group.</para>
 	<screen>chmod 2770 /home/sports</screen>
-	<para>4. Users should be able to delete only their own user-owned files.</para>
+	<para>1d. Users should be able to delete only their own user-owned files.</para>
 	<screen>chmod +t /home/sports</screen>
-	<para>5. Test that this works!</para>
+	<para>1e. Test that this works!</para>
 	<para>Log in with different users (group members and others and root), create files and watch the permissions. Try changing and deleting files...</para>
-	<para>6. If time permits (or if you are waiting for other students to finish this practice), read about file attributes in the man page of chattr and lsattr. Try setting the i attribute on a file and test that it works.</para>
+	<para>2. Verify the permissions on <command>/usr/bin/passwd</command>. Remove the <command>setuid</command>, then try changing your password as a normal user. Reset the permissions back and try again.</para>
+	<screen>
+root@deb503:~# ls -l /usr/bin/passwd 
+-rwsr-xr-x 1 root root 31704 2009-11-14 15:41 /usr/bin/passwd
+root@deb503:~# chmod 755 /usr/bin/passwd 
+root@deb503:~# ls -l /usr/bin/passwd 
+-rwxr-xr-x 1 root root 31704 2009-11-14 15:41 /usr/bin/passwd
+	</screen>
+	<para>A normal user cannot change password now.</para>
+	<screen>
+root@deb503:~# chmod 4755 /usr/bin/passwd 
+root@deb503:~# ls -l /usr/bin/passwd 
+-rwsr-xr-x 1 root root 31704 2009-11-14 15:41 /usr/bin/passwd
+	</screen>
+	<para>3. If time permits (or if you are waiting for other students to finish this practice), read about file attributes in the man page of chattr and lsattr. Try setting the i attribute on a file and test that it works.</para>
 	<screen>
 paul@laika:~$ sudo su -
 [sudo] password for paul: 

@@ -1,12 +1,10 @@
-<section><title>Practice: sticky and setGID bits</title>
-	<para>1. Set up a directory, owned by the group sports.</para>
-	<para>2. Members of the sports group should be able to create files in this directory.</para>
-	<para>3. All files created in this directory should be group-owned by the sports group.</para>
-	<para>4. Users should be able to delete only their own user-owned files.</para>
-	<para>5. Test that this works!</para>
-	<para>6. If time permits (or if you are waiting for other students to finish this practice), read about file attributes in the man page of chattr and lsattr. Try setting the i attribute on a file and test that it works.</para>
-	<para></para>
-	<para></para>
-	<para></para>
-	<para></para>	
+<?hard-pagebreak?>
+<section><title>practice: sticky and setGID bits</title>
+	<para>1a. Set up a directory, owned by the group sports.</para>
+	<para>1b. Members of the sports group should be able to create files in this directory.</para>
+	<para>1c. All files created in this directory should be group-owned by the sports group.</para>
+	<para>1d. Users should be able to delete only their own user-owned files.</para>
+	<para>1e. Test that this works!</para>
+	<para>2. Verify the permissions on <command>/etc/passwd</command>. Remove the <command>setuid</command>, then try changing your password as a normal user. Reset the permissions back and try again.</para>
+	<para>3. If time permits (or if you are waiting for other students to finish this practice), read about file attributes in the man page of chattr and lsattr. Try setting the i attribute on a file and test that it works.</para>
 </section>
