@@ -1,4 +1,4 @@
-<section><title>Practice Scheduling</title>
+<section><title>practice: scheduling</title>
 	<para>1. Schedule two jobs with at, display the at queue and remove a job.</para>
 	<para>2. As normal user, use crontab -e to schedule a script to run every four minutes.</para>
 	<para>3. As root, display the crontab file of your normal user.</para>
