@@ -96,7 +96,7 @@ SELINUXTYPE=targeted
 </section>
 <section><title>DAC or MAC</title>
 	<para>Standard Unix permissions use <command>Discretionary Access Control</command> to set permissions on files. This means that a user that owns a file, cn make it world readable by typing <command>chmod 777 $file</command>.</para>
-	<para>With <command>selinux</command> the kernel will enforce <command>Mandatory Access Control</command> which strictly controls what processes or threads can do with files (superseding DAC).</para>
+	<para>With <command>selinux</command> the kernel will enforce <command>Mandatory Access Control</command> which strictly controls what processes or threads can do with files (superseding DAC). Processes are confined by the kernel to the minimum access they require.</para>
 </section>
 <section><title>ls -Z</title>
 	<para>To see the DAC permissions on a file, use <command>ls -l</command> to display user and group <command>owner</command> and permissions (here <command>rw-r--r--</command>).</para>
