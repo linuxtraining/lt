@@ -4,7 +4,7 @@
 	</screen>
 </section>
 <section><title>activating selinux</title>
-	<para>On RHEL you can use the GUI tool to activate <command>selinux</command>, on Debian there is the <command>selinux-activate<command> command.Activation requires a reboot.</para>
+	<para>On RHEL you can use the GUI tool to activate <command>selinux</command>, on Debian there is the <command>selinux-activate</command> command.Activation requires a reboot.</para>
 	<screen>
 root@deb503:~# selinux-activate 
 Activating SE Linux
@@ -95,7 +95,7 @@ SELINUXTYPE=targeted
 	</screen>
 </section>
 <section><title>DAC or MAC</title>
-	<para>Standard Unix permissions use <command>Discretionary Access Control</command> to set permissions on files. This means that a user that owns a file, cn make it world readable by typing <command>chmod 777 $file</command>.</para>
+	<para>Standard Unix permissions use <command>Discretionary Access Control</command> to set permissions on files. This means that a user that owns a file, can make it world readable by typing <command>chmod 777 $file</command>.</para>
 	<para>With <command>selinux</command> the kernel will enforce <command>Mandatory Access Control</command> which strictly controls what processes or threads can do with files (superseding DAC). Processes are confined by the kernel to the minimum access they require.</para>
 </section>
 <section><title>ls -Z</title>
@@ -110,31 +110,6 @@ total 0
 	<screen>
 root@deb503:~/selinux# ls -Z
 unconfined_u:object_r:unconfined_home_t:s0 test42.txt
-	</screen>
-</section>
-<section><title></title>
-	<para></para>
-	<screen>
-	</screen>
-</section>
-<section><title></title>
-	<para></para>
-	<screen>
-	</screen>
-</section>
-<section><title></title>
-	<para></para>
-	<screen>
-	</screen>
-</section>
-<section><title></title>
-	<para></para>
-	<screen>
-	</screen>
-</section>
-<section><title></title>
-	<para></para>
-	<screen>
 	</screen>
 </section>
 <section><title></title>
