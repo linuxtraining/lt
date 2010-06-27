@@ -1,4 +1,4 @@
-	<section><title>About logging</title>
+	<section><title>about logging</title>
 		<section><title>/var/log</title>		
 			<para>The location for log files according to the FHS is <command>/var/log</command><indexterm><primary>/var/log</primary></indexterm>. You will find a lot of log files and directories for common applications in /var/log.</para>
 			<screen>
@@ -38,7 +38,7 @@ Jul 30 06:06:37 su(pam_unix)[3904]: session opened for user root by paul
 			</screen>
 		</section>
 	</section>
-	<section><title>Login logging</title>
+	<section><title>login logging</title>
 		<para>To keep track of who is logging into the system, Linux can maintain the <command>/var/log/wtmp</command><indexterm><primary>/var/log/wtmp</primary></indexterm>, <command>/var/log/btmp</command><indexterm><primary>/var/log/btmp</primary></indexterm>, <command>/var/run/utmp</command><indexterm><primary>/var/run/utmp</primary></indexterm> and <command>/var/log/lastlog</command><indexterm><primary>/var/log/lastlog</primary></indexterm> files.</para>
 		<section><title>/var/run/utmp (who)</title>	
 			<para>Use the <command>who</command><indexterm><primary>who(1)</primary></indexterm> command to see the /var/run/utmp file. This command is showing you all the <command>currently</command> logged in users. Notice that the utmp file is in /var/run and not in /var/log .</para> 
@@ -162,12 +162,12 @@ rom ::ffff:192.168.1.52 port 41064 ssh2
 			<screen>auth.*,authpriv.*                 /var/log/customsec.log</screen>
 		</section>
 	</section>
-	<section><title>Syslogd daemon</title>
-		<section><title>About syslog</title>
+	<section><title>syslogd daemon</title>
+		<section><title>about syslog</title>
 			<para>The standard method of logging on Linux is through the <command>syslogd</command><indexterm><primary>syslogd</primary></indexterm> daemon. Syslog was developed by <command>Eric Allman</command><indexterm><primary>Eric Allman</primary></indexterm> for sendmail, but quickly became a standard among many Unix applications and was much later written as rfc 3164. The syslog daemon can receive messages on udp <command>port 514</command> from many applications (and appliances), and can append to log files, print, display messages on terminals and forward logs to other syslogd daemons on other machines. The syslogd daemon is configured in <command>/etc/syslog.conf</command><indexterm><primary>/etc/syslog.conf</primary></indexterm>.</para>
 			<para>Each line in the configuration file uses a <command>facility</command> to determine where the message is coming from. It also contains a <command>level</command> for the severity of the message, and an <command>action</command> to decide on what to do with the message.</para>
 		</section>
-		<section><title>Facilities</title>
+		<section><title>facilities</title>
 			<para>The <command>man syslog.conf</command> will explain the different default facilities for certain daemons, such as mail, lpr, news and kern(el) messages. The local0 to local7 facility can be used for appliances (or any networked device that supports syslog). Here is a list of all facilities for syslog.conf version 1.3. The security keyword is deprecated.</para>
 			<screen>
 auth (security)
@@ -185,7 +185,7 @@ uucp
 local0-7
 			</screen>
 		</section>
-		<section><title>Levels</title>
+		<section><title>levels</title>
 			<para>The worst severity a message can have is <command>emerg</command> followed by <command>alert</command> and <command>crit</command>. Lowest priority should go to <command>info</command> and <command>debug</command> messages. Specifying a severity will also log all messages with a higher severity. You can prefix the severity with = to obtain only messages that match that severity. You can also specify <command>.none</command> to prevent a specific action from any message from a certain facility.</para>
 			<para>Here is a list of all levels, in ascending order. The keywords warn, error and panic are deprecated.</para>
 			<screen>
@@ -199,7 +199,7 @@ alert
 emerg (panic)
 			</screen>
 		</section>
-		<section><title>Actions</title>
+		<section><title>actions</title>
 			<para>The default action is to send a message to the username listed as action. When the action is prefixed with a <command>/</command> then syslog will send the message to the file (which can be a regular file, but also a printer or terminal). The <command>&#064;</command> sign prefix will send the message on to another syslog server. Here is a list of all possible actions.</para>
 			<screen>
 root,user1      list of users, separated by comma's
@@ -211,7 +211,7 @@ root,user1      list of users, separated by comma's
 			</screen>
 			<para>In addition, you can prefix actions with a - to omit syncing the file after every logging.</para>
 		</section>
-		<section><title>Configuration</title>
+		<section><title>configuration</title>
 			<para>Below a sample configuration of custom local4 messages in <command>/etc/syslog.conf</command><indexterm><primary>/etc/syslog.conf</primary></indexterm>.</para>
 			<screen>
 local4.crit                            /var/log/critandabove
@@ -251,9 +251,9 @@ Feb 14 19:55:28 rhel4a paul: l4 emerg
 [root@rhel4a ~]# 
 		</screen>
 	</section>
-	<section><title>Watching logs</title>
+	<section><title>watching logs</title>
 		<para>You might want to use the <command>tail -f</command><indexterm><primary>tail(1)</primary></indexterm> command to look at the last lines of a log file. The -f option will dynamically display lines that are appended to the log. You can do the same with other commands by preceding them with the <command>watch</command><indexterm><primary>watch(1)</primary></indexterm> command.</para>
 	</section>
-	<section><title>Rotating logs</title>
+	<section><title>rotating logs</title>
 		<para>A lot of log files are always growing in size. To keep this within bounds, you might want to use <command>logrotate</command><indexterm><primary>logrotate(1)</primary></indexterm> to rotate, compress, remove and mail log files. More info on the logrotate command in the scheduling chapter.</para>
 	</section>

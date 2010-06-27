@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>practice : Links</title>
+<section><title>practice : links</title>
 	<para>1. Create two files named winter.txt and summer.txt, put some text in them.</para>
 	<para>2. Create a hard link to winter.txt named hlwinter.txt.</para>
 	<para>3. Display the inode numbers of these three files, the hard links should have the same inode.</para>
