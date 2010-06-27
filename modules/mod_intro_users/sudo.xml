@@ -1,7 +1,7 @@
 <section><title>run a program as another user</title>
 	<section><title>about sudo</title>
-		<para>The sudo program allows a user to start a program with the credentials of another user. Before this works, the system administrator has to set up the <command>/etc/sudoers</command> file. This can be useful to delegate administrative tasks to another user (without giving the root password).</para>
-		<para>The screenshot below shows the usage of sudo. User paul received the right to run useradd with the credentials of root. This allows paul to create new users on the system without becoming root and without knowing the root password.</para>
+		<para>The sudo program allows a user to start a program with the credentials of another user. Before this works, the system administrator has to set up the <command>/etc/sudoers</command><indexterm><primary>/etc/sudoers</primary></indexterm> file. This can be useful to delegate administrative tasks to another user (without giving the root password).</para>
+		<para>The screenshot below shows the usage of <command>sudo</command><indexterm><primary>sudo</primary></indexterm>. User <command>paul</command> received the right to run <command>useradd</command> with the credentials of <command>root</command><indexterm><primary>root</primary></indexterm>. This allows <command>paul</command> to create new users on the system without becoming <command>root</command> and without knowing the <command>root password</command>.</para>
 		<screen>
 paul@laika:~$ useradd -m inge
 useradd: unable to lock password file
@@ -14,7 +14,7 @@ paul@laika:~$
         </section>
 
 	<section><title>setuid on sudo</title>
-		<para>The sudo binary has the setuid bit set, so any user can run it with effective userid set as root.</para>
+		<para>The <command>sudo</command> binary has the <command>setuid</command><indexterm><primary>setuid</primary></indexterm> bit set, so any user can run it with effective userid set as root.</para>
 		<screen>
 paul@laika:~$ ls -l `which sudo`
 -rwsr-xr-x 2 root root 107872 2008-05-15 02:41 /usr/bin/sudo
@@ -26,7 +26,7 @@ paul@laika:~$
 		<para></para>
 	</section>
 	<section><title>sudo su</title>
-		<para>On some linux systems like Ubuntu and Kubuntu, the root user does not have a password set. This means that it is not possible to login as root (extra security). To perform tasks as root, the first user is given all <command>sudo rights</command><indexterm><primary>sudo(1)</primary></indexterm> via the <command>/etc/sudoers</command><indexterm><primary>/etc/sudoers</primary></indexterm>. In fact all users that are members of the admin group can use sudo to run all commands as root.</para>
+		<para>On some linux systems like Ubuntu and Kubuntu, the <command>root</command> user does not have a password set. This means that it is not possible to login as <command>root</command> (extra security). To perform tasks as <command>root</command>, the first user is given all <command>sudo rights</command><indexterm><primary>sudo(1)</primary></indexterm> via the <command>/etc/sudoers</command><indexterm><primary>/etc/sudoers</primary></indexterm>. In fact all users that are members of the admin group can use sudo to run all commands as root.</para>
 	<screen>
 root@laika:~# grep admin /etc/sudoers 
 # Members of the admin group may gain root privileges

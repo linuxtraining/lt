@@ -28,7 +28,7 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 		</screen>
 	</section>
 	<section><title>/etc/cron.*</title>
-		<para>The directories shown in the next screenshot contain the tasks that are run at the times scheduled in <command>/etc/crontab</command>. The <command>/etc/cron.d</command> directory is for special cases, to schedule jobs that require finer control than hourly/daily/weekly/monthly.</para>
+		<para>The directories shown in the next screenshot contain the tasks that are run at the times scheduled in <command>/etc/crontab</command><indexterm><primary>/etc/crontab</primary></indexterm>. The <command>/etc/cron.d</command><indexterm><primary>/etc/cron.d</primary></indexterm> directory is for special cases, to schedule jobs that require finer control than hourly/daily/weekly/monthly.</para>
 		<screen>
 paul@laika:~$ ls -ld /etc/cron.*
 drwxr-xr-x 2 root root 4096 2008-04-11 09:14 /etc/cron.d

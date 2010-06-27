@@ -1,6 +1,6 @@
 <section><title>xinetd and inetd</title>
 	<section><title>the superdaemon</title>
-		<para>Back when resources like RAM memory were limited, a super-server was devised to listen to all sockets and start the appropriate daemon only when needed. Services like <command>swat</command>, <command>telnet</command> and <command>ftp</command> are typically served by such a super-server. The <command>xinetd</command> superdaemon is more recent than <command>inetd</command><indexterm><primary>inetd</primary></indexterm>. We will discuss the configuration both daemons.</para>
+		<para>Back when resources like RAM memory were limited, a super-server was devised to listen to all sockets and start the appropriate daemon only when needed. Services like <command>swat</command><indexterm><primary>swat</primary></indexterm>, <command>telnet</command><indexterm><primary>telnet</primary></indexterm> and <command>ftp</command><indexterm><primary>ftp</primary></indexterm> are typically served by such a super-server. The <command>xinetd</command><indexterm><primary>xinetd</primary></indexterm> superdaemon is more recent than <command>inetd</command><indexterm><primary>inetd</primary></indexterm>. We will discuss the configuration both daemons.</para>
 		<para>Recent Linux distributions like RHEL5 and Ubuntu10.04 do not activate <command>inetd</command> or <command>xinetd</command> by default, unless an application requires it.</para>
 	</section>
 	<section><title>inetd or xinetd</title>

@@ -12,7 +12,7 @@ paul@192.168.1.220's password:
 Last login: Sun Jan 21 07:16:26 2007 from 192.168.1.40
 paul@RHELv4u4:~$ 
 		</screen>
-		<para>The second time ssh remembers the connection. It added an entry to the <command>~/.ssh/known_hosts</command> file.</para>
+		<para>The second time ssh remembers the connection. It added an entry to the <command>~/.ssh/known_hosts</command><indexterm><primary>knownhosts</primary></indexterm> file.</para>
 		<screen>
 paul@RHELv4u2:~$ ssh 192.168.1.220
 paul@192.168.1.220's password: 
@@ -56,14 +56,14 @@ The key fingerprint is:
 			</screen>
 		</section>
 		<section><title>~/.ssh</title>
-			<para>While ssh-keygen generates a public and a private key, it will also create a hidden .ssh directory with proper permissions. If you create the .ssh directory manually, then you need to chmod 700 it! Otherwise ssh will refuse to use the keys (world readable private keys are not secure!).</para>
-			<para>As you can see, the .ssh directory is secure in Alice's home directory.</para>
+			<para>While <command>ssh-keygen</command> generates a public and a private key, it will also create a hidden <command>.ssh</command><indexterm><primary>.ssh</primary></indexterm> directory with proper permissions. If you create the .ssh directory manually, then you need to chmod 700 it! Otherwise ssh will refuse to use the keys (world readable private keys are not secure!).</para>
+			<para>As you can see, the <command>.ssh</command> directory is secure in Alice's home directory.</para>
 			<screen>
 [alice@RHEL5 ~]$ ls -ld .ssh
 drwx------ 2 alice alice 4096 May  1 07:38 .ssh
 [alice@RHEL5 ~]$ 
 			</screen>
-			<para>Bob is using Ubuntu at home. He decides to manually create the .ssh directory, so he needs to manually secure it.</para>
+			<para>Bob is using Ubuntu at home. He decides to manually create the <command>.ssh</command> directory, so he needs to manually secure it.</para>
 			<screen>
 bob@laika:~$ mkdir .ssh
 bob@laika:~$ ls -ld .ssh

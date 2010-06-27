@@ -1,14 +1,14 @@
 <?hard-pagebreak?>
 <section><title>shell environment</title>
-	<para>It is nice to have these preset and custom aliases and variables, but where do they all come from ? The shell uses a number of startup files that are checked (and executed) whenever the shell is invoked. What follows is an overview of startup scripts.</para>
+	<para>It is nice to have these preset and custom aliases and variables, but where do they all come from ? The <command>shell</command><indexterm><primary>shell</primary></indexterm> uses a number of startup files that are checked (and executed) whenever the shell is invoked. What follows is an overview of startup scripts.</para>
 	<section><title>/etc/profile</title>
-		<para>Both the <command>bash</command> and the <command>ksh</command> shell will verify the existence of <command>/etc/profile</command><indexterm><primary>/etc/profile</primary></indexterm> and execute it if it exists.</para>
-		<para>When reading this script, you might notice (at least on Debian Lenny and on Red Hat Enterprise Linux 5) that it builds the PATH environment variable. The script might also change the PS1 variable, set the HOSTNAME and execute even more scripts like <command>/etc/inputrc</command></para>
+		<para>Both the <command>bash</command><indexterm><primary>/bin/bash</primary></indexterm> and the <command>ksh</command><indexterm><primary>/bin/ksh</primary></indexterm> shell will verify the existence of <command>/etc/profile</command><indexterm><primary>/etc/profile</primary></indexterm> and execute it if it exists.</para>
+		<para>When reading this script, you might notice (at least on Debian Lenny and on Red Hat Enterprise Linux 5) that it builds the PATH environment variable. The script might also change the PS1 variable, set the HOSTNAME and execute even more scripts like <command>/etc/inputrc</command><indexterm><primary>/etc/inputrc</primary></indexterm></para>
 		<para>You can use this script to set aliases and variables for every user on the system.</para>
 	</section>
 	<section><title>~/.bash_profile</title>
 		<para>When this file exists in the users home directory, then <command>bash</command> will execute it. On Debian Linux it does not exist by default.</para>
-		<para>RHEL5 uses a brief <command>~/.bash_profile</command> where it checks for the existence of <command>~/.bashrc</command> and then executes it. It also adds $HOME/bin to the $PATH variable.</para>
+		<para>RHEL5 uses a brief <command>~/.bash_profile</command><indexterm><primary>.bash_profile</primary></indexterm> where it checks for the existence of <command>~/.bashrc</command><indexterm><primary>.bashrc</primary></indexterm> and then executes it. It also adds $HOME/bin to the $PATH variable.</para>
 		<screen>
 [serena@rhel53 ~]$ cat .bash_profile 
 # .bash_profile
@@ -26,12 +26,12 @@ export PATH
 		</screen>
 	</section>
 	<section><title>~/.bash_login</title>
-		<para>When <command>.bash_profile</command> does not exist, then <command>bash</command> will check for <command>~/.bash_login</command> and execute it.</para>
+		<para>When <command>.bash_profile</command> does not exist, then <command>bash</command> will check for <command>~/.bash_login</command><indexterm><primary>.bash_login</primary></indexterm> and execute it.</para>
 		<para>Neither Debian nor Red Hat have this file by default.</para>
 	</section>
 	<section><title>~/.profile</title>
 		<para>When neither <command>~/.bash_profile</command> and <command>~/.bash_login</command> exist, then bash will verify the existence of <command>~/.profile</command> and execute it. This file does not exist by default on Red Hat.</para>
-		<para>On Debian this script can execute <command>~/.bashrc</command> and will add $HOME/bin to the $PATH variable.</para>
+		<para>On Debian this script can execute <command>~/.bashrc</command><indexterm><primary>.bashrc</primary></indexterm> and will add $HOME/bin to the $PATH variable.</para>
 		<screen>
 serena@deb503:~$ tail -12 .profile 
 # if running bash
@@ -50,7 +50,7 @@ fi
 	</section>
 	<section><title>~/.bashrc</title>
 		<para>As seen in the previous points, the <command>~/.bashrc</command> script might be executed by other scripts. Let us take a look at what it does by default.</para>
-		<para>Red Hat uses a very simple <command>~/.bashrc</command>, checking for <command>/etc/bashrc</command> and executing it. It also leaves room for custom aliases and functions.</para>
+		<para>Red Hat uses a very simple <command>~/.bashrc</command>, checking for <command>/etc/bashrc</command><indexterm><primary>/etc/bashrc</primary></indexterm> and executing it. It also leaves room for custom aliases and functions.</para>
 		<screen>
 [serena@rhel53 ~]$ more .bashrc 
 # .bashrc
@@ -69,7 +69,7 @@ serena@deb503:~$ ls -l .bashrc
 		</screen>
 	</section>
 	<section><title>~/.bash_logout</title>
-		<para>When exiting <command>bash</command>, it can execute <command>~/.bash_logout</command>. Debian and Red Hat both use this opportunity to clear the screen.</para>
+		<para>When exiting <command>bash</command>, it can execute <command>~/.bash_logout</command><indexterm><primary>.bash_logout</primary></indexterm>. Debian and Red Hat both use this opportunity to clear the screen.</para>
 		<screen>
 serena@deb503:~$ cat .bash_logout 
 # ~/.bash_logout: executed by bash(1) when login shell exits.

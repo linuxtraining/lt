@@ -51,11 +51,11 @@ title Debian Lenny
 		</screen>
 	</section>
 	<section><title>password</title>
-		<para>You can add a password to prevent interactive selection of a boot environment while <command>grub</command> is running.</para>
+		<para>You can add a <command>password</command><indexterm><primary>password(grub)</primary></indexterm> to prevent interactive selection of a boot environment while <command>grub</command> is running.</para>
 		<screen>
 password --md5 $1$Ec.id/$T2C2ahI/EG3WRRsmmu/HN/
 		</screen>
-		<para>Use the grub interactive shell to create the password hash.</para>
+		<para>Use the <command>grub</command> interactive shell to create the password hash.</para>
 		<screen>
 grub> md5crypt
 

@@ -3,7 +3,7 @@
 	<section><title>mounting local file systems</title>
 		<para>On all <command>Unix</command> systems, every file and every directory is part of one big file tree. To access a file, you need to know the full path starting from the root directory. When adding a <command>file system</command> to your computer, you need to make it available somewhere in the file tree. The directory where you make a file system available is called a <command>mount point</command><indexterm><primary>mount point</primary></indexterm>.</para>
 		<section><title>/bin/mkdir</title>
-			<para>This example shows how to create a new <command>mount point</command> with <command>mkdir</command>.</para>
+			<para>This example shows how to create a new <command>mount point</command> with <command>mkdir</command><indexterm><primary>mkdir</primary></indexterm>.</para>
 			<screen>
 root@RHELv4u2:~# mkdir /home/project55
 			</screen>
@@ -131,7 +131,7 @@ root@rhel53 ~# touch /home/project42/testwrite
 touch: cannot touch `/home/project42/testwrite': Read-only file system</screen>
 		</section>
 		<section><title>noexec</title>
-			<para>The <command>noexec</command> option will prevent the execution of binaries and scripts on the mounted file system.</para>
+			<para>The <command>noexec</command><indexterm><primary>noexec(mount)</primary></indexterm> option will prevent the execution of binaries and scripts on the mounted file system.</para>
 			<screen>root@rhel53 ~# mount -t ext2 -o noexec /dev/hdb1 /home/project42
 root@rhel53 ~# cp /bin/cat /home/project42
 root@rhel53 ~# /home/project42/cat /etc/hosts
@@ -142,7 +142,7 @@ root@rhel53 ~# /home/project42/helloscript
 -bash: /home/project42/helloscript: Permission denied</screen>
 		</section>
 		<section><title>nosuid</title>
-			<para>The <command>nosuid</command> option will ignore <command>setuid</command> bit set binaries on the mounted file system.</para>
+			<para>The <command>nosuid</command><indexterm><primary>nosuid(mount)</primary></indexterm> option will ignore <command>setuid</command><indexterm><primary>setuid</primary></indexterm> bit set binaries on the mounted file system.</para>
 			<para>Note that you can still set the <command>setuid</command> bit on files.</para>
 			<screen>root@rhel53 ~# mount -o nosuid /dev/hdb1 /home/project42
 root@rhel53 ~# cp /bin/sleep /home/project42/
@@ -161,7 +161,7 @@ paul      2876  2853  0 17:58 pts/0    S      0:00 /home/project42/sleep 500
 [paul@rhel53 ~]$</screen>
 		</section>
 		<section><title>noacl</title>
-			<para>To prevent cluttering permissions with <command>acl's</command>, use the <command>noacl</command> option.</para>
+			<para>To prevent cluttering permissions with <command>acl's</command>, use the <command>noacl</command><indexterm><primary>noacl(mount)</primary></indexterm> option.</para>
 			<screen>root@rhel53 ~# mount -o noacl /dev/hdb1 /home/project42</screen>
 		</section>
 		<para>More <command>mount options</command> can be found in the manual page of <command>mount</command>.</para>

@@ -24,7 +24,7 @@ drwxr-xr-x 97 root root 12288 Jun 24 15:36 ..
 		</screen>
 	</section>
 	<section><title>deleting home directories</title>
-		<para>The -r option of userdel will make sure that the home directory is deleted together with the user account.</para>
+		<para>The -r option of <command>userdel</command><indexterm><primary>useradd</primary></indexterm> will make sure that the home directory is deleted together with the user account.</para>
 		<screen>
 [root@RHEL5 ~]# ls -ld /home/wim/
 drwx------ 2 wim wim 4096 Jun 24 15:19 /home/wim/

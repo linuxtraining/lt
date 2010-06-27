@@ -23,7 +23,7 @@ laura:x:528:534:art dealer:/home/laura:/bin/ksh
 		<para>As you can see, this file contains seven columns separated by a colon. The columns contain the username, an x, the user id, the primary group id, a description, the name of the home directory and the login shell.</para>
 	</section>
 	<section><title>root</title>
-		<para>The <command>root</command> user also called the <command>superuser</command> is the most powerful account on your Linux system. This user can do almost everything, including the creation of other users. The root user always has userid 0 (regardless of the name of the account).</para>
+		<para>The <command>root</command><indexterm><primary>root</primary></indexterm> user also called the <command>superuser</command> is the most powerful account on your Linux system. This user can do almost everything, including the creation of other users. The root user always has userid 0 (regardless of the name of the account).</para>
 		<screen>
 [root@RHEL5 ~]# head -1 /etc/passwd
 root:x:0:0:root:/root:/bin/bash

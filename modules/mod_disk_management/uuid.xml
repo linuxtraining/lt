@@ -33,18 +33,18 @@ Filesystem UUID:          11cfc8bc-07c0-4c3f-9f64-78422ef1dd5c
 [root@RHEL5 ~]# tune2fs -l /dev/sdc1 | grep UUID
 Filesystem UUID:          7626d73a-2bb6-4937-90ca-e451025d64e8
 	</screen>
-	<para>Then we check that it is properly added to <command>/etc/fstab</command>, the <command>uuid</command> replaces the variable devicename /dev/sdc1.</para>
+	<para>Then we check that it is properly added to <command>/etc/fstab</command><indexterm><primary>/etc/fstab</primary></indexterm>, the <command>uuid</command> replaces the variable devicename /dev/sdc1.</para>
 	<screen>
 [root@RHEL5 ~]# grep UUID /etc/fstab 
 UUID=7626d73a-2bb6-4937-90ca-e451025d64e8 /home/pro42 ext3 defaults 0 0
 	</screen>
-	<para>Now we can mount the volume using the mount point defined in /etc/fstab.</para>
+	<para>Now we can mount the volume using the mount point defined in <command>/etc/fstab</command>.</para>
 	<screen>
 [root@RHEL5 ~]# mount /home/pro42
 [root@RHEL5 ~]# df -h | grep 42
 /dev/sdc1             397M   11M  366M   3% /home/pro42
 	</screen>
-	<para>The real test now, is to remove <command>/dev/sdb</command> from the system, reboot the machine and see what happens. After the reboot, the disk previously known as <command>/dev/sdc</command> is now <command>/dev/sdb</command>.</para>
+	<para>The real test now, is to remove <command>/dev/sdb</command><indexterm><primary>/dev/sdb</primary></indexterm> from the system, reboot the machine and see what happens. After the reboot, the disk previously known as <command>/dev/sdc</command> is now <command>/dev/sdb</command>.</para>
 	<screen>
 [root@RHEL5 ~]# tune2fs -l /dev/sdb1 | grep UUID
 Filesystem UUID:          7626d73a-2bb6-4937-90ca-e451025d64e8

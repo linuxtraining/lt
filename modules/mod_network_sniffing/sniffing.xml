@@ -1,5 +1,5 @@
 <section><title>about sniffing</title>
-	<para>A good network administrator should be able to use a sniffer like <command>wireshark</command> or <command>tcpdump</command> to troubleshoot network problems.</para>
+	<para>A good network administrator should be able to use a sniffer like <command>wireshark</command><indexterm><primary>wireshark</primary></indexterm> or <command>tcpdump</command><indexterm><primary>tcpdump</primary></indexterm> to troubleshoot network problems.</para>
 	<para>A good student will often use a sniffer to learn about networking.</para>
 </section>
 <section><title>wireshark</title>
@@ -29,12 +29,12 @@
 		</para>
 	</section>
 	<section><title>use filters</title>
-		<para>You might get lost in too many packets. A quick solution to see only the packets that are of interest to you is to apply filters. When you type <command>arp</command> and click apply, you will only see <command>arp</command> packets displayed.</para>
-		<para>You can combine two protocols with a logical <command>or</command> between them. The example below shows how to filter only <command>arp</command> and <command>bootp</command> (or dhcp) packets.</para>
+		<para>You might get lost in too many packets. A quick solution to see only the packets that are of interest to you is to apply filters. When you type <command>arp</command><indexterm><primary>arp(protocol)</primary></indexterm> and click apply, you will only see <command>arp</command> packets displayed.</para>
+		<para>You can combine two protocols with a logical <command>or</command> between them. The example below shows how to filter only <command>arp</command> and <command>bootp</command><indexterm><primary>bootp</primary></indexterm> (or <command>dhcp</command><indexterm><primary>dhcp</primary></indexterm>) packets.</para>
 		<para>
  			<mediaobject><imageobject><imagedata fileref="images/wireshark_arp_bootp.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 		</para>
-		<para>This example shows how to filter for <command>dns</command> traffic containing a certain <command>ip address</command>.</para>
+		<para>This example shows how to filter for <command>dns</command><indexterm><primary>dns</primary></indexterm> traffic containing a certain <command>ip address</command>.</para>
 		<para>
  			<mediaobject><imageobject><imagedata fileref="images/wireshark_dns_ipaddress.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 		</para>
@@ -77,7 +77,7 @@ tcpdump: listening on eth0, link-type EN10MB (Ethernet), capture size 96 bytes
 17 packets received by filter
 0 packets dropped by kernel
 	</screen>
-	<para>With <command>tcpdump -r $filename</command> the file created above can be displayed.</para>
+	<para>With <command>tcpdump -r $filename</command><indexterm><primary>tcpdump</primary></indexterm> the file created above can be displayed.</para>
 	<screen>
 root@ubuntu910:~# tcpdump -r sshdump.tcpdump
 	</screen>

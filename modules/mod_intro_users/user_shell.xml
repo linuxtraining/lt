@@ -1,7 +1,7 @@
 <?hard-pagebreak?>
 <section><title>user shell</title>
 	<section><title>login shell</title>
-		<para>The <command>/etc/passwd</command> file determines the login shell for the user. In the screenshot below you can see that user annelies receives the /bin/bash shell, and user laura receives the /bin/ksh shell when they login.</para>
+		<para>The <command>/etc/passwd</command><indexterm><primary>/etc/passwd</primary></indexterm> file determines the login shell for the user. In the screenshot below you can see that user annelies receives the /bin/bash shell, and user laura receives the /bin/ksh shell when they login.</para>
 		<screen>
 [root@RHEL5 ~]# tail -2 /etc/passwd
 annelies:x:527:533:sword fighter:/home/annelies:/bin/bash

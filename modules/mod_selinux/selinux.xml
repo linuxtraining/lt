@@ -7,7 +7,7 @@
 	<para><command>selinux</command> knows three modes: enforcing, permissive and disabled. The <command>enforcing</command> mode will enforce policies, and may deny access based on <command>selinux rules</command>. The <command>permissive</command> mode will not enforce policies, but can still log actions that would have been denied in <command>enforcing</command> mode. The <command>disabled</command> mode disables <command>selinux</command>.</para>
 </section>
 <section><title>activating selinux</title>
-	<para>On RHEL you can use the GUI tool to activate <command>selinux</command>, on Debian there is the <command>selinux-activate</command> command.Activation requires a reboot.</para>
+	<para>On RHEL you can use the GUI tool to activate <command>selinux</command>, on Debian there is the <command>selinux-activate</command><indexterm><primary>selinux-activate</primary></indexterm> command.Activation requires a reboot.</para>
 	<screen>
 root@deb503:~# selinux-activate 
 Activating SE Linux
@@ -22,14 +22,14 @@ SE Linux is activated.  You may need to reboot now.
 	</screen>
 </section>
 <section><title>getenforce</title>
-	<para>Use <command>getenforce</command> to verify whether selinux is <command>enforced</command>, <command>disabled</command> or <command>permissive</command>.</para>
+	<para>Use <command>getenforce</command><indexterm><primary>getenforce</primary></indexterm> to verify whether selinux is <command>enforced</command>, <command>disabled</command> or <command>permissive</command>.</para>
 	<screen>
 [root@rhel55 ~]# getenforce 
 Permissive
 	</screen>
 </section>
 <section><title>setenforce</title>
-	<para>You can use <command>setenforce</command> to switch between the <command>Permissive</command> or the <command>Enforcing</command> state once <command>selinux</command> is activated..</para>
+	<para>You can use <command>setenforce</command><indexterm><primary>setenforce</primary></indexterm> to switch between the <command>Permissive</command> or the <command>Enforcing</command> state once <command>selinux</command> is activated..</para>
 	<screen>
 [root@rhel55 ~]# setenforce Enforcing
 [root@rhel55 ~]# getenforce 
@@ -40,7 +40,7 @@ Permissive
 	</screen>
 </section>
 <section><title>sestatus</title>
-	<para>You can see the current <command>selinux</command> status and policy with the <command>sestatus</command> command.</para>
+	<para>You can see the current <command>selinux</command><indexterm><primary>selinux</primary></indexterm> status and policy with the <command>sestatus</command><indexterm><primary>sestatus</primary></indexterm> command.</para>
 	<screen>
 [root@rhel55 ~]# sestatus 
 SELinux status:                 enabled
@@ -57,12 +57,12 @@ Policy from config file:        targeted
 [root@rhel55 ~]# chkconfig --list syslog
 syslog         	0:off	1:off	2:on	3:on	4:on	5:on	6:off
 	</screen>
-	<para>Verify that <command>auditd</command> is running and activated on boot to enable logging of easier to read messages in <command>/var/log/audit/audit.log</command>.</para>
+	<para>Verify that <command>auditd</command><indexterm><primary>auditd</primary></indexterm> is running and activated on boot to enable logging of easier to read messages in <command>/var/log/audit/audit.log</command><indexterm><primary>/var/log/audit/audit.log</primary></indexterm>.</para>
 	<screen>
 [root@rhel55 ~]# chkconfig --list auditd
 auditd         	0:off	1:off	2:on	3:on	4:on	5:on	6:off
 	</screen>
-	<para>If not activated, then run <command>chkconfig --levels 2345 auditd on</command> and <command>service auditd start</command>.</para>
+	<para>If not activated, then run <command>chkconfig --levels 2345 auditd on</command><indexterm><primary>chkconfig</primary></indexterm> and <command>service auditd start</command>.</para>
 	<screen>
 [root@rhel55 ~]# service auditd status
 auditd (pid  1660) is running...
@@ -82,7 +82,7 @@ Jun 25 15:09:52 deb503 kernel: [    0.084094] SELinux:  Initializing.
 	</screen>
 </section>
 <section><title>DAC or MAC</title>
-	<para>Standard Unix permissions use <command>Discretionary Access Control</command> to set permissions on files. This means that a user that owns a file, can make it world readable by typing <command>chmod 777 $file</command>.</para>
+	<para>Standard Unix permissions use <command>Discretionary Access Control</command> to set permissions on files. This means that a user that owns a file, can make it world readable by typing <command>chmod 777 $file</command><indexterm><primary>chmod</primary></indexterm>.</para>
 	<para>With <command>selinux</command> the kernel will enforce <command>Mandatory Access Control</command> which strictly controls what processes or threads can do with files (superseding DAC). Processes are confined by the kernel to the minimum access they require.</para>
 </section>
 <section><title>ls -Z</title>
@@ -93,7 +93,7 @@ root@deb503:~/selinux# ls -l
 total 0
 -rw-r--r-- 1 root root 0 2010-06-25 15:38 test42.txt
 	</screen>
-	<para>For MAC permissions there is new <command>-Z</command> option added to <command>ls</command>. The output shows an <command>selinux</command> user named <command>unconfined_u</command>, a role named <command>object_r</command>, a type named <command>unconfined_home_t</command>, and a level <command>S0</command>.</para>
+	<para>For MAC permissions there is new <command>-Z</command> option added to <command>ls</command><indexterm><primary>ls</primary></indexterm>. The output shows an <command>selinux</command> user named <command>unconfined_u</command>, a role named <command>object_r</command>, a type named <command>unconfined_home_t</command>, and a level <command>S0</command>.</para>
 	<screen>
 root@deb503:~/selinux# ls -Z
 unconfined_u:object_r:unconfined_home_t:s0 test42.txt
@@ -110,7 +110,7 @@ checkreqprot          enforce  relabel
 commit_pending_bools  load     user
 compat_net            member
 	</screen>
-	<para>Although some files in <command>/selinux</command> appear wih size 0, they often contain a boolean value. Check <command>/selinux/enforce</command><indexterm><primary>/selinux/enforce</primary></indexterm> to see if selinux is running in enforced mode.</para>
+	<para>Although some files in <command>/selinux</command><indexterm><primary>/selinux</primary></indexterm> appear wih size 0, they often contain a boolean value. Check <command>/selinux/enforce</command><indexterm><primary>/selinux/enforce</primary></indexterm> to see if selinux is running in enforced mode.</para>
 	<screen>
 [root@RHEL5 ~]# ls -l /selinux/enforce 
 -rw-r--r-- 1 root root 0 Apr 29 08:21 /selinux/enforce
@@ -119,7 +119,7 @@ compat_net            member
 	</screen>
 </section>
 <section><title>/etc/selinux/config</title>
-	<para>The main configuration file for <command>selinux</command> is <command>/etc/selinux/config</command>. When in <command>permissive</command> mode, the file looks like this.</para>
+	<para>The main configuration file for <command>selinux</command> is <command>/etc/selinux/config</command><indexterm><primary>/etc/selinux/config</primary></indexterm>. When in <command>permissive</command> mode, the file looks like this.</para>
 	<screen>
 [root@rhel55 ~]# more /etc/selinux/config
 # This file controls the state of SELinux on the system.
@@ -135,14 +135,14 @@ SELINUXTYPE=targeted
 	</screen>
 </section>
 <section><title>identity</title>
-	<para>The <command>SELinux Identity</command><indexterm><primary>identity(SELinux)</primary></indexterm> of a user is distinct from the user ID. An identity is part of a security context, and (via domains) determines what you can do. The screenshot shows user <command>root</command> having identity <command>user_u</command>.</para>
+	<para>The <command>SELinux Identity</command><indexterm><primary>identity(selinux)</primary></indexterm> of a user is distinct from the user ID. An identity is part of a security context, and (via domains) determines what you can do. The screenshot shows user <command>root</command> having identity <command>user_u</command>.</para>
 	<screen>
 [root@rhel55 ~]# id -Z
 user_u:system_r:unconfined_t
 	</screen>
 </section>
 <section><title>type (or domain)</title>
-	<para>The <command>selinux domain</command><indexterm><primary>domain(SELinux)</primary></indexterm> is the security context of a process. An <command>selinux domain</command> determines what a process can do. The screenshot shows init running in domain <command>init_t</command> and the mingetty's running in domain <command>getty_t</command>.</para>
+	<para>The <command>selinux domain</command><indexterm><primary>domain(selinux)</primary></indexterm> is the security context of a process. An <command>selinux domain</command> determines what a process can do. The screenshot shows init running in domain <command>init_t</command> and the mingetty's running in domain <command>getty_t</command>.</para>
 	<screen>
 [root@RHEL5 ~]# ps fax -Z | grep init_t
 system_u:system_r:init_t        1 ?       Ss    0:01 init [3]         
@@ -150,10 +150,10 @@ system_u:system_r:init_t        1 ?       Ss    0:01 init [3]
 system_u:system_r:getty_t    2941 tty1    Ss+   0:00 /sbin/mingetty tty1
 system_u:system_r:getty_t    2942 tty2    Ss+   0:00 /sbin/mingetty tty2
 	</screen>
-	<para>The <command>selinux type</command><indexterm><primary>type(SELinux)</primary></indexterm> is similar to an <command>selinux domain</command>, but refers to directories and files instead of processes.</para>
+	<para>The <command>selinux type</command><indexterm><primary>type(selinux)</primary></indexterm> is similar to an <command>selinux domain</command>, but refers to directories and files instead of processes.</para>
 </section>
 <section><title>role</title>
-	<para>The <command>selinux role</command><indexterm><primary>role(SELinux)</primary></indexterm> defines the domains that can be used. A <command>role</command> is denied to enter a domain, unless the <command>role</command> is explicitely authorized to do so.</para>
+	<para>The <command>selinux role</command><indexterm><primary>role(selinux)</primary></indexterm> defines the domains that can be used. A <command>role</command> is denied to enter a domain, unless the <command>role</command> is explicitely authorized to do so.</para>
 	<para></para>
 </section>
 <section><title>security context</title>
@@ -183,7 +183,7 @@ dr-xr-xr-x  root root system_u:system_r:init_t         /proc/1/
 	<para>Don't try to use <command>chcon</command><indexterm><primary>chcon(1)</primary></indexterm> on /proc! It will not work.</para>
 </section>
 <section><title>transition</title>
-	<para>An <command>selinux transition</command><indexterm><primary>transition(SELinux)</primary></indexterm> (aka an selinux labelling) determines the security context that will be assigned. A transition of process domains is used when you execute a process. A transition of file type happens when you create a file.</para>
+	<para>An <command>selinux transition</command><indexterm><primary>transition(selinux)</primary></indexterm> (aka an selinux labelling) determines the security context that will be assigned. A transition of process domains is used when you execute a process. A transition of file type happens when you create a file.</para>
 	<para>An example of file type transition.</para>
 	<screen>
 [paul@RHEL5 ~]$ touch test
@@ -229,6 +229,14 @@ system_u:system_r:getty_t        2942 tty2     00:00:00 mingetty
 </section>
 <section><title>chcon</title>
 	<para>Use <command>chcon</command><indexterm><primary>chcon(1)</primary></indexterm> to change the selinux security context.</para>
+	<para>This example shows how to use <command>chcon</command> to change the <command>type</command> of a file.</para>
+	<screen>
+[root@rhel55 ~]# ls -Z /var/www/html/test42.txt 
+-rw-r--r--  root root user_u:object_r:httpd_sys_content_t /var/www/html/test42.txt
+[root@rhel55 ~]# chcon -t samba_share_t /var/www/html/test42.txt 
+[root@rhel55 ~]# ls -Z /var/www/html/test42.txt 
+-rw-r--r--  root root user_u:object_r:samba_share_t    /var/www/html/test42.txt
+	</screen>
 </section>
 <section><title>a practical example</title>
 	<para>Tha <command>apache webserver</command> is by default targeted with <command>selinux</command>. The next screenshot shows that any file created in <command>/var/www/html</command> will by default get the <command>http_sys_content_t</command> type.</para>
@@ -246,7 +254,6 @@ system_u:system_r:getty_t        2942 tty2     00:00:00 mingetty
 	<para>Make sure <command>apache</command> runs.</para>
 	<screen>
 [root@rhel55 ~]# service httpd start
-Starting httpd: httpd: Could not reliably determine the server's fully qualified domain name, using 127.0.0.1 for ServerName
                                                            [  OK  ]
 	</screen>
 	<para>Will this work ? Yes it does.</para>
@@ -290,12 +297,13 @@ HTTP request sent, awaiting response... 200 OK
 	<para>The log file clearly shows that it would have failed in <command>enforcing mode</command>.</para>
 	<screen>
 [root@rhel55 ~]# grep test42 /var/log/audit/audit.log 
-type=AVC msg=audit(1277559693.656:105): avc:  denied  { getattr } for  pid=2982 comm="httpd" path="/var/www/html/test42.txt" dev=dm-0 ino=197499 scontext=user_u:system_r:httpd_t:s0 tcontext=user_u:object_r:samba_share_t:s0 tclass=file
-type=AVC msg=audit(1277559693.658:106): avc:  denied  { read } for  pid=2982 comm="httpd" name="test42.txt" dev=dm-0 ino=197499 scontext=user_u:system_r:httpd_t:s0 tcontext=user_u:object_r:samba_share_t:s0 tclass=file
-	</screen>
-</section>
-<section><title></title>
-	<para></para>
-	<screen>
+type=AVC msg=audit(1277559693.656:105): avc:  denied  { getattr } for  \
+pid=2982 comm="httpd" path="/var/www/html/test42.txt" dev=dm-0 ino=1974\
+99 scontext=user_u:system_r:httpd_t:s0 tcontext=user_u:object_r:samba_s\
+hare_t:s0 tclass=file
+type=AVC msg=audit(1277559693.658:106): avc:  denied  { read } for  pid\
+=2982 comm="httpd" name="test42.txt" dev=dm-0 ino=197499 scontext=user_\
+u:system_r:httpd_t:s0 tcontext=user_u:object_r:samba_share_t:s0 tclass=\
+file
 	</screen>
 </section>

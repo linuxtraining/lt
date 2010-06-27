@@ -2,14 +2,14 @@
 	<para>To understand links in a file system, you first have to understand what an <command>inode</command><indexterm><primary>inode</primary></indexterm> is.</para>
 	<section><title>inode contents</title>
 		<para>An <command>inode</command> is a data structure that contains metadata about a file. When the file system stores a new file on the hard disk, it stores not only the contents (data) of the file, but also some extra properties like the name of the file, the creation date, the permissions, the owner of the file... and more. All this information (except the name of the file and the contents of the file) is stored in the <command>inode</command> of the file.</para>
-		<para>The <command>ls -l</command> command will display some of the inode contents, as seen in this screenshot.</para>
+		<para>The <command>ls -l</command><indexterm><primary>ls</primary></indexterm> command will display some of the inode contents, as seen in this screenshot.</para>
 		<screen>
 root@rhel53 ~# ls -ld /home/project42/
 drwxr-xr-x 4 root pro42 4.0K Mar 27 14:29 /home/project42/
 		</screen>
 	</section>
 	<section><title>inode table</title>
-		<para>The <command>inode table</command><indexterm><primary>inode table</primary></indexterm> contains all <command>inodes</command> and is created when you create the file system (with mkfs). You can use the <command>dh -i</command><indexterm><primary>df -i</primary></indexterm> command to see how many <command>inodes</command> are used and free on mounted file systems.</para>
+		<para>The <command>inode table</command><indexterm><primary>inode table</primary></indexterm> contains all <command>inodes</command> and is created when you create the file system (with mkfs). You can use the <command>df -i</command><indexterm><primary>df -i</primary></indexterm> command to see how many <command>inodes</command> are used and free on mounted file systems.</para>
 		<screen>
 oot@rhel53 ~# df -i
 Filesystem            Inodes   IUsed   IFree IUse% Mounted on
@@ -37,7 +37,7 @@ total 12
 817268 -rw-rw-r--  1 paul paul 0 Feb  5 15:38 file3
 paul@RHELv4u4:~/test$ 
 		</screen>
-		<para>Three files created one after the other get three different inodes (the first column). All the information you see with this ls command resides in the inode, except for the filename (which is contained in the directory).</para>
+		<para>Three files created one after the other get three different <command>inodes</command> (the first column). All the information you see with this <command>ls</command> command resides in the <command>inode</command>, except for the filename (which is contained in the directory).</para>
 	</section>
 	<section><title>inode and file contents</title>
 		<para> Let's put some data in one of the files.</para>
@@ -52,7 +52,7 @@ It is winter now and it is very cold.
 We do not like the cold, we prefer hot summer nights.
 paul@RHELv4u4:~/test$
 		</screen>
-		<para>The data that is displayed by the cat command is not in the inode, but somewhere else on the disk. The inode contains a pointer to that data.</para>
+		<para>The data that is displayed by the <command>cat</command> command is not in the <command>inode</command>, but somewhere else on the disk. The <command>inode</command> contains a pointer to that data.</para>
 	</section>
 </section>
 <section><title>about directories</title>
@@ -98,7 +98,7 @@ paul@RHELv4u4:~/test$ find / -inum 817270 2> /dev/null
 	</section>
 </section>
 <section><title>symbolic links</title>
-	<para>Symbolic links (sometimes called <command>soft links</command><indexterm><primary>soft link</primary></indexterm>) do not link to inodes, but create a name to name mapping. Symbolic links are created with <command>ln -s</command>. As you can see below, the <command>symbolic link</command><indexterm><primary>symbolic link</primary></indexterm> gets an inode of its own.</para>
+	<para>Symbolic links (sometimes called <command>soft links</command><indexterm><primary>soft link</primary></indexterm>) do not link to inodes, but create a name to name mapping. Symbolic links are created with <command>ln -s</command><indexterm><primary>ln</primary></indexterm>. As you can see below, the <command>symbolic link</command><indexterm><primary>symbolic link</primary></indexterm> gets an inode of its own.</para>
 	<screen>
 paul@RHELv4u4:~/test$ ln -s file2 symlink_to_file2
 paul@RHELv4u4:~/test$ ls -li

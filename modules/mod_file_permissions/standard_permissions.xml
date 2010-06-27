@@ -32,7 +32,7 @@ root@laika:/home/paul# chown paul FileForPaul
 root@laika:/home/paul# ls -l FileForPaul 
 -rw-r--r-- 1 paul paul 0 2008-08-06 14:11 FileForPaul
 		</screen>
-		<para>You can also use chown to change both the user owner and the group owner.</para>
+		<para>You can also use <command>chown</command> to change both the user owner and the group owner.</para>
 		<screen>
 root@laika:/home/paul# ls -l FileForPaul 
 -rw-r--r-- 1 paul paul 0 2008-08-06 14:11 FileForPaul
@@ -125,7 +125,7 @@ root@laika:/home/paul# ls -l FileForPaul
 </table>
 	</section>
 	<section><title>three sets of rwx</title>
-		<para>We already know that the output of <command>ls -l </command> starts with ten characters for each file. This screenshot shows a regular file (because the first character is a - ).</para>
+		<para>We already know that the output of <command>ls -l </command><indexterm><primary>ls</primary></indexterm> starts with ten characters for each file. This screenshot shows a regular file (because the first character is a - ).</para>
 		<screen>
 paul@RHELv4u4:~/test$ ls -l proc42.bash
 -rwxr-xr--  1 paul proj 984 Feb  6 12:01 proc42.bash
@@ -298,7 +298,7 @@ paul@laika:~/perms$ ls -l permissions.txt
 </tbody>
 </tgroup>
 </table>
-		<para>This makes <command>777</command><indexterm><primary>777</primary></indexterm> equal to rwxrwxrwx and by the same logic has 654 mean rw-r-xr-- . The <command>chmod</command> command will accept these numbers.</para>
+		<para>This makes <command>777</command><indexterm><primary>777</primary></indexterm> equal to rwxrwxrwx and by the same logic has 654 mean rw-r-xr-- . The <command>chmod</command><indexterm><primary>chmod</primary></indexterm> command will accept these numbers.</para>
 		<screen>
 paul@laika:~/perms$ chmod 777 permissions.txt 
 paul@laika:~/perms$ ls -l permissions.txt 
