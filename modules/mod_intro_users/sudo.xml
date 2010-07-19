@@ -14,7 +14,7 @@ paul@laika:~$
         </section>
 
 	<section><title>setuid on sudo</title>
-		<para>The <command>sudo</command> binary has the <command>setuid</command><indexterm><primary>setuid</primary></indexterm> bit set, so any user can run it with effective userid set as root.</para>
+		<para>The <command>sudo</command> binary has the <command>setuid</command><indexterm><primary>setuid</primary></indexterm> bit set, so any user can run it with the effective userid of root.</para>
 		<screen>
 paul@laika:~$ ls -l `which sudo`
 -rwsr-xr-x 2 root root 107872 2008-05-15 02:41 /usr/bin/sudo

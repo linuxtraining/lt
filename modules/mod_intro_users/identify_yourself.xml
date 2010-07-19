@@ -1,6 +1,6 @@
 <section><title>Identify yourself</title>
 	<section><title>whoami</title>
-		<para>The <command>whoami</command><indexterm><primary>whoami(1)</primary></indexterm> command exists to tell you your username.</para>
+		<para>The <command>whoami</command><indexterm><primary>whoami(1)</primary></indexterm> command tells you your username.</para>
 		<screen>
 [root@RHEL5 ~]# whoami
 root
@@ -10,7 +10,7 @@ paul
 		</screen>
 	</section>
 	<section><title>who</title>
-		<para>The <command>who</command><indexterm><primary>who(1)</primary></indexterm> command will give you information about who is logged on to the system. </para>
+		<para>The <command>who</command><indexterm><primary>who(1)</primary></indexterm> command will give you information about who is logged on the system.</para>
 		<screen>
 [paul@RHEL5 ~]$ who
 root     tty1         2008-06-24 13:24
@@ -38,7 +38,7 @@ paul   pts/2  192.168.1.34  05:13   25.00s 0.07s 0.04s top
 		</screen>
 	</section>
 	<section><title>id</title>
-		<para>The <command>id</command><indexterm><primary>id(1)</primary></indexterm> command will give you your user id, primary group id and a list of the groups that you belong to.</para> 
+		<para>The <command>id</command><indexterm><primary>id(1)</primary></indexterm> command will give you your user id, primary group id, and a list of the groups that you belong to.</para> 
 		<screen>
 root@laika:~# id
 uid=0(root) gid=0(root) groups=0(root)

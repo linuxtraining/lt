@@ -1,8 +1,8 @@
 <?hard-pagebreak?>
 <section><title>home directories</title>
 	<section><title>creating home directories</title>
-		<para>The easy way to create a home directory is to supply the -m option with <command>useradd</command><indexterm><primary>useradd(1)</primary></indexterm> (it is likely set as a default option on Linux).</para>
-		<para>The not so easy way is to create a home directory manually with <command>mkdir</command>, which also requires setting the owner and the permissions on the directory with <command>chmod</command> and <command>chown</command> (both commands are discussed in detail in another chapter).</para>
+		<para>The easiest way to create a home directory is to supply the <command>-m</command> option with <command>useradd</command><indexterm><primary>useradd(1)</primary></indexterm> (it is likely set as a default option on Linux).</para>
+		<para>A less easy way is to create a home directory manually with <command>mkdir</command> which also requires setting the owner and the permissions on the directory with <command>chmod</command> and <command>chown</command> (both commands are discussed in detail in another chapter).</para>
 		<screen>
 [root@RHEL5 ~]# mkdir /home/laura
 [root@RHEL5 ~]# chown laura:laura /home/laura
@@ -12,7 +12,7 @@ drwx------ 2 laura laura 4096 Jun 24 15:17 /home/laura/
 		</screen>
 	</section>
 	<section><title>/etc/skel/</title>
-		<para>When using useradd with the -m option, then the <command>/etc/skel/</command><indexterm><primary>/etc/skel</primary></indexterm> directory is copied to the newly created home directory. The /etc/skel/ directory contains some (usually hidden) files that contain profile settings and default values for applications. In this way /etc/skel/ serves as a default home directory and as a default user profile.</para>
+		<para>When using <command>useradd</command> with the <command>-m</command> option, the <command>/etc/skel/</command><indexterm><primary>/etc/skel</primary></indexterm> directory is copied to the newly created home directory. The <command>/etc/skel/</command> directory contains some (usually hidden) files that contain profile settings and default values for applications. In this way <command>/etc/skel/</command> serves as a default home directory and as a default user profile.</para>
 		<screen>
 [root@RHEL5 ~]# ls -la /etc/skel/
 total 48

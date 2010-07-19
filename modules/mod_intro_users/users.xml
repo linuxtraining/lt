@@ -1,7 +1,7 @@
 <?hard-pagebreak?>
 <section><title>users</title>
 	<section><title>user management</title>
-		<para>User management on any Unix can essentially be done in three ways. You can use the <command>graphical</command> tools provided by your distribution. These tools have a look and feel that depends on the distribution. If you are a novice linux user on your home system, then use the graphical tool that is provided by your distribution. This will make sure that you do not run into problems.</para>
+		<para>User management on any Unix can be done in three complimentary ways. You can use the <command>graphical</command> tools provided by your distribution. These tools have a look and feel that depends on the distribution. If you are a novice linux user on your home system, then use the graphical tool that is provided by your distribution. This will make sure that you do not run into problems.</para>
 		<para>Another option is to use <command>command line tools</command> like useradd, usermod, gpasswd, passwd and others. Server administrators are likely to use these tools, since they are familiar and very similar accross many different distributions. This chapter will focus on these command line tools.</para>
 		<para>A third and rather extremist way is to <command>edit the local configuration files</command> directly using vi (or vipw/vigr). Do not attempt this as a novice on production systems!</para>
 	</section>
@@ -20,10 +20,10 @@ sandra:x:526:532:radish stresser:/home/sandra:/bin/bash
 annelies:x:527:533:sword fighter:/home/annelies:/bin/bash
 laura:x:528:534:art dealer:/home/laura:/bin/ksh
 		</screen>
-		<para>As you can see, this file contains seven columns separated by a colon. The columns contain the username, an x, the user id, the primary group id, a description, the name of the home directory and the login shell.</para>
+		<para>As you can see, this file contains seven columns separated by a colon. The columns contain the username, an x, the user id, the primary group id, a description, the name of the home directory, and the login shell.</para>
 	</section>
 	<section><title>root</title>
-		<para>The <command>root</command><indexterm><primary>root</primary></indexterm> user also called the <command>superuser</command> is the most powerful account on your Linux system. This user can do almost everything, including the creation of other users. The root user always has userid 0 (regardless of the name of the account).</para>
+		<para>The <command>root</command><indexterm><primary>root</primary></indexterm> user also called the <command>superuser</command> is the most powerful account on your Linux system. This user can do almost anything, including the creation of other users. The root user always has userid 0 (regardless of the name of the account).</para>
 		<screen>
 [root@RHEL5 ~]# head -1 /etc/passwd
 root:x:0:0:root:/root:/bin/bash
@@ -31,7 +31,7 @@ root:x:0:0:root:/root:/bin/bash
 	</section>
 	<section><title>useradd</title>	
 		<para>You can add users with the <command>useradd</command><indexterm><primary>useradd</primary></indexterm> command. 
-The example below shows how to add a user named yanina (last parameter), and at the same time forcing the creation of the home directory (-m), setting the name of the home directory (-d) and setting a description (-c). </para>
+The example below shows how to add a user named yanina (last parameter) and at the same time forcing the creation of the home directory (-m), setting the name of the home directory (-d), and setting a description (-c). </para>
 		<screen>
 [root@RHEL5 ~]# useradd -m -d /home/yanina -c "yanina wickmayer" yanina
 [root@RHEL5 ~]# tail -1 /etc/passwd
