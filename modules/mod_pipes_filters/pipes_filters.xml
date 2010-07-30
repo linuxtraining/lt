@@ -4,7 +4,7 @@
 		<para>A pipe takes <command>stdout</command><indexterm><primary>stdout</primary></indexterm> from the previous command and sends it as <command>stdin</command><indexterm><primary>stdin</primary></indexterm> to the next command. All commands in a <command>pipe</command> run simultaneously.</para>
 	</section>
 	<section><title>&#0124; vertical bar</title>
-		<para>A <command>pipe</command> is represented by a vertical bar <command>&#124;</command><indexterm><primary>&#124;</primary></indexterm> inbetween two commands. Below a very simple pipe.</para>
+		<para>A <command>pipe</command> is represented by a vertical bar <command>&#124;</command><indexterm><primary>&#124;</primary></indexterm> between two commands. Below is a very simple pipe.</para>
 		<screen>
 [paul@RHEL4b pipes]$ cat count.txt | tac
 five
@@ -28,10 +28,10 @@ five
 </section>
 <section><title>filters</title>
 	<section><title>about filters</title>
-		<para>Tools that are written to be used in a <command>pipe</command> are often called <command>filters</command><indexterm><primary>filters</primary></indexterm>. These <command>filters</command> are very small programs (or tools) that do one specific thing very efficiently. They can be used as <command>building blocks</command> for solutions.</para>
+		<para>Tools that are written to be used with a <command>pipe</command> are often called <command>filters</command><indexterm><primary>filters</primary></indexterm>. These <command>filters</command> are very small programs (or tools) that do one specific thing very efficiently. They can be used as <command>building blocks</command> for solutions.</para>
 	</section>
 	<section><title>cat does nothing</title>
-		<para>When between two <command>pipes</command>, the <command>cat</command><indexterm><primary>cat</primary></indexterm> command is doing nothing (except putting <command>stdin</command> on <command>stdout</command>.</para>
+		<para>When between two <command>pipes</command>, the <command>cat</command><indexterm><primary>cat</primary></indexterm> command does nothing (except putting <command>stdin</command> on <command>stdout</command>.</para>
 		<screen>
 [paul@RHEL4b pipes]$ tac count.txt | cat | cat | cat | cat | cat
 five
@@ -42,7 +42,7 @@ one
 [paul@RHEL4b pipes]$</screen>
 	</section>
 	<section><title>tee</title>
-		<para>Writing long <command>pipes</command> in Unix is fun, but sometimes you might want intermediate results. This is were <command>tee</command><indexterm><primary>tee(1)</primary></indexterm> comes in handy. The <command>tee</command> filter puts <command>stdin</command><indexterm><primary>stdin</primary></indexterm> on <command>stdout</command><indexterm><primary>stdout</primary></indexterm> and also in a file. So <command>tee</command> is almost the same as <command>cat</command>, except that it has two identical outputs.</para>
+		<para>Writing long <command>pipes</command> in Unix is fun, but sometimes you might want intermediate results. This is were <command>tee</command><indexterm><primary>tee(1)</primary></indexterm> comes in handy. The <command>tee</command> filter puts <command>stdin</command><indexterm><primary>stdin</primary></indexterm> on <command>stdout</command><indexterm><primary>stdout</primary></indexterm> and also into a file. So <command>tee</command> is almost the same as <command>cat</command>, except that it has two identical outputs.</para>
 		<screen>[paul@RHEL4b pipes]$ tac count.txt | tee temp.txt | tac
 one
 two
@@ -59,7 +59,7 @@ one
 		</screen>
 	</section>
 	<section><title>grep</title>
-		<para>The <command>grep</command><indexterm><primary>grep(1)</primary></indexterm> filter is famous among Unix people. The most common use of <command>grep</command> is to filter lines of text containing (or not containing) a certain string.</para>
+		<para>The <command>grep</command><indexterm><primary>grep(1)</primary></indexterm> filter is famous among Unix users. The most common use of <command>grep</command> is to filter lines of text containing (or not containing) a certain string.</para>
 	<screen>[paul@RHEL4b pipes]$ cat tennis.txt 
 Amelie Mauresmo, Fra
 Kim Clijsters, BEL
@@ -101,19 +101,19 @@ Kim Clijsters, BEL
 Justine Henin, Bel
 [paul@RHEL4b pipes]$
 		</screen>
-		<para>With <command>grep -A1</command> the line <command>after</command> the result is also displayed.</para>
+		<para>With <command>grep -A1</command> one line <command>after</command> the result is also displayed.</para>
 		<screen>
 paul@deb503:~/pipes$ grep -A1 Henin tennis.txt 
 Justine Henin, Bel
 Serena Williams, usa
 		</screen>
-		<para>With <command>grep -B1</command> the line <command>before</command> the result is also displayed.</para>
+		<para>With <command>grep -B1</command> one line <command>before</command> the result is also displayed.</para>
 		<screen>
 paul@deb503:~/pipes$ grep -B1 Henin tennis.txt 
 Kim Clijsters, BEL
 Justine Henin, Bel
 		</screen>
-		<para>With <command>grep -C1</command> (context) the line <command>before</command> and <command>after</command> are also displayed. All three options (A,B, and C) can display any number of lines (using e.g. A2, B4 or C20).</para>
+		<para>With <command>grep -C1</command> (context) one line <command>before</command> and one <command>after</command> are also displayed. All three options (A,B, and C) can display any number of lines (using e.g. A2, B4 or C20).</para>
 		<screen>
 paul@deb503:~/pipes$ grep -C1 Henin tennis.txt 
 Kim Clijsters, BEL
@@ -122,7 +122,7 @@ Serena Williams, usa
 		</screen>
 	</section>
 	<section><title>cut</title>
-		<para>The <command>cut</command><indexterm><primary>cut(1)</primary></indexterm> filter can select columns from files, depending on a delimiter or a count of bytes. The screenshot below uses <command>cut</command> to filter for the username and userid in the <command>/etc/passwd</command> file. It uses the colon as a delimiter, and select fields 1 and 3.</para>
+		<para>The <command>cut</command><indexterm><primary>cut(1)</primary></indexterm> filter can select columns from files, depending on a delimiter or a count of bytes. The screenshot below uses <command>cut</command> to filter for the username and userid in the <command>/etc/passwd</command> file. It uses the colon as a delimiter, and selects fields 1 and 3.</para>
 		<screen>[[paul@RHEL4b pipes]$ cut -d: -f1,3 /etc/passwd | tail -4 
 Figo:510
 Pfaff:511
@@ -151,7 +151,7 @@ ermion
 		</screen>
 	</section>
 	<section><title>tr</title>
-		<para>You can translate characters with <command>tr</command><indexterm><primary>tr(1)</primary></indexterm>. The screenshot translates all occurrences of e to E.</para>
+		<para>You can translate characters with <command>tr</command><indexterm><primary>tr(1)</primary></indexterm>. The screenshot shows the translation of all occurrences of e to E.</para>
 		<screen>
 [paul@RHEL4b pipes]$ cat tennis.txt | tr 'e' 'E'
 AmEliE MaurEsmo, Fra
@@ -181,7 +181,7 @@ five
 [paul@RHEL4b pipes]$ cat count.txt | tr '\n' ' '
 one two three four five [paul@RHEL4b pipes]$
 		</screen>
-		<para>The <command>tr</command> filter can also be used to squeeze multiple occurrences of a character to one.</para>
+		<para>The <command>tr -s</command> filter can also be used to squeeze multiple occurrences of a character to one.</para>
 		<screen>
 [paul@RHEL4b pipes]$ cat spaces.txt 
 one    two        three
@@ -335,7 +335,7 @@ Turner
 paul@deb503:~/pipes$ comm -23 list1.txt list2.txt 
 Bowie
 Sweet
-Turner		</screen>
+		</screen>
 	</section>
 	<section><title>od</title>
 		<para>European humans like to work with ascii characters, but computers store files in bytes. The example below creates a simple file, and then uses <command>od</command><indexterm><primary>od(1)</primary></indexterm> to show the contents of the file in hexadecimal bytes, in octal bytes and in ascii (or backslashed) characters.</para>
