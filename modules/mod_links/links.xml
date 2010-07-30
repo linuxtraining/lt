@@ -1,7 +1,7 @@
 <section><title>inodes</title>
 	<para>To understand links in a file system, you first have to understand what an <command>inode</command><indexterm><primary>inode</primary></indexterm> is.</para>
 	<section><title>inode contents</title>
-		<para>An <command>inode</command> is a data structure that contains metadata about a file. When the file system stores a new file on the hard disk, it stores not only the contents (data) of the file, but also some extra properties like the name of the file, the creation date, the permissions, the owner of the file... and more. All this information (except the name of the file and the contents of the file) is stored in the <command>inode</command> of the file.</para>
+		<para>An <command>inode</command> is a data structure that contains metadata about a file. When the file system stores a new file on the hard disk, it stores not only the contents (data) of the file, but also extra properties like the name of the file, the creation date, its permissions, the owner of the file, and more. All this information (except the name of the file and the contents of the file) is stored in the <command>inode</command> of the file.</para>
 		<para>The <command>ls -l</command><indexterm><primary>ls</primary></indexterm> command will display some of the inode contents, as seen in this screenshot.</para>
 		<screen>
 root@rhel53 ~# ls -ld /home/project42/
@@ -9,7 +9,7 @@ drwxr-xr-x 4 root pro42 4.0K Mar 27 14:29 /home/project42/
 		</screen>
 	</section>
 	<section><title>inode table</title>
-		<para>The <command>inode table</command><indexterm><primary>inode table</primary></indexterm> contains all <command>inodes</command> and is created when you create the file system (with mkfs). You can use the <command>df -i</command><indexterm><primary>df -i</primary></indexterm> command to see how many <command>inodes</command> are used and free on mounted file systems.</para>
+		<para>The <command>inode table</command><indexterm><primary>inode table</primary></indexterm> contains all of the <command>inodes</command> and is created when you create the file system (with <command>mkfs</command>). You can use the <command>df -i</command><indexterm><primary>df -i</primary></indexterm> command to see how many <command>inodes</command> are used and free on mounted file systems.</para>
 		<screen>
 oot@rhel53 ~# df -i
 Filesystem            Inodes   IUsed   IFree IUse% Mounted on
@@ -37,7 +37,7 @@ total 12
 817268 -rw-rw-r--  1 paul paul 0 Feb  5 15:38 file3
 paul@RHELv4u4:~/test$ 
 		</screen>
-		<para>Three files created one after the other get three different <command>inodes</command> (the first column). All the information you see with this <command>ls</command> command resides in the <command>inode</command>, except for the filename (which is contained in the directory).</para>
+		<para>These three files were created one after the other and got three different <command>inodes</command> (the first column). All the information you see with this <command>ls</command> command resides in the <command>inode</command>, except for the filename (which is contained in the directory).</para>
 	</section>
 	<section><title>inode and file contents</title>
 		<para> Let's put some data in one of the files.</para>
@@ -57,7 +57,7 @@ paul@RHELv4u4:~/test$
 </section>
 <section><title>about directories</title>
 	<section><title>a directory is a table</title>
-		<para>A <command>directory</command><indexterm><primary>directory</primary></indexterm> is a special kind of file that contains a table mapping filenames to inodes. Looking at our current directory with <command>ls -ali</command><indexterm><primary>ls(1)</primary></indexterm> will display the contents of the directory file.</para>
+		<para>A <command>directory</command><indexterm><primary>directory</primary></indexterm> is a special kind of file that contains a table which maps filenames to inodes. Listing our current directory with <command>ls -ali</command><indexterm><primary>ls(1)</primary></indexterm> will display the contents of the directory file.</para>
 		<screen>
 paul@RHELv4u4:~/test$ ls -ali
 total 32
@@ -75,7 +75,7 @@ paul@RHELv4u4:~/test$
 </section>
 <section><title>hard links</title>
 	<section><title>creating hard links</title>
-		<para>When we create a <command>hard link</command><indexterm><primary>hard link</primary></indexterm> to a file with <command>ln</command><indexterm><primary>ln(1)</primary></indexterm>, then an extra entry is added in the directory. A new file name is mapped to an existing inode.</para>
+		<para>When we create a <command>hard link</command><indexterm><primary>hard link</primary></indexterm> to a file with <command>ln</command><indexterm><primary>ln(1)</primary></indexterm>, an extra entry is added in the directory. A new file name is mapped to an existing inode.</para>
 		<screen>
 paul@RHELv4u4:~/test$ ln file2 hardlink_to_file2
 paul@RHELv4u4:~/test$ ls -li
@@ -86,7 +86,7 @@ total 24
 817270 -rw-rw-r--  2 paul paul 92 Feb  5 15:42 hardlink_to_file2
 paul@RHELv4u4:~/test$ 
 		</screen>
-		<para>Both files have the same inode, so they will always have the same permissions and the same owner. And they will both have the same content. Actually, both files are equal now, meaning you can safely remove the original file, the hardlinked file will remain. The inode contains a counter, counting the number of hard links to itself. When the counter drops to zero, then the inode is emptied.</para>
+		<para>Both files have the same inode, so they will always have the same permissions and the same owner. Both files will have the same content. Actually, both files are equal now, meaning you can safely remove the original file, the hardlinked file will remain. The inode contains a counter, counting the number of hard links to itself. When the counter drops to zero, then the inode is emptied.</para>
 	</section>
 	<section><title>finding hard links</title>
 		<para>You can use the <command>find</command><indexterm><primary>find(1)</primary></indexterm> command to look for files with a certain inode. The screenshot below shows how to search for all filenames that point to <command>inode</command> 817270. Remember that an <command>inode</command><indexterm><primary>inode</primary></indexterm> number is unique to its partition.</para>
