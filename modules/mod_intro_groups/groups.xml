@@ -102,7 +102,7 @@ sports:!:serena:venus,harry
 	</screen>
 </section>
 <section><title>vigr</title>
-	<para>Similar to vipw, the <command>vigr</command><indexterm><primary>vigr(1)</primary></indexterm> can be used to manually edit the <command>/etc/group</command> file, since it will do proper locking of the file. Only experienced senior administrators should use <command>vi</command> or <command>vigr</command> to manage groups.</para>
+	<para>Similar to vipw, the <command>vigr</command><indexterm><primary>vigr(1)</primary></indexterm> command can be used to manually edit the <command>/etc/group</command> file, since it will do proper locking of the file. Only experienced senior administrators should use <command>vi</command> or <command>vigr</command> to manage groups.</para>
 </section>
 <?hard-pagebreak?>
 <section><title>practice: groups</title>
