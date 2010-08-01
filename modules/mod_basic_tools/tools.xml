@@ -1,13 +1,13 @@
 <section><title>common tools</title>
 	<section><title>find</title>
-		<para>The <command>find</command><indexterm><primary>find(1)</primary></indexterm> command can be very useful at the start of a pipe, to search for files. Here are some examples. You might want to add <command>2&#062;/dev/null</command> to the command lines to avoid cluttering your screen with error messages.</para>
+		<para>The <command>find</command><indexterm><primary>find(1)</primary></indexterm> command can be very useful at the start of a pipe to search for files. Here are some examples. You might want to add <command>2&#062;/dev/null</command> to the command lines to avoid cluttering your screen with error messages.</para>
 		<para>Find all files in <command>/etc</command> and put the list in etcfiles.txt</para>
 		<screen>find /etc &#062; etcfiles.txt</screen>
 		<para>Find all files of the entire system and put the list in allfiles.txt</para>
 		<screen>find / &#062; allfiles.txt</screen>
 		<para>Find files that end in .conf in the current directory (and all subdirs).</para>
 		<screen>find . -name "*.conf"</screen>
-		<para>Find files of type file (so not directory or pipe...) that end in .conf.</para>
+		<para>Find files of type file (not directory, pipe or etc.) that end in .conf.</para>
 		<screen>find . -type f -name "*.conf"</screen>
 		<para>Find files of type directory that end in .bak .</para>
 		<screen>find /data -type d -name "*.bak"</screen>
@@ -35,11 +35,11 @@ Password:
 		<para>Most Linux distributions will schedule the <command>updatedb</command> to run once every day.</para>
 	</section>
 	<section><title>date</title>
-		<para>The <command>date</command><indexterm><primary>date</primary></indexterm> can display the date, time, timezone and more.</para>
+		<para>The <command>date</command><indexterm><primary>date</primary></indexterm> command can display the date, time, timezone and more.</para>
 		<screen>paul@rhel55 ~$ date
 Sat Apr 17 12:44:30 CEST 2010
 		</screen>
-		<para>The date string can be customized to display the format of your choice. Check the manual page for more options.</para>
+		<para>A date string can be customized to display the format of your choice. Check the man page for more options.</para>
 		<screen>paul@rhel55 ~$ date +'%A %d-%m-%Y'
 Saturday 17-04-2010
 		</screen>
@@ -75,12 +75,12 @@ Su Mo Tu We Th Fr Sa
 		</screen>
 	</section>
 	<section><title>sleep</title>
-		<para>The <command>sleep</command><indexterm><primary>sleep</primary></indexterm> is sometimes used in scripts to wait a couple of seconds. This example shows a five second sleep.</para>
+		<para>The <command>sleep</command><indexterm><primary>sleep</primary></indexterm> command is sometimes used in scripts to wait a number of seconds. This example shows a five second <command>sleep</command>.</para>
 		<screen>paul@rhel55 ~$ sleep 5
 paul@rhel55 ~$</screen>
 	</section>
 	<section><title>time</title>
-		<para>With <command>time</command><indexterm><primary>time</primary></indexterm> you can display how long it takes to execute a command. The <command>date</command> command takes only a little time.</para>
+		<para>The <command>time</command><indexterm><primary>time</primary></indexterm> command can display how long it takes to execute a command. The <command>date</command> command takes only a little time.</para>
 		<screen>
 paul@rhel55 ~$ time date
 Sat Apr 17 13:08:27 CEST 2010
@@ -89,7 +89,7 @@ real    0m0.014s
 user    0m0.008s
 sys     0m0.006s
 		</screen>
-		<para>This <command>sleep 5</command> takes five <command>real</command> seconds to execute, but consumes little <command>cpu time</command>.</para>
+		<para>The <command>sleep 5</command> command takes five <command>real</command> seconds to execute, but consumes little <command>cpu time</command>.</para>
 		<screen>
 paul@rhel55 ~$ time sleep 5
 
@@ -109,7 +109,7 @@ sys     0m0.539s
 </section>
 <section><title>compression tools</title>
 	<section><title>gzip - gunzip</title>
-		<para>Users never have enough space, so compression comes in handy. The <command>gzip</command><indexterm><primary>gzip(1)</primary></indexterm> command can make files take up less space.</para>
+		<para>Users never have enough disk space, so compression comes in handy. The <command>gzip</command><indexterm><primary>gzip(1)</primary></indexterm> command can make files take up less space.</para>
 		<screen>
 paul@rhel55 ~$ ls -lh text.txt 
 -rw-rw-r-- 1 paul paul 6.4M Apr 17 13:11 text.txt
@@ -121,20 +121,6 @@ paul@rhel55 ~$ ls -lh text.txt.gz
 		<screen>
 paul@rhel55 ~$ gunzip text.txt.gz 
 paul@rhel55 ~$ ls -lh text.txt
--rw-rw-r-- 1 paul paul 6.4M Apr 17 13:11 text.txt
-		</screen>
-	</section>
-	<section><title>bzip2 - bunzip2</title>
-		<para>Files can also be compressed with <command>bzip2</command><indexterm><primary>bzip2</primary></indexterm> which takes a little more time than <command>gzip</command>, but compresses better.</para>
-		<screen>
-paul@rhel55 ~$ bzip2 text.txt 
-paul@rhel55 ~$ ls -lh text.txt.bz2 
--rw-rw-r-- 1 paul paul 569K Apr 17 13:11 text.txt.bz2
-		</screen>
-		<para>Files can be uncompressed again with <command>bunzip2</command><indexterm><primary>bunzip2</primary></indexterm>.</para>
-		<screen>
-paul@rhel55 ~$ bunzip2 text.txt.bz2 
-paul@rhel55 ~$ ls -lh text.txt 
 -rw-rw-r-- 1 paul paul 6.4M Apr 17 13:11 text.txt
 		</screen>
 	</section>
@@ -152,6 +138,20 @@ paul@rhel55 ~$ zcat text.txt.gz | head -4
 /opt
 /opt/VBoxGuestAdditions-3.1.6
 /opt/VBoxGuestAdditions-3.1.6/routines.sh
+		</screen>
+	</section>
+	<section><title>bzip2 - bunzip2</title>
+		<para>Files can also be compressed with <command>bzip2</command><indexterm><primary>bzip2</primary></indexterm> which takes a little more time than <command>gzip</command>, but compresses better.</para>
+		<screen>
+paul@rhel55 ~$ bzip2 text.txt 
+paul@rhel55 ~$ ls -lh text.txt.bz2 
+-rw-rw-r-- 1 paul paul 569K Apr 17 13:11 text.txt.bz2
+		</screen>
+		<para>Files can be uncompressed again with <command>bunzip2</command><indexterm><primary>bunzip2</primary></indexterm>.</para>
+		<screen>
+paul@rhel55 ~$ bunzip2 text.txt.bz2 
+paul@rhel55 ~$ ls -lh text.txt 
+-rw-rw-r-- 1 paul paul 6.4M Apr 17 13:11 text.txt
 		</screen>
 	</section>
 	<section><title>bzcat - bzmore</title>
