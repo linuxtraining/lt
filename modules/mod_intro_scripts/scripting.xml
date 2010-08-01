@@ -1,13 +1,13 @@
 <section><title>about shell scripting</title>
-	<para><command>bash</command> has support for programming constructs that can be saved as scripts. These scripts in turn then become more <command>bash</command> commands. Many Linux commands are scripts. And scripts run whenever a user logs on, or a service is started.</para>
-	<para>This means that system administrators also need basic knowledge of scripting to understand how their servers and their applications are started, updated, upgraded, patched, maintained, configured and removed. And also to understand how a user environment is built.</para>
+	<para><command>bash</command> has support for programming constructs that can be saved as scripts. These scripts in turn then become more <command>bash</command> commands. Many Linux commands are scripts. Scripts run whenever a user logs on or a service is started.</para>
+	<para>This means that system administrators also need basic knowledge of scripting to understand how their servers and their applications are started, updated, upgraded, patched, maintained, configured and removed, and also to understand how a user environment is built.</para>
 </section>
 	<section><title>hello world</title>
-		<para>Just like in every programming course, we start with a simple <command>hello world</command> script. The following script will output <command>Hello World</command>.</para>
+		<para>Just like in every programming course, we start with a simple <command>hello_world</command> script. The following script will output <command>Hello World</command>.</para>
 		<screen>
 echo Hello World
 		</screen>
-		<para>After creating this simple script in vi, you'll have to <command>chmod +x</command><indexterm><primary>chmod +x</primary></indexterm> the script to make it executable. And unless you add the scripts directory to your path, you'll have to type the path to the script for the shell to be able to find it.</para>
+		<para>After creating this simple script in <command>vi</command>, you'll have to <command>chmod +x hello_world</command><indexterm><primary>chmod +x</primary></indexterm> to make it executable. And unless you add the scripts directory to your path, you'll have to type the path to the script for the shell to be able to find it.</para>
 		<screen>
 [paul@RHEL4a ~]$ chmod +x hello_world 
 [paul@RHEL4a ~]$ ./hello_world 
@@ -16,7 +16,7 @@ Hello World
 		</screen>
 	</section>
 	<section><title>she-bang</title>
-		<para>Let's expand our example a little further by putting <command>#!/bin/bash</command> on the first line of the script. The <command>#!</command> is called a <command>she-bang</command>. When the <command>she-bang</command> are the first two characters of the script, </para>
+		<para>Let's expand our example a little further by putting <command>#!/bin/bash</command> on the first line of the script. The <command>#!</command> is called a <command>she-bang</command>, where the <command>she-bang</command> is the first two characters of the script.</para>
 		<screen>
 #!/bin/bash
 echo Hello World
@@ -46,7 +46,7 @@ var1 = 4
 
 [paul@RHEL4a ~]$
 		</screen>
-		<para>Luckily you can force a script to run in the same shell, this is called sourcing a script.</para>
+		<para>Luckily, you can force a script to run in the same shell; this is called <command>sourcing</command> a script.</para>
 		<screen>
 [paul@RHEL4a ~]$ source ./vars
 var1 = 4
@@ -64,7 +64,7 @@ var1 = 4
 		</screen>
 	</section>
 	<section><title>Shell</title>
-		<para>You can never be sure which shell a user is running. A script that works flawlessly in bash, might not work in ksh or csh or dash. To instruct a shell to run your script in a certain shell, you can start your script with a shebang <command>	</command><indexterm><primary>#!/bin/bash</primary></indexterm> followed by the shell it is supposed to run in. This script will run in a bash shell.</para>
+		<para>You can never be sure which shell a user is running. A script that works flawlessly in <command>bash</command> might not work in <command>ksh</command>, <command>csh</command>, or <command>dash</command>. To instruct a shell to run your script in a certain shell, you can start your script with a <command>shebang</command><indexterm><primary>#!/bin/bash</primary></indexterm> followed by the shell it is supposed to run in. This script will run in a bash shell.</para>
 		<screen>
 #!/bin/bash
 echo -n hello
@@ -76,7 +76,7 @@ echo A bash subshell `echo -n hello`
 echo -n hello
 echo a Korn subshell `echo -n hello`
 		</screen>
-		<para>Some user may perform setuid based script root spoofing. This is a rare but possible attack. To improve script security, and to avoid interpreter spoofing you need to add -- to #!/bin/bash, which disables further option processing, so bash will not accept any options. 
+		<para>Some user may try to perform <command>setuid</command> based script root spoofing. This is a rare but possible attack. To improve script security and to avoid interpreter spoofing, you need to add <command>--</command> after the <command>#!/bin/bash</command>, which disables further option processing so <command>bash</command> will not accept any options. 
 		<screen>
 #!/bin/bash -
 		</screen>
@@ -127,7 +127,7 @@ done
 		</screen>
 	</section>
 	<section><title>parameters</title>
-		<para>A bash shell script can have parameters. The numbering you see in the script below continues if you have more parameters. You also have special parameters for the number of parameters, a string of all of them, and also the process id and the last error code. The man page of bash has a full list.</para>
+		<para>A <command>bash</command> shell script can have parameters. The numbering you see in the script below continues if you have more parameters. You also have special parameters containing the number of parameters, a string of all of them, and also the process id, and the last error code. The man page of <command>bash</command> has a full list.</para>
 		<screen>
 #!/bin/bash
 echo The first argument is $1
@@ -219,7 +219,7 @@ true
 		</screen>
 	</section>
 	<section><title>if if, then then, or else</title>
-		<para>The <command>if then else</command><indexterm><primary>if then else (bash)</primary></indexterm> construction is about choice. If a certain condition is met, then execute something, else execute something else. The example below tests whether a file exists, if the file exists then a proper message is echoed.</para>
+		<para>The <command>if then else</command><indexterm><primary>if then else (bash)</primary></indexterm> construction is about choice. If a certain condition is met, then execute something, else execute something else. The example below tests whether a file exists, and if the file exists then a proper message is echoed.</para>
 		<screen>
 #!/bin/bash
 
@@ -239,7 +239,7 @@ isit.txt exists!
 		</screen>
 	</section>
 	<section><title>let</title>
-		<para>The <command>let</command><indexterm><primary>let</primary></indexterm> command allows for evaluation of arithmetic expressions.</para>
+		<para>The <command>let</command><indexterm><primary>let</primary></indexterm> built-in shell function instructs the shell to perform an evaluation of arithmetic expressions. It will return 0 unless the last arithmetic expression evaluates to 0.</para>
 		<screen>
 [paul@RHEL4b ~]$ let x="3 + 4" ; echo $x
 7
@@ -250,7 +250,7 @@ isit.txt exists!
 [paul@RHEL4b ~]$ let x="10*2+100/10" ; echo $x
 30
 		</screen>
-		<para>The let command can also convert between different bases.</para>
+		<para>The <command>bash</command> shell can also convert between different bases.</para>
 		<screen>
 [paul@RHEL4b ~]$ let x="0xFF" ; echo $x
 255
@@ -343,7 +343,7 @@ esac
 		</screen>
 	</section>
 	<section><title>shopt</title>
-		<para>You can toggle the values of variables controlling optional shell behavior with the <command>shopt</command><indexterm><primary>shopt</primary></indexterm> built-in shell command. The example below first verifies whether the cdspell option is set, it is not. The next shopt command sets the value, and the third shopt command verifies that the option really is set. You can now use minor spelling mistakes in the cd command. The man page of bash has a complete list of options.</para>
+		<para>You can toggle the values of variables controlling optional shell behavior with the <command>shopt</command><indexterm><primary>shopt</primary></indexterm> built-in shell command. The example below first verifies whether the cdspell option is set; it is not. The next shopt command sets the value, and the third shopt command verifies that the option really is set. You can now use minor spelling mistakes in the cd command. The man page of bash has a complete list of options.</para>
 		<screen>
 paul@laika:~$ shopt -q cdspell ; echo $?
 1
