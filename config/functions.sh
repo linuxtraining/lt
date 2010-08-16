@@ -11,12 +11,12 @@ SVN_PROJECTDIR="https://support.ginsys.be/svn/lt"
 # use the correct java runtime for fop on Ubuntu
 # according to http://linuxmafia.com/faq/Admin/release-files.html
 if [ -f /etc/lsb-release ]
-then export JAVA_HOME=/usr/lib/jvm/java-6-sun/jre
-fi
-
-# use the correct java runtime for fop on Debian Lenny
-if [ -f /etc/debian_version ]
-then export JAVA_HOME=/usr/lib/jvm/default-java/jre
+then	#Ubuntu
+	export JAVA_HOME=/usr/lib/jvm/java-6-sun/jre
+elif [ -f /etc/debian_version ]
+then 	# use the correct java runtime for fop on Debian Lenny
+	export JAVA_HOME=/usr/lib/jvm/default-java/jre
+else	echo Could not set JAVA_HOME, something unexpected happened in $0
 fi
 
 # Set the name of the XSL stylesheet
