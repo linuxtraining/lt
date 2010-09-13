@@ -645,3 +645,22 @@ chapt_20091217() {
 	add_mod mod_cvotsm/20091217.xml
 	}
 
+#
+# cursus in NL voor cvo-tsm hieronder
+# 2010 Datacommunicatie en netwerken
+#
+
+#
+chapt_20100904() {
+	MODULES=""
+	chaptitle="inleiding"
+	add_mod mod_cvotsm/20100904.xml
+	}
+
+#
+chapt_gnufdl() {
+	MODULES=""
+	chaptitle="GNU FDL"
+	add_mod mod_cvotsm/gnufdl.xml
+	}
+

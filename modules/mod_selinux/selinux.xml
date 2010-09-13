@@ -27,6 +27,11 @@ SE Linux is activated.  You may need to reboot now.
 [root@rhel55 ~]# getenforce 
 Permissive
 	</screen>
+	<para>The <command>/selinux/enforce</command> file contains 1 when enforcing, and 0 when permissive mode is ative.</para>
+	<screen>
+root@fedora13 ~# cat /selinux/enforce 
+1root@fedora13 ~# 
+	</screen>
 </section>
 <section><title>setenforce</title>
 	<para>You can use <command>setenforce</command><indexterm><primary>setenforce</primary></indexterm> to switch between the <command>Permissive</command> or the <command>Enforcing</command> state once <command>selinux</command> is activated..</para>
