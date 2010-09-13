@@ -1,10 +1,10 @@
 <section><title>tekening DNS</title>
 	<para>Hieronder op vraag van Carry en Marjan  een tekening zoals ik ze gemaakt heb in de klas. Het gaat hier enkel over DNS. Als ik tijd vind, dan vul ik dit hoofdstukje wel aan met tekeningen over HTTP, DHCP en SMTP.</para>
 	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/dns.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-	<para>0. Ik surf thuis op mijn laptop naar http://www.linux-training.be, we volgen het DNS verhaal om tot aan de webserver te geraken waar deze website staat. De laptop staat helemaal links op de tekening, de webserver staat helemaal rechts (ip 88.151.243.8)</para>
-	<para>Voor deze test heb ik even rechtstreeks het ip-adres van de EDPNET DNS server in de laptop gezet. Alternatief had ik ook het ip-adres van mijn routerke (alias dns/dhcp/adslmodem/nat) kunnen ingeven, wat iets meer uitwerking vraagt.</para>
-	<para>1. De laptop vraagt aan de DNS server van mijn ISP EDPNET de A record van www.linux-training.be.</para>
-	<para>2. De DNS server van EDPNET vraagt (*) in een <command>iteratieve query</command> aan een root server (hier de H root server in de USA) waar zich www.linux-training.be bevindt. (* Tenzij dit antwoord nog in zijn cache zit, DNS is een caching protocol.)</para>
+	<para>0. Ik surf thuis op mijn laptop naar http://www.linux-training.be, we volgen het DNS verhaal om tot aan de webserver te geraken waar deze website staat. De laptop staat helemaal links op de tekening, de webserver staat helemaal rechts (ip 88.151.243.8). De webserver heeft meerdere namen (meerdere A records wijzen naar deze webserver).</para>
+	<para>Voor deze test heb ik even rechtstreeks het ip-adres van de EDPNET DNS server (212.71.8.10) in de laptop gezet. Alternatief had ik ook het ip-adres van mijn routerke (alias dns/dhcp/adslmodem/nat) kunnen ingeven, een situatie die u kan bekijken in de volgende tekening.</para>
+	<para>1. De laptop vraagt aan de DNS server van mijn ISP EDPNET de A record van www.linux-training.be. We gaan er even van uit dat ik de eerste ben vandaag die naar deze website surft. DNS is een caching protocol, dus als vijf minuten geleden een andere klant van EDPNET naar deze website is geweest, dan antwoord de DNS server gewoon uit zijn cache.</para>
+	<para>2. De DNS server van EDPNET vraagt in een <command>iteratieve query</command> aan een root server (hier de H root server in de USA) waar zich www.linux-training.be bevindt.</para>
 	<para>3. De root server antwoordt met een verwijzing naar de DNS server die verantwoordelijk is voor de hele .be zone. Als je snift dan zie je dat er een hele lijst van .be servers wordt gegeven en kan je zien dat deze lijst zowel namen als IP-addressen bevat.</para>
 	<para>4. De DNS server van EDPNET vraagt, wederom iteratief, waar www.linux-training.be is aan een van de .be DNS servers (de eerste uit de lijst van de vorige stap was a.ns.dns.be).</para>
 	<para>5. De .be DNS server antwoordt met een reeks namen en bijhorende ip adressen van <command>openminds</command> (het hosting bedrijf waar de www.linux-training.be) webserver staat.</para>
@@ -12,13 +12,83 @@
 	<para>7. De DNS server ns1.openminds.be antwoordt met de gezochte A record 88.151.243.8.</para>
 	<para>8. De DNS server van EDPNET geeft dit antwoord aan de laptop. De laptop kan nu rechtstreeks de webserver bereiken (maar dat is een ander verhaal).</para>
 	<para>In dit verhaal heeft de laptop een <command>recursieve query</command> gedaan, hij wil een volledig antwoord. De root servers en de .be servers antwoorden niet op recursieve queries, enkel op iteratieve!</para>
+	<para>In dit verhaal werden enkel <command>udp</command> packetjes gebruikt, er is dus nergens een <command>tcp sessie</command> opgezet.</para>
 </section>
 
-<section><title>tekening 2</title>
-	<para></para>
-	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-	<para></para>
-	<para></para>
-	<para></para>
+<section><title>tekening DNS + routerke</title>
+	<para>Deze tekening is nagenoeg de zelfde als de vorige, alleen hebben we nu ons lokaal routerke/adsl-modem/nat/dhcp-ke ertussen gezet. Op de laptop staat dus 192.168.1.1 als DNS server.</para>
+	<para>U weet (hopelijk) dat het routerke twee ip adressen heeft, eentje aan de binnenkant (de kant van het thuisnetwerk 192.168.1.1) en eentje aan de buitenkant (de internet-kant).</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/dns_routerke.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>0. De laptop doet een recursieve DNS query naar het routerke.</para>
+	<para>1. Het routerke doet een recursieve DNS query naar de DNS server van de ISP.</para>
+	<para>2. tot 7. De DNS server van de ISP EDPNET doet al het werk.</para>
+	<para>8. Het routerke krijgt een definitief antwoord, en houdt dit antwoord bij in zijn cache.</para>
+	<para>9. De laptop krijgt een definitief antwoord van het routerke.</para>
+	<para>Als even later een andere (thuis)computer dezelfde vraag stelt aan het routerke, dan kan dit antwoorden vanuit zijn cache.</para>
 </section>
 
+<section><title>tekening DHCP</title>
+	<para>We hebben een klein netwerkje met twee servers (DHCP-SRV1 en DHCP-SRV2) en twee clients (SunWS1 en Mac42). In het midden staat een hub (of een switch) om aan te tonen dat deze vier computers op hetzelfde netwerk, hetzelfde segment zitten. Alle vier de computers hebben een kabel naar de hub (niet getekend hier).</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/dhcp.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>1. De client SunWS1 start op en stuurt een DHCPDiscover op het netwerk. Alle computers ontvangen deze broadcast.</para>
+	<para>2. Beide DHCP servers antwoorden met een DHCPOffer. DHCP-SRV1 is een dedicated DHCP server en is sneller met zijn offer dan DHCP-SRV2 (die ook fileserver is).</para>
+	<para>3. De client kiest het offer van DHCP-SRV1 en stuurt een DHCPRequest op het netwerk.</para>
+	<para>4. DHCP-SRV1 antwoordt met een DHCPAck (een acknowledge).</para>
+	<para>Alle vier de broadcasts (of vijf want er waren twee offers) zijn een layer 2 ethernet broadcast naar ff:ff:ff:ff:ff:ff en een layer 3 ip broadcast naar 255.255.255.255. Alle vier de computers hebben alle broadcasts ontvangen.</para>
+</section>
+
+<section><title>tekening http</title>
+	<para>Hieronder een overzicht van een http request naar google.com. Het DNS verhaal is hier ingekort tot de recursieve A query en response, het layer 2 en layer 3 verhaal is volledig weggelaten.</para>
+	<para>Links staat een macbook pro en ik gebruik de safari browser om te surfen naar google.com. Deze website is gehost op een van de google webservers (209.85.227.113).</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/http.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>1. Stap 1 gebruikt <command>udp</command> om een A record te vragen aan de lokale DNS server (mijn routerke genaamd illyria). Dit is een forward lookup query voor www.google.com.</para>
+	<para>2. Is een antwoord van de DNS server dat het ip-adres (209.85.227.113) bevat van de webserver. Dit antwoord kwam ook in een <command>udp</command> packetje.</para>
+	<para>3. Dit packetje is de eerste stap in de <command>tcp three-way handshake</command> om een <command>tcp sessie</command> op te zetten. Op layer vier is dit een sessie tussen de macbook en de webserver van Google, maar vergeet niet dat in de praktijk de layer 2 tot aan de router gaat, en de layer 3 (ip) via de router (en nog een tiental andere routers die je kan vinden via traceroute) gaat.</para>
+	<para>4. Dit is de tweede stap in de <command>tcp handshake</command>, de webserver antwoord met een tcp <command>syn,ack</command> packetje.</para>
+	<para>5. De macbook bevestigt de <command>tcp sessie</command> met een <command>tcp ack</command>. Na deze drie packetjes (syn ; syn,ack ; ack) is de <command>tcp-sessie</command> een feit.</para>
+	<para>6. Als de tcp-sessie klaar is, dan kan <command>http</command> eindelijk zijn http query doen om een webpagina te vragen aan de webserver. Zoals we in de demo-les hebben gezien bevat deze http GET een ip-adres, de naam van een website en een poortnummer (hier 80). Hieronder zie je de handshake en de http GET door de ogen van <command>wireshark</command>.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/tcp_http_handshake.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>Vanaf stap 7, (niet op de tekening) zijn er heel wat packetjes die tussen de macbook en de webserver worden uitgewisseld.</para>
+</section>
+
+<section><title>tekening pop3</title>
+	<para>Je mailbox staat op een mailserver. Mailservers ontvangen mail via <command>smtp</command> en droppen de mail (hopelijk) in de juiste mailbox. Als je je mail leest via MS Outlook, Evolution of Thunderbird, dan maak je een verbinding met die mailbox om de mail te copieren naar je lokale pc. We bekijken kort hoe dit in zijn werk gaat als we <command>pop3</command> (post office protocol) gebruiken.</para>
+	<para>U merkt dat dit essentieel dezelfde tekening is als de vorige (het tot stand brengen van een http verbinding).</para>
+	<para>Links staat de laptop (192.168.1.34) met het e-mailprogramma Thunderbird, rechts staat een mailserver genaamd vanadium.openminds.be (ook gekend als mail.cobbaut.be).</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/pop3_tek.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>1. De eerste actie is een dns A query voor mail.cobbaut.be.</para>
+	<para>2. Het routerke met ingebouwde DNS server antwoord met 88.151.243.22</para>
+	<para>3. De tcp syn.</para>
+	<para>4. De tcp syn, ack.</para>
+	<para>5. De tcp ack (de tcp sessie is nu een feit).</para>
+	<para>6. Nu kan <command>pop3</command> in actie schieten. Als je snift kan je zien dat pop3 een login vereist, en dat alle mails in platte tekst van de mailserver tot op de laptop komen. Hieronder nog even een wireshark screenshot van de 6 stappen.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/pop3.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+</section>
+
+<section><title>tekening smtp (deel 1)</title>
+	<para>We weten al dat <command>smtp</command> wordt gebruikt voor het versturen van email. Deze eerste tekening toont <command>smtp</command> tussen een client (Thunderbird) en een server (smtp.edpnet.be). In deel 2 zien we smtp tussen twee mailservers.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/smtp_tek.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>1. Het eerste wat onze mailclient (Thunderbird hier) doet is een dns query voor de A record van smtp.edpnet.be (die naam haalt hij uit de instellingen die je manueel in je mailprogramma moet ingeven).</para>
+	<para>2. Gelukkig komt er een antwoord met ip 212.71.0.14</para>
+	<para>3. tcp syn</para>
+	<para>4. tcp syn, ack</para>
+	<para>5. tcp ack</para>
+	<para>6. Als zesde stap zien we hieronder niet enkel het begin van <command>smtp</command> in actie. We zien ook dat de mailserver zich identificeert als <command>Sendmail</command>. Sendmail is open source software die door heel wat internet providers wordt gebruikt. Hieronder een wireshark screenshot met deze zes packetjes.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/smtp.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+</section>
+
+<section><title>tekening smtp (deel 2)</title>
+	<para>We volgen effe een mail, gestuurd vanop een pc met MS Outlook tot de mail zijn bestemming bereikt.</para>
+	<para>Links onderaan staat de computer waarop de mail wordt geschreven, rechts onderaan staat de laptop van de bestemmeling.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/smtp2.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>1. De eerste stap is het sturen van de mail naar de mailserver van de provider. In dit geval gaat de computer van de email-verstuurder een tcp sessie opzetten met de smtp server van de <command>isp</command> (in dit geval smtp.edpnet.be). Deze ene stap is uitgelegd in meerdere stappen in de vorige tekening.</para>
+	<para>2. Als de mailserver van de internet provider de mail ontvangen heeft, dan gaat die eerst nakijken of die bedoelt is voor een lokale mailbox. Indien niet, dan gaat die op zoek naar de MX en de A record van de mailserver waar de mail wel naartoe moet. De mailserver vraagt dus aan zijn lokale DNS server voor de MX record van gmail.com (als je een mail stuurt naar gmail.com natuurlijk).</para>
+	<para>3. Stap 3 is het antwoord van de DNS server op de MX query. Dit antwoord bevat ook de A records van o.a. smtp4.google.com.</para>
+	<para>4. De mailserver van edpnet maakt nu een smtp verbinding (en dus ook een tcp sessie op port 25) met de smtp4.google.com (72.14.221.25) server. De mail verlaat de internet provider van de verstuurder en bereikt de Google servers.</para>
+	<para>5. Stap 5 daar hebben we het raden naar. Google beschikt over tienduizenden servers, mails kunnen gelezen worden van verschillende servers tegelijkertijd...</para>
+	<para>6. De laatste stap is het gebruik van een protocol zoals <command>pop3</command> om de mail te lezen. Om te vermijden dat mails onderweg gelezen worden kan je ook <command>pop3s</command> (pop3 over ssl) gebruiken.</para>
+	<para>Als extraatje een wireshark screenshot van <command>pop3s</command> in actie. (We hebben in de les nooit over pop3s gesproken, dus ge moet dat niet kennen).</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/pop3s.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para></para>
+	<para>Ik hoop dat deze tekeningen de zaak wat verduidelijken. Als ik tijd heb, teken ik ook nog wat arp en ping packetjes ofzo... prettige feesten!</para>
+</section>
