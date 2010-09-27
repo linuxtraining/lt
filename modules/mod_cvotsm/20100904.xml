@@ -572,7 +572,7 @@ WDC: 200.0 GB, 200049647616 bytes</screen>
 <thead>
 <row>
   <entry>aantal bytes</entry>
-  <entry>binair</entry>
+  <entry>juiste term</entry>
 </row>
 </thead>
 <tbody>
@@ -620,7 +620,7 @@ WDC: 200.0 GB, 200049647616 bytes</screen>
 <thead>
 <row>
   <entry>aantal bytes</entry>
-  <entry>binair</entry>
+  <entry>juiste term</entry>
 </row>
 </thead>
 <tbody>
@@ -751,7 +751,7 @@ http://en.wikipedia.org/wiki/Network_topology</screen>
 		<screen>http://www.rfc-editor.org/rfc/rfc1055.txt</screen>
 	</section>
 	<section><title>isdn</title>
-		<para>Het <command>isdn</command> ofte <command>Integrated Services Digital Network</command><indexterm><primary>isdn</primary></indexterm> is recenter dan <command>pots</command><indexterm><primary>pots</primary></indexterm> en is digitaal. Oorspronkelijk was <command>isdn</command> enkel te verkrijgen in stedelijke gebieden, de dag van vandaag is het overbodig gemaakt door <command>(a)dsl</command><indexterm><primary>adsl</primary></indexterm> en internet via de <command>kabel</command>.</para>
+		<para>Het <command>isdn</command> of <command>Integrated Services Digital Network</command><indexterm><primary>isdn</primary></indexterm> is recenter dan <command>pots</command><indexterm><primary>pots</primary></indexterm> en is digitaal. Oorspronkelijk was <command>isdn</command> enkel te verkrijgen in stedelijke gebieden, de dag van vandaag is het (voor thuisgebruikers) overbodig gemaakt door <command>(a)dsl</command><indexterm><primary>adsl</primary></indexterm> en internet via de <command>kabel</command>.</para>
 		<para>Een isdn <command>bearer(B)</command><indexterm><primary>bearer(ISDN)</primary></indexterm> kanaal heeft een bandbreedte van <command>64kb/s</command>, en wordt met de letter B aangegeven. De meest courante isdn connecties werden genoteerd als <command>2B+D</command><indexterm><primary>2B+D(isdn)</primary></indexterm>, wat betekent dat er twee <command>bearer</command> kanalen van <command>64kb/s</command> voorzien zijn, samen met een <command>16kb/s</command> <command>data(D)</command><indexterm><primary>data(isdn)</primary></indexterm>. Deze <command>16kB/s</command> link wordt ook <command>bri</command> of <command>Basic Rate Interface</command><indexterm><primary>bri(isdn)</primary></indexterm> genoemd.</para>
 	</section>
 	<section><title>kb of kB ?</title>
@@ -906,22 +906,74 @@ http://en.wikipedia.org/wiki/Network_topology</screen>
 <chapter><title>derde les</title>
 <section><title>OSI model</title>
 	<para>Elke cursus over datacommunicatie en netwerken bespreekt het <command>OSI-model</command><indexterm><primary>OSI-model</primary></indexterm>, deze cursus is daarop geen uitzondering.</para>
-	<para>In 1977 richtte de <command>ISO</command><indexterm><primary>ISO</primary></indexterm> (International Organization for Standardization) het <command>OSI</command><indexterm><primary>OSI</primary></indexterm> (Open Systems Interconnection) op. Het <command>OSI</command> creerde een zeven-lagen model om de werking van computernetwerken te beschrijven. De zeven lagen zijn (van 7 naar 1) Application, Presentation, Session, Transport, Network, Data Link en Physical. </para>
+	<para>In 1977 richtte de <command>ISO</command><indexterm><primary>ISO</primary></indexterm> (International Organization for Standardization) het <command>OSI</command><indexterm><primary>OSI</primary></indexterm> (Open Systems Interconnection) op. Het <command>OSI</command> ontwierp een zeven-lagen model om de werking van computernetwerken te beschrijven. De zeven lagen zijn (van 7 naar 1) Application, Presentation, Session, Transport, Network, Data Link en Physical. </para>
 	<para>Er is heden geen populair protocol dat de zeven lagen ook effectief correct implementeert. In de praktijk worden vooral de lagen twee en drie vernoemd om toestellen duidelijk te onderscheiden.</para>
+<table frame='all'><title>OSI model</title>
+<?dbfo table-width="99%" ?>
+<tgroup cols='3' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="5*" align="center"/>
+<colspec colname='c2' colwidth="8*" align="center"/>
+<colspec colname='c3' colwidth="8*" align="center"/>
+<thead>
+<row>
+  <entry>laag</entry>
+  <entry>protocols</entry>
+  <entry>opmerking</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>7. Application</entry>
+  <entry>dns http dhcp smtp putty</entry>
+  <entry>applicatieprotocols</entry>
+</row>
+<row>
+  <entry>6. Presentation</entry>
+  <entry>mime aes 3des ascii tls ssl</entry>
+  <entry>dataformaten, compressie, versleuteling</entry>
+</row>
+<row>
+  <entry>5. Session</entry>
+  <entry>nfs rpc smb OS sshv2</entry>
+  <entry>sessie dialoog naamgeving</entry>
+</row>
+<row>
+  <entry>4. Transport</entry>
+  <entry>tcp udp</entry>
+  <entry>fragmentatie</entry>
+</row>
+<row>
+  <entry>3. Network</entry>
+  <entry>ip icmp ipsec rip</entry>
+  <entry>ip-adres, router</entry>
+</row>
+<row>
+  <entry>2. Data Link</entry>
+  <entry>ethernet atm ppp stp</entry>
+  <entry>mac-adres, bridge, switch</entry>
+</row>
+<row>
+  <entry>1. Physical</entry>
+  <entry>nic wlan glasvezel fddi adsl</entry>
+  <entry>kabels, hub, netwerkkaart</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
 	<para>We bespreken elke laag (layer) even apart.</para>
 	<section><title>layer 7: application</title>
 		<para>De <command>application layer</command><indexterm><primary>application layer</primary></indexterm> beschrijft applicaties. Op het internet vandaag betekent dat protocols zoals dns, http, ntp, smtp, snmp, ssh, ftp, X, pop3, imap, irc, telnet en tftp. Dit is de laag die de gebruiker 'ziet' in de vorm van toepassingen.</para>
 	</section>
 	<section><title>layer 6: presentation</title>
 		<para>De <command>presentation layer</command><indexterm><primary>presentation layer</primary></indexterm> beschrijft data-formaten. De presentatielaag zorgt bij de ontvanger dat de data wordt samengesteld in een formaat dat de applicatie begrijpt.</para>
-		<para>Het <command>MIME</command><indexterm><primary>mime</primary></indexterm> protocol (rfc2046) dat toelaat om bestandsformaten (die meekomen met email of websites) te identificeren hoort ook in deze laag. Dankzij <command>MIME</command> komt je applicatie te weten of de <command>attachment</command> een <command>jpeg</command> foto of een <command>mp3</command> geluidje is.</para>
+		<para>Het <command>MIME</command><indexterm><primary>mime</primary></indexterm> protocol (rfc2046) dat toelaat om bestandsformaten (die meekomen met e-mail of websites) te identificeren hoort ook in deze laag. Dankzij <command>MIME</command> komt je applicatie te weten of de <command>attachment</command> een <command>jpeg</command> foto of een <command>mp3</command> geluidje is.</para>
 	</section>
 	<section><title>layer 5: session</title>
-		<para>De <command>session layer</command><indexterm><primary>session layer</primary></indexterm> beschrijft sessies tussen <command>hosts</command>. Als je een website bezoekt, dan heeft jou computer een <command>sessie</command> met de webserver.</para>
+		<para>De <command>session layer</command><indexterm><primary>session layer</primary></indexterm> beschrijft sessies tussen <command>hosts</command>. Als je een website bezoekt, dan heeft jouw computer een <command>sessie</command> met de webserver.</para>
 		<para>Een <command>host</command><indexterm><primary>host</primary></indexterm> op internet kan omschreven worden als elk toestel dat een <command>ip-adres</command> heeft, maar zelf geen <command>router</command><indexterm><primary>router</primary></indexterm> is.</para>
 	</section>
 	<section><title>layer 4: transport</title>
-		<para>De <command>transport layer</command><indexterm><primary>transport layer</primary></indexterm> beschrijft het knip en plakwerk om data te segmenteren in segmenten (of <command>datagrams</command>). Typisch vandaag vind je hier de <command>tcp</command><indexterm><primary>tcp</primary></indexterm> en <command>udp</command><indexterm><primary>udp</primary></indexterm> protocollen.</para>
+		<para>De <command>transport layer</command><indexterm><primary>transport layer</primary></indexterm> beschrijft het knip- en plakwerk om data te segmenteren in segmenten (of <command>datagrams</command>). Typisch vandaag vind je hier de <command>tcp</command><indexterm><primary>tcp</primary></indexterm> en <command>udp</command><indexterm><primary>udp</primary></indexterm> protocollen.</para>
 		<para>Deze laag zorgt dat elk stukje data genummerd is, zodat de zender de in stukjes geknipte data mooi terug kan opbouwen.</para>
 	</section>
 	<section><title>layer 3: network</title>
@@ -929,7 +981,7 @@ http://en.wikipedia.org/wiki/Network_topology</screen>
 		<para>Deze laag is verantwoordelijk voor de adressering van individuele packetjes, en zorgt ervoor dat packetjes van de bron tot aan de bestemming komen (bijvoorbeeld van je laptop naar een webserver).</para>
 	</section>
 	<section><title>layer 2: data link</title>
-		<para>Ook de <command>data link</command><indexterm><primary>data link layer</primary></indexterm> laag gaat regelmatig onze aandacht opeisen. Deze laag zorgt voor de communicatie tussen computers (of nodes) die rechtstreeks met elkaar verbonden zijn (zoals de computers in deze klas, of nodes aan beide uiteinden van een T1 leased line).</para>
+		<para>Ook de <command>data link layer</command><indexterm><primary>data link layer</primary></indexterm> gaat regelmatig onze aandacht opeisen. Deze laag zorgt voor de communicatie tussen computers (of nodes) die rechtstreeks met elkaar verbonden zijn (zoals de computers in deze klas, of nodes aan beide uiteinden van een T1 leased line).</para>
 		<para>We bespreken in de les later het <command>arp</command><indexterm><primary>arp</primary></indexterm> protocol van deze laag. We zullen zien dat <command>arp</command> de verbinding is tussen laag 3 (ip) en laag 2(mac).</para>
 		<para>In deze laag vinden we ook het <command>mac-adres</command><indexterm><primary>mac</primary></indexterm> van onze <command>ethernet</command> netwerkkaart. Het <command>ethernet</command> protocol zelf zit ook in deze laag, en zorgt voor de link naar laag 1.</para>
 		<para>Ook <command>isdn</command><indexterm><primary>arp</primary></indexterm>, <command>ppp</command><indexterm><primary>ppp</primary></indexterm>, <command>slip</command><indexterm><primary>slip</primary></indexterm>, <command>fddi</command><indexterm><primary>fddi</primary></indexterm>, <command>frame relay</command><indexterm><primary>frame relay</primary></indexterm> en <command>ATM</command><indexterm><primary>ATM</primary></indexterm> vinden we hier terug.</para>
@@ -938,26 +990,86 @@ http://en.wikipedia.org/wiki/Network_topology</screen>
 		<para>De <command>physical layer</command><indexterm><primary>physical layer</primary></indexterm> beschrijft stekkers en elektromagnetische signalen van een fysieke verbinding tussen nodes.</para>
 		<para>In deze laag vinden we bijvoorbeeld <command>ethernet</command><indexterm><primary>ethernet</primary></indexterm>, <command>wi-fi</command><indexterm><primary>wi-fi</primary></indexterm>, <command>twisted pair</command><indexterm><primary>twisted pair</primary></indexterm> en <command>modems</command><indexterm><primary>modem</primary></indexterm>, adsl<indexterm><primary>adsl</primary></indexterm>, isdn<indexterm><primary>isdn</primary></indexterm>, T1<indexterm><primary>T1</primary></indexterm>, gsm, bluetooth<indexterm><primary>bluetooth</primary></indexterm>, firewire<indexterm><primary>firewire</primary></indexterm>, usb<indexterm><primary>usb</primary></indexterm> en irda<indexterm><primary>irda</primary></indexterm>.</para>
 		<para>Sommige protocols komen voor in meer dan 1 laag, omdat ze functionaliteiten hebben die op meerdere lagen van toepassing zijn. Zo beschrijft onder andere het <command>ATM</command> protocol zowel laag 1 als laag 2.</para>
-	</section>
 </section>
-
-<section><title>osi-model versus DoD</title>
-	<para>Het zeven-lagen model van het OSI is verdrongen door het vier-lagen model van <command>tcp/ip</command><indexterm><primary>tcp/ip</primary></indexterm>. Deze protocol stack is vooral in de jaren zeventig ontwikkeld door <command>DARPA</command><indexterm><primary>DARPA</primary></indexterm>(Defense Advanced Research Projects Agency), een onderdeel van het Amerikaanse Department of Defense (DoD). Vandaar dat het <command>tcp/ip</command> model ook wel het <command>DoD model</command><indexterm><primary>DoD model</primary></indexterm> wordt genoemd.</para>
+</section>
+<?hard-pagebreak?>
+<section><title>OSI-model versus DoD</title>
+	<para>Het zeven-lagen model van het <command>OSI</command> is verdrongen door het vier-lagen model van <command>tcp/ip</command><indexterm><primary>tcp/ip</primary></indexterm>. Deze protocol stack is vooral in de jaren zeventig ontwikkeld door <command>DARPA</command><indexterm><primary>DARPA</primary></indexterm>(Defense Advanced Research Projects Agency), een onderdeel van het Amerikaanse Department of Defense (DoD). Vandaar dat het <command>tcp/ip</command> model ook wel het <command>DoD model</command><indexterm><primary>DoD model</primary></indexterm> wordt genoemd.</para>
 <para>De vier lagen van dit model zijn : Application (ongeveer laag 5-6-7 osi), Transport (ongeveer laag 4), Internet (osi laag 3) en Link Layer (osi laag 2). Op het internet zijn heel wat grafiekjes te vinden die beide lagen naast elkaar zetten, sommige doen dit correcter dan anderen.</para>
+<table frame='all'><title>DoD of tcp/ip model</title>
+<?dbfo table-width="70%" ?>
+<tgroup cols='2' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="2*" align="center"/>
+<colspec colname='c2' colwidth="4*" align="center"/>
+<thead>
+<row>
+  <entry>laag</entry>
+  <entry>protocols</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>Application</entry>
+  <entry>dns http dhcp smtp putty ssh ssl</entry>
+</row>
+<row>
+  <entry>Transport</entry>
+  <entry>tcp udp</entry>
+</row>
+<row>
+  <entry>Internet</entry>
+  <entry>ip icmp ipsec rip</entry>
+</row>
+<row>
+  <entry>Link Layer</entry>
+  <entry>ethernet token ring atm ppp stp</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
 </section>
-
+<?hard-pagebreak?>
 <section><title>sniffer</title>
 	<para>Op het netwerk, op de bekabeling, reizen vele packetjes (hopelijk) naar hun bestemming. Als je een <command>sniffer</command> gebruikt, dan kan je al deze packetjes zien (en bewaren). Een <command>sniffer</command><indexterm><primary>sniffer</primary></indexterm> is dus een software die toelaat dat je alles ziet wat er gebeurt op het netwerk. </para>
 	<para>De gekendste en meest gebruikte <command>sniffer</command> heet <command>wireshark</command><indexterm><primary>wireshark</primary></indexterm> (vroeger <command>ethereal</command><indexterm><primary>ethereal</primary></indexterm>). We zullen deze <command>sniffer</command> in de klas gebruiken om meer inzicht te krijgen in een netwerk.</para>
+	<section><title>interface selectie</title>
+		<para>Als je de eerste keer <command>wireshark</command> start, dan moet je een interface selecteren.</para>
+		<para>
+	 		<mediaobject><imageobject><imagedata fileref="images/wireshark_capture_interfaces.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+		</para>
+	</section>
+	<section><title>begin te snuffelen</title>
+		<para>In dit voorbeeld hebben we een <command>ping</command> besnuffeld tussen twee computers. Het bovenste paneel van <command>wireshark</command> toont je dat het <command>icmp</command> protocol wordt herkend.</para>
+		<para>
+ 			<mediaobject><imageobject><imagedata fileref="images/wireshark_ping.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+		</para>
+	</section>
+	<section><title>in de packetjes kijken</title>
+		<para>In het middelste paneel kan je de verschillende tcp/ip lagen open klikken. Als je in het middelste paneel een lijn selecteert, dan zie je de positie van deze data in het packetje in het onderste paneel.</para>
+		<para>
+ 			<mediaobject><imageobject><imagedata fileref="images/wireshark_source_mac.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+		</para>
+	</section>
+	<section><title>filters</title>
+		<para>Soms verlies je de weg in de vele packetjes. Een eenvoudigde oplossing is om <command>filters</command> te gebruiken, zo zie je enkel de packetjes die je interesseren. Als je <command>arp</command><indexterm><primary>arp(protocol)</primary></indexterm> intikt en dan op <command>apply</command> klikt, dan zie je enkel <command>arp</command> packetjes.</para>
+		<para>Je kan twee protocols combineren met een logische <command>of</command> door het Engelse <command>or</command> ertussen te zetten. Het voorbeeld hieronder toont hoe je <command>arp</command> en <command>bootp</command><indexterm><primary>bootp</primary></indexterm> (of <command>dhcp</command><indexterm><primary>dhcp</primary></indexterm>) packetjes kan bekijken.</para>
+		<para>
+ 			<mediaobject><imageobject><imagedata fileref="images/wireshark_arp_bootp.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+		</para>
+		<para>En hier een voorbeeld van <command>dns</command><indexterm><primary>dns</primary></indexterm> verkeer voor een welbepaald <command>ip adres</command>.</para>
+		<para>
+ 			<mediaobject><imageobject><imagedata fileref="images/wireshark_dns_ipaddress.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+		</para>
 	<para>!!!! Vraag toelating alvorens op een bedrijfsnetwerk een sniffer te gebruiken !!!!</para>
+</section>
 </section>
 <?hard-pagebreak?>
 <section><title>op de computer</title>
 	<para>1. Installeer wireshark op de computer (google voor wireshark).</para>
 	<para></para>
-	<para>2. Open via "Start - cmd" een <command>command prompt</command> op Windows, of open een <command>shell</command> op Unix. Laat deze open staan, we zullen er later commandos in uitvoeren.</para>
+	<para>2. Open via "Start - cmd" een <command>command prompt</command> op Windows, of open een <command>shell</command> op Unix. Laat deze open staan, we zullen er later commando's in uitvoeren.</para>
 	<para></para>
-	<para>3. Noteer het ip-adres van jou computer en van je buurman. Gebruik hiervoor op Windows het commando <command>ipconfig</command> in een command prompt. Op Unix, Linux, MacOSX kan je <command>ifconfig</command> gebruiken.</para>
+	<para>3. Noteer het ip-adres van jouw computer en van je buurman. Gebruik hiervoor op Windows het commando <command>ipconfig</command> in een command prompt. Op Unix, Linux, MacOSX kan je <command>ifconfig</command> gebruiken.</para>
 	<para></para>
 	<para>4. Start wireshark, en start in wireshark een capture.</para>
 	<para></para>
@@ -965,11 +1077,11 @@ http://en.wikipedia.org/wiki/Network_topology</screen>
 	<para></para>
 	<para>6. Werk even samen met je buurman voor deze vraag. Start op beide computers een nieuwe capture. Deze oefening is makkelijker als je geen browser (internet explorer of firefox) hebt open staan (want dit zorgt soms voor veel packetjes in wireshark). Gebruik het commando <command>ping ip-adres-buurman</command>  op 1 van de computers (niet op beide!), naar de andere computer.</para>
 	<para></para>
-	<para>7. Welke packetjes heb je in wireshark gezien door het uitvoeren van die ping ? Normaalgezien moet er twee <command>arp</command> packetjes zijn voor de ping (icmp packetjes).</para>
+	<para>7. Welke packetjes heb je in wireshark gezien door het uitvoeren van die ping ? Normaal gezien moet er twee <command>arp</command> packetjes zijn voor de ping (icmp packetjes).</para>
 	<para></para>
 	<para>8. Doe een ping naar een onbestaand ip-adres (bv 192.168.0.109). Wat zie je nu in wireshark ?</para>
 	<para></para>
-	<para>9. Je kan in wireshark een filter instellen om niet te veel packetjes te zien, bijvoorbeeld <command>arp or icmp</command>. Je kan elke lijn in wireshark selecteren en dan onderaan meer details zien. Ken je het ip-adres of het mac-adres vinden in de gesnuffelde packetjes ?</para>
+	<para>9. Je kan in wireshark een filter instellen om niet te veel packetjes te zien, bijvoorbeeld <command>arp or icmp</command>. Je kan elke lijn in wireshark selecteren en dan onderaan meer details zien. Kan je het ip-adres of het mac-adres vinden in de gesnuffelde packetjes ?</para>
 	<para></para>
 	<para>10. Wat zie je als je het commando <command>arp</command> (of arp -a) uitvoert ?</para>
 	<para></para>
@@ -978,12 +1090,12 @@ http://en.wikipedia.org/wiki/Network_topology</screen>
 	<para>12. Open nu het leerplatform, zorg dat je uitgelogd bent. Start een nieuwe capture en log dan in op het leerplatform. Stop de capture en bestudeer de boeiende informatie die je nu hebt zoals :</para>
 	<para>Naam van de website :</para>
 	<para>Besturingssysteem van de webserver :</para>
-	<para>Besturingssysteem van jou pc :</para>
-	<para>MAC adres van jou pc :</para>
+	<para>Besturingssysteem van jouw pc :</para>
+	<para>MAC adres van jouw pc :</para>
 	<para>Webserver software :</para>
-	<para>Browser op jou pc :</para>
+	<para>Browser op jouw pc :</para>
 	<para>ip-adres van de webserver :</para>
-	<para>ip-adres van jou pc :</para>
+	<para>ip-adres van jouw pc :</para>
 	<para>De poort gebruikt om de webserver te bereiken :</para>
 	<para>De poort gebruikt om terug naar je client te gaan :</para>
 	<para>Jou gebruikersnaam :</para>
@@ -993,7 +1105,7 @@ http://en.wikipedia.org/wiki/Network_topology</screen>
 	<para></para>
 	<para>14. Welk ander MAC-adres zie je dan wel ?</para>
 	<para></para>
-	<para>Iedereen die met een sniffer tussen jou pc en de webserver zit kan dezelfde informatie zien. De mensen die de webserver beheren, beschikken ook over deze informatie...</para>
+	<para>Iedereen die met een sniffer tussen jouw pc en de webserver zit kan dezelfde informatie zien. De mensen die de webserver beheren, beschikken ook over deze informatie...</para>
 	<para></para>
 	<para>15. Probeer het paswoord te sniffen van een gmail of hotmail account. Waarom lukt dit niet ?</para>
 	<para></para>
@@ -1008,11 +1120,11 @@ http://en.wikipedia.org/wiki/Network_topology</screen>
 <para>In een netwerk vinden we heel wat toestellen (devices). We zetten ze even laag per laag op een rijtje. </para>
 	<section><title>physical</title>
 		<para>Toestellen in laag 1 zijn in principe onzichtbaar op ons netwerk. We kunnen ze niet allemaal eenvoudig met software detecteren. We vinden hier onder andere de <command>netwerkkaart</command><indexterm><primary>netwerkkaart</primary></indexterm>, de <command>repeater</command><indexterm><primary>repeater</primary></indexterm>, de <command>hub</command><indexterm><primary>hub</primary></indexterm> en de <command>modem</command><indexterm><primary>modem</primary></indexterm>.</para>
-		<para>De <command>netwerkkaart</command> of <command>nic (Network Interface Card)</command><indexterm><primary>nic</primary></indexterm> of ook <command>network adapter</command><indexterm><primary>network adapter</primary></indexterm> is tegenwoordig een vast onderdeel elke computer. De netwerkkaart ontvangt electrische signalen en zet deze om in bytes (en omgekeerd). De netwerkkaart controleert ook of een packetje van het netwerk wel voor haar is of niet. Indien niet, dan gooit de netwerkkaart dit packetje weg (<command>drop</command><indexterm><primary>drop</primary></indexterm>).</para>
+		<para>De <command>netwerkkaart</command> of <command>nic (Network Interface Card)</command><indexterm><primary>nic</primary></indexterm> of ook <command>network adapter</command><indexterm><primary>network adapter</primary></indexterm> is tegenwoordig een vast onderdeel van elke computer. De netwerkkaart ontvangt elektrische signalen en zet deze om in bytes (en omgekeerd). De netwerkkaart controleert ook of een packetje van het netwerk wel voor haar is of niet. Indien niet, dan gooit de netwerkkaart dit packetje weg (<command>drop</command><indexterm><primary>drop</primary></indexterm>).</para>
 		<para>De meeste netwerkkaarten vandaag zijn <command>ethernet</command><indexterm><primary>ethernet</primary></indexterm> kaarten met een 48-bit uniek <command>mac-adres</command><indexterm><primary>mac</primary></indexterm>. Enkele jaren terug waren ook <command>Token Ring</command><indexterm><primary>Token Ring</primary></indexterm> kaarten courant in gebruik.</para>
 		<para>Een <command>repeater</command><indexterm><primary>repeater</primary></indexterm> is een versterker. Elektrische signalen verzwakken, dus als de netwerkkabel te lang is, dan kan een repeater het signaal versterken.</para>
 		<para>Een <command>hub</command><indexterm><primary>hub</primary></indexterm> wordt ook wel een <command>multiport repeater</command><indexterm><primary>multiport repeater</primary></indexterm> genoemd. Net zoals een <command>repeater</command> zal ook een hub het elektrische signaal versterken. Daar waar een repeater tussen twee kabels zit, zit een hub tussen meerdere kabels, en versterkt hij het signaal naar alle verbonden kabels.</para>
-		<para>Hubs kunnen <command>actief</command> of <command>passief</command> zijn. Een passieve hub versterkt het elektrische signaal, en logischerwijs ook de ruis op het kanaal. Teveel passieve hubs achter elkaar zorgt voor een te grote versterking van de ruis, waardoor het signaal verloren kan gaan.</para>
+		<para>Hubs kunnen <command>actief</command> of <command>passief</command> zijn. Een passieve hub versterkt het elektrische signaal, en logischerwijs ook de ruis op het kanaal. Te veel passieve hubs achter elkaar zorgt voor een te grote versterking van de ruis, waardoor het signaal verloren kan gaan.</para>
 		<para>Een <command>actieve hub</command><indexterm><primary>hub (actief)</primary></indexterm> is slimmer dan een <command>passieve hub</command><indexterm><primary>hub (passief)</primary></indexterm>. In plaats van het signaal gewoon te versterken, leest een actieve hub de bits van een signaal, en stuurt deze bits naar alle verbonden kanalen. Op deze manier treedt er geen ruisversterking op.</para>
 		<para>Een <command>modem</command><indexterm><primary>modem</primary></indexterm> (<command>modulator/demodulator</command><indexterm><primary>moduleren</primary></indexterm>) is een toestel dat (in het geval van een <command>pots-modem</command>) bits omzet in geluid, en omgekeerd aan de andere kant van de lijn dit geluid weer omzet in dezelfde bits.</para>
 		<para>Een <command>kabel modem</command> zoals die van Telenet of Brutele vertaalt bits naar frequenties die oorspronkelijk bedoeld waren om TV-signalen door te sturen. Ook <command>ADSL</command><indexterm><primary>adsl</primary></indexterm> modems gebruiken een frequentie die buiten de menselijke stem liggen.</para>
@@ -1024,15 +1136,15 @@ http://en.wikipedia.org/wiki/Network_topology</screen>
 	</section>
 	<section><title>network</title>
 		<para>De <command>router</command><indexterm><primary>router</primary></indexterm> en de <command>layer 3 switch</command><indexterm><primary>layer 3 switch</primary></indexterm> zijn typische layer 3 toestellen. Toestellen in deze laag weten wat een ip-adres is, en kunnen uiteraard ook alles wat <command>layer 2 devices</command> kunnen.</para>
-		<para>Een echte router verbind netwerken (bijvoorbeeld ethernet met T1, of ADSL met WiFi), maar de term wordt ook gebruikt voor ethernet-ethernet toestellen.</para>
+		<para>Een echte router verbindt netwerken (bijvoorbeeld ethernet met T1, of ADSL met WiFi), maar de term wordt ook gebruikt voor ethernet-ethernet toestellen.</para>
 		<para>Een layer 3 switch kent bijvoorbeeld <command>icmp</command><indexterm><primary>icmp</primary></indexterm> en wordt ook gebruikt om sniffen van het netwerk te verhinderen.</para>
 	</section>
 	<section><title>hogere lagen</title>
 		<para>Een <command>gateway</command><indexterm><primary>gateway</primary></indexterm> is een toestel dat protocols vertaalt, bijvoorbeeld <command>NetBIOS</command> naar <command>tcp/ip</command>.</para>
 	</section>
 </section>
-<?hard-pagebreak?>
-<section><title>vierde les ?</title>
+</chapter>
+<chapter><title>vierde les</title>
 <section><title>onze data op reis</title>
 	<para>Dit hoofdstuk beschrijft zeer beknopt de weg die onze data bewandelt als we in een <command>browser</command><indexterm><primary>browser</primary></indexterm> zoals <command>firefox</command><indexterm><primary>firefox</primary></indexterm> een webpagina van de VRT (van teletekst) bekijken. Je kan dit hoofdstuk bekijken als een beknopt overzicht van de hele cursus, alles wat we in de cursus bekijken is wel ergens in dit verhaal te plaatsen.</para>
 	<section><title>laag 7: applicatie</title>
@@ -1043,11 +1155,11 @@ http://en.wikipedia.org/wiki/Network_topology</screen>
 	        </para>
 	</section>
 	<section><title>lagen 6 en 5: presentatie en sessie</title>
-		<para>Deze lagen zijn nu niet van toepassing. Waarom niet ? Wel omdat we met <command>tcp/ip</command><indexterm><primary>tcp/ip</primary></indexterm> werken en niet met een 7-lagig osi protocol.</para>
-		<para>In de volgende laag zien we hoe de <command>tcp</command><indexterm><primary>tcp</primary></indexterm> van <command>tcp/ip</command> toch een <command>sessie</command> opzet.</para>
+		<para>Deze lagen zijn niet echt van toepassing omdat we met <command>tcp/ip</command><indexterm><primary>tcp/ip</primary></indexterm> werken en niet met een 7-lagig osi protocol. Je zou kunnen zeggen dat de <command>browser</command> in laag 6 een <command>html</command> document ontvangt van de <command>webserver</command>. Dit <command>html</command> document kan bestaan uit <command>ascii</command> of <command>unicode</command> karakters.</para>
 	</section>
 	<section><title>laag 4: transport</title>
-		<para>Zoals eerder al geschreven vindt er in deze laag wat knip en plakwerk plaats. Alleen is het nu net een geval waar er niet moet geknipt worden. We vragen een webpagina aan een webserver, en deze vraag past perfect in een packetje, dus er moet niet geknipt worden. Het protocol aan het werk hier is <command>tcp (Transfer Control Protocol)</command><indexterm><primary>transfer control protocol</primary></indexterm>. </para>
+		<para>In deze laag zien we hoe de <command>tcp</command><indexterm><primary>tcp</primary></indexterm> van <command>tcp/ip</command> een <command>sessie</command> opzet.</para>
+		<para>Zoals eerder al geschreven vindt er in deze laag wat knip- en plakwerk plaats. Alleen is het nu net een geval waar er niet moet geknipt worden. We vragen een <command>webpagina</command> aan een <command>webserver</command>, en deze vraag past perfect in een packetje, dus er moet niet geknipt worden. Het protocol aan het werk hier is <command>tcp (Transfer Control Protocol)</command><indexterm><primary>transfer control protocol</primary></indexterm>. </para>
 		<para>Maar er gebeurt toch nog iets meer dan enkel de vraag sturen van <command>firefox</command> naar de vrt teletekst <command>webserver</command>. Het <command>tcp</command> protocol gaat eerst een <command>tcp sessie</command><indexterm><primary>tcp sessie</primary></indexterm> opzetten met de vrt webserver. We kunnen dit controleren door een <command>sniffer</command><indexterm><primary>sniffer</primary></indexterm> op te starten.</para>
 		<para>
         	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/tcpsessie.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
@@ -1055,7 +1167,7 @@ http://en.wikipedia.org/wiki/Network_topology</screen>
         	<para>Je ziet drie <command>tcp packetjes</command> voordat het <command>http</command> packetje (wat ook een tcp packetje is) wordt verstuurd. <command>tcp</command> zet een sessie op door eerst een packetje te sturen met de vraag om een sessie op te zetten (SYN), hierop komt een antwoord van de VRT webserver (SYN,ACK) en als laatste wordt er vanuit mijn laptop nog een (ACK) gestuurd.</para>
 		<para>In het screenshot hierboven zie je een <command>http GET</command><indexterm><primary>http</primary></indexterm> van pagina 511 i.p.v. pagina 525, maar dat heeft geen belang voor de theorie.</para>
 	</section>
-	<section><title>laag 3: network</title>
+	<section><title>laag 3: netwerk</title>
 		<para>Onze vraag voor een webpagina moet terecht komen bij de <command>webserver</command> van de vrt. Deze computer staat niet in onze klas (en ook niet bij mij thuis). Het <command>ip</command> protocol zorgt voor de bezorging van het packetje ter plaatse in de Reyerslaan (waar deze vrt webserver staat).</para>
 		<para>Om op de correcte plaats te geraken, is er een <command>ip-adres</command><indexterm><primary>ip adres</primary></indexterm> nodig. Het ip-adres van de vrt webserver is <command>193.191.175.137</command>. We vinden dit terug in elke packetje dat we naar de webserver van de vrt sturen, in de ruimte voorzien voor <command>destination IP-address</command>. Als bron ip-adres wordt telkens het ip-adres van mijn laptop thuis gebruikt, in dit geval <command>192.168.1.34</command>.</para>
 		<para>Onze sniffer vertaalt de <command>hexadecimale code</command><indexterm><primary>hexadecimaal</primary></indexterm> die de computer gebruikt naar menselijk leesbare <command>decimale cijfers</command>.</para>
@@ -1063,14 +1175,14 @@ http://en.wikipedia.org/wiki/Network_topology</screen>
         	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/ipadresvrt.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 		</para>
 		<para>Hoe kan onze computer het <command>ip-adres</command> van de webserver van vrt teletekst kennen ? Daarvoor doet <command>tcp/ip</command><indexterm><primary>tcp/ip</primary></indexterm> een beroep op <command>dns</command><indexterm><primary>dns</primary></indexterm>. Indien je voor het eerst sinds een tijdje naar de website van teletekst gaat op <command>url</command> <command>http://teletekst.een.be</command>, zal er een <command>dns-query</command> gaan van onze computer naar onze lokale <command>DNS server</command><indexterm><primary>dns server</primary></indexterm>.</para>
-		<para><command>DNS (Domain Name System)</command> wordt later uitgebreid besproken, maar het zou kunnen dat je hetvolgende ziet in de sniffer.</para>
+		<para><command>DNS (Domain Name System)</command> wordt later uitgebreid besproken, maar het zou kunnen dat je het volgende ziet in de sniffer.</para>
 		<para>
         	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/dnsteletekst.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 		</para>
 	</section>
 	<section><title>laag 2: data link</title>
 		<para>De <command>OSI data link layer</command> is een deel van de <command>DoD link layer</command> van <command>tcp/ip</command>. In deze laag maken we gebruik van het <command>MAC</command><indexterm><primary>mac</primary></indexterm> adres van een netwerkkaart. Een <command>mac adres</command> is een fysisch adres dat ingebrand is in de netwerkkaart.</para>
-		<para>Voordat ons eerste packetje kan vertrekken moet het <command>mac-adres</command> van de lokale bestemming gevonden worden. De webserver van vrt teletekst staat niet bij mij thuis, dus de lokale bestemming is mijn <command>router</command><indexterm><primary>router</primary></indexterm> (aka de adsl modem). Deze heeft <command>ip-adres</command> 192.168.1.1.</para>
+		<para>Voordat ons eerste packetje kan vertrekken, moet het <command>mac-adres</command> van de lokale bestemming gevonden worden. De webserver van vrt teletekst staat niet bij mij thuis, dus de lokale bestemming is mijn <command>router</command><indexterm><primary>router</primary></indexterm> (aka de adsl modem). Deze heeft <command>ip-adres</command> 192.168.1.1.</para>
 		<para>Mijn laptop zal een <command>arp</command><indexterm><primary>arp</primary></indexterm> broadcast uitvoeren om het mac-adres te vinden van de computer met ip-adres 192.168.1.1. Mijn <command>router</command> zal hierop antwoorden. In een sniffer ziet dit er als volgt uit.</para>
 		<para>
         	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/arpillyria.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
@@ -1082,7 +1194,7 @@ http://en.wikipedia.org/wiki/Network_topology</screen>
 	</section>
 </section>
 <section><title>onze data onderweg</title>
-	<para>Onze <command>http request</command><indexterm><primary>http</primary></indexterm> voor een teletekst pagina is nu onderweg van centrum Antwerpen naar de reyerslaan in Brussel. Het packetje springt van router tot router, totdat het op het netwerk van de <command>webserver</command> van de vrt zit.</para>
+	<para>Onze <command>http request</command><indexterm><primary>http</primary></indexterm> voor een teletekst pagina is nu onderweg van centrum Antwerpen naar de Reyerslaan in Brussel. Het packetje springt van router tot router, totdat het op het netwerk van de <command>webserver</command> van de vrt zit.</para>
 	<para>Je kan deze weg (de routers) bekijken door een <command>traceroute</command><indexterm><primary>traceroute</primary></indexterm> te doen. Hieronder zie je de uitvoer van het <command>traceroute</command> commando op mijn laptop.</para>
 	<screen>traceroute to 193.191.175.137 (193.191.175.137), 30 hops max, 60 byte packets
 1  illyria (192.168.1.1)  0.812 ms  1.285 ms  1.764 ms
@@ -1095,7 +1207,7 @@ http://en.wikipedia.org/wiki/Network_topology</screen>
 8  * * *
 9  * * *
 	</screen>
-	<para>Wat je ziet, is dat de eerste router <command>illyria</command> heet en <command>192.168.1.1</command> als ip adres heeft. Dit is mijn lokale <command>adsl modem</command><indexterm><primary>adsl</primary></indexterm> met ingebouwde router functie. Op de tweede lijn ziet u de andere kant van mijn adsl modem, de kant van mijn <command>internet service provider (ISP)</command> genaamd <command>edpnet</command><indexterm><primary>edpnet</primary></indexterm>.</para>
+	<para>Wat je ziet, is dat de eerste router <command>illyria</command> heet en <command>192.168.1.1</command> als ip adres heeft. Dit is mijn lokale <command>adsl modem</command><indexterm><primary>adsl</primary></indexterm> met ingebouwde router functie. Op de tweede lijn zie je de andere kant van mijn adsl modem, de kant van mijn <command>internet service provider (ISP)</command> genaamd <command>edpnet</command><indexterm><primary>edpnet</primary></indexterm>.</para>
 	<para>Daarna passeren we enkele routers van edpnet, om vervolgens te reizen naar <command>belnet</command>. Het Belgische <command>belnet</command><indexterm><primary>belnet</primary></indexterm> is een snel backbone netwerk waar o.a. universiteiten en openbare instellingen op aangesloten zijn.</para>
 	<para>De laatste router die we zien heet <command>vrt.customer.brussels.belnet.net</command>. Uit deze naam kan je afleiden dat de VRT een klant is van <command>belnet</command> in Brussel.</para>
 	<para>Nadien zien we enkel nog sterretjes, dat is omdat de <command>systeembeheerder</command> van de VRT beslist heeft om geen <command>traceroute</command> door zijn <command>firewall</command><indexterm><primary>firewall</primary></indexterm> te laten. Onze <command>http request</command> mag gelukkig wel door.</para>
@@ -1110,26 +1222,33 @@ http://en.wikipedia.org/wiki/Network_topology</screen>
 <section><title>er komt antwoord</title>
 	<para>De webserver heeft de bewuste <command>webpagina</command> klaar en wil een antwoord sturen naar mijn laptop. Deze computer kent mijn <command>ip-adres</command><indexterm><primary>ip adres</primary></indexterm> omdat dit meegeleverd is in het packetje als <command>source ip-address</command>.</para>
 	<para>We zakken weer van de <command>applicatie-laag</command> (ja ook een http-server is een applicatie) naar beneden.</para>
-	<para>Tussen haakjes, de <command>presentatie</command> van deze data aan de browser gebeurt met een <command>mime type</command>. Email berichten (en websites) bestaan al lang niet meer enkel uit <command>ascii</command><indexterm><primary>ascii</primary></indexterm> karakters, maar bevatten ook andere karakters, fotos, geluid en film.</para>
-	<para><command>MIME (Multipurpose Internet Mail Extensions)</command><indexterm><primary>mime</primary></indexterm> defineert een mechanisme om deze inhoud te versturen over email (of zoals in ons voorbeeld over <command>http</command>). Je zou <command>mime</command> in <command>osi layer 6</command> kunnen zetten.</para>
-	<para>De <command>tcp-sessie</command><indexterm><primary>tcp sessie</primary></indexterm> die mijn laptop heeft opgezet, die is er nog steeds. Het antwoord kan dus onmiddelijk door de <command>transport-laag</command> naar <command>ip</command>, of toch bijna. De gevraagde webpagina is immers te groot om in 1 packetje door te sturen, dus moet er geknipt en geplakt worden door <command>tcp</command>. Dit kan je zien in de sniffer als een opeenvolging van <command>tcp segment</command> packetjes, gevolgd door een <command>tcp ack</command><indexterm><primary>tcp</primary></indexterm>nowledgement.</para>
+	<para>Tussen haakjes, de <command>presentatie</command> van deze data aan de browser gebeurt met een <command>mime type</command>. Email berichten (en websites) bestaan al lang niet meer enkel uit <command>ascii</command><indexterm><primary>ascii</primary></indexterm> karakters, maar bevatten ook andere karakters, foto's, geluid en film.</para>
+	<para><command>MIME (Multipurpose Internet Mail Extensions)</command><indexterm><primary>mime</primary></indexterm> defineert een mechanisme om deze inhoud te versturen over e-mail (of zoals in ons voorbeeld over <command>http</command>). Je zou <command>mime</command> in <command>osi layer 6</command> kunnen zetten.</para>
+	<para>De <command>tcp-sessie</command><indexterm><primary>tcp sessie</primary></indexterm> die mijn laptop heeft opgezet, die is er nog steeds. Het antwoord kan dus onmiddellijk door de <command>transport-laag</command> naar <command>ip</command>, of toch bijna. De gevraagde webpagina is immers te groot om in 1 packetje door te sturen, dus moet er geknipt en geplakt worden door <command>tcp</command>. Dit kan je zien in de sniffer als een opeenvolging van <command>tcp segment</command> packetjes, gevolgd door een <command>tcp ack</command><indexterm><primary>tcp</primary></indexterm>nowledgement.</para>
 	<para>
         <mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/tcpknipplak.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 	</para>
 	<para>Het <command>ip</command><indexterm><primary>ip</primary></indexterm> protocol zal zorgen voor de terugweg van Brussel naar Antwerpen, eventueel via andere <command>routers</command>.</para>
 	<para>Eens het antwoord terug op ons netwerk is, gaat de data van onder naar boven door de lagen, totdat onze <command>browser</command> de webpagina kan tonen.</para>
+	<section><title>vragen</title>
+		<para>1. Hoe weet de computer van de VRT dat het packetje naar de http-server moet ?</para>
+		<para>2. Hoe weet mijn laptop voor welke applicatie het packetje is ?</para>
+	</section>
+</section>
+<?hard-pagebreak?>
+<section><title>lagen oefening</title>
+	<para>0. Kies een netwerk voor de volgende vragen : thuis, werk, klas</para>
+	<para></para>
+	<para>1. Maak een tekening (papier of pc) van je netwerk voor laag 1.</para>
+	<para></para>
+	<para>2. Maak een tekening (papier of pc) van je netwerk voor laag 2.</para>
+	<para></para>
+	<para>3. Maak een tekening (papier of pc) van je netwerk voor laag 3 (wanneer je een website bezoekt).</para>
+	<para></para>
+	<para>4. Maak een tekening (papier of pc) van je netwerk voor laag 7 (wanneer je een website bezoekt).</para>
 	<para></para>
 </section>
-</section>
-
-<section><title>onbeantwoorde vragen</title>
-	<para>Hoe weet de computer van de VRT dat het packetje naar de http-server moet ?</para>
-	<para>Hoe weet mijn laptop voor welke applicatie het packetje is ?</para>
-	<para>Hoe kan DNS weten waar die VRT webserver staat ?</para>
-	<para>Wat is nat ?</para>
-	<para>Hoe werkt een router ?</para>
-	<para>Hoe kies je een correct ip-adres ? Thuis ? En op internet ?</para>
-</section>
+<?hard-pagebreak?>
 <section><title>tcp en udp</title>
 	<para>Behalve <command>tcp</command> vinden we in <command>layer 4</command> ook nog <command>udp</command>. U hebt genoteerd dat alvorens een <command>http request</command> verstuurd wordt, er eerst een <command>tcp handshake</command> plaatsvind, maar dat er voor de <command>dns query</command> helemaal geen handshake was. Dat komt omdat <command>http</command> gebruikt maakt van <command>tcp</command> in <command>layer 4</command>, terwijl <command>dns</command> hier werkt bovenop <command>udp</command>.</para>
 	<section><title>tcp</title>
@@ -1143,28 +1262,248 @@ http://en.wikipedia.org/wiki/Network_topology</screen>
 	</section>
 	<section><title>oefening</title>
 		<para>Bedenk zelf wanneer je udp zou gebruiken, en wanneer tcp.</para>
-		<screen>
-email van je manager ?
-
-
-
-
-website van een klant ?
-
-
-
-
-live radio uitzending van Clijsters tegen Henin ?
-
-
-
-
-dns ?
-
-
-
-
-		</screen>
+		<para></para>
+		<para>e-mail van je manager ?</para>
+		<para></para>
+		<para>website van een klant ?</para>
+		<para></para>
+		<para>live radio uitzending van Clijsters tegen Henin ?</para>
+		<para></para>
+		<para>dns ?</para>
+		<para></para>
+	</section>
+</section>
+<?hard-pagebreak?>
+<section><title>leren tellen</title>
+	<section><title>decimaal of tientallig stelsel</title>
+		<para>In het <command>decimaal</command> stelsel zijn er <command>tien</command> cijfers waarmee we kunnen werken, dat zijn in opklimmende volgorde 0, 1, 2, 3, 4, 5, 6, 7, 8 en 9. Met deze cijfers kunnen we van nul tot negen tellen.</para>
+		<para>Als we nog verder willen tellen, dan moeten we twee cijfers combineren. Het eerste cijfer heeft dan een grotere waarde dan het tweede. De waarde van het eerste cijfer is het <command>tienvoud</command> van zijn nominale waarde.</para>
+		<para>Willen we nog verder, dan zetten we nog een extra cijfer voor de bestaande twee, en vermenigvuldigen deze waarde met <command>tien en nog eens tien</command>.</para>
+	</section>
+	<section><title>binair of tweetallig stelsel</title>
+		<para>In het <command>binair</command> stelsel zijn er <command>twee</command> cijfers waarmee we kunnen werken, dat zijn in opklimmende volgorde 0 en 1. Met deze cijfers kunnen we van nul tot een tellen.</para>
+		<para>Als we nog verder willen tellen, dan moeten we twee cijfers combineren. Het eerste cijfer heeft dan een grotere waarde dan het tweede. De waarde van het eerste cijfer is het <command>tweevoud</command> van zijn nominale waarde.</para>
+		<para>Willen we nog verder, dan zetten we nog een extra cijfer voor de bestaande twee, en vermenigvuldigen deze waarde met <command>twee en nog eens twee</command>.</para>
+	</section>
+	<section><title>hexadecimaal of zestientallig stelsel</title>
+		<para>In het <command>hexadecimaal</command> stelsel zijn er <command>zestien</command> cijfers waarmee we kunnen werken, dat zijn in opklimmende volgorde 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, A, B, C, D, E en F. Met deze cijfers kunnen we van nul tot F tellen.</para>
+		<para>Als we nog verder willen tellen, dan moeten we twee cijfers combineren. Het eerste cijfer heeft dan een grotere waarde dan het tweede. De waarde van het eerste cijfer is het <command>zestienvoud</command> van zijn nominale waarde.</para>
+		<para>Willen we nog verder, dan zetten we nog een extra cijfer voor de bestaande twee, en vermenigvuldigen deze waarde met <command>zestien en nog eens zestien</command>.</para>
+	</section>
+	<section><title>octaal of achttallig stelsel</title>
+		<para>In het <command>octaal</command> stelsel zijn er <command>acht</command> cijfers waarmee we kunnen werken, dat zijn in opklimmende volgorde 0, 1, 2, 3, 4, 5, 6 en 7. Met deze cijfers kunnen we van nul tot zeven tellen.</para>
+		<para>Als we nog verder willen tellen, dan moeten we twee cijfers combineren. Het eerste cijfer heeft dan een grotere waarde dan het tweede. De waarde van het eerste cijfer is het <command>achtvoud</command> van zijn nominale waarde.</para>
+		<para>Willen we nog verder, dan zetten we nog een extra cijfer voor de bestaande twee, en vermenigvuldigen deze waarde met <command>acht en nog eens acht</command>.</para>
+	</section>
+	<section><title>talstelsels naast elkaar</title>
+		<para>We maken even een tabel om deze talstelsel naast elkaar te zetten.</para>
+<table frame='all'><title>talstelsels naast elkaar</title>
+<?dbfo table-width="80%" ?>
+<tgroup cols='4' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="1*" align="center"/>
+<colspec colname='c2' colwidth="1*" align="center"/>
+<colspec colname='c3' colwidth="1*" align="center"/>
+<colspec colname='c4' colwidth="1*" align="center"/>
+<thead>
+<row>
+  <entry>decimaal</entry>
+  <entry>binair</entry>
+  <entry>hexadecimaal</entry>
+  <entry>octaal</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>0</entry>
+  <entry>0</entry>
+  <entry>0</entry>
+  <entry>0</entry>
+</row>
+<row>
+  <entry>1</entry>
+  <entry>1</entry>
+  <entry>1</entry>
+  <entry>1</entry>
+</row>
+<row>
+  <entry>2</entry>
+  <entry>10</entry>
+  <entry>2</entry>
+  <entry>2</entry>
+</row>
+<row>
+  <entry>3</entry>
+  <entry>11</entry>
+  <entry>3</entry>
+  <entry>3</entry>
+</row>
+<row>
+  <entry>4</entry>
+  <entry>100</entry>
+  <entry>4</entry>
+  <entry>4</entry>
+</row>
+<row>
+  <entry>5</entry>
+  <entry>101</entry>
+  <entry>5</entry>
+  <entry>5</entry>
+</row>
+<row>
+  <entry>6</entry>
+  <entry>110</entry>
+  <entry>6</entry>
+  <entry>6</entry>
+</row>
+<row>
+  <entry>7</entry>
+  <entry>111</entry>
+  <entry>7</entry>
+  <entry>7</entry>
+</row>
+<row>
+  <entry>8</entry>
+  <entry>1000</entry>
+  <entry>8</entry>
+  <entry>10</entry>
+</row>
+<row>
+  <entry>9</entry>
+  <entry>1001</entry>
+  <entry>9</entry>
+  <entry>11</entry>
+</row>
+<row>
+  <entry>10</entry>
+  <entry>1010</entry>
+  <entry>A</entry>
+  <entry>12</entry>
+</row>
+<row>
+  <entry>11</entry>
+  <entry>1011</entry>
+  <entry>B</entry>
+  <entry>13</entry>
+</row>
+<row>
+  <entry>12</entry>
+  <entry>1100</entry>
+  <entry>C</entry>
+  <entry>14</entry>
+</row>
+<row>
+  <entry>13</entry>
+  <entry>1101</entry>
+  <entry>D</entry>
+  <entry>15</entry>
+</row>
+<row>
+  <entry>14</entry>
+  <entry>1110</entry>
+  <entry>E</entry>
+  <entry>16</entry>
+</row>
+<row>
+  <entry>15</entry>
+  <entry>1111</entry>
+  <entry>F</entry>
+  <entry>17</entry>
+</row>
+<row>
+  <entry>16</entry>
+  <entry>10000</entry>
+  <entry>10</entry>
+  <entry>20</entry>
+</row>
+<row>
+  <entry>17</entry>
+  <entry>10001</entry>
+  <entry>11</entry>
+  <entry>21</entry>
+</row>
+<row>
+  <entry>18</entry>
+  <entry>10010</entry>
+  <entry>12</entry>
+  <entry>22</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+	</section>
+<?hard-pagebreak?>
+	<section><title>Oefening talstelsels</title>
+		<para>1. Vul de ontbrekende waarden in. (Octaal is niet belangrijk.)</para>
+<table frame='all'><title>oefening talstelsels</title>
+<?dbfo table-width="90%" ?>
+<tgroup cols='4' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="1*" align="center"/>
+<colspec colname='c2' colwidth="1*" align="center"/>
+<colspec colname='c3' colwidth="1*" align="center"/>
+<colspec colname='c4' colwidth="1*" align="center"/>
+<thead>
+<row>
+  <entry>decimaal</entry>
+  <entry>binair</entry>
+  <entry>hexadecimaal</entry>
+  <entry>octaal</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>5</entry>
+  <entry></entry>
+  <entry></entry>
+  <entry></entry>
+</row>
+<row>
+  <entry></entry>
+  <entry>100</entry>
+  <entry></entry>
+  <entry></entry>
+</row>
+<row>
+  <entry></entry>
+  <entry></entry>
+  <entry>FF</entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>192</entry>
+  <entry></entry>
+  <entry></entry>
+  <entry>300</entry>
+</row>
+<row>
+  <entry>168</entry>
+  <entry></entry>
+  <entry></entry>
+  <entry></entry>
+</row>
+<row>
+  <entry></entry>
+  <entry></entry>
+  <entry>0A</entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>33</entry>
+  <entry></entry>
+  <entry></entry>
+  <entry></entry>
+</row>
+<row>
+  <entry></entry>
+  <entry>101010</entry>
+  <entry></entry>
+  <entry></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+		<para>2. Schrijf de cijfers C0 A8 01 01 in decimale vorm.</para>
+		<para>3. Hoe schrijf je 255.255.255.0 in hexadecimale vorm ?</para>
+		<para>4. En nu een moeilijke vraag : Wanneer is 6 maal 9 gelijk aan 42 ?</para>
 	</section>
 </section>
 <section><title>ip adressen</title>
@@ -1480,8 +1819,8 @@ van 169.254.0.0 tot 169.254.255.255
 </section>
 <section><title>Lokale computer of niet ?</title>
 	<para>Wat is het nu van het kennen van een <command>network id</command>? Wel het <command>network id</command> bepaald of een computer lokaal in je netwerk staat of niet.</para>
-	<para>Indien je wil communiceren met een andere computer, dan heb je zijn <command>ip-adres</command> nodig. Als die computer dan op hetzelfde netwerk zit, dan doe jou computer een <command>arp</command><indexterm><primary>arp</primary></indexterm> om het <command>MAC adres</command><indexterm><primary>MAC</primary></indexterm> van de andere computer te vinden. Als die computer echter op een ander netwerk zet, dan stuurt jou computer het packetje naar de <command>router</command>.</para>
-	<para>Alvorens over te gaan tot een <command>arp</command> (voor die andere computer of voor de router) zal jou computer het <command>network id</command> van jou computer vergelijken met dat van de andere computer. Indien gelijk, dan betreft het een computer op hetzelfde netwerk, indien verschillend, dan staat die computer achter de <command>router</command><indexterm><primary>router</primary></indexterm>.</para>
+	<para>Indien je wil communiceren met een andere computer, dan heb je zijn <command>ip-adres</command> nodig. Als die computer dan op hetzelfde netwerk zit, dan doe jouw computer een <command>arp</command><indexterm><primary>arp</primary></indexterm> om het <command>MAC adres</command><indexterm><primary>MAC</primary></indexterm> van de andere computer te vinden. Als die computer echter op een ander netwerk zet, dan stuurt jouw computer het packetje naar de <command>router</command>.</para>
+	<para>Alvorens over te gaan tot een <command>arp</command> (voor die andere computer of voor de router) zal jouw computer het <command>network id</command> van jouw computer vergelijken met dat van de andere computer. Indien gelijk, dan betreft het een computer op hetzelfde netwerk, indien verschillend, dan staat die computer achter de <command>router</command><indexterm><primary>router</primary></indexterm>.</para>
 	<para>Een overzichtje met voorbeelden (gebruik standaard subnet mask):</para>
 <table frame='all'><title>locale or remote computer?</title>
 <?dbfo table-width="98%" ?>
@@ -1688,7 +2027,7 @@ van 169.254.0.0 tot 169.254.255.255
 </section>
 <section><title>ip adressen verdelen</title>
 <para><command>Klasse A</command><indexterm><primary>class A</primary></indexterm> adressen kunnen dus een dikke 16 miljoen computers bevatten, <command>klasse B</command><indexterm><primary>class B</primary></indexterm> een goei 65 duizend en <command>klasse C</command><indexterm><primary>class C</primary></indexterm> iets meer dan 200.</para>
-<para>Stel dat jou organisatie 3000 ip adressen nodig heeft, dan moet je een klasse B gebruiken. Maar dat wil zeggen dat je meer dan 62 duizend ip adressen <command>verspilt</command>. Onthou ook dat heel wat klasse A ranges begin jaren 90 in hun geheel verkocht zijn (<command>IANA</command><indexterm><primary>IANA</primary></indexterm> beheert dit wereldwijd).</para>
+<para>Stel dat jouw organisatie 3000 ip adressen nodig heeft, dan moet je een klasse B gebruiken. Maar dat wil zeggen dat je meer dan 62 duizend ip adressen <command>verspilt</command>. Onthou ook dat heel wat klasse A ranges begin jaren 90 in hun geheel verkocht zijn (<command>IANA</command><indexterm><primary>IANA</primary></indexterm> beheert dit wereldwijd).</para>
 <screen>http://www.iana.org/assignments/ipv4-address-space/</screen>
 <para>In de jaren 70-80 was dit een goed systeem, er waren immers maar enkele duizenden computers op dit <command>internetwerk</command><indexterm><primary>internet</primary></indexterm>. Maar de laatste jaren zijn er meer dan een miljard computers verbonden met internet. Met een totaal van vier miljard (256*256*256*256) ip-adressen kunnen we ons niet langer veroorloven om ip-adressen te verspillen.</para>
 </section>
@@ -2848,7 +3187,7 @@ host id     :           <command>3.233</command>
 <screen>
 192.168.5.0/24 --> 256 - 2 = 254 computers
 </screen>
-<para>Je weet ook uit de tabel hierboven dat een <command>/26</command> <command>subnet mask</command><indexterm><primary>subnet mask</primary></indexterm> volstaat voor elk individueel verdiep. Je verdeelt jou /24 netwerk in vier /26 netwerken.</para>
+<para>Je weet ook uit de tabel hierboven dat een <command>/26</command> <command>subnet mask</command><indexterm><primary>subnet mask</primary></indexterm> volstaat voor elk individueel verdiep. Je verdeelt jouw /24 netwerk in vier /26 netwerken.</para>
 <para>We bekijken dit eerst binair:</para>
 <screen>
 192.168.5.0 == 11000000.10101000.00000101.00000000
@@ -3195,7 +3534,7 @@ http://root-servers.org/
 		<para><command>Synchronous DSL</command> is nagenoeg identiek aan ADSL, behalve dat de up en download hetzelfde is.</para>
 	</section>
 	<section><title>DSLAM</title>
-		<para>Een DSLAM is een <command>multiplexer</command> die verscheidene DSL lijnen verbindt met het internet. Je kan pas ADSL nemen als jou telefooncentrale over een DSLAM beschikt.</para>
+		<para>Een DSLAM is een <command>multiplexer</command> die verscheidene DSL lijnen verbindt met het internet. Je kan pas ADSL nemen als jouw telefooncentrale over een DSLAM beschikt.</para>
 		<para>De bandbreedte die je haalt tussen je xDSL modem en je lokale DSLAM wordt beperkt door de afstand tot aan de centrale:</para>
 		<screen>
  300m --> 25 Mbit/s
@@ -3268,7 +3607,7 @@ ter info : GPON FTTH    --> +300000 kB/s
 <section><title>wireless</title>
 	<para>Wireless is veel trager dan bijvoorbeeld utp kabels, maar meestal wel snel genoeg (sneller dus) dan gangbare thuis-internet verbindingen.</para>
 	<para>Wireless ofte draadloos wil zeggen dat we alles bekijken wat golven van energie gebruikt om (data) te communiceren. Eerst eens kijken wat een golf is.</para>
-	<para>Een golf (voor zover we die gebruiken bij datacommunicatie) beweegt zich voort in de lucht (of in een ander medium) met een bepaalde frequentie en amplitude. We laten voor het gemak de lichtgolven en electromagnetische golven even buiten beschouwing.</para>
+	<para>Een golf (voor zover we die gebruiken bij datacommunicatie) beweegt zich voort in de lucht (of in een ander medium) met een bepaalde frequentie en amplitude. We laten voor het gemak de lichtgolven en elektromagnetische golven even buiten beschouwing.</para>
 </section>
 
 <section><title>frequentie</title>
@@ -3733,7 +4072,7 @@ subnet 192.168.1.0 netmask 255.255.255.0 {
 </section>
 
 <section><title>tekening smtp (deel 1)</title>
-	<para>We weten al dat <command>smtp</command> wordt gebruikt voor het versturen van email. Deze eerste tekening toont <command>smtp</command> tussen een client (Thunderbird) en een server (smtp.edpnet.be). In deel 2 zien we smtp tussen twee mailservers.</para>
+	<para>We weten al dat <command>smtp</command> wordt gebruikt voor het versturen van e-mail. Deze eerste tekening toont <command>smtp</command> tussen een client (Thunderbird) en een server (smtp.edpnet.be). In deel 2 zien we smtp tussen twee mailservers.</para>
 	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/smtp_tek.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 	<para>1. Het eerste wat onze mailclient (Thunderbird hier) doet is een dns query voor de A record van smtp.edpnet.be (die naam haalt hij uit de instellingen die je manueel in je mailprogramma moet ingeven).</para>
 	<para>2. Gelukkig komt er een antwoord met ip 212.71.0.14</para>
@@ -3747,7 +4086,7 @@ subnet 192.168.1.0 netmask 255.255.255.0 {
 	<para>We volgen effe een mail, gestuurd vanop een pc met MS Outlook tot de mail zijn bestemming bereikt.</para>
 	<para>Links onderaan staat de computer waarop de mail wordt geschreven, rechts onderaan staat de laptop van de bestemmeling.</para>
 	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/smtp2.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-	<para>1. De eerste stap is het sturen van de mail naar de mailserver van de provider. In dit geval gaat de computer van de email-verstuurder een tcp sessie opzetten met de smtp server van de <command>isp</command> (in dit geval smtp.edpnet.be). Deze ene stap is uitgelegd in meerdere stappen in de vorige tekening.</para>
+	<para>1. De eerste stap is het sturen van de mail naar de mailserver van de provider. In dit geval gaat de computer van de e-mail-verstuurder een tcp sessie opzetten met de smtp server van de <command>isp</command> (in dit geval smtp.edpnet.be). Deze ene stap is uitgelegd in meerdere stappen in de vorige tekening.</para>
 	<para>2. Als de mailserver van de internet provider de mail ontvangen heeft, dan gaat die eerst nakijken of die bedoelt is voor een lokale mailbox. Indien niet, dan gaat die op zoek naar de MX en de A record van de mailserver waar de mail wel naartoe moet. De mailserver vraagt dus aan zijn lokale DNS server voor de MX record van gmail.com (als je een mail stuurt naar gmail.com natuurlijk).</para>
 	<para>3. Stap 3 is het antwoord van de DNS server op de MX query. Dit antwoord bevat ook de A records van o.a. smtp4.google.com.</para>
 	<para>4. De mailserver van edpnet maakt nu een smtp verbinding (en dus ook een tcp sessie op port 25) met de smtp4.google.com (72.14.221.25) server. De mail verlaat de internet provider van de verstuurder en bereikt de Google servers.</para>
