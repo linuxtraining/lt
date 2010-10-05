@@ -1273,7 +1273,8 @@ http://en.wikipedia.org/wiki/Network_topology</screen>
 		<para></para>
 	</section>
 </section>
-<?hard-pagebreak?>
+</chapter>
+<chapter><title>weergave getallen</title>
 <section><title>leren tellen</title>
 	<section><title>decimaal of tientallig stelsel</title>
 		<para>In het <command>decimaal</command> stelsel zijn er <command>tien</command> cijfers waarmee we kunnen werken, dat zijn in opklimmende volgorde 0, 1, 2, 3, 4, 5, 6, 7, 8 en 9. Met deze cijfers kunnen we van nul tot negen tellen.</para>
@@ -1505,4 +1506,2717 @@ http://en.wikipedia.org/wiki/Network_topology</screen>
 		<para>3. Hoe schrijf je 255.255.255.0 in hexadecimale vorm ?</para>
 		<para>4. En nu een moeilijke vraag : Wanneer is 6 maal 9 gelijk aan 42 ?</para>
 	</section>
+	<section><title>Veel voorkomende getallen</title>
+		<para>Het layer 2 broadcast mac adres bestaat uit 48 eentjes, maar wordt altijd hexadecimaal voorgesteld:</para>
+		<screen>FF:FF:FF:FF:FF:FF</screen>
+		<para>Standaard <command>classful</command> subnet masks (we bespreken dit later in detail) komen soms decimaal, soms hexadecimaal voor in de uitvoer van systeembeheer programma's:</para>
+		<screen>decimaal      hexadecimaal
+255.0.0.0     FF000000
+255.255.0.0   FFFF0000
+255.255.255.0 FFFFFF00</screen>
+		<para>Alle data en alle applicaties op de computer bestaan uit bits. Als je in een tekstbestand het getal <command>42</command> wil bewaren, dan worden de volgende bits (in een volledige byte) bewaard:</para>
+		<screen>00101010</screen>
+	</section>
+	<section><title>machten van twee</title>
+		<para>De <command>map van het internet</command> van pagina 16 bestaat uit exact 256 vakjes, in een byte kunnen 8 bits, <command>ip-adressen</command> bestaan uit 32 bits, het aantal mogelijke waarden die je in een <command>byte</command> kan steken is 256, heel wat encryptie werkt heden met sleutels van 128-bits, niet toevallig allemaal machten van het getal twee!</para>
+		<para>Machten van twee zijn eenvoudiger te schrijven in het binaire of het hexadecimale stelsel.</para>
+<table frame='all'><title>machten van twee</title>
+<?dbfo table-width="70%" ?>
+<tgroup cols='3' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="1*" align="center"/>
+<colspec colname='c2' colwidth="1*" align="center"/>
+<colspec colname='c3' colwidth="1*" align="center"/>
+<thead>
+<row>
+  <entry>decimaal</entry>
+  <entry>binair</entry>
+  <entry>hexadecimaal</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>2</entry>
+  <entry>10</entry>
+  <entry>2</entry>
+</row>
+<row>
+  <entry>4</entry>
+  <entry>100</entry>
+  <entry>4</entry>
+</row>
+<row>
+  <entry>8</entry>
+  <entry>1000</entry>
+  <entry>8</entry>
+</row>
+<row>
+  <entry>16</entry>
+  <entry>10000</entry>
+  <entry>10</entry>
+</row>
+<row>
+  <entry>32</entry>
+  <entry>100000</entry>
+  <entry>20</entry>
+</row>
+<row>
+  <entry>64</entry>
+  <entry>1000000</entry>
+  <entry>40</entry>
+</row>
+<row>
+  <entry>128</entry>
+  <entry>10000000</entry>
+  <entry>80</entry>
+</row>
+<row>
+  <entry>256</entry>
+  <entry>100000000</entry>
+  <entry>100</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+		<para>Ook grotere machten van twee worden gebruikt. Zo is de grootte van een sector op harde schijven (voorlopig) 512 bytes, is het aantal <command>tcp</command> en <command>udp</command> poorten gelijk aan 65.536, is het aantal kleuren dat een truecolor videokaart kan tonen 16777256, is de 640KB geheugen in oude computers niet toevallig 512KB + 128KB en is een kilobyte (of kibibyte) exact 1024 bytes. De maximum grootte van variabelen in programmeertalen is ook een macht van twee (65536 of 4294967296), schermen hebben wel eens een 1024x786 of 1280x1024 resolutie (768 = 512 + 256, 1280 = 1024 + 256) en Microsoft Excel kan maximum 65536 of 1048576 kolommen bevatten.</para>
+<table frame='all'><title>grote machten van twee</title>
+<?dbfo table-width="50%" ?>
+<tgroup cols='2' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="1*" align="center"/>
+<colspec colname='c2' colwidth="1*" align="center"/>
+<thead>
+<row>
+  <entry>decimaal</entry>
+  <entry>hexadecimaal</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>256</entry>
+  <entry>100</entry>
+</row>
+<row>
+  <entry>512</entry>
+  <entry>200</entry>
+</row>
+<row>
+  <entry>1024</entry>
+  <entry>400</entry>
+</row>
+<row>
+  <entry>2048</entry>
+  <entry>800</entry>
+</row>
+<row>
+  <entry>4096</entry>
+  <entry>1000</entry>
+</row>
+<row>
+  <entry>65536</entry>
+  <entry>10000</entry>
+</row>
+<row>
+  <entry>16777216</entry>
+  <entry>1000000</entry>
+</row>
+<row>
+  <entry>4294967296</entry>
+  <entry>100000000</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+	</section>
+</section>
+</chapter>
+<chapter><title>ip adressen</title>
+<section><title>ip adressen</title>
+	<para>Een <command>ip-adres</command><indexterm><primary>ip adres</primary></indexterm> is een 32-bit getal dat als logisch adres aan een computer wordt gegeven. Een <command>ip adres</command> is de unieke identificatie van een <command>host</command> op laag 3.</para>
+	<para>Theoretisch hebben we 4294967296 ip adressen (256*256*256*256). In decimale octetjes schrijven we dat van 0.0.0.0 tot 255.255.255.255, in hexadecimale bytes is dat van 00:00:00:00 tot FF:FF:FF:FF en binair is dat van 00000000.00000000.00000000.00000000 tot 11111111.11111111.11111111.11111111.</para>
+</section>
+<section><title>private en publieke adressen</title>
+	<para>Om een geldig <command>ip adres</command> te hebben op het <command>internet</command>, moet je dit aankopen bij je lokale <command>RIR (Regional Internet Registry)</command><indexterm><primary>regional internet registry</primary></indexterm>. Voor Europa is dit <command>RIPE NCC (Réseaux IP Européens Network Coordination Centre)</command><indexterm><primary>ripe</primary></indexterm> in Amsterdam.</para>
+	<para>In de meeste gevallen is het de <command>isp (Internet Service Provider)</command><indexterm><primary>isp</primary></indexterm> die deze aankoop doet, eindgebruikers merken daar weinig van.</para>
+	<para>Niet alle <command>ip adressen</command> zijn geldig op internet. Sommige reeksen zijn gereserveerd voor speciale doeleinden.</para>
+	<section><title>private adressen</title>
+		<para>Er zijn drie reeksen gereserveerd voor <command>prive</command><indexterm><primary>private ip ranges</primary></indexterm> gebruik. Deze ip-adressen zijn niet te gebruiken op internet (ze werken niet). Technisch kan je zeggen dat routers op internet alle packetjes voor deze adresssen automatisch verwerpen.</para>
+		<para>De drie reeksen zijn:</para>
+<table frame='all'><title>private ip adressen</title>
+<?dbfo table-width="90%" ?>
+<tgroup cols='3' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="1*" align="center"/>
+<colspec colname='c2' colwidth="1*" align="center"/>
+<colspec colname='c3' colwidth="2*" align="center"/>
+<thead>
+<row>
+  <entry>eerste ip adres</entry>
+  <entry>laatste ip adres</entry>
+  <entry>aantal adressen in de reeks</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>10.0.0.0</entry>
+  <entry>10.255.255.255</entry>
+  <entry>16777216 (+16 miljoen)</entry>
+</row>
+<row>
+  <entry>172.16.0.0</entry>
+  <entry>172.31.255.255</entry>
+  <entry>1048576 (+1 miljoen)</entry>
+</row>
+<row>
+  <entry>192.168.0.0</entry>
+  <entry>192.168.255.255</entry>
+  <entry>65536 (+65 duizend)</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+		<para>De volledige definitie van deze reeksen vind u in <command>rfc 1918</command>.</para>
+		<screen>http://www.rfc-editor.org/rfc/rfc1918.txt</screen>
+	</section>
+	<section><title>loopback adressen</title>
+		<para>Elke <command>tcp/ip stack</command> heeft een virtuele <command>loopback interface</command>. Dit is een ip adres dat gebruikt wordt om naar de computer zelf te wijzen (en om te testen of <command>tcp/ip</command> wel werkend is).</para>
+		<para>Meestal is dit <command>127.0.0.1</command><indexterm><primary>127.0.0.1</primary></indexterm>, vaak wijst de hele reeks echter naar ditzelfde adres.</para>
+		<screen>
+van 127.0.0.0 tot 127.255.255.255
+		</screen>
+		<para>Meestal wordt <command>localhost</command><indexterm><primary>localhost</primary></indexterm> vertaald naar <command>127.0.0.1</command>.</para>
+	</section>
+	<section><title>zeroconf adressen</title>
+		<para>Een <command>zeroconf</command><indexterm><primary>zeroconf</primary></indexterm> adres wordt ook wel een <command>link local</command><indexterm><primary>link local</primary></indexterm> adres genoemd. Het is een ip adres dat begint met <command>169.254</command><indexterm><primary>169.254.x.y</primary></indexterm> en dan twee willekeurig gekozen bytes. Microsoft noemt dit <command>APIPA (Automatic Private IP Adressing)</command><indexterm><primary>apipa</primary></indexterm>.</para>
+		<para>Een host die automatisch een ip adres zou moeten krijgen van <command>dhcp</command><indexterm><primary>dhcp</primary></indexterm>, maar dit niet krijgt, kan zichzelf van een <command>zeroconf</command> adres voorzien. De host zal op het lokale netwerk (de <command>local link</command>) eerst testen dat geen enkele andere host dit adres gebruikt, alvorens het aan zichzelf toe te wijzen.</para>
+		<screen>
+van 169.254.0.0 tot 169.254.255.255
+		</screen>
+		<para>Als een computer in de praktijk in een bedrijf een <command>zeroconf</command> adres heeft, dan wil dit meestal zeggen dat de netwerkbekabeling van de computer onderbroken is. Soms duidt zo'n adres op een probleem met de <command>dhcp server</command>.</para>
+	</section>
+	<section><title>Oefening</title>
+		<para>Duid voor de volgende ip adressen aan waarvoor ze dienen (privaat, publiek, loopback of zeroconf)</para> 
+<table frame='all'><title>oefening gereserveerde ip adressen</title>
+<?dbfo table-width="70%" ?>
+<tgroup cols='2' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="1*" align="center"/>
+<colspec colname='c2' colwidth="1*" align="center"/>
+<thead>
+<row>
+  <entry>ip adres</entry>
+  <entry>gereserveerd doel</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>192.168.244.16</entry>
+  <entry>privaat</entry>
+</row>
+<row>
+  <entry>195.238.2.21</entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>169.254.33.42</entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>127.0.0.1</entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>9.33.42.12</entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>10.11.12.13</entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>171.191.42.33</entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>172.18.33.42</entry>
+  <entry></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+	</section>
+</section>
+<section><title>classful addressing</title>
+	<para><command>IP adressen</command><indexterm><primary>ip adres</primary></indexterm> zijn onverdeeld in klassen. Een adres van <command>klasse A</command><indexterm><primary>class A</primary></indexterm> begint binair met als meest significante bit een 0. Een <command>klasse B</command><indexterm><primary>class B</primary></indexterm> adres begint binair met 10, <command>klasse C</command><indexterm><primary>class C</primary></indexterm> met 110, <command>klasse D</command> met 1110 en tenslotte <command>klasse E</command> met 1111.</para>
+<para>De eerste byte decimaal omgerekend komen we tot de volgende indeling van ip adressen:</para>
+<table frame='all'><title>ip address classes</title>
+<?dbfo table-width="80%" ?>
+<tgroup cols='3' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="1*" align="center"/>
+<colspec colname='c2' colwidth="1*" align="left"/>
+<colspec colname='c3' colwidth="2*" align="center"/>
+<thead>
+<row>
+  <entry>class</entry>
+  <entry>first bit(s)</entry>
+  <entry>first decimal byte</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>A</entry>
+  <entry>0</entry>
+  <entry>0-127</entry>
+</row>
+<row>
+  <entry>B</entry>
+  <entry>10</entry>
+  <entry>128-191</entry>
+</row>
+<row>
+  <entry>C</entry>
+  <entry>110</entry>
+  <entry>192-223</entry>
+</row>
+<row>
+  <entry>D</entry>
+  <entry>1110</entry>
+  <entry>224-239</entry>
+</row>
+<row>
+  <entry>E</entry>
+  <entry>1111</entry>
+  <entry>240-255</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<para>Alle ip adressen die beginnen met een getal lager dan 127 zijn dus klasse A adressen (onthou dat 127 zelf gereserveerd is voor de loopback adapter).</para>
+<para><command>Oefening:</command> Duid voor de volgende ip adressen steeds de correcte klasse aan:</para>
+<table frame='all'><title>oefening classful ip addressing</title>
+<?dbfo table-width="70%" ?>
+<tgroup cols='2' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="3*" align="center"/>
+<colspec colname='c2' colwidth="2*" align="center"/>
+<thead>
+<row>
+  <entry>ip adres</entry>
+  <entry>klasse ?</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>192.168.42.33</entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>9.101.12.01</entry>
+  <entry>A</entry>
+</row>
+<row>
+  <entry>188.33.42.33</entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>9.42.12.33</entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>230.19.4.42</entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>11.19.6.200</entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>191.192.193.194</entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>134.0.0.42</entry>
+  <entry></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</section>
+<section><title>default subnet masks</title>
+<para>Klasse A, B en C hebben een standaard <command>subnet mask</command><indexterm><primary>subnet mask</primary></indexterm>. Klasse A heeft een subnet mask waar de eerste 8 bits gelijk zijn aan 1 (en de rest aan 0). Bij klasse B zijn de eerste 16 bits een 1, en bij klasse C de eerste 24 bits.</para>
+<para>Dit geeft ons de volgende tabel</para>
+<table frame='all'><title>default subnet mask</title>
+<?dbfo table-width="80%" ?>
+<tgroup cols='3' align='left' colsep='1' rowsep='1'>
+<colspec colname='klasse' colwidth="2*" align="center"/>
+<colspec colname='bits' colwidth="4*" align="center"/>
+<colspec colname='subnet' colwidth="5*" align="center"/>
+<thead>
+<row>
+  <entry>klasse</entry>
+  <entry>aantal bits op 1</entry>
+  <entry>default subnet mask</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>A</entry>
+  <entry>8</entry>
+  <entry>255.0.0.0</entry>
+</row>
+<row>
+  <entry>B</entry>
+  <entry>16</entry>
+  <entry>255.255.0.0</entry>
+</row>
+<row>
+  <entry>C</entry>
+  <entry>24</entry>
+  <entry>255.255.255.0</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</section>
+<section><title>network id en host id</title>
+	<para>Bij het uitvoeren van <command>ifconfig</command><indexterm><primary>ifconfig(Unix)</primary></indexterm> op een Unix/Linux en <command>ipconfig</command><indexterm><primary>ipconfig(MS)</primary></indexterm> op een MS Windows computer merkt U dat U steeds een <command>ip adres</command><indexterm><primary>ip adres</primary></indexterm> en en <command>subnet mask</command><indexterm><primary>subnet mask</primary></indexterm> krijgt. De combinatie van die twee bepaalt in welk netwerk een computer zich bevindt.</para>
+	<para>Als het subnet mask gelijk is aan 255.0.0.0, dan vormt de eerste byte van het ip-adres aangevuld met nullen het <command>network id</command><indexterm><primary>network id</primary></indexterm>. Bij 255.255.0.0 als subnet mask zijn er twee bytes (aangevuld met nullen) die het <command>network id</command> vormen. Bij 255.255.255.0 zijn er drie bytes (en een nul) die het <command>network id</command> vormen.</para>
+	<para>De rest van het ip-adres is dan het <command>host id</command>. Het <command>network id</command> bepaalt het netwerk waarin een computer zich bevind, het <command>host id</command><indexterm><primary>host id</primary></indexterm> is uniek voor een host binnen het netwerk.</para>
+	<para>Een overzichtje met voorbeelden:</para>
+<table frame='all'><title>network id en host id</title>
+<?dbfo table-width="95%" ?>
+<tgroup cols='4' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="2*" align="center"/>
+<colspec colname='c2' colwidth="3*" align="center"/>
+<colspec colname='c3' colwidth="2*" align="center"/>
+<colspec colname='c4' colwidth="1*" align="center"/>
+<thead>
+<row>
+  <entry>ip adres</entry>
+  <entry>default subnet mask</entry>
+  <entry>network id</entry>
+  <entry>host id</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>192.168.1.42</entry>
+  <entry>255.255.255.0</entry>
+  <entry>192.168.1.0</entry>
+  <entry>42</entry>
+</row>
+<row>
+  <entry>192.168.1.33</entry>
+  <entry>255.255.255.0</entry>
+  <entry>192.168.1.0</entry>
+  <entry>33</entry>
+</row>
+<row>
+  <entry>192.168.12.1</entry>
+  <entry>255.255.255.0</entry>
+  <entry>192.168.12.0</entry>
+  <entry>1</entry>
+</row>
+<row>
+  <entry>172.16.12.1</entry>
+  <entry>255.255.0.0</entry>
+  <entry>172.16.0.0</entry>
+  <entry>12.1</entry>
+</row>
+<row>
+  <entry>172.16.33.42</entry>
+  <entry>255.255.0.0</entry>
+  <entry>172.16.0.0</entry>
+  <entry>33.42</entry>
+</row>
+<row>
+  <entry>10.3.0.4</entry>
+  <entry>255.0.0.0</entry>
+  <entry>10.0.0.0</entry>
+  <entry>3.0.4</entry>
+</row>
+<row>
+  <entry>10.33.0.42</entry>
+  <entry>255.0.0.0</entry>
+  <entry>10.0.0.0</entry>
+  <entry>33.0.42</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</section>
+<section><title>Lokale computer of niet ?</title>
+	<para>Wat is het nu van het kennen van een <command>network id</command>? Wel het <command>network id</command> bepaald of een computer lokaal in je netwerk staat of niet.</para>
+	<para>Indien je wil communiceren met een andere computer, dan heb je zijn <command>ip-adres</command> nodig. Als die computer dan op hetzelfde netwerk zit, dan doe jouw computer een <command>arp</command><indexterm><primary>arp</primary></indexterm> om het <command>MAC adres</command><indexterm><primary>MAC</primary></indexterm> van de andere computer te vinden. Als die computer echter op een ander netwerk zet, dan stuurt jouw computer het packetje naar de <command>router</command>.</para>
+	<para>Alvorens over te gaan tot een <command>arp</command> (voor die andere computer of voor de router) zal jouw computer het <command>network id</command> van jouw computer vergelijken met dat van de andere computer. Indien gelijk, dan betreft het een computer op hetzelfde netwerk, indien verschillend, dan staat die computer achter de <command>router</command><indexterm><primary>router</primary></indexterm>.</para>
+	<para>Een overzichtje met voorbeelden (gebruik standaard subnet mask):</para>
+<table frame='all'><title>locale or remote computer?</title>
+<?dbfo table-width="98%" ?>
+<tgroup cols='5' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1' align="center"/>
+<colspec colname='c2' align="center"/>
+<colspec colname='c3' align="center"/>
+<colspec colname='c4' align="center"/>
+<colspec colname='c5' align="center"/>
+<thead>
+<row>
+  <entry>computer A</entry>
+  <entry>computer B</entry>
+  <entry>network id A</entry>
+  <entry>network id B</entry>
+  <entry>lokaal ?</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>192.168.1.42</entry>
+  <entry>192.168.1.33</entry>
+  <entry>192.168.1.0</entry>
+  <entry>192.168.1.0</entry>
+  <entry>ja</entry>
+</row>
+<row>
+  <entry>192.168.1.33</entry>
+  <entry>192.168.12.1</entry>
+  <entry>192.168.1.0</entry>
+  <entry>192.168.12.0</entry>
+  <entry>nee</entry>
+</row>
+<row>
+  <entry>10.3.0.4</entry>
+  <entry>10.33.0.42</entry>
+  <entry>10.0.0.0</entry>
+  <entry>10.0.0.0</entry>
+  <entry>ja</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</section>
+<section><title>subnet notatie</title>
+	<para>We kunnen de notatie van <command>ip adres/subnet mask</command><indexterm><primary>cidr</primary></indexterm> afkorten als we voor de subnet mask enkel het aantal bits vernoemen dat op 1 staat. Zo wordt 255.0.0.0 gelijk aan /8, wordt 255.255.0.0 gelijk aan /16 en 255.255.255.0 gelijk aan /24.</para>
+<para>Afgekort kunnen we dus 192.168.1.42/24 schrijven i.p.v. 192.168.1.42 met subnet mask 255.255.255.0 .</para>
+<table frame='all'><title>cidr notatie</title>
+<?dbfo table-width="80%" ?>
+<tgroup cols='3' align='left' colsep='1' rowsep='1'>
+<colspec colname='klasse' colwidth="1*" align="center"/>
+<colspec colname='bits' colwidth="2*" align="center"/>
+<colspec colname='subnet' colwidth="1*" align="center"/>
+<thead>
+<row>
+  <entry>klasse</entry>
+  <entry>default subnet mask</entry>
+  <entry>notatie</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>A</entry>
+  <entry>255.0.0.0</entry>
+  <entry>/8</entry>
+</row>
+<row>
+  <entry>B</entry>
+  <entry>255.255.0.0</entry>
+  <entry>/16</entry>
+</row>
+<row>
+  <entry>C</entry>
+  <entry>255.255.255.0</entry>
+  <entry>/24</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</section>
+<section><title>computers in een netwerk tellen</title>
+<para>Hoeveel computers kan je zetten in een netwerk ? Hou rekening met de <command>network id</command><indexterm><primary>network id</primary></indexterm> die zelf al een ip adres gebruikt. Elk netwerk heeft ook een <command>broadcast</command><indexterm><primary>broadcast</primary></indexterm> adres (alle decimale delen van het host id zijn dan 255).</para>
+<para>Bijvoorbeeld:</para>
+
+<table frame='all'><title>aantal computers in een subnet<indexterm><primary>subnet mask</primary></indexterm></title>
+<?dbfo table-width="100%" ?>
+<tgroup cols='4' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="7*" align="center"/>
+<colspec colname='c2' colwidth="6*" align="center"/>
+<colspec colname='c3' colwidth="7*" align="center"/>
+<colspec colname='c4' colwidth="13*" align="center"/>
+<thead>
+<row>
+  <entry>network</entry>
+  <entry>network id</entry>
+  <entry>broadcast ip</entry>
+  <entry>max aantal hosts</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>192.168.1.0/24</entry>
+  <entry>192.168.1.0</entry>
+  <entry>192.168.1.255</entry>
+  <entry>256 - 2 = 254</entry>
+</row>
+<row>
+  <entry>192.168.15.0/24</entry>
+  <entry>192.168.15.0</entry>
+  <entry>192.168.15.255</entry>
+  <entry>256 - 2 = 254</entry>
+</row>
+<row>
+  <entry>172.16.0.0/16</entry>
+  <entry>172.16.0.0</entry>
+  <entry>172.16.255.255</entry>
+  <entry>256*256 - 2 = 65534</entry>
+</row>
+<row>
+  <entry>10.0.0.0/8</entry>
+  <entry>10.0.0.0</entry>
+  <entry>10.255.255.255</entry>
+  <entry>256*256*256 - 2 = 16777214</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</section>
+<section><title>te weinig ip adressen ?</title>
+	<para>Is vier miljard dan niet genoeg ? We verspillen enorm veel ip adressen door de verkoop van klasse A en klasse B aan organizaties die eigenlijk veel minder adressen nodig hebben.</para>
+	<para>Wat doe je als je 300 adressen nodig hebt ? Of 2000 ? Je kan kiezen voor een klasse B<indexterm><primary>class B</primary></indexterm> range, maar dan verspil je meer dan 90 procent. Je kan ook zeggen dat 8 klasse C<indexterm><primary>class C</primary></indexterm> adressen voldoen voor 2000 computers, maar dan vergroot je de <command>routing tables</command> weer.</para>
+	<para>Je kan het tekort verzachten door <command>nat</command> te gebruiken. Eerst bekijken we hoe <command>classless ip addressing</command> met <command>binaire subnet masks</command><indexterm><primary>subnet mask</primary></indexterm> ofte <command>supernetting</command> mitigerend kan werken.</para>
+<screen>
+</screen>
+</section>
+<section><title>binaire classful subnets</title>
+<para>Stel u eens voor dat computers <command>binair</command><indexterm><primary>binair</primary></indexterm> rekenen i.p.v. decimaal ;-)</para>
+<para>Computers rekenen met <command>bits</command><indexterm><primary>bit</primary></indexterm> en <command>bytes</command><indexterm><primary>byte</primary></indexterm>, mensen rekenen decimaal. Onze computers zien een <command>ip adres</command><indexterm><primary>ip adres</primary></indexterm> als een 32-bit getal, hetzelfde geld voor de <command>subnet mask</command><indexterm><primary>subnet mask</primary></indexterm>. De drie subnet masks die we tot nu toe kennen zijn decimaal en binair voorgesteld in de volgende tabel:</para>
+<table frame='all'><title>binary classful<indexterm><primary>classful</primary></indexterm> subnets</title>
+<?dbfo table-width="90%" ?>
+<tgroup cols='3' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="1*" align="center"/>
+<colspec colname='c2' colwidth="2*" align="center"/>
+<colspec colname='c3' colwidth="6*" align="center"/>
+<thead>
+<row>
+  <entry>class</entry>
+  <entry>subnet</entry>
+  <entry>binary subnet</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>A</entry>
+  <entry>255.0.0.0</entry>
+  <entry>11111111.00000000.00000000.00000000</entry>
+</row>
+<row>
+  <entry>B</entry>
+  <entry>255.255.0.0</entry>
+  <entry>11111111.11111111.00000000.00000000</entry>
+</row>
+<row>
+  <entry>C</entry>
+  <entry>255.255.255.0</entry>
+  <entry>11111111.11111111.11111111.00000000</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<para>Voor de volledigheid volgt ook nog eens het aantal computers dat in een <command>classful</command> netwerk past.</para>
+<table frame='all'><title>max computers classful subnets</title>
+<?dbfo table-width="90%" ?>
+<tgroup cols='3' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="1*" align="center"/>
+<colspec colname='c2' colwidth="6*" align="center"/>
+<colspec colname='c3' colwidth="3*" align="center"/>
+<thead>
+<row>
+  <entry>class</entry>
+  <entry>binary subnet</entry>
+  <entry>computers</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>A</entry>
+  <entry>11111111.00000000.00000000.00000000</entry>
+  <entry>256*256*256 - 2</entry>
+</row>
+<row>
+  <entry>B</entry>
+  <entry>11111111.11111111.00000000.00000000</entry>
+  <entry>256*256 - 2</entry>
+</row>
+<row>
+  <entry>C</entry>
+  <entry>11111111.11111111.11111111.00000000</entry>
+  <entry>256 - 2</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</section>
+<section><title>ip adressen verdelen</title>
+<para><command>Klasse A</command><indexterm><primary>class A</primary></indexterm> adressen kunnen dus een dikke 16 miljoen computers bevatten, <command>klasse B</command><indexterm><primary>class B</primary></indexterm> een goei 65 duizend en <command>klasse C</command><indexterm><primary>class C</primary></indexterm> iets meer dan 200.</para>
+<para>Stel dat jouw organisatie 3000 ip adressen nodig heeft, dan moet je een klasse B gebruiken. Maar dat wil zeggen dat je meer dan 62 duizend ip adressen <command>verspilt</command>. Onthou ook dat heel wat klasse A ranges begin jaren 90 in hun geheel verkocht zijn (<command>IANA</command><indexterm><primary>IANA</primary></indexterm> beheert dit wereldwijd).</para>
+<screen>http://www.iana.org/assignments/ipv4-address-space/</screen>
+<para>In de jaren 70-80 was dit een goed systeem, er waren immers maar enkele duizenden computers op dit <command>internetwerk</command><indexterm><primary>internet</primary></indexterm>. Maar de laatste jaren zijn er meer dan een miljard computers verbonden met internet. Met een totaal van vier miljard (256*256*256*256) ip-adressen kunnen we ons niet langer veroorloven om ip-adressen te verspillen.</para>
+</section>
+<section><title>routing tables...</title>
+<para>Je zou kunnen argumenteren op het vorige dat je ook twaalf <command>klasse C</command><indexterm><primary>class C</primary></indexterm> kan gebruiken voor een netwerk met 3000 computers. En dat is correct, maar heeft wel tot gevolg dat de <command>routing tables</command><indexterm><primary>router</primary></indexterm> in de internet routers er twaalf routes bijkrijgen i.p.v. slechts eentje.</para>
+<para>Alle grote netwerken opbouwen met klasse C ip ranges is dus ook geen oplosssing. (routing tables bespreken we later)</para>
+</section>
+<section><title>nat...</title>
+<para>Een andere verzachtende techniek voor het naderende tekort aan ip adressen is <command>nat</command><indexterm><primary>nat</primary></indexterm>. Een <command>nat</command> toestel kan meerdere <command>private ip adressen </command><indexterm><primary>private ip adressen</primary></indexterm>(en dus meerdere computers) met een (of enkele) publieke adressen verbinden met het internet.</para>
+<para>Maar <command>nat</command> heeft dan weer het nadeel dat niet alle applicaties kunnen werken achter een <command>nat</command> (bijvoorbeeld <command>ipsec</command><indexterm><primary>ipsec</primary></indexterm>).</para>
+</section>
+
+<section><title>supernetting</title>
+<para>Zoals je ziet begint de subnet mask binair steeds met eentjes en eindigt steeds met nulletjes. Wat als we nu een eentje meer of minder zetten ?</para>
+<para>Onze verkorte notatie<indexterm><primary>cidr</primary></indexterm> laat toe om dit snel te noteren. We schrijven simpelweg 172.16.0.0/17 i.p.v. 172.16.0.0/16 . Maar wat zijn de gevolgen hiervan ?</para>
+<para>Ten eerste is een eentje meer hetzelfde als het halveren van het aantal computers in het netwerk. Want we vergroten het <command>network id</command><indexterm><primary>network id</primary></indexterm> en verkleinen het aantal mogelijke <command>host id's</command><indexterm><primary>host id</primary></indexterm>.</para>
+<para>Laten we ons voorbeeld beginnen met het netwerk in de klas zoals het er nu uitziet:</para>
+
+<table frame='all'><title>/24 netwerk in de klas</title>
+<?dbfo table-width="99%" ?>
+<tgroup cols='4' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="2*" align="center"/>
+<colspec colname='c2' colwidth="1*" align="center"/>
+<colspec colname='c3' colwidth="6*" align="center"/>
+<colspec colname='c4' colwidth="2*" align="center"/>
+<thead>
+<row>
+  <entry>network id</entry>
+  <entry>subnet</entry>
+  <entry>binair subnet</entry>
+  <entry>aantal computers</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>192.168.0.0</entry>
+  <entry>/24</entry>
+  <entry>11111111.11111111.11111111.00000000</entry>
+  <entry>256 - 2 = 254</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<para>En kijk wat er gebeurt als we de <command>subnet mask</command><indexterm><primary>subnet mask</primary></indexterm> veranderen van 24 <command>bits</command> naar 25 <command>bits</command><indexterm><primary>bit</primary></indexterm> die op 1 staan.</para>
+<table frame='all'><title>/25 netwerk in de klas</title>
+<?dbfo table-width="99%" ?>
+<tgroup cols='4' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="2*" align="center"/>
+<colspec colname='c2' colwidth="1*" align="center"/>
+<colspec colname='c3' colwidth="6*" align="center"/>
+<colspec colname='c4' colwidth="2*" align="center"/>
+<thead>
+<row>
+  <entry>network id</entry>
+  <entry>subnet</entry>
+  <entry>binair subnet</entry>
+  <entry>aantal computers</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>192.168.0.0</entry>
+  <entry>/25</entry>
+  <entry>11111111.11111111.11111111.10000000</entry>
+  <entry>128 - 2 = 126</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+	<para>De reeks ip adressen<indexterm><primary>ip adres</primary></indexterm> die behoren tot 192.168.0.0/25 begint met 192.168.0.1 en eindigt met 192.168.0.126, de network id is 192.168.0.0 en het <command>broadcast</command><indexterm><primary>broadcast</primary></indexterm> adres is 192.168.0.127.</para>
+<para>Als we dit binair voorstellen wordt het duidelijk:</para>
+<table frame='all'><title>/25 binair bekijken</title>
+<?dbfo table-width="99%" ?>
+<tgroup cols='3' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="4*" align="center"/>
+<colspec colname='c2' colwidth="11*" align="center"/>
+<colspec colname='c3' colwidth="5*" align="center"/>
+<thead>
+<row>
+  <entry>omschrijving</entry>
+  <entry>binair</entry>
+  <entry>decimaal</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>network id</entry>
+  <entry>11000000.10101000.00000000.00000000</entry>
+  <entry>192.168.0.0</entry>
+</row>
+<row>
+  <entry>subnet mask</entry>
+  <entry>11111111.11111111.11111111.10000000</entry>
+  <entry>255.255.255.128</entry>
+</row>
+<row>
+  <entry>eerste ip</entry>
+  <entry>11000000.10101000.00000000.00000001</entry>
+  <entry>192.168.0.1</entry>
+</row>
+<row>
+  <entry>tweede ip</entry>
+  <entry>11000000.10101000.00000000.00000010</entry>
+  <entry>192.168.0.2</entry>
+</row>
+<row>
+  <entry>derde ip</entry>
+  <entry>11000000.10101000.00000000.00000011</entry>
+  <entry>192.168.0.3</entry>
+</row>
+<row>
+  <entry>vierde ip</entry>
+  <entry>11000000.10101000.00000000.00000100</entry>
+  <entry>192.168.0.4</entry>
+</row>
+<row>
+  <entry>vijfde ip</entry>
+  <entry>11000000.10101000.00000000.00000101</entry>
+  <entry>192.168.0.5</entry>
+</row>
+<row>
+  <entry>...</entry>
+  <entry>...</entry>
+  <entry>...</entry>
+</row>
+<row>
+  <entry>voorlaatste ip</entry>
+  <entry>11000000.10101000.00000000.01111101</entry>
+  <entry>192.168.0.125</entry>
+</row>
+<row>
+  <entry>laatste ip</entry>
+  <entry>11000000.10101000.00000000.01111110</entry>
+  <entry>192.168.0.126</entry>
+</row>
+<row>
+  <entry>broadcast ip</entry>
+  <entry>11000000.10101000.00000000.01111111</entry>
+  <entry>192.168.0.127</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<para>We voegen nog een <command>bit</command><indexterm><primary>bit</primary></indexterm> toe aan de <command>subnet mask</command><indexterm><primary>subnet mask</primary></indexterm>, dan komen we aan /26 (255.255.255.192). De tabel ziet er dan als volgt uit:</para>
+<table frame='all'><title>/26 binair<indexterm><primary>binair</primary></indexterm> bekijken</title>
+<?dbfo table-width="99%" ?>
+<tgroup cols='3' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="4*" align="center"/>
+<colspec colname='c2' colwidth="11*" align="center"/>
+<colspec colname='c3' colwidth="5*" align="center"/>
+<thead>
+<row>
+  <entry>omschrijving</entry>
+  <entry>binair</entry>
+  <entry>decimaal</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>network id</entry>
+  <entry>11000000.10101000.00000000.00000000</entry>
+  <entry>192.168.0.0</entry>
+</row>
+<row>
+  <entry>subnet mask</entry>
+  <entry>11111111.11111111.11111111.11000000</entry>
+  <entry>255.255.255.192</entry>
+</row>
+<row>
+  <entry>eerste ip</entry>
+  <entry>11000000.10101000.00000000.00000001</entry>
+  <entry>192.168.0.1</entry>
+</row>
+<row>
+  <entry>tweede ip</entry>
+  <entry>11000000.10101000.00000000.00000010</entry>
+  <entry>192.168.0.2</entry>
+</row>
+<row>
+  <entry>derde ip</entry>
+  <entry>11000000.10101000.00000000.00000011</entry>
+  <entry>192.168.0.3</entry>
+</row>
+<row>
+  <entry>...</entry>
+  <entry>...</entry>
+  <entry>...</entry>
+</row>
+<row>
+  <entry>voorlaatste ip</entry>
+  <entry>11000000.10101000.00000000.00111101</entry>
+  <entry>192.168.0.61</entry>
+</row>
+<row>
+  <entry>laatste ip</entry>
+  <entry>11000000.10101000.00000000.00111110</entry>
+  <entry>192.168.0.62</entry>
+</row>
+<row>
+  <entry>broadcast ip</entry>
+  <entry>11000000.10101000.00000000.00111111</entry>
+  <entry>192.168.0.63</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</section>
+<section><title>binaire subnets decimaal voorstellen</title>
+<para>We weten al dat 255 <command>decimaal</command><indexterm><primary>decimaal</primary></indexterm> gelijk is aan 11111111 <command>binair</command><indexterm><primary>binair</primary></indexterm> (en dat 0 decimaal gelijk is aan 00000000 binair). Een binair <command>subnet mask</command><indexterm><primary>subnet mask</primary></indexterm> begint steeds met eentjes, en eindigt met nulletjes. De volgende tabel kan dus handig zijn bij het decimaal neerschrijven van een binair subnet mask.</para>
+<table frame='all'><title>decimale waarde binaire subnet bytes</title>
+<?dbfo table-width="70%" ?>
+<tgroup cols='2' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="1*" align="center"/>
+<colspec colname='c2' colwidth="1*" align="center"/>
+<thead>
+<row>
+  <entry>binair subnet mask</entry>
+  <entry>decimaal getal</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>11111111</entry>
+  <entry>255</entry>
+</row>
+<row>
+  <entry>11111110</entry>
+  <entry>254</entry>
+</row>
+<row>
+  <entry>11111100</entry>
+  <entry>252</entry>
+</row>
+<row>
+  <entry>11111000</entry>
+  <entry>248</entry>
+</row>
+<row>
+  <entry>11110000</entry>
+  <entry>240</entry>
+</row>
+<row>
+  <entry>11100000</entry>
+  <entry>224</entry>
+</row>
+<row>
+  <entry>11000000</entry>
+  <entry>192</entry>
+</row>
+<row>
+  <entry>10000000</entry>
+  <entry>128</entry>
+</row>
+<row>
+  <entry>00000000</entry>
+  <entry>0</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</section>
+<section><title>32 binaire subnet masks</title>
+<para>Bij supernetting zijn er theoretisch 32 <command>binaire</command><indexterm><primary>binair</primary></indexterm> <command>subnet masks</command><indexterm><primary>subnet mask</primary></indexterm> i.p.v. de drie <command>classful</command><indexterm><primary>classful</primary></indexterm> (255.255.255.0, 255.255.0.0, 255.0.0.0). We zetten ze alle 32 op een rijtje.</para>
+<table frame='all'><title>32 binaire subnets</title>
+<?dbfo table-width="70%" ?>
+<tgroup cols='2' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="1*" align="center"/>
+<colspec colname='c2' colwidth="2*" align="center"/>
+<thead>
+<row>
+  <entry>aantal bits op 1</entry>
+  <entry>decimale waarde</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>1</entry>
+  <entry>128.0.0.0</entry>
+</row>
+<row>
+  <entry>2</entry>
+  <entry>192.0.0.0</entry>
+</row>
+<row>
+  <entry>3</entry>
+  <entry>224.0.0.0</entry>
+</row>
+<row>
+  <entry>4</entry>
+  <entry>240.0.0.0</entry>
+</row>
+<row>
+  <entry>5</entry>
+  <entry>248.0.0.0</entry>
+</row>
+<row>
+  <entry>6</entry>
+  <entry>252.0.0.0</entry>
+</row>
+<row>
+  <entry>7</entry>
+  <entry>254.0.0.0</entry>
+</row>
+<row>
+  <entry>8</entry>
+  <entry>255.0.0.0</entry>
+</row>
+<row>
+  <entry>9</entry>
+  <entry>255.128.0.0</entry>
+</row>
+<row>
+  <entry>10</entry>
+  <entry>255.192.0.0</entry>
+</row>
+<row>
+  <entry>11</entry>
+  <entry>255.224.0.0</entry>
+</row>
+<row>
+  <entry>12</entry>
+  <entry>255.240.0.0</entry>
+</row>
+<row>
+  <entry>13</entry>
+  <entry>255.248.0.0</entry>
+</row>
+<row>
+  <entry>14</entry>
+  <entry>255.252.0.0</entry>
+</row>
+<row>
+  <entry>15</entry>
+  <entry>255.254.0.0</entry>
+</row>
+<row>
+  <entry>16</entry>
+  <entry>255.255.0.0</entry>
+</row>
+<row>
+  <entry>17</entry>
+  <entry>255.255.128.0</entry>
+</row>
+<row>
+  <entry>18</entry>
+  <entry>255.255.192.0</entry>
+</row>
+<row>
+  <entry>19</entry>
+  <entry>255.255.224.0</entry>
+</row>
+<row>
+  <entry>20</entry>
+  <entry>255.255.240.0</entry>
+</row>
+<row>
+  <entry>21</entry>
+  <entry>255.255.248.0</entry>
+</row>
+<row>
+  <entry>22</entry>
+  <entry>255.255.252.0</entry>
+</row>
+<row>
+  <entry>23</entry>
+  <entry>255.255.254.0</entry>
+</row>
+<row>
+  <entry>24</entry>
+  <entry>255.255.255.0</entry>
+</row>
+<row>
+  <entry>25</entry>
+  <entry>255.255.255.128</entry>
+</row>
+<row>
+  <entry>26</entry>
+  <entry>255.255.255.192</entry>
+</row>
+<row>
+  <entry>27</entry>
+  <entry>255.255.255.224</entry>
+</row>
+<row>
+  <entry>28</entry>
+  <entry>255.255.255.240</entry>
+</row>
+<row>
+  <entry>29</entry>
+  <entry>255.255.255.248</entry>
+</row>
+<row>
+  <entry>30</entry>
+  <entry>255.255.255.252</entry>
+</row>
+<row>
+  <entry>31</entry>
+  <entry>255.255.255.254</entry>
+</row>
+<row>
+  <entry>32</entry>
+  <entry>255.255.255.255</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</section>
+<section><title>aantal computers</title>
+<para>We kunnen de tabel uitbreiden met een kolom die het aantal computers telt dat we in deze <command>binaire</command><indexterm><primary>binair</primary></indexterm> netwerkjes kunnen plaatsen.</para>
+<para>De simpelste formule om het aantal computers in een <command>subnet</command><indexterm><primary>subnet</primary></indexterm> te berekenen is twee verheffen tot de macht 'het aantal bits op 0 in de subnet' min twee. Bij 16 bits op 1 wordt dat dus 2 tot de zestiende min twee. In de tabel gebruiken we 256 i.p.v. twee tot de achtste.</para>
+<table frame='all'><title>aantal computers in binaire subnets</title>
+<?dbfo table-width="90%" ?>
+<tgroup cols='3' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="1*" align="center"/>
+<colspec colname='c2' colwidth="1*" align="center"/>
+<colspec colname='c3' colwidth="1*" align="center"/>
+<thead>
+<row>
+  <entry>aantal bits op 1</entry>
+  <entry>berekening</entry>
+  <entry>aantal computers</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>8</entry>
+  <entry>256*256*256-2</entry>
+  <entry>16777214</entry>
+</row>
+<row>
+  <entry>9</entry>
+  <entry>256*256*128-2</entry>
+  <entry>8388606</entry>
+</row>
+<row>
+  <entry>10</entry>
+  <entry>256*256*64-2</entry>
+  <entry>4194302</entry>
+</row>
+<row>
+  <entry>11</entry>
+  <entry>256*256*32-2</entry>
+  <entry>2097150</entry>
+</row>
+<row>
+  <entry>12</entry>
+  <entry>256*256*16-2</entry>
+  <entry>1048574</entry>
+</row>
+<row>
+  <entry>13</entry>
+  <entry>256*256*8-2</entry>
+  <entry>524286</entry>
+</row>
+<row>
+  <entry>14</entry>
+  <entry>256*256*4-2</entry>
+  <entry>262142</entry>
+</row>
+<row>
+  <entry>15</entry>
+  <entry>256*256*2-2</entry>
+  <entry>131070</entry>
+</row>
+<row>
+  <entry>16</entry>
+  <entry>256*256-2</entry>
+  <entry>65534</entry>
+</row>
+<row>
+  <entry>17</entry>
+  <entry>256*128-2</entry>
+  <entry>32766</entry>
+</row>
+<row>
+  <entry>18</entry>
+  <entry>256*64-2</entry>
+  <entry>16382</entry>
+</row>
+<row>
+  <entry>19</entry>
+  <entry>256*32-2</entry>
+  <entry>8190</entry>
+</row>
+<row>
+  <entry>20</entry>
+  <entry>256*16-2</entry>
+  <entry>4094</entry>
+</row>
+<row>
+  <entry>21</entry>
+  <entry>256*8-2</entry>
+  <entry>2046</entry>
+</row>
+<row>
+  <entry>22</entry>
+  <entry>256*4-2</entry>
+  <entry>1022</entry>
+</row>
+<row>
+  <entry>23</entry>
+  <entry>256*2-2</entry>
+  <entry>510</entry>
+</row>
+<row>
+  <entry>24</entry>
+  <entry>256-2</entry>
+  <entry>254</entry>
+</row>
+<row>
+  <entry>25</entry>
+  <entry>128-2</entry>
+  <entry>126</entry>
+</row>
+<row>
+  <entry>26</entry>
+  <entry>64-2</entry>
+  <entry>62</entry>
+</row>
+<row>
+  <entry>27</entry>
+  <entry>32-2</entry>
+  <entry>30</entry>
+</row>
+<row>
+  <entry>28</entry>
+  <entry>16-2</entry>
+  <entry>14</entry>
+</row>
+<row>
+  <entry>29</entry>
+  <entry>8-2</entry>
+  <entry>6</entry>
+</row>
+<row>
+  <entry>30</entry>
+  <entry>4-2</entry>
+  <entry>2</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<para>Zie ook eens op <command>http://www.rfc-editor.org/rfc/rfc1878.txt</command>.</para>
+</section>
+<section><title>network id en host id vinden</title>
+	<para>Als we een <command>ip adres</command><indexterm><primary>ip adres</primary></indexterm> krijgen, kunnen we dan het <command>network id</command><indexterm><primary>network id</primary></indexterm> en het <command>host id</command><indexterm><primary>host id</primary></indexterm> vinden ?</para>
+<para>We zullen beginnen met een simpel classful voorbeeld: <command>192.168.1.5/24</command>.</para>
+<screen>
+ip adres    : 192.168.  1.5
+subnet mask : <command>255.255.255</command>.0
+network id  : <command>192.168.  1</command>.0
+host id     :             <command>5</command>
+</screen>
+<para>We kunnen dit ook binair bekijken:</para>
+<screen>
+ip adres    : 11000000.10101000.00000001.00000101
+subnet mask : <command>11111111.11111111.11111111</command>.00000000
+network id  : <command>11000000.10101000.00000001</command>.00000000
+host id     : 00000000.00000000.00000000.<command>00000101</command>
+</screen>
+<para></para>
+<para>Nog een tweede voorbeeld: <command>192.168.199.233/24</command>.</para>
+<screen>
+ip adres    : 192.168.199.233
+subnet mask : <command>255.255.255</command>.0
+network id  : <command>192.168.199</command>.0
+host id     :             <command>233</command>
+</screen>
+<para>We kunnen dit tweede voorbeeld ook binair bekijken.</para>
+<screen>
+ip adres    : 11000000.10101000.11000111.11101001
+subnet mask : <command>11111111.11111111.11111111</command>.00000000
+network id  : <command>11000000.10101000.11000111</command>.00000000
+host id     : 00000000.00000000.00000000.<command>11101001</command>
+</screen>
+<para></para>
+<para>Als derde voorbeeld zullen we hetzelfde ip adres nemen als in het tweede, maar met een supernet: <command>192.168.199.233/22</command>. We bekijken het eerst binair, want dit is het eenvoudigste.</para>
+<screen>
+ip adres    : 11000000.10101000.11000111.11101001
+subnet mask : <command>11111111.11111111.111111</command>00.00000000
+network id  : <command>11000000.10101000.110001</command>00.00000000
+host id     : 00000000.00000000.000000<command>11.11101001</command>
+</screen>
+<para>Decimaal wordt dat dan:</para>
+<screen>
+ip adres    : 192.168.199.233
+subnet mask : <command>255.255.252</command>.0
+network id  : <command>192.168.196</command>.0
+host id     :           <command>3.233</command>
+</screen>
+<para></para>
+<para></para>
+<para></para>
+</section>
+<section><title>voorbeeldoefening binaire subnets</title>
+<para>De vragen die jullie kregen in de oktober test komen bijna letterlijk terug op het examen, maar dan met binaire subnet masks i.p.v. met classful.</para>
+<para>Aziz was al zo vriendelijk om een paar oefeningen te mailen (lichtjes aangepast van 168.192.x.y naar 192.168.x.y). Vul de volgende tabel aan voor <command>192.168.234.234/17</command>.</para>
+
+<table frame='all'><title>oefening 192.168.234.234/17</title>
+<?dbfo table-width="99%" ?>
+<tgroup cols='3' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="2*" align="left"/>
+<colspec colname='c2' colwidth="7*" align="center"/>
+<colspec colname='c3' colwidth="3*" align="center"/>
+<thead>
+<row>
+  <entry></entry>
+  <entry>binair</entry>
+  <entry>decimaal</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>ip address</entry>
+  <entry>11000000.10101000.11101010.11101010</entry>
+  <entry>192.168.234.234</entry>
+</row>
+<row>
+  <entry>subnet mask</entry>
+  <entry>11111111.11111111.10000000.00000000</entry>
+  <entry>255.255.128.0</entry>
+</row>
+<row>
+  <entry>network id</entry>
+  <entry></entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>eerste ip</entry>
+  <entry></entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>laatste ip</entry>
+  <entry></entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>broadcast ip</entry>
+  <entry></entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>aantal ip's</entry>
+  <entry></entry>
+  <entry></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<para>Hieronder vind je de oplossing van bovenstaande oefening.</para>
+
+<table frame='all'><title>oplossing 192.168.234.234/17</title>
+<?dbfo table-width="99%" ?>
+<tgroup cols='3' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="2*" align="left"/>
+<colspec colname='c2' colwidth="7*" align="center"/>
+<colspec colname='c3' colwidth="3*" align="center"/>
+<thead>
+<row>
+  <entry></entry>
+  <entry>binair</entry>
+  <entry>decimaal</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>ip address</entry>
+  <entry>11000000.10101000.11101010.11101010</entry>
+  <entry>192.168.234.234</entry>
+</row>
+<row>
+  <entry>subnet mask</entry>
+  <entry>11111111.11111111.10000000.00000000</entry>
+  <entry>255.255.128.0</entry>
+</row>
+<row>
+  <entry>network id</entry>
+  <entry>11000000.10101000.10000000.00000000</entry>
+  <entry>192.168.128.0</entry>
+</row>
+<row>
+  <entry>eerste ip</entry>
+  <entry>11000000.10101000.10000000.00000001</entry>
+  <entry>192.168.128.1</entry>
+</row>
+<row>
+  <entry>laatste ip</entry>
+  <entry>11000000.10101000.11111111.11111110</entry>
+  <entry>192.168.255.254</entry>
+</row>
+<row>
+  <entry>broadcast ip</entry>
+  <entry>11000000.10101000.11111111.11111111</entry>
+  <entry>192.168.255.255</entry>
+</row>
+<row>
+  <entry>aantal ip's</entry>
+  <entry>van 0000000.00000001 tot 1111111.11111110</entry>
+  <entry>128*256-2=32766</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<para>Het bovenstaande netwerk bevat exact de helft van alle ip adressen in de 192.168.0.0/16 reeks. Kan je de tabel ook invullen voor de andere helft ?</para>
+
+<table frame='all'><title>andere helft van 192.168.234.234/17</title>
+<?dbfo table-width="99%" ?>
+<tgroup cols='3' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="2*" align="left"/>
+<colspec colname='c2' colwidth="7*" align="center"/>
+<colspec colname='c3' colwidth="3*" align="center"/>
+<thead>
+<row>
+  <entry></entry>
+  <entry>binair</entry>
+  <entry>decimaal</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>ip address</entry>
+  <entry></entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>subnet mask</entry>
+  <entry>11111111.11111111.10000000.00000000</entry>
+  <entry>255.255.128.0</entry>
+</row>
+<row>
+  <entry>network id</entry>
+  <entry></entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>eerste ip</entry>
+  <entry></entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>laatste ip</entry>
+  <entry></entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>broadcast ip</entry>
+  <entry></entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>aantal ip's</entry>
+  <entry></entry>
+  <entry></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<para>Hieronder de oplossing van de andere helft.</para>
+
+<table frame='all'><title>oplossing andere helft 192.168.234.234/17</title>
+<?dbfo table-width="99%" ?>
+<tgroup cols='3' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="2*" align="left"/>
+<colspec colname='c2' colwidth="7*" align="center"/>
+<colspec colname='c3' colwidth="3*" align="center"/>
+<thead>
+<row>
+  <entry></entry>
+  <entry>binair</entry>
+  <entry>decimaal</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>ip address</entry>
+  <entry>11000000.10101000.<command>0</command>1101010.11101010</entry>
+  <entry>192.168.106.234</entry>
+</row>
+<row>
+  <entry>subnet mask</entry>
+  <entry>11111111.11111111.10000000.00000000</entry>
+  <entry>255.255.128.0</entry>
+</row>
+<row>
+  <entry>network id</entry>
+  <entry>11000000.10101000.<command>0</command>0000000.00000000</entry>
+  <entry>192.168.0.0</entry>
+</row>
+<row>
+  <entry>eerste ip</entry>
+  <entry>11000000.10101000.<command>0</command>0000000.00000001</entry>
+  <entry>192.168.0.1</entry>
+</row>
+<row>
+  <entry>laatste ip</entry>
+  <entry>11000000.10101000.<command>0</command>1111111.11111110</entry>
+  <entry>192.168.127.254</entry>
+</row>
+<row>
+  <entry>broadcast ip</entry>
+  <entry>11000000.10101000.<command>0</command>1111111.11111111</entry>
+  <entry>192.168.127.255</entry>
+</row>
+<row>
+  <entry>aantal ip's</entry>
+  <entry>van 0000000.00000001 tot 1111111.11111110</entry>
+  <entry>128*256-2=32766</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</section>
+<section><title>oefeningen binaire subnets</title>
+
+<para>Aziz vroeg ook nog dezelfde oefening voor:</para>
+<screen>
+168.186.240.192/11
+192.168.248.234/17
+168.190.248.199/27
+</screen>
+<para>Kan je de network id, subnet mask, eerste ip, laatste ip, broadcast ip en aantal ip's geven voor de subnets van die drie ip adressen ? Zonder naar de oplossing hieronder te kijken ?</para>
+<para>Hieronder eerst drie lege tabellen om te oefenen, dan de oplossing.</para>
+
+<table frame='all'><title>lege tabel 168.186.240.192/11</title>
+<?dbfo table-width="99%" ?>
+<tgroup cols='3' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="2*" align="left"/>
+<colspec colname='c2' colwidth="7*" align="center"/>
+<colspec colname='c3' colwidth="3*" align="center"/>
+<thead>
+<row>
+  <entry></entry>
+  <entry>binair</entry>
+  <entry>decimaal</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>ip address</entry>
+  <entry></entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>subnet mask</entry>
+  <entry></entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>network id</entry>
+  <entry></entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>eerste ip</entry>
+  <entry></entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>laatste ip</entry>
+  <entry></entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>broadcast ip</entry>
+  <entry></entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>aantal ip's</entry>
+  <entry></entry>
+  <entry></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<table frame='all'><title>lege tabel 192.168.248.234/17</title>
+<?dbfo table-width="99%" ?>
+<tgroup cols='3' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="2*" align="left"/>
+<colspec colname='c2' colwidth="7*" align="center"/>
+<colspec colname='c3' colwidth="3*" align="center"/>
+<thead>
+<row>
+  <entry></entry>
+  <entry>binair</entry>
+  <entry>decimaal</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>ip address</entry>
+  <entry></entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>subnet mask</entry>
+  <entry></entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>network id</entry>
+  <entry></entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>eerste ip</entry>
+  <entry></entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>laatste ip</entry>
+  <entry></entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>broadcast ip</entry>
+  <entry></entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>aantal ip's</entry>
+  <entry></entry>
+  <entry></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<table frame='all'><title>lege tabel 168.190.248.199/27</title>
+<?dbfo table-width="99%" ?>
+<tgroup cols='3' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="2*" align="left"/>
+<colspec colname='c2' colwidth="7*" align="center"/>
+<colspec colname='c3' colwidth="3*" align="center"/>
+<thead>
+<row>
+  <entry></entry>
+  <entry>binair</entry>
+  <entry>decimaal</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>ip address</entry>
+  <entry></entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>subnet mask</entry>
+  <entry></entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>network id</entry>
+  <entry></entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>eerste ip</entry>
+  <entry></entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>laatste ip</entry>
+  <entry></entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>broadcast ip</entry>
+  <entry></entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>aantal ip's</entry>
+  <entry></entry>
+  <entry></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<table frame='all'><title>oplossing 168.186.240.192/11</title>
+<?dbfo table-width="99%" ?>
+<tgroup cols='3' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="2*" align="left"/>
+<colspec colname='c2' colwidth="7*" align="center"/>
+<colspec colname='c3' colwidth="3*" align="center"/>
+<thead>
+<row>
+  <entry></entry>
+  <entry>binair</entry>
+  <entry>decimaal</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>ip address</entry>
+  <entry>10101000.10111010.11110000.11000000</entry>
+  <entry>168.186.240.192</entry>
+</row>
+<row>
+  <entry>subnet mask</entry>
+  <entry><command>11111111.111</command>00000.00000000.00000000</entry>
+  <entry>255.224.0.0</entry>
+</row>
+<row>
+  <entry>network id</entry>
+  <entry><command>10101000.101</command>00000.00000000.00000000</entry>
+  <entry>168.160.0.0</entry>
+</row>
+<row>
+  <entry>eerste ip</entry>
+  <entry><command>10101000.101</command>00000.00000000.0000000<command>1</command></entry>
+  <entry>168.160.0.1</entry>
+</row>
+<row>
+  <entry>laatste ip</entry>
+  <entry><command>10101000.101</command>11111.11111111.11111110</entry>
+  <entry>168.191.255.254</entry>
+</row>
+<row>
+  <entry>broadcast ip</entry>
+  <entry><command>10101000.101</command>11111.11111111.11111111</entry>
+  <entry>168.191.255.255</entry>
+</row>
+<row>
+  <entry>aantal ip's</entry>
+  <entry>van 00000.00000000.00000001 tot 11111.11111111.11111110</entry>
+  <entry>32*256*256-2</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<table frame='all'><title>oplossing 192.168.248.234/17</title>
+<?dbfo table-width="99%" ?>
+<tgroup cols='3' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="2*" align="left"/>
+<colspec colname='c2' colwidth="7*" align="center"/>
+<colspec colname='c3' colwidth="3*" align="center"/>
+<thead>
+<row>
+  <entry></entry>
+  <entry>binair</entry>
+  <entry>decimaal</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>ip address</entry>
+  <entry>11000000.10101000.11111000.11101010</entry>
+  <entry>192.168.248.234</entry>
+</row>
+<row>
+  <entry>subnet mask</entry>
+  <entry><command>11111111.11111111.1</command>0000000.00000000</entry>
+  <entry>255.255.128.0</entry>
+</row>
+<row>
+  <entry>network id</entry>
+  <entry><command>11000000.10101000.1</command>0000000.00000000</entry>
+  <entry>192.168.128.0</entry>
+</row>
+<row>
+  <entry>eerste ip</entry>
+  <entry><command>11000000.10101000.1</command>0000000.0000000<command>1</command></entry>
+  <entry>192.168.128.1</entry>
+</row>
+<row>
+  <entry>laatste ip</entry>
+  <entry><command>11000000.10101000.1</command>1111111.11111110</entry>
+  <entry>192.168.255.254</entry>
+</row>
+<row>
+  <entry>broadcast ip</entry>
+  <entry><command>11000000.10101000.1</command>1111111.11111111</entry>
+  <entry>192.168.255.255</entry>
+</row>
+<row>
+  <entry>aantal ip's</entry>
+  <entry>van 0000000.00000001 tot 1111111.11111110</entry>
+  <entry>128*256-2</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<table frame='all'><title>oplossing 168.190.248.199/27</title>
+<?dbfo table-width="99%" ?>
+<tgroup cols='3' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="2*" align="left"/>
+<colspec colname='c2' colwidth="7*" align="center"/>
+<colspec colname='c3' colwidth="3*" align="center"/>
+<thead>
+<row>
+  <entry></entry>
+  <entry>binair</entry>
+  <entry>decimaal</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>ip address</entry>
+  <entry>10101000.10111110.11111000.11000111</entry>
+  <entry>168.190.248.199</entry>
+</row>
+<row>
+  <entry>subnet mask</entry>
+  <entry><command>11111111.11111111.11111111.111</command>00000</entry>
+  <entry>255.255.255.224</entry>
+</row>
+<row>
+  <entry>network id</entry>
+  <entry><command>10101000.10111110.11111000.110</command>00000</entry>
+  <entry>168.190.248.192</entry>
+</row>
+<row>
+  <entry>eerste ip</entry>
+  <entry><command>10101000.10111110.11111000.110</command>0000<command>1</command></entry>
+  <entry>168.190.248.193</entry>
+</row>
+<row>
+  <entry>laatste ip</entry>
+  <entry><command>10101000.10111110.11111000.110</command>11110</entry>
+  <entry>168.190.248.222</entry>
+</row>
+<row>
+  <entry>broadcast ip</entry>
+  <entry><command>10101000.10111110.11111000.110</command>11111</entry>
+  <entry>168.190.248.223</entry>
+</row>
+<row>
+  <entry>aantal ip's</entry>
+  <entry>van 00001 tot 11110</entry>
+  <entry>32-2</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</section>
+<section><title>zelfde of ander netwerk ?</title>
+<para>Zitten de computers 192.168.117.5/18 en 192.168.34.18/18 in hetzelfde netwerk ?</para>
+<para></para>
+<para></para>
+<para></para>
+<para></para>
+
+</section>
+<section><title>subnetworks</title>
+<para>Je beheert een departement met 200 computers, verdeeld over vier verdiepingen in eenzelfde gebouw, met ongeveer vijftig computers per verdiep. Je krijgt van je netwerkbeheerder <command>192.168.5.0/24</command> en moet deze reeks verdelen over de vier verdiepen. Hoe doe je dat ?</para>
+<para>Je begint met uit te rekenen hoeveel computers er in die reeks kunnen:</para>
+<screen>
+192.168.5.0/24 --> 256 - 2 = 254 computers
+</screen>
+<para>Je weet ook uit de tabel hierboven dat een <command>/26</command> <command>subnet mask</command><indexterm><primary>subnet mask</primary></indexterm> volstaat voor elk individueel verdiep. Je verdeelt jouw /24 netwerk in vier /26 netwerken.</para>
+<para>We bekijken dit eerst binair:</para>
+<screen>
+192.168.5.0 == 11000000.10101000.00000101.00000000
+/24 mask    == 11111111.11111111.11111111.00000000
+/26 mask    == 11111111.11111111.11111111.11000000
+</screen>
+<para>We moeten dus twee <command>bits</command><indexterm><primary>bit</primary></indexterm> toevoegen aan de /24 <command>netword id</command><indexterm><primary>network id</primary></indexterm> om een /26 network id te maken. Twee bits kunnen exact vier mogelijke waarden hebben: 00, 01, 10 of 11. We komen dus tot de volgende vier nieuwe /26 network id's.</para>
+<screen>
+/26 network id 1 == 11000000.10101000.00000101.<command>00</command>000000
+/26 network id 2 == 11000000.10101000.00000101.<command>01</command>000000
+/26 network id 3 == 11000000.10101000.00000101.<command>10</command>000000
+/26 network id 4 == 11000000.10101000.00000101.<command>11</command>000000
+</screen>
+<para>Hieronder een tabel van eerste en laatste ip van de vier /26 netwerken. Tel bij de laatste ip eentje bij voor de broadcast ip.</para>
+<table frame='all'><title>echt supernetten</title>
+<?dbfo table-width="80%" ?>
+<tgroup cols='3' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="2*" align="center"/>
+<colspec colname='c2' colwidth="2*" align="center"/>
+<colspec colname='c3' colwidth="2*" align="center"/>
+<thead>
+<row>
+  <entry>verdiep</entry>
+  <entry>eerste ip</entry>
+  <entry>laatste ip</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>1</entry>
+  <entry>192.168.5.1</entry>
+  <entry>192.168.5.62</entry>
+</row>
+<row>
+  <entry>2</entry>
+  <entry>192.168.5.65</entry>
+  <entry>192.168.5.126</entry>
+</row>
+<row>
+  <entry>3</entry>
+  <entry>192.168.5.129</entry>
+  <entry>192.168.5.190</entry>
+</row>
+<row>
+  <entry>4</entry>
+  <entry>192.168.5.193</entry>
+  <entry>192.168.5.254</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<para>Tussen haakjes, nu zijn we echt aan het <command>supernetten</command><indexterm><primary>supernet</primary></indexterm>. Want in de routers van buitenaf staat er enkel 192.168.5.0/24 als bestemming, terwijl er intern eigenlijk vier /26 netwerkjes zijn.</para>
+</section>
+<section><title>huiswerk antwoorden</title>
+<para>1. Welke subnet is nodig om deze computers in hetzelfde netwerk te zetten ? (We zoeken de subnet mask met het grootste aantal bits op 1 gezet, zodat de computers in hetzelfde netwerk zitten.)</para>
+<screen>
+192.168.117.12
+192.168.116.33
+192.168.115.42     antwoord: /21
+</screen>
+<para>2. idem</para>
+<screen>
+192.166.117.12
+192.162.116.33
+192.168.115.42     antwoord: /12
+</screen>
+<para>3. Verdeel dit /16 netwerk in acht gelijke delen (en gebruik zoveel mogelijk ip adressen).</para>
+<screen>
+10.33.0.0/16
+
+antwoord:
+10.33.0.0/19
+10.33.32.0/19
+10.33.64.0/19
+10.33.96.0/19
+10.33.128.0/19
+10.33.160.0/19
+10.33.192.0/19
+10.33.224.0/19
+</screen>
+<para>4. Verdeel dit /24 netwerk in drie delen, deel A krijgt de eerste helft van de adressen, delen B en C krijgen elk een vierde van de adressen.</para>
+<screen>
+10.42.42.0/24
+
+antwoord:
+A 10.42.42.0/25
+B 10.42.42.128/26
+C 10.42.42.192/26
+</screen>
+<para>5. Geef de network id, host id en subnet mask van de volgende ip adressen en geef eerste ip, laatste ip, broadcast ip en aantal ip van hun respectievelijk netwerk.</para>
+<screen>
+10.42.33.42/8   10.0.0.0 42.33.42 /8 10.0.0.1 10.255.255.254 10.255.255.255 2^24-2
+10.33.42.33/18  10.33.0.0 42.33 /18 10.33.0.1 10.33.63.254 10.33.63.255 2^14-2
+12.01.33.42/28  12.01.33.32 10 /28 12.01.33.33 12.01.33.46 12.01.33.47 16-2
+</screen>
+</section>
+<section><title>huiswerk</title>
+<para>Jullie vroegen huiswerk ? Alsjeblief:</para>
+<para>1. Welke subnet is nodig om deze computers in hetzelfde netwerk te zetten ? (We zoeken de subnet mask met het grootste aantal bits op 1 gezet, zodat de computers in hetzelfde netwerk zitten.)</para>
+<screen>
+192.168.117.12
+192.168.116.33
+192.168.115.42
+</screen>
+<para>2. idem</para>
+<screen>
+192.166.117.12
+192.162.116.33
+192.168.115.42
+</screen>
+<para>3. Verdeel dit /16 netwerk in acht gelijke delen (en gebruik zoveel mogelijk ip adressen).</para>
+<screen>
+10.33.0.0/16
+</screen>
+<para>4. Verdeel dit /24 netwerk in drie delen, deel A krijgt de eerste helft van de adressen, delen B en C krijgen elk een vierde van de adressen.</para>
+<screen>
+10.42.42.0/24
+</screen>
+<para>5. Geef de network id, host id en subnet mask van de volgende ip adressen en geef eerste ip, laatste ip, broadcast ip en aantal ip van hun respectievelijk netwerk.</para>
+<screen>
+10.42.33.42/8
+10.33.42.33/18
+12.01.33.42/28
+</screen>
+<para>De oplossingen krijg je tijdens de volgende les (of vlak erna). Al wie volgende les een correct huiswerk afgeeft kan een extra punt verdienen.</para>
+<para></para>
+<para></para>
+</section>
+<section><title>/etc/hosts</title>
+	<para>We hebben vorige les reeds kennis gemaakt met het bestand <command>/etc/hosts</command> (alle Unix, incluis Linux en MacOSX) of <command>%systemroot%/system32/drivers/etc/hosts</command> (Microsoft). We hebben gezien hoe dit een tabel is die namen vertaalt naar ip adressen. De inhoud van het bestand ziet er bijvoorbeeld zo uit:</para>
+	<screen>
+paul@laika:~$ cat /etc/hosts
+127.0.0.1	localhost
+127.0.1.1	laika
+
+192.168.1.1 illyria
+192.168.1.2 pasha
+192.168.1.33 barry
+192.168.1.34 laika
+192.168.1.35 faith
+192.168.1.36 wolf
+192.168.1.38 rekkie
+192.168.1.44 kiss
+192.168.1.29 hero
+
+192.168.1.39 rhel5
+192.168.1.40 w2003
+192.168.1.87 jump10
+192.168.1.88 sa200
+192.168.1.89 sol10
+
+#192.168.1.71 pasha #netboot
+#192.168.1.72 shaka
+#192.168.1.73 mira
+	</screen>
+	<para>Dankzij dit bestand zal een <command>ping</command> commando naar een van deze namen resulteren in een <command>ping</command> naar het ip adres dat voor deze naam staat.</para>
+	<screen>
+paul@laika:~$ ping illyria
+PING illyria (192.168.1.1) 56(84) bytes of data.
+64 bytes from illyria (192.168.1.1): icmp_seq=1 ttl=254 time=0.596 ms
+64 bytes from illyria (192.168.1.1): icmp_seq=2 ttl=254 time=0.588 ms
+	</screen>
+	<para>Meer info over het <command>hosts</command> bestand vind je hier:</para>
+	<screen>
+http://en.wikipedia.org/wiki/Hosts_file
+	</screen>
+</section>
+<section><title>DNS geschiedenis</title>
+	<para>Voordat <command>DNS</command> bestond, gebruikten computers op <command>arpanet</command> een HOSTS.TXT bestand dat op een centrale server stond in Stanford. Dit bestand werd op regelmatige tijden gecopieerd naar de lokale machine. Dit systeem was op termijn onhoudbaar, zeker toen er begin jaren 80 duizenden computernamen in het bestand stonden en de groei exponentieel werd.</para>
+	<para>In 1983 ontwikkelde de Griek <command>Paul Mockapetris</command> het <command>Domain Name System</command> (rfc 882/883, later rfc 1034/1035) als alternatief voor dit centrale <command>hosts</command> bestand.</para>
+	<para>DNS is een gedistribueerde hierarchische naamgevende database voor diensten en computers op tcp/ip netwerken. Een van de voor de hand liggende functies is het vertalen van host- en domeinnamen naar ip-adressen (net zoals het /etc/hosts bestand dat al deed).</para>
+	<para>DNS is al enkele keren uitgebreid (tik maar eens DNS als zoekterm op www.rfc-editor.org), onder andere om het veilig te maken en om DNS compatible te maken met ipv6 (AAAA records).</para>
+</section>
+<section><title>volgorde</title>
+	<para>Met twee technische oplossingen voor hetzelfde probleem (hosts bestand en DNS) moeten er duidelijke afspraken zijn over de prioriteit die beide systemen krijgen. Met andere woorden, als we een ping doen naar computer42, wordt dan eerst DNS geraadpleegd ? Of eerst /etc/hosts ?</para>
+	<para>Om dit te configureren moeten we een onderscheid maken tussen Microsoft, Mac OS X en de rest (Unix/Solaris/Linux/BSD...)</para>
+	<section><title>Microsoft</title>
+		<para>Op Microsoft systemen is er geen optie om de volgorde in te stellen. Het lokale hosts bestand heeft volgens Microsoft altijd voorrang op DNS. (Zie http://support.microsoft.com/kb/172218 en gelijkaardige artikels voor W200X etc).</para>
+		<para>De volgende lijst van <command>hostnames</command> werken niet op Microsoft computers als je ze plaatst in het <command>hosts</command> bestand:</para>
+		<screen>
+www.msdn.com
+msdn.com
+www.msn.com
+msn.com
+go.microsoft.com
+msdn.microsoft.com
+office.microsoft.com
+microsoftupdate.microsoft.com
+wustats.microsoft.com
+support.microsoft.com
+www.microsoft.com
+microsoft.com
+update.microsoft.com
+download.microsoft.com
+microsoftupdate.com
+windowsupdate.com
+windowsupdate.microsoft.com
+		</screen>
+		<para>Meer info hierover vind je hier:</para>
+		<screen>
+http://archive.cert.uni-stuttgart.de/bugtraq/2006/04/msg00291.html
+		</screen>
+		<para>We hebben ook commando's als <command>ipconfig /all</command>, <command>ipconfig /displaydns</command> en <command>ipconfig /flushdns</command> gezien in de vorige les.</para>
+	</section>
+	<section><title>Mac OS X</title>
+		<para>Mac OS X gebruikt hiervoor twee .plist bestanden in de directory /Library/Preferences/DirectoryService/ .</para>
+	</section>
+	<section><title>Unix Linux Solaris BSD</title>
+		<para>Zowat alle andere besturingssystemen gebruiken een <command>name service switch</command> bestand genaamd <command>/etc/nsswitch.conf</command> . In dit bestand staan voor heel wat name services de volgorde waarin verschillende diensten gebruikt worden.</para>
+		<para>Zo zal bijvoorbeeld de volgende lijn bepalen dat eerst het lokale hosts bestand moet geraadpleegd worden, en dan pas DNS.</para>
+		<screen>
+paul@laika:~$ grep hosts /etc/nsswitch.conf 
+hosts:          files dns
+		</screen>
+		<para>Als je dit omdraaid naar <command>dns files</command> dan krijgt dns onmiddellijk voorrang op hosts.</para>
+		<para>Sommige applicaties zullen dit bestand ook aanmaken op <command>Mac OS X</command>.</para>
+	</section>
+</section>
+<section><title>DNS namespace</title>
+	<para>De <command>namespace</command> van DNS is een boomstructuur met bovenaan een puntje. Dit puntje wordt de <command>root</command> van de DNS namespace genoemd. Servers die beschikken over dit puntje zijn <command>DNS root servers</command>, en worden in de (IT)volksmond ook gewoon <command>root servers</command> of <command>dot servers</command> genoemd.</para>
+	<para>Onder dit puntje vinden we de <command>Top Level Domains</command> ofte <command>TLD's</command>. Oor spronkelijk waren dit er zeven generieke:</para>
+	<screen>
+.COM
+.NET
+.ORG
+.MIL
+.GOV
+.EDU
+.INT (nato.int)
+	</screen>
+	<para>Er zijn ook enkele honderden <command>TLD's</command> voor individuele landen, zoals .BE .NL .FR .US. Tussen haakjes, domeinnamen zijn hoofdletterongevoelig dus je kan zowel .be als .BE schrijven.</para>
+	<para>Sinds enkele jaren zijn er enkele nieuwe generieke TLD's bijgekomen zoals .aero, .biz, .coop, .info, .museum, .name en .pro , maar deze worden nauwelijks gebruikt.</para>
+	<para>Onder de TLD's in de boomstructuur vinden we dan de domeinnamen.</para>
+</section>
+<section><title>fqdn</title>
+	<para>De combinatie van een <command>hostname</command> met een domeinnaam noemt men de <command>FQDN</command> ofte <command>Fully Qualified Domain Name</command>.</para>
+</section>
+<section><title>Belgische domein namen</title>
+	<para>Oorspronkelijk stond de Belgisch .BE server op de eerste verdieping van het computerwetenschappengebouw van de KULeuven in de Celestijnenlaan. De beheerder was professor Verbaeten en de enige manier om een .be te registreren was door een brief met BTW-nr te schrijven naar dit departement.</para>
+	<para>Op 1 januari werd <command>dotbe</command> overgenomen door de <command>vzw DNS.BE</command>. Op 11 december 2000 was er een serieuze liberalisering van de regels voor aanvraag van een Belgische domeinnaam, vanaf dat moment konden voor het eerst ook particulieren hun eigen naam registreren.</para>
+	<para>Voor meer info:</para>
+	<screen>http://dns.be/nl/home.php?n=22</screen>
+</section>
+<section><title>DNS caching</title>
+	<para>DNS is een <command>caching</command> protocol. Je kan zelfs <command>caching only servers</command> installeren.</para>
+	<screen></screen>
+</section>
+<section><title>DNS root servers</title>
+	<para>Er zijn logisch gezien 13 <command>root name servers</command> op het internet genaamd A tot M. Deze worden beheerd door ICANN en werken op enkele na allemaal met de BIND software op AIX.</para>
+	<para>Elke root server bestaat uit meerdere fysieke machines. Zo is de K-root server verspreid over alle continenten en aanwezig in 18 steden. De J-root server heeft 62 <command>nodes</command>.</para>
+	<screen>
+http://root-servers.org/
+	</screen>
+</section>
+<section><title>root servers van internet</title>
+	<para>Journalisten noemen dit wel eens de root servers van internet.</para>
+	<para>In 2002 en in 2007 was er een poging om alle root servers plat te leggen met een DDOS aanval.</para>
+	<screen>http://en.wikipedia.org/wiki/Distributed_denial_of_service_attacks_on_root_nameservers</screen>
+</section>
+<section><title>praktijkvoorbeeld</title>
+	<para>De rol van DNS (en andere servers) bij het sturen van een e-mail.</para>
+	<screen></screen>
+</section>
+<section><title>DNS records</title>
+	<para>A NS MX SOA CNAME SRV AAAA</para>
+	<screen></screen>
+</section>
+<section><title>DNS reverse lookup</title>
+	<para>PTR .arpa</para>
+	<screen></screen>
+</section>
+<section><title>DNS server software</title>
+	<para>BIND</para>
+	<screen></screen>
+</section>
+<section><title>resolving</title>
+	<para>/etc/resolv.conf</para>
+	<para>recursief - iteratief</para>
+	<para>forward - reverse</para>
+	<para></para>
+	<screen></screen>
+</section>
+<section><title>DNS IDN</title>
+	<para>unicode i.p.v. ascii, spoofing en squatting van homoniemen of homografen</para>
+	<para>nog niet mogelijk in .be !</para>
+	<screen></screen>
+</section>
+<section><title>Domeinnamen registreren</title>
+	<para></para>
+	<screen></screen>
+</section>
+<section><title>DNS round robin</title>
+	<para></para>
+	<screen></screen>
+</section>
+<section><title>DNS</title>
+	<para></para>
+	<screen></screen>
+</section>
+<section><title>over modems</title>
+	<para>Over modems is heel wat te zeggen, modems hebben een essentiele rol gespeeld in de ontwikkeling van internet.</para>
+	<section><title>modulatie-demodulatie</title>
+		<para>Per definitie is een modem een modulator-demodulator. Modulatie is het encoderen van digitale informatie (zoals bits) over een analoog signaal (zoals het geluid over een telefoonverbinding). Demodulatie is het terug omzetten van dit analoge signaal naar (hopelijk dezelfde) bits.</para>
+		<para>Een modem is dus een interface tussen de computer en het telefoonnetwerk, en laat toe dat twee computers (digitaal) met elkaar praten over de (analoge) telefoon.</para>
+	</section>
+	<section><title>baud</title>
+		<para>Het moduleren van digitale informatie gebeurt in <command>symbolen</command>. Een symbool is een eenheid van digitale informatie die gecodeerd (gemoduleerd) is in een analoog signaal. Zo een eenheid van digitale informatie is bijvoorbeeld een bit (deze kan 0 of 1 zijn). Maar het kan evengoed een koppel bits zijn (mogelijke symbolen zijn dan 00, 01, 10 en 11). </para>
+		<para>Indien een modem 300 symbolen per seconde kan zenden of ontvangen, spreken we van een <command>modulatie rate</command> of <command>baud rate</command> van 300.</para>
+	</section>
+	<section><title>bit rate</title>
+		<para>De <command>bit rate</command> van de modem hangt af van de gebruikte symbolen. In het geval dat elk symbool slechts 1 bit bevat, is de bit rate gelijk aan de baud rate. Bevat elk symbool twee bits, dan is de bit rate het dubbel van de baud rate.</para>
+	</section>
+	<section><title>bits per seconde</title>
+		<para>De <command>bit rate</command> kan je meten in bits per seconde (<command>bit/s</command> of <command>bps</command>) of ook in kilo- mega- giga- en terabits per seconde (ook geschreven als Mbit/s, Mbps, Gbit/s, Gbps, Tbit/s, Tbps). In tegenstelling tot de kibi vs kilo discussie bij harde schijven, is hier een kilo altijd gelijk geweest aan 1000 en een mega altijd aan 1000 kilo (enzoverder).</para>
+	</section>
+	<section><title>pariteit</title>
+		<para>Pariteit is een eenvoudige controle op fouten tijdens de transmissie.</para>
+		<para></para>
+	</section>
+	<section><title>seventies V. standaarden</title>
+		<para>De bandbreedte (soms ook snelheid genoemd) in bits per seconde hangt af van de gebruikte standaard. De <command>V.21</command> standaard van 1962 liet toe om 300 bit/s te halen met een baud rate van 300 (m.b.v. FSK). De <command>V.22</command> standaard uit 1976 haalde 1200 bit/s gebruik makend van 600 baud (mbv PSK).</para>
+		<para></para>
+	</section>
+	<section><title>eighties V. standaarden</title>
+		<para>De jaren 80 zagen een evolutie van 2400 bit/s over 600 baud (de V.22bis standaard) naar 9600 bit/s over 2400 baud. Deze laatste werd in 1989 bereikt met de <command>V.32</command> standaard.</para>
+		<para></para>
+	</section>
+	<section><title>nineties V. standaarden</title>
+		<para>1991 zag de 14.4 kbit/s, dit werd verdubbelt in 1994 en verdrievoudigt in 1996 om vanaf 1998 een tijdje te verblijven op de veelgebrukte <command>V.90</command> standaard van 56 kilobits per seconde.</para>
+		<para>Nadien zijn we overgeschakeld op andere technologien zoals DSL en DOCSIS.</para>
+	</section>
+</section>
+<section><title>over DSL</title>
+	<section><title>DSL</title>
+		<para>DSL is een verzamelnaam voor verschillende <command>digital subscriber loop</command> implementaties zoals SDSL, IDSL, ADSL, ADSL2 etc.</para>
+		<para>Typisch aan DSL is dat je een <command>DSL-splitter</command> nodig hebt om de lage voice-tonen (die naar de klassieke telefoon moeten) te scheiden van de hoge tonen (boven 25kHz) die DSL gebruikt voor data, en die naar de xDSL modem moeten.</para>
+		<para>In tegenstelling tot wat sommige mensen denken, maakt de DSL technologie geen gebruik van het echte <command>pots</command> netwerk, maar enkel van de <command>local loop</command>.</para>
+	</section>
+	<section><title>ADSL</title>
+		<para><command>Asynchronous DSL</command> werkt ook over de telefoonlijn, maar is veel sneller dan de 'normale' modems. ADSL gebruikt andere frequenties dan de voice-modems, en werkt enkel op de korte afstand (de local loop) tot aan de <command>DSLAM</command> in de telefooncentrale. Die DSLAM splitst wederom de stem van de rest, en waardat de stem over het pots netwerk verder gaat, gaat het adsl signaal over het datanetwerk van de telefoonmaatschappij (of isp) om zodoende het internet te bereiken.</para>
+		<para>ADSL heeft typisch een veel grotere download bandbreedte dan upload. Een adsl modem synchroniseert met een bepaalde sync rate, de gebruiker bereikt door overhead maximaal 80-85 procent van deze sync rate.</para>
+	</section>
+	<section><title>SDSL</title>
+		<para><command>Synchronous DSL</command> is nagenoeg identiek aan ADSL, behalve dat de up en download hetzelfde is.</para>
+	</section>
+	<section><title>DSLAM</title>
+		<para>Een DSLAM is een <command>multiplexer</command> die verscheidene DSL lijnen verbindt met het internet. Je kan pas ADSL nemen als jouw telefooncentrale over een DSLAM beschikt.</para>
+		<para>De bandbreedte die je haalt tussen je xDSL modem en je lokale DSLAM wordt beperkt door de afstand tot aan de centrale:</para>
+		<screen>
+ 300m --> 25 Mbit/s
+ 600m --> 24 Mbit/s
+ 900m --> 23 Mbit/s
+1200m --> 22 Mbit/s
+1500m --> 21 Mbit/s
+1800m --> 19 Mbit/s
+2100m --> 16 Mbit/s 
+4500m --> 1.5 Mbit/s 
+		</screen>
+	</section>
+	<section><title>local loop</title>
+		<para>Met de <command>local loop</command> bedoelen we de laatste paar kilometer draad van de telefooncentrale tot aan uw woning. In heel wat landen is de (oude) publieke telefoonmaatschappij de eigenaar van deze laatste kilometer tot aan uw huis. Sommige landen hebben een wetgeving die verplicht om deze <command>local loop</command> te delen met concurrenten.</para>
+	</section>
+	<section><title>ATM</title>
+		<para>ATM is ontwikkeld in de jaren 80 met realtime audio en video over het netwerk als doel. ATM werkt met zeer kleine cellen om <command>jitter</command> te voorkomen. Het is immers onaanvaardbaar dat packetjes te laat komen tijdens een telefoongesprek.</para>
+		<para>Naast een DSLAM (in dezelfde telefooncentrale) staat soms een ATM verbonden met een ISP.</para>
+	</section>
+	<section><title>IP-DSLAM</title>
+		<para>Een IP-DSLAM is een DSLAM die rechtstreeks IP spreekt met routers (in tegenstelling tot de normale DSLAM die ATM gebruikt om daarna via een ATM-IP router te verbinden met IP.</para>
+	</section>
+	<section><title>IDSL</title>
+		<para>IDSL is DSL over ISDN. Het grote verschil met SDSL en ADSL is dat er bij IDSL geen gebruik wordt gemaakt van het klassieke voice-telefoonnetwerk. Alle data gaat over het ISDN netwerk. Nadeel is dan weer dat je niet tegelijk kan internetten en telefoneren (als je enkel over ISDN beschikt).</para>
+		<para></para>
+	</section>
+	<section><title>multiplexen</title>
+		<para>Multiplexen wil zeggen dat meerdere digitale signalen (die komen van meerdere kabels) worden samengezet op 1 enkel signaal (een enkele kabel). Multiplexen laat dus toe dat meerdere digitale signalen een (duur) kanaal (of een enkele kabel) delen. De multiplexer is een toestel dat meerdere signaal groepeert, de demultiplexer haalt de originele signalen er weer uit. Deze toestellen worden ook een <command>muxer</command> en een <command>demuxer</command> genoemd.</para>
+	</section>
+	<section><title>ADSL2+</title>
+		<para>ADSL2+ gebruikt een groter spectrum om de downloadsnelheid van ADSL te verdubbelen tot 24Mbit/s.</para>
+	</section>
+</section>
+<section><title>over kabelmodems</title>
+	<section><title>DOCSIS</title>
+		<para>DOCSIS is een internationale standaard om dataverkeer mogelijk te maken over de bestaande kabel-TV netwerken (zonder de TV utizendingen te verstoren).</para>
+		<para>DOCSIS maakt gebruikt van kabelmodems die dienst doen als bridge en als modem om internet toegang te leveren via het (coax) kabelnetwerk.</para>
+		<para>In Europa wordt door de PAL/NTSC verschillen eigenlijk de <command>EuroDOCSIS</command> standaard gebruikt (die ongeveer 25 procent sneller is dan de equivalente DOCSIS standaard).</para>
+	</section>
+	<section><title>CMTS</title>
+		<para>Te vergelijken met de DSLAM bij DSL, verbinden de kabelmodems van de klanten zich met een CMTS in de centrales van het (TV-)kabelnetwerk. Een CMTS heeft (duizenden) coax kabels aan de ene kant, en ethernet interfaces aan de internet kant.</para>
+		<para></para>
+	</section>
+</section>
+<section><title>over bandbreedte</title>
+	<para>Tot slot nog een kleine vergelijking van bandbreedtes van de besproken modems in kilobytes per seconde.</para>
+	<screen>
+Modem 300/300 bit/baud  -->  0.03kB/s
+Modem 2400/600 bit/baud -->  0.24kB/s
+Modem 9600/2400         -->  0.96kB/s
+Modem 14.4 (V.32 bis)   -->  1.4 kB/s
+Modem 56k (V.90)        -->  6.6 kB/s
+
+ISDN BRI                -->   16 kB/s
+IDSL                    -->   18 kB/s
+SDSL                    -->  290 kB/s
+
+ADSL                    -->  1024/  128 kB/s
+ADSL2+                  -->  3072/  448 kB/s
+DOCSIS v1               -->  4750/ 1125 kB/s
+EuroDOCSIS v1           -->  6000/ 1125 kB/s
+DOCSIS v2               -->  4750/ 3375 kB/s
+EuroDOCSIS v2           -->  6000/ 3375 kB/s
+DOCSIS v3               --> 20000/15000 kB/s
+EuroDOCSIS v3           --> 25000/15000 kB/s
+
+ter info : GPON FTTH    --> +300000 kB/s
+	</screen>
+</section>
+<section><title>wireless</title>
+	<para>Wireless is veel trager dan bijvoorbeeld utp kabels, maar meestal wel snel genoeg (sneller dus) dan gangbare thuis-internet verbindingen.</para>
+	<para>Wireless ofte draadloos wil zeggen dat we alles bekijken wat golven van energie gebruikt om (data) te communiceren. Eerst eens kijken wat een golf is.</para>
+	<para>Een golf (voor zover we die gebruiken bij datacommunicatie) beweegt zich voort in de lucht (of in een ander medium) met een bepaalde frequentie en amplitude. We laten voor het gemak de lichtgolven en elektromagnetische golven even buiten beschouwing.</para>
+</section>
+
+<section><title>frequentie</title>
+	<para>Frequentie wordt uitgedrukt in <command>Hertz</command>. Een golf met een frequentie van 440 Hertz ontvang je 440 keer in zijn geheel per seconde. Tussen haakjes, 440Hz is de basisfrequentie voor het stemmen van instrumenten (ook wel kamertoon genoemd).</para>
+	<para>De meeste golven in deze cursus hebben echter een veel hogere frequentie, daarom gebruiken we onder andere kHz, MHz, GHz en THz (voor elke orde van 1000).</para>
+	<para><command>Heinrich Hertz</command> (1857-02-27 - 1894-01-01) was een Hamburgs natuurkundige die vooral bezig was met elektromagnetisme en lichtgolven. Hij was de eerste om het bestaan van <command>VHF</command> en <command>UHF</command> aan te tonen.</para>
+</section>
+
+<section><title>spectrum</title>
+	<para>UHF en VHF zijn onderdelen van het volledige radiospectrum, gaande van 3 Hz tot 300 Ghz.</para>
+<screen>http://nl.wikipedia.org/wiki/Radiospectrum
+</screen>
+	<para>De AM-radiouitzendingen (de langegolf) zitten bijvoorbeeld in de LF band (Low Frequency). FM en (analoge)TV utizendingen gebruiken de VHF (30-300Mhz). Een toontje hoger zitten UHF-TV, GSM, onze microgolfoven, wireless LAN en Bluetooth. UHF golven zijn tussen de 10 centimeter en 1 meter lang, en overbruggen moeiteloos afstanden tot 100km. UHF wordt ook opgevangen door sattellietschotel antennes.</para>
+	<para>Het spectrum is bepaald door de <command>ITU</command> (http://www.itu.int).</para>
+</section>
+
+
+<section><title>amplitude</title>
+	<para><command>Amplitude</command> is de grootte van de golf.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/amplitude.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>Een geluidsgolf is bijvoorbeeld sterker (of groter) als hij vertrekt bij uw mond, dan wanneer hij aankomt bij iemands oor (toch als je zonder versterkers in een open ruimte spreekt). Bij geluidsgolven wordt deze amplitude gemeten als luchtdruk (in <command>pascal</command> dus).</para>
+</section>
+
+
+<section><title>fase</title>
+	<para>De fase van een golf kan uitgedrukt worden in graden, waarbij 360 graden gelijk is aan 1 golflengte. Verschillende golven kunnen met elkaar in fase zijn, of niet.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/fase.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>Sommige mensen zetten bass-luidsprekers per ongeluk in tegenfase.</para>
+</section>
+
+<section><title>golflengte</title>
+	<para>De <command>golflengte</command> is de lengte in meter van een golf, te meten van top tot top (of eender welk ander puntenkoppel met dezelfde fase).</para>
+</section>
+
+<section><title>IEEE 802.11</title>
+	<para>De <command>IEEE 802.11</command> standaarden beschrijven draadloze radiogolf communicatie voor computers in een WLAN (wireless local area network). De gebruikte frequenties zijn 2.4, 3.6 en 5GHz.</para>
+	<para>De meest gebruikte van deze standaarden zijn de 802.11a, 802.11b en 802.11g.</para>
+	<section><title>802.11a</title>
+		<para>De <command>IEEE 802.11a</command> standaard dateert al uit 1999 en werkt op de 5GHz band. De theoretische maximum bandbreedte die je met deze standaard haals is 54Mbit/s (net zoals modems wordt er teruggevallen op lagere snelheden bij het handshaken).</para>
+		<para>Deze standaard gebruikt 12 kanalen.</para>
+	</section>
+
+	<section><title>802.11b</title>
+		<para>De <command>IEEE 802.11b</command> standaard (ook uit 1999) is beperkt tot maximaal 11Mbit/s, maar is wel al tien jaar beschikbaar in de praktijk. Bijkomend voordeel op de 802.11a is dat deze de 2.4GHz band gebruikt i.p.v. de 5GHz (deze laatste wordt makkelijker geabsorbeerd door muren).</para>
+		<para>Nadeel is dan weer dat de 2.4GHz band een vrije band is, er is dus interferentie mogelijk met andere draadloze toestellen (en ook met microgolfovens).</para>
+	</section>
+
+	<section><title>802.11g</title>
+		<para>In 2003 kwam met op de proppen met de <command>IEE 802.11g</command> standaard. Deze werkt ook in het 2.4GHz spectrum, maar wel aan maximaal 54Mbit (in de praktijk 22Mbit bruikbare data).</para>
+		<para>Al sinds januari 2003 (dus nog voordat de standaard er was) zijn er triband (ondersteuning voor a,b en g) producten op de markt.</para>
+	</section>
+
+	<section><title>802.11n</title>
+		<para>Sinds vorige maand is er een nieuwe standaard, de <command>802.11n</command> met een theoretische bandbreedte van 600Mbit/s. De toestellen zijn al wel sinds twee jaar te koop.</para>
+		<screen>http://en.wikipedia.org/wiki/IEEE_802.11n-2009</screen>
+	</section>
+
+	<section><title>kanalen</title>
+		<para>Een band zoals bijvoorbeeld de 2.4GHz band wordt de een IEEE 802.11 standaard steeds onderverdeeld in <command>kanalen</command>. De 2.4Ghz band beschikt eigenlijk over alle frequenties van 2.400 Ghz tot en met 2.499 GHz. Vanaf het eerste kanaal op 2.412 GHz is er om de 5Mhz een nieuw kanaal. Alle kanalen zijn 22MHz breed, er is dus overlapping.</para>
+		<screen>http://en.wikipedia.org/wiki/List_of_WLAN_channels</screen>
+		<para>Het is aan te raden om enkel de kanalen 1, 6 en 11 te gebruiken als het bereik van de access points elkaar overlapt. Het gebruik van de kanalen 1, 4, 8 en 11 kan voor problemen zorgen (als je ze dom plaatst).</para>
+		<screen>http://www.cisco.com/en/US/docs/wireless/technology/channel/deployment/guide/Channel.html</screen>
+	</section>
+	<section><title>bonding</title>
+		<para>Producten die kanalen samen gebruiken (bonding) om 108Mbit aan te bieden, zijn niet beschreven in een standaard en zijn zeker niet met alle draadloze clients compatibel.</para>
+	</section>
+	<section><title>bandbreedte?</title>
+		<para>In de praktijk wordt door de asynchroniteit van deze standaarden en de overhead van de lagen een veel lagere doorvoer van data gehaald dan de geadverteerde 54Mbit (of 11Mbit).</para>
+	</section>
+</section>
+
+<section><title>WiMAX</title>
+	<para><command>WiMAX</command> is de marketing naam voor de <command>IEEE 802.16</command> standaard om mobiele draadloze toegang te voorzien met een bereik van enkele kilometer en een bandbreedte tussen 1 en 20Mbit. Steden zoals Leuven, Gent en Aalst beschikken over een WiMAX netwerk (van Clearwire).</para>
+	<para>Praktijkervaring leert dat de technologie nog in de kinderschoenen staat (of dat clearwire het aantal stations duidelijk onderschat). Er zijn (of waren) plannen bij Clearwire om heel Belgie te dekken met WiMAX (maar vandaag is er nog geen verbinding in Antwerpen bv).</para>
+</section>
+
+<section><title>Wi-fi</title>
+	<para>Dit is een handelsmerk, meestal gebruikt voor WLAN (Wireless LAN) toestellen.</para>
+</section>
+
+<section><title>Access Point</title>
+	<para>Een <command>Wireless Access Point</command> is een toestel dat draadloze verbindingen toelaat van client devices (wireless pc-cards etc). Meestal is de <command>access point</command> verbonden met een bekabeld netwerk.</para>
+	<para>Deze toestellen kunnen meestal verschillende draadloze WLAN (of Bluetooth) standaarden aan, en kunnen een kanaal kiezen.</para>
+	<para>De meeste <command>access points</command> die thuis staan zijn tegelijk ook router (nat), ethernet hub en dhcp en dns server voor alle computers in het thuisnetwerk. </para>
+</section>
+
+<section><title>hotspot</title>
+	<para>Een <command>hotspot</command> is een plaats waar draadloos internet beschikbaar is. Zowel laptops, netbooks als pda en smartphones kunnen gebruik maken van hotspots.</para>
+	<para>Beveiliging van hotspots (of wireless in het algemeen) is een heel groot onderwerp...</para>
+</section>
+
+<section><title>draadloze beveiliging</title>
+<para>Het grote verschil met bekabelde netwerken, is dat je geen firewall in de lucht kan hangen om je draadloze netwerk te beveiligen.</para>
+
+<section><title>per ongeluk</title>
+	<para>Heel wat software zoekt automatisch een netwerk, heel wat draadloze toestellen (modems) staan standaard open voor deze automatische zoekopdrachten. Het is dus perfect mogelijk dat je per ongeluk op een ander zijn draadloos netwerk surft.</para>
+</section>
+
+<section><title>MAC beveiliging</title>
+	<para>Je kan de meeste <command>access points</command> beveiligen door enkel bepaalde MAC-adressen toe te laten. Maar zoals jullie weten is het MAC-adres eem essentieel onderdeel van elk ethernet frame, en door elke sniffer gewoon te lezen.</para>
+	<para>MAC filtering beschermt je wel tegen 'per ongeluk'.</para>
+</section>
+
+<section><title>Denial of Service</title>
+	<para>Niet echt een hack, maar wel lastig als je er mee te maken krijgt.</para>
+</section>
+
+<section><title>IP beveiliging</title>
+	<para>Je kan de draadloze DHCP server afzetten, en enkel werken met (enkele) toegelaten vaste ip-adressen.</para>
+</section>
+
+<section><title>WEP</title>
+	<para>WEP staat voor <command>Wired Equivalency Privacy/Protocol</command> en is een verouderde standaard om draadloze netwerken te beveiligen.</para>
+	<para>De WEP standaard dateert uit 1997, sinds 2001 zijn er tools te vinden om WEP te kraken. Als reactie hierop werd WPA ontworpen.</para>
+	<para>WEP bestaat (of bestond) in een 40bit en een 128bit standaard (danku USA). Een grotere sleutel wil zeggen dat er meer pakketjes moeten gesnift worden alvorens je de key kan berekenen (kraken). Een goeie crack-tool genereerd zelf binnen enkele minuten de nodige traffiek om de WEP-sleutel te achterhalen. (Sinds 2007 is publiek aangetoond dat dit ook binnen de enkele seconden kan.</para>
+<screen>http://eprint.iacr.org/2007/120.pdf</screen>
+</section>
+
+<section><title>WPA</title>
+	<para>WPA staat voor <command>Wi-Fi Protected Access</command> is ontworpen als reactie op de zwakke WEP beveiliging. WPA is ondertussen zelf vervangen door WPA2. WPA beveiliging met een simpele passphrase (pre-shared key) kan binnen de minuut gekraakt worden. WPA2 (dat AES gebruikt) is wel veilig als je een goeie 64-hex string gebruikt.</para>
+</section>
+
+<section><title>ramen en muren</title>
+	<para>Om te verhinderen dat je (corporate) netwerk ook op de parking beschikbaar is, kan je speciale verf op de muur plaatsen (of een film op de ruiten) om radiogolven bewust te absorberen.</para>
+</section>
+
+</section>
+
+<section><title>radius, ssh en ipsec</title>
+	<para></para>
+</section>
+
+<section><title>planning ?</title>
+	<para>18/11: huiswerk + wireless (+ demo?)</para>
+	<para>25/11: demo-dag (ip, subnets, dns, dhcp + hoe webserver maken...)</para>
+	<para>02/12: Hoe netwerk bouwen (VLAN, switches, ...) + terminologie</para>
+	<para>09/12: ??</para>
+	<para>16/12: herhaling alles + vragen</para>
+	<para>06/01: examen (multiple choice)</para>
+</section>
+<section><title>demo DNS</title>
+	<para>Hieronder enkele screenshots van het opzetten en testen van een DNS server op Red Hat Enterprise Linux 5.3 en Microsoft Windows Server 2003.</para>
+	<para>Om de twee eens naast elkaar te zetten heb ik geopteerd om de DNS setup op RHEL5 ook grafisch te doen, ook al zullen de meeste Unix sysadmins dit eerder doen door een bestaande <command>zone database file</command> (die in de laatste screenshot getoond wordt) te copieren en aan te passen.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/screenshot_rhel5_vs_w2003_logon.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>Beide OS-sen zijn geinstalleerd in een <command>Virtualbox</command> virtuele machine.</para>
+</section>
+
+<section><title>software installeren</title>
+	<para>We zoeken in beide OS-sen de GUI om software te installeren. Microsoft noemt dit <command>Add or Remove Programs</command>. Gemakshalve zijn we hier aangelogd als <command>Administrator</command>.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/screenshot_w2003_dns_add_remove_apps.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>Red Hat noemt dit <command>Add/Remove Software</command>. Ook hier zijn we gemakshalve aangelogd als <command>root</command>.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/screenshot_rhel5_dns_add_remove_apps.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>Alternatief kan je op Linux gebruik maken van de command line <command>yum</command> of <command>aptitude</command>.</para>
+	<screen>
+root@RHEL5:~# yum install bind
+root@debian:~# aptitude install bind9
+	</screen>
+</section>
+
+<section><title>installatie wizard</title>
+	<para>Microsoft Windows beschouwt <command>Domain Name System</command> als een <command>Windows Component</command> die je gratis krijgt bij aankoop van een Windows Server.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/screenshot_w2003_dns_install.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>Red Hat gebruikt de vrije applicatie genaamd <command>BIND</command>. BIND is sinds de ontwikkeling van DNS in 1983 de meest gebruikte DNS server.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/screenshot_rhel5_dns_install.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+</section>
+
+<section><title>GUI tool voor DNS beheer</title>
+	<para>Microsoft heeft samen met de DNS server software ook een <command>snapin</command> voor DNS server beheer geinstalleerd en toegevoegd aan het start menu.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/screenshot_w2003_dns_installed.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>Red Hat heeft ook een GUI DNS tool, maar deze moet je wel apart installeren. Unix mensen zijn al jaren gewoon om rechtstreeks met de text bestanden te werken.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/screenshot_rhel5_dns_installed.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+</section>
+
+<section><title>DNS voor zichzelf</title>
+	<para>Hierzie de <command>tcp/ip properties</command> zodat Windows DNS server kan zijn voor zichzelf.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/screenshot_w2003_dns_himself.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>En we doen hetzelfde op Red Hat. Alternatief kunnen we dit op zowat elke Unix ook zo doen:</para>
+	<screen>echo nameserver 192.168.1.200 > /etc/resolv.conf</screen>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/screenshot_rhel5_dns_himself.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+</section>
+
+<section><title>nieuwe zone maken</title>
+	<para>Microsoft voorziet een <command>wizard</command> om een nieuwe zone aan te maken. In tegenstelling tot <command>Windows 2000 Server</command> wordt standaard geen root-zone meer aangemaakt.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/screenshot_w2003_dns_wizard_primary_zone.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>BIND levert standaard een aantal zones mee. Zoals eerder gezegd, zullen Unix mensen meestal een bestaande zone-bestand copieren en aanpassen.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/screenshot_rhel5_dns_wizard_primary_zone.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+</section>
+
+<section><title>zone database file</title>
+	<para>Microsoft geeft hier mooi de naam van de <command>zone database file</command>. Hoewel de naam vrij te kiezen is, is het formaat van dit tekstbestand wel vastgelegd in een <command>rfc</command>.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/screenshot_w2003_dns_wizard_zonefile.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>Red Hat vraagt eveneens de naam van de aan te maken zone, en gebruikt deze naam om de <command>zone database file</command> aan te maken.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/screenshot_rhel5_dns_wizard_zonefile.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+</section>
+
+<section><title>nslookup</title>
+	<para>Hier gebruiken we <command>nslookup</command> om de DNS server te testen. We vragen de A record van w2003.classdemo.local en www.classdemo.local (die laatste bestaat niet).</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/screenshot_w2003_dns_lookup_A_fail.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>Microsoft start vanzelf de DNS server, Red Hat wacht totdat we dit zelf doen. U ziet wederom <command>nslookup</command> met twee queries voor twee A records.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/screenshot_rhel5_dns_lookup_A_fail.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+</section>
+
+<section><title>A record</title>
+	<para>Na aanmaken van de A record, wordt die ook geresolved door <command>nslookup</command>.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/screenshot_w2003_dns_lookup_success.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>Na aanmaken van de A record, wordt die ook geresolved door <command>nslookup</command>.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/screenshot_rhel5_dns_lookup_success.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+</section>
+
+<section><title>MX record</title>
+	<para>Een MX record wijst naar de <command>smtp</command> server van een domeinnaam. Deze mailserver kan zelf in een andere domein zitten.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/screenshot_w2003_dns_mx_record.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>In de nslookup prompt kan je <command>set type=MX</command> typen om MX records te vinden.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/screenshot_rhel5_dns_mx_record.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+</section>
+
+<section><title>reverse lookup</title>
+	<para>Zonder <command>reverse lookup zone</command> kan je geen ip-to-name vertaling doen. Met een PTR record in een reverse lookup zone kan dat wel.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/screenshot_w2003_dns_reverse_lookup.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>Op Linux wordt behalve <command>nslookup</command> ook meer en meer gebruikt gemaakt van <command>dig</command>.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/screenshot_rhel5_dns_reverse_lookup.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+</section>
+
+<section><title>zone database file formaat</title>
+	<para>Het formaat van de <command>zone database file</command> is vastgelegd in rfc 1034 (en opvolgers).</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/screenshot_w2003_dns_zonedb_file.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>Knippen en plakken in deze files kan zelfs tussen Unix en Microsoft systemen.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/screenshot_rhel5_dns_zonedb_file.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+</section>
+<section><title>praktijk netwerk bouwen</title>
+	<para>Jullie vroegen wat praktijk om een netwerk te bouwen met <command>hubs</command>, <command>switches</command>, <command>routers</command> en kabels. Dit past ook in het leerprogramma als we er de nodige terminologie bij gooien.</para>
+</section>
+
+<section><title>hubs</title>
+	<para>We weten nog dat hubs in principe veredelde versterkers zijn die signalen die ze binnenkrijgen doorsturen naar alle andere poorten. Hubs zijn de domste dingen en zitten in laag 1.</para>
+	<para>We beschikken over een GeoStax/E 16-port hub en over een 5-port 3Com OfficeConnect 'switch' (die behalve 802.1p en 10/100Mbit detectie eigenlijk een hub is).</para>
+</section>
+
+<section><title>switches</title>
+	<para>We weten nog dat switches in laag 2 zitten, en dat die dus ietske slimmer zijn dan hubs. Switches bestaan er in 1001 soorten. We hebben een 24-port SmartStack ELS-100, een 24-port DNswitch 224s en een 24-port LinkSys/Cisco SR224.</para>
+</section>
+
+<section><title>routers</title>
+	<para>Routers kennen ip-adressen en zitten dus in laag 3. We hebben geen router in de klas...</para>
+</section>
+
+<section><title>kabels</title>
+	<para>We hebben uiteraard straight en crossed utp kabels nodig, en ook een nullmodem kabel.</para>
+
+<section><title>rj45</title>
+	<para>In de volksmond heeft en het dikwijls over rj11 en rj45 aansluitingen voor respectievelijk de telefoon-plug en de netwerkkabel-plug. Feitelijk berust dit op een misverstand.</para>
+	<screen>
+http://en.wikipedia.org/wiki/RJ45
+	</screen>
+</section>
+
+<section><title>rechte kabel</title>
+	<para>Een <command>straight cable</command> ook wel patch-kabel genoemd is een utp kabel met de draadjes an beide uiteinden (de rj45 plugs) hetzelfde. Dit is nodig voor heel wat 10/100Mbit netwerken (gigabit ethernet heeft auto-MDIX en ondersteund dus beide soorten kabels). </para>
+	<screen>
+http://en.wikipedia.org/wiki/Twisted_pair
+	</screen>
+</section>
+
+<section><title>crossover ethernet kabel</title>
+	<para>Een <command>crossed cable</command> of crossover cable (NL: een gekruiste kabel), is dus een kabel waar enkele draadjes anders zitten aan de ene kant dan aan de andere kant (paren 3 en 6 zijn gekruist).</para>
+	<screen>
+http://en.wikipedia.org/wiki/Ethernet_crossover_cable
+	</screen>
+</section>
+
+<section><title>nullmodem kabel</title>
+	<para>Deze kabel uit de oertijd van de informatica (db9-db9) kon gebruikt worden in de jaren 80 om twee computers met elkaar te verbinden langs de seriële poort. Vandaag wordt deze kabel nog gebruikt om consoles van allerhande toestellen te bereiken.</para>
+	<para>Als je laptop geen seriële poort meer heeft, dan kan een serial-to-usb dongle je verder helpen.</para>
+	<screen>
+http://en.wikipedia.org/wiki/Null_modem
+http://nl.wikipedia.org/wiki/Seriële_poort
+http://en.wikipedia.org/wiki/D-subminiature
+	</screen>
+</section>
+
+<section><title>de console</title>
+	<para>Er bestaat soms veel verwarring over wat de <command>console</command> nu juist is. We gebruiken hier in de klas een nullmodem kabel om de console van een switch te bekijken. In onze klas is de console dus het scherm dat luistert naar de seriële poort van een van de computers.</para>
+	<para>Op Unix wordt het toestel (of het device) dat luistert naar /dev/console wel eens de <command>console</command> genoemd.</para>
+</section>
+
+</section>
+
+<section><title>demo console switch</title>
+	<para>We gebruiken hier een terminal programma dat luistert naar de seriële poort (die verbonden is via een nullmodem kabel met de seriële poort van de switch) terwijl de switch opstart. Wat volgt zijn enkele screenshots.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/screenshot_vh-2402s_welkom.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>Het eerste screenshot hierboven toont het welkomstscherm van de SmartStack ELS100 switch. Je moet uiteraard over een userid en paswoord beschikken om de switch te beheren.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/screenshot_vh-2402s_main_menu.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>De switch beschikt over een overzichtelijk en makkelijk te navigeren menu.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/screenshot_vh-2402s_spanning_tree.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>Je kan het stp (spanning tree protocol) beheren en installen via dit menu. In het screenshot hierboven zie je dat er een kabel steekt in port 4.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/screenshot_vh-2402s_ipconfig.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>Altijd handig om het ip adres van je switch te kennen.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/screenshot_vh-2402s_webinterface.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>Als je het ip-adres kent, dan kan je surfen naar de webinterface van de switch.</para>
+</section>
+
+<section><title>stp</title>
+	<para>Het <command>spanning tree protocol</command> of <command>stp</command> ...</para>
+	<para>Een voorbeeldje van <command>stp</command> aan het werk (met dank aan GhosT die deze tekeningen onder CC Attribution 3.0 op wikipedia heeft gezet).</para>
+	<para>Hieronder een netwerk bestaande uit 6 segmenten (letters a tot f), gescheiden door zeven switches (cijfers 3, 4, 5, 7, 12, 24, 92). Zonder <command>stp</command> zouden er eindeloze lussen ontstaan (van bijvoorbeeld arp broadcasts).</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/Spanning_tree_protocol_at_work_1.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>De eerste actie van <command>stp</command> is om een <command>root bridge</command> te verkiezen (herinner U dat bridges en switches beide op layer 2 zitten). De switch met de laagste <command>bridge id</command> wordt verkozen toto <command>root bridge</command>.</para>
+	<para>Een <command>bridge id</command> is een combinatie van een in te stellen prioriteit (een geheel getal) en het mac adres. Enkel bij gelijke prioriteit wint de bridge(switch) met het laagste mac adres. In ons voorbeeld is switch nr 3 verkozen tot root bridge.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/Spanning_tree_protocol_at_work_2.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>Vervolgens zoekt elke switch de kortste weg naar de <command>root bridge</command>. In ons voorbeeld hier heeft elk netwerk een <command>cost</command> van 1 gekregen, maar in de praktijk kan dit verschillen. Elke switch benoemt de poort van die kortste weg de <command>root port</command> (RP).</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/Spanning_tree_protocol_at_work_3.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>Vervolgens wordt er voor elk netwerksegment de poort gezocht die de kortste weg aanduidt naar de <command>root bridge</command>. Deze poort wordt dan de <command>designated port</command>(DP) voor dat netwerksegment genoemd.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/Spanning_tree_protocol_at_work_4.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>Alle overige poortten worden geblocked (Blocked Ports).</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/Spanning_tree_protocol_at_work_5.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>Als het netwerk (door een losse kabel bijvoorbeeld) hertekend wordt, dan berekent <command>stp</command> automatisch de nieuwe koste weg naar de <command>root bridge</command>, met bijhorende herbenoeming van <command>root ports</command> en <command>designated ports</command>.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/Spanning_tree_protocol_at_work_6.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para></para>
+</section>
+<section><title>inleiding</title>
+	<para>Wat volgt is een demo van het opzetten van een DHCP server. Eerst op Windows 2003 Server zoals we in de klas vorige week gedaan hebben, dan op Red Hat Linux Server.</para>
+	<para></para>
+</section>
+
+<section><title>vier broadcasts</title>
+	<para>We weten nog dat dhcp werkt met broadcasts. Als een dhcp client opstart, dan stuurt die een <command>DHCPdiscover</command>. Alle dhcp servers antwoorden met een <command>DHCPoffer</command>. De client kiest een van de offers (volgens de rfc het eerste offer) en stuurt een <command>DHCPrequest</command>. De server antwoordt dan (meestal) met een <command>DHCPack</command>(knowledge). U ziet een sniff hiervan hieronder.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/wireshark_dhcp_four_broadcasts.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>Pas na deze vier broadcasts mag de client de ip-configuratie die hij gekregen heeft gebruiken. Dit tot aan het einde van de lease periode.</para>
+</section>
+
+<section><title>dhcp server op windows</title>
+	<para>De installatie verloopt geheel gelijk aan die van Microsoft Windows 2003 DNS server, we beperken ons tot een enkel screenshot hier.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/dhcp_w2003_install.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+
+	<para>Zoals de meeste Windows settings wordt je ook hier een wizard kado gedaan die je begeleidt door de setup van een nieuwe scope (of range).</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/dhcp_w2003_new_scope.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+
+	<para>Elke setting krijgt een aparte pagina in de wizard. Hieronder de vraag naar de range van ip-adressen.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/dhcp_w2003_range.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+
+	<para>Als een client een ip-adres (of een ip-configuratie met subnet+router+dns+...) krijgt, dan is dit altijd tijdelijk. Als de helft van deze <command>lease time</command> bereikt is, dan zal de client terug een <command>DHCPrequest</command> broadcasten. Meestal komt er dan een <command>DHCPack</command> van de server, met een nieuwe (meestal dezelfde) lease time.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/dhcp_w2003_lease_time.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+
+	<para>Eens de wizard doorlopen, en de scope geactiveerd, kan je alle settings en alle leases bekijken via de DHCP tool (eigenlijk een dhcp snapin voor de mmc).</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/dhcp_w2003_done.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+</section>
+
+<section><title>dhcp server op Linux</title>
+	<para>Eerste stap is om even te kijken in het <command>/etc/dhcpd.conf</command> bestand (om te zien of er al iets gedefinieerd is). Er is nog geen bestaande config, het bestand wijst ons naar een voorbeeld config genaamd <command>dhcpd.conf.sample</command>.</para>
+	<screen>
+[root@localhost ~]# cat /etc/dhcpd.conf 
+#
+# DHCP Server Configuration file.
+#   see /usr/share/doc/dhcp*/dhcpd.conf.sample  
+	</screen>
+	<para>We passen het voorbeeldje een beetje aan en copieren de volgende configuratie naar <command>/etc/dhcpd.conf</command>.</para>
+	<screen>
+subnet 192.168.1.0 netmask 255.255.255.0 {
+	range 192.168.1.140 192.168.1.159
+	option routers               192.168.1.1;
+	option subnet-mask           255.255.255.0;
+	option domain-name           "classdemo.local";
+	option domain-name-servers   192.168.1.1;
+	default-lease-time           21600;
+}
+	</screen>
+	<para>U herkent hierboven (hopelijk) dezelfde opties als in de Windows 2003 DHCP Server wizard.</para>
+</section>
+
+<section><title>dhcp client</title>
+	<para>Hieronder een voorbeeldje van een Windows 2003 computer die client is van een RHEL5 dhcp server.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/dhcp_w2003_client.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+</section>
+<section><title>inleiding</title>
+	<para>Vorige les hebben we een webserver opgezet op Windows 2003 server, een simpele website gemaakt en deze beveiligd met een paswoord. We hebben de nadruk gelegd op http en welke informatie een webserver gebruikt om een van zijn websites te tonen: ip-adres, domeinnaam en poort.</para>
+	<para>Je kan verschillende websites op dezelfde webserver benaderen door een andere poort te kiezen, een ander ip adres te kiezen, of de website een andere domeinnaam te geven.</para>
+	<para>Nadien hebben we ook met <command>apache</command> een webserver gemaakt die een simpele website toonde. We gebruikten een domeinnaam (toegevoegd aan het hosts bestand) om deze website te bereiken.</para>
+</section>
+
+<section><title>simpele websites</title>
+	<para>Hieronder een screenshot van de broncode (html source code) van onze website op Windows, getoond via de <command>browser</command> internet explorer.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/website_w2003_ie.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>Hieronder een screenshot van de broncode (html source code) van onze website op Linux, getoond via de browser firefox.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/website_rhel5_ff.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+</section>
+
+<section><title>de webservers</title>
+	<para>Op Windows maakten we gebruik van Microsoft IIS (Internet Information Server). We hebben de default website aangepast, en laten wijzen naar ons index.html document.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/webserver_w2003.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>Op Red Hat Enterprise Linux hebben we enkel de laatste tien lijnen aangepast in httpd.conf (het configuratiebestand van de httpd (alias apache) webserver.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/webserver_rhel5.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+</section>
+
+<section><title>routerke in netwerk</title>
+	<para>We hebben naast hubs en switches vorige les ook een een routerke in een netwerk gehangen. Dit vereist de berekening van twee subnets, de juiste 'kanten' van de router herkennen en werken met de (web)interface van de router zelf. Het routerke had ook een interne DHCP server en DNS server.</para>
+</section>
+<section><title>tekening DNS</title>
+	<para>Hieronder op vraag van Carry en Marjan  een tekening zoals ik ze gemaakt heb in de klas. Het gaat hier enkel over DNS. Als ik tijd vind, dan vul ik dit hoofdstukje wel aan met tekeningen over HTTP, DHCP en SMTP.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/dns.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>0. Ik surf thuis op mijn laptop naar http://www.linux-training.be, we volgen het DNS verhaal om tot aan de webserver te geraken waar deze website staat. De laptop staat helemaal links op de tekening, de webserver staat helemaal rechts (ip 88.151.243.8). De webserver heeft meerdere namen (meerdere A records wijzen naar deze webserver).</para>
+	<para>Voor deze test heb ik even rechtstreeks het ip-adres van de EDPNET DNS server (212.71.8.10) in de laptop gezet. Alternatief had ik ook het ip-adres van mijn routerke (alias dns/dhcp/adslmodem/nat) kunnen ingeven, een situatie die u kan bekijken in de volgende tekening.</para>
+	<para>1. De laptop vraagt aan de DNS server van mijn ISP EDPNET de A record van www.linux-training.be. We gaan er even van uit dat ik de eerste ben vandaag die naar deze website surft. DNS is een caching protocol, dus als vijf minuten geleden een andere klant van EDPNET naar deze website is geweest, dan antwoord de DNS server gewoon uit zijn cache.</para>
+	<para>2. De DNS server van EDPNET vraagt in een <command>iteratieve query</command> aan een root server (hier de H root server in de USA) waar zich www.linux-training.be bevindt.</para>
+	<para>3. De root server antwoordt met een verwijzing naar de DNS server die verantwoordelijk is voor de hele .be zone. Als je snift dan zie je dat er een hele lijst van .be servers wordt gegeven en kan je zien dat deze lijst zowel namen als IP-addressen bevat.</para>
+	<para>4. De DNS server van EDPNET vraagt, wederom iteratief, waar www.linux-training.be is aan een van de .be DNS servers (de eerste uit de lijst van de vorige stap was a.ns.dns.be).</para>
+	<para>5. De .be DNS server antwoordt met een reeks namen en bijhorende ip adressen van <command>openminds</command> (het hosting bedrijf waar de www.linux-training.be) webserver staat.</para>
+	<para>6. De DNS server van EDPNET heeft nu de DNS server gevonden die verantwoordelijk (authoritative) is voor linux-training.be en vraagt aan deze de A record voor www.linux-training.be.</para>
+	<para>7. De DNS server ns1.openminds.be antwoordt met de gezochte A record 88.151.243.8.</para>
+	<para>8. De DNS server van EDPNET geeft dit antwoord aan de laptop. De laptop kan nu rechtstreeks de webserver bereiken (maar dat is een ander verhaal).</para>
+	<para>In dit verhaal heeft de laptop een <command>recursieve query</command> gedaan, hij wil een volledig antwoord. De root servers en de .be servers antwoorden niet op recursieve queries, enkel op iteratieve!</para>
+	<para>In dit verhaal werden enkel <command>udp</command> packetjes gebruikt, er is dus nergens een <command>tcp sessie</command> opgezet.</para>
+</section>
+
+<section><title>tekening DNS + routerke</title>
+	<para>Deze tekening is nagenoeg de zelfde als de vorige, alleen hebben we nu ons lokaal routerke/adsl-modem/nat/dhcp-ke ertussen gezet. Op de laptop staat dus 192.168.1.1 als DNS server.</para>
+	<para>U weet (hopelijk) dat het routerke twee ip adressen heeft, eentje aan de binnenkant (de kant van het thuisnetwerk 192.168.1.1) en eentje aan de buitenkant (de internet-kant).</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/dns_routerke.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>0. De laptop doet een recursieve DNS query naar het routerke.</para>
+	<para>1. Het routerke doet een recursieve DNS query naar de DNS server van de ISP.</para>
+	<para>2. tot 7. De DNS server van de ISP EDPNET doet al het werk.</para>
+	<para>8. Het routerke krijgt een definitief antwoord, en houdt dit antwoord bij in zijn cache.</para>
+	<para>9. De laptop krijgt een definitief antwoord van het routerke.</para>
+	<para>Als even later een andere (thuis)computer dezelfde vraag stelt aan het routerke, dan kan dit antwoorden vanuit zijn cache.</para>
+</section>
+
+<section><title>tekening DHCP</title>
+	<para>We hebben een klein netwerkje met twee servers (DHCP-SRV1 en DHCP-SRV2) en twee clients (SunWS1 en Mac42). In het midden staat een hub (of een switch) om aan te tonen dat deze vier computers op hetzelfde netwerk, hetzelfde segment zitten. Alle vier de computers hebben een kabel naar de hub (niet getekend hier).</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/dhcp.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>1. De client SunWS1 start op en stuurt een DHCPDiscover op het netwerk. Alle computers ontvangen deze broadcast.</para>
+	<para>2. Beide DHCP servers antwoorden met een DHCPOffer. DHCP-SRV1 is een dedicated DHCP server en is sneller met zijn offer dan DHCP-SRV2 (die ook fileserver is).</para>
+	<para>3. De client kiest het offer van DHCP-SRV1 en stuurt een DHCPRequest op het netwerk.</para>
+	<para>4. DHCP-SRV1 antwoordt met een DHCPAck (een acknowledge).</para>
+	<para>Alle vier de broadcasts (of vijf want er waren twee offers) zijn een layer 2 ethernet broadcast naar ff:ff:ff:ff:ff:ff en een layer 3 ip broadcast naar 255.255.255.255. Alle vier de computers hebben alle broadcasts ontvangen.</para>
+</section>
+
+<section><title>tekening http</title>
+	<para>Hieronder een overzicht van een http request naar google.com. Het DNS verhaal is hier ingekort tot de recursieve A query en response, het layer 2 en layer 3 verhaal is volledig weggelaten.</para>
+	<para>Links staat een macbook pro en ik gebruik de safari browser om te surfen naar google.com. Deze website is gehost op een van de google webservers (209.85.227.113).</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/http.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>1. Stap 1 gebruikt <command>udp</command> om een A record te vragen aan de lokale DNS server (mijn routerke genaamd illyria). Dit is een forward lookup query voor www.google.com.</para>
+	<para>2. Is een antwoord van de DNS server dat het ip-adres (209.85.227.113) bevat van de webserver. Dit antwoord kwam ook in een <command>udp</command> packetje.</para>
+	<para>3. Dit packetje is de eerste stap in de <command>tcp three-way handshake</command> om een <command>tcp sessie</command> op te zetten. Op layer vier is dit een sessie tussen de macbook en de webserver van Google, maar vergeet niet dat in de praktijk de layer 2 tot aan de router gaat, en de layer 3 (ip) via de router (en nog een tiental andere routers die je kan vinden via traceroute) gaat.</para>
+	<para>4. Dit is de tweede stap in de <command>tcp handshake</command>, de webserver antwoord met een tcp <command>syn,ack</command> packetje.</para>
+	<para>5. De macbook bevestigt de <command>tcp sessie</command> met een <command>tcp ack</command>. Na deze drie packetjes (syn ; syn,ack ; ack) is de <command>tcp-sessie</command> een feit.</para>
+	<para>6. Als de tcp-sessie klaar is, dan kan <command>http</command> eindelijk zijn http query doen om een webpagina te vragen aan de webserver. Zoals we in de demo-les hebben gezien bevat deze http GET een ip-adres, de naam van een website en een poortnummer (hier 80). Hieronder zie je de handshake en de http GET door de ogen van <command>wireshark</command>.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/tcp_http_handshake.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>Vanaf stap 7, (niet op de tekening) zijn er heel wat packetjes die tussen de macbook en de webserver worden uitgewisseld.</para>
+</section>
+
+<section><title>tekening pop3</title>
+	<para>Je mailbox staat op een mailserver. Mailservers ontvangen mail via <command>smtp</command> en droppen de mail (hopelijk) in de juiste mailbox. Als je je mail leest via MS Outlook, Evolution of Thunderbird, dan maak je een verbinding met die mailbox om de mail te copieren naar je lokale pc. We bekijken kort hoe dit in zijn werk gaat als we <command>pop3</command> (post office protocol) gebruiken.</para>
+	<para>U merkt dat dit essentieel dezelfde tekening is als de vorige (het tot stand brengen van een http verbinding).</para>
+	<para>Links staat de laptop (192.168.1.34) met het e-mailprogramma Thunderbird, rechts staat een mailserver genaamd vanadium.openminds.be (ook gekend als mail.cobbaut.be).</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/pop3_tek.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>1. De eerste actie is een dns A query voor mail.cobbaut.be.</para>
+	<para>2. Het routerke met ingebouwde DNS server antwoord met 88.151.243.22</para>
+	<para>3. De tcp syn.</para>
+	<para>4. De tcp syn, ack.</para>
+	<para>5. De tcp ack (de tcp sessie is nu een feit).</para>
+	<para>6. Nu kan <command>pop3</command> in actie schieten. Als je snift kan je zien dat pop3 een login vereist, en dat alle mails in platte tekst van de mailserver tot op de laptop komen. Hieronder nog even een wireshark screenshot van de 6 stappen.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/pop3.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+</section>
+
+<section><title>tekening smtp (deel 1)</title>
+	<para>We weten al dat <command>smtp</command> wordt gebruikt voor het versturen van e-mail. Deze eerste tekening toont <command>smtp</command> tussen een client (Thunderbird) en een server (smtp.edpnet.be). In deel 2 zien we smtp tussen twee mailservers.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/smtp_tek.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>1. Het eerste wat onze mailclient (Thunderbird hier) doet is een dns query voor de A record van smtp.edpnet.be (die naam haalt hij uit de instellingen die je manueel in je mailprogramma moet ingeven).</para>
+	<para>2. Gelukkig komt er een antwoord met ip 212.71.0.14</para>
+	<para>3. tcp syn</para>
+	<para>4. tcp syn, ack</para>
+	<para>5. tcp ack</para>
+	<para>6. Als zesde stap zien we hieronder niet enkel het begin van <command>smtp</command> in actie. We zien ook dat de mailserver zich identificeert als <command>Sendmail</command>. Sendmail is open source software die door heel wat internet providers wordt gebruikt. Hieronder een wireshark screenshot met deze zes packetjes.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/smtp.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+</section>
+<section><title>tekening smtp (deel 2)</title>
+	<para>We volgen effe een mail, gestuurd vanop een pc met MS Outlook tot de mail zijn bestemming bereikt.</para>
+	<para>Links onderaan staat de computer waarop de mail wordt geschreven, rechts onderaan staat de laptop van de bestemmeling.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/smtp2.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>1. De eerste stap is het sturen van de mail naar de mailserver van de provider. In dit geval gaat de computer van de e-mail-verstuurder een tcp sessie opzetten met de smtp server van de <command>isp</command> (in dit geval smtp.edpnet.be). Deze ene stap is uitgelegd in meerdere stappen in de vorige tekening.</para>
+	<para>2. Als de mailserver van de internet provider de mail ontvangen heeft, dan gaat die eerst nakijken of die bedoelt is voor een lokale mailbox. Indien niet, dan gaat die op zoek naar de MX en de A record van de mailserver waar de mail wel naartoe moet. De mailserver vraagt dus aan zijn lokale DNS server voor de MX record van gmail.com (als je een mail stuurt naar gmail.com natuurlijk).</para>
+	<para>3. Stap 3 is het antwoord van de DNS server op de MX query. Dit antwoord bevat ook de A records van o.a. smtp4.google.com.</para>
+	<para>4. De mailserver van edpnet maakt nu een smtp verbinding (en dus ook een tcp sessie op port 25) met de smtp4.google.com (72.14.221.25) server. De mail verlaat de internet provider van de verstuurder en bereikt de Google servers.</para>
+	<para>5. Stap 5 daar hebben we het raden naar. Google beschikt over tienduizenden servers, mails kunnen gelezen worden van verschillende servers tegelijkertijd...</para>
+	<para>6. De laatste stap is het gebruik van een protocol zoals <command>pop3</command> om de mail te lezen. Om te vermijden dat mails onderweg gelezen worden kan je ook <command>pop3s</command> (pop3 over ssl) gebruiken.</para>
+	<para>Als extraatje een wireshark screenshot van <command>pop3s</command> in actie. (We hebben in de les nooit over pop3s gesproken, dus ge moet dat niet kennen).</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/pop3s.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para></para>
+	<para>Ik hoop dat deze tekeningen de zaak wat verduidelijken. Als ik tijd heb, teken ik ook nog wat arp en ping packetjes ofzo... prettige feesten!</para>
 </section>
