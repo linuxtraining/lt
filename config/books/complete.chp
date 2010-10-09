@@ -355,6 +355,16 @@ chapt_pipes_filters() {
 	}
 
 #
+chapt_intro_processes() {
+	MODULES=""
+	chaptitle="Introduction to Processes"
+	add_mod mod_processes/processes_intro.xml
+	add_mod mod_processes/processes_kill.xml
+	add_mod mod_processes/processes_kill_practice.xml
+	add_mod mod_processes/processes_kill_solution.xml
+	}
+
+#
 chapt_processes() {
 	MODULES=""
 	chaptitle="Process management"
