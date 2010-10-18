@@ -3521,7 +3521,7 @@ C. packet switching
 D. packet netting
 E. circuit netting
 </screen>
-<para>3. Internet standaarden worden sinds 1969 bewaard in ascii tekstbestanden en zijn geldig voor alle besturingsystemen. Hoe heten deze standaarden ?</para>
+<para>3. Internet standaarden worden sinds 1969 bewaard in ascii tekstbestanden en zijn geldig voor alle besturingssystemen. Hoe heten deze standaarden ?</para>
 <screen>A. tcp/ip's
 B. rfc's
 C. ISO's
@@ -3650,7 +3650,7 @@ D. 1969 Geboorte Internet
 E. 2002 Invoering Euro munten en briefjes</screen>
 <para>2. Ter vervanging van vast toegewezen communicatiekanalen werd in de jaren 60 een nieuwe techniek ontwikkeld die alle gegevens die over een netwerk moeten getransporteerd worden opdeelt in kleine <command>packetjes</command>. Hoe heet deze techniek ?</para>
 <screen>C. packet switching</screen>
-<para>3. Internet standaarden worden sinds 1969 bewaard in ascii tekstbestanden en zijn geldig voor alle besturingsystemen. Hoe heten deze standaarden ?</para>
+<para>3. Internet standaarden worden sinds 1969 bewaard in ascii tekstbestanden en zijn geldig voor alle besturingssystemen. Hoe heten deze standaarden ?</para>
 <screen>B. rfc's </screen>
 <para>4. Wat is de kleinste eenheid van informatie in de informaticawereld ?</para>
 <screen>A bit</screen>
@@ -3711,6 +3711,14 @@ Twee studenten hadden 13 op 20.</screen>
 		<screen>ifconfig eth0 10.0.33.1 netmask 255.255.255.0
 ifconfig eth1 10.0.42.1 netmask 255.255.255.0</screen>
 		<para>Het mac-adres van <command>eth0</command> is hier 08:00:27:CE:93:98 en van <command>eth1</command> is het 08:00:27:E8:BE:68.</para>
+		<screen>
+ ___________               ____________________                ____________
+|           |             |       router       |              |            |
+| rhel53  nic - leftnet - nic    fedora13    nic - rightnet - nic  sol11   |
+|  10.0.42.2|             |10.0.42.1  10.0.33.1|              |10.0.33.2   |
+|___________|             |____________________|              |____________|
+
+</screen>
 	</section>
 	<section><title>eerste testje</title>
 		<para>We controleren even dat <command>wireshark</command> goed werkt door een <command>ping</command> te doen van de <command>rhel53</command> naar 10.0.33.1.</para>
@@ -3723,37 +3731,41 @@ ifconfig eth1 10.0.42.1 netmask 255.255.255.0</screen>
 		<screen>route add default 10.0.42.1</screen>
 		<para>Op <command>rhel53</command> geven we 10.0.33.1 op als adres van de router:</para>
 		<screen>route add default gw 10.0.33.1</screen>
-		<para>Als we echter een ping proberen van het ene naar het andere netwerk, dan krijgen we geen antwoord want de netwerken zijn gescheiden en de router staat nog niet aan.</para>
+		<para>Tussen haakjes, op <command>MS Windows</command> kan je dit door via Start - Settings - Control Panel - Networking - Properties - TCP/IP - Properties ergens de <command>default gateway</command> in te vullen.</para>
+		<para>Als we echter een ping proberen van het ene naar het andere netwerk, dan krijgen we geen antwoord want de netwerken zijn gescheiden (en de router staat nog niet aan).</para>
 	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/cvo_router_off.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 	</section>
 	<section><title>router aanzetten</title>
-		<para>We zetten de router aan door 1 bit aan te passen in Linux, die zal dan automatisch alle packetjes routen over al zijn netwerkkaarten. Dit is handig als je over slechts één router beschikt. We zullen later zien dat er meer werk is om twee routers te laten samenwerken.</para>
+		<para>We zetten de router aan door 1 bit aan te passen in Linux, die zal dan automatisch alle packetjes routen over al zijn netwerkkaarten. Dit is handig als je over slechts één router beschikt die al je netwerken verbindt. We zullen later zien dat er meer werk is om twee routers te laten samenwerken.</para>
 		<para>Het packetje dat vertrekt bij 10.0.42.2 komt eerst (via <command>rightnet</command>) aan bij 10.0.42.1. Dat zie je in de screenshot van <command>wireshark</command> hieronder.</para>
 	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/cvo_router_ok.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-		<para>Vervolgens gaat de router het destination-mac-adres aan passen naar het mac-adres van 10.0.33.2, en terzelfdertijd het source-mac-address vervangen door dat van zijn eigen 10.0.33.1 interface. Zo komt het (via <command>leftnet</command>) aan bij de bestemming.</para>
+		<para>Vervolgens gaat de router het destination-mac-adres aanpassen naar het mac-adres van 10.0.33.2, en terzelfdertijd het source-mac-address vervangen door dat van zijn eigen 10.0.33.1 interface. Zo komt het (via <command>leftnet</command>) aan bij de bestemming.</para>
 		<para>We hebben nu een werkende router tussen onze twee netwerken.</para>
 	</section>
 </section>
 <section><title>twee routers met elkaar verbinden</title>
-	<section><title>router tussen twee netwerken.</title>
-		<para></para>
-		<para></para>
+	<section><title>opstelling met vier machines</title>
+		<para>We voegen een Debian 5.04 server als router toe aan onze opstelling en verbinden beide routers via <command>middlenet</command> (en de nieuwe reeks 10.0.12.0/24). Er staan nu twee routers tussen de 10.0.42.0/8 en 10.0.33.0/8 netwerken.</para>
+		<screen>
+        ____________________                 _____________________    r
+l n    |       router       |               |       router        |   i n
+e e -  nic     deb504     nic - middlenet - nic    fedora13     nic - g e
+f t    |10.0.42.1  10.0.12.1|               |10.0.12.100 10.0.33.1|   h t
+t      |____________________|               |_____________________|   t
+
+</screen>
+		<para>De configuratie van de twee gewone computers moet niet aangepast worden, zij behouden (wat ip-adres betreft) dezelfde <command>default gateway</command>.</para>
 		<para></para>
 		<para></para>
 		<screen></screen>
 	</section>
-	<section><title>router tussen twee netwerken.</title>
-		<para></para>
-		<para></para>
-		<para></para>
+	<section><title>rip</title>
 		<para></para>
 		<screen></screen>
 	</section>
-	<section><title>router tussen twee netwerken.</title>
+	<section><title>nat snat masquerading dnat</title>
 		<para></para>
-		<para></para>
-		<para></para>
-		<para></para>
+		<screen></screen>
 	</section>
 </section>
 
