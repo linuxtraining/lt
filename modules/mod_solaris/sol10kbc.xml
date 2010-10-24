@@ -1,0 +1,194 @@
+<section><title>standard file permissions</title>
+	<para>File types and ls, ownership and permissions, same as Linux.</para>
+	<screen>
+root@sol10u9 /# ls -lh /etc | head
+total 684
+lrwxrwxrwx   1 root     root          14 Sep 11 14:55 TIMEZONE -> ./default/init
+drwxr-xr-x   6 root     other        512 Oct 24 13:20 X11
+drwxr-xr-x   2 adm      adm          512 Sep 11 14:57 acct
+-rw-r--r--   1 root     sys          253 Aug  6 15:11 aggregation.conf
+lrwxrwxrwx   1 root     root          14 Sep 11 15:03 aliases -> ./mail/aliases
+drwxr-xr-x   6 root     other        512 Sep 11 15:00 amd64
+drwxr-xr-x   7 root     bin          512 Sep 11 15:03 apache
+drwxr-xr-x   2 root     bin          512 Sep 11 14:58 apache2
+drwxr-xr-x   2 root     other        512 Sep 11 14:59 apoc
+</screen>
+	<para><command>umask</command>, <command>chmod</command> and <command>chown</command>, same as Linux</para>
+	<screen>
+root@sol10u9 /# umask
+0022
+</screen>
+	<para><command>sticky</command>, <command>setuid</command> same as Linux</para>
+	<screen>
+root@sol10u9 /# ls -ld /tmp
+drwxrwxrwt   9 root     sys          518 Oct 24 13:25 /tmp
+root@sol10u9 /# ls -l `which passwd`
+-r-sr-sr-x   1 root     sys        22644 Aug  6 18:28 /usr/bin/passwd
+</screen>
+	<para>acls with <command>getfacl</command> and <command>setfacl</command>, still the same</para>
+	<screen>
+root@sol10u9 /# getfacl /var/adm/messages 
+
+# file: /var/adm/messages
+# owner: root
+# group: root
+user::rw-
+group::r--              #effective:r--
+mask:r--
+other:r--
+</screen>
+</section>
+<section><title>booting the system</title>
+	<para><command>Intel x86</command> is very similar, <command>sparc</command> is very different: <command>openboot</command> !</para>
+	<screen>
+ok banner
+
+Sun Ultra 45, Keyboard present
+Copyright 1998-2004 Sun Microsystems, Inc. All rights reserved.
+OpenBoot 4.21.x, 2048 MB memory installed, Serial #43361525.
+Ethernet address 0:3:ba:09:7f:d2, Host ID: 83097fd2
+</screen>
+	<para>No <command>grub</command> on <command>sparc</command>, instead <command>openboot</command> loads the kernel.</para>
+	<para>The <command>init</command> system is identical up to Solaris 9, still compatible in Solaris 10. But since Solaris 10 init is replaced by SMF.</para>
+	<screen>
+root@sol10u9 /# tail -5 /etc/inittab
+#ident  "@(#)inittab    1.41    04/12/14 SMI"
+ap::sysinit:/sbin/autopush -f /etc/iu.ap
+sp::sysinit:/sbin/soconfig -f /etc/sock2path
+smf::sysinit:/lib/svc/bin/svc.startd    >/dev/msglog 2&#060;>/dev/msglog &#060;/dev/console
+p3:s1234:powerfail:/usr/sbin/shutdown -y -i5 -g0 >/dev/msglog 2&#060;>/dev/msglog
+</screen>
+	<para>The <command>runlevel</command> command does not exist, so use <command>who -r</command>.</para>
+	<screen>root@sol10u9 /# tail -5 /etc/inittab
+#ident  "@(#)inittab    1.41    04/12/14 SMI"
+ap::sysinit:/sbin/autopush -f /etc/iu.ap
+sp::sysinit:/sbin/soconfig -f /etc/sock2path
+smf::sysinit:/lib/svc/bin/svc.startd    >/dev/msglog 2&#060;>/dev/msglog &#060;/dev/console
+p3:s1234:powerfail:/usr/sbin/shutdown -y -i5 -g0 >/dev/msglog 2&#060;>/dev/msglog
+</screen>
+</section>
+
+<section><title>user management</title>
+	<para>Most commands are identical to Linux.</para>
+	<screen>
+root@sol10u9 /# who
+paul       console      Oct 24 13:24    (:0)
+paul       pts/3        Oct 24 13:25    (:0.0)
+root       pts/4        Oct 24 14:25    (192.168.1.29)
+root@sol10u9 /# who am i
+root       pts/4        Oct 24 14:25    (192.168.1.29)
+root@sol10u9 /# w
+  2:26pm  up  1:07,  2 users,  load average: 0.32, 0.29, 0.27
+User     tty           login@  idle   JCPU   PCPU  what
+paul     console       1:24pm  1:02                /usr/bin/gnome-session
+paul     pts/3         1:25pm     3     18     18  bash
+root     pts/4         2:25pm                      w
+root@sol10u9 /# id
+uid=0(root) gid=0(root)
+</screen>
+<para>The <command>useradd, usermod, userdel</command> commands are almost identical, but home directories are usually created in <command>/export/home</command>.</para>
+	<screen>
+root@sol10u9 /# useradd -m -d /export/home/emily -s /bin/bash emily
+64 blocks
+root@sol10u9 /# tail -1 /etc/passwd
+emily:x:101:1::/export/home/emily:/bin/bash
+root@sol10u9 /# tail -1 /etc/shadow
+emily:*LK*:::::::</screen>
+	<para>Solaris up to 10u9 defaults to <command>Korn</command> shell. OpenSolaris and Solaris 11 default to <command>/bin/bash</command>.</para>
+	<screen>
+root@sol10u9 /# useradd -D
+group=other,1  project=default,3  basedir=/home  
+skel=/etc/skel  shell=/bin/sh  inactive=0  
+expire=  auths=  profiles=  roles=  limitpriv=  
+defaultpriv=  lock_after_retries=</screen>
+	<para>The <command>/etc/default/useradd</command> file is now elsewhere.</para>
+	<screen>
+root@sol10u9 /# cat /usr/sadm/defadduser 
+#       Default values for useradd.  Changed Sun Oct 24 14:34:54 2010
+
+defgroup=1
+defgname=other
+defparent=/home
+defskel=/etc/skel
+defshell=/bin/sh
+definact=0
+defexpire=
+defauthorization=
+defrole=
+defprofile=
+defproj=3
+defprojname=default
+deflimitpriv=
+defdefaultpriv=
+deflock_after_retries=
+</screen>
+	<para>The <command>/etc/skel</command> directory and the <command>su</command> are identical, but <command>sudo</command> is not installed by default.</para>
+	<screen>
+t@sol10u9 /# ls -la /etc/skel/
+total 20
+drwxr-xr-x   2 root     sys          512 Sep 11 14:55 .
+drwxr-xr-x  87 root     sys         4608 Oct 24 14:29 ..
+-rw-r--r--   1 root     other        144 Aug  6 15:11 .profile
+-rw-r--r--   1 root     sys          136 Aug  6 15:11 local.cshrc
+-rw-r--r--   1 root     sys          157 Aug  6 15:11 local.login
+-rw-r--r--   1 root     sys          174 Aug  6 15:11 local.profile
+</screen>
+	<para>Starting from Solaris 11 <command>rbac</command> is used by default, with the <command>root</command> user as a role!</para>
+	<screen></screen>
+	<para></para>
+	<screen></screen>
+	<para></para>
+	<screen></screen>
+	<para></para>
+	<screen></screen>
+	<para></para>
+</section>
+
+<section><title></title>
+	<para></para>
+	<screen></screen>
+	<para></para>
+	<screen></screen>
+	<para></para>
+	<screen></screen>
+	<para></para>
+	<screen></screen>
+	<para></para>
+</section>
+
+<section><title></title>
+	<para></para>
+	<screen></screen>
+	<para></para>
+	<screen></screen>
+	<para></para>
+	<screen></screen>
+	<para></para>
+	<screen></screen>
+	<para></para>
+</section>
+
+<section><title></title>
+	<para></para>
+	<screen></screen>
+	<para></para>
+	<screen></screen>
+	<para></para>
+	<screen></screen>
+	<para></para>
+	<screen></screen>
+	<para></para>
+</section>
+
+<section><title></title>
+	<para></para>
+	<screen></screen>
+	<para></para>
+	<screen></screen>
+	<para></para>
+	<screen></screen>
+	<para></para>
+	<screen></screen>
+	<para></para>
+</section>
+

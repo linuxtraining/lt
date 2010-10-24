@@ -3715,27 +3715,29 @@ ifconfig eth1 10.0.42.1 netmask 255.255.255.0</screen>
  ___________               ____________________                ____________
 |           |             |       router       |              |            |
 | rhel53  nic - leftnet - nic    fedora13    nic - rightnet - nic  sol11   |
-|  10.0.42.2|             |10.0.42.1  10.0.33.1|              |10.0.33.2   |
+|  10.0.33.2|             |10.0.33.1  10.0.42.1|              |10.0.42.2   |
 |___________|             |____________________|              |____________|
 
 </screen>
 	</section>
-	<section><title>eerste testje</title>
-		<para>We controleren even dat <command>wireshark</command> goed werkt door een <command>ping</command> te doen van de <command>rhel53</command> naar 10.0.33.1.</para>
+	<section><title>ping op leftnet</title>
+		<para>We controleren even dat <command>wireshark</command> goed werkt door een <command>ping</command> te doen van de <command>rhel53</command> naar 10.0.33.1. We testen hiermee dat de verbinding tussen de links rhel53 computer en de fedora13 router werkt. Dit is noodzakelijk opdat de computer de router kan gebruiken. Een router moet in hetzelfde netwerk staan als de computer.</para>
 	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/cvo_router_ping1.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 		<para>Dit is een lokaal netwerk dus we zien twee gekende <command>arp</command> packetjes. De ping wordt met de correcte mac-adressen op het netwerk gezet.</para>
 	</section>
-	<section><title>tweede testje</title>
-		<para>We configureren nu de computers uit <command>leftnet</command> en <command>rightnet</command> om elk de router te gebruiken. Elke computer ziet een andere kant van de router.</para>
+	<section><title>standaard gateway instellen</title>
+		<para>We configureren nu de computers uit <command>leftnet</command> en <command>rightnet</command> om elk de <command>router</command> te gebruiken. Elke computer ziet een andere kant van de router.</para>
 		<para>Op <command>sol11</command> geven we 10.0.42.1 op als adres van de router:</para>
 		<screen>route add default 10.0.42.1</screen>
 		<para>Op <command>rhel53</command> geven we 10.0.33.1 op als adres van de router:</para>
 		<screen>route add default gw 10.0.33.1</screen>
-		<para>Tussen haakjes, op <command>MS Windows</command> kan je dit door via Start - Settings - Control Panel - Networking - Properties - TCP/IP - Properties ergens de <command>default gateway</command> in te vullen.</para>
-		<para>Als we echter een ping proberen van het ene naar het andere netwerk, dan krijgen we geen antwoord want de netwerken zijn gescheiden (en de router staat nog niet aan).</para>
+		<para>Tussen haakjes, op <command>MS Windows</command> kan je dit door via Start - Instellingen - Controle Paneel - Netwerkbeheer - Eigenschappen - tcp/ip - Eigenschappen ergens de <command>standaard gateway</command> in te vullen.</para>
+	</section>
+	<section><title>ping over de router?</title>
+		<para>Als we echter een ping proberen van het ene naar het andere netwerk, dan krijgen we geen antwoord want de netwerken zijn gescheiden en de router staat nog niet aan. Het is niet omdat een computer twee netwerkkaarten heeft, dat die automatisch router gaat spelen.</para>
 	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/cvo_router_off.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 	</section>
-	<section><title>router aanzetten</title>
+	<section><title>routerfunctie aanzetten</title>
 		<para>We zetten de router aan door 1 bit aan te passen in Linux, die zal dan automatisch alle packetjes routen over al zijn netwerkkaarten. Dit is handig als je over slechts één router beschikt die al je netwerken verbindt. We zullen later zien dat er meer werk is om twee routers te laten samenwerken.</para>
 		<para>Het packetje dat vertrekt bij 10.0.42.2 komt eerst (via <command>rightnet</command>) aan bij 10.0.42.1. Dat zie je in de screenshot van <command>wireshark</command> hieronder.</para>
 	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/cvo_router_ok.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
@@ -3750,7 +3752,7 @@ ifconfig eth1 10.0.42.1 netmask 255.255.255.0</screen>
         ____________________                 _____________________    r
 l n    |       router       |               |       router        |   i n
 e e -  nic     deb504     nic - middlenet - nic    fedora13     nic - g e
-f t    |10.0.42.1  10.0.12.1|               |10.0.12.100 10.0.33.1|   h t
+f t    |10.0.33.1  10.0.12.1|               |10.0.12.100 10.0.42.1|   h t
 t      |____________________|               |_____________________|   t
 
 </screen>
@@ -3760,8 +3762,8 @@ t      |____________________|               |_____________________|   t
 		<screen></screen>
 	</section>
 	<section><title>rip</title>
-		<para></para>
-		<screen></screen>
+		<para>Hieronder kan je zien hoe de fedore13 router via 10.0.12.100 aan de andere router vertelt dat hij direct (met een metric van 1) verbonden is met het 10.0.42.0/8 netwerk.</para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/wireshark_rip.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 	</section>
 	<section><title>nat snat masquerading dnat</title>
 		<para></para>
