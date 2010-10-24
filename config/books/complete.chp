@@ -518,6 +518,17 @@ chapt_mysql() {
 	}
 	
 #
+# Mini chapter on differences in Solaris
+#
+
+#
+chapt_solaris() {
+	MODULES=""
+	chaptitle="Solaris vs Linux"
+	add_mod mod_solaris/sol10kbc.xml
+	}
+
+#
 # cursus in NL voor cvo-tsm hieronder
 # Datacommunicatie en netwerken
 #
