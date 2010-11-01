@@ -3714,9 +3714,12 @@ Twee studenten hadden 13 op 20.</screen>
 </chapter>
 <chapter><title>inleiding tot routers</title>
 <section><title>router tussen twee netwerken</title>
-	<para>Om iets te laten zien over routers heb je een router nodig en minstens twee computers, eentje aan elke kant van de router. Hier volgen twee voorbeelden, gedaan met vrije software in Virtualbox.</para>
+	<para>Een <command>router</command> verbindt twee netwerken.</para>
+ 	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/simple_router_lan.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>Om iets te laten zien over <command>routers</command> heb je dus een <command>router</command> nodig en minstens twee computers, eentje aan elke kant van de <command>router</command>. Hier volgen twee voorbeelden, gedaan met vrije software in <command>Virtualbox</command>.</para>
 	<section><title>de opstelling</title>
 		<para>We beginnen met twee netwerken te bouwen, eentje links in de range <command>10.0.33.0/24</command> en eentje rechts in de range <command>10.0.42.0/24</command>. Het linkse netwerk wordt <command>leftnet</command> genoemd, het andere <command>rightnet</command>.</para>
+ 		<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/leftnet_rightnet_router.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 		<para>In het linkse netwerk zetten we een Red Hat Enterprise Linux (rhel53) server met ip-adres 10.0.33.2/24. Linux noemt de lokale netwerkkaart <command>eth0</command>. Het volgende commando configureert het juiste ip-adres en subnet mask:</para>
 		<screen>ifconfig eth0 10.0.33.2 netmask 255.255.255.0</screen>
 		<para>Het mac-adres (of hardware address) van deze netwerkkaart is 08:00:27:F6:67:53.</para>
@@ -3733,7 +3736,6 @@ ifconfig eth1 10.0.42.1 netmask 255.255.255.0</screen>
 | rhel53  nic - leftnet - nic    fedora13    nic - rightnet - nic  sol11   |
 |  10.0.33.2|             |10.0.33.1  10.0.42.1|              |10.0.42.2   |
 |___________|             |____________________|              |____________|
-
 </screen>
 	</section>
 	<section><title>ping op leftnet</title>

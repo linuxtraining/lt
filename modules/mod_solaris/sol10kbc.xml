@@ -134,61 +134,560 @@ drwxr-xr-x  87 root     sys         4608 Oct 24 14:29 ..
 -rw-r--r--   1 root     sys          174 Aug  6 15:11 local.profile
 </screen>
 	<para>Starting from Solaris 11 <command>rbac</command> is used by default, with the <command>root</command> user as a role!</para>
-	<screen></screen>
-	<para></para>
-	<screen></screen>
-	<para></para>
-	<screen></screen>
-	<para></para>
-	<screen></screen>
-	<para></para>
+	<screen>
+paul@sol11 ~$ roles
+root
+paul@sol11 ~$ grep paul /etc/user_attr 
+paul::::profiles=Primary Administrator;roles=root
+	</screen>
+	<para>Shell environment with profile files is identical to Linux.</para>
+	<screen>
+root@sol10u9 /# cat .bashrc 
+alias c=clear
+alias ll='ls -lh'
+export PS1='\u@\h \W# '
+export HISTSIZE=15000
+export HISTFILESIZE=15000
+export HISTFILE=/.bash_history
+	</screen>
+	<para>Group management with <command>groupadd, groupmod, groupdel</command> is identical to Linux. Only <command>gpasswd</command> does not exist on Solaris.</para>
+	<screen>
+root@sol10u9 /# groupadd tennis
+root@sol10u9 /# tail -2 /etc/group 
+nogroup::65534:
+tennis::100:
+	</screen>
 </section>
 
-<section><title></title>
-	<para></para>
-	<screen></screen>
-	<para></para>
-	<screen></screen>
-	<para></para>
-	<screen></screen>
-	<para></para>
-	<screen></screen>
-	<para></para>
+<section><title>networking</title>
+	<para>The syntax of <command>ifconfig</command> is very similar to Linux.</para>
+	<screen>
+root@sol10u9 /# ifconfig -a
+lo0: flags=2001000849&#060;UP,LOOPBACK,RUNNING,MULTICAST,IPv4,VIRTUAL> mtu 8232 index 1
+        inet 127.0.0.1 netmask ff000000 
+e1000g0: flags=1004843&#060;UP,BROADCAST,RUNNING,MULTICAST,DHCP,IPv4> mtu 1500 index 2
+        inet 192.168.1.31 netmask ffffff00 broadcast 192.168.1.255
+        ether 8:0:27:52:39:23
+</screen>
+	<para>The <command>/etc/hosts</command> file is a symbolic link.</para>
+	<screen>
+root@sol10u9 /# ls -l /etc/hosts
+lrwxrwxrwx   1 root     root          12 Sep 11 14:55 /etc/hosts -> ./inet/hosts
+root@sol10u9 /# ls -l /etc/inet/ipnodes
+lrwxrwxrwx   1 root     root           7 Sep 11 14:55 /etc/inet/ipnodes -> ./hosts
+	</screen>
+	<para>The <command>hostname</command> is defined in <command>/etc/hostname.$name_of_nic</command>.</para>
+	<screen>
+root@sol10u9 /# cat /etc/hostname.e1000g0 
+sol10u9
+root@sol10u9 /# hostname
+sol10u9
+	</screen>
+	<para>When in trouble with networking or hostname settings, you can issue <command>sys-unconfig</command> to reset all networking info and more (like root password and dns server).</para>
+	<screen>
+root@sol10u9 /# sys-unconfig 
+                        WARNING
+
+This program will unconfigure your system.  It will cause it
+to revert to a "blank" system - it will not have a name or know
+about other systems or networks.
+
+This program will also halt the system.
+
+Do you want to continue (y/n) ? ^C
+root@sol10u9 /#
+	</screen>
+	<para>The routing table works in the same way.</para>
+	<screen>
+root@sol10u9 /# netstat -nr
+
+Routing Table: IPv4
+  Destination           Gateway           Flags  Ref     Use     Interface 
+-------------------- -------------------- ----- ----- ---------- --------- 
+default              192.168.1.1          UG        1          2 e1000g0   
+192.168.1.0          192.168.1.31         U         1          8 e1000g0   
+224.0.0.0            192.168.1.31         U         1          0 e1000g0   
+127.0.0.1            127.0.0.1            UH        4        170 lo0</screen>
+	<para>As does <command>arp</command> and <command>ping</command>.</para>
+	<screen>root@sol10u9 /# arp -a
+Net to Media Table: IPv4
+Device   IP Address               Mask      Flags      Phys Addr
+------ -------------------- --------------- -------- ---------------
+e1000g0 192.168.1.29         255.255.255.255 o        08:00:27:8e:8a:a8
+e1000g0 192.168.1.1          255.255.255.255 o        00:02:cf:aa:68:f0
+e1000g0 sol10u9              255.255.255.255 SPLA     08:00:27:52:39:23
+e1000g0 BASE-ADDRESS.MCAST.NET 240.0.0.0       SM       01:00:5e:00:00:00
+root@sol10u9 /# ping 192.168.1.1
+192.168.1.1 is alive
+	</screen>
+	<para>Bonding is called <command>ipmp</command> and requires the <command>mpathd</command> daemon and editing of /etc/hostname.nic and /etc/hosts files.</para>
+	<para>Firewall functionality is managed with <command>ipfilter</command> and <command>ipf</command>, nat is possible with <command>ipnat</command>.</para>
+	<para>Solaris uses <command>inetd</command> as superdaemon, although it is largely expanded and integrated with <command>smf</command> using <command>inetadm</command>.</para>
+	<screen>
+root@sol10u9 /# tail -5 /etc/inetd.conf 
+# CacheFS daemon.  Provided only as a basis for conversion by inetconv(1M).
+#
+100235/1 tli rpc/ticotsord wait root /usr/lib/fs/cachefs/cachefsd cachefsd
+# TFTPD - tftp server (primarily used for booting)
+#tftp   dgram   udp6    wait    root    /usr/sbin/in.tftpd      in.tftpd -s /tftpboot
+</screen>
+	<para>The use of <command>ssh</command> is identical to Linux. Solaris disables root login by default.</para>
+	<screen>
+root@sol10u9 /# grep -i permitroot /etc/ssh/sshd_config 
+PermitRootLogin no
+	</screen>
+	<para>The <command>nfs</command> protocol is compatible (Sun invented it!), but the files are very different from Linux. Shares are located in <command>/etc/dfs/dfstab</command>.</para>
+	<screen>
+root@sol10u9 /# cat /etc/dfs/dfstab 
+
+#       Place share(1M) commands here for automatic execution
+#       on entering init state 3.
+#
+#       Issue the command 'svcadm enable network/nfs/server' to
+#       run the NFS daemon processes and the share commands, after adding
+#       the very first entry to this file.
+#
+#       share [-F fstype] [ -o options] [-d "&#060;text>"] &#060;pathname> [resource]
+#       .e.g,
+#       share  -F nfs  -o rw=engineering  -d "home dirs"  /export/home2
+	</screen>
+	<para>Client <command>nfs</command> configuration is identical to Linux, except that the <command>-t</command> switch for the file system is a <command>-F</command> switch on Solaris.</para>
+	<screen>
+root@sol10u8 /# mount -F nfs 10.104.2.241:/export/pro42 /home/project42
+	</screen>
 </section>
 
-<section><title></title>
-	<para></para>
-	<screen></screen>
-	<para></para>
-	<screen></screen>
-	<para></para>
-	<screen></screen>
-	<para></para>
-	<screen></screen>
-	<para></para>
+<section><title>disk management</title>
+	<para>The <command>format</command> command will list the disks for you. Disk naming is very different from Linux.</para>
+	<screen>
+root@sol10u8 /# format
+Searching for disks...done
+
+
+AVAILABLE DISK SELECTIONS:
+       0. c0d0 &#060;DEFAULT cyl 3129 alt 2 hd 255 sec 63>
+          /pci@0,0/pci-ide@1,1/ide@0/cmdk@0,0
+       1. c2t0d0 &#060;DEFAULT cyl 1020 alt 2 hd 128 sec 32>
+          /pci@0,0/pci1000,8000@14/sd@0,0
+       2. c2t1d0 &#060;DEFAULT cyl 1020 alt 2 hd 128 sec 32>
+          /pci@0,0/pci1000,8000@14/sd@1,0
+Specify disk (enter its number): ^C
+	</screen>
+	<para><command>dmesg</command> can also be useful.</para>
+	<screen>
+root@sol10u8 /# dmesg | grep scsi
+Oct 20 13:48:55 sol10u8 scsi: [ID 365881 kern.info] /pci@0,0/pci1000,8000@14 (mpt0):
+Oct 20 13:48:55 sol10u8 scsi: [ID 365881 kern.info] /pci@0,0/pci1000,8000@14 (mpt0):
+Oct 20 13:48:55 sol10u8 scsi: [ID 365881 kern.info] /pci@0,0/pci1000,8000@14 (mpt0):
+Oct 20 13:48:55 sol10u8 scsi: [ID 193665 kern.info] sd1 at mpt0: target 0 lun 0
+Oct 20 13:48:55 sol10u8 scsi: [ID 193665 kern.info] sd2 at mpt0: target 1 lun 0
+Oct 20 13:49:19 sol10u8 scsi: [ID 193665 kern.info] sd0 at ata1: target 0 lun 0
+	</screen>
+	<para>Partitioning and slicing is a different story on sparc then on Solaris. Sparc uses a VTOC and slices, x86 uses an mbr and fdisk partitions with inside a partition the slice system.</para>
+	<screen>             Total disk size is 3132 cylinders
+             Cylinder size is 16065 (512 byte) blocks
+
+                                               Cylinders
+      Partition   Status    Type          Start   End   Length    %
+      =========   ======    ============  =====   ===   ======   ===
+          1       Active    Solaris2          1  3131    3131    100
+
+SELECT ONE OF THE FOLLOWING:
+   1. Create a partition
+   2. Specify the active partition
+   3. Delete a partition
+   4. Change between Solaris and Solaris2 Partition IDs
+   5. Exit (update disk configuration and exit)
+   6. Cancel (exit without updating disk configuration)
+Enter Selection: 
+</screen>
+	<para>Slice information can be seen in the partition menu.</para>
+	<screen>partition> p
+Current partition table (original):
+Total disk cylinders available: 3129 + 2 (reserved cylinders)
+
+Part      Tag    Flag     Cylinders        Size            Blocks
+  0       root    wm      70 -  921        6.53GB    (852/0/0)  13687380
+  1       swap    wu       3 -   69      525.56MB    (67/0/0)    1076355
+  2     backup    wm       0 - 3128       23.97GB    (3129/0/0) 50267385
+  3 unassigned    wm       0               0         (0/0/0)           0
+  4 unassigned    wm       0               0         (0/0/0)           0
+  5 unassigned    wm       0               0         (0/0/0)           0
+  6 unassigned    wm       0               0         (0/0/0)           0
+  7       home    wm     922 - 3128       16.91GB    (2207/0/0) 35455455
+  8       boot    wu       0 -    0        7.84MB    (1/0/0)       16065
+  9 alternates    wu       1 -    2       15.69MB    (2/0/0)       32130
+</screen>
+	<para>Or with the <command>prtvtoc</command> command.</para>
+	<screen>root@sol10u8 /# prtvtoc /dev/dsk/c0d0s2
+* /dev/dsk/c0d0s2 partition map
+*
+* Dimensions:
+*     512 bytes/sector
+*      63 sectors/track
+*     255 tracks/cylinder
+*   16065 sectors/cylinder
+*    3131 cylinders
+*    3129 accessible cylinders
+*
+* Flags:
+*   1: unmountable
+*  10: read-only
+*
+* Unallocated space:
+*       First     Sector    Last
+*       Sector     Count    Sector 
+*           0   1124550   1124549
+*
+*                          First     Sector    Last
+* Partition  Tag  Flags    Sector     Count    Sector  Mount Directory
+       0      2    00    1124550  13687380  14811929   /
+       1      3    01      48195   1076355   1124549
+       2      5    00          0  50267385  50267384
+       7      8    00   14811930  35455455  50267384   /export
+       8      1    01          0     16065     16064
+       9      9    01      16065     32130     48194
+</screen>
+	<para>The default file system on Solaris up to version 10 is <command>ufs</command>.</para>
+	<screen>
+root@sol10u8 /# fstyp /dev/dsk/c0d0s0
+ufs
+root@sol10u8 /# fstyp /dev/dsk/c0d0s7
+ufs
+	</screen>
+	<para>You can put a file system on a slice with the <command>newfs</command> command.</para>
+	<screen>
+root@sol10u8 /# newfs /dev/dsk/c2t0d0s1
+newfs: construct a new file system /dev/rdsk/c2t0d0s1: (y/n)? y
+/dev/rdsk/c2t0d0s1:     1433600 sectors in 350 cylinders of 128 tracks, 32 sectors
+        700.0MB in 22 cyl groups (16 c/g, 32.00MB/g, 15360 i/g)
+super-block backups (for fsck -F ufs -o b=#) at:
+ 32, 65600, 131168, 196736, 262304, 327872, 393440, 459008, 524576, 590144,
+ 786848, 852416, 917984, 983552, 1049120, 1114688, 1180256, 1245824, 1311392,
+ 1376960</screen>
+	<para>Tuning can be done with <command>tunefs</command> in a similar fashion to Linux.</para>
+	<screen>
+root@sol10u8 /# tunefs -m 0 /dev/dsk/c2t0d0s1
+minimum percentage of free space changes from 9% to 0%
+	</screen>
+	<para><command>fsck</command> also exists.</para>
+	<screen>
+root@sol10u8 /# fsck /dev/dsk/c2t0d0s1
+** /dev/rdsk/c2t0d0s1
+** Last Mounted on 
+** Phase 1 - Check Blocks and Sizes
+** Phase 2 - Check Pathnames
+** Phase 3a - Check Connectivity
+** Phase 3b - Verify Shadows/ACLs
+** Phase 4 - Check Reference Counts
+** Phase 5 - Check Cylinder Groups
+2 files, 9 used, 674182 free (14 frags, 84271 blocks, 0.0% fragmentation)
+	</screen>
+	<para>As mentioned before, the <command>mount</command> is very similar. But the equivalent of <command>/proc/mounts</command> is <command>/etc/mnttab</command>. There is no equivalent to <command>/etc/mtab</command>.</para>
+	<screen>root@sol10u8 /# cat /etc/mnttab 
+/dev/dsk/c0d0s0 /       ufs     rw,intr,largefiles,logging,xattr,onerro\
+r=panic,dev=1980000      1287575337
+/devices        /devices        devfs   dev=47c0000     1287575208
+ctfs    /system/contract        ctfs    dev=4800001     1287575208
+proc    /proc   proc    dev=4840000     1287575208
+mnttab  /etc/mnttab     mntfs   dev=4880001     1287575208
+swap    /etc/svc/volatile       tmpfs   xattr,dev=48c0001       1287575\
+208
+objfs   /system/object  objfs   dev=4900001     1287575208
+sharefs /etc/dfs/sharetab       sharefs dev=4940001     1287575208
+/usr/lib/libc/libc_hwcap1.so.1  /lib/libc.so.1  lofs    dev=1980000    \
+ 1287575336
+fd      /dev/fd fd      rw,dev=4ac0001  1287575337
+swap    /tmp    tmpfs   xattr,size=2048m,dev=48c0002    1287575338
+swap    /var/run        tmpfs   xattr,dev=48c0003       1287575338
+/dev/dsk/c0d0s7 /export ufs     rw,intr,largefiles,logging,xattr,onerro\
+r=panic,dev=1980007      1287575342
+-hosts  /net    autofs  nosuid,indirect,ignore,nobrowse,dev=4b80001    \
+ 1287575354
+auto_home       /home   autofs  indirect,ignore,nobrowse,dev=4b80002   \
+ 1287575354
+sol10u8:vold(pid695)    /vol    nfs     ignore,noquota,dev=4b40001     \
+ 1287575365
+</screen>
+	<para>This file is its own file system.</para>
+	<screen>
+root@sol10u8 /# mount | grep /etc/mnttab 
+/etc/mnttab on mnttab read/write/setuid/devices/dev=4880001 on Wed Oct 20 13:46:48 2010
+	</screen>
+	<para><command>df</command> is similar.</para>
+	<screen>root@sol10u8 /# df -h
+Filesystem             size   used  avail capacity  Mounted on
+/dev/dsk/c0d0s0        6.4G   5.3G   1.1G    84%    /
+/devices                 0K     0K     0K     0%    /devices
+ctfs                     0K     0K     0K     0%    /system/contract
+proc                     0K     0K     0K     0%    /proc
+mnttab                   0K     0K     0K     0%    /etc/mnttab
+swap                   517M   996K   516M     1%    /etc/svc/volatile
+objfs                    0K     0K     0K     0%    /system/object
+sharefs                  0K     0K     0K     0%    /etc/dfs/sharetab
+/usr/lib/libc/libc_hwcap1.so.1
+                       6.4G   5.3G   1.1G    84%    /lib/libc.so.1
+fd                       0K     0K     0K     0%    /dev/fd
+swap                   517M    76K   516M     1%    /tmp
+swap                   516M    32K   516M     1%    /var/run
+/dev/dsk/c0d0s7         17G   6.8G   9.7G    41%    /export
+	</screen>
+	<para>So is <command>du</command>.</para>
+	<screen>root@sol10u8 /# du -sh /etc
+  70M   /etc
+	</screen>
+	<para>Permanent mounts are kept in <command>/etc/vfstab</command>.</para>
+	<screen>root@sol10u8 /# cat /etc/vfstab
+#device         device          mount           FS      fsck    mount   mount
+#to mount       to fsck         point           type    pass    at boot options
+#
+fd      -       /dev/fd fd      -       no      -
+/proc   -       /proc   proc    -       no      -
+/dev/dsk/c0d0s1 -       -       swap    -       no      -
+/dev/dsk/c0d0s0 /dev/rdsk/c0d0s0        /       ufs     1       no      -
+/dev/dsk/c0d0s7 /dev/rdsk/c0d0s7        /export ufs     2       yes     -
+/devices        -       /devices        devfs   -       no      -
+sharefs -       /etc/dfs/sharetab       sharefs -       no      -
+ctfs    -       /system/contract        ctfs    -       no      -
+objfs   -       /system/object  objfs   -       no      -
+#swap   -       /tmp    tmpfs   -       yes     -
+swap    -       /tmp    tmpfs   -       yes     size=2048m
+#/cdrom/sol_10_1009_x86/boot - /tftpboot/I86PC.Solaris_10-1 lofs - yes ro
+#/export/install/S10_x86_1009/boot - /tftpboot/I86PC.Solaris_10-2 lofs - yes ro
+	</screen>
+	<para>Most mount options like ro, rw and nosuid are identical.</para>
 </section>
 
-<section><title></title>
-	<para></para>
-	<screen></screen>
-	<para></para>
-	<screen></screen>
-	<para></para>
-	<screen></screen>
-	<para></para>
-	<screen></screen>
-	<para></para>
+<section><title>lvm</title>
+	<para>Software raid and mirroring is done with the <command>meta*</command> commands.</para>
+	<para><command>metadb</command> creates a state database.</para>
+	<screen>root@sol10u8 /# metadb
+root@sol10u8 /# metadb -a -f c2t1d0s4 c2t1d0s5 c2t0d0s4
+root@sol10u8 /# metadb
+	flags		first blk	block count
+     a        u     	16		8192		/dev/dsk/c2t1d0s4
+     a        u     	16		8192		/dev/dsk/c2t1d0s5
+     a        u     	16		8192		/dev/dsk/c2t0d0s4
+	</screen>
+	<para>Use <command>metainit</command> to create a concatenated volume.</para>
+	<screen>root@sol10u8 /# metainit d0 2 1 c2t1d0s0 1 c2t0d0s0
+d0: Concat/Stripe is setup
+root@sol10u8 /# metastat
+d0: Concat/Stripe
+    Size: 1638400 blocks (800 MB)
+    Stripe 0:
+	Device     Start Block  Dbase	Reloc
+	c2t1d0s0          0     No   	Yes
+    Stripe 1:
+	Device     Start Block  Dbase	Reloc
+	c2t0d0s0          0     No   	Yes
+
+Device Relocation Information:
+Device   Reloc	Device ID
+c2t1d0   Yes  	id1,sd@f240842074cbdb5a1000d4dfb0001
+c2t0d0   Yes  	id1,sd@f240842074cbdb5a1000d0ad30000
+	</screen>
+	<para>Use <command>metaclear</command> to destroy a volume.</para>
+	<screen>root@sol10u8 /# metaclear d0
+d0: Concat/Stripe is cleared
+root@sol10u8 /# metastat
+root@sol10u8 /# </screen>
+	<para>Use <command>metainit</command> to create a striped volume.</para>
+	<screen>root@sol10u8 /# metainit d0 1 2 c2t1d0s0 c2t0d0s0
+d0: Concat/Stripe is setup
+root@sol10u8 /# metastat
+d0: Concat/Stripe
+    Size: 1638400 blocks (800 MB)
+    Stripe 0: (interlace: 32 blocks)
+	Device     Start Block  Dbase	Reloc
+	c2t1d0s0          0     No   	Yes
+	c2t0d0s0          0     No   	Yes
+
+Device Relocation Information:
+Device   Reloc	Device ID
+c2t1d0   Yes  	id1,sd@f240842074cbdb5a1000d4dfb0001
+c2t0d0   Yes  	id1,sd@f240842074cbdb5a1000d0ad30000
+	</screen>
+	<para>You can also create mirrors, even of the root filesystem.</para>
 </section>
 
-<section><title></title>
-	<para></para>
-	<screen></screen>
-	<para></para>
-	<screen></screen>
-	<para></para>
-	<screen></screen>
-	<para></para>
-	<screen></screen>
-	<para></para>
+<section><title>memory</title>
+	<para><command>free</command> is not installed by default, so use <command>prtconf</command>.</para>
+	<screen>
+root@sol10u9 /# prtconf | head -2
+System Configuration:  Sun Microsystems  i86pc
+Memory size: 768 Megabytes
+	</screen>
+	<para><command>vmstat</command> can be used.</para>
+	<screen>root@sol10u8 /# vmstat 2 100
+ kthr      memory            page            disk          faults      cpu
+ r b w   swap  free  re  mf pi po fr de sr cd s0 s1 s2   in   sy   cs us sy id
+ 0 0 0 540016 51224   4  14  7  0  0  0  2  2 -0  0  6  355  411  210  2 27 70
+ 0 0 0 530452 41500   6  15  0  0  0  0  0  3  0  0  0  393  527  226  2 22 76
+ 1 0 0 530452 41544   0   0  0  0  0  0  0  0  0  0  0  362  443  209  3 25 72</screen>
+	<para>With the <command>pagesize</command> command you can see the current page size, and display all supported page sizes.</para>
+	<screen>
+root@sol10u8 /# pagesize 
+4096
+root@sol10u8 /# pagesize -a
+4096
+4194304
+	</screen>
+	<para>The <command>swap</command> command will list all current swap devices.</para>
+	<screen>
+root@sol10u8 /# swap -l
+swapfile             dev  swaplo blocks   free
+/dev/dsk/c0d0s1     102,1       8 1076344 1076344
+	</screen>
+	<para>Swap can be slices or files, and can be added with <command>swap -a</command>.</para>
+	<screen>
+root@sol10u8 /# mkfile 200m /swapfile
+root@sol10u8 /# swap -a /swapfile 
+root@sol10u8 /# swap -l
+swapfile             dev  swaplo blocks   free
+/dev/dsk/c0d0s1     102,1       8 1076344 1076344
+/swapfile             -        8 409592 409592
+	</screen>
+</section>
+<section><title>Logging</title>
+	<para>The syslog server is almost identical to Linux, <command>syslog.conf</command> uses the m4 macro-processor.</para>
+	<screen>
+root@sol10u8 /# tail -6 /etc/syslog.conf
+ifdef(`LOGHOST', ,
+user.err                                        /dev/sysmsg
+user.err                                        /var/adm/messages
+user.alert                                      `root, operator'
+user.emerg                                      *
+)
+	</screen>
+	<para>The loghost variable is determined by looking in /etc/hosts.</para>
+	<screen>
+root@sol10u8 /# grep logh /etc/hosts
+127.0.0.1       localhost       sol10u8 loghost
+::1     localhost       loghost
+	</screen>
+	<para>The <command>logger</command> tool is also there. Logrotating is done with <command>logadm</command> instead of <command>logrotate</command>.</para>
+	<screen>root@sol10u8 /# grep ^/  /etc/logadm.conf 
+/var/log/syslog -C 8 -P 'Tue Jun 15 12:42:23 2010' -a 'kill -HUP `cat /v\
+ar/run/syslog.pid`'
+/var/adm/messages -C 4 -P 'Tue Jun 15 12:42:23 2010' -a 'kill -HUP `cat \
+/var/run/syslog.pid`'
+/var/cron/log -c -s 512k -t /var/cron/olog
+/var/lp/logs/lpsched -C 2 -N -t '$file.$N'
+/var/fm/fmd/errlog -M '/usr/sbin/fmadm -q rotate errlog &#038;&#038; mv \
+/var/fm/fmd/errlog.0- $nfile' -N -s 2m
+/var/fm/fmd/fltlog -A 6m -M '/usr/sbin/fmadm -q rotate fltlog &#038;&#038;\
+ mv /var/fm/fmd/fltlog.0- $nfile' -N -s 10m
+/var/adm/pacct -C 0 -N -a '/usr/lib/acct/accton pacct' -g adm -m 664 -o \
+adm -p never
+/var/log/pool/poold -N -a 'pkill -HUP poold; true' -s 512k
+	</screen>
 </section>
 
+<section><title>package management</title>
+	<para>Package management up to and including Solaris 10 is done manually with <command>pkgadd, pkgrm, pkginfo</command> and <command>pkgtrans</command>. </para>
+	<screen>pkgadd</screen>
+	<para>All info is kept in /var/sadm/install/contents</para>
+	<screen>
+root@sol10u8 /# head /var/sadm/install/contents 
+/bin=./usr/bin s none SUNWcsr
+/boot d none 0755 root sys SUNWcakr SUNWrmodr CADP160 SUNWadp SUNWradpu320\
+ SUNWcadp SYMhisl SUNWgrub
+/boot/acpi d none 0755 root sys SUNWckr
+/boot/acpi/tables d none 0755 root sys SUNWckr
+/boot/grub d none 0755 root sys SUNWgrub
+/boot/grub/bin d none 0755 root sys SUNWgrub
+/boot/grub/bin/grub f none 0555 root sys 377452 14885 1252935443 SUNWgrub
+/boot/grub/capability f none 0444 root sys 1002 21011 1252636002 SUNWgrub
+/boot/grub/default e preserve 0444 root sys 10 314 1252002178 SUNWgrub
+/boot/grub/e2fs_stage1_5 f none 0644 root sys 9204 27134 1252635998 SUNWgrub
+	</screen>
+	<para><command>pkgchk</command> gets information from this file and displays in nicer format.</para>
+	<screen>root@sol10u8 /# pkgchk -l SUNWgrub | head
+Pathname: /boot
+Type: directory
+Expected mode: 0755
+Expected owner: root
+Expected group: sys
+Referenced by the following packages:
+	SUNWcakr       SUNWrmodr      CADP160        SUNWadp        SUNWradpu320   
+	SUNWcadp       SYMhisl        SUNWgrub       
+Current status: installed
+	</screen>
+	<para>Packages can come in zipped, streamed or file format.</para>
+	<screen>root@sol10u8 packages# find . | grep SFWtop
+./file/SFWtop
+./file/SFWtop/archive
+./file/SFWtop/archive/none.bz2
+./file/SFWtop/install
+./file/SFWtop/install/copyright
+./file/SFWtop/install/depend
+./file/SFWtop/install/i.none
+./file/SFWtop/pkginfo
+./file/SFWtop/pkgmap
+./stream/SFWtop.pkg
+./zip/SFWtop.zip
+	</screen>
+	<para>With <command>pkgtrans</command> you can convert from one format to the other.</para>
+	<para>And <command>pkgadd</command> allows you to install packages (also from other formats and from http sources).</para>
+	<screen>root@sol10u8 stream# pkgadd -d SFWtop.pkg
+
+The following packages are available:
+  1  SFWtop     top - display information about processes
+                (i386) 3.5.1,REV=2008.08.26.00.08
+
+Select package(s) you wish to process (or 'all' to process
+all packages). (default: all) [?,??,q]:
+	</screen>
+	<para>Packages can be removed with <command>pkgrm</command>.</para>
+	<para>In opensolaris and Solaris 11 there is a central repository and a nice graphical tool to manage packages.</para>
+</section>
+<section><title>process management</title>
+	<para>Most of the commands for process management are identical to Linux. Replace <command>top</command> with <command>prstat</command> since the first is not installed by default.</para>
+	<screen>
+root@sol10u8 /# prstat
+   PID USERNAME  SIZE   RSS STATE  PRI NICE      TIME  CPU PROCESS/NLWP       
+  1065 root       93M   24M sleep   45    0   0:16:50 1.9% java/14
+   807 noaccess  174M  113M sleep    1    0   0:09:08 1.0% java/19
+  1023 root       67M 9628K sleep    1    0   0:07:59 0.9% mixer_applet2/1
+  1025 root       69M   12M sleep    1    0   0:04:04 0.5% gnome-netstatus/1
+   975 root       12M 9740K sleep   12    0   0:03:23 0.4% gconfd-2/1
+   491 root       46M   36M sleep    1    0   0:03:51 0.4% Xorg/1
+	</screen>
+	<para>Some of the <command>kill</command> signals have a different number.</para>
+	<screen>
+root@sol10u8 /# kill -l
+ 1) SIGHUP	 2) SIGINT	 3) SIGQUIT	 4) SIGILL
+ 5) SIGTRAP	 6) SIGABRT	 7) SIGEMT	 8) SIGFPE
+ 9) SIGKILL	10) SIGBUS	11) SIGSEGV	12) SIGSYS
+13) SIGPIPE	14) SIGALRM	15) SIGTERM	16) SIGUSR1
+17) SIGUSR2	18) SIGCHLD	19) SIGPWR	20) SIGWINCH
+21) SIGURG	22) SIGIO	23) SIGSTOP	24) SIGTSTP
+25) SIGCONT	26) SIGTTIN	27) SIGTTOU	28) SIGVTALRM
+29) SIGPROF	30) SIGXCPU	31) SIGXFSZ	32) SIGWAITING
+33) SIGLWP	34) SIGFREEZE	35) SIGTHAW	36) SIGCANCEL
+37) SIGLOST	41) SIGRTMIN	42) SIGRTMIN+1	43) SIGRTMIN+2
+44) SIGRTMIN+3	45) SIGRTMAX-3	46) SIGRTMAX-2	47) SIGRTMAX-1
+48) SIGRTMAX
+	</screen>
+</section>
+
+<section><title>autofs</title>
+	<para><command>autofs</command> can be managed via the /etc/auto_master file.</para>
+	<screen>
+root@sol10u8 stream# cat /etc/auto_master 
+#
+# Copyright 2003 Sun Microsystems, Inc.  All rights reserved.
+# Use is subject to license terms.
+#
+# ident "@(#)auto_master        1.8     03/04/28 SMI"
+#
+# Master map for automounter
+#
+# only local files
+# +auto_master
+/net            -hosts          -nosuid,nobrowse
+/home           auto_home       -nobrowse
+	</screen>
+	<para>There an be a direct map and an indirect map, or a special map.</para>
+</section>
