@@ -15,7 +15,6 @@ help() {
 	echo
 	echo "linux-training book build script\t\thttp://www.linux-training.be"
 	echo
-	echo $0 "check\t\tcheck some settings"
 	echo $0 "clean\t\tdelete output dir"
 	echo $0 "build [BOOK]\tbuild book"
 	echo
@@ -39,13 +38,6 @@ clean() {
 	[ -d static ] && ( rm -rf static || exit 0 )
 	}
 
-check() {
-	if [ -z $REVISION ] ; then get_revision ; fi
-	VERSIONSTRING=lt-$MAJOR.$MINOR.$REVISION
-	echo -e "Subversion repository:\t$SVN_PROJECTDIR"
-	echo "Current version:\t$VERSIONSTRING"
-	echo
-	}
 check_book() {
 	if [ ! -z $book ]
 		then 	# check if $book parameter is one of the available books
@@ -128,6 +120,9 @@ build_book() {
 	echo -n "Parsing config $BOOKDIR/$book.cfg ... "
 	. $BOOKDIR/$book.cfg && echo "OK" || ( echo "Error!" ; exit )
 
+    # Major and minor are set in functions.sh but can be overruled in $book.cfg
+    VERSIONSTRING=lt-$MAJOR.$MINOR
+
 	echo "Generating book $book (titled \"$BOOKTITLE\")"
 	[ -d ./output ] || mkdir ./output
 
@@ -161,8 +156,6 @@ build_book() {
 	else	REDIR=">./output/errors.txt 2>&1"; fi
 	eval $(echo ./lib/fop/fop -xml $xmlfile -xsl $XSLFILE -pdf $pdffile $REDIR)
 	ln -s $filename.pdf output/book.pdf
-	# imho this messes up an otherwise clean root directory...
-	# ln output/$filename.pdf 
 	}
 
 ##############
@@ -171,14 +164,10 @@ echo
 set_ROOTDIR || ( echo "It does not look like I'm in the project root dir?"; exit)
 
 case "$command" in
-  check)
-	check
-	;;
   clean)
 	clean
 	;;
   build)
-	check
 	clean
 	check_book
 	echo "Building '$book' book. Set DEBUG=[123] to watch output."
