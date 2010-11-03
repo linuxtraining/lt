@@ -682,6 +682,6 @@ chapt_20100904() {
 chapt_gnufdl() {
 	MODULES=""
 	chaptitle="GNU FDL"
-	add_mod mod_cvotsm/gnufdl.xml
+	add_mod mod_license/gnufdl.xml
 	}
 
