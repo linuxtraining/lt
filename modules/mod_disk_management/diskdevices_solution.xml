@@ -1,4 +1,5 @@
-<section><title>Solution: hard disk devices</title>
+<?hard-pagebreak?>
+<section><title>solution: hard disk devices</title>
 	<para>1. Use <command>dmesg</command> to make a list of hard disk devices detected at boot-up.</para>
 	<screen>Some possible answers...</screen>
 	<screen>dmesg | grep -i disk</screen>
@@ -8,14 +9,14 @@
 	<screen>Looking for SCSI disks: dmesg | grep -i "scsi disk"</screen>
 	<para>2. Use <command>fdisk</command> to find the total size of all hard disk devices on your system.</para>
 	<screen>fdisk -l</screen>
-	<para>3. Stop a virtual machine, add three virtual 1 gigabyte scsi hard disks and one virtual 400 megabyte ide hard disk. If possible, also add another virtual 400 megabyte ide disk.</para>
+	<para>3. Stop a virtual machine, add three virtual 1 gigabyte <command>scsi</command> hard disk devices and one virtual 400 megabyte <command>ide</command> hard disk device. If possible, also add another virtual 400 megabyte <command>ide</command> disk.</para>
 	<screen>This exercise happens in the settings of vmware or VirtualBox.</screen>
 	<para>4. Use <command>dmesg</command> to verify that all the new disks are properly detected at boot-up.</para>
 	<screen>See 1.</screen>
-	<para>5. Verify that you can see the disks devices in <command>/dev</command>.</para>
+	<para>5. Verify that you can see the disk devices in <command>/dev</command>.</para>
 	<screen>SCSI+SATA: ls -l /dev/sd*</screen>
 	<screen>ATA: ls -l /dev/hd*</screen>
-	<para>6. Use <command>fdisk</command> (with grep and /dev/null) to display the total size of the new disks.</para>
+	<para>6. Use <command>fdisk</command> (with <command>grep</command> and <command>/dev/null</command>) to display the total size of the new disks.</para>
 	<screen>
 root@rhel53 ~# fdisk -l 2>/dev/null | grep [MGT]B
 Disk /dev/hda: 21.4 GB, 21474836480 bytes
