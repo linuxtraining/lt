@@ -1,4 +1,5 @@
-<section><title>Practice: partitions</title>
+<?hard-pagebreak?>
+<section><title>practice: partitions</title>
 	<para>1. Use <command>fdisk -l</command> to display existing partitions and sizes.</para>
 	<para>2. Use <command>df -h</command> to display existing partitions and sizes.</para>
 	<para>3. Compare the output of <command>fdisk</command> and <command>df</command>.</para>
@@ -9,7 +10,4 @@
 	<para>8. Create a backup with <command>dd</command> of the <command>mbr</command> that contains your 200MB primary partition.</para>
 	<para>9. Take a backup of the <command>partition table</command> containing your 400MB primary and 300MB logical drives. Make sure the logical drives are in the backup.</para>
 	<para>10. (optional) Remove all your partitions with fdisk. Then restore your backups.</para>
-	<para></para>
-	<para></para>
-	<para></para>
 </section>

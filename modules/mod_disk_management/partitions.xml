@@ -1,3 +1,4 @@
+<?hard-pagebreak?>
 <section><title>partitions</title>
 	<section><title>about partitions</title>
 		<para>Linux requires you to create one or more <command>partitions</command><indexterm><primary>partition</primary></indexterm>. The next paragraphs will explain how to create and use partitions.</para>

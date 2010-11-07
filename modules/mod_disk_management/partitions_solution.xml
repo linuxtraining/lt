@@ -1,4 +1,5 @@
-<section><title>Solution: partitions</title>
+<?hard-pagebreak?>
+<section><title>solution: partitions</title>
 	<para>1. Use <command>fdisk -l</command> to display existing partitions and sizes.</para>
 	<screen>as root: # fdisk -l</screen>
 	<para>2. Use <command>df -h</command> to display existing partitions and sizes.</para>
@@ -40,9 +41,4 @@ Syncing disks.
 	<para>9. Take a backup of the <command>partition table</command> containing your 400MB primary and 300MB logical drives. Make sure the logical drives are in the backup.</para>
 	<screen>sfdisk -d /dev/sdb > parttable.sdb.sfdisk</screen>
 	<para>10. (optional) Remove all your partitions with fdisk. Then restore your backups.</para>
-	<screen></screen>
-	<screen></screen>
-	<para></para>
-	<para></para>
-	<para></para>
 </section>
