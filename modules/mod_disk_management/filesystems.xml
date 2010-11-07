@@ -1,3 +1,4 @@
+<?hard-pagebreak?>
 <section><title>file systems</title>
 	<section><title>about file systems</title>
 		<para>After you are finished partitioning the hard disk, you can put a <command>file system</command><indexterm><primary>file system</primary></indexterm> on each partition. A file system is a way of organizing files on your partition. Besides file-based storage, file systems usually include <command>directories</command><indexterm><primary>directory</primary></indexterm> and <command>access control</command>, and contain meta information about files like access times, modification times and file ownership. </para>
@@ -125,7 +126,6 @@ SEVERE filesystem damage.
 Do you really want to continue (y/n)? no
 
 check aborted.
-[root@RHEL4b ~]#
 		</screen>
 		<para>But after unmounting fsck and <command>e2fsck</command><indexterm><primary>e2fsck(1)</primary></indexterm> can be used to check an ext2 file system.</para>
 		<screen>
@@ -138,7 +138,6 @@ fsck 1.35 (28-Feb-2004)
 /boot: clean, 44/26104 files, 17598/104388 blocks
 [root@RHEL4b ~]# e2fsck -p /dev/sda1
 /boot: clean, 44/26104 files, 17598/104388 blocks
-[root@RHEL4b ~]#
 		</screen>
 	</section>
 </section>

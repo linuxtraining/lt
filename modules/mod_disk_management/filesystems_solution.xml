@@ -1,4 +1,5 @@
-<section><title>Solution: file systems</title>
+<?hard-pagebreak?>
+<section><title>solution: file systems</title>
 	<para>1. List the filesystems that are known by your system.</para>
 	<screen>man fs</screen>
 	<screen>cat /proc/filesystems</screen>
@@ -13,7 +14,4 @@
 	<para>5. Verify your work with <command>fdisk</command> and <command>df</command>.</para>
 	<screen>mkfs (mke2fs) makes no difference in the output of these commands</screen>
 	<screen>The big change is in the next topic: mounting</screen>
-	<para></para>
-	<para></para>
-	<para></para>
 </section>

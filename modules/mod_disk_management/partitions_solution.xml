@@ -7,8 +7,7 @@
 	<para>3. Compare the output of <command>fdisk</command> and <command>df</command>.</para>
 	<screen>Some partitions will be listed in both outputs (maybe /dev/sda1 or /dev/hda1).</screen>
 	<para>4. Create a 200MB primary partition on a small disk.</para>
-	<screen>Choose one of the disks you added (this example uses /dev/sdc)</screen>
-	<screen>
+	<screen>Choose one of the disks you added (this example uses /dev/sdc).
 root@rhel53 ~# fdisk /dev/sdc
 ...
 Command (m for help): n
@@ -19,10 +18,8 @@ p
 Partition number (1-4): 1
 First cylinder (1-261, default 1): 1
 Last cylinder or +size or +sizeM or +sizeK (1-261, default 261): +200m
-
 Command (m for help): w
 The partition table has been altered!
-
 Calling ioctl() to re-read partition table.
 Syncing disks.
 </screen>
@@ -31,8 +28,7 @@ Syncing disks.
 	<screen>fdisk /dev/sdb</screen>
 	<screen>inside fdisk : n p 1 +400m enter --- n e 2 enter enter --- n l +300m (twice)</screen>
 	<para>6. Use <command>df -h</command> and <command>fdisk -l</command> to verify your work.</para>
-	<screen>fdisk -l</screen>
-	<screen>df -h</screen>
+	<screen>fdisk -l ; df -h</screen>
 	<para>7. Compare the output again of <command>fdisk</command> and <command>df</command>. Do both commands display the new partitions ?</para>
 	<screen>The newly created partitions are visible with <command>fdisk</command>.</screen>
 	<screen>But they are not displayed by <command>df</command>.</screen>
@@ -40,5 +36,4 @@ Syncing disks.
 	<screen>dd if=/dev/sdc of=bootsector.sdc.dd count=1 bs=512</screen>
 	<para>9. Take a backup of the <command>partition table</command> containing your 400MB primary and 300MB logical drives. Make sure the logical drives are in the backup.</para>
 	<screen>sfdisk -d /dev/sdb > parttable.sdb.sfdisk</screen>
-	<para>10. (optional) Remove all your partitions with fdisk. Then restore your backups.</para>
 </section>
