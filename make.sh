@@ -9,6 +9,13 @@ export FOP_OPTS="-Xms512m -Xmx512m"
 
 export BOOKDIR=./config/books
 
+outputdir="./output"
+htmldir="$outputdir/html"
+htmlimgdir="$htmldir/images"
+imgdir="./images"
+
+which xmlto >/dev/null || ( echo xmlto not installed. ; exit 1 )
+
 books=$( ls $BOOKDIR | grep .cfg$ | sed s/.cfg// )
 
 help() {
@@ -17,22 +24,22 @@ help() {
 	echo
 	echo $0 "clean\t\tdelete output dir"
 	echo $0 "build [BOOK]\tbuild book"
+    echo $0 "html [BOOK]\tbuild book and generate html"
 	echo
 	echo Available books: $books
 	echo
 	}
 
 clean() {
-	# echo "Removing ./output/ directory"
-	# [ -d output ] && ( rm -rf output || exit 0 )
-
-	echo "Cleaning up ./output/ directory"
+	echo "Cleaning up $outputdir directory"
 	# We don't need the .xml files
-	rm -rf ./output/*.xml 2> /dev/null
+	rm -rf $outputdir/*.xml 2> /dev/null
 	# We don't need the previous errors.txt
-	[ -f output/errors.txt ] && ( rm -rf output/errors.txt || exit 0 )
+	[ -f $outputdir/errors.txt ] && ( rm -rf $outputdir/errors.txt || exit 0 )
 	# Symlink creation fails unless we remove this symlink first
-	[ -h output/book.pdf ] && ( rm -rf output/book.pdf || exit 0 )
+	[ -h $outputdir/book.pdf ] && ( rm -rf $outputdir/book.pdf || exit 0 )
+    # Clean $htmldir
+    [ -d $htmldir ] && ( rm -rf $htmldir/*.xml || exit 0 )
 
 	# let's also purge the old static dir, which contents were moved to lib and put under source control
 	[ -d static ] && ( rm -rf static || exit 0 )
@@ -82,7 +89,7 @@ build_footer() {
 build_body() {
 	for chapter in $CHAPTERS; do
 		if [ ! -z $DEBUG ] ; then echo -n "Building chapter $chapter .. " ; fi
-		modfile=output/mod_$chapter.xml
+		modfile=$outputdir/mod_$chapter.xml
 		# load the chapter specific settings
 		if [ ! -z $DEBUG ] ; then echo " .. loading settings chapt_$chapter" ; fi
 		eval chapt_$chapter
@@ -99,7 +106,7 @@ build_body() {
 	done
 	for appendix in $APPENDIX; do
 		if [ ! -z $DEBUG ] ; then echo -n "Building appendix $appendix .. " ; fi
-		modfile=output/mod_$appendix.xml
+		modfile=$outputdir/mod_$appendix.xml
 		# load the chapter specific settings
 		if [ ! -z $DEBUG ] ; then echo " .. loading settings chapt_$appendix" ; fi
 		eval chapt_$appendix
@@ -124,15 +131,15 @@ build_book() {
     VERSIONSTRING=lt-$MAJOR.$MINOR
 
 	echo "Generating book $book (titled \"$BOOKTITLE\")"
-	[ -d ./output ] || mkdir ./output
+	[ -d $outputdir ] || mkdir $outputdir
 
 	BOOKTITLE2=$(echo $BOOKTITLE | sed s/\ /\_/g)
 	filename=$BOOKTITLE2-$VERSIONSTRING-$DATECODE
-	xmlfile=output/$filename.xml
-	pdffile=output/$filename.pdf
-	headerfile=output/section_header.xml
-	footerfile=output/section_footer.xml
-	bodyfile=output/section_body.xml
+	xmlfile=$outputdir/$filename.xml
+	pdffile=$outputdir/$filename.pdf
+	headerfile=$outputdir/section_header.xml
+	footerfile=$outputdir/section_footer.xml
+	bodyfile=$outputdir/section_body.xml
 
 	# make header
 	build_header
@@ -153,10 +160,36 @@ build_book() {
 	if [ -z $DEBUG ] ; then DEBUG="0"; fi
 	if 	[ $DEBUG = "2" ]; then REDIR=""
 	elif 	[ $DEBUG = "3" ]; then REDIR="--execdebug"
-	else	REDIR=">./output/errors.txt 2>&1"; fi
+	else	REDIR=">$outputdir/errors.txt 2>&1"; fi
 	eval $(echo ./lib/fop/fop -xml $xmlfile -xsl $XSLFILE -pdf $pdffile $REDIR)
-	ln -s $filename.pdf output/book.pdf
+	ln -s $filename.pdf $outputdir/book.pdf
 	}
+
+build_html() {
+    [ -d $htmldir ] && rm -rf $htmldir || ( echo Error cleaning up $htmmldir ; exit 1 )
+    mkdir $htmldir || ( echo Error creating $htmldir ; exit 1 )
+    mkdir $htmlimgdir || ( echo Error creating $htmlimgdir ; exit 1 )
+
+    # We only need the one xml file
+    cp $xmlfile $htmldir || ( echo error copying $xmlfile ; exit 1 )
+
+    # Locate the used images in the xml file
+    images=`grep imagedata $htmldir/*.xml | cut -d/ -f2 | cut -d\" -f1`
+
+    # Copy all the used images
+    for img in $images
+    do
+         echo Copying $img to $htmlimgdir ...
+         cp "$imgdir/$img" $htmlimgdir/ || echo Error copying $img
+    done
+
+    # Run xmlto in $htmldir to generate the html
+    ( cd $htmldir && xmlto html *.xml ) || ( echo  Error generating the html $htmldir ; exit 1 )
+
+    # don't need the xml anymore in the $htmldir
+    rm $htmldir/*.xml
+
+}
 
 ##############
 
@@ -172,8 +205,18 @@ case "$command" in
 	check_book
 	echo "Building '$book' book. Set DEBUG=[123] to watch output."
 	build_book $book
-	echo "Done generating pdf output/book.pdf -> $pdffile"
+	echo "Done generating pdf $outputdir/book.pdf -> $pdffile"
 	;;
+  html)
+    clean
+    check_book
+    echo "Building '$book' book. Set DEBUG=[123] to watch output."
+    build_book $book
+    echo "Done generating pdf $outputdir/book.pdf -> $pdffile"
+    echo "Generating html for '$book' book."
+    build_html
+    echo "Done Generating html for '$book' book."
+    ;;
 
   *)
 	help
@@ -181,4 +224,5 @@ case "$command" in
 	
 esac
 
+echo
 
