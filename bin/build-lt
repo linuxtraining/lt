@@ -1,0 +1,56 @@
+#!/bin/sh
+
+# Nightly build script.
+# This script generates all the books for the download page on the website.
+# (c) 2010 Serge van Ginderachter
+
+# environment
+wwwbooksdir=~/www/default/wp-content/blogs.dir/linux-training/files/books/
+cd ~/src/lt
+outputdir=./output
+www=~/proj/wwwfiles
+mkdir -v -p $www
+
+# pull in latest buildfiles
+git pull -v
+
+# fresh start
+clean () {
+        ./make.sh clean
+        rm -rf $outputdir
+}
+clean
+
+# LinuxFun
+./make.sh html fundamentals
+mv -v -T $outputdir/html $www/funhtml
+./make.sh clean
+mv -v $outputdir/*.pdf $www/LinuxFun.pdf
+                  
+# LinuxAdm
+./make.sh build sysadmin
+./make.sh clean
+mv -v $outputdir/*.pdf $www/LinuxAdm.pdf
+
+# LinuxSrv
+./make.sh build advanced
+./make.sh clean
+mv -v $outputdir/*.pdf $www/LinuxSrv.pdf
+
+# LinuxTraining
+./make.sh build complete
+./make.sh clean
+mv -v $outputdir/*.pdf $www/LinuxTraining.pdf
+
+# DataNet
+./cvomake.sh build cvo2010
+./make.sh clean
+mv -v $outputdir/*.pdf $www/DataNet.pdf
+
+# cleanup
+clean
+
+rsync -v -a $www/ $wwwbooksdir/ --delete || exit 1
+
+exit 0
+}
