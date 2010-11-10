@@ -1,0 +1,7 @@
+<?hard-pagebreak?>
+<section><title>practice: RAID</title>
+	<para>1. Add three virtual disks of 200MB each to the virtual Red Hat machine.</para>
+	<para>2. Create a software RAID 5 on the three disks. (It is not necessary to put a filesystem on it)</para>
+	<para>3. Verify with <command>fdisk</command> and in <command>/proc</command> that the RAID exists.</para>
+	<para>4. (optional) Stop and remove the RAID, unless you want to use it in the next chapter LVM.</para>
+</section>
