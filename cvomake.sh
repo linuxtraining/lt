@@ -65,7 +65,7 @@ build_header() {
         echo "<bookinfo>"                                       >> $headerfile
         echo "<title>$BOOKTITLE</title>"                        >> $headerfile
 	echo "<author><firstname>Paul</firstname><surname>Cobbaut</surname></author>" >>$headerfile
-	echo "<pubdate>26 oktober 2010</pubdate><abstract>" 		>> $headerfile
+	echo "<pubdate>9 november 2010</pubdate><abstract>" 		>> $headerfile
 	echo '<para>Deze cursus wordt gemaakt als leidraad voor de studenten die de module "Datacommunicatie en Netwerken" volgen aan het cvotsm in Mechelen. </para>' 		>> $headerfile
 	echo "<para>Deze cursus wordt op vrijwillige basis gemaakt, en bevat misschien niet de volledige leerstof. Vergeet dus niet te noteren tijdens de les.</para>" 	>> $headerfile
 	echo "<para></para>" 	>> $headerfile
@@ -111,7 +111,7 @@ build_header() {
 	echo "<para></para>" 	>> $headerfile
 	echo "<para></para>" 	>> $headerfile
 	echo "<para></para>" 	>> $headerfile
-	echo "<para>Copyright 2007-2011 Paul Cobbaut</para>" 	>> $headerfile
+	echo "<para>Copyright 2007-2011 Paul Cobbaut (except for XKCD images)</para>" 	>> $headerfile
 	echo "<para>Permission is granted to copy, distribute and/or modify this document under the terms of the <command>GNU Free Documentation License</command>, Version 1.3 or any later version published by the Free Software Foundation; with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts. A copy of the license is included in the section entitled 'GNU Free Documentation License'.</para>" >> $headerfile
 	echo "<para>paul.cobbaut@gmail.com</para>" 	>> $headerfile
 	echo "<para>paulc@cvotsm-leren.be</para>" 	>> $headerfile

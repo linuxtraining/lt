@@ -261,7 +261,7 @@ task before
 article/appendix  nop
 /article  toc,title
 book      toc,title,figure,table,example,equation
-chapter  toc,title
+chapter  title
 part      toc,title
 /preface  toc,title
 reference toc,title

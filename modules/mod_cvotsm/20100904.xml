@@ -669,7 +669,7 @@ WDC: 200.0 GB, 200049647616 bytes</screen>
 	<section><title>unicast</title>
 		<para>Gaat een signaal naar een eenduidige unieke bestemming, dan is dit een <command>unicast</command><indexterm><primary>unicast</primary></indexterm>. Heel wat datacommunicatie bestaat uit <command>unicast</command> berichten tussen twee computers.</para>
 	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/unicast.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-		<para>Voorbeelden van een unicast zijn frames op laag 2 naar een speiciek mac-adres en packets op laag 3 naar een ip-adres (dat niet het broadcast adres is).</para>
+		<para>Voorbeelden van een unicast zijn frames op laag 2 naar een specifiek mac-adres en packets op laag 3 naar een ip-adres (dat niet het broadcast adres is).</para>
 	</section>
 	<section><title>multicast</title>
 		<para>Is het signaal bedoeld voor leden van een welbepaalde groep, dan spreken we over een <command>multicast</command><indexterm><primary>multicast</primary></indexterm>.</para>
@@ -1266,7 +1266,7 @@ http://en.wikipedia.org/wiki/Network_topology</screen>
 </section>
 <?hard-pagebreak?>
 <section><title>tcp en udp</title>
-	<para>Behalve <command>tcp</command> vinden we in <command>layer 4</command> ook nog <command>udp</command>. U hebt genoteerd dat alvorens een <command>http request</command> verstuurd wordt, er eerst een <command>tcp handshake</command> plaatsvind, maar dat er voor de <command>dns query</command> helemaal geen handshake was. Dat komt omdat <command>http</command> gebruikt maakt van <command>tcp</command> in <command>layer 4</command>, terwijl <command>dns</command> hier werkt bovenop <command>udp</command>.</para>
+	<para>Behalve <command>tcp</command> vinden we in <command>layer 4</command> ook nog <command>udp</command>. U hebt genoteerd dat alvorens een <command>http request</command> verstuurd wordt, er eerst een <command>tcp handshake</command> plaatsvindt, maar dat er voor de <command>dns query</command> helemaal geen handshake was. Dat komt omdat <command>http</command> gebruikt maakt van <command>tcp</command> in <command>layer 4</command>, terwijl <command>dns</command> hier werkt bovenop <command>udp</command>.</para>
 	<section><title>tcp</title>
 		<para><command>tcp</command><indexterm><primary>tcp</primary></indexterm> staat voor <command>Transmission Control Protocol</command>. Het is een protocol dat een <command>connectie</command> opzet alvorens data te versturen. Als je zekerheid wil dat je packetjes aankomen, dan is <command>tcp</command> het aangewezen protocol. In de <command>tcp header</command> zit heel wat overhead. Als een <command>tcp packetje</command> niet aankomt, dan wordt het nogmaals verstuurd.</para>
 		<para>De huidige <command>tcp</command> standaard werd vastgelegd in <command>rfc 793</command> van 1981.</para>
@@ -1301,7 +1301,7 @@ http://en.wikipedia.org/wiki/Network_topology</screen>
 <?hard-pagebreak?>
 <section><title>packetjes</title>
 	<para>Op het bord heb ik regelmatig 'packetjes' getekend. Technisch spreken we van een <command>ethernet frame</command> en van een <command>ip datagram</command>. Het exacte formaat (per bit of byte) van deze packetjes behoort niet tot de leerstof. Ik veronderstel hier enkel dat jullie weten dat een ethernet netwerkkaart de eerste zes bytes, zijnde het bestemmings-mac-adres vergelijkt met haar eigen mac-adres.</para>
-	<para>Hieronder een <command>ethernet frame</command> met de bytes op ware grote en enige info op de juiste positie.</para>
+	<para>Hieronder een <command>ethernet frame</command> met de bytes op ware grootte en enige info op de juiste positie.</para>
 	<para></para>
 	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/ethernet_frame.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 	<para>Omdat we toch iets moeten kennen van <command>mac-adressen</command>, <command>ip-adressen</command> en <command>poorten</command> om protocols en toestellen te begrijpen, gebruiken we onderstaande vereenvoudigde voorstelling van een <command>packetje</command> op het netwerk.</para>
@@ -1819,7 +1819,7 @@ van 169.254.0.0 tot 169.254.255.255
 	</section>
 </section>
 <section><title>ip-adres klassen</title>
-	<para><command>IP-adressen</command><indexterm><primary>ip-adres</primary></indexterm> zijn onverdeeld in klassen. Een adres van <command>klasse A</command><indexterm><primary>class A</primary></indexterm> begint binair met als meest significante bit een 0. Een <command>klasse B</command><indexterm><primary>class B</primary></indexterm> adres begint binair met 10, <command>klasse C</command><indexterm><primary>class C</primary></indexterm> met 110, <command>klasse D</command> met 1110 en tenslotte <command>klasse E</command> met 1111.</para>
+	<para><command>IP-adressen</command><indexterm><primary>ip-adres</primary></indexterm> zijn onderverdeeld in klassen. Een adres van <command>klasse A</command><indexterm><primary>class A</primary></indexterm> begint binair met als meest significante bit een 0. Een <command>klasse B</command><indexterm><primary>class B</primary></indexterm> adres begint binair met 10, <command>klasse C</command><indexterm><primary>class C</primary></indexterm> met 110, <command>klasse D</command> met 1110 en tenslotte <command>klasse E</command> met 1111.</para>
 <para>De eerste byte decimaal omgerekend, komen we tot de volgende indeling van ip-adressen:</para>
 <table frame='all'><title>ip address classes</title>
 <?dbfo table-width="80%" ?>
@@ -3534,8 +3534,8 @@ host id     :           <command>3.233</command>
 <para>Tussen haakjes, nu zijn we echt aan het <command>supernetten</command><indexterm><primary>supernet</primary></indexterm>. Want in de routers van buitenaf staat er enkel 192.168.5.0/24 als bestemming, terwijl er intern eigenlijk vier /26 netwerkjes zijn.</para>
 </section>
 </chapter>
-<chapter><title>test + oplossing</title>
-<section><title>tussentijdse test 20101010</title>
+<chapter><title>toets</title>
+<section><title>tussentijdse toets 20101010</title>
 <screen>VOORNAAM : 
 
 ACHTERNAAM :
@@ -3669,7 +3669,7 @@ D meer dan 8
 E iedereen</screen>
 </section>
 <?hard-pagebreak?>
-<section><title>antwoorden test 20101010</title>
+<section><title>antwoorden toets 20101010</title>
 <screen>VOORNAAM : Paul
 
 ACHTERNAAM : Cobbaut
@@ -3807,48 +3807,68 @@ t      |____________________|               |_____________________|   t
 		<para>De <command>metric</command> in de <command>routing table</command> kan je zien als een <command>kost</command>. Een router zal steeds proberen om packetjes te leveren via de goedkoopste route.</para>
 	</section>
 </section>
-<?hard-pagebreak?>
-<section><title>nat</title>
-	<section><title>nat</title>
-		<para>We hebben op het bord getekend hoe <command>nat</command> samenwerkt met <command>pat</command> om private adressen om te zetten in publieke, en omgekeerd.</para>
-		<para>Hieronder een tekening van een packetje in een netwerk zonder router.</para>
-		<para></para>
-		<para></para>
-		<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/mac_ip_packetje.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-		<para>Hieronder een tekening van een packetje dat door een eenvoudige router gaat. Zoals je ziet worden de mac-adressen aangepast.</para>
-		<para></para>
-		<para></para>
-		<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/mac_ip_packetje_met_router.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-	</section>
-	<section><title>snat en masquerading</title>
-		<para>We spreken van <command>source nat</command> wanneer de router onze interne private adressen omzet in een publiek adres dat op internet gezien wordt.</para>
-		<para>Hieronder een tekening van een packetje dat door een NAT router gaat. Zoals je ziet worden behalve de mac-adressen, nu ook het bron-ip-adres aangepast. De 'barry' pc ziet dus het ip-adres van de 'router' als bron.</para>
-		<para></para>
-		<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/mac_ip_packetje_met_nat.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-		<para>We spreken van <command>masquerading</command> wanneer het publieke adres dynamisch is.</para>
-	</section>
-	<section><title>dnat</title>
-		<para>We spreken van <command>destination nat</command> wanneer de router een publiek adres vertaalt naar een intern en privaat adres.</para>
-	</section>
-</section>
-<section><title>routing tables</title>
+<section><title>lokale routing tables</title>
 	<para>Elke computer met een ip-adres heeft intern een <command>routing table</command>. Op Windows kan je deze zien met <command>route print</command>, op Unix met <command>netstat</command>.</para>
-	<para>Onderstaande tabel is simpel omdat er maar 1 netwerkkaart in de computer een ip-adres heeft. Alle trafiek voor dat netwerk, gaat vie die netwerkkaart (genaamd eth2). Alle andere trafiek wordt via die netwerkkaart naar de router (192.168.1.1) gestuurd.</para>
+	<para>Onderstaande tabel is simpel omdat er maar 1 netwerkkaart in de computer een ip-adres heeft. Alle trafiek voor dat netwerk, gaat via die netwerkkaart (genaamd eth2). Alle andere trafiek wordt via die netwerkkaart naar de router (192.168.1.1) gestuurd.</para>
 	<screen>[root@fed13 ~]# netstat -nr
 Kernel IP routing table
 Destination   Gateway       Genmask         Flags   MSS Window  irtt Iface
 192.168.1.0   0.0.0.0       255.255.255.0   U         0 0          0 eth2
 0.0.0.0       192.168.1.1   0.0.0.0         UG        0 0          0 eth2
 	</screen>
-	<para>Onderstaande tabel is uitgebreider omdat deze computer nu drie netwerkkaarten heeft met elk een ip-adrs in een ander netwerk. Trafiek dat niet voor een van deze netwerken is, wordt nog steeds naar 192.168.1.1 gestuurd via eth2.</para>
+	<para>Onderstaande tabel is uitgebreider omdat deze computer nu drie netwerkkaarten heeft met elk een ip-adres in een ander netwerk. Trafiek dat niet voor een van deze netwerken is, wordt nog steeds naar 192.168.1.1 gestuurd via eth2.</para>
 	<screen>[root@fed13 ~]# netstat -nr
 Kernel IP routing table
 Destination   Gateway       Genmask         Flags   MSS Window  irtt Iface
 10.0.33.0     0.0.0.0       255.255.255.0   U         0 0          0 eth0
 192.168.1.0   0.0.0.0       255.255.255.0   U         0 0          0 eth2
 10.0.42.0     0.0.0.0       255.255.255.0   U         0 0          0 eth1
-0.0.0.0       192.168.1.1   0.0.0.0         UG        0 0          0 eth2
-</screen>
+0.0.0.0       192.168.1.1   0.0.0.0         UG        0 0          0 eth2</screen>
+</section>
+<?hard-pagebreak?>
+<section><title>nat</title>
+	<para>We hebben op het bord getekend hoe <command>nat</command> samenwerkt met <command>pat</command> om private adressen om te zetten in publieke, en omgekeerd.</para>
+	<para>Hieronder een tekening van een packetje in een netwerk zonder router.</para>
+	<para></para>
+	<para></para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/mac_ip_packetje.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>Hieronder een tekening van een packetje dat door een eenvoudige router gaat. Zoals je ziet worden de mac-adressen aangepast.</para>
+	<para></para>
+	<para></para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/mac_ip_packetje_met_router.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+</section>
+<?hard-pagebreak?>
+<section><title>dnat</title>
+	<para>We spreken van <command>destination nat</command> wanneer de router het <command>bestemmings</command>-ip-adres vertaalt naar een ander ip-adres.</para>
+	<para>We beginnen met een simpel voorbeeld intern in een organisatie. Dit is een tekening van een packetje dat door een <command>dnat router</command> gaat. Zoals je ziet wordt behalve de mac-adressen, nu ook het <command>bestemmings</command>-ip-adres aangepast. De 'mb' laptop ziet dus het ip-adres van de 'router' als bestemming, terwijl de 'www' server achter de router staat.</para>
+	<para></para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/mac_ip_packetje_met_dnat.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>Hieronder hetzelfde voorbeeld, hetzelfde scenario, maar met ip-adressen ingevuld. Het <command>bestemmings</command>-ip-adres staat vet gedrukt omdat dit de kern is van een <command>dnat</command> router.</para>
+	<para></para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/dnat_ip.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+</section>
+<?hard-pagebreak?>
+<section><title>dnat en internet</title>
+	<para><command>dnat</command> wordt meestal gebruikt om een publiek adres te vertalen naar een intern en privaat adres. Het is uiteraard goed mogelijk dat een server met een publiek ip-adres rechtstreeks met internet verbonden is, maar het is ook mogelijk om dit publieke adres toe te kennen aan een <command>dnat router</command> (die eventueel ook firewall is) en de eigenlijke server in een private ip-range te zetten.</para>
+	<para>Deze tekening toont dat op het hele internet het publieke adres bekend is, terwijl eens achter de <command>dnat router</command> een privaat adres wordt gebruikt.</para>
+	<para></para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/dnat_internet.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+</section>
+<section><title>port forwarding en pat</title>
+	<para>We hebben beide in de klas besproken.</para>
+</section>
+<?hard-pagebreak?>
+<section><title>snat</title>
+	<para>We spreken van <command>source nat</command> wanneer de router het <command>bron</command>-ip-adres aanpast.</para>
+	<para>Hieronder een tekening van een packetje dat door een <command>snat router</command> gaat. Zoals je ziet wordt behalve de mac-adressen, nu ook het <command>bron</command>-ip-adres aangepast. De 'www' server ziet dus het ip-adres van de 'router' als bron.</para>
+	<para></para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/mac_ip_packetje_met_snat.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+</section>
+<section><title>snat en internet</title>
+	<para><command>snat</command> wordt meestal gebruikt om onze interne private adressen om te zetten in een publiek adres dat op internet gezien wordt. Onze private adressen worden verborgen voor het internet.</para>
+	<para></para>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/snat_internet.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>We spreken van <command>masquerading</command> wanneer <command>snat</command> wordt toegepast op een dynamisch publiek ip-adres. Dit is het geval bij de meeste <command>adsl</command> verbindingen in Vlaanderen.</para>
 </section>
 </chapter>
 <chapter><title>naamresolutie en DNS</title>
@@ -4038,4 +4058,55 @@ http://root-servers.org/
 	<para>8. Het routerke krijgt een definitief antwoord, en houdt dit antwoord bij in zijn cache.</para>
 	<para>9. De laptop krijgt een definitief antwoord van het routerke.</para>
 	<para>Als even later een andere (thuis)computer dezelfde vraag stelt aan het routerke, dan kan dit antwoorden vanuit zijn cache.</para>
+</section>
+</chapter>
+<chapter><title>negende les</title>
+<section><title>oefeningen DNS</title>
+	<para>1. Noteer hieronder welke DNS server je nu gebruikt. Je kan dit in Windows vinden met <command>ipconfig /all</command> of met de <command>Control Panel GUI</command>, in Linux met <command>cat /etc/resolv.conf</command>.</para>
+	<screen>IP adres DNS server : </screen>
+	<para>2. Toon de lokale dns-cache op Windows met <command>ipconfig /displaydns</command>, ledig deze cache met <command>ipconfig /flushdns</command> (Standaard Linux isntallaties hebben geen lokale dns-cache).</para>
+	<screen></screen>
+	<para>3. Forceer een lookup van een A-record (je hebt toch genoteerd wat een A-record is in de vorige les?). Welke packetjes zie je op het netwerk alvorens er een antwoord komt op deze query ?</para>
+	<screen></screen>
+	<para>4. Welke poort gebruikt de client om de DNS server te bereiken ?</para>
+	<screen></screen>
+	<para>5. Gebruikt DNS tcp of udp ?</para>
+	<screen></screen>
+	<para>6. Wat is een AAAA record ?</para>
+	<screen></screen>
+	<para>7. Waarom zie je soms eerst een AAAA query voor een A query ?</para>
+	<screen></screen>
+	<para>8. Start <command>nslookup</command> interactief. Wat kan je met deze tool doen ?</para>
+	<screen></screen>
+	<para>9. Toon een A record via <command>nslookup</command>.</para>
+	<screen></screen>
+	<para>10. Verander van DNS-server (enkel in nslookup) naar de RHEL5 server (ip-adres staat op bord).</para>
+	<screen></screen>
+	<para>11. Wat is het ip-adres van www.classdemo.local volgens deze server ?</para>
+	<screen></screen>
+	<para>12. Hoe kan je deze DNS server als default instellen in Windows XP ?</para>
+	<screen></screen>
+	<para>13. Kan je nog op internet als je deze DNS-server instelt in Windows XP ?</para>
+	<screen></screen>
+	<para>14. Is dns een internet standaard ? Zo ja, waar is die neergeschreven ?</para>
+	<screen></screen>
+</section>
+<?hard-pagebreak?>
+<section><title>demo DNS</title>
+	<para>Demo van het opzetten van DNS (Windows + Linux), met uitleg erbij en mogelijkheid tot oefenen.</para>
+</section>
+<section><title>oefening DHCP</title>
+	<para>1. Wat is het ip-adres van de lokale DHCP server ? (<command>ipconfig /all</command> op Windows, <command>cat /var/lib/dhclient/dhclient-eth0.leases</command>).</para>
+	<screen></screen>
+	<para>2. Forceer contact met de DHCP server (<command>ipconfig /release</command> en <command>ipconfig /renew</command> op Windows, <command>dhclient eth0</command> op Linux).</para>
+	<screen></screen>
+	<para>3. Krijg je hetzelfde ip-adres als voordien ?</para>
+	<screen></screen>
+	<para>4. Welke dhcp-packetjes kan je herkennen op het netwerk ? (snif <command>bootp</command> in <command>wireshark</command>)</para>
+	<screen></screen>
+	<para>5. Is dhcp een internet standaard ? Zo ja, waar is die neergeschreven ?</para>
+	<screen></screen>
+</section>
+<section><title>demo DHCP</title>
+	<para>Demo van het opzetten van DHCP (Windows + Linux), met uitleg erbij en mogelijkheid tot oefenen.</para>
 </section>
