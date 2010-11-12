@@ -3789,7 +3789,7 @@ ifconfig eth1 10.0.42.1 netmask 255.255.255.0</screen>
 <section><title>twee routers met elkaar verbinden</title>
 	<section><title>opstelling met vier machines</title>
  		<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/leftnet_middlenet_rightnet_router.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-		<para>We voegen een <command>Debian 5.04</command> server als router toe aan onze opstelling en verbinden beide routers via <command>middlenet</command> (en de nieuwe reeks 10.0.12.0/24). Er staan nu twee routers tussen de 10.0.42.0/8 en 10.0.33.0/8 netwerken.</para>
+		<para>We voegen een <command>Debian 5.04</command> server als router toe aan onze opstelling en verbinden beide routers via <command>middlenet</command> (en de nieuwe reeks 10.0.12.0/24). Er staan nu twee routers tussen de 10.0.42.0/24 en 10.0.33.0/24 netwerken.</para>
 		<screen>
         ____________________                 _____________________    r
 l n    |       router       |               |       router        |   i n
@@ -3802,7 +3802,7 @@ t      |____________________|               |_____________________|   t
 	</section>
 	<section><title>rip</title>
 		<para>Het <command>routing interface protocol</command> laat toe dat routers hun eigen <command>routing table</command> opsturen naar nabije routers.</para>
-		<para>Hieronder kan je zien hoe de fedore13 router via 10.0.12.100 aan de andere router vertelt dat hij direct (met een metric van 1) verbonden is met het 10.0.42.0/8 netwerk.</para>
+		<para>Hieronder kan je zien hoe de fedore13 router via 10.0.12.100 aan de andere router vertelt dat hij direct (met een metric van 1) verbonden is met het 10.0.42.0/24 netwerk.</para>
 	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/wireshark_rip.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 		<para>De <command>metric</command> in de <command>routing table</command> kan je zien als een <command>kost</command>. Een router zal steeds proberen om packetjes te leveren via de goedkoopste route.</para>
 	</section>
