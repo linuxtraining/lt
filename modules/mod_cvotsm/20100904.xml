@@ -3789,7 +3789,7 @@ ifconfig eth1 10.0.42.1 netmask 255.255.255.0</screen>
 <section><title>twee routers met elkaar verbinden</title>
 	<section><title>opstelling met vier machines</title>
  		<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/leftnet_middlenet_rightnet_router.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-		<para>We voegen een <command>Debian 5.04</command> server als router toe aan onze opstelling en verbinden beide routers via <command>middlenet</command> (en de nieuwe reeks 10.0.12.0/24). Er staan nu twee routers tussen de 10.0.42.0/8 en 10.0.33.0/8 netwerken.</para>
+		<para>We voegen een <command>Debian 5.04</command> server als router toe aan onze opstelling en verbinden beide routers via <command>middlenet</command> (en de nieuwe reeks 10.0.12.0/24). Er staan nu twee routers tussen de 10.0.42.0/24 en 10.0.33.0/24 netwerken.</para>
 		<screen>
         ____________________                 _____________________    r
 l n    |       router       |               |       router        |   i n
@@ -3802,7 +3802,7 @@ t      |____________________|               |_____________________|   t
 	</section>
 	<section><title>rip</title>
 		<para>Het <command>routing interface protocol</command> laat toe dat routers hun eigen <command>routing table</command> opsturen naar nabije routers.</para>
-		<para>Hieronder kan je zien hoe de fedore13 router via 10.0.12.100 aan de andere router vertelt dat hij direct (met een metric van 1) verbonden is met het 10.0.42.0/8 netwerk.</para>
+		<para>Hieronder kan je zien hoe de fedore13 router via 10.0.12.100 aan de andere router vertelt dat hij direct (met een metric van 1) verbonden is met het 10.0.42.0/24 netwerk.</para>
 	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/wireshark_rip.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 		<para>De <command>metric</command> in de <command>routing table</command> kan je zien als een <command>kost</command>. Een router zal steeds proberen om packetjes te leveren via de goedkoopste route.</para>
 	</section>
@@ -3872,6 +3872,17 @@ Destination   Gateway       Genmask         Flags   MSS Window  irtt Iface
 </section>
 </chapter>
 <chapter><title>naamresolutie en DNS</title>
+<section><title>inleiding DNS</title>
+<section><title>Wat is naamresolutie ?</title>
+	<para>Om twee computers op een <command>ip</command> netwerk (zoals het internet) met elkaar te laten communiceren, hebben ze elkaars <command>ip-adres</command> nodig. Maar als mens is het eenvoudiger om namen zoals <command>linux-training.be</command> te onthouden i.p.v. <command>88.151.243.8</command> of <command>178.63.30.100</command>. Naamresolutie is het zoeken van een <command>ip-adres</command> dat hoort bij deze <command>naam</command> van een computer.</para>
+	<para>Een computer kan beschikken over een tekst bestand dat de relatie tussen namen en ip-adressen bevat, of kan verbonden zijn met een <command>nameserver</command>, bijvoorbeeld een <command>dns</command> server.</para>
+</section>
+<section><title>geschiedenis</title>
+	<para>Voordat <command>dns</command> bestond, gebruikten computers op <command>arpanet</command> een HOSTS.TXT bestand dat op een centrale server stond in Stanford. Dit bestand werd op regelmatige tijden gecopieerd naar de lokale machine. Dit systeem was op termijn onhoudbaar, zeker toen er begin jaren 80 duizenden computernamen in het bestand stonden en de groei exponentieel werd.</para>
+	<para>In 1983 ontwikkelde de Griek <command>Paul Mockapetris</command> het <command>Domain Name System</command> (rfc 882/883, later rfc 1034/1035) als alternatief voor dit centrale <command>hosts</command> bestand.</para>
+	<para><command>dns</command> is een gedistribueerde hierarchische naamgevende database voor diensten en computers op tcp/ip netwerken. Een van de voor de hand liggende functies is het vertalen van host- en domeinnamen naar ip-adressen (net zoals het <command>/etc/hosts</command> bestand dat al deed).</para>
+	<para><command>dns</command> is al enkele keren uitgebreid (tik maar eens <command>dns</command> als zoekterm op <command>www.rfc-editor.org</command>), onder andere om het veilig te maken en om <command>dns</command> compatible te maken met ipv6 (AAAA records).</para>
+</section>
 <section><title>/etc/hosts</title>
 	<para>We hebben vorige les reeds kennis gemaakt met het bestand <command>/etc/hosts</command> (alle Unix, incluis Linux en MacOSX) of <command>%systemroot%/system32/drivers/etc/hosts</command> (Microsoft). We hebben gezien hoe dit een tabel is die namen vertaalt naar ip-adressen. De inhoud van het bestand ziet er bijvoorbeeld zo uit:</para>
 	<screen>
@@ -3911,17 +3922,11 @@ PING illyria (192.168.1.1) 56(84) bytes of data.
 http://en.wikipedia.org/wiki/Hosts_file
 	</screen>
 </section>
-<section><title>DNS geschiedenis</title>
-	<para>Voordat <command>DNS</command> bestond, gebruikten computers op <command>arpanet</command> een HOSTS.TXT bestand dat op een centrale server stond in Stanford. Dit bestand werd op regelmatige tijden gecopieerd naar de lokale machine. Dit systeem was op termijn onhoudbaar, zeker toen er begin jaren 80 duizenden computernamen in het bestand stonden en de groei exponentieel werd.</para>
-	<para>In 1983 ontwikkelde de Griek <command>Paul Mockapetris</command> het <command>Domain Name System</command> (rfc 882/883, later rfc 1034/1035) als alternatief voor dit centrale <command>hosts</command> bestand.</para>
-	<para>DNS is een gedistribueerde hierarchische naamgevende database voor diensten en computers op tcp/ip netwerken. Een van de voor de hand liggende functies is het vertalen van host- en domeinnamen naar ip-adressen (net zoals het /etc/hosts bestand dat al deed).</para>
-	<para>DNS is al enkele keren uitgebreid (tik maar eens DNS als zoekterm op www.rfc-editor.org), onder andere om het veilig te maken en om DNS compatible te maken met ipv6 (AAAA records).</para>
-</section>
 <section><title>volgorde</title>
-	<para>Met twee technische oplossingen voor hetzelfde probleem (hosts bestand en DNS) moeten er duidelijke afspraken zijn over de prioriteit die beide systemen krijgen. Met andere woorden, als we een ping doen naar computer42, wordt dan eerst DNS geraadpleegd ? Of eerst /etc/hosts ?</para>
+	<para>Met twee technische oplossingen voor hetzelfde probleem (<command>hosts</command> bestand en <command>dns</command>) moeten er duidelijke afspraken zijn over de prioriteit die beide systemen krijgen. Met andere woorden, als we een ping doen naar computer42, wordt dan eerst <command>dns</command> geraadpleegd ? Of eerst <command>/etc/hosts</command> ?</para>
 	<para>Om dit te configureren moeten we een onderscheid maken tussen Microsoft, Mac OS X en de rest (Unix/Solaris/Linux/BSD...)</para>
 	<section><title>Microsoft</title>
-		<para>Op Microsoft systemen is er geen optie om de volgorde in te stellen. Het lokale hosts bestand heeft volgens Microsoft altijd voorrang op DNS. (Zie http://support.microsoft.com/kb/172218 en gelijkaardige artikels voor W200X etc).</para>
+		<para>Op Microsoft systemen is er geen optie om de volgorde in te stellen. Het lokale hosts bestand heeft volgens Microsoft altijd voorrang op <command>dns</command>. (Zie http://support.microsoft.com/kb/172218 en gelijkaardige artikels voor W200X etc).</para>
 		<para>De volgende lijst van <command>hostnames</command> werken niet op Microsoft computers als je ze plaatst in het <command>hosts</command> bestand:</para>
 		<screen>
 www.msdn.com
@@ -3953,7 +3958,7 @@ http://archive.cert.uni-stuttgart.de/bugtraq/2006/04/msg00291.html
 	</section>
 	<section><title>Unix Linux Solaris BSD</title>
 		<para>Zowat alle andere besturingssystemen gebruiken een <command>name service switch</command> bestand genaamd <command>/etc/nsswitch.conf</command> . In dit bestand staan voor heel wat name services de volgorde waarin verschillende diensten gebruikt worden.</para>
-		<para>Zo zal bijvoorbeeld de volgende lijn bepalen dat eerst het lokale hosts bestand moet geraadpleegd worden, en dan pas DNS.</para>
+		<para>Zo zal bijvoorbeeld de volgende lijn bepalen dat eerst het lokale <command>hosts</command> bestand moet geraadpleegd worden, en dan pas <command>dns</command>.</para>
 		<screen>
 paul@laika:~$ grep hosts /etc/nsswitch.conf 
 hosts:          files dns
@@ -3962,8 +3967,18 @@ hosts:          files dns
 		<para>Sommige applicaties zullen dit bestand ook aanmaken op <command>Mac OS X</command>.</para>
 	</section>
 </section>
-<section><title>DNS namespace</title>
-	<para>De <command>namespace</command> van DNS is een boomstructuur met bovenaan een puntje. Dit puntje wordt de <command>root</command> van de DNS namespace genoemd. Servers die beschikken over dit puntje zijn <command>DNS root servers</command>, en worden in de (IT)volksmond ook gewoon <command>root servers</command> of <command>dot servers</command> genoemd.</para>
+<section><title>DNS root servers</title>
+	<para>De <command>namespace</command> van <command>dns</command> is een boomstructuur met bovenaan een puntje. Dit puntje wordt de <command>root</command> van de <command>dns</command> namespace genoemd. Deze <command>nameservers</command> zijn <command>DNS root servers</command>, en worden in de (IT)volksmond ook gewoon <command>root servers</command> of <command>dot servers</command> genoemd.</para>
+	<para>Er zijn logisch gezien 13 <command>root name servers</command> op het internet genaamd <command>A-root</command> tot <command>M-root</command>. De inhoud ervan wordt bepaald door ICANN, het beheer is in handen van verschillende organisaties (kijk maar op http://root-servers.org) en werken op eentje na allemaal met de BIND software.</para>
+	<para>Elke root server bestaat uit meerdere fysieke machines. Zo is de <command>K-root</command> server verspreid over alle continenten en aanwezig in 18 steden. De J-root server heeft 62 <command>nodes</command>.</para>
+	<screen>
+http://root-servers.org/
+	</screen>
+	<para>Journalisten noemen dit wel eens de root servers of master servers van het internet.</para>
+	<para>In 2002 en in 2007 was er een poging om alle <command>root servers</command> plat te leggen met een <command>ddos</command> (distributed denial of service) aanval.</para>
+	<screen>http://en.wikipedia.org/wiki/Distributed_denial_of_service_attacks_on_root_nameservers</screen>
+</section>
+<section><title>top level domains</title>
 	<para>Onder dit puntje vinden we de <command>Top Level Domains</command> ofte <command>TLD's</command>. Oorspronkelijk waren dit er zeven generieke:</para>
 	<screen>
 .COM
@@ -3976,40 +3991,50 @@ hosts:          files dns
 	</screen>
 	<para>Er zijn ook enkele honderden <command>TLD's</command> voor individuele landen, zoals .BE .NL .FR .US. Tussen haakjes, domeinnamen zijn hoofdletterongevoelig dus je kan zowel .be als .BE schrijven.</para>
 	<para>Sinds enkele jaren zijn er enkele nieuwe generieke TLD's bijgekomen zoals .aero, .biz, .coop, .info, .museum, .name en .pro , maar deze worden behalve .info nauwelijks gebruikt.</para>
-	<para>Onder de TLD's in de boomstructuur vinden we dan de domeinnamen.</para>
+</section>
+<section><title>domeinen</title>
+	<para>Onder de TLD's in de boomstructuur vinden we dan de domeinnamen zoals <command>google.com</command> of <command>linux-training.be</command>.</para>
+	<para>Indien we op een <command>dns server</command> een domeinnaam instellen, noemen we dit een <command>zone</command>.</para>
 </section>
 <section><title>fqdn</title>
-	<para>De combinatie van een <command>hostname</command> met een domeinnaam noemt men de <command>FQDN</command> ofte <command>Fully Qualified Domain Name</command>.</para>
+	<para>De combinatie van een <command>hostname</command> met een domeinnaam noemt men de <command>fqdn</command> ofte <command>Fully Qualified Domain Name</command>.</para>
+	<para>De computer genaamd <command>rhel5</command> in het <command>classroom.local</command> domein heeft dus <command>rhel5.classroom.local</command> als <command>fqdn</command>.</para>
 </section>
 <section><title>Belgische domein namen</title>
-	<para>Oorspronkelijk stond de Belgisch .BE server op de eerste verdieping van het computerwetenschappengebouw van de KULeuven in de Celestijnenlaan. De beheerder was professor Verbaeten en de enige manier om een .be te registreren was door een brief met BTW-nr te schrijven naar dit departement.</para>
+	<para>Oorspronkelijk stond de Belgische <command>.be</command> server op de eerste verdieping van het computerwetenschappengebouw van de KULeuven in de Celestijnenlaan. De beheerder was <command>professor Verbaeten</command> en de enige manier om een <command>.be</command> te registreren was door een brief met BTW-nr te schrijven naar dit departement.</para>
 	<para>Op 1 januari werd <command>dotbe</command> overgenomen door de <command>vzw DNS.BE</command>. Op 11 december 2000 was er een serieuze liberalisering van de regels voor aanvraag van een Belgische domeinnaam, vanaf dat moment konden voor het eerst ook particulieren hun eigen naam registreren.</para>
 	<para>Voor meer info:</para>
 	<screen>http://dns.be/nl/home.php?n=22</screen>
 </section>
+</section>
 <section><title>DNS caching</title>
-	<para>DNS is een <command>caching</command> protocol. Je kan zelfs <command>caching only servers</command> installeren. Dat zijn DNS servers die zelf geen autoriteit hebben over een domeinnaam.</para>
-</section>
-<section><title>DNS root servers</title>
-	<para>Er zijn logisch gezien 13 <command>root name servers</command> op het internet genaamd A-root tot M-root. De inhoud ervan wordt bepaald door ICANN, het beheer is in handen van verschillende organisaties (kijk maar op http://root-servers.org) en werken op eentje na allemaal met de BIND software.</para>
-	<para>Elke root server bestaat uit meerdere fysieke machines. Zo is de K-root server verspreid over alle continenten en aanwezig in 18 steden. De J-root server heeft 62 <command>nodes</command>.</para>
-	<screen>
-http://root-servers.org/
-	</screen>
-</section>
-<section><title>root servers van internet</title>
-	<para>Journalisten noemen dit wel eens de root servers van internet.</para>
-	<para>In 2002 en in 2007 was er een poging om alle root servers plat te leggen met een DDOS (distributed denial of service) aanval.</para>
-	<screen>http://en.wikipedia.org/wiki/Distributed_denial_of_service_attacks_on_root_nameservers</screen>
+	<para><command>dns</command> is een <command>caching</command> protocol. Je kan zelfs <command>caching only servers</command> installeren. Dat zijn <command>dns servers</command> die zelf geen autoriteit hebben over een domeinnaam.</para>
+	<para>Het <command>adsl routerke</command> dat bij jullie thuis staat is waarschijnlijk een <command>caching only dns server</command>.</para>
 </section>
 <section><title>praktijkvoorbeeld</title>
-	<para>De rol van DNS (en andere servers) bij het sturen van een e-mail tekenen we even op het bord.</para>
+	<para>De rol van DNS (en andere servers) bij het bezoeken van een website of het sturen van een e-mail tekenen we even op het bord.</para>
 </section>
 <section><title>DNS records</title>
-	<para>A NS MX SOA CNAME SRV AAAA</para>
+	<para>In de <command>dns</command> database zitten verschillende <command>resource records</command>. Hieronder een beknopt overzicht van enkele van deze records.</para>
+	<screen>A : vertaald een naam naar een ip-adres
+  - ook wel host record genoemd
+  - of ook forward lookup record
+AAAA : idem voor ipv6
+NS : Nameserver record, wijst naar een nameserver
+MX : Mail Exchange record, wijst naar een mailserver
+SOA : bevat TTL, serienummer en andere info
+CNAME : een alias van een naam naar een andere naam
+SRV : wijst naar een dienst (of service) op het netwerk</screen>
 </section>
 <section><title>DNS reverse lookup</title>
-	<para>PTR .arpa</para>
+	<para>Al de records uit de vorige lijst vind je terug in een <command>forward lookup zone</command>, een zone die namen vertaald naar ip-adressen. Een <command>reverse lookup zone</command> is het omgekeerde, en vertaald dus ip-adressen naar namen. Deze zone bevat naast SOA en NS records vooral PTR records.</para>
+	<screen>PTR : vertaald ip-adres naar naam
+  - ook wel reverse lookup record genoemd</screen>
+</section>
+<section><title>zone</title>
+	<para>Een <command>zone</command> is een domeinnaam die op een <command>dns server</command> ingesteld is als primair (aanpasbaar) of secundair (readonly copie). Een <command>dns server</command> kan verantwoordelijk zijn voor de inhoud (de resource records) van een bepaalde zone (aka domeinnaam), deze <command>dns server</command> heeft dan <command>autoriteit</command> over deze zone.</para>
+	<para>Een <command>zone</command> is ofwel een <command>forward lookup zone</command> zoals <command>linux-training.be</command> of <command>classroom.local</command>, ofwel een <command>reverse lookup zone</command>.</para>
+	<para></para>
 </section>
 <section><title>DNS server software</title>
 	<para>BIND</para>
