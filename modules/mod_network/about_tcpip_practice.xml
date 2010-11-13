@@ -4,4 +4,5 @@
 	<para>2. Explain why e-mail and websites are sent over <command>tcp</command> and not <command>udp</command>.</para>
 	<para>3. Display the <command>hostname</command> of your computer.</para>
 	<para>4. Does your computer have an <command>fqdn</command> ?</para>
+	<para>5. Which ip-addresses did your computer recently have contact with ?</para>
 </section>

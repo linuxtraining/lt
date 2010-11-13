@@ -175,22 +175,6 @@ default         192.168.1.1  0.0.0.0        UG    0      0      0 eth0
 [root@RHEL4b ~]# 
 		</screen>
 	</section>
-	<section><title>arp</title>
-		<para>Mac to IP resolution is handled by the <command>arp</command><indexterm><primary>arp(1)</primary></indexterm> protocol. The arp table can be displayed with the arp tool.</para>
-		<screen>
-root@barry:~# arp -a
-? (192.168.1.191) at 00:0C:29:3B:15:80 [ether] on eth1
-agapi (192.168.1.73) at 00:03:BA:09:7F:D2 [ether] on eth1
-anya (192.168.1.1) at 00:12:01:E2:87:FB [ether] on eth1
-faith (192.168.1.41) at 00:0E:7F:41:0D:EB [ether] on eth1
-kiss (192.168.1.49) at 00:D0:E0:91:79:95 [ether] on eth1
-laika (192.168.1.40) at 00:90:F5:4E:AE:17 [ether] on eth1
-pasha (192.168.1.71) at 00:03:BA:02:C3:82 [ether] on eth1
-shaka (192.168.1.72) at 00:03:BA:09:7C:F9 [ether] on eth1
-root@barry:~# 	
-		</screen>
-		<para><emphasis>Anya is a Cisco Firewall, Faith is an HP Color printer, Kiss is a Kiss DP600, laika is a Clevo laptop and Agapi, Shaka and Pasha are SPARC servers. The question mark is a Red Hat Enterprise Linux server running in vmware.</emphasis></para>
-	</section>
 	<section><title>ping</title>
 		<para>If you can ping to another host, then ip is configured.</para>
 		<screen>

@@ -8,13 +8,27 @@
 	<para>The internet is a collection of <command>routers</command><indexterm><primary>router</primary></indexterm> that act as gateways between different <command>segments</command><indexterm><primary>segment</primary></indexterm>. Routers use their <command>routing table</command> to determine the route of tcp/ip <command>packets</command>. Routers are <command>layer 3</command> devices, layer 2 contains <command>bridges</command><indexterm><primary>bridge</primary></indexterm> and <command>switches</command><indexterm><primary>switch</primary></indexterm>, layer 1 is cabling with <command>repeaters</command><indexterm><primary>repeater</primary></indexterm> and <command>hubs</command><indexterm><primary>hub</primary></indexterm>. Layer 2 devices know your 48-bit unique in the world <command>mac</command><indexterm><primary>mac-address</primary></indexterm> address.</para>
 </section>
 <section><title>many protocols</title>
-	<para>For reliable connections, you use <command>tcp</command><indexterm><primary>tcp</primary></indexterm>, whereas <command>udp</command><indexterm><primary>udp</primary></indexterm> is connectionless but faster. The <command>icmp</command><indexterm><primary>icmp</primary></indexterm> error messages are used by <command>ping</command><indexterm><primary>ping</primary></indexterm>, multicast groups are managed by <command>igmp</command><indexterm><primary>igmp</primary></indexterm> and the ip to mac resolution is done by the <command>broadcast</command> protocol <command>arp</command><indexterm><primary>arp</primary></indexterm>.</para>
+	<para>For reliable connections, you use <command>tcp</command><indexterm><primary>tcp</primary></indexterm>, whereas <command>udp</command><indexterm><primary>udp</primary></indexterm> is connectionless but faster. The <command>icmp</command><indexterm><primary>icmp</primary></indexterm> error messages are used by <command>ping</command><indexterm><primary>ping</primary></indexterm>, multicast groups are managed by <command>igmp</command><indexterm><primary>igmp</primary></indexterm>.</para>
 	<para>These protocols are visible in the protocol field of the ip header, and are listed in the <command>/etc/protocols</command><indexterm><primary>/etc/protocols</primary></indexterm> file.</para>
 	<screen>
 paul@laika:~$ grep tcp /etc/protocols 
 tcp     6       TCP             # transmission control protocol
 paul@laika:~$
 	</screen>
+</section>
+<section><title>arp</title>
+	<para>The <command>ip to mac</command> resolution is handled by the <command>layer two broadcast</command> protocol <command>arp</command><indexterm><primary>arp(1)</primary></indexterm>. The <command>arp table</command> can be displayed with the <command>arp tool</command>.</para>
+	<screen>root@barry:~# arp -a
+? (192.168.1.191) at 00:0C:29:3B:15:80 [ether] on eth1
+agapi (192.168.1.73) at 00:03:BA:09:7F:D2 [ether] on eth1
+anya (192.168.1.1) at 00:12:01:E2:87:FB [ether] on eth1
+faith (192.168.1.41) at 00:0E:7F:41:0D:EB [ether] on eth1
+kiss (192.168.1.49) at 00:D0:E0:91:79:95 [ether] on eth1
+laika (192.168.1.40) at 00:90:F5:4E:AE:17 [ether] on eth1
+pasha (192.168.1.71) at 00:03:BA:02:C3:82 [ether] on eth1
+shaka (192.168.1.72) at 00:03:BA:09:7C:F9 [ether] on eth1
+root@barry:~#</screen>
+	<para><emphasis>Anya is a Cisco Firewall, Faith is an HP Color printer, Kiss is a Kiss DP600, laika is a Clevo laptop and Agapi, Shaka and Pasha are SPARC servers. The question mark is a Red Hat Enterprise Linux server running in vmware.</emphasis></para>
 </section>
 <section><title>hostname</title>
 	<para>Every host receives a <command>hostname</command><indexterm><primary>hostname</primary></indexterm>, usually placed in a <command>DNS name space</command> forming the <command>fqdn</command><indexterm><primary>FQDN</primary></indexterm> or Fully Qualified Domain Name.</para>
