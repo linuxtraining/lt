@@ -328,6 +328,8 @@ chapt_network() {
 	chaptitle="Introduction to networking"
 	add_mod mod_network/intro_network.xml     
 	add_mod mod_network/about_tcpip.xml     
+	add_mod mod_network/about_tcpip_practice.xml     
+	add_mod mod_network/about_tcpip_solution.xml     
 	add_mod mod_network/using_tcpip.xml     
 	add_mod mod_network/multiple_ip.xml     
 	add_mod mod_network/bonding.xml         

@@ -1,3 +1,4 @@
+<?hard-pagebreak?>
 <section><title>about tcp/ip</title>
 <section><title>overview of tcp/ip v4</title>
 	<para>The unicast <command>Internet Protocol</command> is one of the oldest network protocols, commonly used today for <command>lan</command> networks and for the <command>internet</command>. Every <command>host</command><indexterm><primary>host</primary></indexterm> gets a unique 32-bit <command>ip-address</command><indexterm><primary>ip-address</primary></indexterm>, this is either static or received from a <command>DHCP</command> server. Internet networks contain several <command>subnets</command><indexterm><primary>subnet</primary></indexterm>. Those subnets used to be <command>classful</command><indexterm><primary>classful</primary></indexterm> (A,B,C,D or E), but this wasted a lot of address space. Today we work with <command>cidr</command><indexterm><primary>CIDR</primary></indexterm> notation to determine <command>network id</command><indexterm><primary>network id</primary></indexterm> and <command>host id</command><indexterm><primary>host id</primary></indexterm>.</para>
@@ -30,38 +31,6 @@ rhel6.classroom.local
 paul@laika:~$ grep tftp /etc/services
 tftp            69/udp
 paul@laika:~$
-	</screen>
-</section>
-<section><title>practice : about tcp/ip</title>
-	<para>1. Which ports are used by http, pop3, ssh, telnet, nntp and ftp ?</para>
-	<screen>root@rhel6 ~# grep ^'http ' /etc/services 
-http       80/tcp          www www-http    # WorldWideWeb HTTP
-http       80/udp          www www-http    # HyperText Transfer Protocol
-root@rhel6 ~# grep ^'smtp ' /etc/services 
-smtp       25/tcp          mail
-smtp       25/udp          mail
-root@rhel6 ~# grep ^'ssh ' /etc/services 
-ssh        22/tcp                     # The Secure Shell (SSH) Protocol
-ssh        22/udp                     # The Secure Shell (SSH) Protocol
-root@rhel6 ~# grep ^'telnet ' /etc/services 
-telnet     23/tcp
-telnet     23/udp
-root@rhel6 ~# grep ^'nntp ' /etc/services 
-nntp       119/tcp         readnews untp   # USENET News Transfer Protocol
-nntp       119/udp         readnews untp   # USENET News Transfer Protocol
-root@rhel6 ~# grep ^'ftp ' /etc/services 
-ftp        21/tcp
-ftp        21/udp          fsp fspd</screen>
-	<para>Note that <command>sctp</command> was ommitted from the screenshot.</para>
-	<para>2. Explain why e-mail and websites are sent over <command>tcp</command> and not <command>udp</command>.</para>
-	<screen>Because tcp is reliable and udp is not.</screen>
-	<para>3. Display the <command>hostname</command> of your computer.</para>
-	<screen>paul@deb503:~$ hostname 
-deb503
-	</screen>
-	<para>4. Does your computer have an <command>fqdn</command> ?</para>
-	<screen>paul@deb503:~$ hostname --fqdn
-deb503
 	</screen>
 </section>
 </section>
