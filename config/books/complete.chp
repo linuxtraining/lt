@@ -287,6 +287,9 @@ chapt_lvm() {
 	MODULES=""
 	chaptitle="Logical volume management"
 	add_mod mod_lvm/lvm.xml  
+	add_mod mod_lvm/lvm_examples.xml  
+	add_mod mod_lvm/lvm_managing.xml  
+	add_mod mod_lvm/lvm_practice.xml  
 	}
 
 #

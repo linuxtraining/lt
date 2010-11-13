@@ -1,0 +1,278 @@
+<?hard-pagebreak?>
+<section><title>example: using lvm</title>
+	<para>This example shows how you can use a device (in this case /dev/sdc, but it could have been /dev/sdb or any other disk or partition) with lvm, how to create a volume group (vg) and how to create and use a logical volume (vg/lvol0).</para>
+	<para>First thing to do, is create physical volumes that can join the volume group with <command>pvcreate</command><indexterm><primary>pvcreate(1)</primary></indexterm>. This command makes a disk or partition available for use in Volume Groups. The screenshot shows how to present the SCSI Disk device to LVM.</para>
+	<screen>
+root@RHEL4:~# pvcreate /dev/sdc
+Physical volume "/dev/sdc" successfully created
+	</screen>
+	<para><emphasis>Note for home users: lvm will work fine when using the complete disk, but another operating system on the same computer will not recognize lvm and will mark the disk as being empty! You can avoid this by creating a partition that spans the whole disk, then run pvcreate on the partition instead of the disk.</emphasis></para>
+	<para>Then <command>vgcreate</command><indexterm><primary>vgcreate(1)</primary></indexterm> creates a volume group using one device. Note that more devices could be added to the volume group.</para> 
+	<screen>
+root@RHEL4:~# vgcreate vg /dev/sdc
+Volume group "vg" successfully created
+	</screen>
+	<para>The last step <command>lvcreate</command><indexterm><primary>lvcreate(1)</primary></indexterm> creates a logical volume.</para>
+	<screen>
+root@RHEL4:~# lvcreate --size 500m vg
+Logical volume "lvol0" created
+	</screen>
+	<para>The logical volume /dev/vg/lvol0 can now be formatted with ext2, and mounted for normal use.</para>
+	<screen>
+root@RHELv4u2:~# mke2fs -m0 -j /dev/vg/lvol0 
+mke2fs 1.35 (28-Feb-2004)
+Filesystem label=
+OS type: Linux
+Block size=1024 (log=0)
+Fragment size=1024 (log=0)
+128016 inodes, 512000 blocks
+0 blocks (0.00%) reserved for the super user
+First data block=1
+Maximum filesystem blocks=67633152
+63 block groups
+8192 blocks per group, 8192 fragments per group
+2032 inodes per group
+Superblock backups stored on blocks: 
+8193, 24577, 40961, 57345, 73729, 204801, 221185, 401409
+			
+Writing inode tables: done                            
+Creating journal (8192 blocks): done
+Writing superblocks and filesystem accounting information: done
+			
+This filesystem will be automatically checked every 37 mounts or
+180 days, whichever comes first.  Use tune2fs -c or -i to override.
+root@RHELv4u2:~# mkdir /home/project10
+root@RHELv4u2:~# mount /dev/vg/lvol0 /home/project10/
+root@RHELv4u2:~# df -h | grep proj
+/dev/mapper/vg-lvol0  485M   11M  474M   3% /home/project10
+	</screen>
+	<para>A logical volume is very similar to a partition, it can be formatted with a file system, and can be mounted so users can access it.</para>
+</section>
+<?hard-pagebreak?>
+<section><title>example: extend a logical volume</title>
+	<para>A logical volume can be extended without unmounting the file system. Whether or not a volume can be extended depends on the file system it uses. Volumes that are mounted as vfat or ext2 cannot be extended, so in the example here we use the ext3 file system. </para>
+	<para>The fdisk command shows us newly added scsi-disks that will serve our lvm volume. This volume will then be extended. First, take a look at these disks.</para>
+	<screen>
+[root@RHEL5 ~]# fdisk -l | grep sd[bc]
+Disk /dev/sdb doesn't contain a valid partition table
+Disk /dev/sdc doesn't contain a valid partition table
+Disk /dev/sdb: 1181 MB, 1181115904 bytes
+Disk /dev/sdc: 429 MB, 429496320 bytes
+	</screen>
+	<para>You already know how to partition a disk, below the first disk is partitioned (in one big primary partition), the second disk is left untouched.</para>
+	<screen>
+[root@RHEL5 ~]# fdisk -l | grep sd[bc]
+Disk /dev/sdc doesn't contain a valid partition table
+Disk /dev/sdb: 1181 MB, 1181115904 bytes
+/dev/sdb1               1         143     1148616   83  Linux
+Disk /dev/sdc: 429 MB, 429496320 bytes
+	</screen>
+	<para>You also know how to prepare disks for lvm with <command>pvcreate</command><indexterm><primary>pvcreate(1)</primary></indexterm>, and how to create a volume group with <command>vgcreate</command><indexterm><primary>vgcreate(1)</primary></indexterm>. This example adds both the partitioned disk and the untouched disk to the volume group named <command>vg2</command>.</para>
+	<screen>
+[root@RHEL5 ~]# pvcreate /dev/sdb1
+  Physical volume "/dev/sdb1" successfully created
+[root@RHEL5 ~]# pvcreate /dev/sdc
+  Physical volume "/dev/sdc" successfully created
+[root@RHEL5 ~]# vgcreate vg2 /dev/sdb1 /dev/sdc
+  Volume group "vg2" successfully created
+	</screen>
+	<para>You can use <command>pvdisplay</command><indexterm><primary>pvdisplay(1)</primary></indexterm> to verify that both the disk and the partition belong to the volume group.</para>
+	<screen>
+[root@RHEL5 ~]# pvdisplay | grep -B1 vg2
+  PV Name               /dev/sdb1
+  VG Name               vg2
+--
+  PV Name               /dev/sdc
+  VG Name               vg2
+	</screen>
+	<para>And you are familiar both with the <command>lvcreate</command><indexterm><primary>lvcreate(1)</primary></indexterm> command to create a small logical volume and the <command>mke2fs</command><indexterm><primary>mke2fs(1)</primary></indexterm> command to put ext2 on it.</para>
+	<screen>
+[root@RHEL5 ~]# lvcreate --size 200m vg2
+  Logical volume "lvol0" created
+[root@RHEL5 ~]# mke2fs -m20 -j /dev/vg2/lvol0 
+...
+	</screen>
+	<para>As you see, we end up with a mounted logical volume that according to <command>df</command> is almost 200 megabyte in size.</para>
+	<screen>
+[root@RHEL5 ~]# mkdir /home/resizetest
+[root@RHEL5 ~]# mount /dev/vg2/lvol0 /home/resizetest/
+[root@RHEL5 ~]# df -h | grep resizetest
+                      194M  5.6M  149M   4% /home/resizetest
+	</screen>
+	<para>Extending the volume is easy with <command>lvextend</command><indexterm><primary>lvextend(1)</primary></indexterm>.</para>
+	<screen>
+[root@RHEL5 ~]# lvextend -L +100 /dev/vg2/lvol0 
+  Extending logical volume lvol0 to 300.00 MB
+  Logical volume lvol0 successfully resized
+	</screen>
+	<para>But as you can see, there is a small problem: it appears that df is not able to display the extended volume in its full size. This is because the filesystem is only set for the size of the volume before the extension was added.</para>
+	<screen>
+[root@RHEL5 ~]# df -h | grep resizetest
+                      194M  5.6M  149M   4% /home/resizetest
+	</screen>
+	<para>With <command>lvdisplay</command><indexterm><primary>lvdisplay(1)</primary></indexterm> however we can see that the volume is indeed extended.</para>
+	<screen>
+[root@RHEL5 ~]# lvdisplay /dev/vg2/lvol0 | grep Size
+  LV Size                300.00 MB
+	</screen>
+	<para>To finish the extension, you need <command>resize2fs</command><indexterm><primary>resize2fs(1)</primary></indexterm> to span the filesystem over the full size of the logical volume.</para>
+	<screen>
+[root@RHEL5 ~]# resize2fs /dev/vg2/lvol0 
+resize2fs 1.39 (29-May-2006)
+Filesystem at /dev/vg2/lvol0 is mounted on /home/resizetest; on-line re\
+sizing required
+Performing an on-line resize of /dev/vg2/lvol0 to 307200 (1k) blocks.
+The filesystem on /dev/vg2/lvol0 is now 307200 blocks long.
+	</screen>
+	<para>Congratulations, you just successfully expanded a logical volume.</para>
+	<screen>
+[root@RHEL5 ~]# df -h | grep resizetest
+                      291M  6.1M  225M   3% /home/resizetest
+[root@RHEL5 ~]# 
+	</screen>
+</section>
+<?hard-pagebreak?>
+<section><title>example: resize a physical Volume</title>
+	<para>This is a humble demonstration of how to resize a physical Volume with lvm (after you resize it with fdisk). The demonstration starts with a 100MB partition named /dev/sde1. We used fdisk to create it, and to verify the size.</para>
+	<screen>
+[root@RHEL5 ~]# fdisk -l 2>/dev/null | grep sde1
+/dev/sde1               1         100      102384   83  Linux
+[root@RHEL5 ~]# 
+	</screen>
+	<para>Now we can use pvcreate to create the Physical Volume, followed by pvs to verify the creation.</para>
+	<screen>
+[root@RHEL5 ~]# pvcreate /dev/sde1
+  Physical volume "/dev/sde1" successfully created
+[root@RHEL5 ~]# pvs | grep sde1
+  /dev/sde1             lvm2 --    99.98M  99.98M
+[root@RHEL5 ~]# 
+	</screen>
+	<para>The next step is ti use fdisk to enlarge the partition (actually deleting it and then recreating /dev/sde1 with more cylinders).</para>
+	<screen>
+[root@RHEL5 ~]# fdisk /dev/sde
+
+Command (m for help): p
+
+Disk /dev/sde: 858 MB, 858993152 bytes
+64 heads, 32 sectors/track, 819 cylinders
+Units = cylinders of 2048 * 512 = 1048576 bytes
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sde1               1         100      102384   83  Linux
+
+Command (m for help): d
+Selected partition 1
+
+Command (m for help): n
+Command action
+   e   extended
+   p   primary partition (1-4)
+p
+Partition number (1-4): 
+Value out of range.
+Partition number (1-4): 1
+First cylinder (1-819, default 1): 
+Using default value 1
+Last cylinder or +size or +sizeM or +sizeK (1-819, default 819): 200
+
+Command (m for help): w
+The partition table has been altered!
+
+Calling ioctl() to re-read partition table.
+Syncing disks.
+[root@RHEL5 ~]# 
+	</screen>
+	<para>When we now use fdisk and pvs to verify the size of the partition and the Physical Volume, then there is a size difference. LVM is still using the old size.</para>
+	<screen>
+[root@RHEL5 ~]# fdisk -l 2>/dev/null | grep sde1
+/dev/sde1               1         200      204784   83  Linux
+[root@RHEL5 ~]# pvs | grep sde1
+  /dev/sde1             lvm2 --    99.98M  99.98M
+[root@RHEL5 ~]# 
+	</screen>
+	<para>Executing pvresize on the Physical Volume will make lvm aware of the size change of the partition. The correct size can be displayed with pvs.</para>
+	<screen>
+[root@RHEL5 ~]# pvresize /dev/sde1
+  Physical volume "/dev/sde1" changed
+  1 physical volume(s) resized / 0 physical volume(s) not resized
+[root@RHEL5 ~]# pvs | grep sde1
+  /dev/sde1             lvm2 --   199.98M 199.98M
+[root@RHEL5 ~]# 
+	</screen>
+</section>
+<?hard-pagebreak?>
+<section><title>example: mirror a logical volume</title>
+	<para>We start by creating three physical volumes for lvm. Then we verify the creation and the size with pvs. Three physical disks because lvm uses two disks for the mirror and a third disk for the mirror log!</para>
+	<screen>
+[root@RHEL5 ~]# pvcreate /dev/sdb /dev/sdc /dev/sdd
+  Physical volume "/dev/sdb" successfully created
+  Physical volume "/dev/sdc" successfully created
+  Physical volume "/dev/sdd" successfully created
+[root@RHEL5 ~]# pvs
+  PV         VG         Fmt  Attr PSize   PFree  
+  /dev/sdb              lvm2 --   409.60M 409.60M
+  /dev/sdc              lvm2 --   409.60M 409.60M
+  /dev/sdd              lvm2 --   409.60M 409.60M
+	</screen>
+	<para>Then we create the Volume Group and verify again with pvs. Notice how the three physical volumes now belong to vg33, and how the size is rounded down (in steps of the extent size, here 4MB).</para>
+	<screen>
+[root@RHEL5 ~]# vgcreate vg33 /dev/sdb /dev/sdc /dev/sdd
+  Volume group "vg33" successfully created
+[root@RHEL5 ~]# pvs
+  PV         VG         Fmt  Attr PSize   PFree  
+  /dev/sda2  VolGroup00 lvm2 a-    15.88G      0 
+  /dev/sdb   vg33       lvm2 a-   408.00M 408.00M
+  /dev/sdc   vg33       lvm2 a-   408.00M 408.00M
+  /dev/sdd   vg33       lvm2 a-   408.00M 408.00M
+[root@RHEL5 ~]#
+	</screen>
+	<para>The last step is to create the Logical Volume with <command>lvcreate</command>. Notice the <command>-m 1</command> switch to create one mirror. Notice also the change in free space in all three Physical Volumes!</para>
+	<screen>
+[root@RHEL5 ~]# lvcreate --size 300m -n lvmir -m 1 vg33 
+  Logical volume "lvmir" created
+[root@RHEL5 ~]# pvs
+  PV         VG         Fmt  Attr PSize   PFree  
+  /dev/sda2  VolGroup00 lvm2 a-    15.88G      0 
+  /dev/sdb   vg33       lvm2 a-   408.00M 108.00M
+  /dev/sdc   vg33       lvm2 a-   408.00M 108.00M
+  /dev/sdd   vg33       lvm2 a-   408.00M 404.00M
+	</screen>
+	<para>You can see the copy status of the mirror with lvs. It currently shows a 100 percent copy.</para>
+	<screen>
+[root@RHEL5 ~]# lvs vg33/lvmir
+  LV    VG   Attr   LSize   Origin Snap%  Move Log        Copy% 
+  lvmir vg33 mwi-ao 300.00M                    lvmir_mlog 100.00
+	</screen>
+</section>
+<?hard-pagebreak?>
+<section><title>example: snapshot a logical volume</title>
+	<para>A snapshot is a virtual copy of all the data at a point in time on a volume. A snapshot Logical Volume will retain a copy of all changed files of the snapshotted Logical Volume.</para>
+	<para>The example below creates a snapshot of the bigLV Logical Volume.</para>
+	<screen>
+[root@RHEL5 ~]# lvcreate -L100M -s -n snapLV vg42/bigLV
+  Logical volume "snapLV" created
+[root@RHEL5 ~]#
+	</screen>
+	<para>You can see with lvs that the snapshot snapLV is indeed a snapshot of bigLV. Moments after taking the snapshot, there are few changes to bigLV (0.02 percent).</para>
+	<screen>
+[root@RHEL5 ~]# lvs
+  LV       VG         Attr   LSize   Origin Snap%  Move Log Copy%
+  bigLV    vg42       owi-a- 200.00M                              
+  snapLV   vg42       swi-a- 100.00M bigLV    0.02                
+[root@RHEL5 ~]#
+	</screen>
+	<para>But after using bigLV for a while, more changes are done. This means the snapshot volume has to keep more original data (10.22 percent).</para>
+	<screen>
+[root@RHEL5 ~]# lvs | grep vg42
+  bigLV    vg42       owi-ao 200.00M                              
+  snapLV   vg42       swi-a- 100.00M bigLV   10.22                
+[root@RHEL5 ~]# 
+	</screen>
+	<para>You can now use regular backup tools (dump, tar, cpio, ...) to take a backup of the snapshot Logical Volume. This backup will contain all data as it existed on bigLV at the time the snapshot was taken. When the backup is done, you can remove the snapshot.</para>
+	<screen>
+[root@RHEL5 ~]# lvremove vg42/snapLV
+Do you really want to remove active logical volume "snapLV"? [y/n]: y
+  Logical volume "snapLV" successfully removed
+[root@RHEL5 ~]# 
+	</screen>
+</section>
