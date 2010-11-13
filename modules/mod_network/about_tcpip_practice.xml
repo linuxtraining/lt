@@ -1,0 +1,7 @@
+<?hard-pagebreak?>
+<section><title>practice : about tcp/ip</title>
+	<para>1. Which ports are used by http, pop3, ssh, telnet, nntp and ftp ?</para>
+	<para>2. Explain why e-mail and websites are sent over <command>tcp</command> and not <command>udp</command>.</para>
+	<para>3. Display the <command>hostname</command> of your computer.</para>
+	<para>4. Does your computer have an <command>fqdn</command> ?</para>
+</section>

@@ -1,7 +1,7 @@
-<section><title>Introduction to computer networks</title>
+<section><title>introduction to computer networks</title>
 	<section><title>theory about network layers</title>
 		<section><title>seven OSI layers</title>
-			<para>When talking about protocol layers, people usually mention the seven layers of the <command>OSI</command> protocol (Application, Presentation, Session, Transport, Network, Data Link and Physical). We will discuss layers 2 and 3 in depth, and focus less on the other layers. The reason is that these layers are important for understanding networks. You will hear administrators use words like "this is a layer 2 device" or "this is a layer 3 broadcast", and you should be able to understand what they are talking about.</para>
+			<para>When talking about protocol layers, people usually mention the seven layers of the <command>osi</command> protocol (Application, Presentation, Session, Transport, Network, Data Link and Physical). We will discuss layers 2 and 3 in depth, and focus less on the other layers. The reason is that these layers are important for understanding networks. You will hear administrators use words like "this is a layer 2 device" or "this is a layer 3 broadcast", and you should be able to understand what they are talking about.</para>
 		</section>
 		<section><title>four DoD layers</title>
 			<para>The <command>DoD</command> (or tcp/ip) model has only four layers, roughly mapping its <command>network access layer</command> to OSI layers 1 and 2 (Physical and Datalink), its <command>internet</command> (IP) layer to the OSI <command>network layer</command>, its <command>host-to-host</command> (tcp, udp) layer to OSI layer 4 (transport) and its <command>application layer</command> to OSI layers 5, 6 and 7.</para>

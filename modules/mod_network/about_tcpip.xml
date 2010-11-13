@@ -1,10 +1,10 @@
-<section><title>About TCP/IP</title>
-<section><title>Overview of tcp/ip v4</title>
-	<para>The unicast <command>Internet Protocol</command> is one of the oldest network protocols, commonly used today for LAN and WAN networks. Every <command>host</command><indexterm><primary>host</primary></indexterm> gets a unique 32-bit <command>ip-address</command><indexterm><primary>ip-address</primary></indexterm>, this is either static or received from a <command>DHCP</command> server. Internet networks contain several <command>subnets</command><indexterm><primary>subnet</primary></indexterm>. Those subnets used to be <command>classful</command><indexterm><primary>classful</primary></indexterm> (A,B,C,D or E), but this wasted a lot of address space. Today we work with <command>CIDR</command><indexterm><primary>CIDR</primary></indexterm> notation to determine <command>network id</command><indexterm><primary>network id</primary></indexterm> and <command>host id</command><indexterm><primary>host id</primary></indexterm>.</para>
-	<para>In a couple of years we will all be using IPv6! <emphasis>At least, that is what people say since 1995...</emphasis></para>
+<section><title>about tcp/ip</title>
+<section><title>overview of tcp/ip v4</title>
+	<para>The unicast <command>Internet Protocol</command> is one of the oldest network protocols, commonly used today for <command>lan</command> networks and for the <command>internet</command>. Every <command>host</command><indexterm><primary>host</primary></indexterm> gets a unique 32-bit <command>ip-address</command><indexterm><primary>ip-address</primary></indexterm>, this is either static or received from a <command>DHCP</command> server. Internet networks contain several <command>subnets</command><indexterm><primary>subnet</primary></indexterm>. Those subnets used to be <command>classful</command><indexterm><primary>classful</primary></indexterm> (A,B,C,D or E), but this wasted a lot of address space. Today we work with <command>cidr</command><indexterm><primary>CIDR</primary></indexterm> notation to determine <command>network id</command><indexterm><primary>network id</primary></indexterm> and <command>host id</command><indexterm><primary>host id</primary></indexterm>.</para>
+	<para>In a couple of years we will all be using <command>ipv6</command>! <emphasis>At least, that is what people say since 1999...</emphasis></para>
 </section>
-<section><title>Internet and routers</title>
-	<para>The internet is a collection of <command>routers</command><indexterm><primary>router</primary></indexterm> that act as gateways between different <command>segments</command><indexterm><primary>segment</primary></indexterm>. Routers use their <command>routing table</command> to determine the route of tcp/ip <command>packets</command>. Routers are <command>layer 3</command> devices, layer 2 contains <command>bridges</command><indexterm><primary>bridge</primary></indexterm> and <command>switches</command><indexterm><primary>switch</primary></indexterm>, layer 1 is cabling with <command>repeaters</command><indexterm><primary>repeater</primary></indexterm> and <command>hubs</command><indexterm><primary>hub</primary></indexterm>. Layer 2 devices know your 48-bit unique in the world <command>MAC</command><indexterm><primary>MAC</primary></indexterm> address.</para>
+<section><title>internet and routers</title>
+	<para>The internet is a collection of <command>routers</command><indexterm><primary>router</primary></indexterm> that act as gateways between different <command>segments</command><indexterm><primary>segment</primary></indexterm>. Routers use their <command>routing table</command> to determine the route of tcp/ip <command>packets</command>. Routers are <command>layer 3</command> devices, layer 2 contains <command>bridges</command><indexterm><primary>bridge</primary></indexterm> and <command>switches</command><indexterm><primary>switch</primary></indexterm>, layer 1 is cabling with <command>repeaters</command><indexterm><primary>repeater</primary></indexterm> and <command>hubs</command><indexterm><primary>hub</primary></indexterm>. Layer 2 devices know your 48-bit unique in the world <command>mac</command><indexterm><primary>mac-address</primary></indexterm> address.</para>
 </section>
 <section><title>many protocols</title>
 	<para>For reliable connections, you use <command>tcp</command><indexterm><primary>tcp</primary></indexterm>, whereas <command>udp</command><indexterm><primary>udp</primary></indexterm> is connectionless but faster. The <command>icmp</command><indexterm><primary>icmp</primary></indexterm> error messages are used by <command>ping</command><indexterm><primary>ping</primary></indexterm>, multicast groups are managed by <command>igmp</command><indexterm><primary>igmp</primary></indexterm> and the ip to mac resolution is done by the <command>broadcast</command> protocol <command>arp</command><indexterm><primary>arp</primary></indexterm>.</para>
@@ -14,16 +14,54 @@ paul@laika:~$ grep tcp /etc/protocols
 tcp     6       TCP             # transmission control protocol
 paul@laika:~$
 	</screen>
-	<para>Every host receives a <command>hostname</command><indexterm><primary>hostname</primary></indexterm>, usually placed in a <command>DNS name space</command> forming the <command>FQDN</command><indexterm><primary>FQDN</primary></indexterm> or Fully Qualified Domain Name. Common application level protocols like SMTP, HTTP, SSH, telnet and FTP have fixed <command>port numbers</command>.</para>
-	<para>To find a port number, look in <command>/etc/services</command><indexterm><primary>/etc/services</primary></indexterm>.</para>
+</section>
+<section><title>hostname</title>
+	<para>Every host receives a <command>hostname</command><indexterm><primary>hostname</primary></indexterm>, usually placed in a <command>DNS name space</command> forming the <command>fqdn</command><indexterm><primary>FQDN</primary></indexterm> or Fully Qualified Domain Name.</para>
+	<screen>
+root@rhel6 ~# hostname 
+rhel6
+root@rhel6 ~# hostname --fqdn
+rhel6.classroom.local
+	</screen>
+</section>
+<section><title>ip services</title>
+	<para>Common application level protocols like SMTP, HTTP, SSH, telnet and FTP have fixed <command>port numbers</command>. To find a port number, look in <command>/etc/services</command><indexterm><primary>/etc/services</primary></indexterm>.</para>
 	<screen>
 paul@laika:~$ grep tftp /etc/services
 tftp            69/udp
 paul@laika:~$
 	</screen>
 </section>
-<section><title>Practice TCP/IP</title>
+<section><title>practice : about tcp/ip</title>
 	<para>1. Which ports are used by http, pop3, ssh, telnet, nntp and ftp ?</para>
-	<para>2. Explain why e-mail and websites are sent over tcp, whereas internet streaming radio and live broadcasts are using udp.</para>
+	<screen>root@rhel6 ~# grep ^'http ' /etc/services 
+http       80/tcp          www www-http    # WorldWideWeb HTTP
+http       80/udp          www www-http    # HyperText Transfer Protocol
+root@rhel6 ~# grep ^'smtp ' /etc/services 
+smtp       25/tcp          mail
+smtp       25/udp          mail
+root@rhel6 ~# grep ^'ssh ' /etc/services 
+ssh        22/tcp                     # The Secure Shell (SSH) Protocol
+ssh        22/udp                     # The Secure Shell (SSH) Protocol
+root@rhel6 ~# grep ^'telnet ' /etc/services 
+telnet     23/tcp
+telnet     23/udp
+root@rhel6 ~# grep ^'nntp ' /etc/services 
+nntp       119/tcp         readnews untp   # USENET News Transfer Protocol
+nntp       119/udp         readnews untp   # USENET News Transfer Protocol
+root@rhel6 ~# grep ^'ftp ' /etc/services 
+ftp        21/tcp
+ftp        21/udp          fsp fspd</screen>
+	<para>Note that <command>sctp</command> was ommitted from the screenshot.</para>
+	<para>2. Explain why e-mail and websites are sent over <command>tcp</command> and not <command>udp</command>.</para>
+	<screen>Because tcp is reliable and udp is not.</screen>
+	<para>3. Display the <command>hostname</command> of your computer.</para>
+	<screen>paul@deb503:~$ hostname 
+deb503
+	</screen>
+	<para>4. Does your computer have an <command>fqdn</command> ?</para>
+	<screen>paul@deb503:~$ hostname --fqdn
+deb503
+	</screen>
 </section>
 </section>
