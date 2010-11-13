@@ -1,12 +1,12 @@
-<section><title>Using TCP/IP</title>
+<?hard-pagebreak?>
+<section><title>using TCP/IP</title>
 	<section><title>to GUI or not to GUI</title>
-		<para>If you can, setup your tcp/ip configuration at install time, otherwise use the graphical tool from your distribution. In the case of RHEL, this is the <command>Network Administration Tool</command>, Novell and OpenSUSE users can use YaST. Avoid mixed use of the GUI tool with command line or direct editing of network configuration files. You should choose only one method to manage these files, because many GUI tools will override your manually edited settings. Also, on Red Hat Servers avoid editing the files in <command>/etc/sysconfig/networking</command><indexterm><primary>/etc/sysconfig/networking</primary></indexterm> manually!</para>
-		<para>Now that we settled this, let's take a look at the files and script that configure your network.</para>
+		<para>If you can, setup your tcp/ip configuration at install time, otherwise use the graphical tool from your distribution. In the case of RHEL4 and RHEL5, this is the <command>Network Administration Tool</command>, in RHEL6 it is <command>Network Manager</command>, Novell and OpenSUSE users can use <command>YaST</command> (Yet another Setup Tool). Avoid mixed use of the GUI tool with command line or direct editing of network configuration files. You should choose only one method to manage these files, because some graphical tools will override your manually edited settings.</para>
+		<para>Now that we settled this, let's take a look at the files, commands and scripts that configure your network.</para>
 	</section>
 	<section><title>/sbin/ifconfig</title>
 		<para>You can use the <command>ifconfig</command><indexterm><primary>ifconfig(1)</primary></indexterm> command to see the tcp/ip configuration of a network interface. The first ethernet network card on linux is eth0.</para>
-		<screen>
-[root@RHEL4b ~]# ifconfig eth0
+		<screen>[root@RHEL4b ~]# ifconfig eth0
 eth0      Link encap:Ethernet  HWaddr 00:0C:29:3B:15:80  
           inet addr:192.168.1.191  Bcast:192.168.1.255  Mask:255.255.255.0
           inet6 addr: fe80::20c:29ff:fe3b:1580/64 Scope:Link
@@ -15,12 +15,9 @@ eth0      Link encap:Ethernet  HWaddr 00:0C:29:3B:15:80
           TX packets:80 errors:0 dropped:0 overruns:0 carrier:0
           collisions:0 txqueuelen:1000 
           RX bytes:9216 (9.0 KiB)  TX bytes:8895 (8.6 KiB)
-          Interrupt:185 Base address:0x1400 
-
-[root@RHEL4b ~]#
-		</screen>
-		<para>You can also disable a network interface with <command>ifconfig eth0 down</command>, or enable it with <command>ifconfig eth0 up</command>.</para>
-		<para>Every user has access to /sbin/ifconfig, providing the path is set. Normal users cannot use it to disable or enable interfaces, or set the ip address.</para>
+          Interrupt:185 Base address:0x1400 </screen>
+		<para>You can also disable a network interface with <command>ifconfig eth0 down</command>, or enable it with <command>ifconfig eth0 up</command>. Using these commands does not change the configuration of this network card.</para>
+		<para>Every user has access to <command>/sbin/ifconfig</command>, providing the path is set. Normal users cannot use it to disable or enable interfaces, or set the ip address.</para>
 		<screen>
 [root@RHEL4b ~]# ifconfig eth0 192.168.1.199
 [root@RHEL4b ~]#
@@ -32,7 +29,6 @@ root@laika:~#
 		</screen>
 		<para>Careful, if you try this via an ssh connection, then you might lose your ssh connection.</para>
 	</section>
-	
 	<section><title>/etc/init.d/network(ing)</title>
 		<para>If you have a problem with network interfaces, you can try to restart the network init script, as shown here on Ubuntu 7.04. The script stops and starts the interfaces, and renews an ip configuration with the DHCP server.</para>
 		<screen>
@@ -70,19 +66,14 @@ root@laika:~#
 		<para>Red Hat derived Linux systems store their network configuration files in the <command>/etc/sysconfig/</command><indexterm><primary>/etc/sysconfig/</primary></indexterm> directory. Debian derived systems do not have this directory.</para>
 		<section><title>/etc/sysconfig/network</title>
 			<para>Routing and host information for all network interfaces is specified in the <command>/etc/sysconfig/network</command><indexterm><primary>/etc/sysconfig/network</primary></indexterm> file. Below an example, setting 192.168.1.1 as the router (default gateway), and leaving the default hostname of localhost.localdomain. Common options not shown in this screenshot are <command>GATEWAYDEV</command> to set one of your network cards as the gateway device, and <command>NISDOMAIN</command> to specify the NIS domain name. </para>
-			<screen>
-paul@RHELv4u2:~$ cat /etc/sysconfig/network
+			<screen>root@rhel6 ~# cat /etc/sysconfig/network
 NETWORKING=yes
-HOSTNAME=localhost.localdomain
-GATEWAY=192.168.1.1
-			</screen>
-			<para>The same file, but here the hostname of the machine is not set to the default as above.</para>
-			<screen>
-[paul@RHEL4b ~]$ cat /etc/sysconfig/network
+HOSTNAME=rhel6</screen>
+			<para>Another screenshot of the same file on RHEL4.</para>
+			<screen>[paul@RHEL4b ~]$ cat /etc/sysconfig/network
 NETWORKING=yes
 HOSTNAME=RHEL4b
-[paul@RHEL4b ~]$ 
-			</screen>
+GATEWAY=192.168.1.1</screen>
 		</section>
 		<section><title>/etc/sysconfig/network-scripts</title>
 			<para>For every network card in your computer, you should have an interface configuration file named <command>/etc/sysconfig/network-scripts/ifcfg-$IFNAME</command><indexterm><primary>/etc/sysconfig/network-scripts</primary></indexterm>. Be careful when editing these files, your edits will work, until you start the <command>system-config-network</command><indexterm><primary>system-config-network</primary></indexterm> (might soon be renamed to redhat-config-network) tool. This tool can and will overwrite your manual edits.</para>
@@ -240,16 +231,6 @@ root@laika:~# ethtool -s eth0 speed 1000
 root@laika:~# ethtool eth0 | grep Speed
 	Speed: 1000Mb/s
 		</screen>
-	</section>
-	<section><title>Practice IP Configuration</title>
-		<para>1. Use ifconfig to list all your network interfaces and their ip-addresses. Write down your ip-address and subnet mask.</para>
-		<para>2. Use the GUI tool of your distro to set a fix ip address (use the same address as the one you got from dhcp). Verify with ifconfig and ping to a neighbour that it works. Also look at the configuration files in /etc/network or /etc/sysconfig to see how the GUI tool sets a fixed address.</para>
-		<para>3. Use the GUI tool to enable dhcp again (and verify the changes in the config files).</para>
-		<para>4. Use ifdown or ifconfig to disable your eth0 network card.</para>
-		<para>5. Restart networking to enable your network card again.</para>
-		<para>6. Is the dhclient daemon running ?</para>
-		<para>7. Verify that you have a default gateway.</para>	
-		<para>8. Ping the default gateway, then look at the MAC address of the default gateway.</para>	
 	</section>
 </section>
 

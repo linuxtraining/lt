@@ -1,0 +1,11 @@
+<?hard-pagebreak?>
+<section><title>solution : using tcp/ip</title>
+	<para>1. Use ifconfig to list all your network interfaces and their ip-addresses. Write down your ip-address and subnet mask.</para>
+	<para>2. Use the GUI tool of your distro to set a fix ip address (use the same address as the one you got from dhcp). Verify with ifconfig and ping to a neighbour that it works. Also look at the configuration files in /etc/network or /etc/sysconfig to see how the GUI tool sets a fixed address.</para>
+	<para>3. Use the GUI tool to enable dhcp again (and verify the changes in the config files).</para>
+	<para>4. Use ifdown or ifconfig to disable your eth0 network card.</para>
+	<para>5. Restart networking to enable your network card again.</para>
+	<para>6. Is the dhclient daemon running ?</para>
+	<para>7. Verify that you have a default gateway.</para>	
+	<para>8. Ping the default gateway, then look at the MAC address of the default gateway.</para>	
+</section>
