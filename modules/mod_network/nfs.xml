@@ -1,3 +1,4 @@
+<?hard-pagebreak?>
 <section><title>network file system</title>
 	<section><title>protocol versions</title>
 		<para>The older <command>nfs</command><indexterm><primary>NFS</primary></indexterm> versions 2 and 3 are stateless (udp) by default, but they can use tcp. Clients connect to the server using <command>rpc</command><indexterm><primary>RPC</primary></indexterm> (on Linux this is controlled by the <command>portmap</command><indexterm><primary>portmap</primary></indexterm> daemon. Look at <command>rpcinfo</command><indexterm><primary>rpcinfo(1)</primary></indexterm> to verify that <command>nfs</command> and its related services are running.</para>
