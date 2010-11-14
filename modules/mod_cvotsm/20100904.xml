@@ -4137,7 +4137,7 @@ SRV : wijst naar een dienst (of service) op het netwerk</screen>
 </section>
 <section><title>extra oefeningen</title>
 <para>1. Noteer de <command>url</command> waar je de rfc's kan vinden.</para>
-<para>2. Welke rfc defineert als eerste <command>dns</ommand> of <command>domain name system</command> ?</para>
+<para>2. Welke rfc defineert als eerste <command>dns</command> of <command>domain name system</command> ?</para>
 <para>3. Hoeveel <command>bits</command> passen er in de meest gebruikelijk <command>byte</command> ?</para>
 <para>4. Hoeveel <command>bytes</command> zitten er in een <command>kilobyte</command> ?</para>
 <para>5. Hoeveel <command>bits</command> zitten er in een <command>kilobyte</command> ?</para>
