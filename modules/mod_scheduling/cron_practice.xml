@@ -1,8 +1,8 @@
 <?hard-pagebreak?>
 <section><title>practice : scheduling</title>
 	<para>1. Schedule two jobs with <command>at</command>, display the <command>at queue</command> and remove a job.</para>
-	<para>2. As normal user, use crontab -e to schedule a script to run every four minutes.</para>
-	<para>3. As root, display the crontab file of your normal user.</para>
+	<para>2. As normal user, use <command>crontab -e</command> to schedule a script to run every four minutes.</para>
+	<para>3. As root, display the <command>crontab</command> file of your normal user.</para>
 	<para>4. As the normal user again, remove your <command>crontab</command> file.</para>
 	<para>5. Take a look at the <command>cron</command> files and directories in <command>/etc</command> and understand them. What is the <command>run-parts</command> command doing ?</para>
 </section>

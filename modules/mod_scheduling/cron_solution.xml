@@ -20,11 +20,11 @@ Sun Nov 14 17:31:01 CET 2010
 root@rhel55 ~# cat /root/todo.txt 
 go to lunch
 </screen>
-	<para>2. As normal user, use crontab -e to schedule a script to run every four minutes.</para>
+	<para>2. As normal user, use <command>crontab -e</command> to schedule a script to run every four minutes.</para>
 	<screen>paul@rhel55 ~$ crontab -e
 no crontab for paul - using an empty one
 crontab: installing new crontab</screen>
-	<para>3. As root, display the crontab file of your normal user.</para>
+	<para>3. As root, display the <command>crontab</command> file of your normal user.</para>
 	<screen>root@rhel55 ~# crontab -l -u paul
 */4 * * * * echo `date` >> /home/paul/crontest.txt</screen>
 	<para>4. As the normal user again, remove your <command>crontab</command> file.</para>

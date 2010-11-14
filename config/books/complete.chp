@@ -498,7 +498,8 @@ chapt_scheduling() {
 	chaptitle="Scheduling"
 	add_mod mod_scheduling/at.xml       
 	add_mod mod_scheduling/cron.xml     
-	add_mod mod_scheduling/practice.xml 
+	add_mod mod_scheduling/cron_practice.xml     
+	add_mod mod_scheduling/cron_solution.xml     
 	}
 
 #
