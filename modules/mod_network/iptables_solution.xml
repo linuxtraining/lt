@@ -1,0 +1,22 @@
+<?hard-pagebreak?>
+<section><title>solution : iptables</title>
+	<para>1. Verify whether the firewall is running.</para>
+	<screen>root@rhel55 ~# service iptables status | head
+Table: filter
+Chain INPUT (policy ACCEPT)
+num  target     prot opt source               destination         
+1    RH-Firewall-1-INPUT  all  --  0.0.0.0/0            0.0.0.0/0           
+
+Chain FORWARD (policy ACCEPT)
+num  target     prot opt source               destination         
+1    RH-Firewall-1-INPUT  all  --  0.0.0.0/0            0.0.0.0/0           
+
+Chain OUTPUT (policy ACCEPT)</screen>
+	<para>2. Stop the running firewall.</para>
+	<screen>root@rhel55 ~# service iptables stop
+Flushing firewall rules:                                   [  OK  ]
+Setting chains to policy ACCEPT: filter                    [  OK  ]
+Unloading iptables modules:                                [  OK  ]
+root@rhel55 ~# service iptables status
+Firewall is stopped.</screen>
+</section>

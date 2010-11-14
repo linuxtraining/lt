@@ -1,6 +1,7 @@
-<section><title>Introduction to iptables</title>
-	<section><title>Introducing iptables</title>
-		<para>The Linux kernel has a built-in stateful firewall named iptables. To stop the <command>iptables</command><indexterm><primary>iptables</primary></indexterm> firewall on Red Hat, use the service command.</para>
+<?hard-pagebreak?>
+<section><title>introduction to iptables</title>
+	<section><title>iptables firewall</title>
+		<para>The Linux kernel has a built-in stateful firewall named <command>iptables</command>. To stop the <command>iptables</command><indexterm><primary>iptables</primary></indexterm> firewall on Red Hat, use the service command.</para>
 		<screen>
 root@RHELv4u4:~# service iptables stop
 Flushing firewall rules:                                   [  OK  ]
@@ -8,7 +9,7 @@ Setting chains to policy ACCEPT: filter                    [  OK  ]
 Unloading iptables modules:                                [  OK  ]
 root@RHELv4u4:~# 
 		</screen>
-		<para>The easy way to configure iptables, is to use a graphical tool like KDE's <command>kmyfirewall</command><indexterm><primary>kmyfirewall</primary></indexterm> or <command>Security Level Configuration Tool</command>. You can find the latter in the GUI menu, somewhere in System Tools - Security, or you can start it by typing <command>system-config-securitylevel</command><indexterm><primary>system-config-securitylevel</primary></indexterm> in bash. These tools allow for some basic firewall configuration. You can decide whether to enable or disable the firewall, and what typical standard ports are allowed when the firewall is active. You can even add some custom ports. When you are done, the configuration is written to <command>/etc/sysconfig/iptables</command><indexterm><primary>/etc/sysconfig/iptables</primary></indexterm> on Red Hat. </para>
+		<para>The easy way to configure iptables, is to use a graphical tool like KDE's <command>kmyfirewall</command><indexterm><primary>kmyfirewall</primary></indexterm> or <command>Security Level Configuration Tool</command>. You can find the latter in the graphical menu, somewhere in System Tools - Security, or you can start it by typing <command>system-config-securitylevel</command><indexterm><primary>system-config-securitylevel</primary></indexterm> in bash. These tools allow for some basic firewall configuration. You can decide whether to enable or disable the firewall, and what typical standard ports are allowed when the firewall is active. You can even add some custom ports. When you are done, the configuration is written to <command>/etc/sysconfig/iptables</command><indexterm><primary>/etc/sysconfig/iptables</primary></indexterm> on Red Hat. </para>
 		<screen>
 root@RHELv4u4:~# cat /etc/sysconfig/iptables
 # Firewall configuration written by system-config-securitylevel
@@ -76,7 +77,7 @@ root@RHELv4u4:~#
 		</screen>
 		<para>Mastering firewall configuration requires a decent knowledge of tcp/ip. Good iptables tutorials can be found online here http://iptables-tutorial.frozentux.net/iptables-tutorial.html and here http://tldp.org/HOWTO/IP-Masquerade-HOWTO/.</para>
 	</section>
-	<section><title>Practice iptables</title>
+	<section><title>practice : iptables</title>
 		<para>1. Verify whether the firewall is running.</para>
 		<para>2. Disable the firewall.</para>
 	</section>
