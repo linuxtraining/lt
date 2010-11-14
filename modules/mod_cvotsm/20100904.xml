@@ -3963,7 +3963,7 @@ http://archive.cert.uni-stuttgart.de/bugtraq/2006/04/msg00291.html
 paul@laika:~$ grep hosts /etc/nsswitch.conf 
 hosts:          files dns
 		</screen>
-		<para>Als je dit omdraaid naar <command>dns files</command> dan krijgt <command>dns</command> onmiddellijk voorrang op hosts.</para>
+		<para>Als je dit omdraait naar <command>dns files</command> dan krijgt <command>dns</command> onmiddellijk voorrang op hosts.</para>
 		<para>Sommige applicaties zullen dit bestand ook aanmaken op <command>Mac OS X</command>.</para>
 	</section>
 </section>
