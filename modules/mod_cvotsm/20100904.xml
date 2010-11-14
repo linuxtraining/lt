@@ -4135,3 +4135,196 @@ SRV : wijst naar een dienst (of service) op het netwerk</screen>
 <section><title>demo DHCP</title>
 	<para>Demo van het opzetten van DHCP (Windows + Linux), met uitleg erbij en mogelijkheid tot oefenen.</para>
 </section>
+<section><title>extra oefeningen</title>
+<para>1. Noteer de <command>url</command> waar je de rfc's kan vinden.</para>
+<para>2. Welke rfc defineert als eerste <command>dns</ommand> of <command>domain name system</command> ?</para>
+<para>3. Hoeveel <command>bits</command> passen er in de meest gebruikelijk <command>byte</command> ?</para>
+<para>4. Hoeveel <command>bytes</command> zitten er in een <command>kilobyte</command> ?</para>
+<para>5. Hoeveel <command>bits</command> zitten er in een <command>kilobyte</command> ?</para>
+<para>6. Hoeveel <command>bytes</command> zitten er in een <command>kibibyte</command> ?</para>
+<para>7. Hoeveel <command>bits</command> zitten er in een <command>kibibyte</command> ?</para>
+<para>8. Hoe heet een 'bericht naar iedereen' ?</para>
+<para>9. Hoe heet een 'bericht naar iedereen van een welbepaalde groep' ?</para>
+<para>10. Hoe heet een 'bericht naar exact 1 bestemmeling' ?</para>
+<para>11. Hoe heet een 'bericht naar de dichtsbijzijnde van een groep' ?</para>
+<para>12. Welk protocol is heden courant in een <command>lan</command> ?</para>
+<para>13. In welk soort netwerk vind je protocols zoals <command>atm, frame relay</command> en <command>fddi</command> ?</para>
+<para>14. Is <command>pstn</command> een digitaal netwerk ?</para>
+<para>15. Is <command>isdn</command> een digitaal netwerk ?</para>
+<para>16. Is <command>pstn</command> een analoog netwerk ?</para>
+<para>17. Is <command>isdn</command> een analoog netwerk ?</para>
+<para>18. Hoe lang duurt het om een megabyte te transfereren over een <command>2B+D isdn</command> ?</para>
+<screen>A minder dan 1 seconde
+B een kwartier
+C bijna een dag
+D enkele weken</screen>
+<para>19. Is een T1 gebaseerd op isdn ?</para>
+<screen>A Ja
+B Nee</screen>
+<para>20. In welke OSI laag vinden we mac-adressen ?</para>
+<para>21. In welke OSI laag vinden we ip-adressen ?</para>
+<para>22. Wat is 192.168.1.42?</para>
+<screen>A. een mac-adres
+B. een ip-adres
+C. een ibm-adres</screen>
+<para>23. Wat is 22:33:44:55:66:77 ?</para>
+<screen>A. een mac-adres
+B. een ip-adres
+C. een ibm-adres</screen>
+<para>24. In welke OSI laag vinden we een router ?</para>
+<screen>
+A OSI laag 0
+B OSI laag 1
+C OSI laag 2
+D OSI laag 3
+E OSI laag 4
+F OSI laag 5
+G OSI laag 6
+H OSI laag 7
+I OSI laag 8
+</screen>
+<para>25. In welke OSI laag vinden we een hub ?</para>
+<screen>
+A OSI laag 0
+B OSI laag 1
+C OSI laag 2
+D OSI laag 3
+E OSI laag 4
+F OSI laag 5
+G OSI laag 6
+H OSI laag 7
+I OSI laag 8
+</screen>
+<para>26. In welke OSI laag vinden we een layer 2 switch ?</para>
+<screen>
+A OSI laag 0
+B OSI laag 1
+C OSI laag 2
+D OSI laag 3
+E OSI laag 4
+F OSI laag 5
+G OSI laag 6
+H OSI laag 7
+I OSI laag 8
+</screen>
+<para>27. Welke woorden horen bij tcp ?</para>
+<screen>betrouwbaar onbetrouwbaar connectie connectieloos sessie sessieloos three-way-handshake</screen>
+<para>28. Welke woorden horen bij udp ?</para>
+<screen>betrouwbaar onbetrouwbaar connectie connectieloos sessie sessieloos three-way-handshake</screen>
+<para>29. Welk protocol zorgt voor de link tussen mac-adres en ip-adres ?</para>
+<para>30. Welke kabel bevat de meeste 'twists' ?</para>
+<screen>A utp
+B twisted pair
+</screen>
+<para>31. Hoe heet het toestel dat het telefoonnetwerk verbind met de computer (en dus geluid omzet in bytes en omgekeerd) ?</para>
+<screen>A hub
+B switch
+C router
+D gateway
+E modem</screen>
+<para>31. Welke van de volgende protocols horen in laag 7 ?</para>
+<screen>tcp udp ip http ethernet</screen>
+<para>32. Welk protocol, gebruikt bij smtp en http beschrijft formaten ?</para>
+<screen>A SMTP
+B POP3
+C HTTP
+D MIME
+E SNMP</screen>
+<para>33. Wie stuurt de foutboodschappen die je te zien krijgt bij een ping ?</para>
+<screen>A IGMP
+B IP
+C ICMP
+D MIME
+E SNMP</screen>
+<para>34. Welke filter moet je instellen in wireshark om een tcp three-way handshake te zien ?</para>
+<para>35. Welke filter moet je instellen in wireshark om http trafiek te zien ?</para>
+<para>36. Welke filter moet je instellen in wireshark om dhcp broadcasts te zien ?</para>
+<para>37. Welk commanda kan je op Windows gebruiken om je ip-adres en subne mask te zien ?</para>
+<screen>A. traceroute
+B ping
+C ipconfig
+D ifconfig
+E arp -a</screen>
+<para>38. Welk commanda kan je op Linux gebruiken om je ip-adres en subne mask te zien ?</para>
+<screen>A. traceroute
+B ping
+C ipconfig
+D ifconfig
+E arp -a</screen>
+<para>39. In welke OSI laag vinden we de hub ?</para>
+<para>40. In welke OSI laag vinden we de repeater ?</para>
+<para>41. In welke OSI laag vinden we de layer 2 switch ?</para>
+<para>42. In welke OSI laag vinden we de router ?</para>
+<para>43. In welke OSI laag vinden we de layer 3 switch ?</para>
+<para>44. Welk commando toont ons alle routers tussen onze pc en een webserver ?</para>
+<screen>A. tracert of traceroute
+B ping of pong
+C firefox -r of firefox -tr
+D ipconfig /displayrouters
+E arp -a</screen>
+<para>45. TCP: Zet in de juiste volgorde:</para>
+<screen>A SYN,ACK  - ACK  - SYN
+B SYN - SYN,ACK - ACK
+C SYN - ACK - SYN,ACK</screen>
+<para>46. Neem een screenshot van een TCP handshake in wireshark en zet deze op de desktop. Toon aan de leraar als hij passeert!</para>
+<para>47. Neem een screenshot van een DNS forward lookup van www.google.com in wireshark en zet deze op de desktop. Toon aan de leraar als hij passeert!</para>
+<para>48. Neem een screenshot van een PING met bijhorende ARP in wireshark en zet deze op de desktop. Toon aan de leraar als hij passeert!</para>
+<para>49. Zet de volgende decimale getallen om in binair :</para>
+<screen>0 :
+1 :
+4 :
+7 :
+128 :
+255 :</screen>
+<para>50. Zet de volgende decimale getallen om in hexadecimaal :</para>
+<screen>0 :
+1 :
+4 :
+7 :
+128 :
+255 :</screen>
+<para>51. Noteer hier het broadcast mac-adres :</para>
+<para>52. Noteer hier de default subnet mask voor een klasse A adres.</para>
+<para>53. Noteer hier de default subnet mask voor een klasse A adres in hexadecimale vorm.</para>
+<screen></screen>
+<para>54. Noteer hier het ip-adres van de volgende machines :</para>
+<screen>Je eigen PC in de klas :
+de router van Scheppers :
+de DNS server van scheppers :
+de webserver van www.linux-training.be :
+de webserver van www2.linux-training.be : </screen>
+<para>55. Noteer hier het mac-adres van de volgende machines :</para>
+<screen>Je eigen PC in de klas :
+de router van Scheppers :
+de DNS server van scheppers : </screen>
+<para>56. Selecteer de private adressen uit de volgende reeks :</para>
+<screen>9.192.42.1    10.108.4.33    11.42.0.0    168.192.16.4 </screen>
+<para>57. Selecteer de private adressen uit de volgende reeks :</para>
+<screen>168.192.16.41   172.11.9.204   172.29.88.42   192.169.42.33</screen>
+<para>58. Selecteer de private netwerken uit volgende reeks :</para>
+<screen>10.0.0.0/24
+192.16.0.0/16
+127.0.0.1/8
+10.0.0.0/8
+169.254.42.0/24
+172.16.0.0/16
+</screen>
+<para>... to be continued</para>
+<para></para>
+<para></para>
+<para></para>
+<screen></screen>
+<para></para>
+<para></para>
+<para></para>
+<para></para>
+<para></para>
+<para></para>
+<para></para>
+<screen></screen>
+<screen></screen>
+<screen></screen>
+<screen></screen>
+<screen></screen>
+<screen></screen>
+</section>
