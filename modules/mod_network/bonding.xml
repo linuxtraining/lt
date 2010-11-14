@@ -1,6 +1,7 @@
+<?hard-pagebreak?>
 <section><title>multihomed hosts</title>
 	<section><title>bonding</title>
-		<para>You can combine (bond) two physical network interfaces as one logical interface. Having two network cards serve the same IP-address doubles the bandwidth, and provides hardware redundancy. For <command>bonding</command><indexterm><primary>bonding (network cards)</primary></indexterm> to work, you have to load the kernel module for bonding. You can do this manually with <command>modprobe</command><indexterm><primary>modprobe(1)</primary></indexterm>.</para>
+		<para>You can combine (bond) two physical network interfaces as one logical interface. Having two network cards serve the same <command>ip-address</command> doubles the bandwidth, and provides hardware redundancy. For <command>bonding</command><indexterm><primary>bonding (network cards)</primary></indexterm> to work, you have to load the kernel module for bonding. You can do this manually with <command>modprobe</command><indexterm><primary>modprobe(1)</primary></indexterm>.</para>
 		<screen>
 root@RHELv4u2:~# modprobe bonding
 root@RHELv4u2:~# lsmod | grep bon
@@ -40,7 +41,7 @@ SLAVE=yes
 USERCTL=no
 root@RHELv4u2:~# 
 		</screen>
-		<para>And you need to set up a bonding interface. In this case, we call it bond0.</para>
+		<para>And you need to set up a bonding interface. In this case, we call it <command>bond0</command>.</para>
 		<screen>
 root@RHELv4u2:~# cat /etc/sysconfig/network-scripts/ifcfg-bond0 
 DEVICE=bond0
@@ -113,8 +114,5 @@ Link Failure Count: 0
 Permanent HW addr: 00:0c:29:a0:9d:ed
 [root@RHEL5 ~]# 
 		</screen>
-	</section>
-	<section><title>Practice multihomed hosts</title>
-		<para>1. Add a network card to the vmware machine, and bond the two cards as one virtual (double bandwidth and failover) card.</para>
 	</section>
 </section>

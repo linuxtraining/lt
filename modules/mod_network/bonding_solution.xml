@@ -1,0 +1,73 @@
+<?hard-pagebreak?>
+<section><title>solution : multihomed hosts</title>
+	<para>1. Add two network cards to the virtual machine, and bond the two cards as one virtual (double bandwidth and failover) card.</para>
+	<para>Here is a succinct version of the config files to bond eth1 and eth2 on RHEL5.</para>
+	<screen>root@rhel55 network-scripts# cat ifcfg-eth1
+DEVICE=eth1
+ONBOOT=yes
+HWADDR=08:00:27:40:74:2f
+MASTER=bond0
+SLAVE=yes
+USERCTL=no
+root@rhel55 network-scripts# cat ifcfg-eth2
+DEVICE=eth2
+ONBOOT=yes
+HWADDR=08:00:27:a7:57:46
+MASTER=bond0
+SLAVE=yes
+USERCTL=no</screen>
+	<para><command>ifcfg-bond0</command> can also be succinct.</para>
+	<screen>root@rhel55 network-scripts# cat ifcfg-bond0 
+DEVICE=bond0
+BOOTPROTO=none
+ONBOOT=no
+IPADDR=192.168.1.70</screen>
+	<para>You might need <command>modprobe</command>.</para>
+	<screen>root@rhel55 network-scripts# modprobe bonding</screen>
+	<para>Then bring the interface up.</para>
+	<screen>root@rhel55 network-scripts# ifup bond0
+root@rhel55 network-scripts# ifconfig
+bond0     Link encap:Ethernet  HWaddr 08:00:27:40:74:2F  
+          inet addr:192.168.1.70  Bcast:192.168.1.255  Mask:255.255.255.0
+          inet6 addr: fe80::a00:27ff:fe40:742f/64 Scope:Link
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:2856 errors:2 dropped:0 overruns:0 frame:0
+          TX packets:951 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0 
+          RX bytes:254917 (248.9 KiB)  TX bytes:106473 (103.9 KiB)
+
+eth0      Link encap:Ethernet  HWaddr 08:00:27:80:22:66  
+          inet addr:192.168.1.29  Bcast:192.168.1.255  Mask:255.255.255.0
+          inet6 addr: fe80::a00:27ff:fe80:2266/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:4763 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:3287 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:451280 (440.7 KiB)  TX bytes:476878 (465.7 KiB)
+          Interrupt:10 Base address:0xd020 
+
+eth1      Link encap:Ethernet  HWaddr 08:00:27:40:74:2F  
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:1142 errors:1 dropped:0 overruns:0 frame:0
+          TX packets:153 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:95248 (93.0 KiB)  TX bytes:26754 (26.1 KiB)
+          Interrupt:9 Base address:0xd240 
+
+eth2      Link encap:Ethernet  HWaddr 08:00:27:40:74:2F  
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:1714 errors:1 dropped:0 overruns:0 frame:0
+          TX packets:798 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:159669 (155.9 KiB)  TX bytes:79719 (77.8 KiB)
+          Interrupt:5 Base address:0xd260 
+
+lo        Link encap:Local Loopback  
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope:Host
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:204 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:204 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0 
+          RX bytes:21310 (20.8 KiB)  TX bytes:21310 (20.8 KiB)</screen>
+</section>
