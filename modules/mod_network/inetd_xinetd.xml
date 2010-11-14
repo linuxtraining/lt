@@ -1,3 +1,4 @@
+<?hard-pagebreak?>
 <section><title>xinetd and inetd</title>
 	<section><title>the superdaemon</title>
 		<para>Back when resources like RAM memory were limited, a super-server was devised to listen to all sockets and start the appropriate daemon only when needed. Services like <command>swat</command><indexterm><primary>swat</primary></indexterm>, <command>telnet</command><indexterm><primary>telnet</primary></indexterm> and <command>ftp</command><indexterm><primary>ftp</primary></indexterm> are typically served by such a super-server. The <command>xinetd</command><indexterm><primary>xinetd</primary></indexterm> superdaemon is more recent than <command>inetd</command><indexterm><primary>inetd</primary></indexterm>. We will discuss the configuration both daemons.</para>
@@ -80,11 +81,5 @@ root@barry:~#
 paul@laika:~$ grep vmware /etc/inetd.conf 
 #902 stream tcp nowait root /usr/sbin/vmware-authd vmware-authd
 		</screen>
-	</section>
-	<section><title>practice: inetd and xinetd</title>
-		<para>1. Verify on all systems whether they are using xinetd or inetd.</para>
-		<para>2. Look at the configuration files.</para>
-		<para>3. (If telnet is installable, then replace swat in these questions with telnet) Is swat installed ? If not, then install swat and look at the changes in the (x)inetd configuration. Is swat enabled or disabled ?</para>
-		<para>4. Disable swat, test it. Enable swat, test it.</para>
 	</section>
 </section>
