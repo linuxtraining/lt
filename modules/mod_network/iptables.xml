@@ -77,8 +77,4 @@ root@RHELv4u4:~#
 		</screen>
 		<para>Mastering firewall configuration requires a decent knowledge of tcp/ip. Good iptables tutorials can be found online here http://iptables-tutorial.frozentux.net/iptables-tutorial.html and here http://tldp.org/HOWTO/IP-Masquerade-HOWTO/.</para>
 	</section>
-	<section><title>practice : iptables</title>
-		<para>1. Verify whether the firewall is running.</para>
-		<para>2. Disable the firewall.</para>
-	</section>
 </section>
