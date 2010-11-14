@@ -347,6 +347,7 @@ chapt_network() {
 	add_mod mod_network/ssh.xml             
 	add_mod mod_network/ssh_practice.xml             
 	add_mod mod_network/nfs.xml             
+	add_mod mod_network/nfs_practice.xml             
 	}
 
 #
