@@ -1,6 +1,6 @@
 <?hard-pagebreak?>
-<section><title>using TCP/IP</title>
-	<section><title>to GUI or not to GUI</title>
+<section><title>using tcp/ip</title>
+	<section><title>command line or graphical tools ?</title>
 		<para>If you can, setup your tcp/ip configuration at install time, otherwise use the graphical tool from your distribution. In the case of RHEL4 and RHEL5, this is the <command>Network Administration Tool</command>, in RHEL6 it is <command>Network Manager</command>, Novell and OpenSUSE users can use <command>YaST</command> (Yet another Setup Tool). Avoid mixed use of the GUI tool with command line or direct editing of network configuration files. You should choose only one method to manage these files, because some graphical tools will override your manually edited settings.</para>
 		<para>Now that we settled this, let's take a look at the files, commands and scripts that configure your network.</para>
 	</section>
@@ -192,8 +192,23 @@ root ~# system-config-network-cmd -i -c &#060; NetworkSettings20070208.txt
 		</screen>
 		<para>For other Linux Systems, take a backup of the relevant portions in /etc.</para>
 	</section>
-	<section><title>Restarting the network</title>
+	<section><title>restarting the network</title>
 	<para>To stop, start or restart all network interfaces and services, use <command>service network stop|start|restart</command><indexterm><primary>service(1)</primary></indexterm>. <emphasis>Do not stop the network when connected through ssh.</emphasis></para>
+	<screen>root@rhel55 ~# service network restart
+Shutting down interface eth0:                              [  OK  ]
+Shutting down interface eth1:                              [  OK  ]
+Shutting down interface eth2:                              [  OK  ]
+Shutting down loopback interface:                          [  OK  ]
+Bringing up loopback interface:                            [  OK  ]
+Bringing up interface eth0:  
+Determining IP information for eth0... done.
+                                                           [  OK  ]
+Bringing up interface eth1:  
+Determining IP information for eth1... done.
+                                                           [  OK  ]
+Bringing up interface eth2:  
+Determining IP information for eth2... done.
+                                                           [  OK  ]</screen>
 	</section>
 	<section><title>ethtool</title>
 		<para>To display or change network card settings, use <command>ethtool</command><indexterm><primary>ethtool(1)</primary></indexterm>. The results depend on the capabilities of your network card. The example shows a network that auto-negotiates it's bandwidth.</para>

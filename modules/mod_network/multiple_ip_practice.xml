@@ -1,0 +1,4 @@
+<section><title>practice :  multiple ip-addresses</title>
+	<para>1. Add an extra <command>ip-address</command> to one of your network cards. Test that it works (have your neighbour ssh to it)!</para>
+	<para>2. Use <command>ifdown</command> to disable this extra <command>ip-address</command>.</para>
+</section>
