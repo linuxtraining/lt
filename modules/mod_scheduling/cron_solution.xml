@@ -1,0 +1,36 @@
+<?hard-pagebreak?>
+<section><title>practice : scheduling</title>
+	<para>1. Schedule two jobs with <command>at</command>, display the <command>at queue</command> and remove a job.</para>
+	<screen>root@rhel55 ~# at 9pm today
+at> echo go to bed >> /root/todo.txt  
+at> &#060;EOT&#062;
+job 1 at 2010-11-14 21:00
+root@rhel55 ~# at 17h31 today
+at> echo go to lunch >> /root/todo.txt
+at> &#060;EOT&#062;
+job 2 at 2010-11-14 17:31
+root@rhel55 ~# atq
+2	2010-11-14 17:31 a root
+1	2010-11-14 21:00 a root
+root@rhel55 ~# atrm 1
+root@rhel55 ~# atq
+2	2010-11-14 17:31 a root
+root@rhel55 ~# date
+Sun Nov 14 17:31:01 CET 2010
+root@rhel55 ~# cat /root/todo.txt 
+go to lunch
+</screen>
+	<para>2. As normal user, use crontab -e to schedule a script to run every four minutes.</para>
+	<screen>paul@rhel55 ~$ crontab -e
+no crontab for paul - using an empty one
+crontab: installing new crontab</screen>
+	<para>3. As root, display the crontab file of your normal user.</para>
+	<screen>root@rhel55 ~# crontab -l -u paul
+*/4 * * * * echo `date` >> /home/paul/crontest.txt</screen>
+	<para>As the normal user again, remove your <command>crontab</command> file.</para>
+	<screen>paul@rhel55 ~$ crontab -r
+paul@rhel55 ~$ crontab -l
+no crontab for paul</screen>
+	<para>5. Take a look at the <command>cron</command> files and directories in <command>/etc</command> and understand them. What is the <command>run-parts</command> command doing ?</para>
+	<screen>run-parts runs a script in a directory</screen>
+</section>
