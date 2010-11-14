@@ -1,9 +1,9 @@
-<section><title>About Memory</title>
-	<para>You can display information about RAM memory with <command>free -om</command><indexterm><primary>free(1)</primary></indexterm>, <command>top</command><indexterm><primary>top(1)</primary></indexterm> and cat <command>/proc/meminfo</command><indexterm><primary>/proc/meminfo</primary></indexterm>. You should understand terms like <command>swapping</command><indexterm><primary>swapping</primary></indexterm>, <command>paging</command><indexterm><primary>paging</primary></indexterm> and <command>virtual memory</command><indexterm><primary>virtual memory</primary></indexterm>.</para>
+<section><title>about memory</title>
+	<para>You can display information about <command>ram memory</command> with <command>free -om</command><indexterm><primary>free(1)</primary></indexterm>, <command>top</command><indexterm><primary>top(1)</primary></indexterm> and cat <command>/proc/meminfo</command><indexterm><primary>/proc/meminfo</primary></indexterm>. You should understand terms like <command>swapping</command><indexterm><primary>swapping</primary></indexterm>, <command>paging</command><indexterm><primary>paging</primary></indexterm> and <command>virtual memory</command><indexterm><primary>virtual memory</primary></indexterm>.</para>
 </section>
-			<section><title>/proc/meminfo</title>
-				<para>You will rarely want to look at <command>/proc/meminfo</command><indexterm><primary>/proc/meminfo</primary></indexterm>...</para>
-			<screen>
+	<section><title>/proc/meminfo</title>
+		<para>You will rarely want to look at <command>/proc/meminfo</command><indexterm><primary>/proc/meminfo</primary></indexterm>...</para>
+	<screen>
 paul@RHELv4u4:~$ cat /proc/meminfo 
 MemTotal:       255864 kB
 MemFree:          5336 kB
@@ -31,18 +31,18 @@ VmallocChunk:   759096 kB
 HugePages_Total:     0
 HugePages_Free:      0
 Hugepagesize:     4096 kB
-				</screen>
-				<para> ...since the <command>free</command><indexterm><primary>free(1)</primary></indexterm> command displays the same information in a more user friendly output.</para>
-				<screen>
+		</screen>
+		<para> ...since the <command>free</command><indexterm><primary>free(1)</primary></indexterm> command displays the same information in a more user friendly output.</para>
+		<screen>
 paul@RHELv4u4:~$ free -om
            total      used      free    shared   buffers    cached
 Mem:         249       244         5         0        41       156
 Swap:       1023         0      1023
 paul@RHELv4u4:~$ 
-				</screen>
-			</section>
-        <section><title>Swap space</title>
-		<section><title>About swap space</title>
+		</screen>
+	</section>
+        <section><title>swap space</title>
+		<section><title>about swap space</title>
 			<para>When the operating system needs more memory than physically present in RAM, it will use <command>swap space</command><indexterm><primary>swap space</primary></indexterm>. Swap space is located on slower but cheaper memory. Notice that, although hard disks are commonly used for swap space, their access times are one hundred thousand times slower.</para>
 			<para>The swap space can be a file, a partition, or a combination of files and partitions. You can see the swap space with the <command>free</command> command, or with <command>cat /proc/swaps</command><indexterm><primary>/proc/swaps</primary></indexterm>.</para>
 			<screen>
@@ -57,7 +57,7 @@ paul@RHELv4u4:~$
 			</screen>
 			<para>The amount of swap space that you need depends heavily on the services that the computer provides.</para>
 		</section>
-		<section><title>Creating a swap partition</title>
+		<section><title>creating a swap partition</title>
 			<para>You can activate or deactivate swap space with the <command>swapon</command><indexterm><primary>swapon(1)</primary></indexterm> and <command>swapoff</command><indexterm><primary>swapoff(1)</primary></indexterm> commands. New swap space can be created with the <command>mkswap</command><indexterm><primary>mkswap(1)</primary></indexterm> command. The screenshot below shows the creation and activation of a swap partition.</para>
 			<screen>
 root@RHELv4u4:~# fdisk -l 2> /dev/null | grep hda
@@ -80,7 +80,7 @@ Swap:      1535        0    1535
 root@RHELv4u4:~# 
 			</screen>
 		</section>
-		<section><title>Creating a swap file</title>
+		<section><title>creating a swap file</title>
 			<para>Here is one more example showing you how to create a <command>swap file</command>. On Solaris you can use <command>mkfile</command><indexterm><primary>mkfile(1)</primary></indexterm> instead of <command>dd</command><indexterm><primary>dd(1)</primary></indexterm>.</para>
 			<screen>
 root@RHELv4u4:~# dd if=/dev/zero of=/smallswapfile bs=1024 count=4096
@@ -97,7 +97,7 @@ Filename                          Type        Size    Used   Priority
 root@RHELv4u4:~# 
 			</screen>
 		</section>
-		<section><title>Swap space in /etc/fstab</title>
+		<section><title>swap space in /etc/fstab</title>
 			<para>If you like these swaps to be permanent, then don't forget to add them to <command>/etc/fstab</command><indexterm><primary>/etc/fstab</primary></indexterm>. The lines in /etc/fstab will be similar to the following.</para>
 			<screen>
 /dev/hda1         swap       swap     defaults      0 0
