@@ -340,6 +340,8 @@ chapt_network() {
 	add_mod mod_network/bonding_practice.xml         
 	add_mod mod_network/bonding_solution.xml         
 	add_mod mod_network/iptables.xml        
+	add_mod mod_network/iptables_practice.xml        
+	add_mod mod_network/iptables_solution.xml        
 	add_mod mod_network/inetd_xinetd.xml    
 	add_mod mod_network/ssh.xml             
 	add_mod mod_network/nfs.xml             
