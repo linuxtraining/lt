@@ -4135,6 +4135,8 @@ SRV : wijst naar een dienst (of service) op het netwerk</screen>
 <section><title>demo DHCP</title>
 	<para>Demo van het opzetten van DHCP (Windows + Linux), met uitleg erbij en mogelijkheid tot oefenen.</para>
 </section>
+</chapter>
+<chapter><title>tiende les</title>
 <section><title>extra oefeningen</title>
 <para>1. Noteer de <command>url</command> waar je de rfc's kan vinden.</para>
 <para>2. Welke rfc defineert als eerste <command>dns</command> of <command>domain name system</command> ?</para>
