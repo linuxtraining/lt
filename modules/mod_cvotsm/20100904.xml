@@ -2342,7 +2342,7 @@ van 169.254.0.0 tot 169.254.255.255
 </section>
 <?hard-pagebreak?>
 <section><title>supernetting</title>
-<para>Zoals je ziet begint de subnet mask binair steeds met eentjes en eindigt steeds met nulletjes. Wat als we nu een eentje meer of minder zetten ?</para>
+<para>Zoals je ziet, begint de subnet mask binair steeds met eentjes en eindigt steeds met nulletjes. Wat als we nu een eentje meer of minder zetten ?</para>
 <para>Onze verkorte notatie<indexterm><primary>cidr</primary></indexterm> laat toe om dit snel te noteren. We schrijven simpelweg 172.16.0.0/17 i.p.v. 172.16.0.0/16 . Maar wat zijn de gevolgen hiervan ?</para>
 <para>Ten eerste is een eentje meer hetzelfde als het halveren van het aantal computers in het netwerk. Want we vergroten het <command>network id</command><indexterm><primary>network id</primary></indexterm> en verkleinen het aantal mogelijke <command>host id's</command><indexterm><primary>host id</primary></indexterm>.</para>
 <para>Laten we ons voorbeeld beginnen met het netwerk in de klas zoals het er nu uitziet:</para>
@@ -3832,7 +3832,7 @@ Destination   Gateway       Genmask         Flags   MSS Window  irtt Iface
 	<para></para>
 	<para></para>
 	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/mac_ip_packetje.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-	<para>Hieronder een tekening van een packetje dat door een eenvoudige router gaat. Zoals je ziet worden de mac-adressen aangepast.</para>
+	<para>Hieronder een tekening van een packetje dat door een eenvoudige router gaat. Zoals je ziet, worden de mac-adressen aangepast.</para>
 	<para></para>
 	<para></para>
 	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/mac_ip_packetje_met_router.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
@@ -3840,7 +3840,7 @@ Destination   Gateway       Genmask         Flags   MSS Window  irtt Iface
 <?hard-pagebreak?>
 <section><title>dnat</title>
 	<para>We spreken van <command>destination nat</command> wanneer de router het <command>bestemmings</command>-ip-adres vertaalt naar een ander ip-adres.</para>
-	<para>We beginnen met een simpel voorbeeld intern in een organisatie. Dit is een tekening van een packetje dat door een <command>dnat router</command> gaat. Zoals je ziet wordt behalve de mac-adressen, nu ook het <command>bestemmings</command>-ip-adres aangepast. De 'mb' laptop ziet dus het ip-adres van de 'router' als bestemming, terwijl de 'www' server achter de router staat.</para>
+	<para>We beginnen met een simpel voorbeeld intern in een organisatie. Dit is een tekening van een packetje dat door een <command>dnat router</command> gaat. Zoals je ziet, wordt naast de mac-adressen, nu ook het <command>bestemmings</command>-ip-adres aangepast. De 'mb' laptop ziet dus het ip-adres van de 'router' als bestemming, terwijl de 'www' server achter de router staat.</para>
 	<para></para>
 	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/mac_ip_packetje_met_dnat.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 	<para>Hieronder hetzelfde voorbeeld, hetzelfde scenario, maar met ip-adressen ingevuld. Het <command>bestemmings</command>-ip-adres staat vet gedrukt omdat dit de kern is van een <command>dnat</command> router.</para>
@@ -3860,7 +3860,7 @@ Destination   Gateway       Genmask         Flags   MSS Window  irtt Iface
 <?hard-pagebreak?>
 <section><title>snat</title>
 	<para>We spreken van <command>source nat</command> wanneer de router het <command>bron</command>-ip-adres aanpast.</para>
-	<para>Hieronder een tekening van een packetje dat door een <command>snat router</command> gaat. Zoals je ziet wordt behalve de mac-adressen, nu ook het <command>bron</command>-ip-adres aangepast. De 'www' server ziet dus het ip-adres van de 'router' als bron.</para>
+	<para>Hieronder een tekening van een packetje dat door een <command>snat router</command> gaat. Zoals je ziet, wordt behalve de mac-adressen, nu ook het <command>bron</command>-ip-adres aangepast. De 'www' server ziet dus het ip-adres van de 'router' als bron.</para>
 	<para></para>
 	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/mac_ip_packetje_met_snat.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 </section>
