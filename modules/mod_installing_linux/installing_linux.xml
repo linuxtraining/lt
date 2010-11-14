@@ -1,11 +1,11 @@
-<section><title>About</title>
+<section><title>about</title>
 	<para>The past couple of years the installation of linux has become a lot easier then before, at least for end users installing a distro like Ubuntu, Fedora, Debian or Mandrake on their home computer. Servers usually come pre-installed, and if not pre-installed, then setup of a linux server today is very easy.</para>
 	<para>Linux can be installed in many different ways. End users most commonly use cdrom's or dvd's for installation, most of the time with a working internet connection te receive updates. Administrators might prefer network installations using protocols like <command>tftp</command><indexterm><primary>tftp</primary></indexterm>, <command>bootp</command><indexterm><primary>bootp</primary></indexterm>, <command>rarp</command><indexterm><primary>rarp</primary></indexterm> and/or <command>nfs</command><indexterm><primary>nfs</primary></indexterm> or response file solutions like <command>Red Hat Kickstart</command><indexterm><primary>kickstart</primary></indexterm> or <command>Solaris Jumpstart</command><indexterm><primary>Jumpstart</primary></indexterm>.</para>
 </section>
-<section><title>Installation by cdrom</title>
+<section><title>installation by cdrom</title>
 	<para>Installation of linux from cdrom is easy! Most distributions ask very few questions during install (keyboard type, language, username) and detect all the hardware themselves. There is usually no need to retrieve third-party drivers from the internet. The GUI installation gives options like Desktop (for end users), Workstation (for developers), Server or minimal (usually without graphical interface).</para>
 </section>
-<section><title>Installation with rarp and tftp</title>
+<section><title>installation with rarp and tftp</title>
 	<para>Installing over the network involves powering on the machine, have it find a rarpd server to get an ip-address, then let it find an tftps server to get an installation image copied to the machine. This image can then boot. The procedure below demonstrates how to setup three Sun SPARC servers with Ubuntu Linux, using a Debian Linux machine to host the tftp, bootp and nfs daemons.</para>
 	<para>First we need to configure the mac to ip resolution in the <command>/etc/ethers</command><indexterm><primary>/etc/ethers</primary></indexterm> configuration file. Each server will receive a unique ip-address during installation.</para>
 	<screen>
@@ -35,14 +35,14 @@ lrwxrwxrwx 1 root root   13 2007-03-02 21:49 C0A80149 -> ubuntu610.img
 	</screen>
 	<para>Time to enter <command>boot net</command> now in the openboot prompt. Twenty minutes later the three servers where humming with linux.</para>
 </section>
-<section><title>About Red Hat Kickstart</title>
+<section><title>about Red Hat kickstart</title>
 	<para>Automating Linux installations with response files can be done with <command>Red Hat kickstart</command><indexterm><primary>kickstart</primary></indexterm>. One way to set it up is by using the graphical tool <command>/usr/sbin/system-config-kickstart</command><indexterm><primary>/usr/sbin/system-config-kickstart</primary></indexterm>. If you prefer to set it up manually, read on.</para>
 	<para>You can modify the sample kickstart file <command>RH-DOCS/sample.ks</command><indexterm><primary>sample.ks</primary></indexterm> (can be found on the documentation dvd). Put this file so <command>anaconda</command> can read it.</para>
-	<para><emphasis>Anaconda is the Red Ha installer written in Python. The name is chose because anacondas are lizard-eating pythons. Lizard is the name of the Caldera Linux installation program.</emphasis></para>
+	<para><emphasis>Anaconda is the Red Hat installer written in <command>python</command>. The name is chose because anacondas are lizard-eating pythons. Lizard is the name of the Caldera Linux installation program.</emphasis></para>
 	<para>Another option is to start with the <command>/root/anaconda-ks.cfg</command><indexterm><primary>/root/anaconda-ks.cfg</primary></indexterm> file. This is a sample kickstart file that contains all the settings from your current installation.</para>
 	<para>Do not change the order of the sections inside your kickstart file! The Red Hat System Administration Guide contains about 25 pages describing all the options, most of them are easy ti understand if you already performed a couple of installations.</para>
 </section>
-<section><title>Using Kickstart</title>
+<section><title>using kickstart</title>
 	<para>To use kickstart, name your kickstart file <command>ks.cfg</command><indexterm><primary>ks.cfg</primary></indexterm> and put it in the root directory of your installation cdrom (or on a usb stick or a floppy). For network based installations, name the file <command>$ip-address-kickstart</command> and place the following in <command>dhcpd.conf</command><indexterm><primary>dhcpd.conf</primary></indexterm>.</para>
 	<screen>
 filename "/export/kickstart"
