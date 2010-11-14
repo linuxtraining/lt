@@ -105,9 +105,3 @@ root@RHELv4u4:~#
 		</screen>	
 		</section>
 	</section>
-	<section><title>Practice Memory</title>
-		<para>1. Use <command>dmesg</command> to find the total amount of memory in your computer.</para>
-		<para>2. Use <command>free</command> to display memory usage in kilobytes (then in megabytes).</para>
-		<para>3. On the Red Hat, create a swap partition on one of your new disks, and a swap file on the other new disk.</para>
-		<para>4. Put all swap spaces in /etc/fstab and activate them. Use free again to verify that it works.</para>	
-	</section>
