@@ -345,6 +345,7 @@ chapt_network() {
 	add_mod mod_network/inetd_xinetd.xml    
 	add_mod mod_network/inetd_xinetd_practice.xml    
 	add_mod mod_network/ssh.xml             
+	add_mod mod_network/ssh_practice.xml             
 	add_mod mod_network/nfs.xml             
 	}
 
