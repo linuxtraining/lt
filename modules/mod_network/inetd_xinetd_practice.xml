@@ -1,4 +1,3 @@
-<?hard-pagebreak?>
 <section><title>practice : inetd and xinetd</title>
 	<para>1. Verify on all systems whether they are using xinetd or inetd.</para>
 	<para>2. Look at the configuration files.</para>

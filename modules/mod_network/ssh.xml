@@ -1,3 +1,4 @@
+<?hard-pagebreak?>
 <section><title>openssh</title>
 	<section><title>secure shell</title>
 		<para>Avoid using <command>telnet</command><indexterm><primary>telnet</primary></indexterm>, <command>rlogin</command><indexterm><primary>rlogin</primary></indexterm> and <command>rsh</command><indexterm><primary>rsh</primary></indexterm> to remotely connect to your servers. These older protocols do not encrypt the login session, which means your user id and password can be sniffed by tools like <command>wireshark</command><indexterm><primary>wireshark</primary></indexterm> or <command>tcpdump</command>. To securely connect to your servers, use <command>ssh</command><indexterm><primary>openssh</primary></indexterm>. An ssh connection always starts with a cryptographic handshake, followed by encryption of the transport layer using a symmetric cypher. Then authentication takes place (using user id/password or public/private keys) and communication can take place over the encrypted connection. In other words, the tunnel is encrypted before you start typing anything.</para>
@@ -150,11 +151,4 @@ debug1: Enabling compatibility mode for protocol 2.0
 ...
 		</screen>
 	</section>
-	<section><title>practice: ssh</title>
-		<para>1. Create a user for your neighbour, then test ssh to your neighbour (by ip-address or by hostname). (You might need to install the openssh-server with aptitude.)</para>
-		<para>2. Create a bookmark in Firefox, then close your firefox! Use ssh -X to run firefox on your screen, but on your neighbour's computer. Do you see your neighbour's bookmark ?</para>
-		<para>3. Verify in the ssh configuration files that only protocol version 2 is allowed.</para>
-		<para>4. Use ssh-keygen to create a key pair without passphrase. Setup passwordless ssh between you and your neighbour. (or between the ubuntu and the Red Hat)</para>
-	</section>
 </section>
-
