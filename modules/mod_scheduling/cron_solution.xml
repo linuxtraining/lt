@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>practice : scheduling</title>
+<section><title>solution : scheduling</title>
 	<para>1. Schedule two jobs with <command>at</command>, display the <command>at queue</command> and remove a job.</para>
 	<screen>root@rhel55 ~# at 9pm today
 at> echo go to bed >> /root/todo.txt  
@@ -27,7 +27,7 @@ crontab: installing new crontab</screen>
 	<para>3. As root, display the crontab file of your normal user.</para>
 	<screen>root@rhel55 ~# crontab -l -u paul
 */4 * * * * echo `date` >> /home/paul/crontest.txt</screen>
-	<para>As the normal user again, remove your <command>crontab</command> file.</para>
+	<para>4. As the normal user again, remove your <command>crontab</command> file.</para>
 	<screen>paul@rhel55 ~$ crontab -r
 paul@rhel55 ~$ crontab -l
 no crontab for paul</screen>
