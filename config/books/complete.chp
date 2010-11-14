@@ -297,6 +297,7 @@ chapt_memory() {
 	MODULES=""
 	chaptitle="Memory management"
 	add_mod mod_memory/memory.xml  
+	add_mod mod_memory/memory_practice.xml  
 	}
 
 #
