@@ -4311,22 +4311,34 @@ de DNS server van scheppers : </screen>
 169.254.42.0/24
 172.16.0.0/16
 </screen>
-<para>... to be continued</para>
-<para></para>
-<para></para>
-<para></para>
-<screen></screen>
-<para></para>
-<para></para>
-<para></para>
-<para></para>
-<para></para>
-<para></para>
-<para></para>
-<screen></screen>
-<screen></screen>
-<screen></screen>
-<screen></screen>
-<screen></screen>
-<screen></screen>
+<para>59. Gebruik het volgende netwerk om vier delen te maken die minstens 200 ip-adressen bevatten. Je moet niet alle ip-adressen gebruiken.</para>
+<screen>10.104.0.0/16</screen>
+<para>60. Splits het volgende netwerk in vier gelijke delen :</para>
+<screen>10.102.0.0/16</screen>
+<para>61. Geef de default subnet mask voor 172.16.0.1</para>
+<para>62. Welke klasse is 192.168.1.1 ?</para>
+<para>63. Zitten de volgende computers in hetzelfde netwerk ?</para>
+<screen>192.168.1.15/24 en 192.168.2.15/24</screen>
+<para>64. Zitten de volgende computers in hetzelfde netwerk ?</para>
+<screen>192.168.1.15/16 en 192.168.2.15/16</screen>
+<para>65. Zitten de volgende computers in hetzelfde netwerk ?</para>
+<screen>192.168.11.42/20 en 192.168.15.33/20</screen>
+<para>66. Hoeveel computers kunnen er in 10.104.0.0/17 ?</para>
+<screen>A. 32 duizend
+B 65 duizend
+C 130 duizend</screen>
+<para>67. Uit hoeveel packetjes bestaat het opzetten van een udp sessie ?</para>
+<screen>A. 2
+B. 3
+C. 4
+D. 5
+E. een udp-sessie bestaat niet</screen>
+<para>68. Maak een tekening met daarop jou pc, die van je buurman, de router van scheppers en de dns server van scheppers. Zet de juiste mac-adressen erbij.</para>
+<para>69. Maak een tekening met daarop jou pc, die van je buurman, de router van scheppers en de dns server van scheppers. Zet de juiste ip-adressen erbij.</para>
+<para>70. Wat gebeurt er met het bron-ip-adres als je een ping doet naar een machine achter een gewone router ?</para>
+<para>71. Wat gebeurt er met het bestemmings-ip-adres als je een ping doet naar een machine achter een gewone router ?</para>
+<para>72. Wat gebeurt er met het bron-ip-adres als je een ping doet naar een machine achter een snat router ?</para>
+<para>73. Wat gebeurt er met het bestemmings-ip-adres als je een ping doet naar een machine achter een snat router ?</para>
+<para>74. Wat gebeurt er met het bron-ip-adres als je een ping doet naar een machine achter een dnat router ?</para>
+<para>75. Wat gebeurt er met het bestemmings-ip-adres als je een ping doet naar een machine achter een dnat router ?</para>
 </section>
