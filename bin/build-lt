@@ -12,7 +12,16 @@ www=~/proj/wwwfiles
 mkdir -v -p $www
 
 # pull in latest buildfiles
+CURRENT_REV=$(git show  | grep "^commit")
 git pull -v
+NEW_REV=$(git show  | grep "^commit")
+
+# check if the version changed, if not just exit
+if [ "$CURRENT_REV" = "$NEW_REV" ]
+then    echo "No updates."
+        exit 0
+else    echo "Revision bumped from $CURRENT_REV to $NEW_REV."
+fi
 
 # fresh start
 clean () {
