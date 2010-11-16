@@ -25,6 +25,7 @@ set | more</screen>
 	<para>10. Create a variable, give it the value 'Dumb', create another variable with value 'do'. Use echo and the two variables to echo Dumbledore.</para>
 	<screen>varx=Dumb; vary=do</screen>
 	<screen>echo ${varx}le${vary}re</screen>
+	<screen>solution de Yves de Dexia : echo $varx'le'$vary're'</screen>
 	<para>11. Activate <command>nounset</command> in your shell. Test that it shows an error message when using non-existing variables.</para>	
 	<screen>set -u</screen>
 	<screen>set -o nounset</screen>
