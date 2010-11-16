@@ -1236,7 +1236,7 @@ http://en.wikipedia.org/wiki/Network_topology</screen>
 	<para>De <command>http server (of webserver)</command> zelf zoekt dan de gevraagde webpagina, en stuurt deze webpagina als antwoord op onze vraag.</para>
 </section>
 <section><title>er komt antwoord</title>
-	<para>De webserver heeft de bewuste <command>webpagina</command> klaar en wil een antwoord sturen naar mijn laptop. Deze computer kent mijn <command>ip-adres</command><indexterm><primary>ip-adres</primary></indexterm> omdat dit meegeleverd is in het packetje als <command>source ip-address</command>.</para>
+	<para>De webserver heeft de bewuste <command>webpagina</command> klaar en wil een antwoord sturen naar mijn laptop. Deze computer kent mijn <command>ip-adres</command><indexterm><primary>ip-adres</primary></indexterm> omdat dit meegeleverd is in het packetje als <command>source ip-adres</command>.</para>
 	<para>We zakken weer van de <command>applicatie-laag</command> (ja ook een http-server is een applicatie) naar beneden.</para>
 	<para>Tussen haakjes, de <command>presentatie</command> van deze data aan de browser gebeurt met een <command>mime type</command>. Email berichten (en websites) bestaan al lang niet meer enkel uit <command>ascii</command><indexterm><primary>ascii</primary></indexterm> karakters, maar bevatten ook andere karakters, foto's, geluid en film.</para>
 	<para><command>MIME (Multipurpose Internet Mail Extensions)</command><indexterm><primary>mime</primary></indexterm> defineert een mechanisme om deze inhoud te versturen over e-mail (of zoals in ons voorbeeld over <command>http</command>). Je zou <command>mime</command> in <command>osi layer 6</command> kunnen zetten.</para>
@@ -3781,7 +3781,7 @@ ifconfig eth1 10.0.42.1 netmask 255.255.255.0</screen>
 	<section><title>ping over de router!</title>
 		<para>Het packetje dat vertrekt bij 10.0.42.2 komt eerst (via <command>rightnet</command>) aan bij 10.0.42.1. Dat zie je in de screenshot van <command>wireshark</command> hieronder.</para>
 	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/cvo_router_ok.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-		<para>Vervolgens gaat de router het destination-mac-adres aanpassen naar het mac-adres van 10.0.33.2, en terzelfdertijd het source-mac-address vervangen door dat van zijn eigen 10.0.33.1 interface. Zo komt het (via <command>leftnet</command>) aan bij de bestemming.</para>
+		<para>Vervolgens gaat de router het destination-mac-adres aanpassen naar het mac-adres van 10.0.33.2, en terzelfdertijd het source-mac-adres vervangen door dat van zijn eigen 10.0.33.1 interface. Zo komt het (via <command>leftnet</command>) aan bij de bestemming.</para>
 		<para>We hebben nu een werkende router tussen onze twee netwerken.</para>
 	</section>
 </section>
