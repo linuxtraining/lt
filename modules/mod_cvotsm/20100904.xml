@@ -3781,7 +3781,7 @@ ifconfig eth1 10.0.42.1 netmask 255.255.255.0</screen>
 	<section><title>ping over de router!</title>
 		<para>Het packetje dat vertrekt bij 10.0.42.2 komt eerst (via <command>rightnet</command>) aan bij 10.0.42.1. Dat zie je in de screenshot van <command>wireshark</command> hieronder.</para>
 	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/cvo_router_ok.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-		<para>Vervolgens gaat de router het destination-mac-adres aanpassen naar het mac-adres van 10.0.33.2, en terzelfdertijd het source-mac-adres vervangen door dat van zijn eigen 10.0.33.1 interface. Zo komt het (via <command>leftnet</command>) aan bij de bestemming.</para>
+		<para>Vervolgens gaat de router het destination-mac-adres aanpassen naar het mac-adres van 10.0.33.2, en terzelfdertijd het source-mac-adres vervangen door dat van zijn eigen 10.0.33.1 interface. Zo komt het packetje (via <command>leftnet</command>) aan bij de bestemming.</para>
 		<para>We hebben nu een werkende router tussen onze twee netwerken.</para>
 	</section>
 </section>
