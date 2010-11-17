@@ -19,7 +19,7 @@ NEW_REV=$(git show  | grep "^commit")
 # check if the version changed, if not just exit unless the force switch is on.
 if [ "$CURRENT_REV" = "$NEW_REV" ]
 then    echo "No updates."
-        [ z$1 = z-f ] && exit 0
+        [ z$1 = z-f ] || exit 0
 else    echo "Revision bumped from $CURRENT_REV to $NEW_REV."
 fi
 
