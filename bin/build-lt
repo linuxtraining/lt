@@ -32,7 +32,8 @@ clean
 
 # LinuxFun
 ./make.sh html fundamentals
-mv -v -T $outputdir/html $www/funhtml
+mkdir -p $www/html/
+mv -v -T $outputdir/html $www/html/fun
 ./make.sh clean
 mv -v $outputdir/*.pdf $www/LinuxFun.pdf
                   
