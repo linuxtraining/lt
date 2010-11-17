@@ -9,6 +9,7 @@ wwwbooksdir=~/www/default/wp-content/blogs.dir/linux-training/files/books/
 cd ~/src/lt
 outputdir=./output
 www=~/proj/wwwfiles
+rm -rf $www
 mkdir -v -p $www
 
 # pull in latest buildfiles
