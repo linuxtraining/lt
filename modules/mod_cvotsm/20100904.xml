@@ -4156,7 +4156,7 @@ SRV : wijst naar een dienst (of service) op het netwerk</screen>
 <para>16. Is <command>pstn</command> een analoog netwerk ?</para>
 <para>17. Is <command>isdn</command> een analoog netwerk ?</para>
 <para>18. Hoe lang duurt het om een megabyte te transfereren over een <command>2B+D isdn</command> ?</para>
-<screen>A minder dan 1 seconde
+<screen>A iets meer dan een minuut
 B een kwartier
 C bijna een dag
 D enkele weken</screen>
@@ -4218,13 +4218,13 @@ I OSI laag 8
 <screen>A utp
 B twisted pair
 </screen>
-<para>31. Hoe heet het toestel dat het telefoonnetwerk verbind met de computer (en dus geluid omzet in bytes en omgekeerd) ?</para>
+<para>31a. Hoe heet het toestel dat het telefoonnetwerk verbind met de computer (en dus geluid omzet in bytes en omgekeerd) ?</para>
 <screen>A hub
 B switch
 C router
 D gateway
 E modem</screen>
-<para>31. Welke van de volgende protocols horen in laag 7 ?</para>
+<para>31b. Welke van de volgende protocols horen in laag 7 ?</para>
 <screen>tcp udp ip http ethernet</screen>
 <para>32. Welk protocol, gebruikt bij smtp en http beschrijft formaten ?</para>
 <screen>A SMTP
