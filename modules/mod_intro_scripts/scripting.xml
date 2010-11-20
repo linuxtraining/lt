@@ -89,20 +89,25 @@ echo a Korn subshell `echo -n hello`
 	</section>
 	<section><title>for loop</title>
 		<para>The example below shows the syntax of a classical <command>for loop</command><indexterm><primary>for loop (bash)</primary></indexterm> in bash.</para>
-		<screen>
-for i in 1 2 4
+		<screen>for i in 1 2 4
 do
    echo $i
-done
-		</screen>
-		<para>An example of a for loop combined with an embedded shell to generate the list.</para>
+done</screen>
+		<para>An example of a <command>for loop</command> combined with an embedded shell.</para>
 		<screen>
-for file in `ls *.txt`
+#!/bin/ksh
+for counter in `seq 1 20`
 do
-   cp $file $file.bak
-   echo Backup of $file put in $file.bak
+   echo counting from 0 to 20, now at $counter
+   sleep 1
 done
 		</screen>
+		<para>This <command>for loop</command> use file globbing (from the shell expansion). Putting the instruction on the command line has identical functionality.</para>
+		<screen>kahlan@solexp11$ ls
+count.ksh  go.ksh
+kahlan@solexp11$ for file in *.ksh ; do cp $file $file.backup ; done
+kahlan@solexp11$ ls                                                 
+count.ksh  count.ksh.backup  go.ksh  go.ksh.backup </screen>
 	</section>
 	<section><title>while loop</title>
 		<para>Below a simple example of a <command>while loop</command><indexterm><primary>while loop (bash)</primary></indexterm>.</para>
@@ -114,7 +119,7 @@ do
    let i--;
 done
 		</screen>
-		<para>Endless loops can be made with <command>while true</command> or <command>while :</command>, where the <command>colon</command> is the equivalent of <command>no operation</command> in the <command>Korn</command> and <command>bash</command> shells.</para>
+		<para>Endless loops can be made with <command>while true</command> or <command>while :</command> , where the <command>colon</command> is the equivalent of <command>no operation</command> in the <command>Korn</command> and <command>bash</command> shells.</para>
 		<screen>#!/bin/ksh
 # endless loop
 while :
@@ -273,7 +278,7 @@ isit.txt exists!
 [paul@RHEL4b ~]$ let x="16#c0" ; echo $x
 192
 		</screen>
-		<para>There is a difference between assigning variable directly, or using <command>let</command> to evaluate the arithmetic expressions (even if it is just assigning a value).</para>
+		<para>There is a difference between assigning a variable directly, or using <command>let</command> to evaluate the arithmetic expressions (even if it is just assigning a value).</para>
 		<screen>kahlan@solexp11$ dec=15 ; oct=017 ; hex=0x0f            
 kahlan@solexp11$ echo $dec $oct $hex                                                                                                                  
 15 017 0x0f                                                                         
