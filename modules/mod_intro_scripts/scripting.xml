@@ -114,6 +114,14 @@ do
    let i--;
 done
 		</screen>
+		<para>Endless loops can be made with <command>while true</command> or <command>while :</command>, where the <command>colon</command> is the equivalent of <command>no operation</command> in the <command>Korn</command> and <command>bash</command> shells.</para>
+		<screen>#!/bin/ksh
+# endless loop
+while :
+do
+ echo hello
+ sleep 1
+done</screen>
 	</section>
 	<section><title>until loop</title>
 		<para>Below a simple example of an <command>until loop</command><indexterm><primary>until loop (bash)</primary></indexterm>.</para>
