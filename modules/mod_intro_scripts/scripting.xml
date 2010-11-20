@@ -258,7 +258,7 @@ isit.txt exists!
 [paul@RHEL4b ~]$ let x="10*2+100/10" ; echo $x
 30
 		</screen>
-		<para>The <command>bash</command> shell can also convert between different bases.</para>
+		<para>The <command>shell</command> can also convert between different bases.</para>
 		<screen>
 [paul@RHEL4b ~]$ let x="0xFF" ; echo $x
 255
@@ -273,6 +273,13 @@ isit.txt exists!
 [paul@RHEL4b ~]$ let x="16#c0" ; echo $x
 192
 		</screen>
+		<para>There is a difference between assigning variable directly, or using <command>let</command> to evaluate the arithmetic expressions (even if it is just assigning a value).</para>
+		<screen>kahlan@solexp11$ dec=15 ; oct=017 ; hex=0x0f            
+kahlan@solexp11$ echo $dec $oct $hex                                                                                                                  
+15 017 0x0f                                                                         
+kahlan@solexp11$ let dec=15 ; let oct=017 ; let hex=0x0f
+kahlan@solexp11$ echo $dec $oct $hex                                                                                                                                                                        
+15 15 15</screen>
 	</section>
 	<section><title>runtime input</title>
 		<para>You can ask the user for input with the <command>read</command><indexterm><primary>read</primary></indexterm> command in a script.</para>
