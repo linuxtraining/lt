@@ -223,13 +223,41 @@ false
 		</screen>
 		<para>Tests can be combined with logical AND and OR.</para>
 		<screen>
-[paul@RHEL4b ~]$ [ 66 -gt 55 -a 66 -lt 500 ] &#038;&#038; echo true || echo false
+paul@RHEL4b:~$ [ 66 -gt 55 -a 66 -lt 500 ] &#038;&#038; echo true || echo false
 true
-[paul@RHEL4b ~]$ [ 66 -gt 55 -a 660 -lt 500 ] &#038;&#038; echo true || echo false
+paul@RHEL4b:~$ [ 66 -gt 55 -a 660 -lt 500 ] &#038;&#038; echo true || echo false
 false
-[paul@RHEL4b ~]$ [ 66 -gt 55 -o 660 -lt 500 ] &#038;&#038; echo true || echo false
+paul@RHEL4b:~$ [ 66 -gt 55 -o 660 -lt 500 ] &#038;&#038; echo true || echo false
 true
 		</screen>
+	</section>
+	<section><title>eval</title>
+		<para><command>eval</command> reads arguments as input to the shell (the resulting commands are executed). This allows using the value of a variable as a variable.</para>
+		<screen>paul@deb503:~/test42$ answer=42
+paul@deb503:~/test42$ word=answer
+paul@deb503:~/test42$ eval x=\$$word ; echo $x
+42</screen>
+		<para>Both in <command>bash</command> and <command>Korn</command> the arguments can be quoted.</para>
+		<screen>kahlan@solexp11$ answer=42                
+kahlan@solexp11$ word=answer              
+kahlan@solexp11$ eval "y=\$$word" ; echo $y
+42</screen>
+	</section>
+	<section><title>(( ))</title>
+		<para>The <command>(( ))</command> allows for evaluation of numerical expressions.</para>
+		<para></para>
+		<screen>paul@deb503:~/test42$ (( 42 > 33 )) &#038;&#038; echo true || echo false
+true
+paul@deb503:~/test42$ (( 42 > 1201 )) &#038;&#038; echo true || echo false
+false
+paul@deb503:~/test42$ var42=42
+paul@deb503:~/test42$ (( 42 == var42 )) &#038;&#038; echo true || echo false
+true
+paul@deb503:~/test42$ (( 42 == $var42 )) &#038;&#038; echo true || echo false
+true
+paul@deb503:~/test42$ var42=33
+paul@deb503:~/test42$ (( 42 == var42 )) &#038;&#038; echo true || echo false
+false</screen>
 	</section>
 	<section><title>if if, then then, or else</title>
 		<para>The <command>if then else</command><indexterm><primary>if then else (bash)</primary></indexterm> construction is about choice. If a certain condition is met, then execute something, else execute something else. The example below tests whether a file exists, and if the file exists then a proper message is echoed.</para>
