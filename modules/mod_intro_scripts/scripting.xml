@@ -495,3 +495,40 @@ paul@laika:~$ cd /Etc
 paul@laika:/etc$
 		</screen>
 	</section>
+	<section><title>shell functions</title>
+		<para>Shell <command>functions</command> can be used to group commands in a logical way.</para>
+		<screen>kahlan@solexp11$ cat funcs.ksh 
+#!/bin/ksh
+                                          
+function greetings {
+echo Hello World!
+echo and hello to $USER to!
+}
+
+echo We will now call a function
+greetings
+echo The end</screen>
+		<para>This is sample output from this script with a <command>function</command>.</para>
+		<screen>kahlan@solexp11$ ./funcs.ksh              
+We will now call a function
+Hello World!
+and hello to kahlan to!
+The end</screen>
+		<para>A shell function can also receive parameters.</para>
+		<screen>kahlan@solexp11$ cat addfunc.ksh 
+#!/bin/ksh
+
+function plus {
+let result="$1 + $2"
+echo  $1 + $2 = $result
+}
+
+plus 3 10
+plus 20 13
+plus 20 22</screen>
+		<para>This script produces the following output.</para>
+		<screen>kahlan@solexp11$ ./addfunc.ksh 
+3 + 10 = 13
+20 + 13 = 33
+20 + 22 = 42</screen>
+	</section>
