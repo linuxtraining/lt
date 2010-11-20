@@ -75,7 +75,7 @@ fi</screen>
 		<para>9. Write a script that asks for a filename. Verify existance of the file, then verify that you own the file, and whether it is writable. If not, then make it writable.</para>
 		<screen></screen>
 		<para>10. Make a configuration file for the previous script. Put a logging switch in the config file, logging means writing detailed output of everything the script does to a log file in /tmp.</para>
-		<para>11. A script with a case insensitive case statement, using the shopt nocasematch option. The nocasematch option is reset to the value it had before the scripts started.</para>
+		<para>11. Write a script with a case insensitive case statement, using the shopt nocasematch option. The nocasematch option is reset to the value it had before the scripts started.</para>
 		<screen>#!/bin/bash
 #
 # Wild Animals Case Insensitive Helpdesk Advice
