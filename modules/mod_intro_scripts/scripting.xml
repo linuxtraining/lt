@@ -491,9 +491,7 @@ paul@laika:~$ shopt -s cdspell
 paul@laika:~$ shopt -q cdspell ; echo $?
 0
 paul@laika:~$ cd /Etc
-/etc
-paul@laika:/etc$
-		</screen>
+/etc</screen>
 	</section>
 	<section><title>shell functions</title>
 		<para>Shell <command>functions</command> can be used to group commands in a logical way.</para>
