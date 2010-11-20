@@ -1,6 +1,6 @@
 <section><title>about shell scripting</title>
-	<para><command>bash</command> has support for programming constructs that can be saved as scripts. These scripts in turn then become more <command>bash</command> commands. Many Linux commands are scripts. Scripts run whenever a user logs on or a service is started.</para>
-	<para>This means that system administrators also need basic knowledge of scripting to understand how their servers and their applications are started, updated, upgraded, patched, maintained, configured and removed, and also to understand how a user environment is built.</para>
+	<para>Shells like <command>bash</command> and <command>Korn</command> have support for programming constructs that can be saved as <command>scripts</command>. These <command>scripts</command> in turn then become more <command>shell</command> commands. Many Linux commands are <command>scripts</command>. <command>User profile scripts</command> are run when a user logs and <command>init scripts</command> are run when a <command>daemon</command> is stopped or started.</para>
+	<para>This means that system administrators also need basic knowledge of <command>scripting</command> to understand how their servers and their applications are started, updated, upgraded, patched, maintained, configured and removed, and also to understand how a user environment is built.</para>
 </section>
 	<section><title>hello world</title>
 		<para>Just like in every programming course, we start with a simple <command>hello_world</command> script. The following script will output <command>Hello World</command>.</para>
@@ -30,7 +30,7 @@ echo Hello World
 echo Hello World
 		</screen>
 	</section>
-	<section><title>Variables</title>
+	<section><title>variables</title>
 		<screen>
 #!/bin/bash
 var1=4
@@ -63,8 +63,8 @@ var1 = 4
 [paul@RHEL4a ~]$ 
 		</screen>
 	</section>
-	<section><title>Shell</title>
-		<para>You can never be sure which shell a user is running. A script that works flawlessly in <command>bash</command> might not work in <command>ksh</command>, <command>csh</command>, or <command>dash</command>. To instruct a shell to run your script in a certain shell, you can start your script with a <command>shebang</command><indexterm><primary>#!/bin/bash</primary></indexterm> followed by the shell it is supposed to run in. This script will run in a bash shell.</para>
+	<section><title>shell</title>
+		<para>You can never be sure which shell a user is running. A script that works flawlessly in <command>bash</command> might not work in <command>ksh</command>, <command>csh</command>, or <command>dash</command>. To instruct a shell to run your script in a certain shell, you can start your script with a <command>she-bang</command><indexterm><primary>#!/bin/bash</primary></indexterm> followed by the shell it is supposed to run in. This script will run in a bash shell.</para>
 		<screen>
 #!/bin/bash
 echo -n hello
@@ -389,6 +389,42 @@ case $animal in
 esac
 [paul@RHEL4b ~]$ 			
 		</screen>
+	</section>
+	<section><title>getopts</title>
+		<para>The <command>getopts</command> function allows you to parse options given to a command.</para>
+		<screen>kahlan@solexp11$ cat options.ksh 
+#!/bin/ksh
+
+while getopts ":afz" option;
+do
+ case $option in
+  a)
+   echo received -a
+   ;;
+  f)
+   echo received -f
+   ;;
+  z)
+   echo received -z
+   ;;
+  *)
+   echo "invalid option -$OPTARG" 
+   ;;
+ esac
+done</screen>
+		<para>This is sample output from the script above.</para>
+		<screen>kahlan@solexp11$ ./options.ksh        
+kahlan@solexp11$ ./options.ksh -af
+received -a
+received -f
+kahlan@solexp11$ ./options.ksh -zfg
+received -z
+received -f
+invalid option -g
+kahlan@solexp11$ ./options.ksh -a -b -z
+received -a
+invalid option -b
+received -z</screen>
 	</section>
 	<section><title>shopt</title>
 		<para>You can toggle the values of variables controlling optional shell behavior with the <command>shopt</command><indexterm><primary>shopt</primary></indexterm> built-in shell command. The example below first verifies whether the cdspell option is set; it is not. The next shopt command sets the value, and the third shopt command verifies that the option really is set. You can now use minor spelling mistakes in the cd command. The man page of bash has a complete list of options.</para>
