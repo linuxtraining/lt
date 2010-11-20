@@ -162,14 +162,6 @@ $ 5610 PID of the script
 # 3 count arguments
 ? 0 last error code
 * one two three all the arguments
-[paul@RHEL4a scripts]$ ./pars a b c
-The first argument is a
-The second argument is b
-The third argument is c
-$ 5611 PID of the script
-# 3 count arguments
-? 0 last error code
-* a b c all the arguments
 [paul@RHEL4a scripts]$ ./pars 1 2
 The first argument is 1
 The second argument is 2
@@ -180,6 +172,34 @@ $ 5612 PID of the script
 * 1 2 all the arguments
 [paul@RHEL4a scripts]$ 
 		</screen>
+	</section>
+	<section><title>shift</title>
+		<para>The <command>shift</command> statement can parse all <command>parameters</command> one by one. This is a sample script.</para>
+		<screen>kahlan@solexp11$ cat shift.ksh 
+#!/bin/ksh                                
+                                          
+if [ "$#" == "0" ] 
+ then
+  echo You have to give at least one parameter.
+  exit 1
+fi
+
+while (( "$# ))
+ do
+  echo You gave me $1
+  shift
+ done</screen>
+		<para>Below is some sample output of the script above.</para>
+		<screen>kahlan@solexp11$ ./shift.ksh one  
+You gave me one
+kahlan@solexp11$ ./shift.ksh one two three 1201 "33 42"
+You gave me one                           
+You gave me two
+You gave me three
+You gave me 1201
+You gave me 33 42
+kahlan@solexp11$ ./shift.ksh                           
+You have to give at least one parameter.</screen>
 	</section>
 	<section><title>test [ ]</title>
 		<para>The <command>test</command><indexterm><primary>test</primary></indexterm> command can test whether something is true or false. Let's start by testing whether 10 is greater than 55.</para>

@@ -191,6 +191,8 @@ chapt_intro_scripts() {
 	MODULES=""
 	chaptitle="Introduction to scripting"
 	add_mod mod_intro_scripts/scripting.xml       
+	add_mod mod_intro_scripts/scripting_practice.xml       
+	add_mod mod_intro_scripts/scripting_solution.xml       
 	}
 
 #
