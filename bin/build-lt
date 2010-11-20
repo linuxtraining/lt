@@ -9,6 +9,7 @@ wwwbooksdir=~/www/default/wp-content/blogs.dir/linux-training/files/books/
 cd ~/src/lt
 outputdir=./output
 www=~/proj/wwwfiles
+rm -rf $www
 mkdir -v -p $www
 
 # pull in latest buildfiles
@@ -16,10 +17,10 @@ CURRENT_REV=$(git show  | grep "^commit")
 git pull -v
 NEW_REV=$(git show  | grep "^commit")
 
-# check if the version changed, if not just exit
+# check if the version changed, if not just exit unless the force switch is on.
 if [ "$CURRENT_REV" = "$NEW_REV" ]
 then    echo "No updates."
-        exit 0
+        [ z$1 = z-f ] || exit 0
 else    echo "Revision bumped from $CURRENT_REV to $NEW_REV."
 fi
 
@@ -32,7 +33,8 @@ clean
 
 # LinuxFun
 ./make.sh html fundamentals
-mv -v -T $outputdir/html $www/funhtml
+mkdir -p $www/html/
+mv -v -T $outputdir/html $www/html/fun
 ./make.sh clean
 mv -v $outputdir/*.pdf $www/LinuxFun.pdf
                   
