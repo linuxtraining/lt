@@ -370,7 +370,19 @@ jump5 level7
 paul@deb503:~/pipes$ echo level5 level7 | sed 's/level/jump/g'
 jump5 jump7
 		</screen>
-
+		<para>With <command>d</command> you can remove lines from a stream containing a character.</para>
+		<screen>
+paul@deb503:~/test42$ cat tennis.txt 
+Venus Williams, USA
+Martina Hingis, SUI
+Justine Henin, BE
+Serena williams, USA
+Kim Clijsters, BE
+Yanina Wickmayer, BE
+paul@deb503:~/test42$ cat tennis.txt | sed '/BE/d'
+Venus Williams, USA
+Martina Hingis, SUI
+Serena williams, USA</screen>
 	</section>
 </section>
 <section><title>some pipeline examples</title>
