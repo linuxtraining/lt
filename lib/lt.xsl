@@ -20,6 +20,10 @@
 </xsl:attribute>
 </xsl:attribute-set>
 
+<xsl:template match="processing-instruction('hard-pagebreak')">
+   <fo:block break-after='page'/>
+ </xsl:template>
+
 <xsl:comment>
  this forces screen-tag content to be kept together on one page
  can only be enabled when we remove all screen-tags with large content imho
@@ -27,9 +31,5 @@
  <xsl:attribute name="keep-together.within-column">always</xsl:attribute>
  </xsl:attribute-set>
 </xsl:comment>
-
-<xsl:template match="processing-instruction('hard-pagebreak')">
-   <fo:block break-after='page'/>
- </xsl:template>
 
 </xsl:stylesheet>
