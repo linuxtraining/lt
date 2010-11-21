@@ -133,7 +133,7 @@ build_book() {
 	echo "Generating book $book (titled \"$BOOKTITLE\")"
 	[ -d $outputdir ] || mkdir $outputdir
 
-	BOOKTITLE2=$(echo $BOOKTITLE | sed s/\ /\_/g)
+	BOOKTITLE2=$(echo $BOOKTITLE | sed -e 's/\ /\_/g' -e 's@/@-@g' )
 	filename=$BOOKTITLE2-$VERSIONSTRING-$DATECODE
 	xmlfile=$outputdir/$filename.xml
 	pdffile=$outputdir/$filename.pdf
