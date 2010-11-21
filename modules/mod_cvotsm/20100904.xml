@@ -4342,3 +4342,163 @@ E. een udp-sessie bestaat niet</screen>
 <para>74. Wat gebeurt er met het bron-ip-adres als je een ping doet naar een machine achter een dnat router ?</para>
 <para>75. Wat gebeurt er met het bestemmings-ip-adres als je een ping doet naar een machine achter een dnat router ?</para>
 </section>
+</chapter>
+<chapter><title>Test 9 en 10 november</title>
+<section><title>de vragen</title>
+	<para><command>Vraag 1.</command> De laptop genaamd <command>mb</command> doet een <command>ping</command> naar de desktop genaamd <command>barry</command>. In het linkse groene kadertje staat (vereenvoudigd) het packetje op het linkse netwerk. Het rechtse groene kadertje is voor het rechtse netwerk. Vul de tekening aan met de correcte omschrijvingen voor mac-adres en ip-adres (src = source of bron, dest = destination of bestemming). Vul de woorden <command>mb, barry</command> en <command>router</command> in de groene kadertjes. De router is een gewone router zonder <command>nat</command>.</para>
+	<screen></screen>
+	<screen></screen>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/toets_router.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para><command>Vraag 2.</command> De laptop genaamd <command>mb</command> doet een <command>ping</command> naar de desktop genaamd <command>barry</command>. In het linkse groene kadertje staat (vereenvoudigd) het packetje op het linkse netwerk. Het rechtse groene kadertje is voor het rechtse netwerk. Vul de tekening aan met de correcte omschrijvingen voor mac-adres en ip-adres (src = source of bron, dest = destination of bestemming). Vul de woorden <command>mb, barry</command> en <command>router</command> in de groene kadertjes. De router is een <command>source nat</command> of <command>snat</command> router (vergelijkbaar met het routerke dat jullie thuis hebben staan).</para>
+	<screen></screen>
+	<screen></screen>
+	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/toets_nat.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+<?hard-pagebreak?>
+	<para><command>Vraag 3.</command> Een volledige backup van een databank duurt volgens de berekening van je medewerker exact 740715 seconden (zevenhonderdveertigduizend en zevenhonderdvijftien). Zet die 740715 seconden om in dagen, uren, minuten en seconden. U mag hiervoor de rekenmachine van de computer gebruiken, op voorwaarde dat geen enkel ander venster open staat (ook niet geminimized).</para>
+	<screen></screen>
+	<screen></screen>
+	<para><command>Vraag 4.</command> Selecteer vijf netwerken die voldoen aan de volgende voorwaarden :</para>
+	<screen>- ze mogen enkel een private range omvatten
+- de netwerken mogen elkaar niet overlappen
+- de netwerken moeten minsten 240 computers kunnen bevatten
+- twee van de netwerken moeten minstens 5000 computers kunnen bevatten
+</screen>
+	<screen>10.0.0.0/12     10.0.7.0/24     10.0.7.0/29      10.0.8.0/24
+10.0.8.0/29     10.0.9.0/24     10.0.9.0/29      127.0.0.0/8
+168.192.0.0/16  168.192.1.0/24  168.192.2.0/24   168.192.3.0/16
+168.192.4.0/16  169.0.0.0/8     172.16.0.0/8     172.16.0.0/15
+172.17.4.0/29   172.17.2.0/24   172.26.1.0/24    172.38.3.0/24
+192.16.4.0/24   192.168.0.0/8   192.168.2.0/24   192.168.4.0/24
+</screen>
+	<screen></screen>
+	<para><command>Vraag 5. Schrijf de volgende woorden bij het juiste protocol.</command> </para>
+	<screen>sessie, betrouwbaar, onbetrouwbaar, connectie, connectieloos,
+http, smtp, triple handshake, rip</screen>
+<table frame='all'><title>TCP of UDP</title>
+<?dbfo table-width="70%" ?>
+<tgroup cols='2' align='left' colsep='1' rowsep='1'>
+<colspec colname='TCP' colwidth="1*" align="center"/>
+<colspec colname='UDP' colwidth="1*" align="center"/>
+<thead>
+<row>
+  <entry>TCP</entry>
+  <entry>UDP</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry></entry>
+  <entry></entry>
+</row>
+<row>
+  <entry></entry>
+  <entry></entry>
+</row>
+<row>
+  <entry></entry>
+  <entry></entry>
+</row>
+<row>
+  <entry></entry>
+  <entry></entry>
+</row>
+<row>
+  <entry></entry>
+  <entry></entry>
+</row>
+<row>
+  <entry></entry>
+  <entry></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+	<screen></screen>
+	<screen></screen>
+	<para><command>Vraag 6.</command> Welk besturingssysteem of webserver wordt gebruikt voor de volgende websites ? Kijk goed naar het eerste antwoord van de webserver. Geef geen informatie over advertenties die op dezelfde website staan. (Typ ook geen www. voor de gegeven url.)</para>
+	<screen>sporza.be :
+
+vtm.be :
+
+ginsys.be :
+
+inuits.be :
+
+planet.grep.be : </screen>
+</section>
+<?hard-pagebreak?>
+<section><title>de antwoorden</title>
+	<para><command>Vraag 1.</command> De laptop genaamd <command>mb</command> doet een <command>ping</command> naar de desktop genaamd <command>barry</command>. In het linkse groene kadertje staat (vereenvoudigd) het packetje op het linkse netwerk. Het rechtse groene kadertje is voor het rechtse netwerk. Vul de tekening aan met de correcte omschrijvingen voor mac-adres en ip-adres (src = source of bron, dest = destination of bestemming). Vul de woorden <command>mb, barry</command> en <command>router</command> in de groene kadertjes. De router is een gewone router zonder <command>nat</command>.</para>
+	<para><command>mac-adressen</command> blijven steeds lokaal tot aan de router! In het linkse netwerk kan je dus enkel de mac-adressen van de macbook en van de router schrijven, met macbook als bron en router als bestemming. In het rechtse netwerk kan je enkel de mac-adressen van de router en van de desktop zetten, met de router als bron.</para>
+	<para><command>ip-adressen</command> zorgen voor de verbinding tussen twee computers, en worden door (normale) routers niet aangepast. Links en rechts zet je dus hetzelfde ip-adres als bron (dat van de macbook waar de ping vertrekt) en hetzelfde ip-adres als bestemming (dat van de desktop die de ping ontvangt).</para>
+	<para><command>Vraag 2.</command> De laptop genaamd <command>mb</command> doet een <command>ping</command> naar de desktop genaamd <command>barry</command>. In het linkse groene kadertje staat (vereenvoudigd) het packetje op het linkse netwerk. Het rechtse groene kadertje is voor het rechtse netwerk. Vul de tekening aan met de correcte omschrijvingen voor mac-adres en ip-adres (src = source of bron, dest = destination of bestemming). Vul de woorden <command>mb, barry</command> en <command>router</command> in de groene kadertjes. De router is een <command>source nat</command> of <command>snat</command> router (vergelijkbaar met het routerke dat jullie thuis hebben staan).</para>
+	<para><command>mac-adressen</command> blijven steeds lokaal tot aan de router! In het linkse netwerk kan je dus enkel de mac-adressen van de macbook en van de router schrijven, met macbook als bron en router als bestemming. In het rechtse netwerk kan je enkel de mac-adressen van de router en van de desktop zetten, met de router als bron.</para>
+	<para>Een <command>source nat</command> gaat het bron-ip-adres vervangen door zijn eigen ip-adres (als bron). De ip-adres bestemming blijft dus overal de desktop, de bron is links de macbook, en rechts de router.</para>
+<?hard-pagebreak?>
+	<para><command>Vraag 3.</command> Zet 740715 seconden om in dagen, uren, minuten en seconden.</para>
+	<screen>740715/60/60/24=8.573 (8 dagen, acher de komma bijhouden)
+0.873*24=13.754 (13 uren, na de komma bijhouden)
+0.754*60=45.25 (45 minuten, na de komma bijhouden)
+.25*60=15 (15 seconden)</screen>
+	<para><command>Vraag 4.</command> Selecteer vijf netwerken die voldoen aan de volgende voorwaarden :</para>
+	<screen>- ze mogen enkel een private range omvatten
+- de netwerken mogen elkaar niet overlappen
+- de netwerken moeten minsten 240 computers kunnen bevatten
+- twee van de netwerken moeten minstens 5000 computers kunnen bevatten
+</screen>
+	<screen>10.0.0.0/12     10.0.7.0/24     10.0.7.0/29      10.0.8.0/24
+10.0.8.0/29     10.0.9.0/24     10.0.9.0/29      127.0.0.0/8
+168.192.0.0/16  168.192.1.0/24  168.192.2.0/24   168.192.3.0/16
+168.192.4.0/16  169.0.0.0/8     172.16.0.0/8     172.16.0.0/15
+172.17.4.0/29   172.17.2.0/24   172.26.1.0/24    172.38.3.0/24
+192.16.4.0/24   192.168.0.0/8   192.168.2.0/24   192.168.4.0/24
+</screen>
+	<screen>schrap de niet private ranges (168.192.* 127.* 169.* 172.38.*)
+schrap de niet-netwerken 172.16.0.0/8 en 192.168.0.0/8)
+schrap de te kleine netwerken (alles boven de /24)</screen>
+	<para>Je houdt nu nog twee netwerken over met meer dan 5000 ip's 10.0.0.0/12 en 172.16.0.0/15. Schrap de overlappende netwerken 10.0.x.0/24 en 172.17.2.0/24, dan blijven er nog drie over 172.26.1.0/24 , 192.168.2.0/24 en 192.168.4.0/24</para>
+	<para><command>Vraag 5.</command> Schrijf de volgende woorden bij het juiste protocol.</para>
+<table frame='all'><title>TCP of UDP</title>
+<?dbfo table-width="70%" ?>
+<tgroup cols='2' align='left' colsep='1' rowsep='1'>
+<colspec colname='TCP' colwidth="1*" align="center"/>
+<colspec colname='UDP' colwidth="1*" align="center"/>
+<thead>
+<row>
+  <entry>TCP</entry>
+  <entry>UDP</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>connectie</entry>
+  <entry>connectieloos</entry>
+</row>
+<row>
+  <entry>betrouwbaar</entry>
+  <entry>onbetrouwbaar</entry>
+</row>
+<row>
+  <entry>sessie</entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>triple handshake</entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>http smtp</entry>
+  <entry>rip</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+	<para>De eerste groep kreeg <command>rip</command>, de tweede groep <command>smtp</command>.</para>
+	<para><command>Vraag 6.</command> Welk besturingssysteem of webserver wordt gebruikt voor de volgende websites ? Kijk goed naar het eerste antwoord van de webserver. Geef geen informatie over advertenties die op dezelfde website staan. (Typ ook geen www. voor de gegeven url.)</para>
+	<screen>sporza.be : Apache/2.2.3 (Linux/SUSE)
+vtm.be : Oracle Application Server /10g (10.1.2)
+ginsys.be : Apache
+inuits.be : Apache/2.2.3 (CentOS)
+planet.grep.be : nginx</screen>
+	<para>Gebruik <command>dns or tcp</command> als filter, dan zie je je dns-lookup voor sporza.be, vlak daarna de tcp-three-way-handshake, vlak daarna de http-request van je browser en vlak daarna de eerste reactie van de http-server.</para>
+</section>
