@@ -65,7 +65,7 @@ build_header() {
         echo "<bookinfo>"                                       >> $headerfile
         echo "<title>$BOOKTITLE</title>"                        >> $headerfile
 	echo "<author><firstname>Paul</firstname><surname>Cobbaut</surname></author>" >>$headerfile
-	echo "<pubdate>15 november 2010</pubdate><abstract>" 		>> $headerfile
+	echo "<pubdate>21 november 2010</pubdate><abstract>" 		>> $headerfile
 	echo '<para>Deze cursus wordt gemaakt als leidraad voor de studenten die de module "Datacommunicatie en Netwerken" volgen aan het cvotsm in Mechelen. </para>' 		>> $headerfile
 	echo "<para>Deze cursus wordt op vrijwillige basis gemaakt, en bevat misschien niet de volledige leerstof. Vergeet dus niet te noteren tijdens de les.</para>" 	>> $headerfile
 	echo "<para></para>" 	>> $headerfile
