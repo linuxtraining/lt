@@ -46,6 +46,11 @@ fido            60179/tcp             # fidonet EMSI over TCP
 # Local services
 paul@laika:~$
 		</screen>
+		<para>You can give <command>tail</command> the number of lines you want to see.</para>
+		<screen>$ tail -3 count.txt 
+six
+seven
+eight</screen>
 		<para>The <command>tail</command> command has other useful options, some of which we will use some of them during this course.</para>
 	</section>
 	<section><title>cat</title>
