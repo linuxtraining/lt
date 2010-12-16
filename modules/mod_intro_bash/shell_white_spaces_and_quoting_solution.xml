@@ -26,6 +26,6 @@ First
 Middle
 Last</screen>
 	<screen>echo -n First; echo -n Middle; echo Last</screen>
-	<para>9. Display the <command>type</command> of the <command>passwd</command> command using the <command>which</command> command inside back ticks.</para>
-	<screen>type `which passwd`</screen>
+	<para>9. Display a <command>long listing</command> (ls -l) of the <command>passwd</command> command using the <command>which</command> command inside back ticks.</para>
+	<screen>ls -l `which passwd`</screen>
 </section>
