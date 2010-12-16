@@ -17,7 +17,8 @@ find . -type f -newer marker_date </screen>
 	<para>4. Write a find command that finds all *.odf files created in September 2009.</para>
 	<screen>touch -t 200908312359 marker_start
 touch -t 200910010000 marker_end
-find . -type f -name "*.odf" -newer marker_start ! -newer marker_end </screen>
+find . -type f -name "*.odf" -newer marker_start ! -newer marker_end</screen>
+	<para>The exclamation mark <command>! -newer</command> can be read as <command>not newer</command>.</para>
 	<para>5. Count the number of *.conf files in /etc and all its subdirs.</para>
 	<screen>find /etc -type f -name '*.conf' | wc -l</screen>
 	
