@@ -41,6 +41,7 @@ antwerp
 	<screen>echo Hello</screen>
 	<screen>echo -n Hello</screen>
 	<para>The -n option of the echo command will prevent echo from echoing a trailing newline. <command>echo Hello</command> will echo six characters in total, <command>echo -n hello</command> only echoes five characters.</para>
+	<para>The -n option might not work in the Korn shell.</para>
 	<para></para>
 	<para></para>
 	<para></para>
