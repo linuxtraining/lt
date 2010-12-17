@@ -1,0 +1,103 @@
+<?hard-pagebreak?>
+<section><title>scripting tests and loops</title>
+	<section><title>test [ ]</title>
+		<para>The <command>test</command><indexterm><primary>test</primary></indexterm> command can test whether something is true or false. Let's start by testing whether 10 is greater than 55.</para>
+		<screen>[paul@RHEL4b ~]$ test 10 -gt 55 ; echo $?
+1
+[paul@RHEL4b ~]$</screen>
+		<para>The test command returns 1 if the test fails. And as you see in the next screenshot, test returns 0 when a test succeeds.</para>
+		<screen>[paul@RHEL4b ~]$ test 56 -gt 55 ; echo $?
+0
+[paul@RHEL4b ~]$</screen>
+		<para>If you prefer true and false, then write the test like this.</para>
+		<screen>[paul@RHEL4b ~]$ test 56 -gt 55 &#038;&#038; echo true || echo false
+true
+[paul@RHEL4b ~]$ test 6 -gt 55 &#038;&#038; echo true || echo false
+false</screen>
+		<para>The test command can also be written as square brackets, the screenshot below is identical to the one above.</para>
+		<screen>[paul@RHEL4b ~]$ [ 56 -gt 55 ] &#038;&#038; echo true || echo false
+true
+[paul@RHEL4b ~]$ [ 6 -gt 55 ] &#038;&#038; echo true || echo false
+false</screen>
+		<para>Below are some example tests. Take a look at <command>man test</command> to see more options for tests.</para>
+		<screen>[ -d foo ]             Does the directory foo exist ?
+[ '/etc' = $PWD ]      Is the string /etc equal to the variable $PWD ?
+[ $1 != 'secret' ]     Is the first parameter different from secret ?
+[ 55 -lt $bar ]        Is 55 less than the value of $bar ?
+[ $foo -ge 1000 ]      Is the value of $foo greater or equal to 1000 ?
+[ "abc" &#060; $bar ]       Does abc sort before the value of $bar ?
+[ -f foo ]             Is foo a regular file ?
+[ -r bar ]             Is bar a readable file ?
+[ foo -nt bar ]        Is file foo newer than file bar ?
+[ -o nounset ]         Is the shell option nounset set ?</screen>
+		<para>Tests can be combined with logical AND and OR.</para>
+		<screen>paul@RHEL4b:~$ [ 66 -gt 55 -a 66 -lt 500 ] &#038;&#038; echo true || echo false
+true
+paul@RHEL4b:~$ [ 66 -gt 55 -a 660 -lt 500 ] &#038;&#038; echo true || echo false
+false
+paul@RHEL4b:~$ [ 66 -gt 55 -o 660 -lt 500 ] &#038;&#038; echo true || echo false
+true</screen>
+	</section>
+	<section><title>if if, then then, or else</title>
+		<para>The <command>if then else</command><indexterm><primary>if then else (bash)</primary></indexterm> construction is about choice. If a certain condition is met, then execute something, else execute something else. The example below tests whether a file exists, and if the file exists then a proper message is echoed.</para>
+		<screen>#!/bin/bash
+
+if [ -f isit.txt ]
+then echo isit.txt exists!
+else echo isit.txt not found!
+fi</screen>
+		<para>If we name the above script 'choice', then it executes like this.</para>
+		<screen>[paul@RHEL4a scripts]$ ./choice 
+isit.txt not found!
+[paul@RHEL4a scripts]$ touch isit.txt
+[paul@RHEL4a scripts]$ ./choice 
+isit.txt exists!
+[paul@RHEL4a scripts]$</screen>
+	</section>
+	<section><title>for loop</title>
+		<para>The example below shows the syntax of a classical <command>for loop</command><indexterm><primary>for loop (bash)</primary></indexterm> in bash.</para>
+		<screen>for i in 1 2 4
+do
+   echo $i
+done</screen>
+		<para>An example of a <command>for loop</command> combined with an embedded shell.</para>
+		<screen>#!/bin/ksh
+for counter in `seq 1 20`
+do
+   echo counting from 0 to 20, now at $counter
+   sleep 1
+done</screen>
+		<para>This <command>for loop</command> use file globbing (from the shell expansion). Putting the instruction on the command line has identical functionality.</para>
+		<screen>kahlan@solexp11$ ls
+count.ksh  go.ksh
+kahlan@solexp11$ for file in *.ksh ; do cp $file $file.backup ; done
+kahlan@solexp11$ ls                                                 
+count.ksh  count.ksh.backup  go.ksh  go.ksh.backup </screen>
+	</section>
+	<section><title>while loop</title>
+		<para>Below a simple example of a <command>while loop</command><indexterm><primary>while loop (bash)</primary></indexterm>.</para>
+		<screen>let i=100;
+while [ $i -ge 0 ] ;
+do
+   echo Counting down, from 100 to 0, now at $i;
+   let i--;
+done</screen>
+		<para>Endless loops can be made with <command>while true</command> or <command>while :</command> , where the <command>colon</command> is the equivalent of <command>no operation</command> in the <command>Korn</command> and <command>bash</command> shells.</para>
+		<screen>#!/bin/ksh
+# endless loop
+while :
+do
+ echo hello
+ sleep 1
+done</screen>
+	</section>
+	<section><title>until loop</title>
+		<para>Below a simple example of an <command>until loop</command><indexterm><primary>until loop (bash)</primary></indexterm>.</para>
+		<screen>let i=100;
+until [ $i -le 0 ] ;
+do
+   echo Counting down, from 100 to 1, now at $i;
+   let i--;
+done</screen>
+	</section>
+</section>
