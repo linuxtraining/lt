@@ -189,7 +189,16 @@ chapt_intro_groups() {
 #
 chapt_intro_scripts() {
 	MODULES=""
-	chaptitle="Introduction to scripting"
+	chaptitle="Understanding scripts"
+	add_mod mod_intro_scripts/scripting_intro.xml       
+	add_mod mod_intro_scripts/scripting_intro_practice.xml       
+	add_mod mod_intro_scripts/scripting_intro_solution.xml       
+	add_mod mod_intro_scripts/scripting_loops.xml       
+	add_mod mod_intro_scripts/scripting_loops_practice.xml       
+	add_mod mod_intro_scripts/scripting_loops_solution.xml       
+	add_mod mod_intro_scripts/scripting_params.xml       
+	add_mod mod_intro_scripts/scripting_params_practice.xml       
+	add_mod mod_intro_scripts/scripting_params_solution.xml       
 	add_mod mod_intro_scripts/scripting.xml       
 	add_mod mod_intro_scripts/scripting_practice.xml       
 	add_mod mod_intro_scripts/scripting_solution.xml       
