@@ -1,0 +1,6 @@
+<?hard-pagebreak?>
+<section><title>practice : scripting tests and loops</title>
+	<para>1. Write a script that counts from 3 to 7 and then from 7 to 3, and all this three times, once with a for loop, once with a while loop and once with a until loop. Show the teacher that it works!</para>
+	<para>2. Write a script that counts the number of files ending in .txt in the current directory.</para>
+	<para>3. Wrap an if statement around the script so it is also correct when there are zero files ending in .txt.</para>
+</section>
