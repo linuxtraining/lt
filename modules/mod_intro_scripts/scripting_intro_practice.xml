@@ -1,0 +1,12 @@
+<?hard-pagebreak?>
+<section><title>practice : introduction to scripting</title>
+	<para>0. Give each script a different name, keep them for later!</para>
+	<para>1. Write a script that outputs the name of a city.</para>
+	<para>2. Make sure the script runs in the bash shell.</para>
+	<para>3. Make sure the script runs in the Korn shell.</para>
+	<para>4. Create a script that defines two variables, and outputs their value.</para>
+	<para>5. The previous script does not influence your current shell (the variables do not exist outside of the script). Now run the script so that it influences your current shell.</para>
+	<para>6. Is there a shorter way to <command>source</command> the script ?</para>
+	<para>7. Comment your scripts so that you know what they are doing.</para>
+	<mediaobject><imageobject><imagedata fileref="images/command_line_fu.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>	
+</section>
