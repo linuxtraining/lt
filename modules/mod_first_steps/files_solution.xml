@@ -4,9 +4,10 @@
 	<screen>ls /bin</screen>
 	<para>2. Display the type of file of /bin/cat, /etc/passwd and /usr/bin/passwd.</para>
 	<screen>file /bin/cat /etc/passwd /usr/bin/passwd</screen>
-	<para>3a. Download wolf.jpg and book.pdf from http://www.linux-training.be (wget http://www.linux-training.be/studentfiles/wolf.jpg)</para>
-	<screen>wget http://www.linux-training.be/studentfiles/wolf.jpg</screen>
-	<screen>wget http://www.linux-training.be/studentfiles/book.pdf</screen>
+	<para>3a. Download wolf.jpg and book.pdf from http://www.linux-training.be (wget http://linux-training.be/files/studentfiles/wolf.jpg and wget http://linux-training.be/files/books/LinuxFun.pdf)</para>
+	<screen>wget http://linux-training.be/files/studentfiles/wolf.jpg
+wget http://linux-training.be/files/studentfiles/wolf.png
+wget http://linux-training.be/files/books/LinuxFun.pdf</screen>
 	<para>3b. Display the type of file of wolf.jpg and book.pdf</para>
 	<screen>file wolf.jpg book.pdf</screen>
 	<para>3c. Rename wolf.jpg to wolf.pdf (use mv).</para>
