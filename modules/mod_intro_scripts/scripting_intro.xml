@@ -73,9 +73,9 @@ var1 = 4
 	</section>
 	<section><title>prevent setuid root spoofing</title>
 		<para>Some user may try to perform <command>setuid</command> based script <command>root spoofing</command>. This is a rare but possible attack. To improve script security and to avoid interpreter spoofing, you need to add <command>--</command> after the <command>#!/bin/bash</command>, which disables further option processing so the shell will not accept any options.</para>
-		<screen>#!/bin/bash -</screen>
-		or
-		<screen>#!/bin/bash --</screen>
+		<screen>#!/bin/bash -
+or
+#!/bin/bash --</screen>
 		<para>Any arguments after the -- are treated as filenames and arguments. An argument of - is equivalent to --.</para>
 	</section>
 </section>
