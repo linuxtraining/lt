@@ -7,7 +7,7 @@
 	<para>3. Verify that <command>nocclobber</command> is active by repeating your <command>ls</command> on <command>/etc/</command>.</para>
 	<screen>ls /etc &#062; etc.txt (should not work)</screen>
 	<para>4. When listing all shell options, which character represents the <command>noclobber</command> option ?</para>
-	<screen>set $- (noclobber is visible as C)</screen>
+	<screen>echo $- (noclobber is visible as C)</screen>
 	<para>5. Deactivate the <command>noclobber</command> option.</para>
 	<screen>set +o noclobber</screen>
 	<para>6. Make sure you have two shells open on the same computer. Create an empty <command>tailing.txt</command> file. Then type <command>tail -f tailing.txt</command>. Use the second shell to <command>append</command> a line of text to that file. Verify that the first shell displays this line.</para>
