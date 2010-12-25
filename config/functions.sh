@@ -5,9 +5,6 @@
 CHAPTERS=""
 APPENDIX=""
 
-# svn project path
-SVN_PROJECTDIR="https://support.ginsys.be/svn/lt"
-
 # use the correct java runtime for fop on Ubuntu
 # according to http://linuxmafia.com/faq/Admin/release-files.html
 if [ -f /etc/lsb-release ]
