@@ -14,3 +14,13 @@ code repository is hosted at Github https://github.com/linuxtraining/.
 Licensed under the GNU Free Documentation License
 ( http://www.gnu.org/licenses/fdl.html )
 
+
+** Dependencies
+
+- Java : on Ubuntu we use the Canonical partner provided sun-java6-bin package. We have a JAVAHOME hardcoded to this somewhere in the build script.
+-xmlto : for building the html pages
+
+** Build commands
+
+- make.sh : builds the pdf, run it without arguments to get some help.
+
