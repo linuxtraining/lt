@@ -11,12 +11,13 @@ wwwbooksdir=~/www/default/wp-content/blogs.dir/linux-training/files/books/
 cd ~/src/lt
 outputdir=./output
 www=~/proj/wwwfiles
+export DEBUG=0
 rm $V -rf $www
 mkdir $V -p $www
 
 # pull in latest buildfiles
 CURRENT_REV=$(git show  | grep "^commit")
-git pull $V
+git pull $V | grep -v "Already up-to-date"
 NEW_REV=$(git show  | grep "^commit")
 
 # check if the version changed, if not just exit unless the force switch is on.

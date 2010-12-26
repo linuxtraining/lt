@@ -232,7 +232,7 @@ case "$command" in
 	[ ! -z $DEBUG ] && echo "Done generating pdf $outputdir/book.pdf -> $pdffile"
 	[ ! -z $DEBUG ] && echo "Generating html for '$book' book."
 	build_html
- 	 ! -z $DEBUG ] && echo "Done Generating html for '$book' book."
+ 	[ ! -z $DEBUG ] && echo "Done Generating html for '$book' book."
 	;;
   *)
 	help
