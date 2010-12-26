@@ -2,19 +2,35 @@
 
 command=$1
 book=$2
-
-. config/functions.sh
-
-export FOP_OPTS="-Xms512m -Xmx512m"
-
-export BOOKDIR=./config/books
-
 outputdir="./output"
 htmldir="$outputdir/html"
 htmlimgdir="$htmldir/images"
 imgdir="./images"
 
-which xmlto >/dev/null || ( echo xmlto not installed. ; exit 1 )
+case $DEBUG in
+	"")	# default action is basic output
+		REDIR=">$outputdir/errors.txt 2>&1"
+		DEBUG=0
+		;;
+	0)	# DEBUG 0 is zero output
+		REDIR=">$outputdir/errors.txt 2>&1"
+		DEBUG=""
+		;;
+	1)
+		REDIR=">$outputdir/errors.txt 2>&1"
+		;;
+	2)
+		REDIR=""
+		;;
+	3)
+		REDIR="--execdebug"
+		;;
+esac
+
+. config/functions.sh
+
+export FOP_OPTS="-Xms512m -Xmx512m"
+export BOOKDIR=./config/books
 
 books=$( ls $BOOKDIR | grep .cfg$ | sed s/.cfg// )
 
@@ -24,22 +40,23 @@ help() {
 	echo
 	echo $0 "clean\t\tdelete output dir"
 	echo $0 "build [BOOK]\tbuild book"
-    echo $0 "html [BOOK]\tbuild book and generate html"
+	echo $0 "html [BOOK]\tbuild book and generate html"
+	echo "set DEBUG variable to 0, 1 (default), 2 or 3 for zero output, or more verbosity."
 	echo
 	echo Available books: $books
 	echo
 	}
 
 clean() {
-	echo "Cleaning up $outputdir directory"
+	[ ! -z $DEBUG ] && echo "Cleaning up $outputdir directory"
 	# We don't need the .xml files
 	rm -rf $outputdir/*.xml 2> /dev/null
 	# We don't need the previous errors.txt
 	[ -f $outputdir/errors.txt ] && ( rm -rf $outputdir/errors.txt || exit 0 )
 	# Symlink creation fails unless we remove this symlink first
 	[ -h $outputdir/book.pdf ] && ( rm -rf $outputdir/book.pdf || exit 0 )
-    # Clean $htmldir
-    [ -d $htmldir ] && ( rm -rf $htmldir/*.xml || exit 0 )
+	# Clean $htmldir
+	[ -d $htmldir ] && ( rm -rf $htmldir/*.xml || exit 0 )
 
 	# let's also purge the old static dir, which contents were moved to lib and put under source control
 	[ -d static ] && ( rm -rf static || exit 0 )
@@ -48,7 +65,7 @@ clean() {
 check_book() {
 	if [ ! -z $book ]
 		then 	# check if $book parameter is one of the available books
-			echo -n "Checking if $book.cfg exists in ./books directory ... "
+			[ ! -z $DEBUG ] && echo -n "Checking if $book.cfg exists in ./books directory ... "
 			check=0
 			for entry in $books ; do
 				if [ $entry = $book ]
@@ -56,11 +73,11 @@ check_book() {
 				fi
 			done
 			if [ $check = 1 ]
-				then echo OK
+				then [ ! -z $DEBUG ] && echo OKOKOKOK
 				else echo "$book is not available"; exit
 			fi
 		else
-			echo "No book specified, assuming default book"
+			[ ! -z $DEBUG ] && echo "No book specified, assuming default book"
 			book="default"
 		fi
 	}
@@ -124,13 +141,13 @@ build_body() {
 	}
 
 build_book() {
-	echo -n "Parsing config $BOOKDIR/$book.cfg ... "
-	. $BOOKDIR/$book.cfg && echo "OK" || ( echo "Error!" ; exit )
+	[ ! -z $DEBUG ] && echo -n "Parsing config $BOOKDIR/$book.cfg ... "
+	. $BOOKDIR/$book.cfg 
 
-    # Major and minor are set in functions.sh but can be overruled in $book.cfg
-    VERSIONSTRING=lt-$MAJOR.$MINOR
+    	# Major and minor are set in functions.sh but can be overruled in $book.cfg
+    	VERSIONSTRING=lt-$MAJOR.$MINOR
 
-	echo "Generating book $book (titled \"$BOOKTITLE\")"
+	[ ! -z $DEBUG ] && echo "Generating book $book (titled \"$BOOKTITLE\")"
 	[ -d $outputdir ] || mkdir $outputdir
 
 	BOOKTITLE2=$(echo $BOOKTITLE | sed -e 's/\ /\_/g' -e 's@/@-@g' )
@@ -151,27 +168,23 @@ build_book() {
 	build_footer
 
 	# build master xml
-	echo "Building $xmlfile"
+	[ ! -z $DEBUG ] && echo "Building $xmlfile"
 	cat $headerfile  > $xmlfile
 	cat $bodyfile   >> $xmlfile
 	cat $footerfile >> $xmlfile
 
-	echo "Generating $pdffile"
-	if [ -z $DEBUG ] ; then DEBUG="0"; fi
-	if 	[ $DEBUG = "2" ]; then REDIR=""
-	elif 	[ $DEBUG = "3" ]; then REDIR="--execdebug"
-	else	REDIR=">$outputdir/errors.txt 2>&1"; fi
+	[ ! -z $DEBUG ] && echo "Generating $pdffile"
 	eval $(echo ./lib/fop/fop -xml $xmlfile -xsl $XSLFILE -pdf $pdffile $REDIR)
 	ln -s $filename.pdf $outputdir/book.pdf
 	}
 
 build_html() {
-    [ -d $htmldir ] && rm -rf $htmldir || ( echo Error cleaning up $htmmldir ; exit 1 )
-    mkdir $htmldir || ( echo Error creating $htmldir ; exit 1 )
-    mkdir $htmlimgdir || ( echo Error creating $htmlimgdir ; exit 1 )
+    [ -d $htmldir ] && rm -rf $htmldir || ( echo Error cleaning up $htmmldir >&2 ; exit 1 )
+    mkdir $htmldir || ( echo Error creating $htmldir >&22; exit 1 )
+    mkdir $htmlimgdir || ( echo Error creating $htmlimgdir >&2 ; exit 1 )
 
     # We only need the one xml file
-    cp $xmlfile $htmldir || ( echo error copying $xmlfile ; exit 1 )
+    cp $xmlfile $htmldir || ( echo error copying $xmlfile >&2 ; exit 1 )
 
     # Locate the used images in the xml file
     images=`grep imagedata $htmldir/*.xml | cut -d/ -f2 | cut -d\" -f1`
@@ -179,12 +192,12 @@ build_html() {
     # Copy all the used images
     for img in $images
     do
-         echo Copying $img to $htmlimgdir ...
-         cp "$imgdir/$img" $htmlimgdir/ || echo Error copying $img
+         [ ! -z $DEBUG ] && echo Copying $img to $htmlimgdir ...
+         cp "$imgdir/$img" $htmlimgdir/ || echo Error copying $img >2&
     done
 
     # Run xmlto in $htmldir to generate the html
-    ( cd $htmldir && xmlto html *.xml ) || ( echo  Error generating the html $htmldir ; exit 1 )
+    ( cd $htmldir && xmlto html *.xml ) || ( echo  Error generating the html $htmldir >&2 ; exit 1 )
 
     # don't need the xml anymore in the $htmldir
     rm $htmldir/*.xml
@@ -193,8 +206,7 @@ build_html() {
 
 ##############
 
-echo
-set_ROOTDIR || ( echo "It does not look like I'm in the project root dir?"; exit)
+set_ROOTDIR || ( echo "It does not look like I'm in the project root dir?">&2; exit 1 )
 
 case "$command" in
   clean)
@@ -203,26 +215,28 @@ case "$command" in
   build)
 	clean
 	check_book
-	echo "Building '$book' book. Set DEBUG=[123] to watch output."
+	[ ! -z $DEBUG ] && echo "Building '$book' book. Set DEBUG=[123] to watch output."
 	build_book $book
-	echo "Done generating pdf $outputdir/book.pdf -> $pdffile"
+	[ ! -z $DEBUG ] && echo "Done generating pdf $outputdir/book.pdf -> $pdffile" 
 	;;
   html)
-    clean
-    check_book
-    echo "Building '$book' book. Set DEBUG=[123] to watch output."
-    build_book $book
-    echo "Done generating pdf $outputdir/book.pdf -> $pdffile"
-    echo "Generating html for '$book' book."
-    build_html
-    echo "Done Generating html for '$book' book."
-    ;;
-
+	if which xmlto >/dev/null 
+	then 	true
+	else	echo xmlto not installed. >&2 
+		exit 1
+	fi
+	clean
+	check_book
+	[ ! -z $DEBUG ] && echo "Building '$book' book. Set DEBUG=[123] to watch output."
+	build_book $book
+	[ ! -z $DEBUG ] && echo "Done generating pdf $outputdir/book.pdf -> $pdffile"
+	[ ! -z $DEBUG ] && echo "Generating html for '$book' book."
+	build_html
+ 	 ! -z $DEBUG ] && echo "Done Generating html for '$book' book."
+	;;
   *)
 	help
 	;;
 	
 esac
-
-echo
 

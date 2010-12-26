@@ -13,7 +13,7 @@ then	#Ubuntu
 elif [ -f /etc/debian_version ]
 then 	# use the correct java runtime for fop on Debian Lenny
 	export JAVA_HOME=/usr/lib/jvm/default-java/jre
-else	echo Could not set JAVA_HOME, something unexpected happened in $0
+else	echo Could not set JAVA_HOME, something unexpected happened in $0 >&2
 fi
 
 # Set the name of the XSL stylesheet
