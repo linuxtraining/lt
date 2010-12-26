@@ -197,7 +197,7 @@ build_html() {
     done
 
     # Run xmlto in $htmldir to generate the html
-    ( cd $htmldir && xmlto html *.xml ) || ( echo  Error generating the html $htmldir >&2 ; exit 1 )
+    ( cd $htmldir && xmlto html *.xml 2>&1 | grep -v "Writing" ) || ( echo  Error generating the html $htmldir >&2 ; exit 1 )
 
     # don't need the xml anymore in the $htmldir
     rm $htmldir/*.xml
