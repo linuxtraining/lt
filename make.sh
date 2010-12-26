@@ -179,7 +179,7 @@ build_book() {
 	}
 
 build_html() {
-    [ -d $htmldir ] && rm -rf $htmldir || ( echo Error cleaning up $htmmldir >&2 ; exit 1 )
+    [ -d $htmldir ] && rm -rf $htmldir
     mkdir $htmldir || ( echo Error creating $htmldir >&22; exit 1 )
     mkdir $htmlimgdir || ( echo Error creating $htmlimgdir >&2 ; exit 1 )
 
