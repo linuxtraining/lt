@@ -14,9 +14,9 @@
 		<para>Find files that are newer than file42.txt</para>
 		<screen>find . -newer file42.txt</screen>
 		<para>Find can also execute another command on every file found. This example will look for *.odf files and copy them to /backup/.</para>
-		<screen>find "/data/*.odf" -exec cp {} /backup/ \;</screen>
+		<screen>find /data -name "*.odf" -exec cp {} /backup/ \;</screen>
 		<para>Find can also execute, after your confirmation, another command on every file found. This example will remove *.odf files if you approve of it for every file found.</para>
-		<screen>find "/data/*.odf" -ok rm {} \;</screen>
+		<screen>find /data -name "*.odf" -ok rm {} \;</screen>
 	</section>
 	<section><title>locate</title>
 		<para>The <command>locate</command><indexterm><primary>locate(1)</primary></indexterm> tool is very different from <command>find</command> in that it uses an index to locate files. This is a lot faster than traversing all the directories, but it also means that it is always outdated. If the index does not exist yet, then you have to create it (as root on Red Hat Enterprise Linux) with the <command>updatedb</command><indexterm><primary>updatedb(1)</primary></indexterm> command.</para>
