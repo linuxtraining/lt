@@ -14,6 +14,8 @@
 	<para>3. Write a find command that finds all files created after January 30th 2010.</para>	
 	<screen>touch -t 201001302359 marker_date
 find . -type f -newer marker_date </screen>
+	<screen>There is another solution :
+find . -type f -newerat "20100130 23:59:59"</screen>
 	<para>4. Write a find command that finds all *.odf files created in September 2009.</para>
 	<screen>touch -t 200908312359 marker_start
 touch -t 200910010000 marker_end
