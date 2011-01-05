@@ -49,5 +49,5 @@
 	<screen>date +%Y/%m/%d</screen>
 	<para>23. Issue the cal command. Display a calendar of 1582 and 1752. Notice anything special ?</para>
 	<screen>cal 1582</screen>
-	<para>The calendars are different depending on the country. Check http://www.linux-training.be/studentfiles/dates.txt</para>
+	<para>The calendars are different depending on the country. Check http://www.linux-training.be/files/studentfiles/dates.txt</para>
 </section>
