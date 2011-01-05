@@ -1,7 +1,38 @@
 <?hard-pagebreak?>
 <section><title>solution : scripting tests and loops</title>
-	<para>1. Write a script that counts from 3 to 7 and then from 7 to 3, and all this three times, once with a for loop, once with a while loop and once with a until loop. Show the teacher that it works!</para>
-	<para>2. Write a script that counts the number of files ending in .txt in the current directory.</para>
+	<para>1. Write a script that uses a <command>for</command> loop to count from 3 to 7.</para>
+	<screen>#!/bin/bash
+
+for i in 3 4 5 6 7
+do
+ echo Counting from 3 to 7, now at $i
+done</screen>
+	<para>2. Write a script that uses a <command>for</command> loop to count from 1 to 17000.</para>
+	<screen>#!/bin/bash
+
+for i in `seq 1 17000`
+do
+ echo Counting from 1 to 17000, now at $i
+done</screen>
+	<para>3. Write a script that uses a <command>while</command> loop to count from 3 to 7.</para>
+	<screen>#!/bin/bash
+
+i=3
+while [ $i -le 7 ]
+do
+ echo Counting from 3 to 7, now at $i
+ let i=i+1
+done</screen>
+	<para>4. Write a script that uses an <command>until</command> loop to count down from 8 to 4.</para>
+	<screen>#!/bin/bash
+
+i=8
+until [ $i -lt 4 ]
+do
+ echo Counting down from 8 to 4, now at $i
+ let i=i-1
+done</screen>
+	<para>5. Write a script that counts the number of files ending in <command>.txt</command> in the current directory.</para>
 	<screen>#!/bin/bash
 
 let i=0
@@ -11,7 +42,7 @@ do
 done
 echo "There are $i files ending in .txt"
 	</screen>
-	<para>3. Wrap an if statement around the script so it is also correct when there are zero files ending in .txt.</para>
+	<para>6. Wrap an <command>if</command> statement around the script so it is also correct when there are zero files ending in <command>.txt</command>.</para>
 	<screen>#!/bin/bash
 
 ls *.txt > /dev/null 2>&#038;1
@@ -24,6 +55,5 @@ else
 		let i++
 	done
 	echo "There are $i files ending in .txt"
-fi
-</screen>
+fi</screen>
 </section>
