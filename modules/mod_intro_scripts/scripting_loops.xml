@@ -64,7 +64,7 @@ done</screen>
 		<screen>#!/bin/ksh
 for counter in `seq 1 20`
 do
-   echo counting from 0 to 20, now at $counter
+   echo counting from 1 to 20, now at $counter
    sleep 1
 done</screen>
 		<para>This <command>for loop</command> use file globbing (from the shell expansion). Putting the instruction on the command line has identical functionality.</para>
