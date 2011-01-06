@@ -37,7 +37,8 @@ tail /etc/passwd ; tail /etc/shadow ; ls /home </screen>
 	<para>12. Why use vipw instead of vi ? What could be the problem when using vi or vim ?</para>
 	<screen>vipw will give a warning when someone else is already using vipw on that file.</screen>
 	<para>13. Use chsh to list all shells, and compare to cat /etc/shells. Change your login shell to the Korn shell, log out and back in. Now change back to bash.</para>
-	<screen>On Red Hat Enterprise Linux: chsh -l</screen>
+	<screen>On Red Hat Enterprise Linux: chsh -l
+On Debian/Ubuntu: cat /etc/shells</screen>
 	<para>14. Which useradd option allows you to name a home directory ?</para>
 	<screen>-d</screen>
 	<para>15. How can you see whether the password of user harry is locked or unlocked ? Give a solution with grep and a solution with passwd.</para>
