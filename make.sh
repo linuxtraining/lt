@@ -21,7 +21,11 @@ help() {
 	echo $0 [OPTION] command [book]
 	echo 
 	echo "Options"
-	echo "  -d 0,1,2,3		Set debug level, 0 is default"
+	echo "  -d 0,1,2,3		Set debug level, 1 is default"
+	echo "					0	No output"
+	echo "					1	Error output"
+	echo "					2	Normal output"
+	echo "					3	PDF generation debug output"
 	echo "  -h			Help"
 	echo
 	echo "Commands"
@@ -160,7 +164,7 @@ build_book() {
 	cat $footerfile >> $xmlfile
 
 	[ ! -z $DEBUG ] && echo "Generating $pdffile"
-	eval $(echo ./lib/fop/fop -xml $xmlfile -xsl $XSLFILE -pdf $pdffile $REDIR)
+	eval $(echo ./lib/fop/fop -xml $xmlfile -xsl $XSLFILE -pdf $pdffile $EXECDEBUG $REDIR)
 	ln -s $filename.pdf $outputdir/book.pdf
 	}
 
@@ -192,7 +196,6 @@ build_html() {
 
 while getopts "d: h" option
 do
-	echo OPTIONS ARE $*
 	case $option in
 		d ) 	OPTDEBUG=$OPTARG
 			shift 2
@@ -208,22 +211,22 @@ command=$1
 book=$2
 
 case $OPTDEBUG in
-	"")	# default action is basic output
-		REDIR=">$outputdir/errors.txt 2>&1"
-		DEBUG=0
-		;;
-	0)	# DEBUG 0 is zero output
-		REDIR=">$outputdir/errors.txt 2>&1"
+	0)	# DEBUG 0 is zero output (except help message)
+		REDIR=">$outputdir/debug.txt 2>&1"
 		DEBUG=""
 		;;
-	1)
-		REDIR=">$outputdir/errors.txt 2>&1"
+	"",1)	# DEBUG 1 is default, only STDERR
+		REDIR=">$outputdir/debugs.txt 2>&1"
+		DEBUG=""
 		;;
-	2)
+	2)	# DEBUG 2 is all output we get normally
 		REDIR=""
+		DEBUG="y"
 		;;
-	3)
-		REDIR="--execdebug"
+	3)	# DEBUG 4 is all output we get normally + fop exec debug on 
+		REDIR=""
+		EXECDEBUG="--execdebug"
+		DEBUG="y"
 		;;
 	*)	help
 		exit 0
