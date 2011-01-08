@@ -1,33 +1,13 @@
 #!/bin/sh
 
-command=$1
-book=$2
 outputdir="./output"
 htmldir="$outputdir/html"
 htmlimgdir="$htmldir/images"
 imgdir="./images"
 
-case $DEBUG in
-	"")	# default action is basic output
-		REDIR=">$outputdir/errors.txt 2>&1"
-		DEBUG=0
-		;;
-	0)	# DEBUG 0 is zero output
-		REDIR=">$outputdir/errors.txt 2>&1"
-		DEBUG=""
-		;;
-	1)
-		REDIR=">$outputdir/errors.txt 2>&1"
-		;;
-	2)
-		REDIR=""
-		;;
-	3)
-		REDIR="--execdebug"
-		;;
-esac
-
 . config/functions.sh
+
+DEBUG=""
 
 export FOP_OPTS="-Xms512m -Xmx512m"
 export BOOKDIR=./config/books
@@ -36,14 +16,20 @@ books=$( ls $BOOKDIR | grep .cfg$ | sed s/.cfg// )
 
 help() {
 	echo
-	echo "linux-training book build script\t\thttp://www.linux-training.be"
+	echo "linux-training book build script\t\thttp://linux-training.be"
 	echo
-	echo $0 "clean\t\tdelete output dir"
-	echo $0 "build [BOOK]\tbuild book"
-	echo $0 "html [BOOK]\tbuild book and generate html"
-	echo "set DEBUG variable to 0, 1 (default), 2 or 3 for zero output, or more verbosity."
+	echo $0 [OPTION] command [book]
+	echo 
+	echo "Options"
+	echo "  -d 0,1,2,3		Set debug level, 0 is default"
+	echo "  -h			Help"
 	echo
-	echo Available books: $books
+	echo "Commands"
+	echo "  clean			delete output dir"
+	echo "  build [BOOK]		build book"
+	echo "  html [BOOK]		build book and generate html"
+	echo
+	echo "Available books:" $books
 	echo
 	}
 
@@ -203,6 +189,46 @@ build_html() {
     rm $htmldir/*.xml
 
 }
+
+while getopts "d: h" option
+do
+	echo OPTIONS ARE $*
+	case $option in
+		d ) 	OPTDEBUG=$OPTARG
+			shift 2
+			;;
+		h ) 	help
+			shift 1
+			exit 0
+			;;
+        esac
+done
+
+command=$1
+book=$2
+
+case $OPTDEBUG in
+	"")	# default action is basic output
+		REDIR=">$outputdir/errors.txt 2>&1"
+		DEBUG=0
+		;;
+	0)	# DEBUG 0 is zero output
+		REDIR=">$outputdir/errors.txt 2>&1"
+		DEBUG=""
+		;;
+	1)
+		REDIR=">$outputdir/errors.txt 2>&1"
+		;;
+	2)
+		REDIR=""
+		;;
+	3)
+		REDIR="--execdebug"
+		;;
+	*)	help
+		exit 0
+		;;
+esac
 
 ##############
 
