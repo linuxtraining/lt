@@ -90,8 +90,12 @@ add_appen() {
         APPENDIX=${APPENDIX}" "$1
         }
 
-echor() {
+echor() {	# echo error
 	echo $* >&2
+	}
+
+echod() {	# echo debug
+	[ $OPTDEBUG -ge 2 ] && 	echo $* 
 	}
 
 clean() {
@@ -149,17 +153,17 @@ build_footer() {
 
 build_body() {
 	for chapter in $CHAPTERS; do
-		echo -n "Building chapter $chapter .. " 
+		echod -n "Building chapter $chapter .. " 
 		modfile=$outputdir/mod_$chapter.xml
 		# load the chapter specific settings
-		echo " .. loading settings chapt_$chapter" 
+		echod " .. loading settings chapt_$chapter" 
 		eval chapt_$chapter
 		# Generate the end chapter tag
 		echo "<chapter><title>"$chaptitle"</title>" 	 > $modfile
 		# Generate all the sections
 		for module in $MODULES
 		do
-			echo "     adding module $module" 
+			echod "     adding module $module" 
 			cat $module 				>> $modfile
 		done
 		# Generate the end chapter tag
@@ -167,16 +171,16 @@ build_body() {
 		cat $modfile					>> $bodyfile
 	done
 	for appendix in $APPENDIX; do
-		echo -n "Building appendix $appendix .. " 
+		echod -n "Building appendix $appendix .. " 
 		modfile=$outputdir/mod_$appendix.xml
 		# load the chapter specific settings
-		echo " .. loading settings chapt_$appendix"
+		echod " .. loading settings chapt_$appendix"
 		eval chapt_$appendix
 		# Generate the end chapter tag
 		echo "<appendix><title>"$chaptitle"</title>" 	 > $modfile
 		# Generate all the sections
 		for module in $MODULES; do
-			echo "     adding module $module"
+			echod "     adding module $module"
 			cat $module 				>> $modfile
 			done
 		# Generate the end chapter tag
