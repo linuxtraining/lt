@@ -58,10 +58,6 @@ mv $V $outputdir/*.pdf $www/LinuxSrv.pdf
 mv $V $outputdir/*.pdf $www/LinuxTraining.pdf
 
 # DataNet
-#./cvomake.sh $MAKEOPTS build cvo2010
-#./make.sh $MAKEOPTS clean
-#mv -v $outputdir/*.pdf $www/DataNet.pdf
-# No daily update for dataNet until 22/12/2010 at least, for now we maintain a fixed version.
 cp lib/20101106-DataNet.pdf $www/DataNet.pdf
 
 # cleanup
