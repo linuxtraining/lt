@@ -11,7 +11,7 @@ wwwbooksdir=~/www/default/wp-content/blogs.dir/linux-training/files/books/
 cd ~/src/lt
 outputdir=./output
 www=~/proj/wwwfiles
-export DEBUG=0
+MAKEOPTS="-d"
 rm $V -rf $www
 mkdir $V -p $www
 
@@ -29,36 +29,37 @@ fi
 
 # fresh start
 clean () {
-        ./make.sh clean
+        ./make.sh $MAKEOPTS clean
         rm -rf $outputdir
 }
 clean
 
 # LinuxFun
-./make.sh html fundamentals
+./make.sh $MAKEOPTS html fundamentals
 mkdir $V -p $www/html/
 mv $V -T $outputdir/html $www/html/fun
-./make.sh clean
+./make.sh $MAKEOPTS build fundamentals
+./make.sh $MAKEOPTS clean
 mv $V $outputdir/*.pdf $www/LinuxFun.pdf
                   
 # LinuxAdm
-./make.sh build sysadmin
-./make.sh clean
+./make.sh $MAKEOPTS build sysadmin
+./make.sh $MAKEOPTS clean
 mv $V $outputdir/*.pdf $www/LinuxAdm.pdf
 
 # LinuxSrv
-./make.sh build advanced
-./make.sh clean
+./make.sh $MAKEOPTS build advanced
+./make.sh $MAKEOPTS clean
 mv $V $outputdir/*.pdf $www/LinuxSrv.pdf
 
 # LinuxTraining
-./make.sh build complete
-./make.sh clean
+./make.sh $MAKEOPTS build complete
+./make.sh $MAKEOPTS clean
 mv $V $outputdir/*.pdf $www/LinuxTraining.pdf
 
 # DataNet
-#./cvomake.sh build cvo2010
-#./make.sh clean
+#./cvomake.sh $MAKEOPTS build cvo2010
+#./make.sh $MAKEOPTS clean
 #mv -v $outputdir/*.pdf $www/DataNet.pdf
 # No daily update for dataNet until 22/12/2010 at least, for now we maintain a fixed version.
 cp lib/20101106-DataNet.pdf $www/DataNet.pdf
