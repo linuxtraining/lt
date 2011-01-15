@@ -195,7 +195,6 @@ build_xml() {
 	echo -n "Parsing config $BOOKDIR/$book.cfg ... "
 	. $BOOKDIR/$book.cfg 
 
-    	# Major and minor are set in functions.sh but can be overruled in $book.cfg
     	VERSIONSTRING=lt-$MAJOR.$MINOR
 
 	echo "Generating book $book (titled \"$BOOKTITLE\")"
