@@ -1,8 +1,9 @@
 #!/usr/bin/perl -w
-# written by Vomit (c) June 2008
-# thanks mate - Serge
+# originally written by Vomit (c) June 2008
+# updates by Serge van Ginderachter
 
 my $abstractfile = shift @ARGV;
+my $copyrightsfile = shift @ARGV;
 my $authorsfile = shift @ARGV;
 my $contributorsfile = shift @ARGV;
 my $reviewersfile = shift @ARGV;
@@ -10,6 +11,20 @@ my $pubdate = shift @ARGV;
 my $year = shift @ARGV;
 my $releaseinfo = shift @ARGV;
 my $teacher = shift @ARGV;
+
+# Parse config files
+
+open COPYR,"<$copyrightsfile" or die "Can't open copyrights $copyrightsfile";
+while(<COPYR>){
+	next if /^#/;
+	@COPYRIGHT=split /,/;
+	next unless scalar(@COPYRIGHT)==2;
+	push @COPYRIGHTS,{
+		firstname=>$COPYRIGHT[0],
+		lastname=>$COPYRIGHT[1],
+	};
+}
+close COPYR;
 
 open AUTH,"<$authorsfile" or die "Can't open authors $authorsfile";
 while(<AUTH>){
@@ -53,20 +68,21 @@ while(<REVW>){
 }
 close REVW;
 
+print "<author>\n";
 if ($teacher) {
-		print "<author>\n";
 		print "<firstname></firstname>\n";
 		print "<surname>$teacher</surname>\n";
-		print "</author>\n";
 	}
 else {
+	# using a loop but only the first author is used by docbook
 	foreach $author (@AUTHORS) {
-		print "<author>\n";
 		print "<firstname>$author->{firstname}</firstname>\n";
 		print "<surname>$author->{lastname}</surname>\n";
-		print "</author>\n";
 	}
 }
+print "</author>\n";
+
+# Start output header content.
 
 print "<pubdate>$pubdate</pubdate>\n";
 print "<releaseinfo>$releaseinfo</releaseinfo>\n";
@@ -87,14 +103,18 @@ while(<ABSTR>) {
 
 	s/YEAR/$year/;
 
+	if(/\[COPYRIGHTS\]/) {
+		foreach $copyright (@COPYRIGHTS) {
+			push @copyrights, "$copyright->{firstname} $copyright->{lastname}";
+		}
+		$copyrights=join(", ",@copyrights);
+		s/\[COPYRIGHTS\]/$copyrights/;
+	}
+
 	if(/\[AUTHORS\]/) {
 		foreach $author (@AUTHORS) {
 			push @authors, "$author->{firstname} $author->{lastname}";
 		}
-		# uncomment if you feel contributors should be mentioned as authors in the Copyright line
-		# foreach $contributor (@CONTRIBUTORS) {
-		#	push @authors, "$contributor->{firstname} $contributor->{lastname}";
-		# }
 		$authors=join(", ",@authors);
 		s/\[AUTHORS\]/$authors/;
 	}

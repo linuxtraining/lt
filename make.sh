@@ -95,7 +95,7 @@ echor() {	# echo error
 	}
 
 echod() {	# echo debug
-	[ $OPTDEBUG -ge 2 ] && 	echo $* 
+	[ $OPTDEBUG -ge 2 ] && echo $* 
 	}
 
 clean() {
@@ -103,7 +103,7 @@ clean() {
 	# We don't need the .xml files
 	rm -rf $V $outputdir/*.xml
 	# We don't need the previous errors.txt
-	[ -f $outputdir/errors.txt ] && rm -rf $V $outputdir/errors.txt
+	[ -f $redirfile ] && rm -rf $V $redirfile
 	# Symlink creation fails unless we remove this symlink first
 	[ -h $outputdir/book.pdf ] && rm -rf $V $outputdir/book.pdf
 	# Clean $htmldir
@@ -135,8 +135,9 @@ build_header() {
         echo "<book>"                                           >> $headerfile
         echo "<bookinfo>"                                       >> $headerfile
         echo "<title>$BOOKTITLE</title>"                        >> $headerfile
-	config/buildheader.pl \
+	bin/buildheader.pl \
 		"modules/header/abstract.xml" \
+		"config/copyrights" \
 		"config/authors" \
 		"config/contributors" \
 		"config/reviewers" \
@@ -153,19 +154,20 @@ build_footer() {
 
 build_body() {
 	for chapter in $CHAPTERS; do
-		echod -n "Building chapter $chapter .. " 
+		echod -n "Building chapter $chapter " 
 		modfile=$outputdir/mod_$chapter.xml
 		# load the chapter specific settings
-		echod " .. loading settings chapt_$chapter" 
+		echod -n "\t.. loading settings chapt_$chapter" 
 		eval chapt_$chapter
 		# Generate the end chapter tag
 		echo "<chapter><title>"$chaptitle"</title>" 	 > $modfile
 		# Generate all the sections
 		for module in $MODULES
 		do
-			echod "     adding module $module" 
+			echod -n "\t.. adding module $module" 
 			cat $module 				>> $modfile
 		done
+		echod
 		# Generate the end chapter tag
 		echo "</chapter>"      				>> $modfile
 		cat $modfile					>> $bodyfile
