@@ -16,6 +16,7 @@ my $teacher = shift @ARGV;
 
 open COPYR,"<$copyrightsfile" or die "Can't open copyrights $copyrightsfile";
 while(<COPYR>){
+    chomp;
 	next if /^#/;
 	@COPYRIGHT=split /,/;
 	next unless scalar(@COPYRIGHT)==2;
@@ -28,6 +29,7 @@ close COPYR;
 
 open AUTH,"<$authorsfile" or die "Can't open authors $authorsfile";
 while(<AUTH>){
+    chomp;
 	next if /^#/;
 	@AUTHOR=split /,/;
 	next unless scalar(@AUTHOR)==4;
@@ -42,6 +44,7 @@ close AUTH;
 
 open CONTR,"<$contributorsfile" or die "Can't open authors $contributorsfile";
 while(<CONTR>){
+    chomp;
 	next if /^#/;
 	@CONTRIBUTOR=split /,/;
 	next unless scalar(@CONTRIBUTOR)==4;
@@ -56,6 +59,7 @@ close CONTR;
 
 open REVW,"<$reviewersfile" or die "Can't open authors $reviewersfile";
 while(<REVW>){
+    chomp;
 	next if /^#/;
 	@REVIEWER=split /,/;
 	next unless scalar(@REVIEWER)==4;
