@@ -1,5 +1,0 @@
-#!/bin/sh
-echo Downloading static docbook, xsl and fop
-wget http://support.ginsys.be/files/svn/lt/docbook.tbz
-wget http://support.ginsys.be/files/svn/lt/fop.tbz
-wget http://support.ginsys.be/files/svn/lt/xsl.tbz

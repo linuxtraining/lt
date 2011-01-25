@@ -1,25 +1,34 @@
 #!/bin/sh
 
+### module info ###
+# The build environment expects to live in a subdir build/
+# It expects to find book information in the parent dir
+# ./books/
+# ./images/
+# ./modules/
+# ./build/
+
 ### settings ###
 
-outputdir="./output"
-htmldir="$outputdir/html"
-htmlimgdir="$htmldir/images"
-imgdir="./images" 
-redirfile="$outputdir/debug.txt"
-XSLFILE="lib/lt.xsl"
+OUTPUTDIR="./output"
+redirfile="$OUTPUTDIR/debug.txt"
+HTMLDIR="$OUTPUTDIR/html"
+HTMLIMGDIR="$HTMLDIR/images"
+IMAGESDIR="./images" 
+MODULESDIR="./modules"
+BUILDDIR="./build"
+LIBDIR="$BUILDDIR/lib"
+XSLFILE="$LIBDIR/lt.xsl"
+FOPDIR="$LIBDIR/fop"
 export FOP_OPTS="-Xms512m -Xmx512m"
-export BOOKDIR=./config/books
+export BOOKSDIR=./books
 DATECODE=$(date +%y%m%d | sed s/^0//)
 PUBDATE=$(date +%c)
 YEAR=$(date +%Y)
-books=$( ls $BOOKDIR | grep .cfg$ | sed s/.cfg// )
+books=$( cd $BOOKSDIR ; find * -maxdepth 1 -type d )
 V=""
 CHAPTERS=""
 APPENDIX=""
-
-# VERSION_STRING
-. config/version
 
 ### functions ###
 
@@ -56,30 +65,26 @@ set_JAVA() {
 	elif [ -f /etc/debian_version ]
 	then    # use the correct java runtime for fop on Debian Lenny
 	        export JAVA_HOME=/usr/lib/jvm/default-java/jre
-	else    echo Could not set JAVA_HOME, something unexpected happened in $0 >&2
+	else    echor Could not set JAVA_HOME, something unexpected happened in $0
 	fi
 	}
 
-set_ROOTDIR() {
-        # sets root_dir to first parameter or to current directory and 
-        # returns err 2 if ROOTDIR does not contain the right code subdirs
-        if [ -z $1 ]
-                then ROOTDIR="."
-                else ROOTDIR=$1
-                fi
-        if [       -d $ROOTDIR \
-                -a -d $ROOTDIR/config \
-                -a -d $ROOTDIR/config/books \
-                -a -d $ROOTDIR/images \
-                -a -d $ROOTDIR/lib \
-                -a -d $ROOTDIR/modules ]
-                then true
-                else return 1
-                fi
+check_ROOTDIR() {
+
+	if	[ -x make.sh -a -x buildheader.pl ]
+	then	echor "We are in the build directory, changing to parent directory."
+		cd ..
+	fi
+	if	[ -d $BOOKSDIR -a -d $BOOKSDIR -a -d $MODULESDIR -a -d $BUILDDIR ]
+	then	echor "Current dir is book project root directory."
+	else	echor "Please run this script from the book root directory."
+		return 1
+	fi
+
         }
 
 add_mod() {
-        MODULES=${MODULES}" "${ROOTDIR}/modules/$1
+        MODULES=${MODULES}" "$MODULESDIR/$1
         }
 
 add_chapt() {
@@ -99,15 +104,15 @@ echod() {	# echo debug
 	}
 
 clean() {
-	echo "Cleaning up $outputdir directory"
+	echo "Cleaning up $OUTPUTDIR directory"
 	# We don't need the .xml files
-	rm -rf $V $outputdir/*.xml
+	rm -rf $V $OUTPUTDIR/*.xml
 	# We don't need the previous errors.txt
 	[ -f $redirfile ] && rm -rf $V $redirfile
 	# Symlink creation fails unless we remove this symlink first
-	[ -h $outputdir/book.pdf ] && rm -rf $V $outputdir/book.pdf
-	# Clean $htmldir
-	[ -d $htmldir ] && rm -rf $V $htmldir/*.xml
+	[ -h $OUTPUTDIR/book.pdf ] && rm -rf $V $OUTPUTDIR/book.pdf
+	# Clean $HTMLDIR
+	[ -d $HTMLDIR ] && rm -rf $V $HTMLDIR/*.xml
 	}
 
 check_book() {
@@ -131,16 +136,17 @@ check_book() {
 	}
 
 build_header() {
-	cat modules/header/doctype.xml                           > $headerfile
+	. $BOOKSDIR/$book/version
+	cat modules/header/doctype.xml | sed s@LIBDIR@../$LIBDIR@g	> $headerfile
         echo "<book>"                                           >> $headerfile
         echo "<bookinfo>"                                       >> $headerfile
         echo "<title>$BOOKTITLE</title>"                        >> $headerfile
-	bin/buildheader.pl \
+	$BUILDDIR/buildheader.pl \
 		"modules/header/abstract.xml" \
-		"config/copyrights" \
-		"config/authors" \
-		"config/contributors" \
-		"config/reviewers" \
+		"$BOOKSDIR/$book/copyrights" \
+		"$BOOKSDIR/$book/authors" \
+		"$BOOKSDIR/$book/contributors" \
+		"$BOOKSDIR/$book/reviewers" \
 		"$PUBDATE" \
 		"$YEAR" \
 		"$VERSIONSTRING" \
@@ -155,7 +161,7 @@ build_footer() {
 build_body() {
 	for chapter in $CHAPTERS; do
 		echod -n "Building chapter $chapter " 
-		modfile=$outputdir/mod_$chapter.xml
+		modfile=$OUTPUTDIR/mod_$chapter.xml
 		# load the chapter specific settings
 		echod -n "\t.. loading settings chapt_$chapter" 
 		eval chapt_$chapter
@@ -174,7 +180,7 @@ build_body() {
 	done
 	for appendix in $APPENDIX; do
 		echod -n "Building appendix $appendix .. " 
-		modfile=$outputdir/mod_$appendix.xml
+		modfile=$OUTPUTDIR/mod_$appendix.xml
 		# load the chapter specific settings
 		echod " .. loading settings chapt_$appendix"
 		eval chapt_$appendix
@@ -192,21 +198,21 @@ build_body() {
 	}
 
 build_xml() {
-	echo -n "Parsing config $BOOKDIR/$book.cfg ... "
-	. $BOOKDIR/$book.cfg 
+	echo -n "Parsing config $BOOKSDIR/$book/config ... "
+	. $BOOKSDIR/$book/config
 
     	VERSIONSTRING=lt-$MAJOR.$MINOR
 
 	echo "Generating book $book (titled \"$BOOKTITLE\")"
-	[ -d $outputdir ] || mkdir $outputdir
+	[ -d $OUTPUTDIR ] || mkdir $OUTPUTDIR
 
 	BOOKTITLE2=$(echo $BOOKTITLE | sed -e 's/\ /\_/g' -e 's@/@-@g' )
 	filename=$BOOKTITLE2-$VERSIONSTRING-$DATECODE
-	xmlfile=$outputdir/$filename.xml
-	pdffile=$outputdir/$filename.pdf
-	headerfile=$outputdir/section_header.xml
-	footerfile=$outputdir/section_footer.xml
-	bodyfile=$outputdir/section_body.xml
+	xmlfile=$OUTPUTDIR/$filename.xml
+	pdffile=$OUTPUTDIR/$filename.pdf
+	headerfile=$OUTPUTDIR/section_header.xml
+	footerfile=$OUTPUTDIR/section_footer.xml
+	bodyfile=$OUTPUTDIR/section_body.xml
 
 	# make header
 	build_header
@@ -229,35 +235,35 @@ build_book() {
 	echo 
 	echo "---------------------------------"
 	echo "Generating $pdffile"
-	eval $(echo ./lib/fop/fop -xml $xmlfile -xsl $XSLFILE -pdf $pdffile $EXECDEBUG) >&2
-	ln -s $V $filename.pdf $outputdir/book.pdf
+	eval $(echo $FOPDIR/fop -xml $xmlfile -xsl $XSLFILE -pdf $pdffile $EXECDEBUG) >&2
+	ln -s $V $filename.pdf $OUTPUTDIR/book.pdf
 	echo "---------------------------------"
 	}
 
 build_html() {
-    [ -d $htmldir ] && rm -rf $V $htmldir
-    mkdir $htmldir || ( echor Error creating $htmldir; exit 1 )
-    mkdir $htmlimgdir || ( echor Error creating $htmlimgdir; exit 1 )
+    [ -d $HTMLDIR ] && rm -rf $V $HTMLDIR
+    mkdir $HTMLDIR || ( echor Error creating $HTMLDIR; exit 1 )
+    mkdir $HTMLIMGDIR || ( echor Error creating $HTMLIMGDIR; exit 1 )
 
     # We only need the one xml file
-    cp $xmlfile $htmldir || ( echor error copying $xmlfile ; exit 1 )
+    cp $xmlfile $HTMLDIR || ( echor error copying $xmlfile ; exit 1 )
 
     # Locate the used images in the xml file
-    images=`grep imagedata $htmldir/*.xml | cut -d/ -f2 | cut -d\" -f1`
+    images=`grep imagedata $HTMLDIR/*.xml | cut -d/ -f2 | cut -d\" -f1`
 
     # Copy all the used images
     for img in $images
     do
-         echo Copying $img to $htmlimgdir ...
-         cp $V "$imgdir/$img" $htmlimgdir/ || echor Error copying $img 
+         echo Copying $img to $HTMLIMGDIR ...
+         cp $V "$imgdir/$img" $HTMLIMGDIR/ || echor Error copying $img 
     done
 
-    # Run xmlto in $htmldir to generate the html
+    # Run xmlto in $HTMLDIR to generate the html
     echo "Converting xml to html ..."
-    ( cd $htmldir && xmlto html *.xml 2>&1 | grep -v "Writing" ) || ( echor  Error generating the html $htmldir ; exit 1 )
+    ( cd $HTMLDIR && xmlto html *.xml 2>&1 | grep -v "Writing" ) || ( echor  Error generating the html $HTMLDIR ; exit 1 )
 
-    # don't need the xml anymore in the $htmldir
-    rm $htmldir/*.xml
+    # don't need the xml anymore in the $HTMLDIR
+    rm $HTMLDIR/*.xml
 
 }
 
@@ -303,10 +309,10 @@ esac
 
 ##############
 
-set_ROOTDIR || ( echo "It does not look like I'm in the project root dir?" $REDIR; exit 1 )
+check_ROOTDIR || ( echo "It does not look like I'm in the project root dir?" $REDIR; exit 1 )
 
 # Redirect everything according to REDIR var from now on.
-mkdir -p $outputdir
+mkdir -p $OUTPUTDIR
 eval "exec $REDIR"
 
 # Main loop
@@ -320,7 +326,7 @@ case "$command" in
 	echo "Building '$book' book."
 	build_xml
 	build_book
-	echo "Done generating pdf $outputdir/book.pdf -> $pdffile" 
+	echo "Done generating pdf $OUTPUTDIR/book.pdf -> $pdffile" 
 	;;
   html)
 	[ -x "$(which xmlto)" ] || echor "xmlto not installed." || exit 1

@@ -8,7 +8,7 @@ TEACHER=""
 ## chapter definitions
 ###########################
 
-. $BOOKDIR/complete.chp
+. $BOOKSDIR/chapters
 	
 ##################
 # define book

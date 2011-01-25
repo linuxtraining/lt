@@ -12,7 +12,7 @@ MINOR=99
 ## chapter definitions
 ###########################
 
-. $BOOKDIR/complete.chp
+. $BOOKSDIR/chapters
 	
 ##################
 # define book

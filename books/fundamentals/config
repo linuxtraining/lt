@@ -3,16 +3,12 @@
 
 BOOKTITLE="Linux Fundamentals"
 TEACHER=""
-# if set this overrules the system wide version:
-MAJOR=1
-MINOR=0
-
 
 ###########################
 ## chapter definitions
 ###########################
 
-. $BOOKDIR/complete.chp
+. $BOOKSDIR/chapters
 	
 ##################
 # define book
