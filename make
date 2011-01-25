@@ -22,13 +22,17 @@ XSLFILE="$LIBDIR/lt.xsl"
 FOPDIR="$LIBDIR/fop"
 export FOP_OPTS="-Xms512m -Xmx512m"
 export BOOKSDIR=./books
+
+### initialization ###
+
+V=""
+CHAPTERS=""
+APPENDIX=""
+
 DATECODE=$(date +%y%m%d | sed s/^0//)
 PUBDATE=$(date +%c)
 YEAR=$(date +%Y)
 books=$( cd $BOOKSDIR ; find * -maxdepth 1 -type d )
-V=""
-CHAPTERS=""
-APPENDIX=""
 
 ### functions ###
 
