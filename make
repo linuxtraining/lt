@@ -136,7 +136,6 @@ check_book() {
 	}
 
 build_header() {
-	. $BOOKSDIR/$book/version
 	cat modules/header/doctype.xml | sed s@LIBDIR@../$LIBDIR@g	> $headerfile
         echo "<book>"                                           >> $headerfile
         echo "<bookinfo>"                                       >> $headerfile
@@ -150,7 +149,7 @@ build_header() {
 		"$PUBDATE" \
 		"$YEAR" \
 		"$VERSIONSTRING" \
-		"$TEACHER"					>> $headerfile	 
+		"$TEACHER"			                            		>> $headerfile	 
         echo "</bookinfo>"                                      >> $headerfile
 	}
 
@@ -200,8 +199,9 @@ build_body() {
 build_xml() {
 	echo -n "Parsing config $BOOKSDIR/$book/config ... "
 	. $BOOKSDIR/$book/config
+	. $BOOKSDIR/$book/version
 
-    	VERSIONSTRING=lt-$MAJOR.$MINOR
+    VERSIONSTRING=lt-$MAJOR.$MINOR
 
 	echo "Generating book $book (titled \"$BOOKTITLE\")"
 	[ -d $OUTPUTDIR ] || mkdir $OUTPUTDIR
