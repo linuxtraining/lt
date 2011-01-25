@@ -28,6 +28,10 @@ paul@pasha:~$ file /bin/date
 /bin/date: ELF 32-bit MSB executable, SPARC, version 1 (SYSV), for GNU/\
 Linux 2.4.1, dynamically linked (uses shared libs), for GNU/Linux 2.4.1\
 , stripped
+
+# AIX on RS/6000
+serena@AIX7 /home/serena$ file /bin/date
+/bin/date: executable (RISC System/6000) or object module
 		</screen>
 		<para>The file command uses a magic file that contains patterns to recognize filetypes. The magic file is located in <command>/usr/share/file/magic</command><indexterm><primary>magic(5)</primary></indexterm>. Type <command>man 5 magic</command> for more information.</para>
 	</section>
