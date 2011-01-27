@@ -11,7 +11,7 @@ wwwbooksdir=~/www/default/wp-content/blogs.dir/linux-training/files/books/
 cd ~/src/lt
 outputdir=./output
 www=~/proj/wwwfiles
-MAKEOPTS="-d"
+MAKEOPTS=""
 rm $V -rf $www
 mkdir $V -p $www
 
