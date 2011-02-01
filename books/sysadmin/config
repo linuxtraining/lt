@@ -1,0 +1,52 @@
+#!/bin/sh
+#
+
+BOOKTITLE="Linux System Administration"
+TEACHER=""
+# if set this overrules the system wide version:
+MAJOR=0
+MINOR=99
+
+
+###########################
+## chapter definitions
+###########################
+
+. $BOOKSDIR/chapters
+	
+##################
+# define book
+##################
+
+# define book as chapters in certain order
+
+# fundamentals parts in sysadmin course
+# add_chapt intro_users
+# add_chapt intro_groups
+# add_chapt file_permissions
+# add_chapt links
+# add_chapt processes
+
+# sysadmin
+add_chapt processes
+add_chapt disk_management
+add_chapt lvm
+add_chapt bootloader
+add_chapt init_system
+add_chapt kernel
+add_chapt network_sniffing
+add_chapt network
+add_chapt scheduling
+add_chapt logging
+add_chapt libraries
+add_chapt memory 
+add_chapt installing_linux
+add_chapt package_management
+add_chapt backup
+add_chapt monitoring
+add_appen quotas
+add_appen vnc
+# add_appen bootfloppy
+
+# license
+add_appen gnufdl

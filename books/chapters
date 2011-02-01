@@ -1,0 +1,565 @@
+###########################
+## chapter definitions
+###########################
+
+chapt_apache() {
+	MODULES=""
+	chaptitle="Introduction to apache"
+	add_mod mod_apache/apache.xml
+	}
+
+#
+chapt_backup() {
+	MODULES=""
+	chaptitle="Backup"
+	add_mod mod_backup/backup.xml
+	}
+
+#
+chapt_basic_tools() {
+	MODULES=""
+	chaptitle="Basic Unix tools"
+	add_mod mod_basic_tools/tools.xml
+	add_mod mod_basic_tools/tools_practice.xml
+	add_mod mod_basic_tools/tools_solution.xml
+	}
+
+#
+chapt_bind() {
+	MODULES=""
+	chaptitle="Introduction to bind"
+	add_mod mod_bind/bind.xml
+	}
+
+#
+chapt_bootloader() {
+	MODULES=""
+	chaptitle="Booting the system"
+	add_mod mod_bootloader/boot.xml          
+	add_mod mod_bootloader/grub.xml          
+	add_mod mod_bootloader/lilo.xml          
+	add_mod mod_bootloader/practice.xml      
+	}
+
+#
+chapt_init_system() {
+	MODULES=""
+	chaptitle="init"
+	add_mod mod_init/init.xml   
+	add_mod mod_init/runlevels.xml   
+	add_mod mod_init/init_practice.xml      
+	add_mod mod_init/init_solution.xml      
+	}
+
+#
+chapt_cloning() {
+	MODULES=""
+	chaptitle="Cloning a Linux server"
+	add_mod mod_cloning/cloning.xml  
+	}
+
+#
+chapt_disk_management() {
+	MODULES=""
+	chaptitle="Disk management"
+	add_mod mod_disk_management/diskdevices.xml    
+	add_mod mod_disk_management/diskdevices_practice.xml    
+	add_mod mod_disk_management/diskdevices_solution.xml    
+	add_mod mod_disk_management/partitions.xml     
+	add_mod mod_disk_management/partitions_practice.xml     
+	add_mod mod_disk_management/partitions_solution.xml     
+	add_mod mod_disk_management/filesystems.xml    
+	add_mod mod_disk_management/filesystems_practice.xml    
+	add_mod mod_disk_management/filesystems_solution.xml    
+	add_mod mod_disk_management/mounting.xml       
+	add_mod mod_disk_management/mounting_practice.xml       
+	add_mod mod_disk_management/mounting_solution.xml       
+	add_mod mod_disk_management/uuid.xml           
+	add_mod mod_disk_management/uuid_practice.xml           
+	add_mod mod_disk_management/uuid_solution.xml           
+	add_mod mod_disk_management/raid.xml           
+	add_mod mod_disk_management/raid_practice.xml           
+	}
+
+#
+chapt_file_permissions() {
+	MODULES=""
+	chaptitle="Standard file permissions"
+	add_mod mod_file_permissions/standard_permissions.xml
+	add_mod mod_file_permissions/standard_permissions_practice.xml
+	add_mod mod_file_permissions/standard_permissions_solution.xml
+	add_mod mod_file_permissions/sticky_setgid.xml          
+	add_mod mod_file_permissions/sticky_setgid_practice.xml          
+	add_mod mod_file_permissions/sticky_setgid_solution.xml          
+	add_mod mod_file_permissions/acls.xml        
+#	add_mod mod_file_permissions/acls_practice.xml        
+#	add_mod mod_file_permissions/acls_solution.xml        
+	}
+
+#
+chapt_file_system_tree() {
+	MODULES=""
+	chaptitle="The Linux file system tree"
+	add_mod mod_file_system_tree/about_files_on_linux.xml
+	add_mod mod_file_system_tree/file_system_tree.xml
+	add_mod mod_file_system_tree/file_system_tree_practice.xml
+	add_mod mod_file_system_tree/file_system_tree_solution.xml
+	}
+
+#
+chapt_first_steps() {
+	MODULES=""
+	chaptitle="First steps"
+	add_mod mod_first_steps/directories.xml
+	add_mod mod_first_steps/directories_practice.xml
+	add_mod mod_first_steps/directories_solution.xml
+	add_mod mod_first_steps/files.xml
+	add_mod mod_first_steps/files_practice.xml
+	add_mod mod_first_steps/files_solution.xml
+	add_mod mod_first_steps/filecontents.xml
+	add_mod mod_first_steps/filecontents_practice.xml
+	add_mod mod_first_steps/filecontents_solution.xml
+	}
+
+#
+chapt_getting_help() {
+	MODULES=""
+	chaptitle="Getting help"
+	add_mod mod_intro_unix/manpages.xml                  
+	add_mod mod_intro_unix/onlinehelp.xml                  
+	}
+
+#
+chapt_hardware() {
+	MODULES=""
+	chaptitle="Hardware Settings"
+	add_mod mod_hardware/hardware.xml   
+	}
+
+#
+chapt_bootfloppy() {
+	MODULES=""
+	chaptitle="Create a bootable floppy"
+	add_mod mod_hardware/bootfloppy.xml   
+	}
+
+#
+chapt_installing_linux() {
+	MODULES=""
+	chaptitle="Installing Linux"
+	add_mod mod_installing_linux/installing_linux.xml
+	}
+
+#
+chapt_intro_bash() {
+	MODULES=""
+	chaptitle="Introduction to the shell"
+	add_mod mod_intro_bash/about_shells.xml            
+	add_mod mod_intro_bash/about_shells_practice.xml            
+	add_mod mod_intro_bash/about_shells_solution.xml            
+	add_mod mod_intro_bash/shell_control_operators.xml  
+	add_mod mod_intro_bash/shell_control_operators_practice.xml  
+	add_mod mod_intro_bash/shell_control_operators_solution.xml  
+	add_mod mod_intro_bash/shell_variables.xml  
+	add_mod mod_intro_bash/shell_variables_practice.xml  
+	add_mod mod_intro_bash/shell_variables_solution.xml  
+	add_mod mod_intro_bash/shell_white_spaces_and_quoting.xml  
+	add_mod mod_intro_bash/shell_white_spaces_and_quoting_practice.xml  
+	add_mod mod_intro_bash/shell_white_spaces_and_quoting_solution.xml  
+	add_mod mod_intro_bash/shell_file_globbing.xml  
+	add_mod mod_intro_bash/bash_shell_options.xml    
+	add_mod mod_intro_bash/shell_history.xml    
+	add_mod mod_intro_bash/practice.xml              
+	add_mod mod_intro_bash/solution.xml              
+	add_mod mod_intro_bash/bash_io.xml              
+	add_mod mod_intro_bash/bash_io_practice.xml              
+	add_mod mod_intro_bash/bash_io_solution.xml              
+	}
+
+#
+chapt_intro_groups() {
+	MODULES=""
+	chaptitle="Introduction to groups"
+	add_mod mod_intro_groups/groups.xml  
+	}
+
+#
+chapt_intro_scripts() {
+	MODULES=""
+	chaptitle="Understanding scripts"
+	add_mod mod_intro_scripts/scripting_intro.xml       
+	add_mod mod_intro_scripts/scripting_intro_practice.xml       
+	add_mod mod_intro_scripts/scripting_intro_solution.xml       
+	add_mod mod_intro_scripts/scripting_loops.xml       
+	add_mod mod_intro_scripts/scripting_loops_practice.xml       
+	add_mod mod_intro_scripts/scripting_loops_solution.xml       
+	add_mod mod_intro_scripts/scripting_params.xml       
+	add_mod mod_intro_scripts/scripting_params_practice.xml       
+	add_mod mod_intro_scripts/scripting_params_solution.xml       
+	add_mod mod_intro_scripts/scripting.xml       
+	add_mod mod_intro_scripts/scripting_practice.xml       
+	add_mod mod_intro_scripts/scripting_solution.xml       
+	}
+
+#
+chapt_intro_unix() {
+	MODULES=""
+	chaptitle="Introduction to Unix and Linux"
+	add_mod mod_intro_unix/history_unix.xml  
+	add_mod mod_intro_unix/licensing.xml     
+	add_mod mod_intro_unix/distros.xml       
+	add_mod mod_intro_unix/certifications.xml
+	add_mod mod_intro_unix/classroom.xml           
+	}
+
+#
+chapt_intro_users() {
+	MODULES=""
+	chaptitle="Introduction to users"
+	add_mod mod_intro_users/identify_yourself.xml   
+	add_mod mod_intro_users/users.xml   
+	add_mod mod_intro_users/passwords.xml   
+	add_mod mod_intro_users/home_directories.xml   
+	add_mod mod_intro_users/user_shell.xml   
+	add_mod mod_intro_users/su.xml   
+	add_mod mod_intro_users/sudo.xml   
+	add_mod mod_intro_users/practice_users.xml
+	add_mod mod_intro_users/solution.xml
+	add_mod mod_intro_users/user_environment.xml   
+	}
+
+#
+chapt_intro_vi() {
+	MODULES=""
+	chaptitle="Introduction to vi"
+	add_mod mod_intro_vi/vi.xml  
+	add_mod mod_intro_vi/vi_practice.xml  
+	add_mod mod_intro_vi/vi_solution.xml  
+	}
+
+#
+chapt_iptables() {
+	MODULES=""
+	chaptitle="Iptables"
+	add_mod mod_iptables/about_iptables.xml
+	add_mod mod_iptables/packet_filtering.xml
+	add_mod mod_iptables/nat.xml
+	}
+
+#
+chapt_kernel() {
+	MODULES=""
+	chaptitle="Linux Kernel"
+	add_mod mod_kernel/linux_kernel.xml   
+	add_mod mod_kernel/kernel_source.xml   
+	add_mod mod_kernel/kernel_boot_files.xml   
+	add_mod mod_kernel/kernel_modules.xml   
+	add_mod mod_kernel/kernel_compile.xml   
+	add_mod mod_kernel/compiling_one_module.xml   
+	}
+
+#
+chapt_keys() {
+	MODULES=""
+	chaptitle="Keyboard settings"
+	add_mod mod_keys/keys.xml
+	}
+
+#
+chapt_libraries() {
+	MODULES=""
+	chaptitle="Library Management"
+	add_mod mod_libraries/libraries.xml
+	}
+
+#
+chapt_links() {
+	MODULES=""
+	chaptitle="File links"
+	add_mod mod_links/links.xml  
+	add_mod mod_links/practice_links.xml  
+	add_mod mod_links/solution_links.xml  
+	}
+
+#
+chapt_logging() {
+	MODULES=""
+	chaptitle="Logging"
+	add_mod mod_logging/logging.xml        
+	add_mod mod_logging/logging_practice.xml        
+	add_mod mod_logging/logging_solution.xml        
+	}
+
+#
+chapt_lvm() {
+	MODULES=""
+	chaptitle="Logical volume management"
+	add_mod mod_lvm/lvm.xml  
+	add_mod mod_lvm/lvm_examples.xml  
+	add_mod mod_lvm/lvm_managing.xml  
+	add_mod mod_lvm/lvm_practice.xml  
+	}
+
+#
+chapt_memory() {
+	MODULES=""
+	chaptitle="Memory management"
+	add_mod mod_memory/memory.xml  
+	add_mod mod_memory/memory_practice.xml  
+	}
+
+#
+chapt_monitoring() {
+	MODULES=""
+	chaptitle="Performance monitoring"
+	add_mod mod_monitoring/monitoring.xml        
+	}
+
+#
+chapt_more_bash() {
+	MODULES=""
+	chaptitle="More about bash"
+	add_mod mod_more_bash/more_bash.xml  
+	}
+
+#
+chapt_network_sniffing() {
+	MODULES=""
+	chaptitle="Introduction to network sniffing"
+	add_mod mod_network_sniffing/sniffing.xml  
+	add_mod mod_network_sniffing/practice.xml  
+	add_mod mod_network_sniffing/solution.xml  
+	}
+
+#
+chapt_network() {
+	MODULES=""
+	chaptitle="Introduction to networking"
+	add_mod mod_network/intro_network.xml     
+	add_mod mod_network/about_tcpip.xml     
+	add_mod mod_network/about_tcpip_practice.xml     
+	add_mod mod_network/about_tcpip_solution.xml     
+	add_mod mod_network/using_tcpip.xml     
+	add_mod mod_network/using_tcpip_practice.xml     
+	add_mod mod_network/using_tcpip_solution.xml     
+	add_mod mod_network/multiple_ip.xml     
+	add_mod mod_network/multiple_ip_practice.xml     
+	add_mod mod_network/multiple_ip_solution.xml     
+	add_mod mod_network/bonding.xml         
+	add_mod mod_network/bonding_practice.xml         
+	add_mod mod_network/bonding_solution.xml         
+	add_mod mod_network/iptables.xml        
+	add_mod mod_network/iptables_practice.xml        
+	add_mod mod_network/iptables_solution.xml        
+	add_mod mod_network/inetd_xinetd.xml    
+	add_mod mod_network/inetd_xinetd_practice.xml    
+	add_mod mod_network/ssh.xml             
+	add_mod mod_network/ssh_practice.xml             
+	add_mod mod_network/nfs.xml             
+	add_mod mod_network/nfs_practice.xml             
+	}
+
+#
+chapt_package_management() {
+	MODULES=""
+	chaptitle="Package management"
+	add_mod mod_package_management/about_packages.xml
+	add_mod mod_package_management/rpm.xml
+	add_mod mod_package_management/deb.xml
+	add_mod mod_package_management/download.xml
+	add_mod mod_package_management/compile.xml
+	add_mod mod_package_management/practice.xml
+	add_mod mod_package_management/solution.xml
+	}
+
+#
+chapt_pipes_filters() {
+	MODULES=""
+	chaptitle="Pipes and filters"
+	add_mod mod_pipes_filters/pipes_filters.xml  
+	add_mod mod_pipes_filters/pipes_filters_practice.xml  
+	add_mod mod_pipes_filters/pipes_filters_solution.xml  
+	}
+
+#
+chapt_intro_processes() {
+	MODULES=""
+	chaptitle="Introduction to Processes"
+	add_mod mod_processes/processes_intro.xml
+	add_mod mod_processes/processes_kill.xml
+	add_mod mod_processes/processes_kill_practice.xml
+	add_mod mod_processes/processes_kill_solution.xml
+	}
+
+#
+chapt_processes() {
+	MODULES=""
+	chaptitle="Process management"
+	add_mod mod_processes/processes_intro.xml
+	add_mod mod_processes/processes_kill.xml
+	add_mod mod_processes/processes_kill_practice.xml
+	add_mod mod_processes/processes_kill_solution.xml
+	add_mod mod_processes/processes_priorities.xml
+	add_mod mod_processes/processes_priorities_practice.xml
+	add_mod mod_processes/processes_priorities_solution.xml
+	add_mod mod_processes/processes_jobs.xml
+	add_mod mod_processes/processes_jobs_practice.xml
+	add_mod mod_processes/processes_jobs_solution.xml
+	}
+
+#
+chapt_quotas() {
+	MODULES=""
+	chaptitle="User quota's"
+	add_mod mod_quotas/quotas.xml
+	}
+
+#
+chapt_router() {
+	MODULES=""
+	chaptitle="Routers"
+	add_mod mod_router/about_routers.xml
+	add_mod mod_router/packet_forwarding.xml
+	}
+
+#
+chapt_samba_introduction() {
+	MODULES=""
+	chaptitle="Samba introduction"
+	add_mod mod_samba/samba_introduction.xml
+	add_mod mod_samba/samba_introduction_practice.xml
+	}
+
+#
+chapt_samba_getting_started() {
+	MODULES=""
+	chaptitle="Samba getting started"
+	add_mod mod_samba/samba_getting_started.xml
+	add_mod mod_samba/samba_getting_started_practice.xml
+	}
+
+#
+chapt_samba_read_only_file_server() {
+	MODULES=""
+	chaptitle="Samba read only file server"
+	add_mod mod_samba/samba_read_only_file_server.xml
+	add_mod mod_samba/samba_read_only_file_server_practice.xml
+	}
+
+#
+chapt_samba_writable_file_server() {
+	MODULES=""
+	chaptitle="Samba writable file server"
+	add_mod mod_samba/samba_writable_file_server.xml
+	add_mod mod_samba/samba_writable_file_server_practice.xml
+	}
+
+#
+chapt_samba_first_user_account() {
+	MODULES=""
+	chaptitle="Samba first user account"
+	add_mod mod_samba/samba_first_user_account.xml
+	add_mod mod_samba/samba_first_user_account_practice.xml
+	}
+
+#
+chapt_samba_authentication() {
+	MODULES=""
+	chaptitle="Samba authentication"
+	add_mod mod_samba/samba_authentication.xml
+	add_mod mod_samba/samba_authentication_practice.xml
+	}
+
+#
+chapt_samba_securing_shares() {
+	MODULES=""
+	chaptitle="Samba securing shares"
+	add_mod mod_samba/samba_securing_shares.xml
+	add_mod mod_samba/samba_securing_shares_practice.xml
+	}
+
+#
+chapt_samba_domain_member() {
+	MODULES=""
+	chaptitle="Samba domain member"
+	add_mod mod_samba/samba_domain_member.xml
+	add_mod mod_samba/samba_domain_member_practice.xml
+	}
+
+#
+chapt_samba_domain_controller() {
+	MODULES=""
+	chaptitle="Samba domain controller"
+	add_mod mod_samba/samba_domain_controller.xml
+	add_mod mod_samba/samba_domain_controller_practice.xml
+	}
+
+#
+chapt_samba4() {
+	MODULES=""
+	chaptitle="Samba 4"
+	add_mod mod_samba/samba4.xml
+	}
+
+#
+chapt_scheduling() {
+	MODULES=""
+	chaptitle="Scheduling"
+	add_mod mod_scheduling/at.xml       
+	add_mod mod_scheduling/cron.xml     
+	add_mod mod_scheduling/cron_practice.xml     
+	add_mod mod_scheduling/cron_solution.xml     
+	}
+
+#
+chapt_selinux() {
+	MODULES=""
+	chaptitle="SELinux"
+	add_mod mod_selinux/selinux.xml  
+	}
+
+#
+chapt_squid() {
+	MODULES=""
+	chaptitle="Introduction to squid"
+	add_mod mod_squid/about_proxy_servers.xml  
+	add_mod mod_squid/squid.xml  
+	}
+
+#
+chapt_vnc() {
+	MODULES=""
+	chaptitle="VNC"
+	add_mod mod_vnc/vnc.xml
+	}
+
+#
+chapt_mysql() {
+	MODULES=""
+	chaptitle="Introduction to mysql"
+	add_mod mod_mysql/intro_mysql.xml
+	add_mod mod_mysql/users.xml
+	add_mod mod_mysql/databases.xml
+	add_mod mod_mysql/tables.xml
+	add_mod mod_mysql/records.xml
+	add_mod mod_mysql/triggers.xml
+	}
+	
+#
+# Mini chapter on differences in Solaris
+#
+
+#
+chapt_solaris() {
+	MODULES=""
+	chaptitle="Solaris vs Linux"
+	add_mod mod_solaris/sol10kbc.xml
+	}
+
+#
+chapt_gnufdl() {
+	MODULES=""
+	chaptitle="GNU FDL"
+	add_mod mod_license/gnufdl.xml
+	}
+
