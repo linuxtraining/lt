@@ -190,12 +190,18 @@ chapt_shell_globbing() {
 	}
 
 #
+chapt_shell_variables() {
+	MODULES=""
+	chaptitle="Shell variables"
+	add_mod mod_shell_variables/shell_file_variables_theory.xml
+	add_mod mod_shell_variables/shell_file_variables_practice.xml
+	add_mod mod_shell_variables/shell_file_variables_solution.xml
+	}
+
+#
 chapt_intro_bash() {
 	MODULES=""
 	chaptitle="Introduction to the shell"
-	add_mod mod_intro_bash/shell_variables.xml  
-	add_mod mod_intro_bash/shell_variables_practice.xml  
-	add_mod mod_intro_bash/shell_variables_solution.xml  
 	add_mod mod_intro_bash/shell_white_spaces_and_quoting.xml  
 	add_mod mod_intro_bash/shell_white_spaces_and_quoting_practice.xml  
 	add_mod mod_intro_bash/shell_white_spaces_and_quoting_solution.xml  
