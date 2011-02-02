@@ -193,9 +193,9 @@ chapt_shell_globbing() {
 chapt_shell_variables() {
 	MODULES=""
 	chaptitle="Shell variables"
-	add_mod mod_shell_variables/shell_file_variables_theory.xml
-	add_mod mod_shell_variables/shell_file_variables_practice.xml
-	add_mod mod_shell_variables/shell_file_variables_solution.xml
+	add_mod mod_shell_variables/shell_variables_theory.xml
+	add_mod mod_shell_variables/shell_variables_practice.xml
+	add_mod mod_shell_variables/shell_variables_solution.xml
 	}
 
 #
