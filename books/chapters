@@ -163,15 +163,21 @@ chapt_installing_linux() {
 	}
 
 #
+chapt_shell_control_operators() {
+	MODULES=""
+	chaptitle="Shell control operators"
+	add_mod mod_shell_control_operators/shell_control_operators_theory.xml
+	add_mod mod_shell_control_operators/shell_control_operators_practice.xml
+	add_mod mod_shell_control_operators/shell_control_operators_solution.xml
+	}
+
+#
 chapt_intro_bash() {
 	MODULES=""
 	chaptitle="Introduction to the shell"
 	add_mod mod_intro_bash/about_shells.xml            
 	add_mod mod_intro_bash/about_shells_practice.xml            
 	add_mod mod_intro_bash/about_shells_solution.xml            
-	add_mod mod_intro_bash/shell_control_operators.xml  
-	add_mod mod_intro_bash/shell_control_operators_practice.xml  
-	add_mod mod_intro_bash/shell_control_operators_solution.xml  
 	add_mod mod_intro_bash/shell_variables.xml  
 	add_mod mod_intro_bash/shell_variables_practice.xml  
 	add_mod mod_intro_bash/shell_variables_solution.xml  
