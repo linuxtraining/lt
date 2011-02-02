@@ -1,4 +1,6 @@
 <?hard-pagebreak?>
+<section><title>Working with directories</title>
+<para>To explore the Linux <command>file tree</command>, you will need some basic tools. This chapter is small overview of the most common commands to work with directories : <command>pwd, cd, ls, mkdir, rmdir</command>. These commands are available on any Linux (or Unix) system.</para>
 	<section><title>pwd</title>
 		<para>The <command>you are here</command> sign can be displayed with the <command>pwd</command><indexterm><primary>pwd</primary></indexterm> command (Print Working Directory). Go ahead, try it: Open a command line interface (like gnome-terminal, konsole, xterm, or a tty) and type <command>pwd</command>. The tool displays your <command>current directory</command><indexterm><primary>current directory</primary></indexterm>.</para>
 		<screen>
@@ -220,3 +222,4 @@ paul@laika:~$
 			</screen>
 		</section>
 	</section>
+</section>
