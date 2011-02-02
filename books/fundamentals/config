@@ -19,7 +19,9 @@ TEACHER=""
 # fundamentals
 add_chapt intro_unix
 add_chapt getting_help
-add_chapt first_steps
+add_chapt intro_directories
+add_chapt intro_files
+add_chapt intro_file_contents
 add_chapt file_system_tree
 add_chapt intro_bash
 add_chapt pipes_filters

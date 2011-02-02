@@ -107,18 +107,30 @@ chapt_file_system_tree() {
 	}
 
 #
-chapt_first_steps() {
+chapt_intro_directories() {
 	MODULES=""
-	chaptitle="First steps"
-	add_mod mod_first_steps/directories.xml
-	add_mod mod_first_steps/directories_practice.xml
-	add_mod mod_first_steps/directories_solution.xml
-	add_mod mod_first_steps/files.xml
-	add_mod mod_first_steps/files_practice.xml
-	add_mod mod_first_steps/files_solution.xml
-	add_mod mod_first_steps/filecontents.xml
-	add_mod mod_first_steps/filecontents_practice.xml
-	add_mod mod_first_steps/filecontents_solution.xml
+	chaptitle="Working with directories"
+	add_mod mod_working_with_directories/directories_theory.xml
+	add_mod mod_working_with_directories/directories_practice.xml
+	add_mod mod_working_with_directories/directories_solution.xml
+	}
+
+#
+chapt_intro_files() {
+	MODULES=""
+	chaptitle="Working with files"
+	add_mod mod_working_with_files/files_theory.xml
+	add_mod mod_working_with_files/files_practice.xml
+	add_mod mod_working_with_files/files_solution.xml
+	}
+
+#
+chapt_intro_file_contents() {
+	MODULES=""
+	chaptitle="Working with filecontents"
+	add_mod mod_working_with_file_contents/filecontents_theory.xml
+	add_mod mod_working_with_file_contents/filecontents_practice.xml
+	add_mod mod_working_with_file_contents/filecontents_solution.xml
 	}
 
 #
