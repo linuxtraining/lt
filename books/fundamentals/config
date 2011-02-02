@@ -25,6 +25,7 @@ add_chapt intro_file_contents
 add_chapt file_system_tree
 add_chapt shell_introduction
 add_chapt shell_control_operators
+add_chapt shell_globbing
 add_chapt intro_bash
 add_chapt pipes_filters
 add_chapt basic_tools
