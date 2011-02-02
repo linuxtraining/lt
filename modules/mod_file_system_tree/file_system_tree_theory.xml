@@ -1,3 +1,4 @@
+<section><title>file system tree</title>
 <section><title>everything is a file</title>
 	<para>A directory is a special kind of file, but it is still a file. Even a terminal window or a hard disk is represented somewhere in the file system hierarchy as a file. It will become clear throughout this course that everything on Linux is a file.</para>
 </section>
@@ -443,4 +444,5 @@ paul@RHELv4u4:~$
 			<para>The <command>Red Hat Update Agent</command><indexterm><primary>Red Hat Update Agent</primary></indexterm> uses files in <command>/var/spool/up2date</command><indexterm><primary>/var/spool/up2date</primary></indexterm>. This location is also used when files are downloaded from the <command>Red Hat Network</command><indexterm><primary>Red Hat Network</primary></indexterm>.</para>
 		</section>
 	</section>
+</section>
 </section>

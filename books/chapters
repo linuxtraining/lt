@@ -181,6 +181,15 @@ chapt_shell_control_operators() {
 	}
 
 #
+chapt_shell_globbing() {
+	MODULES=""
+	chaptitle="Shell globbing"
+	add_mod mod_shell_globbing/shell_file_globbing_theory.xml
+	add_mod mod_shell_globbing/shell_file_globbing_practice.xml
+	add_mod mod_shell_globbing/shell_file_globbing_solution.xml
+	}
+
+#
 chapt_intro_bash() {
 	MODULES=""
 	chaptitle="Introduction to the shell"
@@ -190,11 +199,8 @@ chapt_intro_bash() {
 	add_mod mod_intro_bash/shell_white_spaces_and_quoting.xml  
 	add_mod mod_intro_bash/shell_white_spaces_and_quoting_practice.xml  
 	add_mod mod_intro_bash/shell_white_spaces_and_quoting_solution.xml  
-	add_mod mod_intro_bash/shell_file_globbing.xml  
 	add_mod mod_intro_bash/bash_shell_options.xml    
 	add_mod mod_intro_bash/shell_history.xml    
-	add_mod mod_intro_bash/practice.xml              
-	add_mod mod_intro_bash/solution.xml              
 	add_mod mod_intro_bash/bash_io.xml              
 	add_mod mod_intro_bash/bash_io_practice.xml              
 	add_mod mod_intro_bash/bash_io_solution.xml              
