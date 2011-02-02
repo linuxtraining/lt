@@ -110,6 +110,7 @@ chapt_file_system_tree() {
 chapt_intro_directories() {
 	MODULES=""
 	chaptitle="Working with directories"
+	add_mod mod_working_with_directories/directories_about.xml
 	add_mod mod_working_with_directories/directories_theory.xml
 	add_mod mod_working_with_directories/directories_practice.xml
 	add_mod mod_working_with_directories/directories_solution.xml
