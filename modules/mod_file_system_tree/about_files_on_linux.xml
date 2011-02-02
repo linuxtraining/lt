@@ -1,15 +1,3 @@
-<section><title>all files are case sensitive</title>
-	<para>Linux is <command>case sensitive</command><indexterm><primary>case sensitive</primary></indexterm>, this means that FILE1 is different from file1, and /etc/hosts is different from /etc/Hosts (the latter one does not exist on a typical Linux computer).</para>
-	<para>This screenshot shows the difference between two files, one with uppercase W, the other with lowercase w.</para>
-	<screen>
-paul@laika:~/Linux$ ls
-winter.txt  Winter.txt
-paul@laika:~/Linux$ cat winter.txt 
-It is cold.
-paul@laika:~/Linux$ cat Winter.txt 
-It is very cold!
-	</screen>
-</section>
 <section><title>everything is a file</title>
 	<para>A directory is a special kind of file, but it is still a file. Even a terminal window or a hard disk is represented somewhere in the file system hierarchy as a file. It will become clear throughout this course that everything on Linux is a file.</para>
 </section>

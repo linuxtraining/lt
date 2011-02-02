@@ -1,5 +1,17 @@
 <?hard-pagebreak?>
 <section><title>working with files</title>
+	<section><title>all files are case sensitive</title>
+		<para>Linux is <command>case sensitive</command><indexterm><primary>case sensitive</primary></indexterm>, this means that <command>FILE1</command> is different from <command>file1</command>, and <command>/etc/hosts</command> is different from <command>/etc/Hosts</command> (the latter one does not exist on a typical Linux computer).</para>
+		<para>This screenshot shows the difference between two files, one with uppercase <command>W</command>, the other with lowercase <command>w</command>.</para>
+		<screen>
+paul@laika:~/Linux$ ls
+winter.txt  Winter.txt
+paul@laika:~/Linux$ cat winter.txt 
+It is cold.
+paul@laika:~/Linux$ cat Winter.txt 
+It is very cold!
+		</screen>
+	</section>
 	<section><title>file</title>
 		<para>The <command>file</command><indexterm><primary>file(1)</primary></indexterm> utility determines the file type. Linux does not use extensions to determine the file type. Your editor does not care whether a file ends in .TXT or .DOC. As a system administrator, you should use the <command>file</command> command to determine the file type. Here are some examples on a typical Linux system.</para>
 		<screen>
