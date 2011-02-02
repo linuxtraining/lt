@@ -100,8 +100,7 @@ chapt_file_permissions() {
 chapt_file_system_tree() {
 	MODULES=""
 	chaptitle="The Linux file system tree"
-	add_mod mod_file_system_tree/about_files_on_linux.xml
-	add_mod mod_file_system_tree/file_system_tree.xml
+	add_mod mod_file_system_tree/file_system_tree_theory.xml
 	add_mod mod_file_system_tree/file_system_tree_practice.xml
 	add_mod mod_file_system_tree/file_system_tree_solution.xml
 	}
