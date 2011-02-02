@@ -125,8 +125,8 @@ chapt_first_steps() {
 chapt_getting_help() {
 	MODULES=""
 	chaptitle="Getting help"
-	add_mod mod_intro_unix/manpages.xml                  
-	add_mod mod_intro_unix/onlinehelp.xml                  
+	add_mod mod_getting_help/manpages.xml                  
+	add_mod mod_getting_help/onlinehelp.xml                  
 	}
 
 #
