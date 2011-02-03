@@ -7,8 +7,8 @@ paul@deb503:~/test42$ word=answer
 paul@deb503:~/test42$ eval x=\$$word ; echo $x
 42</screen>
 		<para>Both in <command>bash</command> and <command>Korn</command> the arguments can be quoted.</para>
-		<screen>kahlan@solexp11$ answer=42                
-kahlan@solexp11$ word=answer              
+		<screen>kahlan@solexp11$ answer=42
+kahlan@solexp11$ word=answer
 kahlan@solexp11$ eval "y=\$$word" ; echo $y
 42</screen>
 	</section>
@@ -56,11 +56,11 @@ false</screen>
 192
 		</screen>
 		<para>There is a difference between assigning a variable directly, or using <command>let</command> to evaluate the arithmetic expressions (even if it is just assigning a value).</para>
-		<screen>kahlan@solexp11$ dec=15 ; oct=017 ; hex=0x0f            
-kahlan@solexp11$ echo $dec $oct $hex                                                                                                                  
-15 017 0x0f                                                                         
+		<screen>kahlan@solexp11$ dec=15 ; oct=017 ; hex=0x0f 
+kahlan@solexp11$ echo $dec $oct $hex 
+15 017 0x0f 
 kahlan@solexp11$ let dec=15 ; let oct=017 ; let hex=0x0f
-kahlan@solexp11$ echo $dec $oct $hex                                                                                                                                                                        
+kahlan@solexp11$ echo $dec $oct $hex
 15 15 15</screen>
 	</section>
 	<section><title>case</title>
