@@ -28,7 +28,9 @@ add_chapt shell_control_operators
 add_chapt shell_variables
 add_chapt shell_globbing
 add_chapt shell_io
-add_chapt intro_bash
+add_chapt shell_arguments
+add_chapt shell_history
+
 add_chapt pipes_filters
 add_chapt basic_tools
 add_chapt intro_vi

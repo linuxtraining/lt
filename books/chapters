@@ -220,14 +220,20 @@ chapt_shell_io() {
 	}
 
 #
-chapt_intro_bash() {
+chapt_shell_arguments() {
 	MODULES=""
-	chaptitle="Introduction to the shell"
-	add_mod mod_intro_bash/shell_white_spaces_and_quoting.xml  
-	add_mod mod_intro_bash/shell_white_spaces_and_quoting_practice.xml  
-	add_mod mod_intro_bash/shell_white_spaces_and_quoting_solution.xml  
-	add_mod mod_intro_bash/bash_shell_options.xml    
+	chaptitle="Shell arguments"
+	add_mod mod_shell_arguments/shell_arguments_theory.xml
+	add_mod mod_shell_arguments/shell_arguments_practice.xml
+	add_mod mod_shell_arguments/shell_arguments_solution.xml
+	}
+
+#
+chapt_shell_history() {
+	MODULES=""
+	chaptitle="Shell history and options"
 	add_mod mod_intro_bash/shell_history.xml    
+	add_mod mod_intro_bash/bash_shell_options.xml    
 	}
 
 #

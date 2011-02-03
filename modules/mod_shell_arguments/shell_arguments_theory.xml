@@ -1,4 +1,3 @@
-<?hard-pagebreak?>
 <section><title>shell arguments</title>
 	<section><title>white space removal</title>
 		<para>Before execution, the shell scans at the command line. Parts that are separated by one or more consecutive <command>white spaces</command> (or tabs) are considered separate <command>arguments</command>, any white space is removed. The first <command>argument</command> is the command to be executed, the other <command>arguments</command> are given to the command. The shell effectively cuts your command into one or more arguments.</para>
