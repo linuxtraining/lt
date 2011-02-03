@@ -97,9 +97,15 @@ chapt_file_permissions() {
 	add_mod mod_file_permissions/standard_permissions.xml
 	add_mod mod_file_permissions/standard_permissions_practice.xml
 	add_mod mod_file_permissions/standard_permissions_solution.xml
-	add_mod mod_file_permissions/acls.xml        
-#	add_mod mod_file_permissions/acls_practice.xml        
-#	add_mod mod_file_permissions/acls_solution.xml        
+	}
+
+#
+chapt_acls() {
+	MODULES=""
+	chaptitle="Access control lists"
+	add_mod mod_acls/acls_theory.xml        
+#	add_mod mod_acls/acls_practice.xml        
+#	add_mod mod_acls/acls_solution.xml        
 	}
 
 #
