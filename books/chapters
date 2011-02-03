@@ -436,9 +436,9 @@ chapt_package_management() {
 chapt_pipes_filters() {
 	MODULES=""
 	chaptitle="Pipes and filters"
-	add_mod mod_pipes_filters/pipes_filters.xml  
-	add_mod mod_pipes_filters/pipes_filters_practice.xml  
-	add_mod mod_pipes_filters/pipes_filters_solution.xml  
+	add_mod mod_pipes_filters/pipes_filters_theory.xml
+	add_mod mod_pipes_filters/pipes_filters_practice.xml
+	add_mod mod_pipes_filters/pipes_filters_solution.xml
 	}
 
 #
