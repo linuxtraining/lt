@@ -1,4 +1,3 @@
-<?hard-pagebreak?>
 <section><title>file globbing</title>
 	<section><title>* asterisk</title>
 		<para>The shell is also responsible for <command>file globbing</command><indexterm><primary>file globbing</primary></indexterm> (or dynamic filename generation). The asterisk <command>*</command><indexterm><primary>* (file globbing)</primary></indexterm> is interpreted by the shell as a sign to generate filenames, matching the asterisk to any combination of characters (even none). When no path is given, the shell will use filenames in the current directory. See the man page of <command>glob(7)</command><indexterm><primary>glob(7)</primary></indexterm> for more information. (This is part of LPI topic 1.103.3.)</para>

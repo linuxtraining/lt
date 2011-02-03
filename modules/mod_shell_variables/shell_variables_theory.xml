@@ -1,4 +1,3 @@
-<?hard-pagebreak?>
 <section><title>shell variables</title>
 	<section><title>$ dollar sign</title>
 		<para>Another important character interpreted by the shell is the dollar sign <command>$</command><indexterm><primary>$ (shell variables)</primary></indexterm>. The shell will look for an <command>environment variable</command><indexterm><primary>environment variable</primary></indexterm> named like the string following the <command>dollar sign</command> and replace it with the value of the variable (or with nothing if the variable does not exist).</para>

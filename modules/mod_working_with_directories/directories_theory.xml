@@ -1,4 +1,3 @@
-<?hard-pagebreak?>
 <section><title>working with directories</title>
 <para>To explore the Linux <command>file tree</command>, you will need some basic tools. This chapter is small overview of the most common commands to work with directories : <command>pwd, cd, ls, mkdir, rmdir</command>. These commands are available on any Linux (or Unix) system.</para>
 	<section><title>pwd</title>
