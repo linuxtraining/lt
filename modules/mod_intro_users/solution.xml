@@ -34,8 +34,8 @@ tail /etc/passwd ; tail /etc/shadow ; ls /home </screen>
 	<screen>Yes.</screen>
 	<para>11. Put a file in the skeleton directory and check whether it is copied to user's home directory. When is the skeleton directory copied ?</para>
 	<screen>When you create a user account with a new home directory.</screen>
-	<para>12. Why use vipw instead of vi ? What could be the problem when using vi or vim ?</para>
-	<screen>vipw will give a warning when someone else is already using vipw on that file.</screen>
+	<para>12. Why use <command>vipw</command> instead of <command>vi</command> ? What could be the problem when using <command>vi</command> or <command>vim</command> ?</para>
+	<screen><command>vipw</command> will give a warning when someone else is already using that file.</screen>
 	<para>13. Use chsh to list all shells, and compare to cat /etc/shells. Change your login shell to the Korn shell, log out and back in. Now change back to bash.</para>
 	<screen>On Red Hat Enterprise Linux: chsh -l
 On Debian/Ubuntu: cat /etc/shells</screen>
