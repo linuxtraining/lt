@@ -231,9 +231,8 @@ chapt_shell_arguments() {
 #
 chapt_shell_history() {
 	MODULES=""
-	chaptitle="Shell history and options"
+	chaptitle="Shell history"
 	add_mod mod_shell_history/shell_history.xml    
-	add_mod mod_shell_history/bash_shell_options.xml    
 	}
 
 #
