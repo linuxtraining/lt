@@ -36,6 +36,7 @@ add_chapt intro_scripts
 add_chapt intro_users
 add_chapt intro_groups
 add_chapt file_permissions
+add_chapt advanced_permissions
 add_chapt links
 add_chapt intro_processes
 
