@@ -19,7 +19,7 @@ chapt_backup() {
 chapt_basic_tools() {
 	MODULES=""
 	chaptitle="Basic Unix tools"
-	add_mod mod_basic_tools/tools.xml
+	add_mod mod_basic_tools/tools_theory.xml
 	add_mod mod_basic_tools/tools_practice.xml
 	add_mod mod_basic_tools/tools_solution.xml
 	}
