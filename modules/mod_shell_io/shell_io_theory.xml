@@ -1,4 +1,3 @@
-<?hard-pagebreak?>
 <section><title>shell i/o redirection</title>
 	<section><title>stdin, stdout, and stderr</title>
 		<para>The shell (and almost every other Linux command) takes input from <command>stdin</command> (stream <command>0</command>) <indexterm><primary>stdin</primary></indexterm> and sends output to <command>stdout</command> (stream <command>1</command>) <indexterm><primary>stdout</primary></indexterm> and error messages to <command>stderr</command> (stream <command>2</command>) <indexterm><primary>stderr</primary></indexterm>.</para>
