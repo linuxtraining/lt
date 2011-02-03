@@ -19,7 +19,7 @@ wget http://linux-training.be/files/books/LinuxFun.pdf</screen>
 	<para>5. Create the files today.txt and yesterday.txt in touched.</para>
 	<screen>touch today.txt yesterday.txt</screen>
 	<para>6. Change the date on yesterday.txt to match yesterday's date.</para>
-	<screen>touch -t 200810251405 yesterday.txt (substitute 20081025 with yesterdays date)</screen>
+	<screen>touch -t 200810251405 yesterday.txt (substitute 20081025 with yesterday)</screen>
 	<para>7. Copy yesterday.txt to copy.yesterday.txt</para>
 	<screen>cp yesterday.txt copy.yesterday.txt</screen>
 	<para>8. Rename copy.yesterday.txt to kim</para>
