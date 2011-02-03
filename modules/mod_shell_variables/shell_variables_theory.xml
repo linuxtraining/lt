@@ -95,7 +95,7 @@ paul@laika:~$
 		<para>In the bash shell <command>set -u</command> is identical to <command>set -o nounset</command> and likewise <command>set +u</command> is identical to <command>set +o nounset</command>.</para>
 	</section>
 	<section><title>creating and setting variables</title>
-		<para>This example creates the variable $MyVar and sets its value.</para>
+		<para>This example creates the variable <command>$MyVar</command> and sets its value.</para>
 		<screen>
 [paul@RHELv4u3 gen]$ MyVar=555
 [paul@RHELv4u3 gen]$ echo $MyVar
@@ -104,7 +104,7 @@ paul@laika:~$
 		</screen>
 	</section>
 	<section><title>set</title>			
-		<para>You can use the <command>set</command><indexterm><primary>set(shell)</primary></indexterm> command to display a list of environment variables. On Ubuntu and Debian systems, the set command will also list shell functions after the shell variables. Use <command>set | more</command> to see the variables then.</para>
+		<para>You can use the <command>set</command><indexterm><primary>set(shell)</primary></indexterm> command to display a list of environment variables. On Ubuntu and Debian systems, the <command>set</command> command will also list shell functions after the shell variables. Use <command>set | more</command> to see the variables then.</para>
 	</section>
 	<section><title>unset</title>			
 		<para>Use the <command>unset</command><indexterm><primary>unset(shell)</primary></indexterm> command to remove a variable from your shell environment.</para>
@@ -117,7 +117,8 @@ paul@laika:~$
 		</screen>
 	</section>
 	<section><title>env</title>			
-		<para>The <command>env</command><indexterm><primary>env(1)</primary></indexterm> command can also be useful for other neat things, such as starting a clean shell (a shell without any inherited environment). The <command>env -i</command><indexterm><primary>env(1)</primary></indexterm> command clears the environment for the subshell. Notice that bash will set the $SHELL variable on startup.</para>
+		<para>The <command>env</command><indexterm><primary>env(1)</primary></indexterm> command without options will display a list of <command>exported variables</command>. But <command>env</command> can also be used to start a clean shell (a shell without any inherited environment). The <command>env -i</command><indexterm><primary>env(1)</primary></indexterm> command clears the environment for the subshell.</para>
+		<para>Notice in this screenshot that <command>bash</command> will set the <command>$SHELL</command> variable on startup.</para>
 		<screen>
 [paul@RHEL4b ~]$ bash -c 'echo $SHELL $HOME $USER'
 /bin/bash /home/paul paul
@@ -125,7 +126,7 @@ paul@laika:~$
 /bin/bash
 [paul@RHEL4b ~]$
 		</screen>
-		<para>You can also use the <command>env</command> command to set the $LANG, or any other, variable for just one instance of bash with one command. The example below uses this to show the influence of the $LANG variable on file globbing.</para>
+		<para>You can also use the <command>env</command> command to set the <command>$LANG</command>, or any other, variable for just one instance of <command>bash</command> with one command. The example below uses this to show the influence of the <command>$LANG</command> variable on file globbing (see the chapter on shell file globbing).</para>
 		<screen>
 [paul@RHEL4b test]$ env LANG=C bash -c 'ls File[a-z]'
 Filea  Fileb
