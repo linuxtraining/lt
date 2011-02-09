@@ -94,7 +94,7 @@ chapt_advanced_permissions() {
 chapt_file_permissions() {
 	MODULES=""
 	chaptitle="Standard file permissions"
-	add_mod mod_file_permissions/standard_permissions.xml
+	add_mod mod_file_permissions/standard_permissions_theory.xml
 	add_mod mod_file_permissions/standard_permissions_practice.xml
 	add_mod mod_file_permissions/standard_permissions_solution.xml
 	}
