@@ -12,8 +12,10 @@ e.g https://www.linuxfoundation.org/publications/linuxkerneldevelopment.php coul
 3. Have a seperate index of files
 not so urgent since they are all at the beginning of the index because they all start with /
 
-4. 
-
+4. Is there a better alternative? Have a look at reST, editing with Spinx, can be converted to from Docbook 
+   - http://docutils.sourceforge.net/rst.html
+   - http://code.google.com/p/db2rst/
+   - http://sphinx.pocoo.org/intro.html
 
 
 CONTENT todo
