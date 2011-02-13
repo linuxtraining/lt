@@ -1,0 +1,99 @@
+named this job : autobooks
+
+GOALS:
+- obsolete the 'chapters' file using a script that counts on certain filenames/alphabet to be present in mod_ directories
+- integrate the <part> tag into the docbook xml
+- allow for smaller books (minibooks) that handle one topic
+
+
+HOW:
+1. mod_ directories should have at least four files named:
+010_$string_title
+030_$string_theory
+040_$string_practice
+050_$string_solution
+
+paul should do this, and serge can then write a script to parse a directory instead of the 'chapters' file
+
+2. minibooks can be a single book in xml <book></book>
+3. minibooks become parts in xml <part></part> when bundled in a (normal)book
+
+paul will prepare the first minibook in 'experimental branch' so serge can test his script
+
+
+EXTRA:
+This system has the potential to add a 020_$string_about file in the mod_ directory. This xml file can serve as an introductory page to each chapter, and can also serve as a means for clients to customize the course (by chapter) based on the content of this introduction.
+Paul really likes this idea because :
+- it can reduce the boo-toc to 1 line per chapter
+- it can be used commercially to give "sales-people" a readable technical content to present to potential clients
+- it would remove the (imho silly) toc per chapter
+- it can be used while teaching to introduce the topic to students
+
+
+CURRENT ACTIONS
+- paul: create first minibook and notify serge when committed in experimental
+- paul: continues with the other minibooks (and minichapters)
+
+
+ISSUES
+- some chapters are not split without extra work synchronizing practices with theory
+- some chapters (like the introduction) are not easily split and require quite some rewriting
+- (minor issue) pagebreaks are currently hardcoded in the xml files. Each xml file starts with a page brak, unless it immediately follows a chapter title
+
+
+
+...potential LAYOUT of minibooks
+
+minibook : introduction
+- unix history
+- licensing/philosophy
+- distributions
+- certification (maybe this should be an appendix)
+- installing Linux (NEW)
+- online help
+
+minibook : first steps
+- man pages
+- working with directories
+- working with files
+- working with file contents
+- the Linux file tree
+
+minibook : the shell
+- introduction to bash
+- control operators
+- variables
+- arguments
+- file globbing
+- shell history
+
+minibook : pipes and filters
+- i/o redirection
+- filter commands
+- common tools
+- compression
+
+minibook : scripting
+- vi(m)
+- introduction to scripting
+- tests and loops
+- parameters and options
+- more scripting
+
+minibook : user management
+- users
+- passwords
+- user environment
+- su and sudo
+- groups
+
+minibook : file security
+- basic permissions
+- advenaced permissions
+- access control lists
+- extended attributes (NEW)
+- file links (right?)
+
+minibook : processes
+- ... we 'll see when we get here
+
