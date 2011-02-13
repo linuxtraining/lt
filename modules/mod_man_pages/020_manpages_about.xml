@@ -1,0 +1,3 @@
+<section><title>about this chapter</title>
+<para>This chapter will explain the use of <command>man</command> pages (also called <command>manual pages</command>) on your Unix or Linux computer.</para>
+<para>You will learn the <command>man</command> command together with related commands like <command>whereis</command>, <command>whatis</command> and <command>catman</command>.</para>
