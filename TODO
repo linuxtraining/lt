@@ -22,7 +22,7 @@ CONTENT todo
 
 1. integrate ksh into the shell chapters (assigned:paul)
 
-2. integrate dash into the shell chapters
+2. integrate dash into the shell chapters (obsolete no?)
 
 3. extra Bash stuff
    - Array's (http://www.cyberciti.biz/faq/finding-bash-shell-array-length-elements/)
