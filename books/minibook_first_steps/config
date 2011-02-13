@@ -1,0 +1,19 @@
+#!/bin/sh
+#
+
+BOOKTITLE="First Steps"
+
+##################
+# define minibook
+##################
+
+# define book as directories in certain order
+
+add_dir mod_man_pages
+add_dir mod_working_with_directories
+add_dir mod_working_with_file_contents
+add_dir mod_working_with_files
+add_dir mod_file_system_tree
+
+# license hardcoden op het einde van een .pdf ?
+# add_appen gnufdl
