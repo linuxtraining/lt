@@ -1,22 +1,37 @@
 named this job : autobooks
 
+NAMING CONVENTIONS
+module: A module is a collection of docbook .xml files that reside in a module-directory.
+module-directory: A module-directory is a sub directory of /modules who's name starts with mod_.
+chapter: A chapter is defined by the <chapter></chapter> tag in docbook xml.
+minibook: A collection of modules that belong tightly together. Can be built as a minibook.pdf file.
+book: Either a minibook, or a collection of minibooks.
+
+
 GOALS:
-- obsolete the 'chapters' file using a script that counts on certain filenames/alphabet to be present in mod_ directories
+- obsolete the 'chapters' file (using a script that reads xml files in module-directories alphabetically)
 - integrate the <part> tag into the docbook xml
 - allow for smaller books (minibooks) that handle one topic
+- build the larger (existing) books with these minibooks
+
+
+ADDITIONAL GOALS:
+- create a one-to-one relation between modules and chapters
 
 
 HOW:
-1. mod_ directories should have at least four files named:
+1. module-directories should have at least four files named:
 010_$string_title
 030_$string_theory
 040_$string_practice
 050_$string_solution
 
-paul should do this, and serge can then write a script to parse a directory instead of the 'chapters' file
+paul will rename all the xml files in the module-directories
+serge can then write a script to parse a module-directory instead of the 'chapters' file
 
 2. minibooks can be a single book in xml <book></book>
-3. minibooks become parts in xml <part></part> when bundled in a (normal)book
+
+3. minibooks become parts in xml <part></part> when bundled in a book
 
 paul will prepare the first minibook in 'experimental branch' so serge can test his script
 
@@ -24,7 +39,7 @@ paul will prepare the first minibook in 'experimental branch' so serge can test 
 EXTRA:
 This system has the potential to add a 020_$string_about file in the mod_ directory. This xml file can serve as an introductory page to each chapter, and can also serve as a means for clients to customize the course (by chapter) based on the content of this introduction.
 Paul really likes this idea because :
-- it can reduce the boo-toc to 1 line per chapter
+- it can reduce the book-toc to 1 line per chapter
 - it can be used commercially to give "sales-people" a readable technical content to present to potential clients
 - it would remove the (imho silly) toc per chapter
 - it can be used while teaching to introduce the topic to students
@@ -33,6 +48,7 @@ Paul really likes this idea because :
 CURRENT ACTIONS
 - paul: create first minibook and notify serge when committed in experimental
 - paul: continues with the other minibooks (and minichapters)
+- serge: update the built project so it can parse module-directories without the chapters file
 
 
 ISSUES
@@ -96,4 +112,37 @@ minibook : file security
 
 minibook : processes
 - ... we 'll see when we get here
+
+
+XML LAYOUT OF MINIBOOK:
+<book>
+ bookheader
+ booktoc
+  <chapter> module </chapter>
+  ...
+  <chapter> module </chapter>
+ gnu license
+ index
+</book>
+
+
+XML LAYOUT OF BOOK:
+<book>
+ bookheader
+ booktoc with parts
+  <part>minibook chapters</part>
+  ...
+  <part>minibook chapters</part>
+ gnu license
+ index
+</book>
+
+
+
+
+
+
+
+
+
 
