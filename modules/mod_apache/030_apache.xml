@@ -191,11 +191,3 @@ ErrorDocument 404 http://www.cobbaut.be/cobbaut.php
 	<section><title>traffic</title>
 		<para>Apache keeps a log of all visitors. The <command>webalizer</command><indexterm><primary>webalizer</primary></indexterm> is often used to parse this log into nice html statistics.</para>
 	</section>
-	<section><title>practice: apache</title>
-		<para>1. Verify that Apache is installed and running.</para>
-		<para>2. Browse to the Apache HTML manual from another computer.</para>
-		<para>3. Create a virtual hosts that listens to port 8247.</para>
-		<para>4. Create a virtual hosts that listens on another ip-address.</para>
-		<para>5. Test from another computer that all virtual hosts work.</para>
-		<para>6. Protect a subdirectory of a website with .htpasswd and .htaccess.</para>
-	</section>
