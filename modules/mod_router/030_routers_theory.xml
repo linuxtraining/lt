@@ -1,3 +1,37 @@
+<section><title>terminology</title>
+<section><title>router or firewall</title>
+	<para>A router is a device that connects two networks. A <command>firewall</command><indexterm><primary>firewall</primary></indexterm> is a device that besides acting as a <command>router</command>, also contains (and implements) rules to determine whether packets are allowed to travel from one network to another. A firewall can be configured to block access based on networks, hosts, protocols and ports. Firewalls can also change the contents of packets while forwarding them.</para>
+</section>
+<section><title>packet forwarding</title>
+	<para>Packet forwarding means allowing packets to go from one network to another. When a multihomed host is connected to two different networks, and it allows packets to travel from one network to another through its two network interfaces, it is said to have enabled <command>packet forwarding</command><indexterm><primary>packet forwarding</primary></indexterm>. </para>
+</section>
+<section><title>packet filtering</title>
+	<para><command>Packet filtering</command><indexterm><primary>packet filtering</primary></indexterm> is very similar to packet forwarding, but every packet is individually tested against rules that decide on allowing or dropping the packet. The rules are stored by iptables.</para>
+</section>
+<section><title>stateful</title>
+	<para>A <command>stateful</command><indexterm><primary>stateful firewall</primary></indexterm> firewall is an advancement over stateless firewalls that inspect every individual packet. A stateful firewall will keep a table of active connections, and is knowledgeable enough to recognise when new connections are part of an active session. Linux iptables is a stateful firewall.</para>
+</section>
+<section><title>NAT (network address translation)</title>
+	<para>A <command>NAT</command><indexterm><primary>NAT</primary></indexterm> device is a router that is also changing the source and/or target ip-address in packets. It is typically used to connect multiple computers in a private address range (rfc 1918) with the (public) internet. A NAT can hide private addresses from the internet.</para>
+	<para>It is important to understand that people and vendors do not always use the right term when referring to a certain type of NAT. Be sure you talk about the same thing. We can distuinguish several types of NAT.</para>
+	<section><title>PAT (port address translation)</title>
+		<para>NAT often includes PAT. A <command>PAT</command><indexterm><primary>PAT</primary></indexterm> device is a router that is also changing the source and/or target tcp/udp port in packets. PAT is Cisco terminology and is used by <command>SNAT</command>, <command>DNAT</command>, <command>masquerading</command> and <command>port forwarding</command> in Linux. RFC 3022 calls it <command>NAPT</command><indexterm><primary>NAPT</primary></indexterm> and defines the NAT/PAT combo as "traditional NAT". A device sold to you as a NAT-device will probably do NAT and PAT.</para>
+	</section>
+	<section><title>SNAT (source network address translation)</title>
+		<para>A <command>SNAT</command><indexterm><primary>SNAT</primary></indexterm> device is changing the source ip-address when a packet passes our NAT. SNAT configuration with iptables includes a fixed target source address.</para>
+	</section>
+	<section><title>masquerading</title>
+		<para>Masquerading is a form of SNAT that will hide the (private) source ip-addresses of your private network using a public ip-address. Masquerading is common on dynamic internet interfaces (broadband modem/routers). Masquerade configuration with iptables uses a dynamic target source address.</para>
+	</section>
+	<section><title>DNAT (destination network address translation)</title>
+		<para>A <command>DNAT</command><indexterm><primary>DNAT</primary></indexterm> device is changing the destination ip-address when a packet passes our NAT.</para>
+	</section>
+	<section><title>port forwarding</title>
+		<para>When static DNAT is set up in a way that allows outside connections to enter our private network, then we call it <command>port forwarding</command><indexterm><primary>port forwarding</primary></indexterm>.</para>
+	</section>
+</section>
+</section>
+
 <section><title>packet forwarding</title>
 <section><title>about packet forwarding</title>
 	<para>Packet forwarding means allowing packets to go from one network to another. When a multihomed host is connected to two different networks, and it allows packets to travel from one network to another through its two network interfaces, it is said to have enabled packet forwarding. </para>
