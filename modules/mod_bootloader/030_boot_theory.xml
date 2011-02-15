@@ -1,3 +1,47 @@
+<section><title>boot terminology</title>
+	<para>The exact order of things that happen when starting a computer system, depends on the hardware architecture (<command>Intel x86</command><indexterm><primary>Intel</primary></indexterm> is different from <command>Sun Sparc</command><indexterm><primary>Sun</primary></indexterm> etc), on the boot loader (<command>grub</command> is different from <command>lilo</command>) and on the operating system (<command>Linux</command>, <command>Solaris</command><indexterm><primary>Solaris</primary></indexterm>, <command>BSD</command><indexterm><primary>BSD</primary></indexterm> etc). Most of this chapter is focused on booting <command>Linux</command> on <command>Intel x86</command><indexterm><primary>x86</primary></indexterm> with <command>grub</command>.</para>
+	<section><title>post</title>
+		<para>A computer starts booting the moment you turn on the power (no kidding). This first process is called <command>post</command><indexterm><primary>POST</primary></indexterm> or <command>power on self test</command><indexterm><primary>Power On Self Test</primary></indexterm>. If all goes well then this leads to the <command>bios</command>. If all goes not so well, then you might hear nothing, or hear beeping, or see an error message on the screen, or maybe see smoke coming out of the computer (burning hardware smells bad!).</para>
+	</section>
+	<section><title>bios</title>
+		<para>All <command>Intel x86</command> computers will have a <command>basic input/output system</command> or <command>bios</command><indexterm><primary>BIOS</primary></indexterm> to detect, identify and initialize hardware. The <command>bios</command> then goes looking for a <command>boot device</command>. This can be a floppy, hard disk, cdrom, network card or usb drive.</para>
+		<para>During the <command>bios</command> you can see a message on the screen telling you which key (often <command>Del</command> or <command>F2</command>) to press to enter the <command>bios</command> setup.</para>
+		<mediaobject><imageobject><imagedata fileref="images/bios.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	</section>
+	<section><title>openboot</title>
+		<para>Sun <command>sparc</command><indexterm><primary>SPARC</primary></indexterm> systems start with <command>openboot</command><indexterm><primary>OpenBoot(Sun)</primary></indexterm> to test the hardware and to boot the operating system. <command>Bill Callkins</command><indexterm><primary>Bill Callkins</primary></indexterm> explains <command>openboot</command> in his Solaris System Administration books. The details of <command>openboot</command> are not the focus of this course.</para>
+	</section>
+	<section><title>boot password</title>
+		<para>The <command>bios</command> allows you to set a password. Do not forget this password, or you will have to open up the hardware to reset it. You can sometimes set a password to boot the system, and another password to protect the <command>bios</command> from being modified.</para>
+	</section>
+	<section><title>boot device</title>
+		<para>The <command>bios</command> will look for a <command>boot device</command> in the order configured in the bios setup. Usually an operating system on a production server boots of a hard disk.</para>
+		<mediaobject><imageobject><imagedata fileref="images/bootdevice.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	</section>
+	<section><title>master boot record</title>
+		<para>The <command>master boot record</command><indexterm><primary>master boot record</primary></indexterm> or <command>mbr</command><indexterm><primary>mbr</primary></indexterm> is the first sector of a hard disk. The partitioning of a disk in <command>primary</command><indexterm><primary>primary partition</primary></indexterm> partitions, and the active partition are defined in the <command>mbr</command>.</para>
+		<para>The <command>mbr</command> is 512 bytes long and can be copied with <command>dd</command><indexterm><primary>dd(1)</primary></indexterm>.</para>
+		<screen>
+dd if=/dev/sda of=bootsect.mbr count=1 bs=512
+		</screen>
+	</section>
+	<section><title>bootloader</title>
+		<para>The <command>mbr</command> is executed by the <command>bios</command> and contains either (a small) <command>bootloader</command><indexterm><primary>bootloader</primary></indexterm> or code to load a <command>bootloader</command>.</para>
+		<para>Looking at the <command>mbr</command> with <command>od</command><indexterm><primary>od(1)</primary></indexterm> can reveal information about the <command>bootloader</command>.</para>
+		<screen>
+paul@laika:~$ sudo dd if=/dev/sda count=1 bs=16 skip=24 2>/dev/null|od -c
+0000000 376   G   R   U   B      \0   G   e   o   m  \0   H   a   r   d
+0000020
+		</screen>
+        	<para>There are a variety of bootloaders available, most common on <command>Intel</command> architecture is <command>grub</command><indexterm><primary>grub</primary></indexterm>, which is replacing <command>lilo</command><indexterm><primary>lilo</primary></indexterm> in many places. When installing <command>Linux</command> on <command>sparc</command> architecture, you can choose <command>silo</command><indexterm><primary>silo</primary></indexterm>, <command>Itanium</command> systems can use <command>elilo</command><indexterm><primary>elilo</primary></indexterm>, <command>IBM S/390</command> and <command>zSeries</command> use <command>z/IPL</command><indexterm><primary>z/IPL</primary></indexterm>, <command>Alpha</command> uses <command>milo</command> and <command>PowerPC</command> architectures use <command>yaboot</command><indexterm><primary>yaboot</primary></indexterm> (yet another boot loader).</para>
+		<para>Bootable cd's and dvd's often use <command>syslinux</command>.</para>
+	</section>
+	<section><title>kernel</title>
+		<para>The goal of all this is to load an operating system, or rather the <command>kernel</command> of an operating system. A typical bootloader like <command>grub</command> will copy a kernel from hard disk to memory, and will then hand control of the computer to the kernel (execute the kernel).</para>
+		<para> Once the Linux kernel is loaded, the bootloader turns control over to it. From that moment on, the kernel is in control of the system. After discussing bootloaders, we continue with the init system that starts all the daemons.</para>
+	</section>
+</section>
+
 <section><title>grub</title>
 <section><title>about grub</title>
 	<para>The most common bootloader on linux systems today is <command>grub</command><indexterm><primary>grub</primary></indexterm>. On almost all Intel based systems grub is replacing <command>lilo</command><indexterm><primary>lilo</primary></indexterm> (the <command>Li</command>nux <command>lo</command>ader). Even <command>Solaris</command> switched to <command>grub</command> on <command>x86</command> architecture.</para>
@@ -171,3 +215,31 @@ kernel  /boot/vmlinuz-2.6.17-2-686 root=/dev/hda1 ro init=/bin/bash
 	</screen>
 </section>
 </section>
+<section><title>lilo</title>
+	<section><title>Linux loader</title>
+		<para><command>lilo</command><indexterm><primary>lilo</primary></indexterm> used to be the most used Linux bootloader, but is steadily being replaced in <command>x86</command> with <command>grub</command>.</para>
+	</section>
+	<section><title>lilo.conf</title>
+		<para>Here is an example of a typical <command>lilo.conf</command><indexterm><primary>lilo.conf</primary></indexterm> file. The <command>delay</command> switch receives a number in tenths of a second. So the delay below is three seconds, not thirty!</para>
+		<screen>
+boot = /dev/hda
+delay = 30
+
+image = /boot/vmlinuz
+  root = /dev/hda1
+  label = Red Hat 5.2
+
+image = /boot/vmlinuz
+  root = /dev/hda2
+  label = S.U.S.E. 8.0
+
+other = /dev/hda4
+  table = /dev/hda
+  label = MS-DOS 6.22
+		</screen>
+		<para>The configration file shows three example stanzas. The first one boots Red Hat from the first partition on the first disk (hda1). The second stanza boots Suse 8.0 from the next partition. The last one loads MS-DOS.</para>
+	</section>
+</section>
+
+
+
