@@ -104,28 +104,3 @@ sports:!:serena:venus,harry
 <section><title>vigr</title>
 	<para>Similar to vipw, the <command>vigr</command><indexterm><primary>vigr(1)</primary></indexterm> command can be used to manually edit the <command>/etc/group</command> file, since it will do proper locking of the file. Only experienced senior administrators should use <command>vi</command> or <command>vigr</command> to manage groups.</para>
 </section>
-<?hard-pagebreak?>
-<section><title>practice: groups</title>
-		<para>1. Create the groups tennis, football and sports.</para>
-		<para>2. In one command, make venus a member of tennis and sports.</para>
-		<para>3. Rename the football group to foot.</para>
-		<para>4. Use vi to add serena to the tennis group.</para>
-		<para>5. Use the id command to verify that serena is a member of tennis.</para>
-		<para>6. Make someone responsible for managing group membership of foot and sports. Test that it works.</para>
-</section>
-<?hard-pagebreak?>
-<section><title>solution: groups</title>
-		<para>1. Create the groups tennis, football and sports.</para>
-		<screen>groupadd tennis ; groupadd football ; groupadd sports</screen>
-		<para>2. In one command, make venus a member of tennis and sports.</para>
-		<screen>usermod -a -G tennis,sports venus</screen>
-		<para>3. Rename the football group to foot.</para>
-		<screen>groupmod -n foot football</screen>
-		<para>4. Use vi to add serena to the tennis group.</para>
-		<screen>vi /etc/group</screen>
-		<para>5. Use the id command to verify that serena is a member of tennis.</para>
-		<screen>id (and after logoff logon serena should be member)</screen>
-		<para>6. Make someone responsible for managing group membership of foot and sports. Test that it works.</para>
-		<screen>gpasswd -A (to make manager)</screen>
-		<screen>gpasswd -a (to add member)</screen>
-</section>
