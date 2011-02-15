@@ -1,3 +1,4 @@
+<?hard-pagebreak?>
 <section><title>access control lists</title>
 	<section><title>acl in /etc/fstab</title>
 		<para>File systems that support <command>access control lists</command><indexterm><primary>access control list</primary></indexterm>, or <command>acls</command><indexterm><primary>acls</primary></indexterm>, have to be mounted with the <command>acl</command> option listed in <command>/etc/fstab</command><indexterm><primary>/etc/fstab</primary></indexterm>. In the example below, you can see that the root file system has <command>acl</command> support, whereas /home/data does not.</para>
