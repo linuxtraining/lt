@@ -5,48 +5,59 @@ BOOKTITLE="Linux Fundamentals"
 TEACHER=""
 
 ###########################
-## chapter definitions
+## OBSOLETE chapter definitions
 ###########################
-
-. $BOOKSDIR/chapters
+# . $BOOKSDIR/chapters
 	
 ##################
 # define book
 ##################
 
-# define book as chapters in certain order
+# define book as collection of minibooks in certain order
+
+add_minibook introduction
+add_minibook first_steps
+add_minibook shell
+#add_minibook scripting
+#add_minibook users
+#add_minibook file_security
+
+
+# OBSOLETE define book as chapters in certain order
 
 # fundamentals
-add_chapt intro_unix
-add_chapt getting_help
-add_chapt intro_directories
-add_chapt intro_files
-add_chapt intro_file_contents
-add_chapt file_system_tree
+#add_chapt intro_unix
+#add_chapt getting_help
+#add_chapt intro_directories
+#add_chapt intro_files
+#add_chapt intro_file_contents
+#add_chapt file_system_tree
 
-add_chapt shell_introduction
-add_chapt shell_control_operators
-add_chapt shell_variables
-add_chapt shell_arguments
-add_chapt shell_history
-add_chapt shell_globbing
-add_chapt shell_io
+#add_chapt shell_introduction
+#add_chapt shell_control_operators
+#add_chapt shell_variables
+#add_chapt shell_arguments
+#add_chapt shell_history
+#add_chapt shell_globbing
+#add_chapt shell_io
 
-add_chapt pipes_filters
-add_chapt basic_tools
-add_chapt intro_vi
-add_chapt intro_scripts
+#add_chapt pipes_filters
+#add_chapt basic_tools
 
-add_chapt intro_users
-add_chapt intro_groups
-add_chapt file_permissions
-add_chapt advanced_permissions
-add_chapt acls
-add_chapt links
-add_chapt intro_processes
+#add_chapt intro_vi
+#add_chapt intro_scripts
 
-add_appen keys
-add_appen hardware
+#add_chapt intro_users
+#add_chapt intro_groups
+#add_chapt file_permissions
+#add_chapt advanced_permissions
+#add_chapt acls
+#add_chapt links
+#add_chapt intro_processes
+
+#add_appen keys
+#add_appen hardware
 
 # license
+# (automatic at end of pdf file ?)
 add_appen gnufdl

@@ -62,10 +62,10 @@ ISSUES
 - (minor issue) pagebreaks are currently hardcoded in the xml files. Each xml file starts with a page break, unless it immediately follows a chapter title
 
 
-
 ...potential LAYOUT of minibooks
+--------------------------------
 
-minibook : introduction
+minibook : introduction (DONE)
 - unix history
 - licensing/philosophy
 - distributions
@@ -142,13 +142,3 @@ XML LAYOUT OF BOOK:
  gnu license
  index
 </book>
-
-
-
-
-
-
-
-
-
-
