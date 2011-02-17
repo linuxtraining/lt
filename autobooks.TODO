@@ -20,20 +20,25 @@ ADDITIONAL GOALS:
 
 
 HOW:
-1. module-directories should have at least four files named:
+1. module-directories are processed alphabetically by the new build script
+Most module-directories now have files named like this:
 010_$string_title
+020_$string_about (optional)
 030_$string_theory
-040_$string_practice
-050_$string_solution
+040_$string_practice (optional)
+050_$string_solution (optional)
 
-paul will rename all the xml files in the module-directories
-serge can then write a script to parse a module-directory instead of the 'chapters' file
+paul renamed xml files in the module-directories to match this system
+(some modules divert from this, but can be processed alphabetically now!)
+serge can write a script to parse a module-directory instead of the 'chapters' file
 
 2. minibooks can be a single book in xml <book></book>
+Minibooks have their own directory in /books/minibook_name_of_minibook/
+Some minibooks are defined already.
 
 3. minibooks become parts in xml <part></part> when bundled in a book
 
-paul will prepare the first minibook in 'experimental branch' so serge can test his script
+paul has prepared some minibooks in 'experimental branch' so serge can test his script
 
 
 EXTRA:
@@ -46,15 +51,15 @@ Paul really likes this idea because :
 
 
 CURRENT ACTIONS
-- paul: create first minibook and notify serge when committed in experimental
-- paul: continues with the other minibooks (and minichapters)
+- paul: create first minibook and notify serge when committed in experimental (done)
+- paul: continues with the other minibooks (and minichapters) (working)
 - serge: update the built project so it can parse module-directories without the chapters file
 
 
 ISSUES
-- some chapters are not split without extra work synchronizing practices with theory
-- some chapters (like the introduction) are not easily split and require quite some rewriting
-- (minor issue) pagebreaks are currently hardcoded in the xml files. Each xml file starts with a page brak, unless it immediately follows a chapter title
+- some chapters are not split without extra work synchronizing practices with theory (will be done when pdf's can be built to check outcome)
+- some chapters (like the introduction) are not easily split and require quite some rewriting (same as above)
+- (minor issue) pagebreaks are currently hardcoded in the xml files. Each xml file starts with a page break, unless it immediately follows a chapter title
 
 
 
@@ -68,20 +73,21 @@ minibook : introduction
 - installing Linux (NEW)
 - online help
 
-minibook : first steps
+minibook : first steps (DONE)
 - man pages
 - working with directories
 - working with files
 - working with file contents
 - the Linux file tree
 
-minibook : the shell
+minibook : the shell (DONE)
 - introduction to bash
 - control operators
 - variables
 - arguments
 - file globbing
 - shell history
+- i/o
 
 minibook : pipes and filters
 - i/o redirection
