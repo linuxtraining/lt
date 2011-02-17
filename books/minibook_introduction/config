@@ -1,0 +1,21 @@
+#!/bin/sh
+#
+
+BOOKTITLE="Introduction"
+
+##################
+# define minibook
+##################
+
+# define book as directories in certain order
+
+add_chapt unix_history
+add_chapt licensing
+add_chapt distributions
+add_chapt online help
+
+add_appen certification
+add_appen installation
+
+# license hardcoden op het einde van een .pdf ?
+# add_appen gnufdl
