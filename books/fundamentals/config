@@ -15,49 +15,49 @@ TEACHER=""
 
 # define book as collection of minibooks in certain order
 
-add_minibook introduction
-add_minibook first_steps
-add_minibook shell
-#add_minibook scripting
-#add_minibook users
-#add_minibook file_security
+add_mod minibook introduction
+add_mod minibook first_steps
+add_mod minibook shell
+#add_mod minibook scripting
+#add_mod minibook users
+#add_mod minibook file_security
 
 
 # OBSOLETE define book as chapters in certain order
 
 # fundamentals
-#add_chapt intro_unix
-#add_chapt getting_help
-#add_chapt intro_directories
-#add_chapt intro_files
-#add_chapt intro_file_contents
-#add_chapt file_system_tree
+#add_mod chapter intro_unix
+#add_mod chapter getting_help
+#add_mod chapter intro_directories
+#add_mod chapter intro_files
+#add_mod chapter intro_file_contents
+#add_mod chapter file_system_tree
 
-#add_chapt shell_introduction
-#add_chapt shell_control_operators
-#add_chapt shell_variables
-#add_chapt shell_arguments
-#add_chapt shell_history
-#add_chapt shell_globbing
-#add_chapt shell_io
+#add_mod chapter shell_introduction
+#add_mod chapter shell_control_operators
+#add_mod chapter shell_variables
+#add_mod chapter shell_arguments
+#add_mod chapter shell_history
+#add_mod chapter shell_globbing
+#add_mod chapter shell_io
 
-#add_chapt pipes_filters
-#add_chapt basic_tools
+#add_mod chapter pipes_filters
+#add_mod chapter basic_tools
 
-#add_chapt intro_vi
-#add_chapt intro_scripts
+#add_mod chapter intro_vi
+#add_mod chapter intro_scripts
 
-#add_chapt intro_users
-#add_chapt intro_groups
-#add_chapt file_permissions
-#add_chapt advanced_permissions
-#add_chapt acls
-#add_chapt links
-#add_chapt intro_processes
+#add_mod chapter intro_users
+#add_mod chapter intro_groups
+#add_mod chapter file_permissions
+#add_mod chapter advanced_permissions
+#add_mod chapter acls
+#add_mod chapter links
+#add_mod chapter intro_processes
 
-#add_appen keys
-#add_appen hardware
+#add_mod appendix keys
+#add_mod appendix hardware
 
 # license
 # (automatic at end of pdf file ?)
-add_appen gnufdl
+add_mod appendix gnufdl

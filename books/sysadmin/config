@@ -21,32 +21,32 @@ MINOR=99
 # define book as chapters in certain order
 
 # fundamentals parts in sysadmin course
-# add_chapt intro_users
-# add_chapt intro_groups
-# add_chapt file_permissions
-# add_chapt links
-# add_chapt processes
+# add_mod chapter intro_users
+# add_mod chapter intro_groups
+# add_mod chapter file_permissions
+# add_mod chapter links
+# add_mod chapter processes
 
 # sysadmin
-add_chapt processes
-add_chapt disk_management
-add_chapt lvm
-add_chapt bootloader
-add_chapt init_system
-add_chapt kernel
-add_chapt network_sniffing
-add_chapt network
-add_chapt scheduling
-add_chapt logging
-add_chapt libraries
-add_chapt memory 
-add_chapt installing_linux
-add_chapt package_management
-add_chapt backup
-add_chapt monitoring
-add_appen quotas
-add_appen vnc
-# add_appen bootfloppy
+add_mod chapter processes
+add_mod chapter disk_management
+add_mod chapter lvm
+add_mod chapter bootloader
+add_mod chapter init_system
+add_mod chapter kernel
+add_mod chapter network_sniffing
+add_mod chapter network
+add_mod chapter scheduling
+add_mod chapter logging
+add_mod chapter libraries
+add_mod chapter memory 
+add_mod chapter installing_linux
+add_mod chapter package_management
+add_mod chapter backup
+add_mod chapter monitoring
+add_mod appendix quotas
+add_mod appendix vnc
+# add_mod appendix bootfloppy
 
 # license
-add_appen gnufdl
+add_mod appendix gnufdl

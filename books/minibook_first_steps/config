@@ -9,11 +9,11 @@ BOOKTITLE="First Steps"
 
 # define book as directories in certain order
 
-add_chapt man_pages
-add_chapt working_with_directories
-add_chapt working_with_file_contents
-add_chapt working_with_files
-add_chapt file_system_tree
+add_mod chapter man_pages
+add_mod chapter working_with_directories
+add_mod chapter working_with_file_contents
+add_mod chapter working_with_files
+add_mod chapter file_system_tree
 
 # license hardcoden op het einde van een .pdf ?
-# add_appen gnufdl
+# add_mod appendix gnufdl

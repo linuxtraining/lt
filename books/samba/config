@@ -16,16 +16,16 @@ TEACHER=""
 
 # define book as chapters in certain order
 
-add_chapt samba_introduction
-add_chapt samba_getting_started
-add_chapt samba_read_only_file_server
-add_chapt samba_writable_file_server
-add_chapt samba_first_user_account
-add_chapt samba_authentication
-add_chapt samba_securing_shares
-add_chapt samba_domain_member
-add_chapt samba_domain_controller
-add_chapt samba4
+add_mod chapter samba_introduction
+add_mod chapter samba_getting_started
+add_mod chapter samba_read_only_file_server
+add_mod chapter samba_writable_file_server
+add_mod chapter samba_first_user_account
+add_mod chapter samba_authentication
+add_mod chapter samba_securing_shares
+add_mod chapter samba_domain_member
+add_mod chapter samba_domain_controller
+add_mod chapter samba4
 
 # License
-add_appen gnufdl
+add_mod appendix gnufdl

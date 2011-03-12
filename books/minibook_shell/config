@@ -9,13 +9,13 @@ BOOKTITLE="the shell"
 
 # define book as directories in certain order
 
-add_chapt shell_shell_introduction
-add_chapt shell_shell_control_operators
-add_chapt shell_shell_variables
-add_chapt shell_shell_arguments
-add_chapt shell_shell_history
-add_chapt shell_shell_globbing
-add_chapt shell_shell_io
+add_mod chapter shell_shell_introduction
+add_mod chapter shell_shell_control_operators
+add_mod chapter shell_shell_variables
+add_mod chapter shell_shell_arguments
+add_mod chapter shell_shell_history
+add_mod chapter shell_shell_globbing
+add_mod chapter shell_shell_io
 
 # license hardcoden op het einde van een .pdf ?
-# add_appen gnufdl
+# add_mod appendix gnufdl

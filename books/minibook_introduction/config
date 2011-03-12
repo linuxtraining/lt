@@ -9,13 +9,13 @@ BOOKTITLE="Introduction"
 
 # define book as directories in certain order
 
-add_chapt unix_history
-add_chapt licensing
-add_chapt distributions
-add_chapt online help
+add_mod chapter unix_history
+add_mod chapter licensing
+add_mod chapter distributions
+add_mod chapter online help
 
-add_appen certification
-add_appen installation
+add_mod appendix certification
+add_mod appendix installation
 
 # license hardcoden op het einde van een .pdf ?
-# add_appen gnufdl
+# add_mod appendix gnufdl

@@ -21,25 +21,25 @@ MINOR=5
 # define book as chapters in certain order
 
 # advanced servers
-add_chapt apache
-add_chapt squid
-add_chapt mysql
-add_chapt bind
-add_chapt router
-add_chapt iptables
-add_chapt cloning
-add_chapt selinux
+add_mod chapter apache
+add_mod chapter squid
+add_mod chapter mysql
+add_mod chapter bind
+add_mod chapter router
+add_mod chapter iptables
+add_mod chapter cloning
+add_mod chapter selinux
 # samba
-add_chapt samba_introduction
-add_chapt samba_getting_started
-add_chapt samba_read_only_file_server
-add_chapt samba_writable_file_server
-add_chapt samba_first_user_account
-add_chapt samba_authentication
-add_chapt samba_securing_shares
-add_chapt samba_domain_member
-add_chapt samba_domain_controller
-add_chapt samba4
+add_mod chapter samba_introduction
+add_mod chapter samba_getting_started
+add_mod chapter samba_read_only_file_server
+add_mod chapter samba_writable_file_server
+add_mod chapter samba_first_user_account
+add_mod chapter samba_authentication
+add_mod chapter samba_securing_shares
+add_mod chapter samba_domain_member
+add_mod chapter samba_domain_controller
+add_mod chapter samba4
 
 # license
-add_appen gnufdl
+add_mod appendix gnufdl
