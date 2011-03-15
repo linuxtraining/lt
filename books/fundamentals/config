@@ -15,9 +15,9 @@ TEACHER=""
 
 # define book as collection of minibooks in certain order
 
-add_mod minibook introduction
-add_mod minibook first_steps
-add_mod minibook shell
+add_mod minibook minibook_introduction
+add_mod minibook minibook_first_steps
+add_mod minibook minibook_shell
 #add_mod minibook scripting
 #add_mod minibook users
 #add_mod minibook file_security
@@ -60,4 +60,4 @@ add_mod minibook shell
 
 # license
 # (automatic at end of pdf file ?)
-add_mod appendix gnufdl
+add_mod appendix license

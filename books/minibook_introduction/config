@@ -12,10 +12,10 @@ BOOKTITLE="Introduction"
 add_mod chapter unix_history
 add_mod chapter licensing
 add_mod chapter distributions
-add_mod chapter online help
+add_mod chapter getting_help
 
-add_mod appendix certification
-add_mod appendix installation
+add_mod appendix certifications
+add_mod appendix installing_linux
 
 # license hardcoden op het einde van een .pdf ?
 # add_mod appendix gnufdl
