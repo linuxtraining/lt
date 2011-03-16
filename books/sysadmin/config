@@ -7,13 +7,6 @@ TEACHER=""
 MAJOR=0
 MINOR=99
 
-
-###########################
-## chapter definitions
-###########################
-
-. $BOOKSDIR/chapters
-	
 ##################
 # define book
 ##################
@@ -32,7 +25,7 @@ add_mod chapter processes
 add_mod chapter disk_management
 add_mod chapter lvm
 add_mod chapter bootloader
-add_mod chapter init_system
+add_mod chapter init
 add_mod chapter kernel
 add_mod chapter network_sniffing
 add_mod chapter network
@@ -49,4 +42,4 @@ add_mod appendix vnc
 # add_mod appendix bootfloppy
 
 # license
-add_mod appendix gnufdl
+add_mod appendix license

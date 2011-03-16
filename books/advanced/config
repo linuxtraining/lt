@@ -7,13 +7,6 @@ TEACHER=""
 MAJOR=0
 MINOR=5
 
-
-###########################
-## chapter definitions
-###########################
-
-. $BOOKSDIR/chapters
-	
 ##################
 # define book
 ##################
@@ -29,17 +22,7 @@ add_mod chapter router
 add_mod chapter iptables
 add_mod chapter cloning
 add_mod chapter selinux
-# samba
-add_mod chapter samba_introduction
-add_mod chapter samba_getting_started
-add_mod chapter samba_read_only_file_server
-add_mod chapter samba_writable_file_server
-add_mod chapter samba_first_user_account
-add_mod chapter samba_authentication
-add_mod chapter samba_securing_shares
-add_mod chapter samba_domain_member
-add_mod chapter samba_domain_controller
-add_mod chapter samba4
+add_mod chapter samba
 
 # license
-add_mod appendix gnufdl
+add_mod appendix license
