@@ -11,8 +11,6 @@ MINOR=5
 # define book
 ##################
 
-# define book as chapters in certain order
-
 # advanced servers
 add_mod chapter apache
 add_mod chapter squid
