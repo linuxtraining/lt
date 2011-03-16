@@ -9,14 +9,16 @@ book: Either a minibook, or a collection of minibooks.
 
 
 GOALS:
-- obsolete the 'chapters' file (using a script that reads xml files in module-directories alphabetically)
-- integrate the <part> tag into the docbook xml
-- allow for smaller books (minibooks) that handle one topic
+- FIXED obsolete the 'chapters' file (using a script that reads xml files in module-directories alphabetically)
+- FIXED integrate the <part> tag into the docbook xml
+- FIXED allow for smaller books (minibooks) that handle one topic
 - build the larger (existing) books with these minibooks
+
+- be able to build separate books for theory (and practice?) with a separate solution?
 
 
 ADDITIONAL GOALS:
-- create a one-to-one relation between modules and chapters
+- FIXED create a one-to-one relation between modules and chapters
 
 
 HOW:
