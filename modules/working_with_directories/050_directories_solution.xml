@@ -34,7 +34,7 @@
 	<screen>mkdir -p &#126;/dir1/dir2/dir3</screen>	
 	<para>17. Remove the directory testdir.</para>
 	<screen>rmdir testdir</screen>	
-	<para>18. If time permits (or if you are waiting for other students to finish this practice), use and understand pushd and popd. Use the man page of bash to find information about pushd, popd and dirs.</para>
+	<para>18. If time permits (or if you are waiting for other students to finish this practice), use and understand <command>pushd</command> and <command>popd</command>. Use the man page of <command>bash</command> to find information about these commands.</para>
 	<screen>man bash</screen>	
 	<para>The Bash shell has two built-in commands called <command>pushd</command><indexterm><primary>pushd</primary></indexterm> and <command>popd</command><indexterm><primary>popd</primary></indexterm>. Both commands work with a common stack of previous directories. Pushd adds a directory to the stack and changes to a new current directory, popd removes a directory from the stack and sets the current directory.</para>
 	<screen>
