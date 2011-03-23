@@ -1,8 +1,6 @@
 <?hard-pagebreak?>
-<section><title>man pages</title>
-	<para>Most Unix files and commands have pretty good man pages to explain their use. Man pages also come in handy when you are using multiple flavors of Unix or several Linux distributions since options and parameters sometimes vary.</para>
 	<section><title>man $command</title>
-		<para>Type <command>man</command><indexterm><primary>man</primary></indexterm> followed by a command (for which you want help) and start reading. Press <command>q</command> to quit the manpage. Some man pages contain examples (near the end).</para>
+		<para>Type <command>man</command><indexterm><primary>man(1)</primary></indexterm> followed by a command (for which you want help) and start reading. Press <command>q</command> to quit the manpage. Some man pages contain examples (near the end).</para>
 		<screen>
 paul@laika:~$ man whois
 Reformatting whois(1), please wait...
@@ -16,7 +14,7 @@ Reformatting syslog.conf(5), please wait...
 		</screen>
 	</section>
 	<section><title>man $daemon</title>
-		<para>This is also true for most <command>daemons</command> (background programs) on your system..</para>
+		<para>This is also true for most <command>daemons</command><indexterm><primary>daemon</primary></indexterm> (background programs) on your system..</para>
 		<screen>
 paul@laika:~$ man syslogd
 Reformatting syslogd(8), please wait...
@@ -53,7 +51,7 @@ paul@laika:~$ man /usr/share/man/man1/whois.1.gz
 		</screen>
 	</section>
 	<section><title>man sections</title>
-		<para>By now you will have noticed the numbers between the round brackets. <command>man man</command><indexterm><primary>man man</primary></indexterm> will explain to you that these are section numbers. Executable programs and shell commands reside in section one.</para>
+		<para>By now you will have noticed the numbers between the round brackets. <command>man man</command><indexterm><primary>man(1)</primary></indexterm> will explain to you that these are section numbers. Executable programs and shell commands reside in section one.</para>
 		<screen>
 1 Executable programs or shell commands
 2 System calls (functions provided by the kernel)
@@ -67,7 +65,7 @@ paul@laika:~$ man /usr/share/man/man1/whois.1.gz
 		</screen>
 	</section>
 	<section><title>man $section $file</title>
-		<para>Therefor, when referring to the man page of the passwd command, you will see it written as <command>passwd(1)</command>; when referringto the passwd file, you will see it written as <command>passwd(5)</command>. The screenshot explains how to open the man page in the correct section.</para>
+		<para>Therefor, when referring to the man page of the passwd command, you will see it written as <command>passwd(1)</command><indexterm><primary>passwd(1)</primary></indexterm>; when referringto the <command>passwd file</command>, you will see it written as <command>passwd(5)</command><indexterm><primary>passwd(5)</primary></indexterm>. The screenshot explains how to open the man page in the correct section.</para>
 		<screen>
 [paul@RHEL52 ~]$ man passwd      # opens the lowest section (1)
 [paul@RHEL52 ~]$ man 5 passwd    # opens a page from section 5
@@ -91,4 +89,3 @@ root@laika:~# mandb
 0 old database entries were purged.
 		</screen>
 	</section>
-</section>
