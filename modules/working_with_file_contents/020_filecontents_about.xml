@@ -1,1 +1,2 @@
-<para>Working with file contents...blah blah blah</para>
+<para>In this chapter we will look at the contents of <command>text files</command> with <command>head, tail, cat, tac, more, less</command> and <command>strings</command>.</para>
+<para>We will also get a glimpse of the possibilities of tools like <command>cat</command> on the command line.</para>

@@ -1,28 +1,26 @@
 <?hard-pagebreak?>
 <section><title>solution : file contents</title>
-	<para>1. Display the first 12 lines of /etc/services.</para>
+	<para>1. Display the first 12 lines of <command>/etc/services</command>.</para>
 	<screen>head -12 /etc/services</screen>
-	<para>2. Display the last line of /etc/passwd.</para>
+	<para>2. Display the last line of <command>/etc/passwd</command>.</para>
 	<screen>tail -1 /etc/passwd</screen>
-	<para>3. Use cat to create a file named count.txt that looks like this:</para>
-	<screen>
-One
+	<para>3. Use cat to create a file named <command>count.txt</command> that looks like this:</para>
+	<screen>One
 Two
 Three
 Four
-Five
-	</screen>
+Five</screen>
 	<screen>cat > count.txt</screen>
-	<para>4. Use cp to make a backup of this file to cnt.txt.</para>
+	<para>4. Use <command>cp</command> to make a backup of this file to <command>cnt.txt</command>.</para>
 	<screen>cp count.txt cnt.txt</screen>
-	<para>5. Use cat to make a backup of this file to catcnt.txt</para>
+	<para>5. Use <command>cat</command> to make a backup of this file to <command>catcnt.txt</command>.</para>
 	<screen>cat count.txt &#062; catcnt.txt</screen>
-	<para>6. Display catcnt.txt, but with all lines in reverse order (the last line first).</para>
+	<para>6. Display <command>catcnt.txt</command>, but with all lines in reverse order (the last line first).</para>
 	<screen>tac catcnt.txt</screen>
-	<para>7. Use more to display /var/log/messages.</para>
+	<para>7. Use more to display <command>/var/log/messages</command>.</para>
 	<screen>more /var/log/messages</screen>
-	<para>8. Display the readable character strings from the /usr/bin/passwd command.</para>
+	<para>8. Display the readable character strings from the <command>/usr/bin/passwd</command> command.</para>
 	<screen>strings /usr/bin/passwd</screen>
-	<para>9. Use ls to find the biggest file in /etc.</para>	
-	<screen>cd ; ls -lrS /etc</screen>
+	<para>9. Use <command>ls</command> to find the biggest file in <command>/etc</command>.</para>
+	<screen>ls -lrS /etc</screen>
 </section>
