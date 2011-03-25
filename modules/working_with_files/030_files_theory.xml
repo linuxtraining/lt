@@ -11,6 +11,9 @@ paul@laika:~/Linux$ cat Winter.txt
 It is very cold!
 	</screen>
 </section>
+<section><title>everything is a file</title>
+	<para>A <command>directory</command> is a special kind of <command>file</command>, but it is still a <command>file</command>. Even a terminal window (<command>/dev/pts/4</command>) or a hard disk (<command>/dev/sdb</command>) is represented somewhere in the <command>file system</command> as a <command>file</command>. It will become clear throughout this course that everything on Linux is a <command>file</command>.</para>
+</section>
 <section><title>file</title>
 	<para>The <command>file</command><indexterm><primary>file(1)</primary></indexterm> utility determines the file type. Linux does not use extensions to determine the file type. Your editor does not care whether a file ends in .TXT or .DOC. As a system administrator, you should use the <command>file</command> command to determine the file type. Here are some examples on a typical Linux system.</para>
 	<screen>
