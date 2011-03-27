@@ -1,28 +1,24 @@
-	<section><title>Current Distributions</title>
-		<section><title>What is a distribution ?</title>
-			<para>Unix comes in many flavors usually called <command>distributions</command><indexterm><primary>distributions</primary></indexterm>. A distribution (or in short distro) is a collection of software packages distributed on CD, online, or pre-installed on computers. All the software in a distribution is tested and integrated nicely into a whole. Software is maintained (patched) by the distributor and is managed by an <command>integrated package manager</command><indexterm><primary>package manager</primary></indexterm>. Many distros have a central <command>repository of approved software</command><indexterm><primary>repository</primary></indexterm>. Installing software from outside the distro can sometimes be cumbersome and may void your warranty on the system.</para>
-		</section>	
-		<section><title>Linux Distributions</title>
-			<para>There are hundreds of Linux distributions, just take a look at the distrowatch.com website. For many years, Red Hat, Suse, and Mandrake were considered the big three for end users. Red Hat is still the biggest commercial Linux vendor and since 2008 the most popular Linux distribution for home users is <command>Ubuntu</command><indexterm><primary>Ubuntu</primary></indexterm> from Canonical.</para>
-                        <section><title>Linux distribution detection</title>
-                        	<para>Depending on the distribution used, there are distinct files that contain the distribution version.</para>
-                        	<para>The <command>/etc/redhat-release</command><indexterm><primary>/etc/redhat-release</primary></indexterm> file contains the Red Hat version on most of the Red Hat and Red Hat derived systems. Debian and Ubuntu systems contain <command>/etc/debian-version</command><indexterm><primary>/etc/debian-version</primary></indexterm>. Note that Ubuntu was originally derived from Debian.</para>
-                        	<screen>
-paul@RHELv4u4:~$ cat /etc/redhat-release
+<?hard-pagebreak?>
+<section><title>What is a distribution ?</title>
+	<para>Unix comes in many flavors usually called <command>distributions</command><indexterm><primary>distributions</primary></indexterm>. A distribution (or in short distro) is a collection of software packages distributed on CD, online, or pre-installed on computers. All the software in a distribution is tested and integrated nicely into a whole. Software is maintained (patched) by the distributor and is managed by an <command>integrated package manager</command><indexterm><primary>package manager</primary></indexterm>. Many distros have a central <command>repository of approved software</command><indexterm><primary>repository</primary></indexterm>. Installing software from outside the distro can sometimes be cumbersome and may void your warranty on the system.</para>
+</section>	
+<section><title>Linux Distributions</title>
+	<para>There are hundreds of Linux distributions, just take a look at the distrowatch.com website. For many years, Red Hat, Suse, and Mandrake were considered the big three for end users. Red Hat is still the biggest commercial Linux vendor and since 2008 the most popular Linux distribution for home users is <command>Ubuntu</command><indexterm><primary>Ubuntu</primary></indexterm> from Canonical.</para>
+	<section><title>Linux distribution detection</title>
+		<para>Depending on the distribution used, there are distinct files that contain the distribution version.</para>
+		<para>The <command>/etc/redhat-release</command><indexterm><primary>/etc/redhat-release</primary></indexterm> file contains the Red Hat version on most of the Red Hat and Red Hat derived systems. Debian and Ubuntu systems contain <command>/etc/debian-version</command><indexterm><primary>/etc/debian-version</primary></indexterm>. Note that Ubuntu was originally derived from Debian.</para>
+		<screen>paul@RHELv4u4:~$ cat /etc/redhat-release
 Red Hat Enterprise Linux AS release 4 (Nahant Update 4)
 
 serge@venusia:~$ cat /etc/debian_version
-lenny/sid
-				</screen>
-				<para>The <command>/etc/lsb-release</command><indexterm><primary>/etc/lsb-release</primary></indexterm> file can be found on distributions that follow the Linux Standard Base. Other variations to these files are <command>/etc/slackware-version</command><indexterm><primary>/etc/slackware-version</primary></indexterm>, <command>/etc/SuSE-release</command><indexterm><primary>/etc/SuSE-release</primary></indexterm>, <command>/etc/gentoo-release</command><indexterm><primary>/etc/gentoo-release</primary></indexterm> and <command>/etc/mandrake-release</command><indexterm><primary>/etc/mandriva-release</primary></indexterm>.</para>
-                        	<screen>
-serge@venusia:~$ cat /etc/lsb-release
+lenny/sid</screen>
+		<para>The <command>/etc/lsb-release</command><indexterm><primary>/etc/lsb-release</primary></indexterm> file can be found on distributions that follow the Linux Standard Base. Other variations to these files are <command>/etc/slackware-version</command><indexterm><primary>/etc/slackware-version</primary></indexterm>, <command>/etc/SuSE-release</command><indexterm><primary>/etc/SuSE-release</primary></indexterm>, <command>/etc/gentoo-release</command><indexterm><primary>/etc/gentoo-release</primary></indexterm> and <command>/etc/mandrake-release</command><indexterm><primary>/etc/mandriva-release</primary></indexterm>.</para>
+		<screen>serge@venusia:~$ cat /etc/lsb-release
 DISTRIB_ID=Ubuntu
 DISTRIB_RELEASE=8.04
 DISTRIB_CODENAME=hardy
-DISTRIB_DESCRIPTION="Ubuntu 8.04.1"
-                        	</screen>
-                        </section>
+DISTRIB_DESCRIPTION="Ubuntu 8.04.1"</screen>
+	</section>
 		<section><title>Red Hat</title>
 				<para>Redhat has been a company since 1993. They distribute <command>Red Hat Enterprise Linux</command><indexterm><primary>Red Hat Enterprise Linux</primary></indexterm> (RHEL) to companies and manage the <command>Fedora</command><indexterm><primary>Fedora</primary></indexterm> project. RHEL is probably the most popular Linux-based distro on servers. Fedora is a very popular and user friendly Linux-based distro, aimed towards home users. The company makes a profit of around one hundred million dollars a year selling support contracts. Red Hat contributes a lot to the Linux kernel and other free software projects.</para>
 				<section><title>Red Hat Linux</title>
@@ -85,4 +81,3 @@ DISTRIB_DESCRIPTION="Ubuntu 8.04.1"
 				<para>OpenSolaris is an open source development project (yes, it is only source code). Future versions of the Solaris operating system are based on this source code. The <command>Belenix</command><indexterm><primary>Belenix</primary></indexterm> LiveCD is based on OpenSolaris. Another famous OpenSolaris based distro is <command>Nexenta</command><indexterm><primary>Nexenta</primary></indexterm>. Nexenta (www.gnusolaris.org) looks like <command>Ubuntu</command><indexterm><primary>Ubuntu</primary></indexterm> and feels like <command>Debian</command><indexterm><primary>Debian</primary></indexterm>. The goal of this <command>GNU/Solaris</command><indexterm><primary>GNU/Solaris</primary></indexterm> project is to have the best Linux desktop (Ubuntu) including the <command>aptitude</command><indexterm><primary>aptitude</primary></indexterm> package manager running on a Sun Solaris kernel. </para>
 			</section>
 		</section>
-	</section>
