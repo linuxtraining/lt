@@ -1,28 +1,25 @@
 <?hard-pagebreak?>
-<section><title>file system tree</title>
-<section><title>everything is a file</title>
-	<para>A directory is a special kind of file, but it is still a file. Even a terminal window or a hard disk is represented somewhere in the file system hierarchy as a file. It will become clear throughout this course that everything on Linux is a file.</para>
+<section><title>filesystem hierarchy standard</title>
+	<para>Many Linux distributions partially follow the <command>Filesystem Hierarchy Standard</command><indexterm><primary>Filesystem Hierarchy Standard</primary></indexterm>. The <command>FHS</command> may help make more Unix/Linux file system trees conform better in the future. The <command>FHS</command><indexterm><primary>FHS</primary></indexterm> is available online at <command>http://www.pathname.com/fhs/</command><indexterm><primary>http://www.pathname.com/fhs/</primary></indexterm> where we read: "The filesystem hierarchy standard has been designed to be used by Unix distribution developers, package developers, and system implementors. However, it is primarily intended to be a reference and is not a tutorial on how to manage a Unix filesystem or directory hierarchy."</para>
 </section>
-<section><title>/ (the root directory)</title>
-	<para>All Linux systems have a directory structure that starts at the <command>root directory</command><indexterm><primary>root directory</primary></indexterm>. The root directory is represented by a slash, like this: <command>/</command><indexterm><primary>/</primary></indexterm>. Everything that exists on your linux system can be found below this root directory. Let's take a brief look at the contents of the root directory.</para>
+<section><title>man hier</title>
+	<para>There are some differences in the filesystems between <command>Linux distributions</command><indexterm><primary>distributions</primary></indexterm>. For help about your machine, enter <command>man hier</command><indexterm><primary>man hier</primary></indexterm> to find information about the file system hierarchy. This manual will explain the directory structure on your computer.</para>
+</section>
+<section><title>the root directory /</title>
+	<para>All Linux systems have a directory structure that starts at the <command>root directory</command><indexterm><primary>root directory</primary></indexterm>. The root directory is represented by a <command>forward slash</command>, like this: <command>/</command><indexterm><primary>/</primary></indexterm>. Everything that exists on your Linux system can be found below this root directory. Let's take a brief look at the contents of the root directory.</para>
 	<screen>
 [paul@RHELv4u3 ~]$ ls /
 bin   dev  home  media  mnt  proc  sbin     srv  tftpboot  usr
 boot  etc  lib   misc   opt  root  selinux  sys  tmp       var
-[paul@RHELv4u3 ~]$ 
 	</screen>
 </section>
-<section><title>man hier</title>
-	<para>There are some differences in the filesystems between Linux distributions. For help about your machine, enter <command>man hier</command><indexterm><primary>man hier</primary></indexterm> to find information about the file system hierarchy. This manual will explain the directory structure on your computer.</para>
-</section>
-<section><title>filesystem hierarchy standard</title>
-	<para>Many Linux distributions partially follow the <command>Filesystem Hierarchy Standard</command><indexterm><primary>Filesystem Hierarchy Standard</primary></indexterm> (FHS). The FHS may help make more Unix/Linux file system trees conform better in the future. The <command>FHS</command><indexterm><primary>FHS</primary></indexterm> is available online at <command>http://www.pathname.com/fhs/</command><indexterm><primary>http://www.pathname.com/fhs/</primary></indexterm> where we read: "The filesystem hierarchy standard has been designed to be used by Unix distribution developers, package developers, and system implementors. However, it is primarily intended to be a reference and is not a tutorial on how to manage a Unix filesystem or directory hierarchy."</para>
-</section>
-<section><title>common directories</title>
-	<para>Below we will discuss the most common directories in alphabetical order.</para>
-	<section><title>/bin binaries</title>
-		<para>The <command>/bin</command><indexterm><primary>/bin</primary></indexterm> directory contains binaries for use by all users. According to the FHS the <command>/bin</command> directory should contain <command>/bin/cat</command> and <command>/bin/date</command> (among others). You will find a bin subdirectory in many other directories. Binaries are sometimes called <command>executables</command><indexterm><primary>executables</primary></indexterm>. In the screenshot below you see common Unix/Linux commands like cat, cp, cpio, date, dd, echo, grep, and so on. Many of these will be covered in this book.</para>
-<screen>
+<?hard-pagebreak?>
+<section><title>binary directories</title>
+	<para><command>Binaries</command> are files that contain compiled source code (or machine code). Binaries can be <command>executed</command> on the computer. Sometimes binaries are called <command>executables</command><indexterm><primary>executables</primary></indexterm>.</para>
+	<section><title>/bin</title>
+		<para>The <command>/bin</command><indexterm><primary>/bin</primary></indexterm> directory contains <command>binaries</command> for use by all users. According to the FHS the <command>/bin</command> directory should contain <command>/bin/cat</command> and <command>/bin/date</command> (among others).</para>
+		<para>In the screenshot below you see common Unix/Linux commands like cat, cp, cpio, date, dd, echo, grep, and so on. Many of these will be covered in this book.</para>
+		<screen>
 paul@laika:~$ ls /bin
 archdetect       egrep             mt               setupcon
 autopartition    false             mt-gnu           sh
@@ -41,41 +38,61 @@ bzless           ip                partman-commit   true
 bzmore           kbd_mode          perform_recipe   ulockmgr
 cat              kill              pidof            umount
 ...
-</screen>
+		</screen>
+	</section>
+	<section><title>other /bin directories</title>
+		<para>You can find a <command>/bin subdirectory</command> in many other directories. A user named <command>Serena</command> could put her own programs in <command>/home/serena/bin</command>.</para>
+		<para>Some applications, often when installed directly from source will put themselves in <command>/opt</command>. A <command>samba server</command> installation can use <command>/opt/samba/bin</command> to store its binaries.</para>
+	</section>
+	<section><title>/sbin</title>
+		<para><command>/sbin</command><indexterm><primary>/sbin</primary></indexterm> contains binaries to configure the operating system. Many of the <command>system binaries</command> require <command>root</command> privilege to perform certain tasks.</para>
+		<para>Below a screenshot containing <command>system binaries</command> to change the ip-address, partition a disk and create an ext4 file system.</para>
+		<screen>
+paul@ubu1010:~$ ls -l /sbin/ifconfig /sbin/fdisk /sbin/mkfs.ext4
+-rwxr-xr-x 1 root root 97172 2011-02-02 09:56 /sbin/fdisk
+-rwxr-xr-x 1 root root 65708 2010-07-02 09:27 /sbin/ifconfig
+-rwxr-xr-x 5 root root 55140 2010-08-18 18:01 /sbin/mkfs.ext4
+		</screen>
+	</section>
+	<section><title>/lib</title>
+		<para>Binaries found in <command>/bin</command> and <command>/sbin</command> often use <command>shared libraries</command> located in <command>/lib</command><indexterm><primary>/lib</primary></indexterm>. Below is a screenshot of the partial contents of <command>/lib</command>.</para>
+		<screen>
+paul@laika:~$ ls /lib/libc*
+/lib/libc-2.5.so     /lib/libcfont.so.0.0.0  /lib/libcom_err.so.2.1    
+/lib/libcap.so.1     /lib/libcidn-2.5.so     /lib/libconsole.so.0      
+/lib/libcap.so.1.10  /lib/libcidn.so.1       /lib/libconsole.so.0.0.0  
+/lib/libcfont.so.0   /lib/libcom_err.so.2    /lib/libcrypt-2.5.so      
+		</screen>
+		<section><title>/lib/modules</title>
+			<para>Typically, the <command>Linux kernel</command> loads kernel modules from <command>/lib/modules/$kernel-version/</command><indexterm><primary>/lib/modules</primary></indexterm>. This directory is discussed in detail in the Linux kernel chapter.</para>
 		</section>
-		<section><title>/boot static files to boot the system</title>
-			<para>The <command>/boot</command><indexterm><primary>/boot</primary></indexterm> directory contains all files needed to boot the computer. These files don't change very often. On Linux systems you typically find the <command>/boot/grub</command><indexterm><primary>/boot/grub</primary></indexterm> directory here. <command>/boot/grub</command> contains <command>/boot/grub/menu.lst</command><indexterm><primary>/boot/grub/menu.lst</primary></indexterm> (the grub configuration file is often linked to <command>/boot/grub/grub.conf</command><indexterm><primary>/boot/grub/grub.conf</primary></indexterm>) which defines the boot menu that is displayed before the kernel starts.</para>
-		</section>
-		<section><title>/dev device files</title>
-			<para>Device files in <command>/dev</command><indexterm><primary>/dev</primary></indexterm> appear to be ordinary files, but are not actually located on the hard disk. The <command>/dev</command> directory is populated with files as the kernel is recognizing hardware.</para>
-			<section><title>common physical devices</title>
-				<para>Common hardware such as hard disk devices are represented by device files in <command>/dev</command>. Below a screenshot of SATA device files on a laptop and then IDE attached drives on a desktop. (The detailed meaning of these devices will be discussed later.)</para>
-				<screen>
-#
-# SATA or SCSI
-#
-paul@laika:~$ ls /dev/sd*
-/dev/sda  /dev/sda1  /dev/sda2  /dev/sda3  /dev/sdb  /dev/sdb1  /dev/sdb2
-
-#
-# IDE or ATAPI
-#
-paul@barry:~$ ls /dev/hd*
-/dev/hda  /dev/hda1  /dev/hda2  /dev/hdb  /dev/hdb1  /dev/hdb2  /dev/hdc
-				</screen>
-				<para>Besides representing physical hardware, some device files are special. These special devices can be very useful.</para>
-			</section>
-			<section><title>/dev/tty and /dev/pts</title>
-				<para>For example, <command>/dev/tty1</command><indexterm><primary>/dev/tty1</primary></indexterm> represents a terminal or console attached to the system. (Don't break your head on the exact terminology of 'terminal' or 'console', what we mean here is a command line interface.) When typing commands in a terminal that is part of a graphical interface like Gnome or KDE, then your terminal will be represented as <command>/dev/pts/1</command><indexterm><primary>/dev/pts/1</primary></indexterm> (1 can be another number).</para>
-			</section>
-			<section><title>/dev/null</title>
-				<para>On Linux you will find other special devices such as <command>/dev/null</command><indexterm><primary>/dev/null</primary></indexterm> which can be considered a black hole; it has unlimited storage, but nothing can be retrieved from it. Technically speaking, anything written to /dev/null will be discarded. /dev/null can be useful to discard unwanted output from commands. <emphasis>/dev/null is not a good location to store your backups ;-)</emphasis>.</para>
-			</section>
-		</section>
-		<section><title>/etc configuration files</title>
-			<para>All of the machine-specific configuration files should be located in <command>/etc</command><indexterm><primary>/etc</primary></indexterm>. Many times the name of a configuration files is the same as the application, daemon, or protocol with <command>.conf</command> added as the extension. There is much more to be found in <command>/etc</command>.</para>
+		<section><title>/lib32 and /lib64</title>
+			<para>We currently are in a transition between <command>32-bit</command> and <command>64-bit</command> systems. Therefore, you may encounter directories named <command>/lib32</command><indexterm><primary>/lib32</primary></indexterm> and <command>/lib64</command><indexterm><primary>/lib64</primary></indexterm> which clarify the register size used during compilation time of the libraries. A 64-bit computer may have some 32-bit binaries and libraries for compatibility with legacy applications. This screenshot uses the <command>file</command><indexterm><primary>file(1)</primary></indexterm> utility to demonstrate the difference.</para>
 			<screen>
-paul@laika:~$ ls /etc/*.conf
+paul@laika:~$ file /lib32/libc-2.5.so 
+/lib32/libc-2.5.so: ELF 32-bit LSB shared object, Intel 80386, \
+version 1 (SYSV), for GNU/Linux 2.6.0, stripped
+paul@laika:~$ file /lib64/libcap.so.1.10 
+/lib64/libcap.so.1.10: ELF 64-bit LSB shared object, AMD x86-64, \
+version 1 (SYSV), stripped
+			</screen>
+			<para>The ELF <command>(Executable and Linkable Format)</command><indexterm><primary>ELF</primary></indexterm> is used in almost every Unix-like operating system since <command>System V</command><indexterm><primary>System V</primary></indexterm>.</para>
+		</section>
+	</section>
+	<section><title>/opt</title>
+		<para>The purpose of <command>/opt</command> is to store <command>optional</command> software. In many cases this is software from outside the distribution repository. You may find an empty <command>/opt</command><indexterm><primary>/opt</primary></indexterm> directory on many systems.</para>
+		<para>A large package can install all its files in <command>/bin</command>, <command>/lib</command>, <command>/etc</command> subdirectories within <command>/opt/$packagename/</command>. If for example the package is called wp, then it installs in <command>/opt/wp</command>, putting binaries in <command>/opt/wp/bin</command> and manpages in <command>/opt/wp/man</command>.</para>
+	</section>
+</section>
+<?hard-pagebreak?>
+<section><title>configuration directories</title>
+	<section><title>/boot</title>
+		<para>The <command>/boot</command><indexterm><primary>/boot</primary></indexterm> directory contains all files needed to boot the computer. These files don't change very often. On Linux systems you typically find the <command>/boot/grub</command><indexterm><primary>/boot/grub</primary></indexterm> directory here. <command>/boot/grub</command> contains <command>/boot/grub/menu.lst</command><indexterm><primary>/boot/grub/menu.lst</primary></indexterm> (the grub configuration file is often linked to <command>/boot/grub/grub.conf</command><indexterm><primary>/boot/grub/grub.conf</primary></indexterm>) which defines the boot menu that is displayed before the kernel starts.</para>
+	</section>
+	<section><title>/etc</title>
+		<para>All of the machine-specific <command>configuration files</command> should be located in <command>/etc</command><indexterm><primary>/etc</primary></indexterm>. Historically <command>/etc</command> stood for <command>etcetera</command>, today people often use the <command>Editable Text Configuration</command> backronym.</para>
+		<para>Many times the name of a configuration files is the same as the application, daemon, or protocol with <command>.conf</command> added as the extension.</para>
+		<screen>paul@laika:~$ ls /etc/*.conf
 /etc/adduser.conf        /etc/ld.so.conf       /etc/scrollkeeper.conf
 /etc/brltty.conf         /etc/lftp.conf        /etc/sysctl.conf
 /etc/ccertificates.conf  /etc/libao.conf       /etc/syslog.conf
@@ -88,18 +105,20 @@ paul@laika:~$ ls /etc/*.conf
 /etc/host.conf           /etc/pnm2ppa.conf     /etc/wodim.conf
 /etc/inetd.conf          /etc/povray.conf      /etc/wvdial.conf
 /etc/kernel-img.conf     /etc/resolv.conf
-paul@laika:~$ 
-			</screen>
-			<section><title>/etc/X11/</title>
-				<para>The graphical display (aka <command>X Window System</command><indexterm><primary>X Window System</primary></indexterm> or just <command>X</command><indexterm><primary>X</primary></indexterm>) is driven by software from the X.org foundation. The configuration file for your graphical display is <command>/etc/X11/xorg.conf</command><indexterm><primary>/etc/X11/xorg.conf</primary></indexterm>. </para>
-			</section>
-			<section><title>/etc/skel/</title>
-				<para>The <command>skeleton</command><indexterm><primary>skeleton</primary></indexterm> directory <command>/etc/skel</command><indexterm><primary>/etc/skel</primary></indexterm> is copied to the home directory of a newly created user. It usually contains hidden files like a <command>.bashrc</command> script.</para>
-			</section>
-			<section><title>/etc/sysconfig/</title>
-				<para>This directory, which is not mentioned in the FHS, contains a lot of Red Hat Enterprise Linux configuration files. We will discuss some of them in greater detail. The screenshot below is the <command>/etc/sysconfig</command><indexterm><primary>/etc/sysconfig</primary></indexterm> directory from RHELv4u4 with everything installed.</para>
-				<screen>
-paul@RHELv4u4:~$ ls /etc/sysconfig/
+paul@laika:~$ </screen>
+		<para>There is much more to be found in <command>/etc</command>.</para>
+		<section><title>/etc/init.d/</title>
+			<para>A lot of Unix/Linux distributions have an <command>/etc/init.d</command><indexterm><primary>/etc/init.d/</primary></indexterm> directory that contains scripts to start and stop <command>daemons</command>. This directory could dissapear as Linux migrates to systems that replace the old <command>init</command> way of starting all <command>daemons</command>.</para>
+		</section>
+		<section><title>/etc/X11/</title>
+			<para>The graphical display (aka <command>X Window System</command><indexterm><primary>X Window System</primary></indexterm> or just <command>X</command><indexterm><primary>X</primary></indexterm>) is driven by software from the X.org foundation. The configuration file for your graphical display is <command>/etc/X11/xorg.conf</command><indexterm><primary>/etc/X11/xorg.conf</primary></indexterm>. </para>
+		</section>
+		<section><title>/etc/skel/</title>
+			<para>The <command>skeleton</command><indexterm><primary>skeleton</primary></indexterm> directory <command>/etc/skel</command><indexterm><primary>/etc/skel</primary></indexterm> is copied to the home directory of a newly created user. It usually contains hidden files like a <command>.bashrc</command> script.</para>
+		</section>
+		<section><title>/etc/sysconfig/</title>
+			<para>This directory, which is not mentioned in the FHS, contains a lot of <command>Red Hat Enterprise Linux</command> configuration files. We will discuss some of them in greater detail. The screenshot below is the <command>/etc/sysconfig</command><indexterm><primary>/etc/sysconfig</primary></indexterm> directory from RHELv4u4 with everything installed.</para>
+			<screen>paul@RHELv4u4:~$ ls /etc/sysconfig/
 apmd         firstboot     irda              network      saslauthd
 apm-scripts  grub          irqbalance        networking   selinux
 authconfig   hidd          keyboard          ntpd         spamassassin
@@ -111,87 +130,90 @@ crond        installinfo   named             prelink      sys-logviewer
 desktop      ipmi          netdump           rawdevices   tux
 diskdump     iptables      netdump_id_dsa    rhn          vncservers
 dund         iptables-cfg  netdump_id_dsa.p  samba        xinetd
-paul@RHELv4u4:~$ 
-				</screen>
-				<para>The file <command>/etc/sysconfig/firstboot</command><indexterm><primary>/etc/sysconfig/firstboot</primary></indexterm> tells the Red Hat Setup Agent not to run at boot time. If you want to run the Red Hat Setup Agent at the next reboot, then simply remove this file, and run <command>chkconfig --level 5 firstboot on</command><indexterm><primary>chkconfig</primary></indexterm>. The Red Hat Setup Agent allows you to install the latest updates, create a user account, join the Red Hat Network and more. It will then create the /etc/sysconfig/firstboot file again.</para>
-				<screen>
-paul@RHELv4u4:~$ cat /etc/sysconfig/firstboot 
-RUN_FIRSTBOOT=NO
-				</screen>
-				<para>The <command>/etc/sysconfig/harddisks</command><indexterm><primary>/etc/sysconfig/harddisks</primary></indexterm> file contains some parameters to tune the hard disks. The file explains itself.</para>
-				<para>You can see hardware detected by <command>kudzu</command><indexterm><primary>kudzu</primary></indexterm> in <command>/etc/sysconfig/hwconf</command><indexterm><primary>/etc/sysconfig/hwconf</primary></indexterm>. Kudzu is software from Red Hat for automatic discovery and configuration of hardware.</para>
-				<para>The keyboard type and keymap table are set in the <command>/etc/sysconfig/keyboard</command><indexterm><primary>/etc/sysconfig/keyboard</primary></indexterm> file. For more console keyboard information, check the manual pages of <command>keymaps(5)</command><indexterm><primary>keymaps(5)</primary></indexterm>, <command>dumpkeys(1)</command><indexterm><primary>dumpkeys(1)</primary></indexterm>, <command>loadkeys(1)</command><indexterm><primary>loadkeys(1)</primary></indexterm> and the directory <command>/lib/kbd/keymaps/</command><indexterm><primary>/lib/kbd/keymaps/</primary></indexterm>.</para>
-				<screen>
-root@RHELv4u4:/etc/sysconfig# cat keyboard 
+paul@RHELv4u4:~$</screen>
+			<para>The file <command>/etc/sysconfig/firstboot</command><indexterm><primary>/etc/sysconfig/firstboot</primary></indexterm> tells the Red Hat Setup Agent not to run at boot time. If you want to run the Red Hat Setup Agent at the next reboot, then simply remove this file, and run <command>chkconfig --level 5 firstboot on</command><indexterm><primary>chkconfig</primary></indexterm>. The Red Hat Setup Agent allows you to install the latest updates, create a user account, join the Red Hat Network and more. It will then create the /etc/sysconfig/firstboot file again.</para>
+			<screen>paul@RHELv4u4:~$ cat /etc/sysconfig/firstboot 
+RUN_FIRSTBOOT=NO</screen>
+			<para>The <command>/etc/sysconfig/harddisks</command><indexterm><primary>/etc/sysconfig/harddisks</primary></indexterm> file contains some parameters to tune the hard disks. The file explains itself.</para>
+			<para>You can see hardware detected by <command>kudzu</command><indexterm><primary>kudzu</primary></indexterm> in <command>/etc/sysconfig/hwconf</command><indexterm><primary>/etc/sysconfig/hwconf</primary></indexterm>. Kudzu is software from Red Hat for automatic discovery and configuration of hardware.</para>
+			<para>The keyboard type and keymap table are set in the <command>/etc/sysconfig/keyboard</command><indexterm><primary>/etc/sysconfig/keyboard</primary></indexterm> file. For more console keyboard information, check the manual pages of <command>keymaps(5)</command><indexterm><primary>keymaps(5)</primary></indexterm>, <command>dumpkeys(1)</command><indexterm><primary>dumpkeys(1)</primary></indexterm>, <command>loadkeys(1)</command><indexterm><primary>loadkeys(1)</primary></indexterm> and the directory <command>/lib/kbd/keymaps/</command><indexterm><primary>/lib/kbd/keymaps/</primary></indexterm>.</para>
+			<screen>root@RHELv4u4:/etc/sysconfig# cat keyboard 
 KEYBOARDTYPE="pc"
-KEYTABLE="us"
-				</screen>
-				<para>We will discuss networking files in this directory in the networking chapter.</para>
-			</section>
+KEYTABLE="us"</screen>
+			<para>We will discuss networking files in this directory in the networking chapter.</para>
 		</section>
-		<section><title>/home sweet home</title>
-			<para>You will find a lot of locations with an extensive hierarchy of personal or project data under <command>/home</command><indexterm><primary>/home</primary></indexterm>. It is common (but not mandatory) practice to name the users home directory after the username in the format <command>/home/$USERNAME</command>. For example:</para>
-			<screen>
-paul@pasha:~$ ls /home 
-geert  guillaume  maria  paul  tom
-			</screen>
-			<para>Besides giving every user (or every project or group) a location to store personal files, the home directory of a user also serves as a location to store the user profile. A typical Unix user profile contains many hidden files (files whose filename starts with a dot). The hidden files of the Unix user profiles contain settings specific for that user.</para>
-			<screen>
-paul@pasha:~$ ls -d /home/paul/.*
+	</section>
+</section>
+<?hard-pagebreak?>
+<section><title>data directories</title>
+	<section><title>/home</title>
+		<para>Users can store personal or project data under <command>/home</command><indexterm><primary>/home</primary></indexterm>. It is common (but not mandatory by the fhs) practice to name the users home directory after the username in the format <command>/home/$USERNAME</command>. For example:</para>
+		<screen>paul@ubu606:~$ ls /home 
+geert  annik  sandra  paul  tom</screen>
+		<para>Besides giving every user (or every project or group) a location to store personal files, the home directory of a user also serves as a location to store the user profile. A typical Unix user profile contains many hidden files (files whose filename starts with a dot). The hidden files of the Unix user profiles contain settings specific for that user.</para>
+		<screen>
+paul@ubu606:~$ ls -d /home/paul/.*
 /home/paul/.              /home/paul/.bash_profile  /home/paul/.ssh
 /home/paul/..             /home/paul/.bashrc        /home/paul/.viminfo
-/home/paul/.bash_history  /home/paul/.lesshst       /home/paul/.Xauthority
-			</screen>
-		</section>
-		<section><title>/initrd</title>
-			<para>This empty directory is used as a mount point by Red Hat Enterprise Linux during boot time. Do not remove this directory, doing so causes a kernel panic during the next boot.</para>
-		</section>
-		<section><title>/lib shared libraries</title>
-			<para>Binaries, like those found in <command>/bin</command>, often use shared libraries located in <command>/lib</command><indexterm><primary>/lib</primary></indexterm>. Below is a screenshot of the partial contents of <command>/lib</command>.</para>
+/home/paul/.bash_history  /home/paul/.lesshst
+		</screen>
+	</section>
+	<section><title>/root</title>
+		<para>On many systems, <command>/root</command><indexterm><primary>/root</primary></indexterm> is the default location for personal data and profile of the <command>root user</command>. If it does not exist by default, then some administrators create it.</para>
+	</section>
+	<section><title>/srv</title>
+		<para>You may use <command>/srv</command><indexterm><primary>/srv</primary></indexterm> for data that is <command>served by your system</command>. The FHS suggests locating cvs, rsync, ftp and www data in this location. The FHS also approves administrative naming in /srv, like /srv/project55/ftp and /srv/sales/www.</para>
+		<para>On Sun Solaris (or Oracle Solaris) <command>/export</command><indexterm><primary>/export</primary></indexterm> is used for this purpose.</para>
+	</section>
+	<section><title>/media</title>
+		<para>The <command>/media</command><indexterm><primary>/media</primary></indexterm> directory serves as a mount point for <command>removable media devices</command> such as CD-ROM's, digital cameras, and various usb-attached devices. Since <command>/media</command> is rather new in the Unix world, you could very well encounter systems running without this directory. Solaris 9 does not have it, Solaris 10 does. Most Linux distributions today mount all removable media in <command>/media</command>.</para>
+			<screen>paul@debian5:~$ ls /media/
+cdrom  cdrom0  usbdisk</screen>
+	</section>
+	<section><title>/mnt</title>
+		<para>The <command>/mnt</command> directory should be empty and should only be used for temporary mount points (according to the FHS).</para>
+		<para>Unix and Linux administrators used to create many directories here, like /mnt/something/. You likely will encounter many systems with more than one directory created and/or mounted inside <command>/mnt</command> to be used for various local and remote filesystems.</para>
+	</section>
+	<section><title>/tmp</title>
+		<para>Applications and users should use <command>/tmp</command><indexterm><primary>/tmp</primary></indexterm> to store temporary data when needed. Data stored in <command>/tmp</command> may use either disk space or RAM. Both of which are managed by the operating system. Never use <command>/tmp</command> to store data that is important or which you wish to archive.</para>
+	</section>
+</section>
+<?hard-pagebreak?>
+<section><title>in memory directories</title>
+	<section><title>/dev</title>
+		<para>Device files in <command>/dev</command><indexterm><primary>/dev</primary></indexterm> appear to be ordinary files, but are not actually located on the hard disk. The <command>/dev</command> directory is populated with files as the kernel is recognizing hardware.</para>
+		<section><title>common physical devices</title>
+			<para>Common hardware such as hard disk devices are represented by device files in <command>/dev</command>. Below a screenshot of SATA device files on a laptop and then IDE attached drives on a desktop. (The detailed meaning of these devices will be discussed later.)</para>
 			<screen>
-paul@laika:~$ ls /lib/libc*
-/lib/libc-2.5.so     /lib/libcfont.so.0.0.0  /lib/libcom_err.so.2.1    
-/lib/libcap.so.1     /lib/libcidn-2.5.so     /lib/libconsole.so.0      
-/lib/libcap.so.1.10  /lib/libcidn.so.1       /lib/libconsole.so.0.0.0  
-/lib/libcfont.so.0   /lib/libcom_err.so.2    /lib/libcrypt-2.5.so      
-			</screen>
-			<section><title>/lib/modules</title>
-				<para>Typically, the kernel loads kernel modules from <command>/lib/modules/$kernel-version</command><indexterm><primary>/lib/modules</primary></indexterm>. This directory is discussed in detail in the Linux kernel chapter.</para>
-			</section>
-			<section><title>/lib32 and /lib64</title>
-				<para>We currently are in a transition between 32-bit and 64-bit systems. Therefore, you may encounter directories named <command>/lib32</command><indexterm><primary>/lib32</primary></indexterm> and <command>/lib64</command><indexterm><primary>/lib64</primary></indexterm> which clarify the register size used during compilation time of the libraries. My current 64-bit laptop has some older 32-bit binaries and libraries for compatibility with legacy applications. This screenshot uses the <command>file</command><indexterm><primary>file(1)</primary></indexterm> utility to demonstrate the difference.</para>
-				<screen>
-paul@laika:~$ file /lib32/libc-2.5.so 
-/lib32/libc-2.5.so: ELF 32-bit LSB shared object, Intel 80386, \
-version 1 (SYSV), for GNU/Linux 2.6.0, stripped
-paul@laika:~$ file /lib64/libcap.so.1.10 
-/lib64/libcap.so.1.10: ELF 64-bit LSB shared object, AMD x86-64, \
-version 1 (SYSV), stripped
-				</screen>
-				<para>The ELF <command>(Executable and Linkable Format)</command><indexterm><primary>ELF</primary></indexterm> is used in almost every Unix-like operating system since System V.</para>
-			</section>
-		</section>
-		<section><title>/media for removable media</title>
-			<para>The <command>/media</command><indexterm><primary>/media</primary></indexterm> directory serves as a mount point for removable media devices such as CD-ROM's, digital cameras, and various usb-attached devices. Since <command>/media</command> is rather new in the Unix world, you could very well encounter systems running without this directory. Solaris 9 does not have it, Solaris 10 does. Most Linux distributions today mount all removable media in <command>/media</command>.</para>
-			<screen>
-paul@laika:~$ ls /media/
-cdrom  cdrom0  usbdisk
+#
+# SATA or SCSI
+#
+paul@laika:~$ ls /dev/sd*
+/dev/sda  /dev/sda1  /dev/sda2  /dev/sda3  /dev/sdb  /dev/sdb1  /dev/sdb2
+
+#
+# IDE or ATAPI
+#
+paul@barry:~$ ls /dev/hd*
+/dev/hda  /dev/hda1  /dev/hda2  /dev/hdb  /dev/hdb1  /dev/hdb2  /dev/hdc
 			</screen>
 		</section>
-		<section><title>/mnt standard mount point</title>
-			<para>Unix and Linux administrators used to mount many directories here, like /mnt/something/. According to the FHS, <command>/mnt</command><indexterm><primary>/mnt</primary></indexterm> should only be used to mount something temporarily. You likely will encounter many systems with more than one directory mounted on <command>/mnt</command> and used as a mountpoints for various local and remote filesystems.</para>
+		<para>Besides representing physical hardware, some device files are special. These special devices can be very useful.</para>
+		<section><title>/dev/tty and /dev/pts</title>
+			<para>For example, <command>/dev/tty1</command><indexterm><primary>/dev/tty1</primary></indexterm> represents a terminal or console attached to the system. (Don't break your head on the exact terminology of 'terminal' or 'console', what we mean here is a command line interface.) When typing commands in a terminal that is part of a graphical interface like Gnome or KDE, then your terminal will be represented as <command>/dev/pts/1</command><indexterm><primary>/dev/pts/1</primary></indexterm> (1 can be another number).</para>
 		</section>
-		<section><title>/opt optional software</title>
-			<para>Most systems today have an empty <command>/opt</command><indexterm><primary>/opt</primary></indexterm> directory. It is considered outdated, but you may find some systems with add-on software installed in /opt. If that is the case, the package should install all its files in the typical <command>/bin</command>, <command>/lib</command>, <command>/etc</command> subdirectories within <command>/opt/$packagename/</command>. If for example the package is called wp, then it installs in <command>/opt/wp</command>, putting binaries in <command>/opt/wp/bin</command> and manpages in <command>/opt/wp/man</command>. Little, if any, of the default software which comes along with the distributions will be installed in <command>/opt</command>.</para>
+		<section><title>/dev/null</title>
+			<para>On Linux you will find other special devices such as <command>/dev/null</command><indexterm><primary>/dev/null</primary></indexterm> which can be considered a black hole; it has unlimited storage, but nothing can be retrieved from it. Technically speaking, anything written to /dev/null will be discarded. /dev/null can be useful to discard unwanted output from commands. <emphasis>/dev/null is not a good location to store your backups ;-)</emphasis>.</para>
 		</section>
-		<section><title>/proc conversation with the kernel</title>
+	</section>
+	<section><title>/proc conversation with the kernel</title>
 		<para><command>/proc</command><indexterm><primary>/proc</primary></indexterm> is another special directory, appearing to be ordinary files, but not taking up disk space. It is actually a view of the kernel, or better, what the kernel manages, and is a means to interact with it directly. <command>/proc</command> is a proc filesystem.</para>
-			<screen>
+		<screen>
 paul@RHELv4u4:~$ mount -t proc
 none on /proc type proc (rw)
-			</screen>
-			<para>When listing the /proc directory, you will see many numbers (on any Unix), and some interesting files (on Linux)</para>
-			<screen>
+		</screen>
+		<para>When listing the /proc directory, you will see many numbers (on any Unix), and some interesting files (on Linux)</para>
+		<screen>
 mul@laika:~$ ls /proc
 1      2339   4724  5418  6587  7201       cmdline      mounts
 10175  2523   4729  5421  6596  7204       cpuinfo      mtrr
@@ -218,9 +240,9 @@ mul@laika:~$ ls /proc
 20845  4542   5412  6450  7191  asound     meminfo      vmstat
 221    46     5414  6551  7192  buddyinfo  misc         zoneinfo
 2338   4704   5416  6568  7199  bus        modules
-			</screen>
-			<para>Let's investigate the file properties inside <command>/proc</command>. Looking at the date and time will display the current date and time showing the files are constantly updated (a view on the kernel).</para>
-			<screen>
+		</screen>
+		<para>Let's investigate the file properties inside <command>/proc</command>. Looking at the date and time will display the current date and time showing the files are constantly updated (a view on the kernel).</para>
+		<screen>
 paul@RHELv4u4:~$ date
 Mon Jan 29 18:06:32 EST 2007
 paul@RHELv4u4:~$ ls -al /proc/cpuinfo 
@@ -232,9 +254,9 @@ paul@RHELv4u4:~$ date
 Mon Jan 29 18:10:00 EST 2007
 paul@RHELv4u4:~$ ls -al /proc/cpuinfo 
 -r--r--r--  1 root root 0 Jan 29 18:10 /proc/cpuinfo
-			</screen>
-			<para>Most files in /proc are 0 bytes, yet they contain data--sometimes a lot of data. You can see this by executing cat on files like <command>/proc/cpuinfo</command><indexterm><primary>/proc/cpuinfo</primary></indexterm>, which contains information about the CPU. </para>
-			<screen>
+		</screen>
+		<para>Most files in /proc are 0 bytes, yet they contain data--sometimes a lot of data. You can see this by executing cat on files like <command>/proc/cpuinfo</command><indexterm><primary>/proc/cpuinfo</primary></indexterm>, which contains information about the CPU. </para>
+		<screen>
 paul@RHELv4u4:~$ file /proc/cpuinfo 
 /proc/cpuinfo: empty
 paul@RHELv4u4:~$ cat /proc/cpuinfo 
@@ -256,9 +278,9 @@ cpuid level     : 1
 wp              : yes
 flags           : fpu vme de pse tsc msr pae mce cx8 apic mtrr pge...
 bogomips        : 4803.54
-			</screen>
-			<para><emphasis>Just for fun, here is /proc/cpuinfo on a Sun Sunblade 1000...</emphasis></para>
-			<screen>
+		</screen>
+		<para><emphasis>Just for fun, here is /proc/cpuinfo on a Sun Sunblade 1000...</emphasis></para>
+		<screen>
 paul@pasha:~$ cat /proc/cpuinfo
 cpu : TI UltraSparc III (Cheetah)
 fpu : UltraSparc III integrated FPU
@@ -275,62 +297,11 @@ MMU Type : Cheetah
 State:
 CPU0: online
 CPU1: online 
-			</screen>
-			<para><emphasis>... and on a Sony Playstation 3.</emphasis></para>
+		</screen>
+		<para>Most of the files in /proc are read only, some require root privileges, some files are writable, and many files in <command>/proc/sys</command><indexterm><primary>/proc/sys</primary></indexterm> are writable. Let's discuss some of the files in /proc.</para>
+		<section><title>/proc/interrupts</title>
+			<para>On the x86 architecture, <command>/proc/interrupts</command><indexterm><primary>/proc/interrupts</primary></indexterm> displays the interrupts.</para>
 			<screen>
-[root@ps3 tmp]# uname -a
-Linux ps3 2.6.20-rc5 #58 SMP Thu Jan 18 13:35:01 CET 2007 ppc64 ppc64
-ppc64 GNU/Linux
-[root@ps3 tmp]# cat /proc/cpuinfo
-processor       : 0
-cpu             : Cell Broadband Engine, altivec supported
-clock           : 3192.000000MHz
-revision        : 5.1 (pvr 0070 0501)
-
-processor       : 1
-cpu             : Cell Broadband Engine, altivec supported
-clock           : 3192.000000MHz
-revision        : 5.1 (pvr 0070 0501)
-
-timebase        : 79800000
-platform        : PS3
-machine         : PS3 
-			</screen>
-			<para>Most of the files in /proc are read only, some require root privileges, some files are writable, and many files in <command>/proc/sys</command><indexterm><primary>/proc/sys</primary></indexterm> are writable. Let's discuss some of the files in /proc.</para>
-			<section><title>/proc/filesystems</title>
-				<para>The <command>/proc/filesystems</command><indexterm><primary>/proc/filesystems</primary></indexterm> file displays a list of supported file systems. When you mount a file system without explicitly defining one, then mount will first try to probe <command>/etc/filesystems</command><indexterm><primary>/etc/filesystems</primary></indexterm> and then probe <command>/proc/filesystems</command> for all the filesystems without the <command>nodev</command><indexterm><primary>nodev</primary></indexterm> label. If <command>/etc/filesystems</command> ends with a line containing only an asterisk (*) then both files are probed.</para> 
-				<screen>
-paul@RHELv4u4:~$ cat /proc/filesystems 
-nodev   sysfs
-nodev   rootfs
-nodev   bdev
-nodev   proc
-nodev   sockfs
-nodev   binfmt_misc
-nodev   usbfs
-nodev   usbdevfs
-nodev   futexfs
-nodev   tmpfs
-nodev   pipefs
-nodev   eventpollfs
-nodev   devpts
-        ext2
-nodev   ramfs
-nodev   hugetlbfs
-        iso9660
-nodev   relayfs
-nodev   mqueue
-nodev   selinuxfs
-        ext3
-nodev   rpc_pipefs
-nodev   vmware-hgfs
-nodev   autofs
-paul@RHELv4u4:~$
-				</screen>
-			</section>
-			<section><title>/proc/interrupts</title>
-				<para>On the x86 architecture, <command>/proc/interrupts</command><indexterm><primary>/proc/interrupts</primary></indexterm> displays the interrupts.</para>
-				<screen>
 paul@RHELv4u4:~$ cat /proc/interrupts 
            CPU0       
   0:   13876877    IO-APIC-edge  timer
@@ -345,11 +316,9 @@ paul@RHELv4u4:~$ cat /proc/interrupts
 NMI:          0 
 LOC:   13878037 
 ERR:          0
-MIS:          0
-paul@RHELv4u4:~$ 
-				</screen>
-				<para>On a machine with two CPU's, the file looks like this.</para>
-				<screen>
+MIS:          0 </screen>
+			<para>On a machine with two CPU's, the file looks like this.</para>
+			<screen>
 paul@laika:~$ cat /proc/interrupts 
           CPU0      CPU1       
   0:    860013        0  IO-APIC-edge     timer
@@ -368,82 +337,136 @@ paul@laika:~$ cat /proc/interrupts
  24:    234739        0  IO-APIC-fasteoi  nvidia
 NMI:        72       42 
 LOC:    860000   859994 
-ERR:         0
-paul@laika:~$
-				</screen>
-			</section>
-			<section><title>/proc/kcore</title>
-				<para>The physical memory is represented in <command>/proc/kcore</command><indexterm><primary>/proc/kcore</primary></indexterm>. Do not try to cat this file, instead use a debugger. The size of /proc/kcore is the same as your physical memory, plus four bytes.</para>
-				<screen>
+ERR:         0 </screen>
+		</section>
+		<section><title>/proc/kcore</title>
+			<para>The physical memory is represented in <command>/proc/kcore</command><indexterm><primary>/proc/kcore</primary></indexterm>. Do not try to cat this file, instead use a debugger. The size of /proc/kcore is the same as your physical memory, plus four bytes.</para>
+			<screen>
 paul@laika:~$ ls -lh /proc/kcore 
 -r-------- 1 root root 2.0G 2007-01-30 08:57 /proc/kcore
-paul@laika:~$ 
-				</screen>
-			</section>
-			<section><title>/proc/swaps</title>
-				<para>You can find information about <command>swap partition(s)</command><indexterm><primary>swap partition(s)</primary></indexterm> in <command>/proc/swaps</command><indexterm><primary>/proc/swaps</primary></indexterm>.</para>
-				<screen>paul@RHELv4u4:~$ cat /proc/swaps 
-Filename                           Type        Size    Used    Priority
-/dev/mapper/VolGroup00-LogVol01    partition   1048568 0       -1
-paul@RHELv4u4:~$ 
-				</screen>
-			</section>
-		</section>
-		<section><title>/root the superuser's home</title>
-			<para>On many systems, <command>/root</command><indexterm><primary>/root</primary></indexterm> is the default location for the root user's personal data and profile. If it does not exist by default, then some administrators create it. </para>
-		</section>
-		<section><title>/sbin system binaries</title>
-			<para><command>/sbin</command> is similar to <command>/bin</command>, but it is mainly used for booting and configuration tools used for configuring the system. Many of the system binaries require root priviledge to perform certain tasks. You will find other <command>/sbin</command><indexterm><primary>/sbin</primary></indexterm> subdirectories in other directories.</para>
-		</section>
-		<section><title>/srv served by your system</title>
-			<para>You may find <command>/srv</command><indexterm><primary>/srv</primary></indexterm> to be empty on many systems, but not for long. The FHS suggests locating cvs, rsync, ftp and www data in this location. The FHS also approves administrative naming in /srv, like /srv/project55/ftp and /srv/sales/www. Red Hat plans to move some data currently located in /var to /srv. </para>
-		</section>
-		<section><title>/sys Linux 2.6 hot plugging</title>
-			<para>The <command>/sys</command><indexterm><primary>/sys</primary></indexterm> directory was created for the Linux 2.6 kernel. Since 2.6, Linux uses <command>sysfs</command><indexterm><primary>sysfs</primary></indexterm> to support <command>usb</command><indexterm><primary>usb</primary></indexterm> and <command>IEEE 1394</command><indexterm><primary>IEEE 1394</primary></indexterm> (<command>FireWire</command><indexterm><primary>FireWire</primary></indexterm>) hot plug devices. See the manual pages of udev(8) (the successor of <command>devfs</command><indexterm><primary>devfs</primary></indexterm>) and hotplug(8) for more info (or visit http://linux-hotplug.sourceforge.net/ ).</para>
-		<screen>
-paul@RHELv4u4:~$ ls /sys/*
-/sys/block:
-dm-0 fd0 hdb md0  ram1  ram11 ram13 ram15 ram3 ram5 ram7 ram9   
-dm-1 hda hdc ram0 ram10 ram12 ram14 ram2  ram4 ram6 ram8 sda  
-
-/sys/bus:
-i2c  ide  pci  platform  pnp  scsi  serio  usb
-
-/sys/class:
-firmware i2c-adapter input misc netlink printer scsi_device tty  
-graphics i2c-dev     mem   net  pci_bus raw     scsi_host   usb 
-
-/sys/devices:
-pci0000:00  platform  system
-
-/sys/firmware:
-acpi
-
-/sys/module:
-ac       dm_mirror    ext3      ip_conntrack    ipt_state  md5      
-autofs4  dm_mod       floppy    iptable_filter  ipv6       mii        
-battery  dm_snapshot  i2c_core  ip_tables       jbd        mptbase   
-button   dm_zero      i2c_dev   ipt_REJECT      lp         mptfc      
-
-/sys/power:
-state
-paul@RHELv4u4:~$
-		</screen>
-		</section>
-		<section><title>/tmp for temporary files</title>
-			<para>Applications and users should use <command>/tmp</command><indexterm><primary>/tmp</primary></indexterm> to store temporary data when needed.Data stored in <command>/tmp</command> may use either disk space or RAM. Both of which are managed by the operating system. Never use <command>/tmp</command> to store data that is important or which you wish to archive.</para>
-		</section>
-		<section><title>/usr Unix system resources</title>
-			<para>Although <command>/usr</command><indexterm><primary>/usr</primary></indexterm> is pronounced like user, remember that it stands for Unix System Resources. The /usr hierarchy should contain <command>sharable, read only</command> data. Some people choose to mount <command>/usr</command> as read only. This can be done from its own partition or from a read only NFS share.</para>
-		</section>
-		<section><title>/var variable data</title>
-		<para>Data that is unpredictable in size, such as log files (<command>/var/log</command><indexterm><primary>/var/log</primary></indexterm>), print spool directories (<command>/var/spool</command><indexterm><primary>/var/spool</primary></indexterm>), and various caches (<command>/var/cache</command><indexterm><primary>/var/cache</primary></indexterm>) should be located in <command>/var</command><indexterm><primary>/var</primary></indexterm>. But <command>/var</command> is much more than that since it contains Process ID files in <command>/var/run</command><indexterm><primary>/var/run</primary></indexterm> and temporary files that survive a reboot in <command>/var/tmp</command><indexterm><primary>/var/tmp</primary></indexterm>. There will be more examples of /var usage further in this book.</para>
-		<section><title>/var/lib/rpm</title>
-			<para>Red Hat Enterprise Linux keeps files pertaining to <command>RPM</command><indexterm><primary>RPM</primary></indexterm> in <command>/var/lib/rpm/</command><indexterm><primary>/var/lib/rpm</primary></indexterm>.</para>
-		</section>
-		<section><title>/var/spool/up2date</title>
-			<para>The <command>Red Hat Update Agent</command><indexterm><primary>Red Hat Update Agent</primary></indexterm> uses files in <command>/var/spool/up2date</command><indexterm><primary>/var/spool/up2date</primary></indexterm>. This location is also used when files are downloaded from the <command>Red Hat Network</command><indexterm><primary>Red Hat Network</primary></indexterm>.</para>
+paul@laika:~$</screen>
 		</section>
 	</section>
+	<section><title>/sys Linux 2.6 hot plugging</title>
+		<para>The <command>/sys</command><indexterm><primary>/sys</primary></indexterm> directory was created for the Linux 2.6 kernel. Since 2.6, Linux uses <command>sysfs</command><indexterm><primary>sysfs</primary></indexterm> to support <command>usb</command><indexterm><primary>usb</primary></indexterm> and <command>IEEE 1394</command><indexterm><primary>IEEE 1394</primary></indexterm> (<command>FireWire</command><indexterm><primary>FireWire</primary></indexterm>) hot plug devices. See the manual pages of udev(8) (the successor of <command>devfs</command><indexterm><primary>devfs</primary></indexterm>) and hotplug(8) for more info (or visit http://linux-hotplug.sourceforge.net/ ).</para>
+		<para>Basically the <command>/sys</command> directory contains kernel information about hardware.</para>
+	</section>
 </section>
+<?hard-pagebreak?>
+<section><title>/usr Unix System Resources</title>
+	<para>Although <command>/usr</command><indexterm><primary>/usr</primary></indexterm> is pronounced like user, remember that it stands for <command>Unix System Resources</command>. The <command>/usr</command> hierarchy should contain <command>sharable, read only</command> data. Some people choose to mount <command>/usr</command> as read only. This can be done from its own partition or from a read only NFS share.</para>
+	<section><title>/usr/bin</title>
+		<para>The <command>/usr/bin</command><indexterm><primary>/usr/bin</primary></indexterm> directory contains a lot of commands.</para>
+		<screen>paul@deb508:~$ ls /usr/bin | wc -l
+1395</screen>
+		<para>(On Solaris the <command>/bin</command> directory is a symbolic link to <command>/usr/bin</command>.)</para>
+	</section>
+	
+	<section><title>/usr/include</title>
+		<para>The <command>/usr/include</command><indexterm><primary>/usr/include</primary></indexterm> directory contains general use include files for C.</para>
+		<screen>paul@ubu1010:~$ ls /usr/include/
+aalib.h        expat_config.h      math.h           search.h
+af_vfs.h       expat_external.h    mcheck.h         semaphore.h
+aio.h          expat.h             memory.h         setjmp.h
+AL             fcntl.h             menu.h           sgtty.h
+aliases.h      features.h          mntent.h         shadow.h
+...</screen>
+	</section>
+	<section><title>/usr/lib</title>
+		<para>The <command>/usr/lib</command><indexterm><primary>/usr/lib</primary></indexterm> directory contains libraries that are not directly executed by users or scripts.</para>
+		<screen>paul@deb508:~$ ls /usr/lib | head -7
+4Suite
+ao
+apt
+arj
+aspell
+avahi
+bonobo</screen>
+	</section>
+	<section><title>/usr/local</title>
+		<para>The <command>/usr/local</command><indexterm><primary>/usr/local</primary></indexterm> directory can be used by an administrator to install software locally.</para>
+		<screen>paul@deb508:~$ ls /usr/local/
+bin  etc  games  include  lib  man  sbin  share  src
+paul@deb508:~$ du -sh /usr/local/
+128K	/usr/local/</screen>
+	</section>
+	<section><title>/usr/share</title>
+		<para>The <command>/usr/share</command><indexterm><primary>/usr/share</primary></indexterm> directory contains architecture independent data. As you can see, this is a fairly large directory.</para>
+		<screen>paul@deb508:~$ ls /usr/share/ | wc -l
+263
+paul@deb508:~$ du -sh /usr/share/
+1.3G	/usr/share/</screen>
+		<para>This directory typically contains <command>/usr/share/man</command><indexterm><primary>/usr/share/man</primary></indexterm> for manual pages.</para>
+		<screen>paul@deb508:~$ ls /usr/share/man
+cs  fr		  hu		it.UTF-8  man2	man6  pl.ISO8859-2  sv
+de  fr.ISO8859-1  id		ja	  man3	man7  pl.UTF-8	    tr
+es  fr.UTF-8	  it		ko	  man4	man8  pt_BR	    zh_CN
+fi  gl		  it.ISO8859-1	man1	  man5	pl    ru	    zh_TW</screen>
+		<para>And it contains <command>/usr/share/games</command><indexterm><primary>/usr/share/games</primary></indexterm> for all static game data (so no high-scores or play logs).</para>
+		<screen>paul@ubu1010:~$ ls /usr/share/games/
+openttd  wesnoth</screen>
+	</section>
+	<section><title>/usr/src</title>
+		<para>The <command>/usr/src</command><indexterm><primary>/usr/src</primary></indexterm> directory is the recommended location for kernel source files.</para>
+		<screen>paul@deb508:~$ ls -l /usr/src/
+total 12
+drwxr-xr-x  4 root root 4096 2011-02-01 14:43 linux-headers-2.6.26-2-686
+drwxr-xr-x 18 root root 4096 2011-02-01 14:43 linux-headers-2.6.26-2-common
+drwxr-xr-x  3 root root 4096 2009-10-28 16:01 linux-kbuild-2.6.26</screen>
+	</section>
+</section>
+<?hard-pagebreak?>
+<section><title>/var variable data</title>
+	<para>Files that are unpredictable in size, such as log, cache and spool files, should be located in <command>/var</command><indexterm><primary>/var</primary></indexterm>.</para>
+	<section><title>/var/log</title>
+		<para>The <command>/var/log</command><indexterm><primary>/var/log</primary></indexterm> directory serves as a central point to contain all log files.</para>
+		<screen>[paul@RHEL4b ~]$ ls /var/log
+acpid           cron.2    maillog.2   quagga           secure.4
+amanda          cron.3    maillog.3   radius           spooler
+anaconda.log    cron.4    maillog.4   rpmpkgs          spooler.1
+anaconda.syslog cups      mailman     rpmpkgs.1        spooler.2
+anaconda.xlog   dmesg     messages    rpmpkgs.2        spooler.3
+audit           exim      messages.1  rpmpkgs.3        spooler.4
+boot.log        gdm       messages.2  rpmpkgs.4        squid
+boot.log.1      httpd     messages.3  sa               uucp
+boot.log.2      iiim      messages.4  samba            vbox
+boot.log.3      iptraf    mysqld.log  scrollkeeper.log vmware-tools-guestd
+boot.log.4      lastlog   news        secure           wtmp
+canna           mail      pgsql       secure.1         wtmp.1
+cron            maillog   ppp         secure.2         Xorg.0.log
+cron.1          maillog.1 prelink.log secure.3         Xorg.0.log.old</screen>
+	</section>
+	<section><title>/var/log/messages</title>
+		<para>A typical first file to check when troubleshooting is the <command>/var/log/messages</command><indexterm><primary>/var/log/messages</primary></indexterm> file. By default this file will contain information on what just happened to the system.</para>
+		<screen>[root@RHEL4b ~]# tail /var/log/messages
+Jul 30 05:13:56 anacron: anacron startup succeeded
+Jul 30 05:13:56 atd: atd startup succeeded
+Jul 30 05:13:57 messagebus: messagebus startup succeeded
+Jul 30 05:13:57 cups-config-daemon: cups-config-daemon startup succeeded
+Jul 30 05:13:58 haldaemon: haldaemon startup succeeded
+Jul 30 05:14:00 fstab-sync[3560]: removed all generated mount points
+Jul 30 05:14:01 fstab-sync[3628]: added mount point /media/cdrom for...
+Jul 30 05:14:01 fstab-sync[3646]: added mount point /media/floppy for...
+Jul 30 05:16:46 sshd(pam_unix)[3662]: session opened for user paul by... 
+Jul 30 06:06:37 su(pam_unix)[3904]: session opened for user root by paul</screen>
+	</section>
+	<section><title>/var/cache</title>
+		<para>The <command>/var/cache</command><indexterm><primary>/var/cache</primary></indexterm> directory can contain <command>cache data</command> for several applications.</para>
+		<screen>paul@ubu1010:~$ ls /var/cache/
+apt      dictionaries-common    gdm       man        software-center
+binfmts  flashplugin-installer  hald      pm-utils
+cups     fontconfig             jockey    pppconfig
+debconf  fonts                  ldconfig  samba</screen>
+	</section>
+	<section><title>/var/spool</title>
+		<para>The <command>/var/spool</command><indexterm><primary>/var/spool</primary></indexterm> directory typically contains spool directories for <command>mail</command> and <command>cron</command>, but also serves as a parent directory for other spool files (for example print spool files).</para>
+		<para>The <command>Red Hat Update Agent</command><indexterm><primary>Red Hat Update Agent</primary></indexterm> for example uses files in <command>/var/spool/up2date</command><indexterm><primary>/var/spool/up2date</primary></indexterm>. This location is also used when files are downloaded from the <command>Red Hat Network</command><indexterm><primary>Red Hat Network</primary></indexterm>.</para>
+	</section>
+	<section><title>/var/lib</title>
+		<para>The <command>/var/lib</command><indexterm><primary>/var/lib</primary></indexterm> directory contains application state information.</para>
+		<para>Red Hat Enterprise Linux for example keeps files pertaining to <command>rpm</command><indexterm><primary>rpm</primary></indexterm> in <command>/var/lib/rpm/</command><indexterm><primary>/var/lib/rpm</primary></indexterm>.</para>
+	</section>
+	<section><title>/var/...</title>
+		<para><command>/var</command> also contains Process ID files in <command>/var/run</command><indexterm><primary>/var/run</primary></indexterm> and temporary files that survive a reboot in <command>/var/tmp</command><indexterm><primary>/var/tmp</primary></indexterm> and information about file locks in <command>/var/lock</command><indexterm><primary>/var/lock</primary></indexterm>. There will be more examples of <command>/var</command> usage further in this book.</para>
+	</section>
 </section>
