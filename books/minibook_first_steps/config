@@ -1,7 +1,7 @@
 #!/bin/sh
 #
 
-BOOKTITLE="First Steps"
+BOOKTITLE="first steps on the command line"
 
 ##################
 # define minibook
@@ -11,8 +11,8 @@ BOOKTITLE="First Steps"
 
 add_mod chapter man_pages
 add_mod chapter working_with_directories
-add_mod chapter working_with_file_contents
 add_mod chapter working_with_files
+add_mod chapter working_with_file_contents
 add_mod chapter file_system_tree
 
 # license hardcoden op het einde van een .pdf ?

@@ -1,7 +1,7 @@
 #!/bin/sh
 #
 
-BOOKTITLE="the shell"
+BOOKTITLE="shell expansion"
 
 ##################
 # define minibook
