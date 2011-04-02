@@ -1,32 +1,26 @@
-<section><title>shell variables</title>
-	<section><title>$ dollar sign</title>
-		<para>Another important character interpreted by the shell is the dollar sign <command>$</command><indexterm><primary>$ (shell variables)</primary></indexterm>. The shell will look for an <command>environment variable</command><indexterm><primary>environment variable</primary></indexterm> named like the string following the <command>dollar sign</command> and replace it with the value of the variable (or with nothing if the variable does not exist).</para>
-		<para>These are some examples using $HOSTNAME, $USER, $UID, $SHELL, and $HOME.</para>
-		<screen>
-[paul@RHELv4u3 ~]$ echo This is the $SHELL shell
+<section><title>$ dollar sign</title>
+	<para>Another important character interpreted by the shell is the dollar sign <command>$</command><indexterm><primary>$ (shell variables)</primary></indexterm>. The shell will look for an <command>environment variable</command><indexterm><primary>environment variable</primary></indexterm> named like the string following the <command>dollar sign</command> and replace it with the value of the variable (or with nothing if the variable does not exist).</para>
+	<para>These are some examples using $HOSTNAME, $USER, $UID, $SHELL, and $HOME.</para>
+	<screen>[paul@RHELv4u3 ~]$ echo This is the $SHELL shell
 This is the /bin/bash shell
 [paul@RHELv4u3 ~]$ echo This is $SHELL on computer $HOSTNAME
 This is /bin/bash on computer RHELv4u3.localdomain
 [paul@RHELv4u3 ~]$ echo The userid of $USER is $UID
 The userid of paul is 500
 [paul@RHELv4u3 ~]$ echo My homedir is $HOME
-My homedir is /home/paul
-		</screen>
-	</section>
-	<section><title>case sensitive</title>
-		<para>An example is the $USER variable. The example shows that shell variables are case sensitive!</para>
-		<screen>
-[paul@RHELv4u3 ~]$ echo Hello $USER
+My homedir is /home/paul</screen>
+</section>
+<section><title>case sensitive</title>
+	<para>This example shows that shell variables are case sensitive!</para>
+	<screen>[paul@RHELv4u3 ~]$ echo Hello $USER
 Hello paul
 [paul@RHELv4u3 ~]$ echo Hello $user
-Hello
-		</screen>
-	</section>
-	<section><title>$PS1</title>
-		<para>The <command>$PS1</command> variable determines your shell prompt. You can use backslash escaped special characters like <command>\u</command> for the username or <command>\w</command> for the working directory. The bash manual has a complete reference.</para>
-		<para>In this example we change the value of <command>$PS1</command> a couple of times.</para>
-		<screen>
-paul@deb503:~$ PS1=prompt
+Hello</screen>
+</section>
+<section><title>$PS1</title>
+	<para>The <command>$PS1</command> variable determines your shell prompt. You can use backslash escaped special characters like <command>\u</command> for the username or <command>\w</command> for the working directory. The <command>bash</command> manual has a complete reference.</para>
+	<para>In this example we change the value of <command>$PS1</command> a couple of times.</para>
+	<screen>paul@deb503:~$ PS1=prompt
 prompt
 promptPS1='prompt '
 prompt 
@@ -35,23 +29,19 @@ prompt PS1='> '
 > PS1='\u@\h$ '
 paul@deb503$ 
 paul@deb503$ PS1='\u@\h:\W$'
-paul@deb503:~$
-</screen>
-		<screen></screen>
-	</section>
-	<section><title>$PATH</title>
-		<para>The <command>$PATH</command><indexterm><primary>$PATH</primary></indexterm> variable is very important, it determines where the shell is looking for commands to execute (unless the command is built-in). The shell will not look in the current directory for commands to execute! (Looking for executables in the current directory provided an easy way to crack DOS computers). If you want the shell to look in the current directory, then add a . to your path.</para>
-		<screen>
-[[paul@RHEL4b ~]$ echo $PATH
-/usr/kerberos/bin:/usr/local/bin:/bin:/usr/bin:
-[paul@RHEL4b ~]$ PATH=$PATH:.
+paul@deb503:~$</screen>
+</section>
+<section><title>$PATH</title>
+	<para>The <command>$PATH</command><indexterm><primary>$PATH</primary></indexterm> variable is determines where the shell is looking for commands to execute (unless the command is built-in or aliased). This variable contains a list of directories, separated by colons.</para>
+	<screen>[[paul@RHEL4b ~]$ echo $PATH
+/usr/kerberos/bin:/usr/local/bin:/bin:/usr/bin:</screen>
+	<para>The shell will not look in the current directory for commands to execute! (Looking for executables in the current directory provided an easy way to hack PC-DOS computers). If you want the shell to look in the current directory, then add a . at the end of your $PATH.</para>
+<screen>[paul@RHEL4b ~]$ PATH=$PATH:.
 [paul@RHEL4b ~]$ echo $PATH
 /usr/kerberos/bin:/usr/local/bin:/bin:/usr/bin:.
-[paul@RHEL4b ~]$ 
-		</screen>
-		<para>Your path might be different when using su instead of <command>su -</command><indexterm><primary>su -</primary></indexterm> because the latter will take on the environment of the target user. The root user will have some sbin directories added to the PATH variable.</para>
-		<screen>
-[paul@RHEL3 ~]$ su
+[paul@RHEL4b ~]$</screen>
+	<para>Your path might be different when using su instead of <command>su -</command><indexterm><primary>su -</primary></indexterm> because the latter will take on the environment of the target user. The root user typically has <command>/sbin</command> directories added to the $PATH variable.</para>
+	<screen>[paul@RHEL3 ~]$ su
 Password: 
 [root@RHEL3 paul]# echo $PATH
 /usr/local/bin:/bin:/usr/bin:/usr/X11R6/bin
@@ -60,134 +50,166 @@ Password:
 Password: 
 [root@RHEL3 ~]# echo $PATH
 /usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:
-[root@RHEL3 ~]#
-		</screen>
-	</section>
-	<section><title>$? dollar question mark</title>
-		<para>The exit code of the previous command is stored in the shell variable <command>$?</command>. Actually <command>$?</command><indexterm><primary>$? (shell variables)</primary></indexterm> is a shell parameter and not a variable, since you cannot assign a value to <command>$?</command>.</para>
-		<screen>
-paul@laika:~/test$ touch file1 ; echo $?
+[root@RHEL3 ~]#</screen>
+</section>
+<section><title>$? dollar question mark</title>
+	<para>The exit code of the previous command is stored in the shell variable <command>$?</command>. Actually <command>$?</command><indexterm><primary>$? (shell variables)</primary></indexterm> is a shell parameter and not a variable, since you cannot assign a value to <command>$?</command>.</para>
+	<screen>paul@laika:~/test$ touch file1 ; echo $?
 0
 paul@laika:~/test$ rm file1 ; echo $?
 0
 paul@laika:~/test$ rm file1 ; echo $?
 rm: cannot remove `file1': No such file or directory
-1
-		</screen>
-	</section>
-	<section><title>unbound variables</title>
-		<para>The example below tries to display the value of the $MyVar variable, but it fails because the variable does not exist. By default the shell will display nothing when a variable is unbound (does not exist).</para>
-		<screen>
-[paul@RHELv4u3 gen]$ echo $MyVar
+1</screen>
+</section>
+<section><title>unbound variables</title>
+	<para>The example below tries to display the value of the $MyVar variable, but it fails because the variable does not exist. By default the shell will display nothing when a variable is unbound (does not exist).</para>
+	<screen>[paul@RHELv4u3 gen]$ echo $MyVar
 				
-[paul@RHELv4u3 gen]$
-		</screen>
-		<para>There is, however, the <command>nounset</command><indexterm><primary>nounset(shell)</primary></indexterm> shell attribute that you can use to generate an error when a variable does not exist.</para>
-		<screen>
-paul@laika:~$ set -u
+[paul@RHELv4u3 gen]$</screen>
+	<para>There is, however, the <command>nounset</command><indexterm><primary>nounset(shell)</primary></indexterm> shell option that you can use to generate an error when a variable does not exist.</para>
+	<screen>paul@laika:~$ set -u
 paul@laika:~$ echo $Myvar
 bash: Myvar: unbound variable
 paul@laika:~$ set +u
 paul@laika:~$ echo $Myvar
 
-paul@laika:~$ 
-		</screen>
-		<para>In the bash shell <command>set -u</command> is identical to <command>set -o nounset</command> and likewise <command>set +u</command> is identical to <command>set +o nounset</command>.</para>
-	</section>
-	<section><title>creating and setting variables</title>
-		<para>This example creates the variable <command>$MyVar</command> and sets its value.</para>
-		<screen>
-[paul@RHELv4u3 gen]$ MyVar=555
+paul@laika:~$</screen>
+	<para>In the bash shell <command>set -u</command> is identical to <command>set -o nounset</command> and likewise <command>set +u</command> is identical to <command>set +o nounset</command>.</para>
+</section>
+<section><title>creating and setting variables</title>
+	<para>This example creates the variable <command>$MyVar</command> and sets its value.</para>
+	<screen>[paul@RHELv4u3 gen]$ MyVar=555
 [paul@RHELv4u3 gen]$ echo $MyVar
 555
-[paul@RHELv4u3 gen]$ 
-		</screen>
-	</section>
-	<section><title>set</title>			
-		<para>You can use the <command>set</command><indexterm><primary>set(shell)</primary></indexterm> command to display a list of environment variables. On Ubuntu and Debian systems, the <command>set</command> command will also list shell functions after the shell variables. Use <command>set | more</command> to see the variables then.</para>
-	</section>
-	<section><title>unset</title>			
-		<para>Use the <command>unset</command><indexterm><primary>unset(shell)</primary></indexterm> command to remove a variable from your shell environment.</para>
-		<screen>
-[paul@RHEL4b ~]$ MyVar=8472
+[paul@RHELv4u3 gen]$</screen>
+</section>
+<section><title>set</title>			
+	<para>You can use the <command>set</command><indexterm><primary>set(shell)</primary></indexterm> command to display a list of environment variables. On Ubuntu and Debian systems, the <command>set</command> command will also list shell functions after the shell variables. Use <command>set | more</command> to see the variables then.</para>
+</section>
+<section><title>unset</title>			
+	<para>Use the <command>unset</command><indexterm><primary>unset(shell)</primary></indexterm> command to remove a variable from your shell environment.</para>
+	<screen>[paul@RHEL4b ~]$ MyVar=8472
 [paul@RHEL4b ~]$ echo $MyVar;unset MyVar;echo $MyVar
 8472
 
-[paul@RHEL4b ~]$
-		</screen>
-	</section>
-	<section><title>env</title>			
-		<para>The <command>env</command><indexterm><primary>env(1)</primary></indexterm> command without options will display a list of <command>exported variables</command>. But <command>env</command> can also be used to start a clean shell (a shell without any inherited environment). The <command>env -i</command><indexterm><primary>env(1)</primary></indexterm> command clears the environment for the subshell.</para>
-		<para>Notice in this screenshot that <command>bash</command> will set the <command>$SHELL</command> variable on startup.</para>
-		<screen>
-[paul@RHEL4b ~]$ bash -c 'echo $SHELL $HOME $USER'
+[paul@RHEL4b ~]$</screen>
+</section>
+<section><title>env</title>			
+	<para>The <command>env</command><indexterm><primary>env(1)</primary></indexterm> command without options will display a list of <command>exported variables</command>. But <command>env</command> can also be used to start a clean shell (a shell without any inherited environment). The <command>env -i</command><indexterm><primary>env(1)</primary></indexterm> command clears the environment for the subshell.</para>
+	<para>Notice in this screenshot that <command>bash</command> will set the <command>$SHELL</command> variable on startup.</para>
+	<screen>[paul@RHEL4b ~]$ bash -c 'echo $SHELL $HOME $USER'
 /bin/bash /home/paul paul
 [paul@RHEL4b ~]$ env -i bash -c 'echo $SHELL $HOME $USER'
 /bin/bash
-[paul@RHEL4b ~]$
-		</screen>
-		<para>You can also use the <command>env</command> command to set the <command>$LANG</command>, or any other, variable for just one instance of <command>bash</command> with one command. The example below uses this to show the influence of the <command>$LANG</command> variable on file globbing (see the chapter on shell file globbing).</para>
-		<screen>
-[paul@RHEL4b test]$ env LANG=C bash -c 'ls File[a-z]'
+[paul@RHEL4b ~]$</screen>
+	<para>You can also use the <command>env</command> command to set the <command>$LANG</command>, or any other, variable for just one instance of <command>bash</command> with one command. The example below uses this to show the influence of the <command>$LANG</command> variable on file globbing (see the chapter on shell file globbing).</para>
+	<screen>[paul@RHEL4b test]$ env LANG=C bash -c 'ls File[a-z]'
 Filea  Fileb
 [paul@RHEL4b test]$ env LANG=en_US.UTF-8 bash -c 'ls File[a-z]'
 Filea  FileA  Fileb  FileB
-[paul@RHEL4b test]$
-		</screen>
-	</section>
-	<section><title>exporting variables</title>
-		<para>You can export shell variables to other shells with the <command>export</command><indexterm><primary>export</primary></indexterm> command. This will export the variable to child shells. </para>
-		<screen>
-[paul@RHEL4b ~]$ var3=three
+[paul@RHEL4b test]$</screen>
+</section>
+<section><title>exporting variables</title>
+	<para>You can export shell variables to other shells with the <command>export</command><indexterm><primary>export</primary></indexterm> command. This will export the variable to child shells. </para>
+	<screen>[paul@RHEL4b ~]$ var3=three
 [paul@RHEL4b ~]$ var4=four
 [paul@RHEL4b ~]$ export var4
 [paul@RHEL4b ~]$ echo $var3 $var4
 three four
 [paul@RHEL4b ~]$ bash
 [paul@RHEL4b ~]$ echo $var3 $var4
-four
-		</screen>
-		<para>But it will not export to the parent shell (previous screenshot continued).</para>
-		<screen>
-[paul@RHEL4b ~]$ export var5=five
+four</screen>
+	<para>But it will not export to the parent shell (previous screenshot continued).</para>
+	<screen>[paul@RHEL4b ~]$ export var5=five
 [paul@RHEL4b ~]$ echo $var3 $var4 $var5
 four five
 [paul@RHEL4b ~]$ exit
 exit
 [paul@RHEL4b ~]$ echo $var3 $var4 $var5
 three four
-[paul@RHEL4b ~]$
-		</screen>
-	</section>
-	<section><title>delineate variables</title>
-		<para>Until now, we have seen that bash interpretes a variable starting from a dollar sign, continuing until the first occurrence of a non-alphanumeric character that is not an underscore. In some situations, this can be a problem. This issue can be resolved with curly braces like in this example.</para>
-		<screen>
-[paul@RHEL4b ~]$ prefix=Super
+[paul@RHEL4b ~]$</screen>
+</section>
+<section><title>delineate variables</title>
+	<para>Until now, we have seen that bash interpretes a variable starting from a dollar sign, continuing until the first occurrence of a non-alphanumeric character that is not an underscore. In some situations, this can be a problem. This issue can be resolved with curly braces like in this example.</para>
+	<screen>[paul@RHEL4b ~]$ prefix=Super
 [paul@RHEL4b ~]$ echo Hello $prefixman and $prefixgirl
 Hello  and
 [paul@RHEL4b ~]$ echo Hello ${prefix}man and ${prefix}girl
 Hello Superman and Supergirl
-[paul@RHEL4b ~]$
-		</screen>
-	</section>
-	<section><title>quotes and variables</title>
-		<para>Notice that double quotes still allow the parsing of variables, whereas single quotes prevent this.</para>
-		<screen>
-[paul@RHELv4u3 ~]$ MyVar=555
+[paul@RHEL4b ~]$</screen>
+</section>
+<section><title>quotes and variables</title>
+	<para>Notice that double quotes still allow the parsing of variables, whereas single quotes prevent this.</para>
+	<screen>[paul@RHELv4u3 ~]$ MyVar=555
 [paul@RHELv4u3 ~]$ echo $MyVar
 555
 [paul@RHELv4u3 ~]$ echo "$MyVar"
 555
 [paul@RHELv4u3 ~]$ echo '$MyVar'
-$MyVar
-		</screen>
-		<para>The bash shell will replace variables with their value in double quoted lines, but not in single quoted lines.</para>
-		<screen>
-paul@laika:~$ city=Burtonville
+$MyVar</screen>
+	<para>The bash shell will replace variables with their value in double quoted lines, but not in single quoted lines.</para>
+	<screen>paul@laika:~$ city=Burtonville
 paul@laika:~$ echo "We are in $city today."
 We are in Burtonville today.
 paul@laika:~$ echo 'We are in $city today.'
-We are in $city today.
-		</screen>
-	</section>
+We are in $city today. </screen>
+</section>
+<section><title>variable inside quotes</title>
+	<para>The only difference between single and double quotes is the parsing of shell <command>variables</command>. You can already see the difference in this screenshot.</para>
+	<screen>paul@laika:~$ echo 'My user is $USER'
+My user is $USER
+paul@laika:~$ echo "My user is $USER"
+My user is paul</screen>
+</section>
+<section><title>shell embedding</title>
+	<para>Shells can be embedded on the command line, or in other words, the command line scan can spawn new processes containing a fork of the current shell. You can use variables to prove that new shells are created. In the screenshot below, the variable $var1 only exists in the (temporary) sub shell.</para>
+	<screen>[paul@RHELv4u3 gen]$ echo $var1
+
+[paul@RHELv4u3 gen]$ echo $(var1=5;echo $var1)
+5
+[paul@RHELv4u3 gen]$ echo $var1
+
+[paul@RHELv4u3 gen]$</screen>
+	<para>You can embed a shell in an <command>embedded shell</command><indexterm><primary>embedding(shell)</primary></indexterm>, this is called <command>nested embedding</command> of shells.</para>
+	<para>This screenshot shows an embedded shell inside an embedded shell.</para>
+	<screen>paul@deb503:~$ A=shell
+paul@deb503:~$ echo $C$B$A $(B=sub;echo $C$B$A; echo $(A=sub;echo $C$B$A))
+shell subshell subsub</screen>
+</section>
+<section><title>back ticks</title>
+	<para>Single embedding can be useful to avoid changing your current directory. The screenshot below uses <command>back ticks</command> instead of dollar-bracket to embed.</para>
+	<screen>[paul@RHELv4u3 ~]$ echo `cd /etc; ls -d * | grep pass`
+passwd passwd- passwd.OLD
+[paul@RHELv4u3 ~]$</screen>
+</section>
+<section><title>back ticks or single quotes</title>
+	<para>Placing the embedding between <command>backticks</command><indexterm><primary>backticks</primary></indexterm> uses one character less than the dollar and parenthesis combo. Be careful however, backticks are often confused with single quotes. The technical difference between <command>'</command><indexterm><primary>'(single quote)</primary></indexterm> and <command>`</command><indexterm><primary>`(backtick)</primary></indexterm> is significant! You can not use <command>backticks</command> to nest embedded shells.</para>
+	<screen>[paul@RHELv4u3 gen]$ echo `var1=5;echo $var1`
+5
+[paul@RHELv4u3 gen]$ echo 'var1=5;echo $var1'
+var1=5;echo $var1
+[paul@RHELv4u3 gen]$</screen>
+</section>
+<section><title>shell options</title>
+	<para>Both <command>set</command><indexterm><primary>set</primary></indexterm> and <command>unset</command><indexterm><primary>unset</primary></indexterm> are built-in shell commands. They can be used to set options of the bash shell itself. The next example will clarify this. By default, the shell will treat unset variables as a variable having no value. By setting the -u option, the shell will treat any reference to unset variables as an error. See the man page of bash for more information.</para>
+	<screen>[paul@RHEL4b ~]$ echo $var123
+
+[paul@RHEL4b ~]$ set -u
+[paul@RHEL4b ~]$ echo $var123
+-bash: var123: unbound variable
+[paul@RHEL4b ~]$ set +u
+[paul@RHEL4b ~]$ echo $var123
+
+[paul@RHEL4b ~]$</screen>
+	<para>To list all the set options for your shell, use <command>echo $-</command><indexterm><primary>echo $-</primary></indexterm>. The <command>noclobber</command> (or <command>-C</command>) option will be explained later in this book (in the I/O redirection chapter).</para>
+	<screen>[paul@RHEL4b ~]$ echo $-
+himBH
+[paul@RHEL4b ~]$ set -C ; set -u
+[paul@RHEL4b ~]$ echo $-
+himuBCH
+[paul@RHEL4b ~]$ set +C ; set +u
+[paul@RHEL4b ~]$ echo $-
+himBH
+[paul@RHEL4b ~]$</screen>
 </section>
