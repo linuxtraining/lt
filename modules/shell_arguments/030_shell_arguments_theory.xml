@@ -1,19 +1,40 @@
-<section><title>shell arguments</title>
+<?hard-pagebreak?>
+<section><title>echo</title>
+	<para>This chapter frequently uses the <command>echo</command><indexterm><primary>echo(1)</primary></indexterm> command to demonstrate shell features. The <command>echo</command> command is very simple: it echoes the input that it receives.</para>
+	<screen>paul@laika:~$ echo Burtonville
+Burtonville
+paul@laika:~$ echo Smurfs are blue
+Smurfs are blue</screen>
+	<section><title>echo and quotes</title>
+		<para>Quoted lines can include special escaped characters recognized by the <command>echo</command> command (when using <command>echo -e</command><indexterm><primary>echo(1)</primary></indexterm>). The screenshot below shows how to use <command>\n</command> for a newline and <command>\t</command> for a tab (usually eight white spaces).</para>
+		<screen>[paul@RHEL4b ~]$ echo -e "A line with \na newline"
+A line with 
+a newline
+[paul@RHEL4b ~]$ echo -e 'A line with \na newline'
+A line with 
+a newline
+[paul@RHEL4b ~]$ echo -e "A line with \ta tab"
+A line with     a tab
+[paul@RHEL4b ~]$ echo -e 'A line with \ta tab'
+A line with     a tab
+[paul@RHEL4b ~]$</screen>
+		<para>The echo command can generate more than white spaces, tabs and newlines. Look in the man page for a list of options (and remember that echo may be both built-in and external).</para>
+	</section>
+</section>
+<section><title>arguments</title>
+	<para>One of the primary features of a shell is to perform a <command>command line scan</command><indexterm><primary>command line scan</primary></indexterm>. When you enter a command at the shell's command prompt and press the enter key, then the shell will start scanning that line, cutting it up in <command>arguments</command>. While scanning the line, the shell may make many changes to the <command>arguments</command> you typed. This process is called <command>shell expansion</command><indexterm><primary>shell expansion</primary></indexterm>. When the shell has finished scanning and modifying that line, then it will be executed.</para>
 	<section><title>white space removal</title>
-		<para>Before execution, the shell scans at the command line. Parts that are separated by one or more consecutive <command>white spaces</command> (or tabs) are considered separate <command>arguments</command>, any white space is removed. The first <command>argument</command> is the command to be executed, the other <command>arguments</command> are given to the command. The shell effectively cuts your command into one or more arguments.</para>
+		<para>Parts that are separated by one or more consecutive <command>white spaces</command> (or tabs) are considered separate <command>arguments</command>, any white space is removed. The first <command>argument</command> is the command to be executed, the other <command>arguments</command> are given to the command. The shell effectively cuts your command into one or more arguments.</para>
 		<para>This explains why the following four different command lines are the same after <command>shell expansion</command><indexterm><primary>shell expansion</primary></indexterm>.</para>
-		<screen>
-[paul@RHELv4u3 ~]$ echo Hello World
+		<screen>[paul@RHELv4u3 ~]$ echo Hello World
 Hello World
 [paul@RHELv4u3 ~]$ echo Hello   World
 Hello World
 [paul@RHELv4u3 ~]$ echo   Hello   World
 Hello World
 [paul@RHELv4u3 ~]$    echo      Hello      World
-Hello World
-		</screen>
+Hello World</screen>
 		<para>The <command>echo</command> command will display each argument it receives from the shell. The <command>echo</command> command will also add a new whitespace between the arguments it received.</para>
-		<para>It is important for troubleshooting any script to know that the shell cuts your command line in distinct arguments.</para>
 	</section>
 	<section><title>single quotes</title>
 		<para>You can prevent the removal of white spaces by quoting the spaces. The contents of the quoted string are considered as one argument. In the screenshot below the <command>echo</command> receives only one <command>argument</command>.</para>
@@ -30,66 +51,203 @@ A line with      single    quotes
 A line with      double    quotes
 [paul@RHEL4b ~]$
 		</screen>
-		<para>The only difference between single and double quotes is the parsing of shell <command>variables</command>. You can already see the difference in this screenshot.</para>
-		<screen>
-paul@laika:~$ echo 'My user is $USER'
-My user is $USER
-paul@laika:~$ echo "My user is $USER"
-My user is paul
-		</screen>
 	</section>
-	<section><title>echo and quotes</title>
-		<para>Quoted lines can include special escaped characters recognized by the <command>echo</command> command (when using <command>echo -e</command><indexterm><primary>echo(1)</primary></indexterm>). The screenshot below shows how to use <command>\n</command> for a newline and <command>\t</command> for a tab (usually eight white spaces).</para>
-		<screen>
-[paul@RHEL4b ~]$ echo -e "A line with \na newline"
-A line with 
-a newline
-[paul@RHEL4b ~]$ echo -e 'A line with \na newline'
-A line with 
-a newline
-[paul@RHEL4b ~]$ echo -e "A line with \ta tab"
-A line with     a tab
-[paul@RHEL4b ~]$ echo -e 'A line with \ta tab'
-A line with     a tab
-[paul@RHEL4b ~]$ 
-		</screen>
-		<para>The echo command can generate more than white spaces, tabs and newlines. Look in the man page for a list of options (and remember that echo may be both built-in and external).</para>
+	<para>It is important for troubleshooting any <command>script</command> to know that the shell cuts your command line in distinct arguments.</para>
+</section>
+<section><title>commands</title>
+	<section><title>external or built-in commands ?</title>
+		<para>Not all commands are external to the shell, some are <command>builtin</command>. <command>External commands</command> are programs that have their own binary and reside somewhere in the file system. Many external commands are located in <command>/bin</command><indexterm><primary>/bin</primary></indexterm> or <command>/sbin</command><indexterm><primary>/sbin</primary></indexterm>. <command>Builtin commands</command> are an integral part of the shell program itself.</para>
 	</section>
-	<section><title>shell embedding</title>
-		<para>Shells can be embedded on the command line, or in other words, the command line scan can spawn new processes containing a fork of the current shell. You can use variables to prove that new shells are created. In the screenshot below, the variable $var1 only exists in the (temporary) sub shell.</para>
-		<screen>
-[paul@RHELv4u3 gen]$ echo $var1
-
-[paul@RHELv4u3 gen]$ echo $(var1=5;echo $var1)
-5
-[paul@RHELv4u3 gen]$ echo $var1
-
-[paul@RHELv4u3 gen]$ 
-		</screen>
-		<para>You can embed a shell in an <command>embedded shell</command><indexterm><primary>embedding(shell)</primary></indexterm>, this is called <command>nested embedding</command> of shells.</para>
-		<para>This screenshot shows an embedded shell inside an embedded shell.</para>
-		<screen>
-paul@deb503:~$ A=shell
-paul@deb503:~$ echo $C$B$A $(B=sub;echo $C$B$A; echo $(A=sub;echo $C$B$A))
-shell subshell subsub
-		</screen>
+	<section><title>type</title>
+		<para>To find out whether a command given to the shell will be executed as an <command>external command</command> or as a <command>built-in command</command>, use the <command>type</command><indexterm><primary>type(shell)</primary></indexterm> command.</para>
+		<screen>paul@laika:~$ type cd
+cd is a shell builtin
+paul@laika:~$ type cat
+cat is /bin/cat</screen>
+		<para>As you can see, the <command>cd</command> command is <command>builtin</command> and the <command>cat</command> command is <command>external</command>.</para>
+		<para>You can also use this command to show you whether the command is <command>aliased</command> or not.</para>
+		<screen>paul@laika:~$ type ls
+ls is aliased to `ls --color=auto'</screen>
 	</section>
-	<section><title>back ticks</title>
-		<para>Single embedding can be useful to avoid changing your current directory. The screenshot below uses <command>back ticks</command> instead of dollar-bracket to embed.</para>
-		<screen>
-[paul@RHELv4u3 ~]$ echo `cd /etc; ls -d * | grep pass`
-passwd passwd- passwd.OLD
+	<section><title>running external commands</title>
+		<para>Some commands have both built-in and external versions. When one of these commands is executed, the builtin version takes priority. To run the external version, you must enter the full path to the command.</para>
+		<screen>paul@laika:~$ type -a echo
+echo is a shell builtin
+echo is /bin/echo
+paul@laika:~$ /bin/echo Running the external echo command... 
+Running the external echo command...</screen>
+	</section>
+	<section><title>which</title>
+		<para>The <command>which</command><indexterm><primary>which(1)</primary></indexterm> command will search for binaries in the <command>PATH</command><indexterm><primary>$PATH</primary></indexterm> environment variable. (Variables will be explained later.) In the screenshot below, it is determined that <command>cd</command> is <command>builtin</command>, and <command>ls, cp, rm, mv, mkdir, pwd,</command> and <command>which</command> are external commands.</para> 
+		<screen>[root@RHEL4b ~]# which cp ls mv rm cd mkdir pwd which
+/bin/cp
+/bin/ls
+/bin/mv
+/bin/rm
+/usr/bin/which: no cd in (/usr/kerberos/sbin:/usr/kerberos/bin:...
+/bin/mkdir
+/bin/pwd
+/usr/bin/which</screen>
+	</section>
+</section>
+<section><title>aliases</title>
+	<section><title>create an alias</title>
+		<para>The shell allows you to create <command>aliases</command><indexterm><primary>alias(bash)</primary></indexterm>. Aliases are often used to create an easier to remember name for an existing command or to easily supply parameters.</para>
+		<screen>[paul@RHELv4u3 ~]$ cat count.txt 
+one
+two
+three
+[paul@RHELv4u3 ~]$ alias dog=tac
+[paul@RHELv4u3 ~]$ dog count.txt 
+three
+two
+one</screen>
+	</section>
+	<section><title>abbreviate commands</title>
+		<para>An <command>alias</command><indexterm><primary>alias(bash)</primary></indexterm> can also be useful to abbreviate an existing command.</para>
+		<screen>paul@laika:~$ alias ll='ls -lh --color=auto'
+paul@laika:~$ alias c='clear'
+paul@laika:~$</screen>
+	</section>
+	<section><title>default options</title>
+		<para>Aliases can be used to supply commands with default options. The example below shows how to set the <command>-i</command> option default when typing <command>rm</command><indexterm><primary>/bin/rm</primary></indexterm>.</para>
+		<screen>[paul@RHELv4u3 ~]$ rm -i winter.txt 
+rm: remove regular file `winter.txt'? no
+[paul@RHELv4u3 ~]$ rm winter.txt 
+[paul@RHELv4u3 ~]$ ls winter.txt
+ls: winter.txt: No such file or directory
+[paul@RHELv4u3 ~]$ touch winter.txt
+[paul@RHELv4u3 ~]$ alias rm='rm -i'
+[paul@RHELv4u3 ~]$ rm winter.txt 
+rm: remove regular empty file `winter.txt'? no
+[paul@RHELv4u3 ~]$</screen>
+		<para>Some distributions enable default aliases to protect users from accidentally erasing files ('rm -i', 'mv -i', 'cp -i')</para>
+	</section>
+	<section><title>viewing aliases</title>
+		<para>You can provide one or more aliases as arguments to the <command>alias</command> command to get their definitions. Providing no arguments gives a complete list of current aliases.</para>
+		<screen>paul@laika:~$ alias c ll
+alias c='clear'
+alias ll='ls -lh --color=auto'</screen>
+	</section>
+	<section><title>unalias</title>
+		<para>You can undo an alias with the <command>unalias</command><indexterm><primary>unalias(bash)</primary></indexterm> command.</para>
+		<screen>[paul@RHEL4b ~]$ which rm
+/bin/rm
+[paul@RHEL4b ~]$ alias rm='rm -i'
+[paul@RHEL4b ~]$ which rm
+alias rm='rm -i'
+        /bin/rm
+[paul@RHEL4b ~]$ unalias rm
+[paul@RHEL4b ~]$ which rm
+/bin/rm
+[paul@RHEL4b ~]$</screen>
+	</section>
+</section>
+<section><title>control operators</title>
+	<section><title>; semicolon</title>
+		<para>You can put two or more commands on the same line separated by a semicolon <command>;</command><indexterm><primary>;</primary></indexterm> . The shell will scan the line until it reaches the semicolon. All the arguments before this semicolon will be considered a separate command from all the arguments after the semicolon. Both series will be executed sequentially with the shell waiting for each command to finish before starting the next one.</para>
+		<screen>[paul@RHELv4u3 ~]$ echo Hello
+Hello
+[paul@RHELv4u3 ~]$ echo World
+World
+[paul@RHELv4u3 ~]$ echo Hello ; echo World
+Hello
+World
+[paul@RHELv4u3 ~]$</screen>
+	</section>
+	<section><title>&#038; ampersand</title>
+		<para>When a line ends with an ampersand <command>&#038;</command><indexterm><primary>&#038;</primary></indexterm>, the shell will not wait for the command to finish. You will get your shell prompt back, and the command is executed in background. You will get a message when this command has finished executing in background.</para>
+		<screen>[paul@RHELv4u3 ~]$ sleep 20 &#038;
+[1] 7925
 [paul@RHELv4u3 ~]$ 
-		</screen>
+...wait 20 seconds...
+[paul@RHELv4u3 ~]$ 
+[1]+  Done                     sleep 20</screen>
+		<para>The technical explanation of what happens in this case is explained in the chapter about <command>processes</command>.</para>
 	</section>
-	<section><title>back ticks or single quotes</title>
-		<para>Placing the embedding between <command>backticks</command><indexterm><primary>backticks</primary></indexterm> uses one character less than the dollar and parenthesis combo. Be careful however, backticks are often confused with single quotes. The technical difference between <command>'</command><indexterm><primary>'(single quote)</primary></indexterm> and <command>`</command><indexterm><primary>`(backtick)</primary></indexterm> is significant! You can not use <command>backticks</command> to nest embedded shells.</para>
-		<screen>
-[paul@RHELv4u3 gen]$ echo `var1=5;echo $var1`
-5
-[paul@RHELv4u3 gen]$ echo 'var1=5;echo $var1'
-var1=5;echo $var1
-[paul@RHELv4u3 gen]$
-		</screen>
+	<section><title>&#038;&#038; double ampersand</title>
+		<para>The shell will interprete <command>&#038;&#038;</command><indexterm><primary>&#038;&#038;</primary></indexterm> as a <command>logical AND</command>. When using <command>&#038;&#038;</command> the second command is executed only if the first one succeeds (returns a zero exit status). </para>
+		<screen>paul@barry:~$ echo first &#038;&#038; echo second
+first
+second
+paul@barry:~$ zecho first &#038;&#038; echo second
+-bash: zecho: command not found</screen>
+		<para>Another example of the same <command>logical AND</command><indexterm><primary>logical AND</primary></indexterm> principle. This example starts with a working <command>cd</command> followed by <command>ls</command>, then a non-working <command>cd</command> which is <command>not</command> followed by <command>ls</command>.</para>
+		<screen>[paul@RHELv4u3 ~]$ cd gen &#038;&#038; ls
+file1  file3  File55  fileab  FileAB   fileabc
+file2  File4  FileA   Fileab  fileab2
+[paul@RHELv4u3 gen]$ cd gen &#038;&#038; ls
+-bash: cd: gen: No such file or directory
+[paul@RHELv4u3 gen]$</screen>
 	</section>
+	<section><title>|| double vertical bar</title>
+		<para>The <command>||</command><indexterm><primary>||</primary></indexterm> represents a <command>logical OR</command>. The second command is executed only when the first command fails (returns a non-zero exit status).</para>
+		<screen>paul@barry:~$ echo first || echo second ; echo third
+first
+third
+paul@barry:~$ zecho first || echo second ; echo third
+-bash: zecho: command not found
+second
+third
+paul@barry:~$</screen>
+		<para>Another example of the same <command>logical OR</command><indexterm><primary>logical OR</primary></indexterm> principle.</para>
+		<screen>[paul@RHELv4u3 ~]$ cd gen || ls
+[paul@RHELv4u3 gen]$ cd gen || ls
+-bash: cd: gen: No such file or directory
+file1  file3  File55  fileab  FileAB   fileabc
+file2  File4  FileA   Fileab  fileab2
+[paul@RHELv4u3 gen]$</screen>
+	</section>
+	<section><title>Combining &#038;&#038; and ||</title>
+		<para>You can use this logical AND and logical OR to write an <command>if-then-else</command> structure on the command line. This example uses <command>echo</command> to display whether the <command>rm</command> command was successful.</para>
+		<screen>paul@laika:~/test$ rm file1 &#038;&#038; echo It worked! || echo It failed!
+It worked!
+paul@laika:~/test$ rm file1 &#038;&#038; echo It worked! || echo It failed!
+rm: cannot remove `file1': No such file or directory
+It failed!
+paul@laika:~/test$</screen>
+	</section>
+	<section><title># pound sign</title>
+		<para>Everything written after a <command>pound sign</command> (#) is ignored by the shell. This is useful to write a <command>shell comment</command><indexterm><primary>shell comment</primary></indexterm>, but has no influence on the command execution or shell expansion.</para>
+			<screen>paul@barry:~$ mkdir test    # we create a directory
+paul@barry:~$ cd test       #### we enter the directory
+paul@barry:~/test$ ls       # is it empty ?
+paul@barry:~/test$</screen>
+	</section>
+	<section><title>\ escaping special characters</title>
+		<para>The backslash <command>\</command><indexterm><primary>\</primary></indexterm> character enables the use of control characters, but without the shell interpreting it, this is called <command>escaping</command><indexterm><primary>shell escaping</primary></indexterm> characters.</para>
+		<screen>[paul@RHELv4u3 ~]$ echo hello \; world
+hello ; world
+[paul@RHELv4u3 ~]$ echo hello\ \ \ world
+hello   world
+[paul@RHELv4u3 ~]$ echo escaping \\\ \#\ \&#038;\ \"\ \'
+escaping \ # &#038; " '
+[paul@RHELv4u3 ~]$ echo escaping \\\?\*\"\'
+escaping \?*"'</screen>
+	</section>
+	<section><title>end of line backslash</title>
+		<para>Lines ending in a backslash are continued on the next line. The shell does not interpret the newline character and will wait on shell expansion and execution of the command line until a newline without backslash is encountered.</para>
+		<screen>[paul@RHEL4b ~]$ echo This command line \
+> is split in three \
+> parts
+This command line is split in three parts
+[paul@RHEL4b ~]$</screen>
+	</section>
+</section>
+<section><title>displaying shell expansion</title>
+	<para>You can display shell expansion with <command>set -x</command><indexterm><primary>set -x</primary></indexterm>, and stop displaying it with <command>set +x</command><indexterm><primary>set +x</primary></indexterm>. You might want to use this further on in this course, or when in doubt about exactly what the shell is doing with your command.</para>
+		<screen>[paul@RHELv4u3 ~]$ set -x
+++ echo -ne '\033]0;paul@RHELv4u3:~\007'
+[paul@RHELv4u3 ~]$ echo $USER
++ echo paul
+paul
+++ echo -ne '\033]0;paul@RHELv4u3:~\007'
+[paul@RHELv4u3 ~]$ echo \$USER
++ echo '$USER'
+$USER
+++ echo -ne '\033]0;paul@RHELv4u3:~\007'
+[paul@RHELv4u3 ~]$ set +x
++ set +x
+[paul@RHELv4u3 ~]$ echo $USER
+paul</screen>
 </section>
