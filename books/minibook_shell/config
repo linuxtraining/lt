@@ -9,10 +9,10 @@ BOOKTITLE="shell expansion"
 
 # define book as directories in certain order
 
-add_mod chapter shell_introduction
+#add_mod chapter shell_introduction
+add_mod chapter shell_arguments
 add_mod chapter shell_control_operators
 add_mod chapter shell_variables
-add_mod chapter shell_arguments
 add_mod chapter shell_history
 add_mod chapter shell_globbing
 add_mod chapter shell_io
