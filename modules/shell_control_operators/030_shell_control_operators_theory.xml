@@ -1,3 +1,4 @@
+<?hard-pagebreak?>
 <section><title>; semicolon</title>
 	<para>You can put two or more commands on the same line separated by a semicolon <command>;</command><indexterm><primary>;</primary></indexterm> . The shell will scan the line until it reaches the semicolon. All the arguments before this semicolon will be considered a separate command from all the arguments after the semicolon. Both series will be executed sequentially with the shell waiting for each command to finish before starting the next one.</para>
 	<screen>[paul@RHELv4u3 ~]$ echo Hello
