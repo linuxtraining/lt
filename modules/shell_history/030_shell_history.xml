@@ -1,79 +1,85 @@
-<section><title>shell history</title>
-	<section><title>history variables</title>
-		<para>The <command>bash</command> shell will remember the commands you type so you can easily repeat previous commands. Some variable definitions are used for this: <command>$HISTFILE</command><indexterm><primary>$HISTFILE</primary></indexterm> points to the location of the history file, <command>$HISTSIZE</command><indexterm><primary>$HISTSIZE</primary></indexterm> will tell you how many commands will be remembered in your current shell session, and <command>$HISTFILESIZE</command><indexterm><primary>$HISTFILESIZE</primary></indexterm> is the limit of the number of commands that will be kept in the history file. The file will be truncated when this limit is exceeded. Your shell session history is written to the file when exiting the shell. This screenshot lists some history variables in bash.</para>
-		<screen>
-[paul@RHELv4u3 ~]$ echo $HISTFILE
-/home/paul/.bash_history
-[paul@RHELv4u3 ~]$ echo $HISTFILESIZE
-1000
-[paul@RHELv4u3 ~]$ echo $HISTSIZE
-1000
-[paul@RHELv4u3 ~]$ 
-		</screen>
-		<para>The $HISTFILE (defaults to .sh_history in the home directory) and $HISTSIZE variables are also used by the Korn shell (ksh).</para>
-		<screen>
-$ set | grep -i hist
-HISTSIZE=5000
-		</screen>
-	</section>
-	<section><title>repeating commands in bash</title>
-		<para>To repeat the last command in bash, type <command>!!</command><indexterm><primary>!!</primary></indexterm>. This is pronounced as <command>bang bang</command>. To repeat older commands, use <command>history</command><indexterm><primary>history</primary></indexterm> to display the shell command history and type <command>!</command><indexterm><primary>!</primary></indexterm> followed by a number. The shell will echo the command and execute it.</para>
-		<screen>
-[paul@RHELv4u3 ~]$ history
-2  cat /etc/redhat-release 
-3  uname -r
-4  rpm -qa | grep ^parted
-...
-[paul@RHELv4u3 ~]$ !3
-uname -r
-2.6.9-34.EL
-[paul@RHELv4u3 ~]$ 
-		</screen>
-		<para>You can also use bang followed by one or more characters, <command>bash</command> will then repeat the last command that started with those characters. But this can be very dangerous, you have to be certain that the last command in your current shell history that starts with those characters is the command you wish to execute.</para>
-		<screen>
-[paul@RHEL4b ~]$ ls file4
-file4
-[paul@RHEL4b ~]$ !ls
-ls file4
-file4
-		</screen>
-		<para> You can also use a colon followed by a regular expression to manipulate the previous command.</para>
-		<screen>
-[paul@RHEL4b ~]$ !ls:s/4/5
-ls file5
-file5
-		</screen>
-		<para>The history command can also receive a value indicating the number of the most recent history lines to display.</para>
-		<screen>
-[paul@RHEL4b ~]$ history 4
-  422  ls file4
-  423  ls file4
-  424  ls file5
-  425  history 4
-[paul@RHEL4b ~]$ 
-		</screen>
-	</section>
-	<section><title>repeating commands in ksh</title>
-		<para>Repeating a command in the Korn shell is very similar. The Korn shell also has the <command>history</command> command, but uses the letter <command>r</command> to recall lines from history.</para>
-		<para>This screenshot shows the history command. Note the different meaning of the parameter.</para>
-		<screen>
-$ history 17
+<?hard-pagebreak?>
+<section><title>repeating the last command</title>
+	<para>To repeat the last command in bash, type <command>!!</command><indexterm><primary>!!</primary></indexterm>. This is pronounced as <command>bang bang</command>.</para>
+	<screen>paul@debian5:~/test42$ echo this will be repeated > file42.txt
+paul@debian5:~/test42$ !!
+echo this will be repeated > file42.txt
+paul@debian5:~/test42$ </screen>
+</section>
+<section><title>repeating other commands</title>
+	<para>You can repeat other commands using one <command>bang</command> followed by one or more characters. The shell will repeat the last command that started with those characters.</para>
+	<screen>paul@debian5:~/test42$ touch file42
+paul@debian5:~/test42$ cat file42
+paul@debian5:~/test42$ !to
+touch file42
+paul@debian5:~/test42$</screen>
+</section>
+<section><title>history</title>
+	<para>To see older commands, use <command>history</command><indexterm><primary>history</primary></indexterm> to display the shell command history (or use <command>history n</command> to see the last n commands).</para>
+		<screen>paul@debian5:~/test$ history 10
+38  mkdir test
+39  cd test
+40  touch file1
+41  echo hello > file2
+42  echo It is very cold today > winter.txt
+43  ls
+44  ls -l
+45  cp winter.txt summer.txt
+46  ls -l
+47  history 10</screen>
+</section>
+<section><title>!n</title>
+	<para>When typing <command>!</command><indexterm><primary>!</primary></indexterm> followed by the number preceding the command you want repeated, then the shell will echo the command and execute it.</para>
+	<screen>paul@debian5:~/test$ !43
+ls
+file1  file2  summer.txt  winter.txt</screen>
+</section>
+<section><title>$HISTSIZE</title>
+	<para>The $HISTSIZE<indexterm><primary>$HISTSIZE</primary></indexterm> variable determines the number of commands that will be remembered in your current environment. Most distributions default this variable to 500 or 1000.</para>
+	<screen>paul@debian5:~$ echo $HISTSIZE
+500</screen>
+	<para>You can change it to any value you like.</para>
+	<screen>paul@debian5:~$ HISTSIZE=15000
+paul@debian5:~$ echo $HISTSIZE
+15000</screen>
+</section>
+<section><title>$HISTFILE</title>
+	<para>The $HISTFILE<indexterm><primary>$HISTFILE</primary></indexterm> variable points to the file that contains your history. The <command>bash</command> shell defaults this value to <command>~/.bash_history</command>.</para>
+	<screen>paul@debian5:~$ echo $HISTFILE
+/home/paul/.bash_history</screen>
+	<para>A session history is saved to this file when you <command>exit</command> the session!</para>
+	<para><emphasis>Closing a gnome-terminal with the mouse, or typing <command>reboot</command> as root will NOT save your terminal's history.</emphasis></para>
+</section>
+<section><title>$HISTFILESIZE</title>
+	<para>The number of commands kept in your history file can be set using $HISTFILESIZE<indexterm><primary>$HISTFILESIZE</primary></indexterm>.</para>
+	<screen>paul@debian5:~$ echo $HISTFILESIZE
+15000</screen>
+</section>
+<section><title>(optional)regular expressions</title>
+	<para>It is possible to use <command>regular expressions</command> when using the <command>bang</command> to repeat commands. The screenshot below switches 1 into 2.</para>
+	<screen>paul@deianb5:~/test$ cat file1
+paul@debian5:~/test$ !c:s/1/2
+cat file2
+hello
+paul@debian5:~/test$</screen>
+</section>
+<?hard-pagebreak?>
+<section><title>(optional)repeating commands in ksh</title>
+	<para><emphasis>(just in case you end up on an AIX or Solaris computer that does not have <command>bash</command> installed)</emphasis></para>
+	<para>Repeating a command in the <command>Korn shell</command> is very similar. The Korn shell also has the <command>history</command> command, but uses the letter <command>r</command> to recall lines from history.</para>
+	<para>This screenshot shows the history command. Note the different meaning of the parameter.</para>
+	<screen>$ history 17
 17      clear
 18      echo hoi
 19      history 12
 20      echo world
-21      history 17
-		</screen>
-		<para>Repeating with r can be combined with the line numbers given by the history command, or with the first few letters of the command.</para>
-		<screen>
-$ r e
+21      history 17</screen>
+	<para>Repeating with <command>r</command> can be combined with the line numbers given by the history command, or with the first few letters of the command.</para>
+	<screen>$ r e
 echo world
 world
 $ cd /etc
 $ r
 cd /etc
-$ 
-
-		</screen>
-	</section>	
+$</screen>
 </section>	
