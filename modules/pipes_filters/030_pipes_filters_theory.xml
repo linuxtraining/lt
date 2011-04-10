@@ -299,13 +299,11 @@ Queen
 paul@deb503:~/pipes$ sort music.txt |uniq -c
       1 Abba
       1 Brel
-      2 Queen
-		</screen>
+      2 Queen</screen>
 	</section>
 	<section><title>comm</title>
 		<para>Comparing streams (or files) can be done with the <command>comm</command><indexterm><primary>comm(1)</primary></indexterm>. By default <command>comm</command> will output three columns. In this example, Abba, Cure and Queen are in both lists, Bowie and Sweet are only in the first file, Turner is only in the second.</para>
-		<screen>
-paul@deb503:~/pipes$ cat &#062; list1.txt
+		<screen>paul@deb503:~/pipes$ cat &#062; list1.txt
 Abba
 Bowie
 Cure
@@ -317,16 +315,14 @@ Cure
 Queen
 Turner
 paul@deb503:~/pipes$ comm list1.txt list2.txt 
-		Abba
+                Abba
 Bowie
-		Cure
-		Queen
+                Cure
+                Queen
 Sweet
-	Turner
-		</screen>
+        Turner</screen>
 		<para>The output of <command>comm</command> can be easier to read when outputting only a single column. The digits point out which output columns should not be displayed.</para>
-		<screen>
-paul@deb503:~/pipes$ comm -12 list1.txt list2.txt 
+		<screen>paul@deb503:~/pipes$ comm -12 list1.txt list2.txt 
 Abba
 Cure
 Queen
@@ -334,8 +330,7 @@ paul@deb503:~/pipes$ comm -13 list1.txt list2.txt
 Turner
 paul@deb503:~/pipes$ comm -23 list1.txt list2.txt 
 Bowie
-Sweet
-		</screen>
+Sweet</screen>
 	</section>
 	<section><title>od</title>
 		<para>European humans like to work with ascii characters, but computers store files in bytes. The example below creates a simple file, and then uses <command>od</command><indexterm><primary>od(1)</primary></indexterm> to show the contents of the file in hexadecimal bytes, in octal bytes and in ascii (or backslashed) characters.</para>
