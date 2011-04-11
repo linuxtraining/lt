@@ -1,0 +1,1 @@
+<para>The shell is also responsible for <command>file globbing</command><indexterm><primary>file globbing</primary></indexterm> (or dynamic filename generation). This chapter will explain <command>file globbing</command>.</para>
