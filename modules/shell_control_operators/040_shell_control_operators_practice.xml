@@ -6,9 +6,12 @@
 	<para>3. Execute the <command>pwd</command> command twice. (remember 0.)</para>
 	<para>4. Execute <command>ls</command> after <command>cd /etc</command>, but only if <command>cd /etc</command> did not error.</para>
 	<para>5. Execute <command>cd /etc</command> after <command>cd etc</command>, but only if <command>cd etc</command> fails.</para>
-	<para>6. Execute <command>sleep 6</command>, what is this command doing ?</para>
-	<para>7. Execute <command>sleep 200</command> in background (do not wait for it to finish).</para>
-	<para>8. Use echo to display "Hello World with strange' characters \ * [ }  ~ \\ ." (including all quotes)</para>
-	<para>9. Use one echo command to display three words on three lines.</para>
-	<para>10. Echo <command>it worked</command> when <command>touch test42</command> works, and echo <command>it failed</command> when the touch failed. All on one command line as a normal user (not root). Test this line in your home directory and in <command>/bin/</command> .</para>
+	<para>6. Echo <command>it worked</command> when <command>touch test42</command> works, and echo <command>it failed</command> when the <command>touch</command> failed. All on one command line as a normal user (not root). Test this line in your home directory and in <command>/bin/</command> .</para>
+	<para>7. Execute <command>sleep 6</command>, what is this command doing ?</para>
+	<para>8. Execute <command>sleep 200</command> in background (do not wait for it to finish).</para>
+	<para>9. Write a command line that executes <command>rm file55</command>. Your command line should print 'success' if file55 is removed, and print 'failed' if there was a problem.</para>
+	<para>(optional)10. Use echo to display "Hello World with strange' characters \ * [ }  ~ \\ ." (including all quotes)</para>
+	<screen>echo \"Hello World with strange\' characters \\ \* \[ \} \~ \\\\ \. \"</screen>
+	<screen>or</screen>
+	<screen>echo \""Hello World with strange' characters \ * [ } ~ \\ . "\"</screen>
 </section>

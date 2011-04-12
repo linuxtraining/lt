@@ -11,21 +11,20 @@
 	<screen>cd /etc &#038;&#038; ls</screen>
 	<para>5. Execute <command>cd /etc</command> after <command>cd etc</command>, but only if <command>cd etc</command> fails.</para>
 	<screen>cd etc || cd /etc</screen>
-	<para>6. Execute <command>sleep 6</command>, what is this command doing ?</para>
-	<screen>pausing for six seconds</screen>
-	<para>7. Execute <command>sleep 200</command> in background (do not wait for it to finish).</para>
-	<screen>sleep 200 &#038;</screen>
-	<para>8. Use echo to display "Hello World with strange' characters \ * [ }  ~ \\ ." (including all quotes)</para>
-	<screen>echo \"Hello World with strange\' characters \\ \* \[ \} \~ \\\\ \. \"</screen>
-	<screen>or</screen>
-	<screen>echo \""Hello World with strange' characters \ * [ } ~ \\ . "\"</screen>
-	<para>9. Use one echo command to display three words on three lines.</para>
-	<screen>echo -e "one \ntwo \nthree"</screen>
-	<para>10. Echo <command>it worked</command> when <command>touch test42</command> works, and echo <command>it failed</command> when the touch failed. All on one command line as a normal user (not root). Test this line in your home directory and in <command>/bin/</command> .</para>
+	<para>6. Echo <command>it worked</command> when <command>touch test42</command> works, and echo <command>it failed</command> when the <command>touch</command> failed. All on one command line as a normal user (not root). Test this line in your home directory and in <command>/bin/</command> .</para>
 	<screen>paul@deb503:~$ cd ; touch test42 &#038;&#038; echo it worked || echo it failed
 it worked
 paul@deb503:~$ cd /bin; touch test42 &#038;&#038; echo it worked || echo it failed
 touch: cannot touch `test42': Permission denied
-it failed
-	</screen>
+it failed</screen>
+	<para>7. Execute <command>sleep 6</command>, what is this command doing ?</para>
+	<screen>pausing for six seconds</screen>
+	<para>8. Execute <command>sleep 200</command> in background (do not wait for it to finish).</para>
+	<screen>sleep 200 &#038;</screen>
+	<para>9. Write a command line that executes <command>rm file55</command>. Your command line should print 'success' if file55 is removed, and print 'failed' if there was a problem.</para>
+	<screen>rm file55 &#038;&#038; echo success || echo failed</screen>
+	<para>(optional)10. Use echo to display "Hello World with strange' characters \ * [ }  ~ \\ ." (including all quotes)</para>
+	<screen>echo \"Hello World with strange\' characters \\ \* \[ \} \~ \\\\ \. \"</screen>
+	<screen>or</screen>
+	<screen>echo \""Hello World with strange' characters \ * [ } ~ \\ . "\"</screen>
 </section>
