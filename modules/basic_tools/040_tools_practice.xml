@@ -14,4 +14,6 @@
 	<screen>find /data -name "*.odf" -exec cp {} /backup/ \;</screen>
 	<para>7. Create a file called <command>loctest.txt</command>. Can you find this file with <command>locate</command> ? Why not ? How do you make locate find this file ?</para>
 	<para>8. Use find and -exec to rename all .htm files to .html.</para>	
+	<para>9. Issue the <command>date</command> command. Now display the date in YYYY/MM/DD format.</para>
+	<para>10. Issue the <command>cal</command> command. Display a calendar of 1582 and 1752. Notice anything special ?</para>
 </section>

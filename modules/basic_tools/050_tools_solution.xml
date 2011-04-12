@@ -40,4 +40,9 @@ paul@rhel55 ~$ find . -name '*.htm' -exec mv {} {}l \;
 paul@rhel55 ~$ find . -name '*.htm*'
 ./one.html
 ./two.html</screen>
+	<para>9. Issue the <command>date</command> command. Now display the date in YYYY/MM/DD format.</para>
+	<screen>date +%Y/%m/%d</screen>
+	<para>10. Issue the <command>cal</command> command. Display a calendar of 1582 and 1752. Notice anything special ?</para>
+	<screen>cal 1582</screen>
+	<para>The calendars are different depending on the country. Check http://linux-training.be/files/studentfiles/dates.txt</para>
 </section>
