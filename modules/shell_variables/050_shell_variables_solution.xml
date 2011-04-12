@@ -2,38 +2,54 @@
 <section><title>solution: shell variables</title>
 	<para>1. Use echo to display Hello followed by your username. (use a bash variable!)</para>
 	<screen>echo Hello $USER</screen>
-	<para>2. Copy the value of $LANG to $MyLANG.</para>
+	<para>2. Create a variable <command>answer</command> with a value of <command>42</command>.</para>
+	<screen>answer=42</screen>
+	<para>3. Copy the value of $LANG to $MyLANG.</para>
 	<screen>MyLANG=$LANG</screen>
-	<para>3. List all current shell variables.</para>
+	<para>4. List all current shell variables.</para>
 	<screen>set</screen>
 	<screen>set|more on Ubuntu/Debian</screen>
-	<para>4. Create a variable MyVar with a value of 1201.</para>
-	<screen>MyVar=1201</screen>
-	<para>5. Do the <command>env</command> and <command>set</command> commands display your variable ?</para>
+	<para>5. List all exported shell variables.</para>
+	<screen>env</screen>
+	<para>6. Do the <command>env</command> and <command>set</command> commands display your variable ?</para>
 	<screen>env | more
 set | more</screen>
-	<para>You will notice that <command>set</command> displays all variables, whereas <command>env</command> does not.</para>	
-	<para>6. Destroy your variable.</para>
-	<screen>unset MyVar</screen>
-	<para>7. Find the list of shell options in the man page of bash. What is the difference between "set -u" and "set -o nounset" ?</para>
+	<para>6. Destroy your <command>answer</command> variable.</para>
+	<screen>unset answer</screen>
+	<para>7. Find the list of shell options in the man page of <command>bash</command>. What is the difference between <command>set -u</command> and <command>set -o nounset</command>?</para>
 	<para>read the manual of bash (man bash), search for nounset -- both mean the same thing.</para>
-	<para>8. Create two variables, and export one of them.</para>
+	<para>8. Create two variables, and <command>export</command> one of them.</para>
 	<screen>var1=1; export var2=2</screen>
 	<para>9. Display the exported variable in an interactive child shell.</para>
-	<screen>bash</screen>
-	<screen>echo $var2</screen>
-	<para>10. Create a variable, give it the value 'Dumb', create another variable with value 'do'. Use echo and the two variables to echo Dumbledore.</para>
+	<screen>bash
+echo $var2</screen>
+	<para>10. Create a variable, give it the value 'Dumb', create another variable with value 'do'. Use <command>echo</command> and the two variables to echo Dumbledore.</para>
 	<screen>varx=Dumb; vary=do</screen>
 	<screen>echo ${varx}le${vary}re
 solution by Yves from Dexia : echo $varx'le'$vary're'
 solution by Erwin from Telenet : echo "$varx"le"$vary"re</screen>
 	<para>11. Activate <command>nounset</command> in your shell. Test that it shows an error message when using non-existing variables.</para>	
-	<screen>set -u</screen>
-	<screen>set -o nounset</screen>
-	<para>Both these lines have the same effect (read the manual of bash, search for nounset).</para>	
+	<screen>set -u
+OR
+set -o nounset</screen>
+	<para>Both these lines have the same effect.</para>	
 	<para>12. Deactivate nounset.</para>	
-	<screen>set +u</screen>
-	<screen>set +o nounset</screen>
-	<para>13. Find the list of backslash escaped characters in the manual of bash. Add the time to your PS1 prompt.</para>
-	<screen>PS1='\t \u@\h$ '</screen>
+	<screen>set +u
+OR
+set +o nounset</screen>
+	<para>13. Find the list of backslash escaped characters in the manual of bash. Add the time to your <command>PS1</command> prompt.</para>
+	<screen>PS1='\t \u@\h \W$ '</screen>
+	<para>14. Execute <command>cd /var</command> and <command>ls</command> in an embedded shell.</para>
+	<screen>echo $(cd /var ; ls)</screen>
+	<para>The <command>echo</command> command is only needed to show the result of the <command>ls</command> command. Omitting will result in the shell trying to execute the first file as a command.</para>
+	<para>15. Create the variable embvar in an embedded shell and echo it. Does the variable exist in your current shell now ?</para>
+	<screen>$(embvar=emb;echo $embvar) ; echo $embvar (the last echo fails).</screen>
+	<screen>$embvar does not exist in your current shell</screen>
+	<para>16. Explain what "set -x" does. Can this be useful ?</para>
+	<screen>It displays shell expansion for troubleshooting your command.</screen>
+	<para>(optional)17. Given the following screenshot, add exactly four characters to that command line so that the total output is FirstMiddleLast.</para>
+	<screen>[paul@RHEL4b ~]$ echo  First; echo  Middle; echo  Last</screen>
+	<screen>echo -n First; echo -n Middle; echo Last</screen>
+	<para>18. Display a <command>long listing</command> (ls -l) of the <command>passwd</command> command using the <command>which</command> command inside back ticks.</para>
+	<screen>ls -l `which passwd`</screen>
 </section>

@@ -1,16 +1,27 @@
 <?hard-pagebreak?>
 <section><title>practice: shell variables</title>
 	<para>1. Use echo to display Hello followed by your username. (use a bash variable!)</para>
-	<para>2. Copy the value of $LANG to $MyLANG.</para>
-	<para>3. List all current shell variables.</para>
-	<para>4. Create a variable MyVar with a value of 1201.</para>
-	<para>5. Do the <command>env</command> and <command>set</command> commands display your variable ?</para>
-	<para>6. Destroy your variable.</para>
-	<para>7. Find the list of shell options in the man page of bash. What is the difference between "set -u" and "set -o nounset" ?</para>
-	<para>8. Create two variables, and export one of them.</para>
+	<para>2. Create a variable <command>answer</command> with a value of <command>42</command>.</para>
+	<para>3. Copy the value of $LANG to $MyLANG.</para>
+	<para>4. List all current shell variables.</para>
+	<para>5. List all exported shell variables.</para>
+	<para>6. Do the <command>env</command> and <command>set</command> commands display your variable ?</para>
+	<para>6. Destroy your <command>answer</command> variable.</para>
+	<para>7. Find the list of shell options in the man page of <command>bash</command>. What is the difference between <command>set -u</command> and <command>set -o nounset</command>?</para>
+	<para>8. Create two variables, and <command>export</command> one of them.</para>
 	<para>9. Display the exported variable in an interactive child shell.</para>
-	<para>10. Create a variable, give it the value 'Dumb', create another variable with value 'do'. Use echo and the two variables to echo Dumbledore.</para>
-	<para>11. Activate <command>nounset</command> in your shell. Test that it shows an error message when using non-existing variables.</para>	
-	<para>12. Deactivate nounset.</para>	
-	<para>13. Find the list of backslash escaped characters in the manual of bash. Add the time to your PS1 prompt.</para>
+	<para>10. Create a variable, give it the value 'Dumb', create another variable with value 'do'. Use <command>echo</command> and the two variables to echo Dumbledore.</para>
+	<para>11. Activate <command>nounset</command> in your shell. Test that it shows an error message when using non-existing variables.</para>
+	<screen>set -u
+OR
+set -o nounset</screen>
+	<para>Both these lines have the same effect.</para>	
+	<para>12. Deactivate nounset.</para>
+	<para>13. Find the list of backslash escaped characters in the manual of bash. Add the time to your <command>PS1</command> prompt.</para>
+	<para>14. Execute <command>cd /var</command> and <command>ls</command> in an embedded shell.</para>
+	<para>15. Create the variable embvar in an embedded shell and echo it. Does the variable exist in your current shell now ?</para>
+	<para>16. Explain what "set -x" does. Can this be useful ?</para>
+	<para>(optional)17. Given the following screenshot, add exactly four characters to that command line so that the total output is FirstMiddleLast.</para>
+	<screen>[paul@RHEL4b ~]$ echo  First; echo  Middle; echo  Last</screen>
+	<para>18. Display a <command>long listing</command> (ls -l) of the <command>passwd</command> command using the <command>which</command> command inside back ticks.</para>
 </section>
