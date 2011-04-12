@@ -1,0 +1,31 @@
+<?hard-pagebreak?>
+<section><title>solution: shell history</title>
+	<para>1. Issue the command <command>echo The answer to the meaning of life, the universe and everything is 42</command>.</para>
+	<screen>echo The answer to the meaning of life, the universe and everything is 42</screen>
+	<para>2. Repeat the previous command using only two characters (there are two solutiones!)</para>
+	<screen>!!
+OR
+!e</screen>
+	<para>3. Display the last 5 commands you typed.</para>
+	<screen>paul@ubu1010:~$ history 5
+ 52  ls -l
+ 53  ls
+ 54  df -h | grep sda
+ 55  echo The answer to the meaning of life, the universe and everything is 42
+ 56  history 5</screen>
+	<para>You will receive different line numbers.</para>
+	<para>4. Issue the long <command>echo</command> from question 1 again, using the line numbers you received from the command in question 3.</para>
+<screen>paul@ubu1010:~$ !56
+echo The answer to the meaning of life, the universe and everything is 42
+The answer to the meaning of life, the universe and everything is 42</screen>
+	<para>5. How many commands can be kept in memory for your current shell session ?</para>
+	<screen>echo $HISTSIZE</screen>
+	<para>6. Where are these commands stored when exiting the shell ?</para>
+	<screen>echo $HISTFILE</screen>
+	<para>7. How many commands can be written to the <command>history file</command> when exiting your current shell session ?</para>
+	<screen>echo $HISTFILESIZE</screen>
+	<para>8. Make sure your current bash shell remembers the next 5000 commands you type.</para>
+	<screen>HISTSIZE=5000</screen>
+	<para>9. Open more than one console (press Ctrl-shift-t in gnome-terminal) with the same user account. When is command history written to the history file ?</para>
+	<screen>when you type <command>exit</command></screen>
+</section>
