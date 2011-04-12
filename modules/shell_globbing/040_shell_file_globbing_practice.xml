@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>practice : shell globbing, options and history</title>
+<section><title>practice: shell globbing</title>
 	<para>1. Create a test directory and enter it.</para>
 	<para>2. Create files file1 file10 file11 file2 File2 File3 file33 fileAB filea fileA fileAAA file( file 2 (the last one has 6 characters including a space)</para>
 	<para>3. List (with ls) all files starting with file</para>
@@ -15,13 +15,6 @@
 	<para>13. List all files that do not start with the letter F.</para>
 	<para>14. Copy the value of $LANG to $MyLANG.</para>
 	<para>15. Show the influence of $LANG in listing A-Z or a-z ranges.</para>
-	<para>16. Write a command line that executes 'rm file55'. Your command line should print 'success' if file55 is removed, and print 'failed' if there was a problem.</para>
-	<para>17. You receive information that one of your servers was cracked, the cracker probably replaced the ls command. You know that the echo command is safe to use. Can echo replace ls ? How can you list the files in the current directory with echo ?</para>
-	<para>18. The cd command is also compromised, can echo be used to list files in other directories ? Explain how this works (list the contents of /etc and /bin without ls). </para>
-	<para>19. Is there another command besides cd to change directories ?</para>
-	<para>20. Make sure bash remembers the last 5000 commands you typed.</para>
-	<para>21. Open more than one console (press Ctrl-shift-t in gnome terminal) with the same user account. When is command history written to the history file ?</para>
-	<para>22. Issue the date command. Now display the date in YYYY/MM/DD format.</para>
-	<para>23. Issue the cal command. Display a calendar of 1582 and 1752. Notice anything special ?</para>
-	<para></para>
+	<para>16. You receive information that one of your servers was cracked, the cracker probably replaced the <command>ls</command> command. You know that the <command>echo</command> command is safe to use. Can <command>echo</command> replace <command>ls</command> ? How can you list the files in the current directory with <command>echo</command> ?</para>
+	<para>17. Is there another command besides cd to change directories ?</para>
 </section>
