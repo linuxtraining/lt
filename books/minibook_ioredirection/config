@@ -1,0 +1,18 @@
+#!/bin/sh
+#
+
+BOOKTITLE="io redirection"
+
+##################
+# define minibook
+##################
+
+# define book as directories in certain order
+
+#add_mod chapter shell_introduction
+add_mod chapter shell_io
+add_mod chapter pipes_filters
+add_mod chapter basic_tools
+
+# license hardcoden op het einde van een .pdf ?
+# add_mod appendix gnufdl
