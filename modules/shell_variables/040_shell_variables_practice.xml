@@ -12,10 +12,6 @@
 	<para>9. Display the exported variable in an interactive child shell.</para>
 	<para>10. Create a variable, give it the value 'Dumb', create another variable with value 'do'. Use <command>echo</command> and the two variables to echo Dumbledore.</para>
 	<para>11. Activate <command>nounset</command> in your shell. Test that it shows an error message when using non-existing variables.</para>
-	<screen>set -u
-OR
-set -o nounset</screen>
-	<para>Both these lines have the same effect.</para>	
 	<para>12. Deactivate nounset.</para>
 	<para>13. Find the list of backslash escaped characters in the manual of bash. Add the time to your <command>PS1</command> prompt.</para>
 	<para>14. Execute <command>cd /var</command> and <command>ls</command> in an embedded shell.</para>

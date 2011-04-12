@@ -11,7 +11,4 @@
 	<para>8. Execute <command>sleep 200</command> in background (do not wait for it to finish).</para>
 	<para>9. Write a command line that executes <command>rm file55</command>. Your command line should print 'success' if file55 is removed, and print 'failed' if there was a problem.</para>
 	<para>(optional)10. Use echo to display "Hello World with strange' characters \ * [ }  ~ \\ ." (including all quotes)</para>
-	<screen>echo \"Hello World with strange\' characters \\ \* \[ \} \~ \\\\ \. \"</screen>
-	<screen>or</screen>
-	<screen>echo \""Hello World with strange' characters \ * [ } ~ \\ . "\"</screen>
 </section>
