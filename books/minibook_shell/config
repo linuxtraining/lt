@@ -15,7 +15,6 @@ add_mod chapter shell_control_operators
 add_mod chapter shell_variables
 add_mod chapter shell_history
 add_mod chapter shell_globbing
-add_mod chapter shell_io
 
 # license hardcoden op het einde van een .pdf ?
 # add_mod appendix gnufdl
