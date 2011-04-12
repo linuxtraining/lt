@@ -1,22 +1,30 @@
 <?hard-pagebreak?>
 <section><title>practice: commands and arguments</title>
-	<para>1. Display <command>A B  C</command> with two spaces between B and C.</para>
-	<para>2. Complete the following command (do not use spaces) to display exactly the following output:</para>
-	<screen>echo -e "4+4=8" ; echo -e "10+14=24"</screen>
+	<para>1. How many <command>arguments</command> are in this line (not counting the command itself).</para>
+	<screen>touch '/etc/cron/cron.allow' 'file 42.txt' "file 33.txt"</screen>
+	<para>2. Is <command>tac</command> a shell builtin command ?</para>
+	<para>3. Is there an existing alias for <command>rm</command> ?</para>
+	<para>4. Read the man page of <command>rm</command>, make sure you understand the <command>-i</command> option of rm. Create and remove a file to test the <command>-i</command> option.</para>
+	<para>5. Execute: <command>alias rm='rm -i'</command> . Test your alias with a test file. Does this work as expected ?</para>
+	<para>6. List all current aliases.</para>
+	<para>7a. Create an alias called 'city' that echoes your hometown.</para>
+	<para>7b. Use your alias to test that it works.</para>
+	<para>8. Execute <command>set -x</command> to display shell expansion for every command.</para>
+	<para>9. Test the functionality of <command>set -x</command> by executing your <command>city</command> and <command>rm</command> aliases.</para>
+	<para>10 Execute <command>set +x</command> to stop displaying shell expansion.</para>
+	<para>11. Remove your city alias.</para>
+	<para>12. What is the location of the <command>cat</command> and the <command>passwd</command> commands ?</para>
+	<para>13. Explain the difference between the following commands:</para>	
+	<screen>echo</screen>
+	<screen>/bin/echo</screen>
+	<para>14. Explain the difference between the following commands:</para>	
+	<screen>echo Hello</screen>
+	<screen>echo -n Hello</screen>
+	<para>15. Display <command>A B  C</command> with two spaces between B and C.</para>
+	<para>(optional)16. Complete the following command (do not use spaces) to display exactly the following output:</para>
 	<screen>4+4     =8
 10+14   =24</screen>
-	<para>3. Use echo to display the following exactly:</para>
+	<para>18. Use <command>echo</command> to display the following exactly:</para>
 	<screen>??\\</screen>
-	<para>4. Use one echo command to display three words on three lines.</para>
-	<para>5. Execute <command>cd /var</command> and <command>ls</command> in an embedded shell.</para>
-	<para>6. Create the variable embvar in an embedded shell and echo it. Does the variable exist in your current shell now ?</para>
-	<para>7. Explain what "set -x" does. Can this be useful ?</para>
-	<para>8. Given the following screenshot, add exactly four characters to that command line so that the total output is FirstMiddleLast.</para>
-	<screen>
-[paul@RHEL4b ~]$ echo  First; echo  Middle; echo  Last
-First
-Middle
-Last
-	</screen>
-	<para>9. Display a <command>long listing</command> (ls -l) of the <command>passwd</command> command using the <command>which</command> command inside back ticks.</para>
+	<para>19. Use one <command>echo</command> command to display three words on three lines.</para>
 </section>
