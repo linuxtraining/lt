@@ -1,0 +1,16 @@
+#!/bin/sh
+#
+
+BOOKTITLE="files"
+
+##################
+# define minibook
+##################
+
+# define book as directories in certain order
+
+add_mod chapter file_permissions
+add_mod chapter links
+
+# license hardcoden op het einde van een .pdf ?
+# add_mod appendix gnufdl
