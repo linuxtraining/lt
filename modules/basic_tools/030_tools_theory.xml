@@ -1,4 +1,4 @@
-<section><title>common tools</title>
+<?hard-pagebreak?>
 	<section><title>find</title>
 		<para>The <command>find</command><indexterm><primary>find(1)</primary></indexterm> command can be very useful at the start of a pipe to search for files. Here are some examples. You might want to add <command>2&#062;/dev/null</command> to the command lines to avoid cluttering your screen with error messages.</para>
 		<para>Find all files in <command>/etc</command> and put the list in etcfiles.txt</para>
@@ -106,8 +106,6 @@ user    0m0.847s
 sys     0m0.539s
 		</screen>
 	</section>
-</section>
-<section><title>compression tools</title>
 	<section><title>gzip - gunzip</title>
 		<para>Users never have enough disk space, so compression comes in handy. The <command>gzip</command><indexterm><primary>gzip(1)</primary></indexterm> command can make files take up less space.</para>
 		<screen>
@@ -165,4 +163,3 @@ paul@rhel55 ~$ bzcat text.txt.bz2 | head -4
 /opt/VBoxGuestAdditions-3.1.6/routines.sh
 		</screen>
 	</section>
-</section>

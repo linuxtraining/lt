@@ -1,0 +1,1 @@
+<para>This chapter introduces commands to <command>find</command> or <command>locate</command> files and to <command>compress</command> files, together with other common tools that were not discussed before. While the tools discussed here are technically not considered <command>filters</command>, they can be used in <command>pipes</command>.</para>
