@@ -20,7 +20,7 @@ add_mod minibook minibook_first_steps
 add_mod minibook minibook_shell
 add_mod minibook minibook_pipes_and_commands
 add_mod minibook minibook_vi
-#add_mod minibook scripting
+add_mod minibook minibook_scripts
 #add_mod minibook users
 #add_mod minibook file_security
 
