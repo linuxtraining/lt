@@ -1,7 +1,7 @@
 #!/bin/sh
 #
 
-BOOKTITLE="io redirection"
+BOOKTITLE="pipes and commands"
 
 ##################
 # define minibook
@@ -10,7 +10,7 @@ BOOKTITLE="io redirection"
 # define book as directories in certain order
 
 #add_mod chapter shell_introduction
-add_mod chapter shell_io
+add_mod chapter redirection_and_pipes
 add_mod chapter pipes_filters
 add_mod chapter basic_tools
 
