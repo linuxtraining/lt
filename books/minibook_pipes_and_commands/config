@@ -11,7 +11,7 @@ BOOKTITLE="pipes and commands"
 
 #add_mod chapter shell_introduction
 add_mod chapter redirection_and_pipes
-add_mod chapter pipes_filters
+add_mod chapter filters
 add_mod chapter basic_tools
 
 # license hardcoden op het einde van een .pdf ?
