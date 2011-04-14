@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>practice : i/o redirection</title>
+<section><title>practice : redirection and pipes</title>
 	<para>1. Use <command>ls</command> to output the contents of the <command>/etc/</command> directory to a file called <command>etc.txt</command>.</para>
 	<para>2. Activate the <command>noclobber</command> shell option.</para>
 	<para>3. Verify that <command>nocclobber</command> is active by repeating your <command>ls</command> on <command>/etc/</command>.</para>

@@ -1,9 +1,10 @@
-<section><title>shell i/o redirection</title>
-	<section><title>stdin, stdout, and stderr</title>
-		<para>The shell (and almost every other Linux command) takes input from <command>stdin</command> (stream <command>0</command>) <indexterm><primary>stdin</primary></indexterm> and sends output to <command>stdout</command> (stream <command>1</command>) <indexterm><primary>stdout</primary></indexterm> and error messages to <command>stderr</command> (stream <command>2</command>) <indexterm><primary>stderr</primary></indexterm>.</para>
-		<para>The keyboard often server as <command>stdin</command>, <command>stdout</command> and <command>stderr</command> both go to the disply. The shell allows you to redirect these streams.</para>
-	</section>
-	<section><title>&#062; output redirection</title>
+<?hard-pagebreak?>
+<section><title>stdin, stdout, and stderr</title>
+	<para>The shell (and almost every other Linux command) takes input from <command>stdin</command> (stream <command>0</command>) <indexterm><primary>stdin</primary></indexterm> and sends output to <command>stdout</command> (stream <command>1</command>) <indexterm><primary>stdout</primary></indexterm> and error messages to <command>stderr</command> (stream <command>2</command>) <indexterm><primary>stderr</primary></indexterm>.</para>
+	<para>The keyboard often server as <command>stdin</command>, <command>stdout</command> and <command>stderr</command> both go to the disply. The shell allows you to redirect these streams.</para>
+</section>
+<section><title>output redirection</title>
+	<section><title>&#062; stdout</title>
 		<para><command>stdout</command> can be redirected with a <command>greater than</command> sign. While scanning the line, the shell will see the <command>&#062;</command><indexterm><primary>&#062;</primary></indexterm> sign and will clear the file.</para>
 		<screen>
 [paul@RHELv4u3 ~]$ echo It is cold today!
@@ -13,7 +14,10 @@ It is cold today!
 It is cold today!
 [paul@RHELv4u3 ~]$
 		</screen>
-		<para>Let me repeat myself here: While scanning the line, the shell will see the &#062; sign and will clear the file! This means that even when the command fails, the file will be cleared!</para>
+		<para>Note that the <command>&#062;</command> notation is in fact the abbreviation of <command>1&#062;</command> (<command>stdout</command> being referred to as stream <command>1</command>.</para>
+	</section>
+	<section><title>output file is erased</title>
+		<para>To repeat: While scanning the line, the shell will see the &#062; sign and <command>will clear the file</command>! This means that even when the command fails, the file will be cleared!</para>
 		<screen>
 [paul@RHELv4u3 ~]$ cat winter.txt 
 It is cold today!
@@ -22,7 +26,6 @@ It is cold today!
 [paul@RHELv4u3 ~]$ cat winter.txt 
 [paul@RHELv4u3 ~]$ 
 		</screen>
-		<para>Note that the <command>&#062;</command> notation is in fact the abbreviation of <command>1&#062;</command> (<command>stdout</command> being referred to as stream <command>1</command>.</para>
 	</section>
 	<section><title>noclobber</title>
 		<para>Erasing a file while using &#062; can be prevented by setting the <command>noclobber</command><indexterm><primary>noclobber</primary></indexterm> option.</para>
@@ -35,6 +38,8 @@ It is cold today!
 [paul@RHELv4u3 ~]$ set +o noclobber
 [paul@RHELv4u3 ~]$
 		</screen>
+	</section>
+	<section><title>overruling noclobber</title>
 		<para>The <command>noclobber</command> can be overruled with <command>&#062;|</command><indexterm><primary>&#062;|</primary></indexterm>.</para>
 		<screen>
 [paul@RHELv4u3 ~]$ set -o noclobber
@@ -59,7 +64,9 @@ Where is the summer ?
 [paul@RHELv4u3 ~]$ 
 		</screen>
 	</section>
-	<section><title>2&#062; error redirection</title>
+</section>
+<section><title>error redirection</title>
+	<section><title>2&#062; stderr</title>
 		<para>Redirecting <command>stderr</command> is done with <command>2&#062;</command><indexterm><primary>2&#062;</primary></indexterm>. This can be very useful to prevent error messages from cluttering your screen. The screenshot below shows redirection of <command>stdout</command> to a file, and <command>stderr</command> to <command>/dev/null</command><indexterm><primary>/dev/null</primary></indexterm>. Writing <command>1&#062;</command><indexterm><primary>1&#062;</primary></indexterm> is the same as &#062;.</para>
 		<screen>
 [paul@RHELv4u3 ~]$ find / &#062; allfiles.txt 2&#062; /dev/null
@@ -78,7 +85,9 @@ Where is the summer ?
 		<screen>ls 2>&amp;1 > dirlist</screen>
 		<para>directs only the standard output to file dirlist, because the standard error was made a copy of the standard output before the standard output was redirected to dirlist. </para>
 	</section>
-	<section><title>&#060; input redirection</title>
+</section>
+<section><title>input redirection</title>
+	<section><title>&#060; stdin</title>
 		<para>Redirecting <command>stdin</command> is done with &#060; (short for 0&#060;).</para>
 		<screen>
 [paul@RHEL4b ~]$ cat &#060; text.txt
@@ -108,26 +117,57 @@ brel
 [paul@RHEL4b ~]$
 		</screen>
 	</section>
-	<section><title>confusing i/o redirection</title>
-		<para>The shell will scan the whole line before applying redirection. The following command line is very readable and is correct.</para>
-		<screen>cat winter.txt &#062; snow.txt 2&#062; errors.txt</screen>
-		<para>But this one is also correct, but less readable.</para>
-		<screen>2&#062; errors.txt cat winter.txt &#062; snow.txt</screen>
-		<para>Even this will be understood perfectly by the shell.</para>
-		<screen>&#060; winter.txt &#062; snow.txt 2&#062; errors.txt cat</screen>
+</section>
+<section><title>confusing redirection</title>
+	<para>The shell will scan the whole line before applying redirection. The following command line is very readable and is correct.</para>
+	<screen>cat winter.txt &#062; snow.txt 2&#062; errors.txt</screen>
+	<para>But this one is also correct, but less readable.</para>
+	<screen>2&#062; errors.txt cat winter.txt &#062; snow.txt</screen>
+	<para>Even this will be understood perfectly by the shell.</para>
+	<screen>&#060; winter.txt &#062; snow.txt 2&#062; errors.txt cat</screen>
+</section>
+<section><title>quick file clear</title>
+	<para>So what is the quickest way to clear a file ?</para>
+	<screen>&#062;foo</screen>
+	<para>And what is the quickest way to clear a file when the <command>noclobber</command> option is set ?</para>
+	<screen>&#062;|bar</screen>
+</section>
+<section><title>swapping stdout and stderr</title>
+	<para>When filtering an output stream, e.g. through a regular pipe ( | ) you only can filter <command>stdout</command>. Say you want to filter out some unimportant error, out of the <command>stderr</command> stream. This cannot be done directly, and you need to 'swap'  <command>stdout</command> and <command>stderr</command>. This can be done by using a 4th stream referred to with number 3:</para>
+	<screen>3&#062;&#038;1 1&#062;&#038;2 2&#062;&#038;3</screen>
+	<para>This Tower Of Hanoi like construction uses a temporary stream 3, to be able to swap <command>stdout</command> (1) and <command>stderr</command> (2). The following is an example of how to filter out all lines in the <command>stderr</command> stream, containing $uninterestingerror.</para>
+	<screen>$command 3&#062;&#038;1 1&#062;&#038;2 2&#062;&#038;3 | grep -v $error 3&#062;&#038;1 1&#062;&#038;2 2&#062;&#038;3</screen>
+	<para>But in this example, it can be done in a much shorter way, by using a pipe on STDERR:</para>
+	<screen>/usr/bin/$somecommand |&#038; grep -v $uninterestingerror  </screen>
+</section>
+<?hard-pagebreak?>
+<section><title>pipes</title>
+	<para>One of the most powerful advantages of <command>Linux</command> is the use of <command>pipes</command><indexterm><primary>pipe</primary></indexterm>.</para>
+	<para>A pipe takes <command>stdout</command><indexterm><primary>stdout</primary></indexterm> from the previous command and sends it as <command>stdin</command><indexterm><primary>stdin</primary></indexterm> to the next command. All commands in a <command>pipe</command> run simultaneously.</para>
+	<section><title>&#0124; vertical bar</title>
+		<para>Consider the following example.</para>
+		<screen>paul@debian5:~/test$ ls /etc > etcfiles.txt
+paul@debian5:~/test$ tail -4 etcfiles.txt 
+X11
+xdg
+xml
+xpdf
+paul@debian5:~/test$</screen>
+		<para>This can be written in one command line using a <command>pipe</command>.</para>
+		<screen>paul@debian5:~/test$ ls /etc | tail -4
+X11
+xdg
+xml
+xpdf
+paul@debian5:~/test$</screen>
+		<para>The <command>pipe</command> is represented by a vertical bar <command>&#124;</command><indexterm><primary>&#124;</primary></indexterm> between two commands.</para>
 	</section>
-	<section><title>quick file clear</title>
-		<para>So what is the quickest way to clear a file ?</para>
-		<screen>&#062;foo</screen>
-		<para>And what is the quickest way to clear a file when the <command>noclobber</command> option is set ?</para>
-		<screen>&#062;|bar</screen>
-	</section>
-	<section><title>swapping stdout and stderr</title>
-		<para>When filtering an output stream, e.g. through a regular pipe ( | ) you only can filter <command>stdout</command>. Say you want to filter out some unimportant error, out of the <command>stderr</command> stream. This cannot be done directly, and you need to 'swap'  <command>stdout</command> and <command>stderr</command>. This can be done by using a 4th stream referred to with number 3:</para>
-		<screen>3&#062;&#038;1 1&#062;&#038;2 2&#062;&#038;3</screen>
-		<para>This Tower Of Hanoi like construction uses a temporary stream 3, to be able to swap <command>stdout</command> (1) and <command>stderr</command> (2). The following is an example of how to filter out all lines in the <command>stderr</command> stream, containing $uninterestingerror.</para>
-		<screen>$command 3&#062;&#038;1 1&#062;&#038;2 2&#062;&#038;3 | grep -v $error 3&#062;&#038;1 1&#062;&#038;2 2&#062;&#038;3</screen>
-		<para>But in this example, it can be done in a much shorter way, by using a pipe on STDERR:</para>
-		<screen>/usr/bin/$somecommand |&#038; grep -v $uninterestingerror  </screen>
+	<section><title>multiple pipes</title>
+		<para>One command line can use multiple <command>pipes</command>. All commands in the <command>pipe</command> can run at the same time.</para>
+		<screen>paul@deb503:~/test$ ls /etc | tail -4 | tac
+xpdf
+xml
+xdg
+X11</screen>
 	</section>
 </section>
