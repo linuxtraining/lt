@@ -1,0 +1,18 @@
+#!/bin/sh
+#
+
+BOOKTITLE="scripting"
+
+##################
+# define minibook
+##################
+
+# define book as directories in certain order
+
+add_mod chapter scripting_intro
+add_mod chapter scripting_loops
+add_mod chapter scripting_params
+add_mod chapter scripting_adv
+
+# license hardcoden op het einde van een .pdf ?
+# add_mod appendix gnufdl
