@@ -1,0 +1,18 @@
+#!/bin/sh
+#
+
+BOOKTITLE="vi"
+
+##################
+# define minibook
+##################
+
+# define book as directories in certain order
+
+add_mod chapter intro_vi
+
+# GOAL is to create (at least) three chapters in this minibook
+
+# 1. minimal vi ( Esc, a, x, u, :wq, :q! )
+# 2. vimtutor stuff
+# 3. advanced vi ( .vimrc, :r !cmd, macros, buffers, ...)

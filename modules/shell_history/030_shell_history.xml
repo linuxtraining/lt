@@ -69,11 +69,11 @@ paul@debian5:~/test$</screen>
 	<para>Repeating a command in the <command>Korn shell</command> is very similar. The Korn shell also has the <command>history</command> command, but uses the letter <command>r</command> to recall lines from history.</para>
 	<para>This screenshot shows the history command. Note the different meaning of the parameter.</para>
 	<screen>$ history 17
-17      clear
-18      echo hoi
-19      history 12
-20      echo world
-21      history 17</screen>
+17  clear
+18  echo hoi
+19  history 12
+20  echo world
+21  history 17</screen>
 	<para>Repeating with <command>r</command> can be combined with the line numbers given by the history command, or with the first few letters of the command.</para>
 	<screen>$ r e
 echo world
