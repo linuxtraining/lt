@@ -1,3 +1,4 @@
+<?hard-pagebreak?>
 <section><title>file ownership</title>
 	<section><title>user owner and group owner</title>
 		<para>The <command>users</command> and <command>groups</command> of a system can be locally managed in <command>/etc/passwd</command><indexterm><primary>/etc/passwd</primary></indexterm> and <command>/etc/group</command><indexterm><primary>/etc/group</primary></indexterm>, or they can be in a NIS, LDAP, or Samba domain. These users and groups can <command>own</command> files. Actually, every file has a <command>user owner</command><indexterm><primary>file ownership</primary></indexterm> and a <command>group owner</command>, as can be seen in the following screenshot.</para>
