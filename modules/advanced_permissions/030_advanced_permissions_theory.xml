@@ -1,4 +1,4 @@
-<section><title>sticky and setgid bits</title>
+<?hard-pagebreak?>
 	<section><title>sticky bit on directory</title>
 		<para>You can set the <command>sticky bit</command><indexterm><primary>sticky bit</primary></indexterm> on a directory to prevent users from removing files that they do not own as a user owner. The sticky bit is displayed at the same location as the x permission for others. The sticky bit is represented by a <command>t</command> (meaning x is also there) or a <command>T</command> (when there is no x for others).</para>
 		<screen>
@@ -74,4 +74,3 @@ paul@laika:~$ find /usr/bin -type f -perm -04000
 		</screen>
 		<para>In most cases, setting the <command>setuid</command> bit on executables is sufficient. Setting the <command>setgid</command> bit will result in these programs to run with the credentials of their group owner.</para>
 	</section>
-</section>
