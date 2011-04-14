@@ -1,3 +1,4 @@
+<?hard-pagebreak?>
 <section><title>identify yourself</title>
 	<section><title>whoami</title>
 		<para>The <command>whoami</command><indexterm><primary>whoami(1)</primary></indexterm> command tells you your username.</para>
