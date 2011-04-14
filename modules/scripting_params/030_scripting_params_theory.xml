@@ -1,5 +1,4 @@
 <?hard-pagebreak?>
-<section><title>parameters and options</title>
 	<section><title>script parameters</title>
 		<para>A <command>bash</command> shell script can have parameters. The numbering you see in the script below continues if you have more parameters. You also have special parameters containing the number of parameters, a string of all of them, and also the process id, and the last error code. The man page of <command>bash</command> has a full list.</para>
 		<screen>
@@ -179,4 +178,3 @@ paul@laika:~$ shopt -q cdspell ; echo $?
 paul@laika:~$ cd /Etc
 /etc</screen>
 	</section>
-</section>

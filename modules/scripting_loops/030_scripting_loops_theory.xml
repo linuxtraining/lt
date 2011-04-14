@@ -1,5 +1,4 @@
 <?hard-pagebreak?>
-<section><title>scripting tests and loops</title>
 	<section><title>test [ ]</title>
 		<para>The <command>test</command><indexterm><primary>test</primary></indexterm> command can test whether something is true or false. Let's start by testing whether 10 is greater than 55.</para>
 		<screen>[paul@RHEL4b ~]$ test 10 -gt 55 ; echo $?
@@ -100,4 +99,3 @@ do
    let i--;
 done</screen>
 	</section>
-</section>

@@ -1,5 +1,4 @@
 <?hard-pagebreak?>
-<section><title>more scripting</title>
 	<section><title>eval</title>
 		<para><command>eval</command> reads arguments as input to the shell (the resulting commands are executed). This allows using the value of a variable as a variable.</para>
 		<screen>paul@deb503:~/test42$ answer=42
@@ -142,4 +141,3 @@ plus 20 22</screen>
 20 + 13 = 33
 20 + 22 = 42</screen>
 	</section>
-</section>
