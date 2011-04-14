@@ -1,0 +1,2 @@
+<para>Commands that are created to be used with a <command>pipe</command> are often called <command>filters</command><indexterm><primary>filters</primary></indexterm>. These <command>filters</command> are very small programs that do one specific thing very efficiently. They can be used as <command>building blocks</command>.</para>
+<para>This chapter will introduce you to the most common <command>filters</command>. The combination of simple commands and filters in a long <command>pipe</command> allows you to design elegant solutions.</para>

@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>solution : pipes and filters</title>
+<section><title>solution : filters</title>
 	<para>1. Put a sorted list of all bash users in bashusers.txt.</para>
 	<screen>grep bash /etc/passwd | cut -d: -f1 | sort &#062; bashusers.txt</screen>
 	<para>2. Put a sorted list of all logged on users in onlineusers.txt.</para>
