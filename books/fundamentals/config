@@ -22,39 +22,7 @@ add_mod minibook minibook_pipes_and_commands
 add_mod minibook minibook_vi
 add_mod minibook minibook_scripts
 add_mod minibook minibook_users
-#add_mod minibook file_security
-
-
-# OBSOLETE define book as chapters in certain order
-
-# fundamentals
-#add_mod chapter intro_unix
-#add_mod chapter getting_help
-#add_mod chapter intro_directories
-#add_mod chapter intro_files
-#add_mod chapter intro_file_contents
-#add_mod chapter file_system_tree
-
-#add_mod chapter shell_introduction
-#add_mod chapter shell_control_operators
-#add_mod chapter shell_variables
-#add_mod chapter shell_arguments
-#add_mod chapter shell_history
-#add_mod chapter shell_globbing
-#add_mod chapter shell_io
-
-#add_mod chapter pipes_filters
-#add_mod chapter basic_tools
-
-#add_mod chapter intro_vi
-#add_mod chapter intro_scripts
-
-#add_mod chapter intro_users
-#add_mod chapter intro_groups
-#add_mod chapter file_permissions
-#add_mod chapter advanced_permissions
-#add_mod chapter acls
-#add_mod chapter links
+add_mod minibook minibook_files
 #add_mod chapter intro_processes
 
 #add_mod appendix keys
