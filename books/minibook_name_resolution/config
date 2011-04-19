@@ -1,0 +1,19 @@
+#!/bin/sh
+#
+
+BOOKTITLE="first steps on the command line"
+
+##################
+# define minibook
+##################
+
+# define book as directories in certain order
+
+add_mod chapter man_pages
+add_mod chapter working_with_directories
+add_mod chapter working_with_files
+add_mod chapter working_with_file_contents
+add_mod chapter file_system_tree
+
+# license hardcoden op het einde van een .pdf ?
+# add_mod appendix gnufdl

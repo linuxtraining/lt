@@ -1,0 +1,18 @@
+#!/bin/sh
+#
+
+BOOKTITLE="ipv4 subnetting"
+
+##################
+# define minibook
+##################
+
+# define book as directories in certain order
+
+add_mod chapter ipv4_addressing
+add_mod chapter classful_subnets
+#add_mod chapter classless_subnets
+#add_mod chapter supernets
+
+# license hardcoden op het einde van een .pdf ?
+# add_mod appendix gnufdl
