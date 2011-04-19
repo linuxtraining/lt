@@ -30,9 +30,9 @@ Most module-directories now have files named like this:
 040_$string_practice (optional)
 050_$string_solution (optional)
 
-paul renamed xml files in the module-directories to match this system
+FIXED paul renamed xml files in the module-directories to match this system
 (some modules divert from this, but can be processed alphabetically now!)
-serge can write a script to parse a module-directory instead of the 'chapters' file
+FIXED serge can write a script to parse a module-directory instead of the 'chapters' file
 
 2. minibooks can be a single book in xml <book></book>
 Minibooks have their own directory in /books/minibook_name_of_minibook/
@@ -40,7 +40,7 @@ Some minibooks are defined already.
 
 3. minibooks become parts in xml <part></part> when bundled in a book
 
-paul has prepared some minibooks in 'experimental branch' so serge can test his script
+FIXED paul has prepared some minibooks in 'experimental branch' so serge can test his script
 
 
 EXTRA:
@@ -53,9 +53,9 @@ Paul really likes this idea because :
 
 
 CURRENT ACTIONS
-- paul: create first minibook and notify serge when committed in experimental (done)
+FIXED - paul: create first minibook and notify serge when committed in experimental (done)
 - paul: continues with the other minibooks (and minichapters) (working)
-- serge: update the built project so it can parse module-directories without the chapters file
+FIXED - serge: update the built project so it can parse module-directories without the chapters file
 
 
 ISSUES
@@ -83,44 +83,48 @@ minibook : first steps (DONE)
 - the Linux file tree
 
 minibook : the shell (DONE)
-- introduction to bash
+- arguments
 - control operators
 - variables
-- arguments
 - file globbing
 - shell history
-- i/o
 
-minibook : pipes and filters
+minibook : pipes and commands (DONE)
 - i/o redirection
 - filter commands
 - common tools
 - compression
 
-minibook : scripting
+minibook : vi (TO BE SPLIT)
 - vi(m)
+
+minibook : scripting (TO BE REVIEWED)
 - introduction to scripting
 - tests and loops
 - parameters and options
 - more scripting
 
-minibook : user management
+minibook : user management (TO BE REVIEWED)
 - users
 - passwords
 - user environment
 - su and sudo
 - groups
 
-minibook : file security
+minibook : files (DONE)
 - basic permissions
-- advenaced permissions
+- advanced permissionsa
 - access control lists
-- extended attributes (NEW)
+- extended attributes (NEW TO DO)
 - file links (right?)
 
 minibook : processes
 - ... we 'll see when we get here
 
+TODO minibooks for system administration
+TODO minibooks for the advanced/server topics
+TODO minibooks for the end user training in Dutch (eindgebruikers Linux)
+TODO minibooks for the tcp/ip course for SyntraAB
 
 XML LAYOUT OF MINIBOOK:
 <book>
