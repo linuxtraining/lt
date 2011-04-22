@@ -1,0 +1,148 @@
+<?hard-pagebreak?>
+<section><title>tcp en udp</title>
+	<para>Behalve <command>tcp</command> vinden we in <command>layer 4</command> ook nog <command>udp</command>. U hebt genoteerd dat alvorens een <command>http request</command> verstuurd wordt, er eerst een <command>tcp handshake</command> plaatsvindt, maar dat er voor de <command>dns query</command> helemaal geen handshake was. Dat komt omdat <command>http</command> gebruikt maakt van <command>tcp</command> in <command>layer 4</command>, terwijl <command>dns</command> hier werkt bovenop <command>udp</command>.</para>
+	<section><title>tcp</title>
+		<para><command>tcp</command><indexterm><primary>tcp</primary></indexterm> staat voor <command>Transmission Control Protocol</command>. Het is een protocol dat een <command>connectie</command> opzet alvorens data te versturen. Als je zekerheid wil dat je packetjes aankomen, dan is <command>tcp</command> het aangewezen protocol. In de <command>tcp header</command> zit heel wat overhead. Als een <command>tcp packetje</command> niet aankomt, dan wordt het nogmaals verstuurd.</para>
+		<para>De huidige <command>tcp</command> standaard werd vastgelegd in <command>rfc 793</command> van 1981.</para>
+		<para>De <command>tcp triple handshake</command><indexterm><primary>tcp handshake</primary></indexterm> gaat steeds vooraf aan de <command>tcp</command> connectie. Dit wil zeggen dat er minstens vier packetjes over het netwerk gaan.</para>
+		<mediaobject><imageobject><imagedata fileref="images/tcp_sessie.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	</section>
+	<section><title>udp</title>
+		<para>In tegenstelling tot <command>tcp</command> is er bij <command>udp</command><indexterm><primary>udp</primary></indexterm> geen connectie, en ook geen handshake. Men noemt <command>udp</command> een <command>connectionless</command> protocol.</para>
+		<para><command>udp</command> heeft minder overhead dan <command>tcp</command> en is bijgevolg sneller voor het doorsturen van data. Maar <command>udp</command> doet geen controle of een packetje ook wel degelijk aankomt. Als een <command>udp</command> packetje zijn bestemming niet bereikt, dan ben je het kwijt.</para>
+		<mediaobject><imageobject><imagedata fileref="images/udp.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	</section>
+	<section><title>oefening</title>
+		<para>Bedenk zelf wanneer je udp zou gebruiken, en wanneer tcp.</para>
+		<para></para>
+		<para>e-mail van je manager ?</para>
+		<para></para>
+		<para>website van een klant ?</para>
+		<para></para>
+		<para>live radio uitzending van Clijsters tegen Henin ?</para>
+		<para></para>
+		<para>dns ?</para>
+		<para></para>
+	</section>
+</section>
+<?hard-pagebreak?>
+<section><title>ping en arp</title>
+	<para>Het <command>arp</command> protocol is een <command>layer 2</command> protocol dat een link legt tussen het <command>ip-adres</command> en het <command>mac-adres</command> van een computer. We hebben in de klas deze werking aangetoond met behulp van het <command>ping</command> commando en de <command>wireshark</command> sniffer. We hebben ook het <command>arp</command> commando uitgevoerd om de <command>arp-cache-table</command> te bekijken.</para>
+	<para>
+	<mediaobject><imageobject><imagedata fileref="images/arp_ping.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	</para>
+</section>
+<?hard-pagebreak?>
+<section><title>packetjes</title>
+	<para>Op het bord heb ik regelmatig 'packetjes' getekend. Technisch spreken we van een <command>ethernet frame</command> en van een <command>ip datagram</command>. Het exacte formaat (per bit of byte) van deze packetjes behoort niet tot de leerstof. Ik veronderstel hier enkel dat jullie weten dat een ethernet netwerkkaart de eerste zes bytes, zijnde het bestemmings-mac-adres vergelijkt met haar eigen mac-adres.</para>
+	<para>Hieronder een <command>ethernet frame</command> met de bytes op ware grootte en enige info op de juiste positie.</para>
+	<para></para>
+	<mediaobject><imageobject><imagedata fileref="images/ethernet_frame.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>Omdat we toch iets moeten kennen van <command>mac-adressen</command>, <command>ip-adressen</command> en <command>poorten</command> om protocols en toestellen te begrijpen, gebruiken we onderstaande vereenvoudigde voorstelling van een <command>packetje</command> op het netwerk.</para>
+	<para></para>
+	<mediaobject><imageobject><imagedata fileref="images/mod_cvotsm/simple_packet.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+</section>
+<?hard-pagebreak?>
+<section><title>onze data op reis</title>
+	<para>Dit hoofdstuk beschrijft zeer beknopt de weg die onze data bewandelt als we in een <command>browser</command><indexterm><primary>browser</primary></indexterm> zoals <command>firefox</command><indexterm><primary>firefox</primary></indexterm> een webpagina van de VRT (van teletekst) bekijken. Je kan dit hoofdstuk bekijken als een beknopt overzicht van de hele cursus, alles wat we in de cursus bekijken is wel ergens in dit verhaal te plaatsen.</para>
+	<section><title>laag 7: applicatie</title>
+		<para>De reis begint in de bovenste laag. Dat is laag 7, de applicatielaag. We gebruiken als voorbeeld de applicatie genaamd <command>firefox</command><indexterm><primary>mozilla firefox</primary></indexterm> waarop pagina 525 van vrt teletekst open staat. Uiteraard bevindt de applicatie <command>firefox</command> zich in de bovenste laag.</para>
+		<para>We klikten op het knopje <command>toon</command> om de pagina te verversen. Klikken op dat knopje stuurt een <command>http request</command><indexterm><primary>http</primary></indexterm> naar de vrt teletekst <command>webserver</command><indexterm><primary>webserver</primary></indexterm>. Het <command>layer 7 protocol</command><indexterm><primary>layer 7 protocol</primary></indexterm> waar webservers en web clients (aka browsers) mee werken is <command>http (hyper text transfer protocol)</command><indexterm><primary>http</primary></indexterm>. Onze data zakt naar laag 6.</para>
+		<para>
+	        <mediaobject><imageobject><imagedata fileref="images/pagina525.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	        </para>
+	</section>
+	<section><title>lagen 6 en 5: presentatie en sessie</title>
+		<para>Deze lagen zijn niet echt van toepassing omdat we met <command>tcp/ip</command><indexterm><primary>tcp/ip</primary></indexterm> werken en niet met een 7-lagig osi protocol. Je zou kunnen zeggen dat de <command>browser</command> in laag 6 een <command>html</command> document ontvangt van de <command>webserver</command>. Dit <command>html</command> document kan bestaan uit <command>ascii</command> of <command>unicode</command> karakters.</para>
+	</section>
+	<section><title>laag 4: transport</title>
+		<para>In deze laag zien we hoe de <command>tcp</command><indexterm><primary>tcp</primary></indexterm> van <command>tcp/ip</command> een <command>sessie</command> opzet.</para>
+		<para>Zoals eerder al geschreven vindt er in deze laag wat knip- en plakwerk plaats. Alleen is het nu net een geval waar er niet moet geknipt worden. We vragen een <command>webpagina</command> aan een <command>webserver</command>, en deze vraag past perfect in een packetje, dus er moet niet geknipt worden. Het protocol aan het werk hier is <command>tcp (Transfer Control Protocol)</command><indexterm><primary>transfer control protocol</primary></indexterm>. </para>
+		<para>Maar er gebeurt toch nog iets meer dan enkel de vraag sturen van <command>firefox</command> naar de vrt teletekst <command>webserver</command>. Het <command>tcp</command> protocol gaat eerst een <command>tcp sessie</command><indexterm><primary>tcp sessie</primary></indexterm> opzetten met de vrt webserver. We kunnen dit controleren door een <command>sniffer</command><indexterm><primary>sniffer</primary></indexterm> op te starten.</para>
+		<para>
+        	<mediaobject><imageobject><imagedata fileref="images/tcpsessie.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+        	</para>
+        	<para>Je ziet drie <command>tcp packetjes</command> voordat het <command>http</command> packetje (wat ook een tcp packetje is) wordt verstuurd. <command>tcp</command> zet een sessie op door eerst een packetje te sturen met de vraag om een sessie op te zetten (SYN), hierop komt een antwoord van de VRT webserver (SYN,ACK) en als laatste wordt er vanuit mijn laptop nog een (ACK) gestuurd.</para>
+		<para>In het screenshot hierboven zie je een <command>http GET</command><indexterm><primary>http</primary></indexterm> van pagina 511 i.p.v. pagina 525, maar dat heeft geen belang voor de theorie.</para>
+	</section>
+	<section><title>laag 3: netwerk</title>
+		<para>Onze vraag voor een webpagina moet terecht komen bij de <command>webserver</command> van de vrt. Deze computer staat niet in onze klas (en ook niet bij mij thuis). Het <command>ip</command> protocol zorgt voor de bezorging van het packetje ter plaatse in de Reyerslaan (waar deze vrt webserver staat).</para>
+		<para>Om op de correcte plaats te geraken, is er een <command>ip-adres</command><indexterm><primary>ip-adres</primary></indexterm> nodig. Het ip-adres van de vrt webserver is <command>193.191.175.137</command>. We vinden dit terug in elke packetje dat we naar de webserver van de vrt sturen, in de ruimte voorzien voor <command>destination IP-address</command>. Als bron ip-adres wordt telkens het ip-adres van mijn laptop thuis gebruikt, in dit geval <command>192.168.1.34</command>.</para>
+		<para>Onze sniffer vertaalt de <command>hexadecimale code</command><indexterm><primary>hexadecimaal</primary></indexterm> die de computer gebruikt naar menselijk leesbare <command>decimale cijfers</command>.</para>
+		<para>
+        	<mediaobject><imageobject><imagedata fileref="images/ipadresvrt.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+		</para>
+		<para>Hoe kan onze computer het <command>ip-adres</command> van de webserver van vrt teletekst kennen ? Daarvoor doet <command>tcp/ip</command><indexterm><primary>tcp/ip</primary></indexterm> een beroep op <command>dns</command><indexterm><primary>dns</primary></indexterm>. Indien je voor het eerst sinds een tijdje naar de website van teletekst gaat op <command>url</command> <command>http://teletekst.een.be</command>, zal er een <command>dns-query</command> gaan van onze computer naar onze lokale <command>DNS server</command><indexterm><primary>dns server</primary></indexterm>.</para>
+		<para><command>DNS (Domain Name System)</command> wordt later uitgebreid besproken, maar het zou kunnen dat je het volgende ziet in de sniffer.</para>
+		<para>
+        	<mediaobject><imageobject><imagedata fileref="images/dnsteletekst.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+		</para>
+	</section>
+	<section><title>laag 2: data link</title>
+		<para>De <command>OSI data link layer</command> is een deel van de <command>DoD link layer</command> van <command>tcp/ip</command>. In deze laag maken we gebruik van het <command>MAC</command><indexterm><primary>mac</primary></indexterm> adres van een netwerkkaart. Een <command>mac adres</command> is een fysisch adres dat ingebrand is in de netwerkkaart.</para>
+		<para>Voordat ons eerste packetje kan vertrekken, moet het <command>mac-adres</command> van de lokale bestemming gevonden worden. De webserver van vrt teletekst staat niet bij mij thuis, dus de lokale bestemming is mijn <command>router</command><indexterm><primary>router</primary></indexterm> (aka de adsl modem). Deze heeft <command>ip-adres</command> 192.168.1.1.</para>
+		<para>Mijn laptop zal een <command>arp</command><indexterm><primary>arp</primary></indexterm> broadcast uitvoeren om het mac-adres te vinden van de computer met ip-adres 192.168.1.1. Mijn <command>router</command> zal hierop antwoorden. In een sniffer ziet dit er als volgt uit.</para>
+		<para>
+        	<mediaobject><imageobject><imagedata fileref="images/arpillyria.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+		</para>
+	</section>
+	<section><title>laag 1: physical</title>
+		<para>De netwerkkaart is gelukkig als het packetje volledig is, en smijt het letterlijk op mijn lokaal netwerk. Fysisch is dit een broadcast, alle computers in het lokale netwerk ontvangen dit packetje, maar enkel de enige correcte bestemmeling zal het packetje ook aanvaarden. Die correcte bestemming is mijn lokale <command>router</command>.</para>
+		<para>In de OSI wereld is dit een aparte laag, in de DoD wereld is dit een onderdeel van de <command>DoD link layer</command><indexterm><primary>link layer</primary></indexterm>.</para>
+	</section>
+<section><title>onze data onderweg</title>
+	<para>Onze <command>http request</command><indexterm><primary>http</primary></indexterm> voor een teletekst pagina is nu onderweg van centrum Antwerpen naar de Reyerslaan in Brussel. Het packetje springt van router tot router, totdat het op het netwerk van de <command>webserver</command> van de vrt zit.</para>
+	<para>Je kan deze weg (de routers) bekijken door een <command>traceroute</command><indexterm><primary>traceroute</primary></indexterm> te doen. Hieronder zie je de uitvoer van het <command>traceroute</command> commando op mijn laptop.</para>
+	<screen>traceroute to 193.191.175.137 (193.191.175.137), 30 hops max, 60 byte packets
+1  illyria (192.168.1.1)  0.812 ms  1.285 ms  1.764 ms
+2  213.219.148.1.adsl.dyn.edpnet.net (213.219.148.1) 26.453 ms 26.833 ms 27.216 ms
+3  ndl2-rb01.edpnet.be (213.219.132.237)  27.655 ms  28.035 ms  28.412 ms
+4  adslgwbe.edpnet.net (212.71.1.78)  28.924 ms  29.305 ms  29.798 ms
+5  10ge.cr1.brueve.belnet.net (194.53.172.65)  30.165 ms  30.543 ms  30.888 ms
+6  10ge.ar1.brucam.belnet.net (193.191.16.193)  31.991 ms  31.530 ms  31.960 ms
+7  vrt.customer.brussels.belnet.net (193.191.4.189) 32.046 ms 9.004 ms 24.205 ms
+8  * * *
+9  * * *
+	</screen>
+	<para>Wat je ziet, is dat de eerste router <command>illyria</command> heet en <command>192.168.1.1</command> als ip-adres heeft. Dit is mijn lokale <command>adsl modem</command><indexterm><primary>adsl</primary></indexterm> met ingebouwde router functie. Op de tweede lijn zie je de andere kant van mijn adsl modem, de kant van mijn <command>internet service provider (ISP)</command> genaamd <command>edpnet</command><indexterm><primary>edpnet</primary></indexterm>.</para>
+	<para>Daarna passeren we enkele routers van edpnet, om vervolgens te reizen naar <command>belnet</command>. Het Belgische <command>belnet</command><indexterm><primary>belnet</primary></indexterm> is een snel backbone netwerk waar o.a. universiteiten en openbare instellingen op aangesloten zijn.</para>
+	<para>De laatste router die we zien heet <command>vrt.customer.brussels.belnet.net</command>. Uit deze naam kan je afleiden dat de VRT een klant is van <command>belnet</command> in Brussel.</para>
+	<para>Nadien zien we enkel nog sterretjes, dat is omdat de <command>systeembeheerder</command> van de VRT beslist heeft om geen <command>traceroute</command> door zijn <command>firewall</command><indexterm><primary>firewall</primary></indexterm> te laten. Onze <command>http request</command> mag gelukkig wel door.</para>
+</section>
+<section><title>bestemming bereikt</title>
+	<para>Als alles goed gaat, dan bereikt onze data (of onze <command>http request</command>) zijn bestemming. De laatste <command>router</command> gooit onze data op het lokale netwerk van de <command>webserver</command> van de VRT.</para>
+	<para>De netwerkkaart van deze server converteert de elektrische signalen in bytes, en controleert of de eerste zes bytes wel overeenstemmen met haar <command>MAC adres</command><indexterm><primary>mac</primary></indexterm>. Dat is gelukkig juist, dus is het de beurt aan <command>IP</command>.</para>
+	<para>Het <command>ip protocol</command> controleert of het <command>destination ip address</command> wel correct is, en dat is (gelukkig) weeral juist.</para>
+	<para>Verdere <command>metadata</command> in het packetje vertelt deze computer dat het een <command>tcp packet</command> is, met als bestemming de <command>http-server</command><indexterm><primary>http</primary></indexterm>.</para>
+	<para>De <command>http server (of webserver)</command> zelf zoekt dan de gevraagde webpagina, en stuurt deze webpagina als antwoord op onze vraag.</para>
+</section>
+<section><title>er komt antwoord</title>
+	<para>De webserver heeft de bewuste <command>webpagina</command> klaar en wil een antwoord sturen naar mijn laptop. Deze computer kent mijn <command>ip-adres</command><indexterm><primary>ip-adres</primary></indexterm> omdat dit meegeleverd is in het packetje als <command>source ip-adres</command>.</para>
+	<para>We zakken weer van de <command>applicatie-laag</command> (ja ook een http-server is een applicatie) naar beneden.</para>
+	<para>Tussen haakjes, de <command>presentatie</command> van deze data aan de browser gebeurt met een <command>mime type</command>. Email berichten (en websites) bestaan al lang niet meer enkel uit <command>ascii</command><indexterm><primary>ascii</primary></indexterm> karakters, maar bevatten ook andere karakters, foto's, geluid en film.</para>
+	<para><command>MIME (Multipurpose Internet Mail Extensions)</command><indexterm><primary>mime</primary></indexterm> defineert een mechanisme om deze inhoud te versturen over e-mail (of zoals in ons voorbeeld over <command>http</command>). Je zou <command>mime</command> in <command>osi layer 6</command> kunnen zetten.</para>
+	<para>De <command>tcp-sessie</command><indexterm><primary>tcp sessie</primary></indexterm> die mijn laptop heeft opgezet, die is er nog steeds. Het antwoord kan dus onmiddellijk door de <command>transport-laag</command> naar <command>ip</command>, of toch bijna. De gevraagde webpagina is immers te groot om in 1 packetje door te sturen, dus moet er geknipt en geplakt worden door <command>tcp</command>. Dit kan je zien in de sniffer als een opeenvolging van <command>tcp segment</command> packetjes, gevolgd door een <command>tcp ack</command><indexterm><primary>tcp</primary></indexterm>nowledgement.</para>
+	<para>
+        <mediaobject><imageobject><imagedata fileref="images/tcpknipplak.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	</para>
+	<para>Het <command>ip</command><indexterm><primary>ip</primary></indexterm> protocol zal zorgen voor de terugweg van Brussel naar Antwerpen, eventueel via andere <command>routers</command>.</para>
+	<para>Eens het antwoord terug op ons netwerk is, gaat de data van onder naar boven door de lagen, totdat onze <command>browser</command> de webpagina kan tonen.</para>
+</section>
+	<section><title>vragen</title>
+		<para>1. Hoe weet de computer van de VRT dat het packetje naar de http-server moet ?</para>
+		<para>2. Hoe weet mijn laptop voor welke applicatie het packetje is ?</para>
+	</section>
+</section>
+<?hard-pagebreak?>
+<section><title>lagen oefening</title>
+	<para>0. Kies een netwerk voor de volgende vragen : thuis, werk, klas</para>
+	<para></para>
+	<para>1. Maak een tekening (papier of pc) van je netwerk voor laag 1.</para>
+	<para></para>
+	<para>2. Maak een tekening (papier of pc) van je netwerk voor laag 2.</para>
+	<para></para>
+	<para>3. Maak een tekening (papier of pc) van je netwerk voor laag 3 (wanneer je een website bezoekt).</para>
+	<para></para>
+	<para>4. Maak een tekening (papier of pc) van je netwerk voor laag 7 (wanneer je een website bezoekt).</para>
+	<para></para>
+</section>
