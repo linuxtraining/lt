@@ -167,8 +167,18 @@ nameserver 212.71.8.10</screen>
 		<para>The <command>fully qualified domain name</command><indexterm><primary>fully qualified domain name</primary></indexterm> or <command>FQDN</command><indexterm><primary>FQDN</primary></indexterm> is the combination of the <command>hostname</command> of a machine appended with its <command>domain name</command>.</para>
 		<para>If for example a system is called <command>wolf</command> and it is in the domain <command>linux-training.be</command>, then the FQDN of this system is <command>wolf.linux-training.be</command>.</para>
 	</section>
-	<section><title>zone</title>
-		<para>A zone is a portion of the DNS tree. A DNS server that is controlling a zone, is said to be the <command>authoritative</command> DNS server for that zone. A zone is a collection of <command>resource records</command>. There are several types of resource records, for example A, PTR, NS, MX, SOA and CNAME.</para>
+	<section><title>hostname and domainname commands</title>
+		<para>On Linux systems you can use the <command>hostname</command> and <command>domainname</command> commands to verify this information.</para>
+		<screen>paul@shared-010:~$ hostname 
+shared-010
+paul@shared-010:~$ hostname --fqdn
+shared-010.openminds.be</screen>
+	</section>
+<?hard-pagebreak?>
+	<section><title>zones and records</title>
+		<para>A zone is a portion of the DNS tree. The picture below represents zones as blue ovals. Some zones will contain only one <command>dns domain</command> while others might have a whole tree of domains.</para>
+		<mediaobject><imageobject><imagedata fileref="images/dns_04_zones.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+		<para>In a zone are records, also called <command>resource records</command>. We will list some of those records here, and look at them in more detail later.</para>
 		<section><title>A record</title>
 			<para>The <command>A record</command><indexterm><primary>A (DNS record)</primary></indexterm>, which is also called a <command>host record</command><indexterm><primary>host (DNS record)</primary></indexterm> contains the ipv4-address of a computer. When a DNS client queries a DNS server for an A record, then the DNS server will resolve the hostname in the query to an ip-address. An <command>AAAA record</command><indexterm><primary>AAAA (DNS record)</primary></indexterm> is similar but contains an ipv6 address instead of ipv4.</para>
 		</section>
@@ -179,7 +189,7 @@ nameserver 212.71.8.10</screen>
 			<para>A <command>NS record</command><indexterm><primary>NS (DNS record)</primary></indexterm> or <command>nameserver record</command> is a record that points to a DNS name server (in this zone). You can list all your name servers for your DNS zone in distinct NS records.</para>
 		</section>
 		<section><title>glue A record</title>
-			<para>An A record that maps the name of an NS record to an ip address is daid to be a <command>glue record</command>.</para>
+			<para>An A record that maps the name of an NS record to an ip address is said to be a <command>glue record</command>.</para>
 		</section>
 		<section><title>SOA record</title>
 			<para>The SOA record of a zone contains meta information about the zone itself. The contents of the SOA record is explained in detail in the section about zone transfers. There is exactly one SOA record for each zone.</para>
@@ -188,24 +198,38 @@ nameserver 212.71.8.10</screen>
 			<para>A <command>CNAME record</command><indexterm><primary>CNAME (DNS record)</primary></indexterm> maps a hostname to a hostname, creating effectively an alias for an existing hostname. The name of the mail server is often aliased to <command>mail</command> or <command>smtp</command>, and the name of a web server to <command>www</command>.</para>
 		</section>
 		<section><title>MX record</title>
-			<para>The <command>MX</command><indexterm><primary>MX (DNS record)</primary></indexterm> points to an SMTP server. When you send an email to another domain, then your mail server will need the MX record of the target domain's mail server.</para>
+			<para>The <command>MX</command><indexterm><primary>MX (DNS record)</primary></indexterm> record points to an <command>smtp server</command>. When you send an email to another domain, then your mail server will need the MX record of the target domain's mail server.</para>
 		</section>
 	</section>
+<?hard-pagebreak?>
 	<section><title>caching only server</title>
-		<para>A DNS server that is set up without its own zone, but that is connected to other name servers and caches the queries is called a <command>caching only name server</command><indexterm><primary>cahing only name server</primary></indexterm>. </para>
+		<para>A DNS server that is set up without its own zone, but that is connected to other name servers and caches the queries is called a <command>caching only name server</command><indexterm><primary>cahing only name server</primary></indexterm>. Caching only name servers do not have a <command>zone database</command> with resource records. Instead they connect to other name servers and cache that information.</para>
+		<para>There are two kinds of caching only name servers. Those with a <command>forwarder</command>, and those without.</para>
+	<section><title>caching only server with forwarder</title>
+		<para>A <command>caching only server</command> with a <command>forwarder</command> is a DNS server that will get all its information from the <command>forwarder</command>. The <command>forwarder</command> can be the DNS server of an ISP.</para>
+		<mediaobject><imageobject><imagedata fileref="images/dns_05_forwarder.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+		<para>This picture shows a DNS server on the company LAN that has set the DNS server from their ISP as a forwarder. If the ip address of the ISP DNS server is 212.71.8.10, then the following lines would occur in the <command>named.conf</command> file of the company DNS server:</para>
+<screen>forwarders {
+ 	212.71.8.10;
+ };</screen>
+	</section>
+<?hard-pagebreak?>
+	<section><title>caching only server without forwarder</title>
+		<para>A caching only server without forwarder will have to get information elsewhere. When it receives a query from a client, then it will consult one of the root servers. The root server will refer it to a TLD server, which will refer it to another dns server. That last server might know the answer to the query, or may refer to yet another dns server. In the end, our hard working dns server will find an answer and report this back to the client. </para>
+		<para>In the picture below, the clients asks for the ip address of linux-training.be. Our caching only server will contact the root server, and be refered to the .be server. It will then contact the .be server and be refered to one of the name servers of Openminds. One of these name servers (in this cas ns1.openminds.be) will answer the query with the ip-address of linux-training.be. When our caching only server reports this to the client, then the client can connect to this website.</para>
+		<mediaobject><imageobject><imagedata fileref="images/dns_06_caching_only.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	</section>
+	<section><title>iterative or recursive query</title>
+		<para>A <command>recursive query</command><indexterm><primary>recursive query</primary></indexterm> is a DNS query where the client that is submitting the query expects a complete answer (Like the fat red arrow above going from the Macbook to the DNS server). An <command>iterative query</command><indexterm><primary>iterative query</primary></indexterm> is a DNS query where the client does not expect a complete answer (the three black arrows originating from the DNS server in the picture above). Iterative queries usually take place between name servers. The root name servers do not respond to recursive queries.</para>
+	</section>
 	</section>
 	<section><title>master and slave</title>
+		<para>A DNS server that is controlling a zone, is said to be the <command>authoritative</command> DNS server for that zone. A zone is a collection of <command>resource records</command>. There are several types of resource records, for example A, PTR, NS, MX, SOA and CNAME.</para>
 		<para>There are several reasons to create more than one name server in a zone. One server might not be able to answer to all queries, or you might want some fault tolerance to mitigate the impact of hardware failure. When adding a <command>secondary DNS server</command><indexterm><primary>secondary server (DNS)</primary></indexterm> to a zone, then you will configure this server as a <command>slave server</command><indexterm><primary>slave server (DNS)</primary></indexterm> to the <command>primary server</command><indexterm><primary>primary server (DNS)</primary></indexterm>. The primary server then becomes the <command>master server</command><indexterm><primary>master server (DNS)</primary></indexterm> of the slave server.</para>
 		<para>Very often the primary DNS server is the master server of all slaves. Sometimes a slave server is master server for a second line slave server.</para>
 	</section>
 	<section><title>primary and secondary</title>
 	</section>
-	<section><title>forwarder</title>
-	</section>
-	<section><title>iterative or recursive query</title>
-		<para>A <command>recursive query</command><indexterm><primary>recursive query</primary></indexterm> is a DNS query where the client that is submitting the query expects a complete answer. An <command>iterative query</command><indexterm><primary>iterative query</primary></indexterm> is a DNS query where the client does not expect a complete answer. Iterative queries usually take place between name servers. The root name servers do not respond to recursive queries.</para>
-	</section>
-
 
 	<section><title>zone transfers</title>
 		<para>The slave server receives a copy of the zone database using a <command>zone transfer</command><indexterm><primary>zone transfer (DNS)</primary></indexterm>. Zone transfers are requested by the slave servers at regular intervals. Those intervals are defined in the <command>SOA record</command><indexterm><primary>SOA (DNS record)</primary></indexterm>.</para>
