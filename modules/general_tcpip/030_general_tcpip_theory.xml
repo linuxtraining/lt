@@ -40,7 +40,7 @@
 	<mediaobject><imageobject><imagedata fileref="images/ethernet_frame.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 	<para>Omdat we toch iets moeten kennen van <command>mac-adressen</command>, <command>ip-adressen</command> en <command>poorten</command> om protocols en toestellen te begrijpen, gebruiken we onderstaande vereenvoudigde voorstelling van een <command>packetje</command> op het netwerk.</para>
 	<para></para>
-	<mediaobject><imageobject><imagedata fileref="images/mod_cvotsm/simple_packet.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<mediaobject><imageobject><imagedata fileref="images/simple_packet.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 </section>
 <?hard-pagebreak?>
 <section><title>onze data op reis</title>
