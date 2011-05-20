@@ -48,11 +48,11 @@
 <para>The first three classes of ipv4 addresses each have a default <command>subnet mask</command><indexterm><primary>subnet mask</primary></indexterm>.</para>
 	<para>Class A addresses have a subnet with eight bits set to 1 followed by 24 bits set to zero.
 Class B addresses have 16 bits set to 1 followed by 16 bits set to 0.
-Class C addresses have 24 bits set to 1 followed by eight bits set to 0. This gives us the following table.</para>
-<table frame='all'><title>default subnet mask</title>
-<?dbfo table-width="80%" ?>
+Class C addresses have 24 bits set to 1 followed by eight bits set to 0. This gives us the following tables.</para>
+<table frame='all'><title>default decimal subnet mask</title>
+<?dbfo table-width="75%" ?>
 <tgroup cols='3' align='left' colsep='1' rowsep='1'>
-<colspec colname='klasse' colwidth="2*" align="center"/>
+<colspec colname='klasse' colwidth="3*" align="center"/>
 <colspec colname='bits' colwidth="4*" align="center"/>
 <colspec colname='subnet' colwidth="5*" align="center"/>
 <thead>
@@ -81,6 +81,40 @@ Class C addresses have 24 bits set to 1 followed by eight bits set to 0. This gi
 </tbody>
 </tgroup>
 </table>
+
+<table frame='all'><title>default binary subnet mask</title>
+<?dbfo table-width="99%" ?>
+<tgroup cols='3' align='left' colsep='1' rowsep='1'>
+<colspec colname='klasse' colwidth="1*" align="center"/>
+<colspec colname='bits' colwidth="2*" align="center"/>
+<colspec colname='subnet' colwidth="4*" align="center"/>
+<thead>
+<row>
+  <entry>class</entry>
+  <entry>bits set to 1</entry>
+  <entry>default subnet mask</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>A</entry>
+  <entry>8</entry>
+  <entry>11111111.00000000.00000000.00000000</entry>
+</row>
+<row>
+  <entry>B</entry>
+  <entry>16</entry>
+  <entry>11111111.11111111.00000000.00000000</entry>
+</row>
+<row>
+  <entry>C</entry>
+  <entry>24</entry>
+  <entry>11111111.11111111.11111111.00000000</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
 </section>
 <?hard-pagebreak?>
 <section><title>practice default subnet masks</title>
@@ -134,8 +168,7 @@ Class C addresses have 24 bits set to 1 followed by eight bits set to 0. This gi
 </table>
 </section>
 <?hard-pagebreak?>
-<section><title>network id </title>
-<section><title>host id</title>
+<section><title>network id en host id</title>
 	<para>Bij het uitvoeren van <command>ifconfig</command><indexterm><primary>ifconfig(Unix)</primary></indexterm> op een Unix/Linux en <command>ipconfig</command><indexterm><primary>ipconfig(MS)</primary></indexterm> op een MS Windows computer merkt je dat je steeds een <command>ip-adres</command><indexterm><primary>ip-adres</primary></indexterm> en en <command>subnet mask</command><indexterm><primary>subnet mask</primary></indexterm> krijgt. De combinatie van die twee bepaalt in welk netwerk een computer zich bevindt.</para>
 	<para>Als het subnet mask gelijk is aan 255.0.0.0, dan vormt de eerste byte van het ip-adres aangevuld met nullen het <command>network id</command><indexterm><primary>network id</primary></indexterm>. Bij 255.255.0.0 als subnet mask zijn er twee bytes (aangevuld met nullen) die het <command>network id</command> vormen. Bij 255.255.255.0 zijn er drie bytes (en een nul) die het <command>network id</command> vormen.</para>
 	<para>De rest van het ip-adres is dan het <command>host id</command>. Het <command>network id</command> bepaalt het netwerk waarin een computer zich bevindt, het <command>host id</command><indexterm><primary>host id</primary></indexterm> is uniek voor een host binnen het netwerk.</para>
@@ -382,11 +415,10 @@ Class C addresses have 24 bits set to 1 followed by eight bits set to 0. This gi
 </tgroup>
 </table>
 </section>
-</section>
+<?hard-pagebreak?>
 <section><title>te weinig ip-adressen ?</title>
 	<para>Is vier miljard dan niet genoeg ? We verspillen enorm veel ip-adressen door de verkoop van klasse A en klasse B aan organisaties die eigenlijk veel minder adressen nodig hebben.</para>
 	<para>Wat doe je als je 300 adressen nodig hebt ? Of 2000 ? Je kan kiezen voor een klasse B<indexterm><primary>class B</primary></indexterm> range, maar dan verspil je meer dan 90 procent. Je kan ook zeggen dat 8 klasse C<indexterm><primary>class C</primary></indexterm> adressen voldoen voor 2000 computers, maar dan vergroot je de <command>routing tables</command> weer.</para>
-</section>
 <section><title>ip-adressen verdelen</title>
 <para><command>Klasse A</command><indexterm><primary>class A</primary></indexterm> adressen kunnen dus een dikke 16 miljoen computers bevatten, <command>klasse B</command><indexterm><primary>class B</primary></indexterm> een goeie 65 duizend en <command>klasse C</command><indexterm><primary>class C</primary></indexterm> iets meer dan 200.</para>
 <para>Stel dat jouw organisatie 3000 ip-adressen nodig heeft, dan moet je een klasse B gebruiken. Maar dat wil zeggen dat je meer dan 62 duizend ip-adressen <command>verspilt</command>. Onthou ook dat heel wat klasse A ranges begin jaren 90 in hun geheel verkocht zijn.</para>
@@ -399,4 +431,5 @@ Class C addresses have 24 bits set to 1 followed by eight bits set to 0. This gi
 <section><title>Is nat een oplossing ?</title>
 <para>Een andere verzachtende techniek voor het naderende tekort aan ip-adressen is <command>nat</command><indexterm><primary>nat</primary></indexterm>. Een <command>nat</command> toestel kan meerdere <command>private ip-adressen </command><indexterm><primary>private ip-adressen</primary></indexterm>(en dus meerdere computers) met een (of enkele) publieke adressen verbinden met het internet.</para>
 <para>Maar <command>nat</command> heeft dan weer het nadeel dat niet alle applicaties kunnen werken achter een <command>nat</command>. Bijvoorbeeld <command>ipsec</command><indexterm><primary>ipsec</primary></indexterm> (want de poort-informatie is versleuteld), <command>sip</command><indexterm><primary>sip</primary></indexterm> (Voice over IP), <command>ftp</command><indexterm><primary>ftp</primary></indexterm>, <command>dns zone transfers</command><indexterm><primary>dns</primary></indexterm> (we bespreken dit later), <command>dhcp</command>, <command>snmp</command> en sommige multiplayer spelletjes op Microsofts xbox werken niet over <command>nat</command>.</para>
+</section>
 </section>
