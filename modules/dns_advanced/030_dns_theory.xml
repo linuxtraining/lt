@@ -1,0 +1,105 @@
+<?hard-pagebreak?>
+	<section><title>DNS ?</title>
+		<para>In wireshark you can use the <command>root</command><indexterm><primary>root(DNS)</primary></indexterm></para>
+		<para>Load balancing ?
+IXFR - AXFR rfc 1995
+DNS notify ?
+dynamic DNS (of na dhcp...)</para>
+	</section>
+	<section><title>automatic DNS round robin</title>
+		<para>Multiple A records for the same name, round robin of the order in which the records are returned.</para>
+		<screen>faith		IN	A	192.168.1.20
+faith		IN	A	192.168.1.22</screen>
+		<screen>> server 192.168.1.35
+Default server: 192.168.1.35
+Address: 192.168.1.35#53
+> faith.cobbaut.paul
+Server:		192.168.1.35
+Address:	192.168.1.35#53
+
+Name:	faith.cobbaut.paul
+Address: 192.168.1.20
+Name:	faith.cobbaut.paul
+Address: 192.168.1.22
+> faith.cobbaut.paul
+Server:		192.168.1.35
+Address:	192.168.1.35#53
+
+Name:	faith.cobbaut.paul
+Address: 192.168.1.22
+Name:	faith.cobbaut.paul
+Address: 192.168.1.20
+> faith.cobbaut.paul
+Server:		192.168.1.35
+Address:	192.168.1.35#53
+
+Name:	faith.cobbaut.paul
+Address: 192.168.1.20
+Name:	faith.cobbaut.paul
+Address: 192.168.1.22</screen>
+	</section>
+	<section><title>DNS load balancing</title>
+		<para>Not as above. More than one DNS server authoritative for a zone. Spread queries amongst both server.</para>
+		<mediaobject><imageobject><imagedata fileref="images/dns_01_what_is_dns.ws.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+		<screen> </screen>
+	</section>
+	<section><title>DNS notify</title>
+		<para></para>
+		<mediaobject><imageobject><imagedata fileref="images/dns_01_what_is_dns.ws.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+		<screen> </screen>
+	</section>
+	<section><title>testing IXFR and AXFR</title>
+		<para>In wireshark you can use the <command>root</command><indexterm><primary>root(DNS)</primary></indexterm></para>
+		<para></para>
+		<mediaobject><imageobject><imagedata fileref="images/dns_01_what_is_dns.ws.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+		<screen> </screen>
+	</section>
+	<section><title>DDNS integration with DHCP</title>a
+		<para>In wireshark you can use the <command>root</command><indexterm><primary>root(DNS)</primary></indexterm></para>
+		<para></para>
+		<mediaobject><imageobject><imagedata fileref="images/dns_01_what_is_dns.ws.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+		<screen> </screen>
+	</section>
+	<section><title>reverse is forward in-addr.arpa ?</title>
+		<para></para>
+		<mediaobject><imageobject><imagedata fileref="images/dns_01_what_is_dns.ws.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+		<screen> </screen>
+	</section>
+	<section><title>ipv6</title>
+		<para>In wireshark you can use the <command>root</command><indexterm><primary>root(DNS)</primary></indexterm></para>
+			<para>AAAA en ip6.int</para>
+		<mediaobject><imageobject><imagedata fileref="images/dns_01_what_is_dns.ws.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+		<screen> </screen>
+	</section>
+	<section><title>split-horizon dns</title>
+		<para>In wireshark you can use the <command>root</command><indexterm><primary>root(DNS)</primary></indexterm></para>
+		<para>using the view clause in dns to give different results to different clients</para>
+		<mediaobject><imageobject><imagedata fileref="images/dns_01_what_is_dns.ws.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+		<screen>view "antwerp" {
+match-clients { 172.16.42/24; }; // the network in Antwerp
+zone "cobbaut.paul" {
+        type master;
+        file "/etc/bind/db.cobbaut.paul.antwerp"; // www=172.16.42.9
+        };
+};
+
+view "brussels" {
+match-clients { 172.16.33/24; }; // the Brussels network
+zone "cobbaut.paul" {
+        type master;
+        file "view/master.example.com.mordor"; // www=172.16.33.4
+  };
+};</screen>
+	</section>
+	<section><title>DNS ?</title>
+		<para>In wireshark you can use the <command>root</command><indexterm><primary>root(DNS)</primary></indexterm></para>
+		<para></para>
+		<mediaobject><imageobject><imagedata fileref="images/dns_01_what_is_dns.ws.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+		<screen> </screen>
+	</section>
+	<section><title>DNS ?</title>
+		<para>In wireshark you can use the <command>root</command><indexterm><primary>root(DNS)</primary></indexterm></para>
+		<para></para>
+		<mediaobject><imageobject><imagedata fileref="images/dns_01_what_is_dns.ws.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+		<screen> </screen>
+	</section>
