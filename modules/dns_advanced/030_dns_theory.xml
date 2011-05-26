@@ -1,15 +1,10 @@
 <?hard-pagebreak?>
-	<section><title>DNS ?</title>
-		<para>In wireshark you can use the <command>root</command><indexterm><primary>root(DNS)</primary></indexterm></para>
-		<para>Load balancing ?
-IXFR - AXFR rfc 1995
-DNS notify ?
-dynamic DNS (of na dhcp...)</para>
-	</section>
-	<section><title>automatic DNS round robin</title>
-		<para>Multiple A records for the same name, round robin of the order in which the records are returned.</para>
-		<screen>faith		IN	A	192.168.1.20
+<section><title>DNS round robin</title>
+	<para>When you create multiple A records for the same name, then <command>bind</command><indexterm><primary>bind(DNS)</primary></indexterm> will do a round robin of the order in which the records are returned. This allows the use of DNS as a load balancer between hosts, since clients will usually take the first ip-address offered.</para>
+	<para>This is what it looks like in the <command>zone configuration file</command>.</para>
+	<screen>faith		IN	A	192.168.1.20
 faith		IN	A	192.168.1.22</screen>
+	<para>Below a screenshot of nslookup querying a load balanced A record. Notice the order of ip-addresses returned.</para>
 		<screen>> server 192.168.1.35
 Default server: 192.168.1.35
 Address: 192.168.1.35#53
@@ -37,45 +32,76 @@ Name:	faith.cobbaut.paul
 Address: 192.168.1.20
 Name:	faith.cobbaut.paul
 Address: 192.168.1.22</screen>
-	</section>
-	<section><title>DNS load balancing</title>
-		<para>Not as above. More than one DNS server authoritative for a zone. Spread queries amongst both server.</para>
-		<mediaobject><imageobject><imagedata fileref="images/dns_01_what_is_dns.ws.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-		<screen> </screen>
-	</section>
-	<section><title>DNS notify</title>
-		<para></para>
-		<mediaobject><imageobject><imagedata fileref="images/dns_01_what_is_dns.ws.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-		<screen> </screen>
-	</section>
-	<section><title>testing IXFR and AXFR</title>
-		<para>In wireshark you can use the <command>root</command><indexterm><primary>root(DNS)</primary></indexterm></para>
-		<para></para>
-		<mediaobject><imageobject><imagedata fileref="images/dns_01_what_is_dns.ws.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-		<screen> </screen>
-	</section>
-	<section><title>DDNS integration with DHCP</title>a
-		<para>In wireshark you can use the <command>root</command><indexterm><primary>root(DNS)</primary></indexterm></para>
-		<para></para>
-		<mediaobject><imageobject><imagedata fileref="images/dns_01_what_is_dns.ws.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-		<screen> </screen>
-	</section>
-	<section><title>reverse is forward in-addr.arpa ?</title>
-		<para></para>
-		<mediaobject><imageobject><imagedata fileref="images/dns_01_what_is_dns.ws.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-		<screen> </screen>
-	</section>
-	<section><title>ipv6</title>
-		<para>In wireshark you can use the <command>root</command><indexterm><primary>root(DNS)</primary></indexterm></para>
-			<para>AAAA en ip6.int</para>
-		<mediaobject><imageobject><imagedata fileref="images/dns_01_what_is_dns.ws.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-		<screen> </screen>
-	</section>
-	<section><title>split-horizon dns</title>
-		<para>In wireshark you can use the <command>root</command><indexterm><primary>root(DNS)</primary></indexterm></para>
-		<para>using the view clause in dns to give different results to different clients</para>
-		<mediaobject><imageobject><imagedata fileref="images/dns_01_what_is_dns.ws.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-		<screen>view "antwerp" {
+</section>
+<?hard-pagebreak?>
+<section><title>DNS delegation</title>
+	<para>You can <command>delegate</command> a child domain to another DNS server. The child domain then becomes a new zone, with authority at the new dns server.</para>
+	<mediaobject><imageobject><imagedata fileref="images/dns_08_delegation.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>This is a screenshot of the zone database file with delegation.</para>
+	<screen>root@ubu1010srv:/etc/bind# cat db.linux-training.be 
+$TTL 3d ; default ttl set to three days
+$ORIGIN linux-training.be.
+@       IN  SOA  ns1.linux-training.be. paul.linux-training.be. (
+	20110524
+	300
+	300
+	10000
+	20000
+	)
+	IN	NS	ns1.linux-training.be.
+	IN	NS	ns2.linux-training.be.
+	IN	NS	ns3.linux-training.be.
+	IN	MX	10	smtp.openminds.be.
+ns1	IN	A	192.168.1.35
+ns2	IN	A	192.168.1.36
+ns3	IN	A	192.168.1.37
+www	IN	A	192.168.1.35
+mac	IN	A	192.168.1.30
+
+$ORIGIN office.linux-training.be.
+@	IN	NS	ns4.office.linux-training.be.
+; or replace those two lines with:
+; office.linux-training.com  IN  NS  ns4.office.linux-training.be
+
+	IN	NS	ns1.linux-training.be.	; in case this is a slave
+ns4	IN	A	192.168.1.33		; the glue record
+; ns4.office.linux-training.be	A	192.168.1.33 ; also ok!</screen>
+</section>
+<section><title>DNS load balancing</title>
+	<para>Not as above. When you have more than one DNS server authoritative for a zone, you can spread queries amongst all server. One way to do this is by creating NS records for all servers that participate in the load balancing of external queries.</para>
+	<para>You could also configure different name servers on internal clients.</para>
+</section>
+<section><title>DNS notify</title>
+	<para>The original design of DNS in rfc 1034 and rfc 1035 implemented a <command>refresh</command> time in the <command>SOA</command> record to configure a time loop for slaves to query their master server. This can result in a lot of useless pull requests, or in a significant lag between updates.</para>
+	<para>For this reason <command>dns notify (rfc 1996)</command> was designed. The server will now notify slaves whenever there is an update. By default this feature is activated in <command>bind</command>.</para>
+	<para>Notify can be disabled as in this screenshot.</para>
+	<screen>zone "1.168.192.in-addr.arpa" {
+        type master;
+        notify no;
+        file "/etc/bind/db.192";
+};</screen>
+</section>
+<section><title>testing IXFR and AXFR</title>
+	<para>Full zone transfers (AXFR) are initiated when you restart the bind server, or when you manually update the zone database file directly. With <command>nsupdate</command> you can update a zone database and initiate an incremental zone transfer.</para>
+	<para>You need DDNS allowed for <command>nsupdate</command> to work.</para>
+	<screen>root@ubu1010srv:/etc/bind# nsupdate
+> server 127.0.0.1
+> update add mac14.linux-training.be 86400 A 192.168.1.23
+> send
+update failed: REFUSED</screen>
+</section>
+<section><title>DDNS integration with DHCP</title>
+	<para>Some organizations like to have all their client computers in DNS. This can be cumbersome to maintain. Luckily <command>rfc 2136</command> describes integration of DHCP servers with a DNS server. Whenever DHCP acknowledges a client ip configuration, it can notify DNS with this clients ip-address and name. This is called <command>dynamic updates</command> or DDNS.</para>
+</section>
+<section><title>reverse is forward in-addr.arpa</title>
+	<para>Reverse lookup is actually iomplemented as a forward lookup in the <command>in-addr.arpa</command> domain. This domain has 256 child domains (from 0.in-addr.arpa to 255.in-addr.arpa), with each child domain having again 256 child domains. And this twice more to a structure of over four billion (2 to the power 32) domains.</para>
+</section>
+<section><title>ipv6</title>
+	<para>With rfc 3596 came ipv6 extensions for DNS. There is the AAAA record for ipv6 hosts on the network, and there is the <command>ip6.int</command> domain for reverse lookup (having 16 child domains from 0.ip6.int to f.ip6.int, each of those having again 16 child domains...and this 16 times.</para>
+</section>
+<section><title>split-horizon dns</title>
+	<para>You can use the <command>view clause</command> in <command>bind</command> to give different results to different clients.</para>
+	<screen>view "antwerp" {
 match-clients { 172.16.42/24; }; // the network in Antwerp
 zone "cobbaut.paul" {
         type master;
@@ -87,19 +113,53 @@ view "brussels" {
 match-clients { 172.16.33/24; }; // the Brussels network
 zone "cobbaut.paul" {
         type master;
-        file "view/master.example.com.mordor"; // www=172.16.33.4
+        file "/etc/bind/db.cobbaut.paul.brussels"; // www=172.16.33.4
   };
 };</screen>
-	</section>
-	<section><title>DNS ?</title>
-		<para>In wireshark you can use the <command>root</command><indexterm><primary>root(DNS)</primary></indexterm></para>
-		<para></para>
-		<mediaobject><imageobject><imagedata fileref="images/dns_01_what_is_dns.ws.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-		<screen> </screen>
-	</section>
-	<section><title>DNS ?</title>
-		<para>In wireshark you can use the <command>root</command><indexterm><primary>root(DNS)</primary></indexterm></para>
-		<para></para>
-		<mediaobject><imageobject><imagedata fileref="images/dns_01_what_is_dns.ws.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-		<screen> </screen>
-	</section>
+</section>
+<section><title>DNS security : file corruption</title>
+	<para>To mitigate file corruption on the <command>zone files</command> and the <command>bind configuration</command> files protect them with Unix permissions and take regular backups.</para>
+</section>
+<section><title>DNS security : zone transfers</title>
+	<para>Limit zone transfers to certain ip addresses instead of to <command>any</command>. Nevermind that ip-addresses can be spoofed, still use this.</para>
+</section>
+<section><title>DNS security : zone transfers, ip spoofing</title>
+	<para>You could setup DNSSEC (which is not the easiest to maintain) and with rfc 2845(tsig?) and with rfc 2930(tkey, but this is open to brute force), or you could disable all zone transfers and use a script with ssh to copy them manually.</para>
+</section>
+<section><title>DNS security : queries</title>
+	<para>Allow recursion only from the local network, and iterative queries from outside only when necessary. This can be configured on master and slave servers.</para>
+	<screen>view "internal" {
+match-clients { 192.168.42/24; };
+recursion yes;
+...
+
+};
+
+view "external" {
+match-clients { any; };
+recursion no;
+...
+
+};</screen>
+	<para>Or allow only queries from the local network.</para>
+	<screen>options {
+      allow-query { 192.168.42.0/24; localhost; };
+};
+
+zone "cobbaut.paul" {
+      allow-query { any; };
+};</screen>
+		<para>Or only allow recursive queries from internal clients.</para>
+<screen>options {
+        allow-recursion { 192.168.42.0/24; localhost; };
+};</screen>
+</section>
+<section><title>DNS security : chrooted bind</title>
+	<para>Most Linux distributions allow an easy setup of bind in a <command>chrooted</command> environment.</para>
+</section>
+<section><title>DNS security : DNSSEC</title>
+	<para>DNSSEC uses public/private keys to secure communications, this is described in rfc's 4033, 4034 and 4035.</para>
+</section>
+<section><title>DNS security : root</title>
+	<para>Do not run bind as root. Do not run any application daemon as root.</para>
+</section>
