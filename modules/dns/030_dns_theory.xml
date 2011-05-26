@@ -46,9 +46,9 @@ nameserver 212.71.8.10</screen>
 <table frame='all'><title>The first TLD's</title>
 <?dbfo table-width="90%" ?>
 <tgroup cols='3' align='left' colsep='1' rowsep='1'>
-<colspec colname='c1' colwidth="1*" align="center"/>
-<colspec colname='c2' colwidth="1*" align="center"/>
-<colspec colname='c3' colwidth="6*" align="left"/>
+<colspec colname='c1' colwidth="4*" align="center"/>
+<colspec colname='c2' colwidth="5*" align="center"/>
+<colspec colname='c3' colwidth="24*" align="left"/>
 <thead>
 <row>
   <entry>year</entry>
@@ -105,9 +105,9 @@ nameserver 212.71.8.10</screen>
 <table frame='all'><title>new general purpose TLD's</title>
 <?dbfo table-width="90%" ?>
 <tgroup cols='3' align='left' colsep='1' rowsep='1'>
-<colspec colname='c1' colwidth="1*" align="center"/>
-<colspec colname='c2' colwidth="1*" align="center"/>
-<colspec colname='c3' colwidth="6*" align="left"/>
+<colspec colname='c1' colwidth="4*" align="center"/>
+<colspec colname='c2' colwidth="5*" align="center"/>
+<colspec colname='c3' colwidth="24*" align="left"/>
 <thead>
 <row>
   <entry>year</entry>
@@ -238,6 +238,8 @@ shared-010.openminds.be</screen>
 		<para>The slave server receives a copy of the zone database using a <command>zone transfer</command><indexterm><primary>zone transfer (DNS)</primary></indexterm>. Zone transfers are requested by the slave servers at regular intervals. Those intervals are defined in the <command>SOA record</command><indexterm><primary>SOA (DNS record)</primary></indexterm>.</para>
 		<para>The SOA record contains a <command>refresh</command> value. If this is set to 30 minutes, then the slave server will request a copy of the zone file every 30 minutes. There is also a <command>retry</command> value. The retry value is used when the master server did not reply to the last zone transfer request. The value for <command>expiry time</command> says how long the slave server will answer to queries, without receiving a zone update.</para>
 		<para>Zone transfers only occur when the zone database was updated (meaning when one or more resource records were added, removed or changed on the master server). The slave server will compare the <command>serial number</command> of its own copy of the SOA record with the serial number of its master's SOA record. When both serial numbers are the same, then no update is needed (because no records were added, removed or deleted). When the slave has a lower serial number than its master, then a zone transfer is requested.</para>
+		<para>Below a zone transfer captured in wireshark.</para>
+		<mediaobject><imageobject><imagedata fileref="images/dns_zone_transfer.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 	</section>
 	<section><title>full or incremental zone transfers</title>
 		<para>When a zone tranfer occurs, this can be either a full zone transfer or an incremental zone transfer. The decision depends on the size of the transfer that is needed to completely update the zone on the slave server. An incremental zone transfer is prefered when the total size of changes is smaller than the size of the zone database. Full zone transfers use the <command>axfr</command><indexterm><primary>axfr</primary></indexterm> protocol, incremental zone transfer use the <command>ixfr</command><indexterm><primary>ixfr</primary></indexterm> protocol. </para>
@@ -250,8 +252,10 @@ shared-010.openminds.be</screen>
 <section><title>Practice: caching only DNS server</title>
 	<para>1a. installing DNS software on Debian/Ubuntu</para>
 	<screen>root@ubu1010srv:~# dpkg -l | grep bind9
-ii bind9-host  1:9.7.1.dfsg.P2-2ubuntu0.2 Version of 'host' bundled with BIND 9.X
-ii libbind9-60 1:9.7.1.dfsg.P2-2ubuntu0.2 BIND9 Shared Library used by BIND
+ii   bind9-host    1:9.7.1.dfsg.P2-2ubuntu0.2   Version of 'host' bun\
+dled with BIND 9.X
+ii   libbind9-60   1:9.7.1.dfsg.P2-2ubuntu0.2   BIND9 Shared Library \
+used by BIND
 root@ubu1010srv:~# aptitude install bind9
 The following NEW packages will be installed:
   bind9 bind9utils{a} 
@@ -261,13 +265,15 @@ Do you want to continue? [Y/n/?]
 
 ... output truncated ...
 
- * Starting domain name service... bind9                                 [ OK ] 
+ * Starting domain name service... bind9                        [ OK ]
                                          
 root@ubu1010srv:~# dpkg -l | grep bind9
 ii bind9       1:9.7.1.dfsg.P2-2ubuntu0.2 Internet Domain Name Server
-ii bind9-host  1:9.7.1.dfsg.P2-2ubuntu0.2 Version of 'host' bundled with BIND 9.X
+ii bind9-host  1:9.7.1.dfsg.P2-2ubuntu0.2 Version of 'host' bundled w\
+ith BIND 9.X
 ii bind9utils  1:9.7.1.dfsg.P2-2ubuntu0.2 Utilities for BIND
-ii libbind9-60 1:9.7.1.dfsg.P2-2ubuntu0.2 BIND9 Shared Library used by BIND
+ii libbind9-60 1:9.7.1.dfsg.P2-2ubuntu0.2 BIND9 Shared Library used b\
+y BIND
 root@ubu1010srv:~# 
 </screen>
 	<para>1b. installing DNS software on RHEL/Fedora</para>
@@ -355,7 +361,9 @@ Address: 216.34.181.45</screen>
 <?hard-pagebreak?>
 <section><title>Practice: caching only with forwarder</title>
 	<para>5. Add a local dns-server as a forwarder (at my home this is 192.168.1.1, probably different ip in a classroom!).</para>
-	<screen>root@ubu1010srv:~# grep -A2 forwarder /etc/bind/named.conf.options| tail -3
+	<screen>
+root@ubu1010srv:~# grep -A2 forwarder /etc/bind/named.conf.options| t\
+ail -3
 forwarders {
  	192.168.1.1;
  };
@@ -408,7 +416,7 @@ zone "cobbaut.paul" {
 	type master;
 	file "/etc/bind/db.cobbaut.paul";
 };</screen>
-	<para>3. Also add a zone database file, similar to this one (add some A records for testing).</para>
+	<para>3. Also add a zone database file, similar to this one (add some A records for testing). Set the <command>Refresh</command> and <command>Retry</command> values not too high so you can sniff this traffic (this example makes the slave server contact the master every 300 seconds).</para>
 	<screen>root@ubu1010srv:/etc/bind# cat db.cobbaut.paul 
 ;
 ; BIND data file for domain cobbaut.paul
@@ -416,8 +424,8 @@ zone "cobbaut.paul" {
 $TTL	604800
 @	IN	SOA	ns.cobbaut.paul. root.cobbaut.paul. (
                        20110516         ; Serial
-                         604800         ; Refresh
-                          86400         ; Retry
+                            300         ; Refresh
+                            200         ; Retry
                         2419200         ; Expire
                          604800 )       ; Negative Cache TTL
 ;
@@ -429,7 +437,8 @@ mac             IN      A       192.168.1.30
 root@ubu1010srv:/etc/bind#</screen>
 	<para>4. Restart the DNS server and check your zone in the error log.</para>
 	<screen>root@ubu1010srv:/etc/bind# grep cobbaut /var/log/daemon.log
-May 16 00:33:49 ubu1010srv named[25449]: zone cobbaut.paul/IN: loaded serial 20110516</screen>
+May 16 00:33:49 ubu1010srv named[25449]: zone cobbaut.paul/IN: loaded\
+ serial 20110516</screen>
 	<para>5. Use dig or nslookup (or even ping) to test your A records.</para>
 	<screen>root@ubu1010srv:/etc/bind# ping mac.cobbaut.paul
 PING mac.cobbaut.paul (192.168.1.30) 56(84) bytes of data.
