@@ -1,0 +1,49 @@
+<?hard-pagebreak?>
+<section><title>about ipv6</title>
+	<para>The <command>ipv6</command> protocol is designed to replace <command>ipv4</command>. Where <command>ip version 4</command> supports a maximum of four billion unique addresses, <command>ip version 6</command> expands this to <command>four billion times four billion times four billion times four billion</command> unique addresses. This is more than 100.000.000.000.000.000.000 ipv6 addresses per square cm on our planet. That should be enough, even if every cell phone, every coffe machine and every pair of socks gets an address.</para>
+	<para>Technically speaking ipv6 uses 128-bit addresses (instead of the 32-bit from ipv4).</para>
+	<para></para>
+	<screen></screen>
+	<screen></screen>
+	<mediaobject><imageobject><imagedata fileref="images/dns_08_delegation.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+</section>
+
+<section><title></title>
+	<para></para>
+	<screen></screen>
+	<para></para>
+	<screen></screen>
+	<mediaobject><imageobject><imagedata fileref="images/dns_08_delegation.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+</section>
+
+<section><title></title>
+	<para></para>
+	<screen></screen>
+	<para></para>
+	<screen></screen>
+	<mediaobject><imageobject><imagedata fileref="images/dns_08_delegation.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+</section>
+
+<section><title></title>
+	<para></para>
+	<screen></screen>
+	<para></para>
+	<screen></screen>
+	<mediaobject><imageobject><imagedata fileref="images/dns_08_delegation.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+</section>
+
+<section><title></title>
+	<para></para>
+	<screen></screen>
+	<para></para>
+	<screen></screen>
+	<mediaobject><imageobject><imagedata fileref="images/dns_08_delegation.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+</section>
+
+<section><title></title>
+	<para></para>
+	<screen></screen>
+	<para></para>
+	<screen></screen>
+	<mediaobject><imageobject><imagedata fileref="images/dns_08_delegation.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+</section>
