@@ -1,15 +1,21 @@
 <?hard-pagebreak?>
 <section><title>about ipv6</title>
 	<para>The <command>ipv6</command> protocol is designed to replace <command>ipv4</command>. Where <command>ip version 4</command> supports a maximum of four billion unique addresses, <command>ip version 6</command> expands this to <command>four billion times four billion times four billion times four billion</command> unique addresses. This is more than 100.000.000.000.000.000.000 ipv6 addresses per square cm on our planet. That should be enough, even if every cell phone, every coffe machine and every pair of socks gets an address.</para>
-	<para>Technically speaking ipv6 uses 128-bit addresses (instead of the 32-bit from ipv4).</para>
-	<para></para>
-	<screen></screen>
-	<screen></screen>
-	<mediaobject><imageobject><imagedata fileref="images/dns_08_delegation.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>Technically speaking ipv6 uses 128-bit addresses (instead of the 32-bit from ipv4). 128-bit addresses are <command>huge</command> numbers. In decimal it would amount up to 39 digits, in hexadecimal it looks like this:</para>
+	<screen>fe80:0000:0000:0000:0a00:27ff:fe8e:8aa8</screen>
+	<para>Luckily ipv6 allows us to omit leading zeroes. Our address from above then becomes:</para>
+	<screen>fe80:0:0:0:a00:27ff:fe8e:8aa8</screen>
+	<para>When a 16-bit block is zero, it can be written as <command>::</command>. Consecutive 16-bit blocks that are zero can also be written as <command>::</command>. So our address can from above can be shortened to:</para>
+	<screen>fe80::a00:27ff:fe8e:8aa8</screen>
+	<para>This <command>::</command> can only occur once! The following is not a valid ipv6 address:</para>
+	<screen>fe80::20:2e4f::39ac</screen>
+	<para>The ipv6 <command>localhost</command> address is <command>0000:0000:0000:0000:0000:0000:0000:0001</command>, which can be abbreviated to <command>::1</command>.</para>
+	<screen>paul@debian5:~/github/lt/images$ /sbin/ifconfig lo | grep inet6
+          inet6 addr: ::1/128 Scope:Host</screen>
 </section>
 
-<section><title></title>
-	<para></para>
+<section><title>network id and host id</title>
+	<para>One of the few similarities between ipv4 and ipv6 is that addresses have a host part and a network part determined by a subnet mask.</para>
 	<screen></screen>
 	<para></para>
 	<screen></screen>
