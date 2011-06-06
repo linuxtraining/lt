@@ -1,6 +1,6 @@
 <?hard-pagebreak?>
 <section><title>about ipv6</title>
-	<para>The <command>ipv6</command> protocol is designed to replace <command>ipv4</command>. Where <command>ip version 4</command> supports a maximum of four billion unique addresses, <command>ip version 6</command> expands this to <command>four billion times four billion times four billion times four billion</command> unique addresses. This is more than 100.000.000.000.000.000.000 ipv6 addresses per square cm on our planet. That should be enough, even if every cell phone, every coffe machine and every pair of socks gets an address.</para>
+	<para>The <command>ipv6</command> protocol is designed to replace <command>ipv4</command>. Where <command>ip version 4</command> supports a maximum of four billion unique addresses, <command>ip version 6</command> expands this to <command>four billion times four billion times four billion times four billion</command> unique addresses. This is more than 100.000.000.000.000.000.000 ipv6 addresses per square cm on our planet. That should be enough, even if every cell phone, every coffee machine and every pair of socks gets an address.</para>
 	<para>Technically speaking ipv6 uses 128-bit addresses (instead of the 32-bit from ipv4). 128-bit addresses are <command>huge</command> numbers. In decimal it would amount up to 39 digits, in hexadecimal it looks like this:</para>
 	<screen>fe80:0000:0000:0000:0a00:27ff:fe8e:8aa8</screen>
 	<para>Luckily ipv6 allows us to omit leading zeroes. Our address from above then becomes:</para>
@@ -15,35 +15,36 @@
 </section>
 
 <section><title>network id and host id</title>
-	<para>One of the few similarities between ipv4 and ipv6 is that addresses have a host part and a network part determined by a subnet mask.</para>
-	<screen></screen>
-	<para></para>
-	<screen></screen>
-	<mediaobject><imageobject><imagedata fileref="images/dns_08_delegation.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>One of the few similarities between ipv4 and ipv6 is that addresses have a host part and a network part determined by a subnet mask. Using the <command>cidr</command> notation this looks like this:</para>
+	<screen>fe80::a00:27ff:fe8e:8aa8/64</screen>
+	<para>The above address has 64 bits for the host id, theoretically allowing for 4 billion times four billion hosts.</para>
+	<para>The localhost address looks like this with cidr:</para>
+	<screen>::1/128</screen>
 </section>
 
-<section><title></title>
-	<para></para>
-	<screen></screen>
-	<para></para>
-	<screen></screen>
-	<mediaobject><imageobject><imagedata fileref="images/dns_08_delegation.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+<section><title>ipv4 mapped ipv6 address</title>
+	<para>Some applications use ipv4 addresses embedded in an ipv6 address. (Yes there will be an era of migration with both ipv4 and ipv6 in use.) The ipv6 address then looks like this:</para>
+	<screen>::ffff:192.168.1.42/96</screen>
+	<para>Indeed a mix of decimal and hexadecimal characters...</para>
 </section>
 
-<section><title></title>
-	<para></para>
-	<screen></screen>
-	<para></para>
-	<screen></screen>
-	<mediaobject><imageobject><imagedata fileref="images/dns_08_delegation.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+<section><title>link local addresses</title>
+	<para><command>ipv6</command> addresses starting with <command>fe8.</command> can only be used on the local segment (replace the dot with an hexadecimal digit). This is the reason you see <command>Scope:Link</command> behind the address in this screenshot. This address servers only the <command>local link</command>.</para>
+	<screen>paul@deb503:~$ /sbin/ifconfig | grep inet6
+   inet6 addr: fe80::a00:27ff:fe8e:8aa8/64 Scope:Link
+   inet6 addr: ::1/128 Scope:Host</screen>
+	<para>These <command>link local</command> addresses all begin with <command>fe8.</command>.</para>
+	<para>Every ipv6 enabled nic will get an address in this range.</para>
 </section>
 
-<section><title></title>
-	<para></para>
-	<screen></screen>
-	<para></para>
-	<screen></screen>
-	<mediaobject><imageobject><imagedata fileref="images/dns_08_delegation.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+<section><title>unique local addresses</title>
+	<para>The now obsolete system of <command>site local addresses</command> similar to ipv4 private ranges is replaced with a system of globally unique local ipv6 addresses. This to prevent joining of networks within <command>site local</command> ranges.</para>
+	<para>All <command>unique local</command> addresses strat with <command>fd..</command>.</para>
+</section>
+
+<section><title>globally unique unicast addresses</title>
+	<para>Since <command>ipv6</command> was designed to have multiple ip addresses per interface, the <command>global ipv6 address</command> can be used next to the <command>link local address</command>.</para>
+	<para>These <command>globally unique</command> addresses all begin with <command>2...</command> or <command>3...</command> as the first 16-bits.</para>
 </section>
 
 <section><title></title>
