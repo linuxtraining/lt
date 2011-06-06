@@ -1,0 +1,17 @@
+[root@fedora14 ~]# ping6 -I eth0 fe80::a00:27ff:fecd:7ffc
+PING fe80::a00:27ff:fecd:7ffc(fe80::a00:27ff:fecd:7ffc) from fe80::a00:27ff:fe3c:4346 eth0: 56 data bytes
+64 bytes from fe80::a00:27ff:fecd:7ffc: icmp_seq=1 ttl=64 time=0.586 ms
+64 bytes from fe80::a00:27ff:fecd:7ffc: icmp_seq=2 ttl=64 time=3.95 ms
+64 bytes from fe80::a00:27ff:fecd:7ffc: icmp_seq=3 ttl=64 time=1.53 ms
+
+
+
+
+ot@fedora14 ~]# ping6 -I eth0 ff02::1
+PING ff02::1(ff02::1) from fe80::a00:27ff:fe3c:4346 eth0: 56 data bytes
+64 bytes from fe80::a00:27ff:fe3c:4346: icmp_seq=1 ttl=64 time=0.598 ms
+64 bytes from fe80::a00:27ff:fecd:7ffc: icmp_seq=1 ttl=64 time=1.87 ms (DUP!)
+64 bytes from fe80::8e7b:9dff:fed6:dff2: icmp_seq=1 ttl=64 time=535 ms (DUP!)
+64 bytes from fe80::a00:27ff:fe3c:4346: icmp_seq=2 ttl=64 time=0.106 ms
+64 bytes from fe80::8e7b:9dff:fed6:dff2: icmp_seq=2 ttl=64 time=1.79 ms (DUP!)
+64 bytes from fe80::a00:27ff:fecd:7ffc: icmp_seq=2 ttl=64 time=2.48 ms (DUP!)

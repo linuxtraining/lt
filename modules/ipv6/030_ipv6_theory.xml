@@ -29,7 +29,7 @@
 </section>
 
 <section><title>link local addresses</title>
-	<para><command>ipv6</command> addresses starting with <command>fe8.</command> can only be used on the local segment (replace the dot with an hexadecimal digit). This is the reason you see <command>Scope:Link</command> behind the address in this screenshot. This address servers only the <command>local link</command>.</para>
+	<para><command>ipv6</command> addresses starting with <command>fe8.</command> can only be used on the local segment (replace the dot with an hexadecimal digit). This is the reason you see <command>Scope:Link</command> behind the address in this screenshot. This address serves only the <command>local link</command>.</para>
 	<screen>paul@deb503:~$ /sbin/ifconfig | grep inet6
    inet6 addr: fe80::a00:27ff:fe8e:8aa8/64 Scope:Link
    inet6 addr: ::1/128 Scope:Host</screen>
@@ -38,13 +38,92 @@
 </section>
 
 <section><title>unique local addresses</title>
-	<para>The now obsolete system of <command>site local addresses</command> similar to ipv4 private ranges is replaced with a system of globally unique local ipv6 addresses. This to prevent joining of networks within <command>site local</command> ranges.</para>
+	<para>The now obsolete system of <command>site local addresses</command> similar to ipv4 private ranges is replaced with a system of globally unique local ipv6 addresses. This to prevent duplicates when joining of networks within <command>site local</command> ranges.</para>
 	<para>All <command>unique local</command> addresses strat with <command>fd..</command>.</para>
 </section>
 
 <section><title>globally unique unicast addresses</title>
 	<para>Since <command>ipv6</command> was designed to have multiple ip addresses per interface, the <command>global ipv6 address</command> can be used next to the <command>link local address</command>.</para>
 	<para>These <command>globally unique</command> addresses all begin with <command>2...</command> or <command>3...</command> as the first 16-bits.</para>
+</section>
+
+<section><title>6to4</title>
+	<para><command>6to4</command> is defined in rfc's 2893 and 3056 as one possible way to transition between ipv4 and ipv6 by creating an ipv6 tunnel.</para>
+	<para>It encodes an ipv4 address in an ipv6 address that starts with <command>2002</command>. For example 192.168.1.42/24 will be encoded as:</para>
+	<screen>2002:c0a8:12a:18::1</screen>
+	<para>You can use the command below to convert any ipv4 address to this range.</para>
+	<screen>paul@ubu1010:~$ printf "2002:%02x%02x:%02x%02x:%04x::1\n" `echo 192.168.1.42/24 |tr "./" "  "`
+2002:c0a8:012a:0018::1</screen>
+</section>
+
+<section><title>ISP</title>
+	<para>Should you be so lucky to get an ipv6 address from an <command>isp</command>, then it will start with <command>2001:</command>.</para>
+</section>
+
+<section><title>non routable addresses</title>
+	<para>Comparable to <command>example.com</command> for DNS, the following ipv6 address ranges are reserved for examples, and not routable on the internet.</para>
+	<screen>3fff:ffff::/32
+2001:0db8::/32</screen>
+</section>
+
+<section><title>Belgium and ipv6</title>
+	<para>A lot of information on ipv6 in Belgium can be found at www.ipv6council.be.</para>
+	<para>Sites like ipv6.belgium.be, www.bipt.be and www.bricozone.be are enabled for ipv6. Some Universities also: fundp.ac.be (Namur) and ulg.ac.be (Liege).</para>
+</section>
+
+<section><title>other websites</title>
+	<para>Other useful websites for testing ipv6 are:</para>
+	<screen>test-ipv6.com
+ipv6-test.com
+</screen>
+</section>
+
+<section><title>6to4 gateways</title>
+	<para>To access ipv4 only websites when on ipv6 you can use sixxs.net (more specifically http://www.sixxs.net/tools/gateway/) as a gatway.</para>
+	<para>For example use http://www.slashdot.org.sixxs.org/ instead of http://slashdot.org</para>
+</section>
+
+<section><title>host part generation</title>
+	<para>The host part of an automatically generated (stateless) ipv6 address contains part of the hosts mac address:</para>
+	<screen>paul@debian5:~$ /sbin/ifconfig | head -3
+eth3      Link encap:Ethernet  HWaddr 08:00:27:ab:67:30  
+          inet addr:192.168.1.29  Bcast:192.168.1.255  Mask:255.255.255.0
+          inet6 addr: fe80::a00:27ff:feab:6730/64 Scope:Link</screen>
+	<para>Some people are concerned about privacy here...</para>
+</section>
+
+<section><title>ping6</title>
+	<para>Use <command>ping6</command> to test connectivity between ipv6 hosts. You need to specify the interface (there is no routing table for 'random' generated ipv6 link local addresses).</para>
+	<screen>[root@fedora14 ~]# ping6 -I eth0 fe80::a00:27ff:fecd:7ffc
+PING fe80::a00:27ff:fecd:7ffc(fe80::a00:27ff:fecd:7ffc) from fe80::a00:27ff:fe3c:4346 eth0: 56 data bytes
+64 bytes from fe80::a00:27ff:fecd:7ffc: icmp_seq=1 ttl=64 time=0.586 ms
+64 bytes from fe80::a00:27ff:fecd:7ffc: icmp_seq=2 ttl=64 time=3.95 ms
+64 bytes from fe80::a00:27ff:fecd:7ffc: icmp_seq=3 ttl=64 time=1.53 ms</screen>
+	<para>Below a multicast ping6 that recieves replies from three ip6 hosts on the same network.</para>
+	<screen>[root@fedora14 ~]# ping6 -I eth0 ff02::1
+PING ff02::1(ff02::1) from fe80::a00:27ff:fe3c:4346 eth0: 56 data bytes
+64 bytes from fe80::a00:27ff:fe3c:4346: icmp_seq=1 ttl=64 time=0.598 ms
+64 bytes from fe80::a00:27ff:fecd:7ffc: icmp_seq=1 ttl=64 time=1.87 ms (DUP!)
+64 bytes from fe80::8e7b:9dff:fed6:dff2: icmp_seq=1 ttl=64 time=535 ms (DUP!)
+64 bytes from fe80::a00:27ff:fe3c:4346: icmp_seq=2 ttl=64 time=0.106 ms
+64 bytes from fe80::8e7b:9dff:fed6:dff2: icmp_seq=2 ttl=64 time=1.79 ms (DUP!)
+64 bytes from fe80::a00:27ff:fecd:7ffc: icmp_seq=2 ttl=64 time=2.48 ms (DUP!)</screen>
+</section>
+
+<section><title></title>
+	<para></para>
+	<screen></screen>
+	<para></para>
+	<screen></screen>
+	<mediaobject><imageobject><imagedata fileref="images/dns_08_delegation.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+</section>
+
+<section><title></title>
+	<para></para>
+	<screen></screen>
+	<para></para>
+	<screen></screen>
+	<mediaobject><imageobject><imagedata fileref="images/dns_08_delegation.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 </section>
 
 <section><title></title>
