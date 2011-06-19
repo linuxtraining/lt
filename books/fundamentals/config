@@ -23,11 +23,10 @@ add_mod minibook minibook_vi
 add_mod minibook minibook_scripts
 add_mod minibook minibook_users
 add_mod minibook minibook_files
-#add_mod chapter intro_processes
 
-#add_mod appendix keys
-#add_mod appendix hardware
+add_mod appendix keys
+add_mod appendix hardware
 
 # license
 # (automatic at end of pdf file ?)
-add_mod appendix license
+# add_mod appendix license
