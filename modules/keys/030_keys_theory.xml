@@ -1,4 +1,4 @@
-<section><title>About Keyboard Layout</title>
+<section><title>about keyboard layout</title>
 	<para>Many people (like US-Americans) prefer the default US-qwerty keyboard layout. So when you are not from the USA and want a local keyboard layout on your system, then the best practice is to select this keyboard at installation time. Then the keyboard layout will always be correct. Also, whenever you use ssh to remotely manage a linux system, your local keyboard layout will be used, independent of the server keyboard configuration. So you will not find much information on changing keyboard layout on the fly on linux, because not many people need it. Below are some tips to help you.</para>
 </section>
 <section><title>X Keyboard Layout</title>
@@ -15,7 +15,7 @@
 </screen>
 	<para>When in Gnome or KDE or any other graphical environment, look in the graphical menu in preferences, there will be a keyboard section to choose your layout. Use the graphical menu instead of editing xorg.conf.</para>
 </section>
-<section><title>Shell Keyboard Layout</title>
+<section><title>shell keyboard layout</title>
 	<para>When in bash, take a look in the /etc/sysconfig/keyboard file. Below a sample US-qwerty configuration, followed by a Belgian azerty configuration.</para>
 	<screen>
 [paul@RHEL5 ~]$ cat /etc/sysconfig/keyboard 
