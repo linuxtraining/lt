@@ -104,4 +104,10 @@ root@RHELv4u4:~#
 /smallswapfile    swap       swap     defaults      0 0
 		</screen>	
 		</section>
+		<section><title>/proc/swaps</title>
+			<para>You can find information about <command>swap partition(s)</command><indexterm><primary>swap partition(s)</primary></indexterm> in <command>/proc/swaps</command><indexterm><primary>/proc/swaps</primary></indexterm>.</para>
+			<screen>paul@RHELv4u4:~$ cat /proc/swaps 
+Filename                           Type        Size    Used    Priority
+/dev/mapper/VolGroup00-LogVol01    partition   1048568 0       -1 </screen>
+		</section>
 	</section>

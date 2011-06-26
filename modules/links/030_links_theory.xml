@@ -1,3 +1,4 @@
+<?hard-pagebreak?>
 <section><title>inodes</title>
 	<para>To understand links in a file system, you first have to understand what an <command>inode</command><indexterm><primary>inode</primary></indexterm> is.</para>
 	<section><title>inode contents</title>

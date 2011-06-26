@@ -36,6 +36,37 @@ root@rhel53 ~# cat /proc/filesystems  | grep -v nodev
 			<para>You might encounter <command>reiserfs</command><indexterm><primary>reiserfs</primary></indexterm> on older Linux systems. Maybe you will see Sun's <command>zfs</command><indexterm><primary>zfs</primary></indexterm>, or one of the dozen other file systems available.</para>
 		</section>
 	</section>
+	<section><title>/proc/filesystems</title>
+		<para>The <command>/proc/filesystems</command><indexterm><primary>/proc/filesystems</primary></indexterm> file displays a list of supported file systems. When you mount a file system without explicitly defining one, then mount will first try to probe <command>/etc/filesystems</command><indexterm><primary>/etc/filesystems</primary></indexterm> and then probe <command>/proc/filesystems</command> for all the filesystems without the <command>nodev</command><indexterm><primary>nodev</primary></indexterm> label. If <command>/etc/filesystems</command> ends with a line containing only an asterisk (*) then both files are probed.</para> 
+		<screen>
+paul@RHELv4u4:~$ cat /proc/filesystems 
+nodev   sysfs
+nodev   rootfs
+nodev   bdev
+nodev   proc
+nodev   sockfs
+nodev   binfmt_misc
+nodev   usbfs
+nodev   usbdevfs
+nodev   futexfs
+nodev   tmpfs
+nodev   pipefs
+nodev   eventpollfs
+nodev   devpts
+        ext2
+nodev   ramfs
+nodev   hugetlbfs
+        iso9660
+nodev   relayfs
+nodev   mqueue
+nodev   selinuxfs
+        ext3
+nodev   rpc_pipefs
+nodev   vmware-hgfs
+nodev   autofs
+paul@RHELv4u4:~$
+				</screen>
+			</section>
 	<section><title>putting a file system on a partition</title>
 		<para>We now have a fresh partition. The system binaries to make file systems can be found with ls.</para>
 		<screen>
