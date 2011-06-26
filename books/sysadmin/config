@@ -4,8 +4,8 @@
 BOOKTITLE="Linux System Administration"
 TEACHER=""
 # if set this overrules the system wide version:
-MAJOR=0
-MINOR=99
+MAJOR=1
+MINOR=9
 
 ##################
 # define book
@@ -13,33 +13,45 @@ MINOR=99
 
 # define book as chapters in certain order
 
-# fundamentals parts in sysadmin course
-# add_mod chapter intro_users
-# add_mod chapter intro_groups
-# add_mod chapter file_permissions
-# add_mod chapter links
-# add_mod chapter processes
+# optionally add fundamentals parts in sysadmin course
+# add_mod minibook minibook_users
+# add_mod minibook minibook_files
 
 # sysadmin
-add_mod chapter processes
-add_mod chapter disk_management
-add_mod chapter lvm
-add_mod chapter bootloader
-add_mod chapter init
-add_mod chapter kernel
-add_mod chapter network_sniffing
-add_mod chapter network
-add_mod chapter scheduling
-add_mod chapter logging
-add_mod chapter libraries
-add_mod chapter memory 
-add_mod chapter installing_linux
-add_mod chapter package_management
-add_mod chapter backup
-add_mod chapter monitoring
-add_mod appendix quotas
-add_mod appendix vnc
+add_mod minibook_process_management
+#add_mod chapter processes
+
+add_mod minibook_local_disk_management
+#add_mod chapter disk_management
+#add_mod chapter lvm
+
+add_mod minibook_boot_management
+#add_mod chapter bootloader
+#add_mod chapter init
+
+add_mod minibook_system_management
+#add_mod chapter scheduling
+#add_mod chapter logging
+#add_mod chapter memory
+#add_mod chapter package_management
+
+add_mod minibook_networking
+#add_mod chapter network_sniffing
+#add_mod chapter network
+
+add_mod minibook_kernel
+#add_mod chapter kernel  //split modules management ?
+#add_mod chapter libraries
+
+add_mod minibook_backup
+#add_mod chapter backup
+
+#add_mod chapter monitoring // add these tools to relevant chapter ?
+
+#add_mod appendix installing_linux
+#add_mod appendix quotas
+#add_mod appendix vnc
 # add_mod appendix bootfloppy
 
 # license
-add_mod appendix license
+#add_mod appendix license
