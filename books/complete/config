@@ -1,0 +1,47 @@
+#!/bin/sh
+#
+
+BOOKTITLE="Linux Fun"
+TEACHER="Paul Cobbaut"
+
+# define book as collection of minibooks in certain order
+# Fundamentals
+add_mod minibook minibook_introduction
+add_mod minibook minibook_first_steps
+add_mod minibook minibook_shell
+add_mod minibook minibook_pipes_and_commands
+add_mod minibook minibook_vi
+add_mod minibook minibook_scripts
+add_mod minibook minibook_users
+add_mod minibook minibook_files
+
+add_mod appendix keys
+add_mod appendix hardware
+
+# sysadmin
+add_mod minibook minibook_process_management
+add_mod minibook minibook_local_disk_management
+add_mod minibook minibook_boot_management
+add_mod minibook minibook_system_management
+add_mod minibook minibook_networking
+add_mod minibook minibook_kernel
+add_mod minibook minibook_backup
+# add_mod chapter monitoring // add these tools to relevant chapter ?
+add_mod appendix installing_linux
+add_mod appendix quotas
+add_mod appendix vnc
+
+# servers
+add_mod minibook minibook_samba
+add_mod minibook minibook_dns
+add_mod minibook minibook_dhcp
+add_mod minibook minibook_router
+add_mod minibook minibook_firewall
+add_mod minibook minibook_webserver  # seperate squid?
+add_mod minibook minibook_ipv6
+add_mod minibook minibook_database
+add_mod minibook minibook_selinux
+
+add_mod appendix cloning
+# license
+# add_mod appendix license
