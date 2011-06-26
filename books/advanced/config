@@ -3,8 +3,7 @@
 
 BOOKTITLE="Linux Servers"
 TEACHER=""
-# if set this overrules the system wide version:
-MAJOR=0
+MAJOR=1
 MINOR=5
 
 ##################
@@ -12,15 +11,16 @@ MINOR=5
 ##################
 
 # advanced servers
-add_mod chapter apache
-add_mod chapter squid
-add_mod chapter mysql
-add_mod chapter bind
-add_mod chapter router
-add_mod chapter iptables
-add_mod chapter cloning
-add_mod chapter selinux
-add_mod chapter samba
+add_mod minibook minibook_samba
+add_mod minibook minibook_dns
+add_mod minibook minibook_dhcp
+add_mod minibook minibook_router
+add_mod minibook minibook_firewall
+add_mod minibook minibook_webserver  # seperate squid?
+add_mod minibook minibook_ipv6
+add_mod minibook minibook_database
+add_mod minibook minibook_selinux
 
+add_mod appendix cloning
 # license
 add_mod appendix license
