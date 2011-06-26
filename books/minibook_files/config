@@ -10,7 +10,8 @@ BOOKTITLE="file security"
 # define book as directories in certain order
 
 add_mod chapter file_permissions
-add_mod chapter advanced_permissions
+add_mod chapter advanced_permissions ## setuid to processes ?
+add_mod chapter acls
 add_mod chapter links
 
 # license hardcoden op het einde van een .pdf ?
