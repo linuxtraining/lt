@@ -1,0 +1,12 @@
+#!/bin/sh
+#
+
+BOOKTITLE="iptables firewall"
+
+##################
+# define minibook
+##################
+
+# define book as directories in certain order
+add_mod chapter router
+add_mod chapter iptables

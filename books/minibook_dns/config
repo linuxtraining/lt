@@ -1,0 +1,14 @@
+#!/bin/sh
+#
+
+BOOKTITLE="dns server"
+
+##################
+# define minibook
+##################
+
+# define book as directories in certain order
+add_mod chapter bind
+add_mod chapter dns
+add_mod chapter dnsnl
+add_mod chapter dns_advanced

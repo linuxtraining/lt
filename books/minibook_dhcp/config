@@ -1,0 +1,11 @@
+#!/bin/sh
+#
+
+BOOKTITLE="dhcp server"
+
+##################
+# define minibook
+##################
+
+# define book as directories in certain order
+add_mod chapter dhcp

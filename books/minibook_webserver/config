@@ -1,0 +1,12 @@
+#!/bin/sh
+#
+
+BOOKTITLE="apache and squid"
+
+##################
+# define minibook
+##################
+
+# define book as directories in certain order
+add_mod chapter apache
+add_mod chapter squid

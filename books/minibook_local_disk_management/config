@@ -12,5 +12,6 @@ add_mod chapter disk_devices
 add_mod chapter disk_partitions
 add_mod chapter disk_filesystems
 add_mod chapter disk_mounting
+add_mod chapter uuid
 add_mod chapter disk_raid
 add_mod chapter lvm
