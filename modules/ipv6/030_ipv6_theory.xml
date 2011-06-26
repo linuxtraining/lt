@@ -22,6 +22,15 @@
 	<screen>::1/128</screen>
 </section>
 
+<section><title>host part generation</title>
+	<para>The host part of an automatically generated (stateless) ipv6 address contains part of the hosts mac address:</para>
+	<screen>paul@debian5:~$ /sbin/ifconfig | head -3
+eth3      Link encap:Ethernet  HWaddr 08:00:27:ab:67:30  
+          inet addr:192.168.1.29  Bcast:192.168.1.255  Mask:255.255.255.0
+          inet6 addr: fe80::a00:27ff:feab:6730/64 Scope:Link</screen>
+	<para>Some people are concerned about privacy here...</para>
+</section>
+
 <section><title>ipv4 mapped ipv6 address</title>
 	<para>Some applications use ipv4 addresses embedded in an ipv6 address. (Yes there will be an era of migration with both ipv4 and ipv6 in use.) The ipv6 address then looks like this:</para>
 	<screen>::ffff:192.168.1.42/96</screen>
@@ -52,7 +61,8 @@
 	<para>It encodes an ipv4 address in an ipv6 address that starts with <command>2002</command>. For example 192.168.1.42/24 will be encoded as:</para>
 	<screen>2002:c0a8:12a:18::1</screen>
 	<para>You can use the command below to convert any ipv4 address to this range.</para>
-	<screen>paul@ubu1010:~$ printf "2002:%02x%02x:%02x%02x:%04x::1\n" `echo 192.168.1.42/24 |tr "./" "  "`
+	<screen>paul@ubu1010:~$ printf "2002:%02x%02x:%02x%02x:%04x::1\n" `echo 192.168.1.42/24 \
+|tr "./" "  "`
 2002:c0a8:012a:0018::1</screen>
 </section>
 
@@ -64,32 +74,6 @@
 	<para>Comparable to <command>example.com</command> for DNS, the following ipv6 address ranges are reserved for examples, and not routable on the internet.</para>
 	<screen>3fff:ffff::/32
 2001:0db8::/32</screen>
-</section>
-
-<section><title>Belgium and ipv6</title>
-	<para>A lot of information on ipv6 in Belgium can be found at www.ipv6council.be.</para>
-	<para>Sites like ipv6.belgium.be, www.bipt.be and www.bricozone.be are enabled for ipv6. Some Universities also: fundp.ac.be (Namur) and ulg.ac.be (Liege).</para>
-</section>
-
-<section><title>other websites</title>
-	<para>Other useful websites for testing ipv6 are:</para>
-	<screen>test-ipv6.com
-ipv6-test.com
-</screen>
-</section>
-
-<section><title>6to4 gateways</title>
-	<para>To access ipv4 only websites when on ipv6 you can use sixxs.net (more specifically http://www.sixxs.net/tools/gateway/) as a gatway.</para>
-	<para>For example use http://www.slashdot.org.sixxs.org/ instead of http://slashdot.org</para>
-</section>
-
-<section><title>host part generation</title>
-	<para>The host part of an automatically generated (stateless) ipv6 address contains part of the hosts mac address:</para>
-	<screen>paul@debian5:~$ /sbin/ifconfig | head -3
-eth3      Link encap:Ethernet  HWaddr 08:00:27:ab:67:30  
-          inet addr:192.168.1.29  Bcast:192.168.1.255  Mask:255.255.255.0
-          inet6 addr: fe80::a00:27ff:feab:6730/64 Scope:Link</screen>
-	<para>Some people are concerned about privacy here...</para>
 </section>
 
 <section><title>ping6</title>
@@ -110,26 +94,129 @@ PING ff02::1(ff02::1) from fe80::a00:27ff:fe3c:4346 eth0: 56 data bytes
 64 bytes from fe80::a00:27ff:fecd:7ffc: icmp_seq=2 ttl=64 time=2.48 ms (DUP!)</screen>
 </section>
 
-<section><title></title>
-	<para></para>
-	<screen></screen>
-	<para></para>
-	<screen></screen>
-	<mediaobject><imageobject><imagedata fileref="images/dns_08_delegation.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+<?hard-pagebreak?>
+<section><title>Belgium and ipv6</title>
+	<para>A lot of information on ipv6 in Belgium can be found at www.ipv6council.be.</para>
+	<para>Sites like ipv6.belgium.be, www.bipt.be and www.bricozone.be are enabled for ipv6. Some Universities also: fundp.ac.be (Namur) and ulg.ac.be (Liege).</para>
 </section>
 
-<section><title></title>
-	<para></para>
-	<screen></screen>
-	<para></para>
-	<screen></screen>
-	<mediaobject><imageobject><imagedata fileref="images/dns_08_delegation.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+<section><title>other websites</title>
+	<para>Other useful websites for testing ipv6 are:</para>
+	<screen>test-ipv6.com
+ipv6-test.com
+</screen>
+	<para>Going to the ipv6-test.com website will test whether you have a valid accessible ipv6 address.</para>
+	<mediaobject><imageobject><imagedata fileref="images/ipv6_test_ok.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>Going to the test-ipv6.com website will also test whether you have a valid accessible ipv6 address.</para>
+	<mediaobject><imageobject><imagedata fileref="images/ipv6_test2_ok.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 </section>
 
-<section><title></title>
-	<para></para>
+<?hard-pagebreak?>
+<section><title>6to4 gateways</title>
+	<para>To access ipv4 only websites when on ipv6 you can use sixxs.net (more specifically http://www.sixxs.net/tools/gateway/) as a gatway.</para>
+	<para>For example use http://www.slashdot.org.sixxs.org/ instead of http://slashdot.org</para>
+</section>
+
+<section><title>ping6 and dns</title>
+	<para>Below a screenshot of a <command>ping6</command> from behind a 6to4 connection.</para>
+	<mediaobject><imageobject><imagedata fileref="images/ipv6_ping6_dns.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+</section>
+
+<section><title>ipv6 and tcp/http</title>
+	<para>Below a screenshot of a tcp handshake and http connection over ipv6.</para>
+	<mediaobject><imageobject><imagedata fileref="images/tcp_over_ipv6.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+</section>
+
+<section><title>ipv6 PTR record</title>
+	<para>As seen in the DNS chapter, ipv6 PTR records are in the ip6.net domain, and have 32 generations of child domains.</para>
+	<mediaobject><imageobject><imagedata fileref="images/ipv6_PTR_record.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+</section>
+
+<section><title>6to4 setup on Linux</title>
+	<para>Below a transcript of a 6to4 setup on Linux.</para>
+	<para>Thanks to http://www.anyweb.co.nz/tutorial/v6Linux6to4 and http://mirrors.bieringer.de/Linux+IPv6-HOWTO/ and tldp.org!</para>
+	<screen>root@mac:~# ifconfig 
+eth0      Link encap:Ethernet  HWaddr 00:26:bb:5d:2e:52  
+          inet addr:81.165.101.125  Bcast:255.255.255.255  Mask:255.255.248.0
+          inet6 addr: fe80::226:bbff:fe5d:2e52/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:5926044 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:2985892 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:4274849823 (4.2 GB)  TX bytes:237002019 (237.0 MB)
+          Interrupt:43 Base address:0x8000 
+
+lo        Link encap:Local Loopback  
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope:Host
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:598 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:598 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0 
+          RX bytes:61737 (61.7 KB)  TX bytes:61737 (61.7 KB)
+
+root@mac:~# sysctl -w net.ipv6.conf.default.forwarding=1
+net.ipv6.conf.default.forwarding = 1
+root@mac:~# ip tunnel add tun6to4 mode sit remote any local 81.165.101.125
+root@mac:~# ip link set dev tun6to4 mtu 1472 up
+root@mac:~# ip link show dev tun6to4
+10: tun6to4: &#060;NOARP,UP,LOWER_UP&#062; mtu 1472 qdisc noqueue state UNKNOWN 
+    link/sit 81.165.101.125 brd 0.0.0.0
+root@mac:~# ip -6 addr add dev tun6to4 2002:51a5:657d:0::1/64
+root@mac:~# ip -6 addr add dev eth0 2002:51a5:657d:1::1/64
+root@mac:~# ip -6 addr add dev eth0 fdcb:43c1:9c18:1::1/64
+root@mac:~# ifconfig
+eth0      Link encap:Ethernet  HWaddr 00:26:bb:5d:2e:52  
+          inet addr:81.165.101.125  Bcast:255.255.255.255  Mask:255.255.248.0
+          inet6 addr: fe80::226:bbff:fe5d:2e52/64 Scope:Link
+          inet6 addr: fdcb:43c1:9c18:1::1/64 Scope:Global
+          inet6 addr: 2002:51a5:657d:1::1/64 Scope:Global
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:5927436 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:2986025 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:4274948430 (4.2 GB)  TX bytes:237014619 (237.0 MB)
+          Interrupt:43 Base address:0x8000 
+
+lo        Link encap:Local Loopback  
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope:Host
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:598 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:598 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:61737 (61.7 KB)  TX bytes:61737 (61.7 KB)
+
+tun6to4   Link encap:IPv6-in-IPv4  
+          inet6 addr: ::81.165.101.125/128 Scope:Compat
+          inet6 addr: 2002:51a5:657d::1/64 Scope:Global
+          UP RUNNING NOARP  MTU:1472  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0 
+          RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+
+root@mac:~# ip -6 route add 2002::/16 dev tun6to4
+root@mac:~# ip -6 route add ::/0 via ::192.88.99.1 dev tun6to4 metric 1
+root@mac:~# ip -6 route show
+::/96 via :: dev tun6to4  metric 256  mtu 1472 advmss 1412 hoplimit 0
+2002:51a5:657d::/64 dev tun6to4  proto kernel  metric 256  mtu 1472 advmss 1412 hoplimit 0
+2002:51a5:657d:1::/64 dev eth0  proto kernel  metric 256  mtu 1500 advmss 1440 hoplimit 0
+2002::/16 dev tun6to4  metric 1024  mtu 1472 advmss 1412 hoplimit 0
+fdcb:43c1:9c18:1::/64 dev eth0  proto kernel  metric 256  mtu 1500 advmss 1440 hoplimit 0
+fe80::/64 dev eth0  proto kernel  metric 256  mtu 1500 advmss 1440 hoplimit 0
+fe80::/64 dev tun6to4  proto kernel  metric 256  mtu 1472 advmss 1412 hoplimit 0
+default via ::192.88.99.1 dev tun6to4  metric 1  mtu 1472 advmss 1412 hoplimit 0
+root@mac:~# ping6 ipv6-test.com
+PING ipv6-test.com(ipv6-test.com) 56 data bytes
+64 bytes from ipv6-test.com: icmp_seq=1 ttl=57 time=42.4 ms
+64 bytes from ipv6-test.com: icmp_seq=2 ttl=57 time=43.0 ms
+64 bytes from ipv6-test.com: icmp_seq=3 ttl=57 time=43.5 ms
+64 bytes from ipv6-test.com: icmp_seq=4 ttl=57 time=43.9 ms
+64 bytes from ipv6-test.com: icmp_seq=5 ttl=57 time=45.6 ms
+^C
+--- ipv6-test.com ping statistics ---
+5 packets transmitted, 5 received, 0% packet loss, time 4006ms
+rtt min/avg/max/mdev = 42.485/43.717/45.632/1.091 ms</screen>
 	<screen></screen>
-	<para></para>
-	<screen></screen>
-	<mediaobject><imageobject><imagedata fileref="images/dns_08_delegation.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 </section>
