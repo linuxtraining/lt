@@ -3,47 +3,44 @@
 
 BOOKTITLE="Linux System Administration"
 TEACHER=""
-# if set this overrules the system wide version:
-MAJOR=1
-MINOR=9
 
 ##################
 # define book
 ##################
 
-# define book as chapters in certain order
+# define book as collection of minibooks in certain order
 
 # optionally add fundamentals parts in sysadmin course
 # add_mod minibook minibook_users
 # add_mod minibook minibook_files
 
 # sysadmin
-add_mod minibook_process_management
+add_mod minibook minibook_process_management
 #add_mod chapter processes
 
-add_mod minibook_local_disk_management
+add_mod minibook minibook_local_disk_management
 #add_mod chapter disk_management
 #add_mod chapter lvm
 
-add_mod minibook_boot_management
+add_mod minibook minibook_boot_management
 #add_mod chapter bootloader
 #add_mod chapter init
 
-add_mod minibook_system_management
+add_mod minibook minibook_system_management
 #add_mod chapter scheduling
 #add_mod chapter logging
 #add_mod chapter memory
 #add_mod chapter package_management
 
-add_mod minibook_networking
+add_mod minibook minibook_networking
 #add_mod chapter network_sniffing
 #add_mod chapter network
 
-add_mod minibook_kernel
+add_mod minibook minibook_kernel
 #add_mod chapter kernel  //split modules management ?
 #add_mod chapter libraries
 
-add_mod minibook_backup
+add_mod minibook minibook_backup
 #add_mod chapter backup
 
 #add_mod chapter monitoring // add these tools to relevant chapter ?
