@@ -8,5 +8,5 @@ BOOKTITLE="kernel management"
 ##################
 
 # define book as directories in certain order
-add_mod minibook_kernel
 add_mod chapter kernel  //split modules management ?
+add_mod chapter libraries
