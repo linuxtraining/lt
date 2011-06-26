@@ -1,0 +1,12 @@
+#!/bin/sh
+#
+
+BOOKTITLE="disk management"
+
+##################
+# define minibook
+##################
+
+# define book as directories in certain order
+add_mod chapter disk_management
+add_mod chapter lvm

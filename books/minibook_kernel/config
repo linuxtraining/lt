@@ -1,0 +1,12 @@
+#!/bin/sh
+#
+
+BOOKTITLE="kernel management"
+
+##################
+# define minibook
+##################
+
+# define book as directories in certain order
+add_mod minibook_kernel
+add_mod chapter kernel  //split modules management ?

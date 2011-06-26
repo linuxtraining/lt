@@ -1,0 +1,12 @@
+#!/bin/sh
+#
+
+BOOKTITLE="network management"
+
+##################
+# define minibook
+##################
+
+# define book as directories in certain order
+add_mod chapter network_sniffing
+add_mod chapter network

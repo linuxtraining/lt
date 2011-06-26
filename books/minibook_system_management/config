@@ -1,0 +1,15 @@
+#!/bin/sh
+#
+
+BOOKTITLE="system management"
+
+##################
+# define minibook
+##################
+
+# define book as directories in certain order
+add_mod chapter scheduling  ## scheduling maybe belongs in process_management ?
+add_mod chapter logging
+add_mod chapter memory
+add_mod chapter package_management
+
