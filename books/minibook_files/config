@@ -1,7 +1,7 @@
 #!/bin/sh
 #
 
-BOOKTITLE="files"
+BOOKTITLE="file security"
 
 ##################
 # define minibook
