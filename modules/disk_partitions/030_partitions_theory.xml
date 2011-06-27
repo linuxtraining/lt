@@ -1,5 +1,4 @@
 <?hard-pagebreak?>
-<section><title>partitions</title>
 	<section><title>about partitions</title>
 		<para>Linux requires you to create one or more <command>partitions</command><indexterm><primary>partition</primary></indexterm>. The next paragraphs will explain how to create and use partitions.</para>
 		<para>A partition's <command>geometry</command> and size is usually defined by a starting and ending cylinder (sometimes by sector). Partitions can be of type <command>primary</command><indexterm><primary>primary partition</primary></indexterm> (maximum four), <command>extended</command><indexterm><primary>extended partition</primary></indexterm> (maximum one) or <command>logical</command><indexterm><primary>logical drive</primary></indexterm> (contained within the extended partition). Each partition has a <command>type field</command> that contains a code. This determines the computers operating system or the partitions file system.</para>
@@ -220,6 +219,5 @@ root@RHELv4u2:~#
 		<screen>sfdisk -d /dev/sda &#060; parttable.sda.sfdisk</screen>
 		<para>The following example copies the <command>mbr</command> and all <command>logical drive</command> info from /dev/sda to /dev/sdb.</para>
 		<screen>sfdisk -d /dev/sda | sfdisk /dev/sdb</screen>
-	</section>
 	</section>
 </section>
