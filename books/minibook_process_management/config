@@ -8,4 +8,6 @@ BOOKTITLE="process management"
 ##################
 
 # define book as directories in certain order
-add_mod chapter processes
+add_mod chapter processes_intro
+add_mod chapter processes_priority
+add_mod chapter processes_jobs
