@@ -1,5 +1,4 @@
 <?hard-pagebreak?>
-<section><title>RAID</title>
 	<section><title>Hardware or software</title>
 		<para>Redundant Array of Independent Disks or <command>RAID</command><indexterm><primary>RAID</primary></indexterm> can be set up using hardware or software. Hardware RAID is more expensive, but offers better performance. Software RAID is cheaper and easier to manage, but it uses your CPU and your memory.</para>
 	</section>
@@ -200,4 +199,3 @@ paul@RHELv4u4:~$
 		<screen>mdadm --remove /dev/md0</screen>
 		<para>The disks can now be repartitioned.</para>
 	</section>
-</section>
