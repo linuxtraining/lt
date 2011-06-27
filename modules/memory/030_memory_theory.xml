@@ -1,3 +1,4 @@
+<?hard-pagebreak?>
 <section><title>about memory</title>
 	<para>You can display information about <command>ram memory</command> with <command>free -om</command><indexterm><primary>free(1)</primary></indexterm>, <command>top</command><indexterm><primary>top(1)</primary></indexterm> and cat <command>/proc/meminfo</command><indexterm><primary>/proc/meminfo</primary></indexterm>. You should understand terms like <command>swapping</command><indexterm><primary>swapping</primary></indexterm>, <command>paging</command><indexterm><primary>paging</primary></indexterm> and <command>virtual memory</command><indexterm><primary>virtual memory</primary></indexterm>.</para>
 </section>
