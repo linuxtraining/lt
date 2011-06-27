@@ -1,3 +1,4 @@
+<?hard-pagebreak?>
 <section><title>boot terminology</title>
 	<para>The exact order of things that happen when starting a computer system, depends on the hardware architecture (<command>Intel x86</command><indexterm><primary>Intel</primary></indexterm> is different from <command>Sun Sparc</command><indexterm><primary>Sun</primary></indexterm> etc), on the boot loader (<command>grub</command> is different from <command>lilo</command>) and on the operating system (<command>Linux</command>, <command>Solaris</command><indexterm><primary>Solaris</primary></indexterm>, <command>BSD</command><indexterm><primary>BSD</primary></indexterm> etc). Most of this chapter is focused on booting <command>Linux</command> on <command>Intel x86</command><indexterm><primary>x86</primary></indexterm> with <command>grub</command>.</para>
 	<section><title>post</title>
@@ -221,8 +222,7 @@ kernel  /boot/vmlinuz-2.6.17-2-686 root=/dev/hda1 ro init=/bin/bash
 	</section>
 	<section><title>lilo.conf</title>
 		<para>Here is an example of a typical <command>lilo.conf</command><indexterm><primary>lilo.conf</primary></indexterm> file. The <command>delay</command> switch receives a number in tenths of a second. So the delay below is three seconds, not thirty!</para>
-		<screen>
-boot = /dev/hda
+		<screen>boot = /dev/hda
 delay = 30
 
 image = /boot/vmlinuz
@@ -235,11 +235,7 @@ image = /boot/vmlinuz
 
 other = /dev/hda4
   table = /dev/hda
-  label = MS-DOS 6.22
-		</screen>
+  label = MS-DOS 6.22</screen>
 		<para>The configration file shows three example stanzas. The first one boots Red Hat from the first partition on the first disk (hda1). The second stanza boots Suse 8.0 from the next partition. The last one loads MS-DOS.</para>
 	</section>
 </section>
-
-
-
