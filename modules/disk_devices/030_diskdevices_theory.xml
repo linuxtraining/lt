@@ -1,5 +1,4 @@
 <?hard-pagebreak?>
-<section><title>hard disk devices</title>
 	<section><title>terminology</title>
 		<section><title>platter, head, track, cylinder, sector</title>
 			<para>Data is commonly stored on magnetic or optical <command>disk platters</command><indexterm><primary>disk platters</primary></indexterm>. The platters are rotated (at high speeds). Data is read by <command>heads</command><indexterm><primary>head (hard disk device)</primary></indexterm>, which are very close to the surface of the platter, without touching it! The heads are mounted on an arm (sometimes called a comb or a fork).</para>
@@ -285,4 +284,3 @@ root@barry:~# hdparm /dev/hdd
 		</screen>
 		<para>Use <command>hdparm</command> with care.</para>
 	</section>
-</section>
