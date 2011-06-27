@@ -1,0 +1,53 @@
+<?hard-pagebreak?>
+<section><title>solution : basic process management</title>
+	<para>1. Use <command>ps</command> to search for the <command>init</command> process by name.</para>
+	<screen>
+root@rhel53 ~# ps -C init
+  PID TTY          TIME CMD
+    1 ?        00:00:04 init
+	</screen>
+	<para>2. What is the <command>process id</command> of the <command>init</command> process ?</para>
+	<screen>1</screen>
+	<para>3. Use the <command>who am i</command> command to determine your terminal name.</para>
+	<screen>
+root@rhel53 ~# who am i
+paul     pts/0        2010-04-12 17:44 (192.168.1.38)
+	</screen>
+	<para>4. Using your terminal name from above, use <command>ps</command> to find all processes associated with your terminal.</para>
+	<screen>
+oot@rhel53 ~# ps fax | grep pts/0
+ 2941 ?        S      0:00      \_ sshd: paul@pts/0 
+ 2942 pts/0    Ss     0:00          \_ -bash
+ 2972 pts/0    S      0:00              \_ su -
+ 2973 pts/0    S      0:00                  \_ -bash
+ 3808 pts/0    R+     0:00                      \_ ps fax
+ 3809 pts/0    R+     0:00                      \_ grep pts/0
+	</screen>
+	<para>or also</para>
+	<screen>
+root@rhel53 ~# ps -ef | grep pts/0
+paul      2941  2939  0 17:44 ?        00:00:00 sshd: paul@pts/0 
+paul      2942  2941  0 17:44 pts/0    00:00:00 -bash
+root      2972  2942  0 17:45 pts/0    00:00:00 su -
+root      2973  2972  0 17:45 pts/0    00:00:00 -bash
+root      3816  2973  0 21:25 pts/0    00:00:00 ps -ef
+root      3817  2973  0 21:25 pts/0    00:00:00 grep pts/0
+	</screen>
+	<para>5. What is the <command>process id</command> of your shell ?</para>
+	<screen>2973 in the screenshot above, probably different for you</screen>
+	<para><command>echo $$</command> should display same number as the one you found</para>
+	<para>6. What is the <command>parent process id</command> of your shell ?</para>
+	<screen>2972 in the screenshot above, probably different for you</screen>
+	<para>in this example the PPID is from the <command>su -</command> command, but when inside gnome then for example gnome-terminal can be the parent process</para>
+	<para>7. Start two instances of the <command>sleep 3342</command> in background.</para>
+	<screen>sleep 3342 &#038;
+sleep 3342 &#038;</screen>
+	<para>8. Locate the <command>process id</command> of all <command>sleep</command> commands.</para>
+	<screen>pidof sleep</screen>
+	<para>9. Display only those two <command>sleep</command> processes in <command>top</command>. Then quit top.</para>
+	<screen>top -p pidx,pidy (replace pidx pidy with the actual numbers)</screen>
+	<para>10. Use a <command>standard kill</command> to kill one of the <command>sleep</command> processes.</para>
+	<screen>kill pidx</screen>
+	<para>11. Use one command to kill all <command>sleep</command> processes.</para>
+	<screen>pkill sleep</screen>
+</section>
