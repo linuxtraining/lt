@@ -1,3 +1,4 @@
+<?hard-pagebreak?>
 <section><title>about sysv init</title>
 	<para>Many Linux distributions use <command>init</command> scripts to start daemons in the same way that <command>Unix System V</command><indexterm><primary>System V</primary></indexterm> did. This chapter will explain in detail how that works.</para>
 	<para>Init starts daemons by using scripts, where each script starts one daemon, and where each script waits for the previous script to finish. This serial process of starting daemons is slow, and although slow booting is not a problem on servers where uptime is measured in years, the recent uptake of Linux on the desktop results in user complaints.</para>
