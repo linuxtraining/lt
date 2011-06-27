@@ -1,9 +1,0 @@
-<?hard-pagebreak?>
-<section><title>practice : process priorities</title>
-	<para>1. Create a new directory and create six <command>pipes</command> in that directory.</para>
-	<para>2. Bounce a character between two <command>pipes</command>.</para>
-	<para>3. Use <command>top</command> and <command>ps</command> to display information (pid, ppid, priority, nice value, ...) about these two cat processes.</para>
-	<para>4. Bounce another character between two other pipes, but this time start the commands <command>nice</command>. Verify that all <command>cat</command> processes are battling for the cpu. (Feel free to fire up two more cats with the remaining pipes).</para>
-	<para>5. Use <command>ps</command> to verify that the two new <command>cat</command> processes have a <command>nice</command> value. Use the -o and -C options of <command>ps</command> for this.</para>
-	<para>6. Use <command>renice</command> te increase the nice value from 10 to 15. Notice the difference with the usual commands.</para>
-</section>
