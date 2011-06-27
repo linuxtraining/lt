@@ -1,6 +1,4 @@
-<section><title>about scheduling</title>
-	<para>Linux administrators use the <command>at</command><indexterm><primary>at(1)</primary></indexterm> to schedule one time jobs. Recurring jobs are better scheduled with <command>cron</command><indexterm><primary>cron(8)</primary></indexterm>. The next two sections will discuss both tools.</para>
-</section>
+<?hard-pagebreak?>
 <section><title>one time jobs with at</title>
 <section><title>at</title>
 	<para>Simple scheduling can be done with the <command>at</command><indexterm><primary>at(1)</primary></indexterm> command. This screenshot shows the scheduling of the date command at 22:01 and the sleep command at 22:03.</para> 
