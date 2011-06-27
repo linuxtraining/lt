@@ -1,5 +1,4 @@
 <?hard-pagebreak?>
-<section><title>uuid and filesystems</title>
 <section><title>about unique objects</title>
 	<para>A <command>uuid</command><indexterm><primary>uuid</primary></indexterm> or <command>universally unique identifier</command><indexterm><primary> universally unique identifier</primary></indexterm> is used to uniquely identify objects. This 128bit standard allows anyone to create a unique <command>uuid</command>.</para>
 	<section><title>/sbin/vol_id</title>
@@ -65,5 +64,4 @@ root=UUID=f001ba5d-9077-422a-9634-8d23d57e782a ro quiet splash
 initrd		/boot/initrd.img-2.6.31-19-generic
 	</screen>
 	<para>The screenshot above contains only four lines. The line starting with <command>root=</command> is the continuation of the <command>kernel</command> line.</para>
-</section>
 </section>
