@@ -1,4 +1,5 @@
-<section><title>Practice: Installing software</title>
+<?hard-pagebreak?>
+<section><title>practice: package management</title>
 	<para>1. Find the Graphical application on all computers to add and remove applications.</para>
 	<para>2. Verify on both systems whether gcc is installed.</para>
 	<para>3. Use aptitude or yum to search for and install the 'dict', 'samba' and 'wesnoth' applications. Did you find all them all ?</para>

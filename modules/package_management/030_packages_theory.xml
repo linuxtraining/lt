@@ -1,4 +1,5 @@
-<section><title>Red Hat package manager</title>
+<?hard-pagebreak?>
+<section><title>rpm</title>
 	<section><title>about rpm</title>
 		<para>The <command>Red Hat package manager</command><indexterm><primary>rpm</primary></indexterm> can be used on the command line with <command>rpm</command> or in a graphical way going to Applications--System Settings--Add/Remove Applications. Type <command>rpm --help</command> to see some of the options.</para>
 		<para>Software distributed in the rpm format will be named <command>foo-version.platform.rpm</command> .</para>	
@@ -302,7 +303,7 @@ Config.mk
 246098 blocks
 	</screen>
 </section>
-<section><title>Debian package management</title>
+<section><title>deb</title>
 	<section><title>about deb</title>
 		<para>Most people use <command>aptitude</command> or <command>apt-get</command> to manage their Debian/Ubuntu family of Linux distributions. Both are a front end for <command>dpkg</command> and are themselves a back end for <command>synaptic</command> or other graphical tools.</para>
 		<para>This is a screenshot of synaptic running on Debian 4.0.</para>
@@ -319,28 +320,27 @@ ii gcc-4.2-base 4.2.4-1ubuntu3 The GNU Compiler Collection (base package)
 	<section><title>dpkg</title>
 		<para>You could use <command>dpkg -i</command> to install a package and <command>dpkg -r</command> to remove a package, but you'd have to manually keep track of dependencies.</para>
 	</section>
-	<section><title>aptitude</title>
-		<para>Most people use <command>aptitude</command><indexterm><primary>aptitude(8)</primary></indexterm> for package management on Debian and Ubuntu Systems.</para>
-		<para>To synchronize with the repositories.</para>
-		<screen>aptitude update</screen>
-		<para>To patch and upgrade all software to the latest version on Debian.</para>
-		<screen>aptitude upgrade</screen>
-		<para>To patch and upgrade all software to the latest version on Ubuntu and Mint.</para>
-		<screen>aptitude safe-upgrade</screen>
-		<para>To install an application with all dependencies.</para>
-		<screen>aptitude install $package</screen>
-		<para>To search the repositories for applications that contain a certain string in their name or description.</para>
-		<screen>aptitude search $string</screen>
-		<para>To remove an application and all unused files.</para>
-		<screen>aptitude remove $package</screen>
-	</section>
+</section>
+<section><title>aptitude</title>
+	<para>Most people use <command>aptitude</command><indexterm><primary>aptitude(8)</primary></indexterm> for package management on Debian and Ubuntu Systems.</para>
+	<para>To synchronize with the repositories.</para>
+	<screen>aptitude update</screen>
+	<para>To patch and upgrade all software to the latest version on Debian.</para>
+	<screen>aptitude upgrade</screen>
+	<para>To patch and upgrade all software to the latest version on Ubuntu and Mint.</para>
+	<screen>aptitude safe-upgrade</screen>
+	<para>To install an application with all dependencies.</para>
+	<screen>aptitude install $package</screen>
+	<para>To search the repositories for applications that contain a certain string in their name or description.</para>
+	<screen>aptitude search $string</screen>
+	<para>To remove an application and all unused files.</para>
+	<screen>aptitude remove $package</screen>
 	<section><title>apt-get</title>
 		<para>We could also use <command>apt-get</command><indexterm><primary>apt-get(8)</primary></indexterm>, but <command>aptitude</command> is better at handling dependencies than <command>apt-get</command>. Whenever you see <command>apt-get</command> in a howto, feel free to type <command>aptitude</command>.</para>
 	</section>
 	<section><title>/etc/apt/sources.list</title>
 		<para>The resource list for both <command>apt-get</command> and <command>aptitude</command> is located in <command>/etc/apt/sources.list</command><indexterm><primary>/etc/apt/sources.list</primary></indexterm>. This file contains a list of http or ftp sources where packages for the distribution can be downloaded.</para>
-		<screen>
-root@barry:~# cat /etc/apt/sources.list
+		<screen>root@barry:~# cat /etc/apt/sources.list
 
 deb http://ftp.be.debian.org/debian/ etch main non-free contrib
 # deb http://ftp.be.debian.org/debian/ sarge main non-free contrib
@@ -348,8 +348,7 @@ deb http://ftp.be.debian.org/debian/ etch main non-free contrib
 # deb-src http://ftp.be.debian.org/debian/ etch main non-free contrib
 
 deb http://security.debian.org/ etch/updates main
-# deb-src http://security.debian.org/ etch/updates main
-		</screen>
+# deb-src http://security.debian.org/ etch/updates main</screen>
 	</section>
 </section>
 <section><title>alien</title>
@@ -366,7 +365,7 @@ paul@barry:~$ ls -l netcat*
 	</screen>
 	<para><emphasis>In real life, use the netcat tool provided by your distribution, or use the .deb file from their website.</emphasis></para>
 </section>
-<section><title>Downloading software</title>
+<section><title>downloading software</title>
 	<para>First and most important, whenever you download software, start by reading the README file!</para>
 	<para>Normally the readme will explain what to do after download. You will probably receive a .tar.gz or a .tgz file. Read the documentation, then put the compressed file in a directory. You can use the following to find out where the package wants to install.</para>
 	<screen>tar tvzpf $downloadedFile.tgz</screen>
@@ -374,4 +373,11 @@ paul@barry:~$ ls -l netcat*
 	<screen>tar xzf $applicationName.tgz</screen>
 	<para>Replace the z with a j when the file ends in .tar.bz2. The <command>tar</command>, <command>gzip</command> and <command>bzip2</command> commands are explained in detail later.</para>
 	<para>If you download a <command>.deb</command> file, then you'll have to use <command>dpkg</command> to install it, <command>.rpm</command>'s can be installed with the <command>rpm</command> command.</para>
+</section>
+<section><title>compiling software</title>
+	<para>First and most important, whenever you download source code for installation, start by reading the README file!</para>
+	<para>Usually the steps are always the same three : running <command>./configure</command><indexterm><primary>./configure</primary></indexterm> followed by <command>make</command><indexterm><primary>make(1)</primary></indexterm> (which is the actual compiling) and then by <command>make install</command> to copy the files to their proper location.</para>
+	<screen>./configure
+make
+make install</screen>
 </section>

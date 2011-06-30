@@ -1,3 +1,4 @@
+<?hard-pagebreak?>
 <section><title>terminology</title>
 	<section><title>repositories</title>
 		<para>Most software for your Linux distribution is available in a central distributed <command>repository</command><indexterm><primary>repository</primary></indexterm>. This means that applications in the repository are tested for your distribution and very easy to install with a GUI or command line installer.</para>
