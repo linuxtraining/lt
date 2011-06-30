@@ -1,9 +1,0 @@
-<section><title>Compiling software</title>
-	<para>First and most important, whenever you download source code for installation, start by reading the README file!</para>
-	<para>Usually the steps are always the same three : running <command>./configure</command><indexterm><primary>./configure</primary></indexterm> followed by <command>make</command><indexterm><primary>make(1)</primary></indexterm> (which is the actual compiling) and then by <command>make install</command> to copy the files to their proper location.</para>
-	<screen>
-./configure
-make
-make install
-	</screen>
-</section>
