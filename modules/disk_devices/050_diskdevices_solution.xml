@@ -17,17 +17,14 @@
 	<screen>SCSI+SATA: ls -l /dev/sd*</screen>
 	<screen>ATA: ls -l /dev/hd*</screen>
 	<para>6. Use <command>fdisk</command> (with <command>grep</command> and <command>/dev/null</command>) to display the total size of the new disks.</para>
-	<screen>
-root@rhel53 ~# fdisk -l 2>/dev/null | grep [MGT]B
+	<screen>root@rhel53 ~# fdisk -l 2>/dev/null | grep [MGT]B
 Disk /dev/hda: 21.4 GB, 21474836480 bytes
 Disk /dev/hdb: 1073 MB, 1073741824 bytes
 Disk /dev/sda: 2147 MB, 2147483648 bytes
 Disk /dev/sdb: 2147 MB, 2147483648 bytes
-Disk /dev/sdc: 2147 MB, 2147483648 bytes
-	</screen>
+Disk /dev/sdc: 2147 MB, 2147483648 bytes</screen>
 	<para>7. Use <command>badblocks</command> to completely erase one of the smaller hard disks.</para>
-	<screen>
-#Verify the device (/dev/sdc??) you want to erase before typing this.
+	<screen>#Verify the device (/dev/sdc??) you want to erase before typing this.
 #
 root@rhel53 ~# badblocks -ws /dev/sdc
 Testing with pattern 0xaa: done                                
@@ -37,11 +34,9 @@ Reading and comparing: done
 Testing with pattern 0xff: done                                
 Reading and comparing: done                                
 Testing with pattern 0x00: done                                
-Reading and comparing: done  
-	</screen>
+Reading and comparing: done</screen>
 	<para>8. Look at <command>/proc/scsi/scsi</command>.</para>
-	<screen>
-	root@rhel53 ~# cat /proc/scsi/scsi 
+	<screen>root@rhel53 ~# cat /proc/scsi/scsi 
 Attached devices:
 Host: scsi0 Channel: 00 Id: 02 Lun: 00
   Vendor: VBOX     Model: HARDDISK         Rev: 1.0 
@@ -51,18 +46,12 @@ Host: scsi0 Channel: 00 Id: 03 Lun: 00
   Type:   Direct-Access                    ANSI SCSI revision: 05
 Host: scsi0 Channel: 00 Id: 06 Lun: 00
   Vendor: VBOX     Model: HARDDISK         Rev: 1.0 
-  Type:   Direct-Access                    ANSI SCSI revision: 05
-	</screen>
-	<para>9. If possible, install <command>lsscsi</command> and use it to list the scsi disks.</para>
-	<screen>Debian,Ubuntu: aptitude install lsscsi</screen>
-	<screen>Fedora: yum install lsscsi</screen>
-	<screen>
-root@rhel53 ~# lsscsi 
+  Type:   Direct-Access                    ANSI SCSI revision: 05</screen>
+	<para>9. If possible, install <command>lsscsi</command>, <command>lshw</command> and use them to list the disks.</para>
+	<screen>Debian,Ubuntu: aptitude install lsscsi lshw</screen>
+	<screen>Fedora: yum install lsscsi lshw</screen>
+	<screen>root@rhel53 ~# lsscsi 
 [0:0:2:0]    disk    VBOX     HARDDISK         1.0   /dev/sda
 [0:0:3:0]    disk    VBOX     HARDDISK         1.0   /dev/sdb
-[0:0:6:0]    disk    VBOX     HARDDISK         1.0   /dev/sdc
-	</screen>
-	<para></para>
-	<para></para>
-	<para></para>
+[0:0:6:0]    disk    VBOX     HARDDISK         1.0   /dev/sdc</screen>
 </section>

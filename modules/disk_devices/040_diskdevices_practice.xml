@@ -9,5 +9,5 @@
 	<para>6. Use <command>fdisk</command> (with <command>grep</command> and <command>/dev/null</command>) to display the total size of the new disks.</para>
 	<para>7. Use <command>badblocks</command> to completely erase one of the smaller hard disks.</para>
 	<para>8. Look at <command>/proc/scsi/scsi</command>.</para>
-	<para>9. If possible, install <command>lsscsi</command> and use it to list the <command>scsi</command> disks.</para>
+	<para>9. If possible, install <command>lsscsi</command>, <command>lshw</command> and use them to list the disks.</para>
 </section>

@@ -2,7 +2,7 @@
 	<section><title>terminology</title>
 		<section><title>platter, head, track, cylinder, sector</title>
 			<para>Data is commonly stored on magnetic or optical <command>disk platters</command><indexterm><primary>disk platters</primary></indexterm>. The platters are rotated (at high speeds). Data is read by <command>heads</command><indexterm><primary>head (hard disk device)</primary></indexterm>, which are very close to the surface of the platter, without touching it! The heads are mounted on an arm (sometimes called a comb or a fork).</para>
-			<para>Data is written in concentric circles called <command>tracks</command><indexterm><primary>track</primary></indexterm>. Track zero is (usually) on the inside. The time it takes to position the head over a certain track is called the <command>seek time</command><indexterm><primary>seek time</primary></indexterm>. Often the platters are stacked on top of each other, hence the set of tracks accessible at a certain position of the comb forms a <command>cylinder</command><indexterm><primary>cylinder</primary></indexterm>. Tracks are divided into 512 byte <command>sectors</command><indexterm><primary>sector</primary></indexterm>, with more unused space (<command>gap</command>) between the sectors on the outside of the platter. </para>
+			<para>Data is written in concentric circles called <command>tracks</command><indexterm><primary>track</primary></indexterm>. Track zero is (usually) on the outside. The time it takes to position the head over a certain track is called the <command>seek time</command><indexterm><primary>seek time</primary></indexterm>. Often the platters are stacked on top of each other, hence the set of tracks accessible at a certain position of the comb forms a <command>cylinder</command><indexterm><primary>cylinder</primary></indexterm>. Tracks are divided into 512 byte <command>sectors</command><indexterm><primary>sector</primary></indexterm>, with more unused space (<command>gap</command>) between the sectors on the outside of the platter. </para>
 			<para>When you break down the advertised <command>access time</command><indexterm><primary>access time</primary></indexterm> of a hard drive, you will notice that most of that time is taken by movement of the heads (about 65%) and <command>rotational latency</command><indexterm><primary>rotational latency</primary></indexterm> (about 30%). </para>
 		</section>	
 		<section><title>block device</title>
@@ -30,6 +30,7 @@ brw-rw----  1 root disk 8, 2 Aug  4 22:55 /dev/sda2
 			<para>Older 8-bit SCSI is now called <command>narrow</command>, whereas 16-bit is <command>wide</command>. When the bus speeds was doubled to 10Mhz, this was known as <command>fast SCSI</command>. Doubling to 20Mhz made it <command>ultra SCSI</command>. Take a look at http://en.wikipedia.org/wiki/SCSI for more SCSI standards. </para>
 		</section>
 	</section>
+<?hard-pagebreak?>
 	<section><title>device naming</title>
 		<section><title>ata (ide) device naming</title>
 			<para>All <command>ata</command> drives on your system will start with <command>/dev/hd</command><indexterm><primary>/dev/hdX</primary></indexterm> followed by a unit letter. The master hdd on the first <command>ata controller</command> is /dev/hda, the slave is /dev/hdb. For the second controller, the names of the devices are /dev/hdc and /dev/hdd.</para>
@@ -112,7 +113,8 @@ brw-rw----  1 root disk 8, 2 Aug  4 22:55 /dev/sda2
 </table>
 		</section>
 	</section>
-	<section><title>discovering all disk devices</title>
+<?hard-pagebreak?>
+	<section><title>discovering disk devices</title>
 		<section><title>/sbin/fdisk</title>
 			<para>You can start by using <command>/sbin/fdisk</command><indexterm><primary>fdisk(8)</primary></indexterm> to find out what kind of disks are seen by the kernel. Below the result on Debian, with two <command>ata-ide disks</command> present.</para>
 			<screen>
@@ -190,8 +192,53 @@ sd 0:0:3:0: Attached scsi disk sdb
 sd 0:0:6:0: Attached scsi disk sdc
 			</screen>
 		</section>
+		<section><title>/sbin/lshw</title>
+			<para>The <command>lshw</command> tool will <command>list hardware</command>. With the right options <command>lshw</command> can show a lot of information about disks (and partitions).</para>
+			<para>Below a truncated screenshot on Debian 5:</para>
+			<screen>root@debian5:~# aptitude search lshw
+p   lshw         - information about hardware configuration
+p   lshw-gtk     - information about hardware configuration
+root@debian5:~# aptitude install lshw
+...
+root@debian5:~# lshw -class volume
+  *-volume:0              
+       description: EXT3 volume
+       vendor: Linux
+       physical id: 1
+       bus info: ide@0.0,1
+       logical name: /dev/hda1
+       logical name: /
+       version: 1.0
+       serial: f327ca8a-8187-48c5-b760-956ec79d414b
+       size: 19GiB
+       capacity: 19GiB
+       capabilities: primary bootable journaled extended_attributes lar\
+ge_files huge_files recover ext3 ext2 initialized
+       configuration: created=2009-10-28 12:02:35 filesystem=ext3 ... 
+...</screen>
+			<para>Below a screenshot of <command>lshw</command> running Ubuntu 10.10 on a macbook pro:</para>
+			<screen>root@ubu1010:~# lshw -class volume
+  *-volume:0 UNCLAIMED    
+       description: EFI GPT partition
+       physical id: 1
+       bus info: scsi@0:0.0.0,1
+       capacity: 2047KiB
+       capabilities: primary nofs
+  *-volume:1
+       description: EXT4 volume
+       vendor: Linux
+       physical id: 2
+       bus info: scsi@0:0.0.0,2
+       logical name: /dev/sda2
+       logical name: /
+       version: 1.0
+       serial: 101eb20f-3e25-4900-b988-4622c0ee4ff5
+       size: 142GiB
+       capacity: 142GiB
+...</screen>
+		</section>
 		<section><title>/sbin/lsscsi</title>
-			<para>The <command>/sbin/lsscsi</command><indexterm><primary>lsscsi(1)</primary></indexterm> will gve you a nice readable output of all scsi (and scsi emulated devices). This first screenshot shows lsscsi on a SPARC system.</para>
+			<para>The <command>/sbin/lsscsi</command><indexterm><primary>lsscsi(1)</primary></indexterm> will give you a nice readable output of all scsi (and scsi emulated devices). This first screenshot shows lsscsi on a SPARC system.</para>
 			<screen>
 root@shaka:~# lsscsi 
 [0:0:0:0]    disk    Adaptec  RAID5            V1.0  /dev/sda
@@ -236,11 +283,12 @@ root@shaka:~#
 			</screen>
 			<para>Another simple tool is <command>scsiinfo</command> which is a part of <command>scsitools</command> (also not installed by default).</para>
 			<screen>
-root@deb503:~# scsiinfo -l
+root@debian5:~# scsiinfo -l
 /dev/sda /dev/sdb /dev/sdc
 			</screen>
 		</section>
 	</section>
+<?hard-pagebreak?>
 	<section><title>erasing a hard disk</title>
 		<para>Before selling your old hard disk on the internet, it might be a good idea to erase it. By simply repartitioning, by using the Microsoft Windows format utility, or even after an <command>mkfs</command> command, some people will still be able to read most of the data on the disk.</para>
 		<para>Although technically the <command>/sbin/badblocks</command><indexterm><primary>badblocks(8)</primary></indexterm> tool is meant to look for bad blocks, you can use it to completely erase all data from a disk. Since this is really writing to every sector of the disk, it can take a long time!</para>
@@ -256,21 +304,19 @@ Testing with pattern 0x00: done
 Reading and comparing: done                        
 		</screen>
 	</section>
+<?hard-pagebreak?>
 	<section><title>advanced hard disk settings</title>
-		<para>Tweaking of hard disk settings (dma, gap, ...) are not covered in this course. Several tools exists, <command>hdparm</command> is just one of them.</para>
+		<para>Tweaking of hard disk settings (dma, gap, ...) are not covered in this course. Several tools exists, <command>hdparm</command> and <command>sdparm</command> are two of them.</para>
 		<para><command>/sbin/hdparm</command><indexterm><primary>hdparm(8)</primary></indexterm> can be used to display or set information and parameters about an ATA (or SATA) hard disk device. The -i and -I options will give you even more information about the physical properties of the device.</para>
-		<screen>
-root@laika:~# hdparm /dev/sdb
+		<screen>root@laika:~# hdparm /dev/sdb
 
 /dev/sdb:
  IO_support   =  0 (default 16-bit)
  readonly     =  0 (off)
  readahead    = 256 (on)
- geometry     = 12161/255/63, sectors = 195371568, start = 0
-		</screen>
+ geometry     = 12161/255/63, sectors = 195371568, start = 0</screen>
 		<para>Below <command>hdparm</command> info about a 200GB IDE disk.</para>
-		<screen>
-root@barry:~# hdparm /dev/hdd
+		<screen>root@barry:~# hdparm /dev/hdd
 
 /dev/hdd:
  multcount     =  0 (off)
@@ -282,5 +328,11 @@ root@barry:~# hdparm /dev/hdd
  readahead     = 256 (on)
  geometry      = 24321/255/63, sectors = 390721968, start = 0
 		</screen>
-		<para>Use <command>hdparm</command> with care.</para>
+		<para>Here a screenshot of <command>sdparm</command> on Ubuntu 10.10.</para>
+		<screen>root@ubu1010:~# aptitude install sdparm
+...
+root@ubu1010:~# sdparm /dev/sda | head -1
+    /dev/sda: ATA       FUJITSU MJA2160B  0081
+root@ubu1010:~# man sdparm</screen>
+		<para>Use <command>hdparm</command> and <command>sdparm</command> with care.</para>
 	</section>
