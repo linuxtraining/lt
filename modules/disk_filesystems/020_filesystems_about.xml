@@ -1,0 +1,9 @@
+<section><title>about file systems</title>
+	<para>After you are finished partitioning the hard disk, you can put a <command>file system</command><indexterm><primary>file system</primary></indexterm> on each partition. A file system is a way of organizing files on your partition. Besides file-based storage, file systems usually include <command>directories</command><indexterm><primary>directory</primary></indexterm> and <command>access control</command>, and contain meta information about files like access times, modification times and file ownership. </para>
+	<para>The properties (length, character set, ...) of filenames are determined by the file system you choose. Directories are usually implemented as files, you will have to learn how this is implemented! Access control in file systems is tracked by user ownership (and group owner- and membership) in combination with one or more access control lists.</para>
+	<para>The manual page about filesystems(5) is usually accessed by typing <command>man fs</command>. You can also look at <command>/proc/filesystems</command> for currently loaded file system drivers.</para>
+	<screen>root@rhel53 ~# cat /proc/filesystems  | grep -v nodev
+	ext2
+	iso9660
+	ext3</screen>
+</section>
