@@ -1,201 +1,149 @@
 <?hard-pagebreak?>
-	<section><title>Hardware or software</title>
-		<para>Redundant Array of Independent Disks or <command>RAID</command><indexterm><primary>RAID</primary></indexterm> can be set up using hardware or software. Hardware RAID is more expensive, but offers better performance. Software RAID is cheaper and easier to manage, but it uses your CPU and your memory.</para>
+<section><title>raid levels</title>
+	<section><title>raid 0</title>
+		<para><command>raid 0</command> uses two or more disks, and is often called <command>striping</command><indexterm><primary>striped disk</primary></indexterm> (or stripe set, or striped volume). Data is divided in <command>chunks</command>, those chunks are evenly spread across every disk in the array. The main advantage of <command>raid 0</command> is that you can create <command>larger drives</command>. <command>raid 0</command> is the only <command>raid</command> without redundancy.</para>
 	</section>
-	<section><title>RAID levels</title>
-		<section><title>RAID 0</title>
-			<para>RAID 0 uses two or more disks, and is often called <command>striping</command><indexterm><primary>striped disk</primary></indexterm> (or stripe set, or striped volume). Data is divided in <command>chunks</command>, those chunks are evenly spread across every disk in the array. The main advantage of RAID 0 is that you can create <command>larger drives</command>. RAID 0 is the only RAID without redundancy.</para>
-		</section>
-		<section><title>JBOD</title>
-			<para><command>JBOD</command><indexterm><primary>JBOD</primary></indexterm> uses two or more disks, and is often called <command>concatenating</command> (spanning, spanned set, or spanned volume). Data is written to the first disk, until it is full. Then data is written to the second disk... The main advantage of JBOD (Just a Bunch of Disks) is that you can create <command>larger drives</command>. JBOD offers no redundancy.</para>
-		</section>
-		<section><title>RAID 1</title>
-			<para>RAID 1 uses exactly two disks, and is often called <command>mirroring</command><indexterm><primary>mirror</primary></indexterm> (or mirror set, or mirrored volume). All data written to the array is written on each disk. The main advantage of RAID 1 is <command>redundancy</command><indexterm><primary>RAID 1</primary></indexterm>. The main disadvantage is that you lose at least half of your available disk space (in other words, you at least double the cost).</para>
-		</section>
-		<section><title>RAID 2, 3 and 4 ?</title>
-			<para>RAID 2 uses bit level striping, RAID 3 byte level, and RAID 4 is the same as RAID 5, but with a dedicated parity disk. This is actually slower than RAID 5, because every write would have to write parity to this one (bottleneck) disk. It is unlikely that you will ever see these RAID levels in production.</para>
-		</section>
-		<section><title>RAID 5</title>
-			<para>RAID 5 uses <command>three</command> or more disks, each divided into chunks. Every time chunks are written to the array, one of the disks will receive a <command>parity</command><indexterm><primary>RAID 5</primary></indexterm> chunk. Unlike RAID 4, the parity chunk will alternate between all disks. The main advantage of this is that RAID 5 will allow for full data recovery in case of <command>one</command> hard disk failure.</para>
-		</section>
-		<section><title>RAID 6</title>
-			<para>RAID 6 is very similar to RAID 5, but uses two parity chunks. RAID 6 protects against two hard disk failures.</para>
-		</section>
-		<section><title>RAID 0+1</title>
-			<para>RAID 0+1 is a mirror(1) of stripes(0). This means you first create two RAID 0 stripe sets, and then you set them up as a mirror set. For example, when you have six 100GB disks, then the stripe sets are each 300GB. Combined in a mirror, this makes 300GB total. RAID 0+1 will survive one disk failure. It will only survive the second disk failure if this disk is in the same stripe set as the previous failed disk.</para>
-		</section>
-		<section><title>RAID 1+0</title>
-			<para>RAID 1+0 is a stripe(0) of mirrors(1). For example, when you have six 100GB disks, then you first create three mirrors of 100GB each. You then stripe them together into a 300GB drive. In this example, as long as not all disks in the same mirror fail, it can survive up to three hard disk failures.</para>
-		</section>
-		<section><title>RAID 50</title>
-			<para>RAID 5+0 is a stripe(0) of RAID 5 arrays. Suppose you have nine disks of 100GB, then you can create three RAID 5 arrays of 200GB each. You can then combine them into one large stripe set.</para>
-		</section>
-		<section><title>many others</title>
-			<para>There are many other nested RAID combinations, like RAID 30, 51, 60, 100, 150, ...</para>
-		</section>
+	<section><title>jbod</title>
+		<para><command>jbod</command><indexterm><primary>jbod</primary></indexterm> uses two or more disks, and is often called <command>concatenating</command> (spanning, spanned set, or spanned volume). Data is written to the first disk, until it is full. Then data is written to the second disk... The main advantage of <command>jbod</command> (Just a Bunch of Disks) is that you can create <command>larger drives</command>. JBOD offers no redundancy.</para>
 	</section>
-	<section><title>Building a software RAID array</title>
-		<para>You can do this during the installation with Disk Druid (easy), or afterwards using the command line (not so easy). </para>
-		<para>First, you have to attach some disks to your computer. In this scenario, three brand new disks of one gigabyte each are added. Check with <command>fdisk -l</command><indexterm><primary>fdisk(1)</primary></indexterm> that they are connected.</para>
-		<screen>
-root@RHELv4u2:~# fdisk -l
-		
-Disk /dev/sda: 12.8 GB, 12884901888 bytes
-255 heads, 63 sectors/track, 1566 cylinders
-Units = cylinders of 16065 * 512 = 8225280 bytes
-		
-Device Boot      Start         End      Blocks   Id  System
-/dev/sda1   *           1          13      104391   83  Linux
-/dev/sda2              14        1566    12474472+  8e  Linux LVM
-		
-Disk /dev/sdb: 1073 MB, 1073741824 bytes
-255 heads, 63 sectors/track, 130 cylinders
-Units = cylinders of 16065 * 512 = 8225280 bytes
-		
-Disk /dev/sdb doesn't contain a valid partition table
-		
-Disk /dev/sdc: 1073 MB, 1073741824 bytes
-255 heads, 63 sectors/track, 130 cylinders
-Units = cylinders of 16065 * 512 = 8225280 bytes
-		
-Disk /dev/sdc doesn't contain a valid partition table
-		
-Disk /dev/sdd: 1073 MB, 1073741824 bytes
-255 heads, 63 sectors/track, 130 cylinders
-Units = cylinders of 16065 * 512 = 8225280 bytes
-		
-Disk /dev/sdd doesn't contain a valid partition table
-		</screen>
-		<para>So far so good! Next step is to create a partition of type <command>fd</command><indexterm><primary>fd (partition type)</primary></indexterm> on every disk. The fd type is to set the partition as <command>Linux RAID auto</command>. Like this screenshot shows. </para>
-		<screen>
-root@RHELv4u2:~# fdisk /dev/sdc
-Device contains neither a valid DOS partition table, nor Sun, SGI or \
-OSF disklabel
-Building a new DOS disklabel. Changes will remain in memory only,
-until you decide to write them. After that, of course, the previous
-content won't be recoverable.
-		
-Warning: invalid flag 0x0000 of partition table 4 will be corrected b\
-y w(rite)
-		
+	<section><title>raid 1</title>
+		<para><command>raid 1</command> uses exactly two disks, and is often called <command>mirroring</command><indexterm><primary>mirror</primary></indexterm> (or mirror set, or mirrored volume). All data written to the array is written on each disk. The main advantage of raid 1 is <command>redundancy</command><indexterm><primary>raid 1</primary></indexterm>. The main disadvantage is that you lose at least half of your available disk space (in other words, you at least double the cost).</para>
+	</section>
+	<section><title>raid 2, 3 and 4 ?</title>
+		<para><command>raid 2</command> uses bit level striping, <command>raid 3</command> byte level, and <command>raid 4</command> is the same as <command>raid 5</command>, but with a dedicated parity disk. This is actually slower than <command>raid 5</command>, because every write would have to write parity to this one (bottleneck) disk. It is unlikely that you will ever see these <command>raid</command> levels in production.</para>
+	</section>
+	<section><title>raid 5</title>
+		<para><command>raid 5</command> uses <command>three</command> or more disks, each divided into chunks. Every time chunks are written to the array, one of the disks will receive a <command>parity</command><indexterm><primary>parity(raid)</primary></indexterm> chunk. Unlike <command>raid 4</command>, the parity chunk will alternate between all disks. The main advantage of this is that <command>raid 5</command> will allow for full data recovery in case of <command>one</command> hard disk failure.</para>
+	</section>
+	<section><title>raid 6</title>
+		<para><command>raid 6</command> is very similar to <command>raid 5</command>, but uses two parity chunks. <command>raid 6</command> protects against two hard disk failures. Oracle Solaris <command>zfs</command> calls this <command>raidz2</command> (and also had <command>raidz3</command> with triple parity).</para>
+	</section>
+	<section><title>raid 0+1</title>
+		<para><command>raid 0+1</command> is a mirror(1) of stripes(0). This means you first create two <command>raid 0 stripe</command> sets, and then you set them up as a mirror set. For example, when you have six 100GB disks, then the stripe sets are each 300GB. Combined in a mirror, this makes 300GB total. <command>raid 0+1</command> will survive one disk failure. It will only survive the second disk failure if this disk is in the same stripe set as the previous failed disk.</para>
+	</section>
+	<section><title>raid 1+0</title>
+		<para><command>raid 1+0</command> is a stripe(0) of mirrors(1). For example, when you have six 100GB disks, then you first create three mirrors of 100GB each. You then stripe them together into a 300GB drive. In this example, as long as not all disks in the same mirror fail, it can survive up to three hard disk failures.</para>
+	</section>
+	<section><title>raid 50</title>
+		<para><command>raid 5+0</command> is a stripe(0) of <command>raid 5</command> arrays. Suppose you have nine disks of 100GB, then you can create three <command>raid 5</command> arrays of 200GB each. You can then combine them into one large stripe set.</para>
+	</section>
+	<section><title>many others</title>
+		<para>There are many other nested <command>raid</command> combinations, like <command>raid</command> 30, 51, 60, 100, 150, ...</para>
+	</section>
+</section>
+<?hard-pagebreak?>
+<section><title>building a software raid5 array</title>
+	<section><title>do we have three disks?</title>
+		<para>First, you have to attach some disks to your computer. In this scenario, three brand new disks of eight gigabyte each are added. Check with <command>fdisk -l</command><indexterm><primary>fdisk(1)</primary></indexterm> that they are connected.</para>
+		<screen>[root@rhel6c ~]# fdisk -l 2> /dev/null | grep MB
+Disk /dev/sdb: 8589 MB, 8589934592 bytes
+Disk /dev/sdc: 8589 MB, 8589934592 bytes
+Disk /dev/sdd: 8589 MB, 8589934592 bytes</screen>
+	</section>
+	<section><title>fd partition type</title>
+		<para>The next step is to create a partition of type <command>fd</command><indexterm><primary>fd (partition type)</primary></indexterm> on every disk. The <command>fd</command> type is to set the partition as <command>Linux RAID autodetect</command>. See this (truncated) screenshot:</para>
+		<screen>[root@rhel6c ~]# fdisk /dev/sdd
+...
 Command (m for help): n
 Command action
-e   extended
-p   primary partition (1-4)
+   e   extended
+   p   primary partition (1-4)
 p
 Partition number (1-4): 1
-First cylinder (1-130, default 1): 
+First cylinder (1-1044, default 1): 
 Using default value 1
-Last cylinder or +size or +sizeM or +sizeK (1-130, default 130): 
-Using default value 130
-		
+Last cylinder, +cylinders or +size{K,M,G} (1-1044, default 1044): 
+Using default value 1044
+
 Command (m for help): t
 Selected partition 1
 Hex code (type L to list codes): fd
 Changed system type of partition 1 to fd (Linux raid autodetect)
-		
-Command (m for help): p
-		
-Disk /dev/sdc: 1073 MB, 1073741824 bytes
-255 heads, 63 sectors/track, 130 cylinders
-Units = cylinders of 16065 * 512 = 8225280 bytes
-		
-Device Boot      Start     End      Blocks   Id  System
-/dev/sdc1          1       130     1044193+  fd  Linux raid autodetect
-		
+
 Command (m for help): w
 The partition table has been altered!
-		
+
 Calling ioctl() to re-read partition table.
-Syncing disks.
-root@RHELv4u2:~# 
-		</screen>
-		<para>Now all three disks are ready for RAID, so we have to tell the system what to do with these disks.</para>
-		<screen>
-root@RHELv4u2:~# fdisk -l
-		
-Disk /dev/sda: 12.8 GB, 12884901888 bytes
-255 heads, 63 sectors/track, 1566 cylinders
-Units = cylinders of 16065 * 512 = 8225280 bytes
-		
-Device Boot      Start         End      Blocks   Id  System
-/dev/sda1   *           1          13      104391   83  Linux
-/dev/sda2              14        1566    12474472+  8e  Linux LVM
-		
-Disk /dev/sdb: 1073 MB, 1073741824 bytes
-255 heads, 63 sectors/track, 130 cylinders
-Units = cylinders of 16065 * 512 = 8225280 bytes
-		
-Device Boot      Start      End      Blocks   Id  System
-/dev/sdb1          1        130     1044193+  fd  Linux raid autodetect
-		
-Disk /dev/sdc: 1073 MB, 1073741824 bytes
-255 heads, 63 sectors/track, 130 cylinders
-Units = cylinders of 16065 * 512 = 8225280 bytes
-		
-Device Boot      Start      End      Blocks   Id  System
-/dev/sdc1          1        130     1044193+  fd  Linux raid autodetect
-		
-Disk /dev/sdd: 1073 MB, 1073741824 bytes
-255 heads, 63 sectors/track, 130 cylinders
-Units = cylinders of 16065 * 512 = 8225280 bytes
-		
-Device Boot      Start      End      Blocks   Id  System
-/dev/sdd1          1        130     1044193+  fd  Linux raid autodetect
-		</screen>
-		<para>The next step used to be <emphasis>create the RAID table in <command>/etc/raidtab</command><indexterm><primary>/etc/raidtab</primary></indexterm></emphasis>. Nowadays, you can just issue the command <command>mdadm</command><indexterm><primary>mdadm(1)</primary></indexterm> with the correct parameters. The command below is split on two lines to fit this print, but you should type it on one line, without the backslash (\).</para>
-		<screen>
-root@RHELv4u2:~# mdadm --create /dev/md0 --chunk=64 --level=5 --raid-d\
-evices=3 /dev/sdb1 /dev/sdc1 /dev/sdd1
-mdadm: array /dev/md0 started.
-		</screen>
-		<para>Below a partial screenshot how fdisk -l sees the RAID5</para>
-		<screen>
-root@RHELv4u2:~# fdisk -l
-		
-&#060;cut&#062;
-			
-Disk /dev/md0: 2138 MB, 2138308608 bytes
-2 heads, 4 sectors/track, 522048 cylinders
+Syncing disks.</screen>
+	</section>
+	<section><title>verify all three partitions</title>
+		<para>Now all three disks are ready for <command>raid 5</command>, so we have to tell the system what to do with these disks.</para>
+		<screen>[root@rhel6c ~]# fdisk -l 2> /dev/null | grep raid
+/dev/sdb1       1        1044     8385898+  fd  Linux raid autodetect
+/dev/sdc1       1        1044     8385898+  fd  Linux raid autodetect
+/dev/sdd1       1        1044     8385898+  fd  Linux raid autodetect</screen>
+	</section>
+	<section><title>create the raid5</title>
+		<para>The next step used to be <emphasis>create the <command>raid table</command> in <command>/etc/raidtab</command><indexterm><primary>/etc/raidtab</primary></indexterm></emphasis>. Nowadays, you can just issue the command <command>mdadm</command><indexterm><primary>mdadm(1)</primary></indexterm> with the correct parameters.</para>
+		<para>The command below is split on two lines to fit this print, but you should type it on one line, without the backslash (\).</para>
+		<screen>[root@rhel6c ~]# mdadm --create /dev/md0 --chunk=64 --level=5 --raid-\
+devices=3 /dev/sdb1 /dev/sdc1 /dev/sdd1
+mdadm: Defaulting to version 1.2 metadata
+mdadm: array /dev/md0 started.</screen>
+		<para>Below a partial screenshot how fdisk -l sees the <command>raid 5</command>.</para>
+		<screen>[root@rhel6c ~]# fdisk -l /dev/md0
+
+Disk /dev/md0: 17.2 GB, 17172135936 bytes
+2 heads, 4 sectors/track, 4192416 cylinders
 Units = cylinders of 8 * 512 = 4096 bytes
-			
-Disk /dev/md0 doesn't contain a valid partition table			
-		</screen>
-		<para>We will use this software RAID 5 array in the next topic, LVM.</para>
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 65536 bytes / 131072 bytes
+Disk identifier: 0x00000000
+
+Disk /dev/md0 doesn't contain a valid partition table</screen>
+		<para>We could use this software <command>raid 5</command> array in the next topic: <command>lvm</command>.</para>
 	</section>
 	<section><title>/proc/mdstat</title>
-		<para>The status of the raid devices can be seen in <command>/proc/mdstat</command><indexterm><primary>/proc/mdstat</primary></indexterm>. This example shows a RAID 5 in the process of rebuilding.</para>
+		<para>The status of the raid devices can be seen in <command>/proc/mdstat</command><indexterm><primary>/proc/mdstat</primary></indexterm>. This example shows a <command>raid 5</command> in the process of rebuilding.</para>
 		<screen>
-[root@RHEL5 ~]# cat /proc/mdstat 
+[root@rhel6c ~]# cat /proc/mdstat 
 Personalities : [raid6] [raid5] [raid4] 
-md0 : active raid5 sdg1[3] sdf1[1] sde1[0]
-      1677056 blocks level 5, 64k chunk, algorithm 2 [3/2] [UU_]
-      [=================>...]  recovery = 89.1% (747952/838528) finish\
-=0.0min speed=25791K/sec
-      
-unused devices: &#062;none&#060;
-		</screen>
-		<para>This example shows an active software RAID 5.</para>
-		<screen>
-[root@RHEL5 ~]# cat /proc/mdstat 
+md0 : active raid5 sdd1[3] sdc1[1] sdb1[0]
+      16769664 blocks super 1.2 level 5, 64k chunk, algorithm 2 [3/2] [UU_]
+      [============>........]  recovery = 62.8% (5266176/8384832) finish=0\
+.3min speed=139200K/sec</screen>
+		<para>This example shows an active software <command>raid 5</command>.</para>
+		<screen>[root@rhel6c ~]# cat /proc/mdstat 
 Personalities : [raid6] [raid5] [raid4] 
-md0 : active raid5 sdg1[2] sdf1[1] sde1[0]
-      1677056 blocks level 5, 64k chunk, algorithm 2 [3/3] [UUU]
-      
-unused devices: &#062;none&#060;
-		</screen>
-		<para>When there is no software RAID present, the following is displayed.</para>
-		<screen>
-paul@RHELv4u4:~$ cat /proc/mdstat 
-Personalities : 
-unused devices: &#060;none&#062;
-paul@RHELv4u4:~$ 
-		</screen>
+md0 : active raid5 sdd1[3] sdc1[1] sdb1[0]
+    16769664 blocks super 1.2 level 5, 64k chunk, algorithm 2 [3/3] [UUU]</screen>
 	</section>
-	<section><title>Removing a software RAID</title>
-		<para>The software raid is visible in /proc/mdstat when active. To remove the raid completely so you can use the disks for other purposes, you first have to stop (de-activate) it with mdadm.</para>
-		<screen>mdadm --stop /dev/md0</screen>
-		<para>When stopped, you can remove the raid with mdadm.</para>
-		<screen>mdadm --remove /dev/md0</screen>
+	<section><title>mdadm --detail</title>
+		<para>Use <command>mdadm --detail</command> to get information on a raid device.</para>
+		<screen>[root@rhel6c ~]# mdadm --detail /dev/md0
+/dev/md0:
+        Version : 1.2
+  Creation Time : Sun Jul 17 13:48:41 2011
+     Raid Level : raid5
+     Array Size : 16769664 (15.99 GiB 17.17 GB)
+  Used Dev Size : 8384832 (8.00 GiB 8.59 GB)
+   Raid Devices : 3
+  Total Devices : 3
+    Persistence : Superblock is persistent
+
+    Update Time : Sun Jul 17 13:49:43 2011
+          State : clean
+ Active Devices : 3
+Working Devices : 3
+ Failed Devices : 0
+  Spare Devices : 0
+
+         Layout : left-symmetric
+     Chunk Size : 64K
+
+           Name : rhel6c:0  (local to host rhel6c)
+           UUID : c10fd9c3:08f9a25f:be913027:999c8e1f
+         Events : 18
+
+    Number   Major   Minor   RaidDevice State
+       0       8       17        0      active sync   /dev/sdb1
+       1       8       33        1      active sync   /dev/sdc1
+       3       8       49        2      active sync   /dev/sdd1</screen>
+	</section>
+	<section><title>removing a software raid</title>
+		<para>The software raid is visible in <command>/proc/mdstat</command> when active. To remove the raid completely so you can use the disks for other purposes, you stop (de-activate) it with <command>mdadm</command>.</para>
+		<screen>[root@rhel6c ~]# mdadm --stop /dev/md0
+mdadm: stopped /dev/md0</screen>
 		<para>The disks can now be repartitioned.</para>
 	</section>
+</section>
