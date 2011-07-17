@@ -1,5 +1,6 @@
 <?hard-pagebreak?>
-	<section><title>about partitions</title>
+<section><title>about partitions</title>
+	<section><title>primary, extended and logical</title>
 		<para>Linux requires you to create one or more <command>partitions</command><indexterm><primary>partition</primary></indexterm>. The next paragraphs will explain how to create and use partitions.</para>
 		<para>A partition's <command>geometry</command> and size is usually defined by a starting and ending cylinder (sometimes by sector). Partitions can be of type <command>primary</command><indexterm><primary>primary partition</primary></indexterm> (maximum four), <command>extended</command><indexterm><primary>extended partition</primary></indexterm> (maximum one) or <command>logical</command><indexterm><primary>logical drive</primary></indexterm> (contained within the extended partition). Each partition has a <command>type field</command> that contains a code. This determines the computers operating system or the partitions file system.</para>
 <table frame='all'><title>primary, extended and logical partitions</title>
@@ -64,7 +65,9 @@
 </tgroup>
 </table>
 	</section>
-	<section><title>discovering all partitions</title>
+</section>
+<?hard-pagebreak?>
+<section><title>discovering partitions</title>
 	<section><title>fdisk -l</title>
 		<para>In the <command>fdisk -l</command><indexterm><primary>fdisk(1)</primary></indexterm> example below you can see that two partitions exist on <command>/dev/sdb2</command>. The first partition spans 31 cylinders and contains a Linux swap partition. The second partition is much bigger.</para>
 		<screen>
@@ -103,12 +106,13 @@ major minor  #blocks  name
 	<section><title>other tools</title>
 		<para>You might be interested in alternatives to fdisk like <command>parted</command>, <command>cfdisk</command>, <command>sfdisk</command> and <command>gparted</command>. This course mainly uses <command>fdisk</command> to partition hard disks.</para>
 	</section>
-	</section>
-	<section><title>partitioning new disks</title>
-		<para>In the example below, we bought a new disk for our system. After the new hardware is properly attached, you can use <command>fdisk</command> and <command>parted</command><indexterm><primary>parted(1)</primary></indexterm> to create the necessary partition(s). This example uses fdisk, but there is nothing wrong with using parted.</para>
-		<para>First, we check with <command>fdisk -l</command> whether Linux can see the new disk. Yes it does, the new disk is seen as /dev/sdb, but it does not have any partitions yet.</para>
-		<screen>
-root@RHELv4u2:~# fdisk -l
+</section>
+<?hard-pagebreak?>
+<section><title>partitioning new disks</title>
+	<para>In the example below, we bought a new disk for our system. After the new hardware is properly attached, you can use <command>fdisk</command> and <command>parted</command><indexterm><primary>parted(1)</primary></indexterm> to create the necessary partition(s). This example uses <command>fdisk</command>, but there is nothing wrong with using <command>parted</command>.</para>
+	<section><title>recognising the disk</title>
+	<para>First, we check with <command>fdisk -l</command> whether Linux can see the new disk. Yes it does, the new disk is seen as /dev/sdb, but it does not have any partitions yet.</para>
+	<screen>root@RHELv4u2:~# fdisk -l
 		
 Disk /dev/sda: 12.8 GB, 12884901888 bytes
 255 heads, 63 sectors/track, 1566 cylinders
@@ -124,6 +128,8 @@ Units = cylinders of 16065 * 512 = 8225280 bytes
 		
 Disk /dev/sdb doesn't contain a valid partition table
 		</screen>
+	</section>
+	<section><title>opening the disk with fdisk</title>
 		<para>Then we create a partition with fdisk on /dev/sdb. First we start the fdisk tool with /dev/sdb as argument. Be very very careful not to partition the wrong disk!!</para>
 		<screen>
 root@RHELv4u2:~# fdisk /dev/sdb
@@ -134,20 +140,20 @@ content won't be recoverable.
 		
 Warning: invalid flag 0x0000 of partition table 4 will be corrected...
 		</screen>
+	</section>
+	<section><title>empty partition table</title>
 		<para>Inside the fdisk tool, we can issue the <command>p</command><indexterm><primary>fdisk(1)</primary></indexterm> command to see the current disks partition table.</para>
-		<screen>
-Command (m for help): p
+		<screen>Command (m for help): p
 		
 Disk /dev/sdb: 1073 MB, 1073741824 bytes
 255 heads, 63 sectors/track, 130 cylinders
 Units = cylinders of 16065 * 512 = 8225280 bytes
 		
-Device Boot      Start         End      Blocks   Id  System
-		
-		</screen>
+Device Boot      Start         End      Blocks   Id  System</screen>
+	</section>
+	<section><title>create a new partition</title>
 		<para>No partitions exist yet, so we issue <command>n</command> to create a new partition. We choose p for primary, 1 for the partition number, 1 for the start cylinder and 14 for the end cylinder.</para>
-		<screen>
-Command (m for help): n
+		<screen>Command (m for help): n
 Command action
 e   extended
 p   primary partition (1-4)
@@ -155,11 +161,9 @@ p
 Partition number (1-4): 1
 First cylinder (1-130, default 1): 
 Using default value 1
-Last cylinder or +size or +sizeM or +sizeK (1-130, default 130): 14
-		</screen>
+Last cylinder or +size or +sizeM or +sizeK (1-130, default 130): 14</screen>
 		<para>We can now issue p again to verify our changes, but they are not yet written to disk. This means we can still cancel this operation! But it looks good, so we use <command>w</command> to write the changes to disk, and then quit the fdisk tool.</para>
-		<screen>
-Command (m for help): p
+		<screen>Command (m for help): p
 	
 Disk /dev/sdb: 1073 MB, 1073741824 bytes
 255 heads, 63 sectors/track, 130 cylinders
@@ -173,8 +177,9 @@ The partition table has been altered!
 		
 Calling ioctl() to re-read partition table.
 Syncing disks.
-root@RHELv4u2:~#
-		</screen>
+root@RHELv4u2:~#</screen>
+	</section>
+	<section><title>display the new partition</title>
 		<para>Let's verify again with <command>fdisk -l</command><indexterm><primary>fdisk(1)</primary></indexterm> to make sure reality fits our dreams. Indeed, the screenshot below now shows a partition on /dev/sdb. </para>
 		<screen>
 root@RHELv4u2:~# fdisk -l
@@ -193,10 +198,10 @@ Units = cylinders of 16065 * 512 = 8225280 bytes
 		
 Device Boot      Start         End      Blocks   Id  System
 /dev/sdb1               1          14      112423+  83  Linux
-root@RHELv4u2:~# 
-		</screen>
+root@RHELv4u2:~#</screen>
 	</section>
-	<section><title>about the partition table</title>
+</section>
+<section><title>about the partition table</title>
 	<section><title>master boot record</title>
 		<para>The <command>partition table</command><indexterm><primary>partition table</primary></indexterm> information (primary and extended partitions) is written in the <command>master boot record</command><indexterm><primary>master boot record</primary></indexterm> or <command>mbr</command><indexterm><primary>mbr</primary></indexterm>. You can use <command>dd</command><indexterm><primary>dd(1)</primary></indexterm> to copy the mbr to a file.</para>
 		<para>This example copies the master boot record from the first SCSI hard disk.</para>
