@@ -186,6 +186,7 @@ Starting kernel logger:                                    [  OK  ]
 [root@rhel4a ~]#</screen>
 		</section>
 	</section>
+<?hard-pagebreak?>
 	<section><title>logger</title>
 		<para>The logger command can be used to generate syslog test messages. You can aslo use it in scripts. An example of testing syslogd with the <command>logger</command><indexterm><primary>logger(1)</primary></indexterm> tool.</para>
 		<screen>
@@ -206,8 +207,42 @@ Feb 14 19:55:28 rhel4a paul: l4 emerg
 [root@rhel4a ~]#</screen>
 	</section>
 	<section><title>watching logs</title>
-		<para>You might want to use the <command>tail -f</command><indexterm><primary>tail(1)</primary></indexterm> command to look at the last lines of a log file. The -f option will dynamically display lines that are appended to the log. You can do the same with other commands by preceding them with the <command>watch</command><indexterm><primary>watch(1)</primary></indexterm> command.</para>
+		<para>You might want to use the <command>tail -f</command><indexterm><primary>tail(1)</primary></indexterm> command to look at the last lines of a log file. The <command>-f</command> option will dynamically display lines that are appended to the log.</para>
+		<screen>paul@ubu1010:~$ tail -f /var/log/udev 
+SEQNUM=1741
+SOUND_INITIALIZED=1
+ID_VENDOR_FROM_DATABASE=nVidia Corporation
+ID_MODEL_FROM_DATABASE=MCP79 High Definition Audio
+ID_BUS=pci
+ID_VENDOR_ID=0x10de
+ID_MODEL_ID=0x0ac0
+ID_PATH=pci-0000:00:08.0
+SOUND_FORM_FACTOR=internal</screen>
+		<para>You can automatically repeat commands by preceding them with the <command>watch</command><indexterm><primary>watch(1)</primary></indexterm> command. When executing the following:</para>
+		<screen>[root@rhel6 ~]# watch who</screen>
+		<para>Something similar to this, repeating the output of the <command>who</command> command every two seconds, will appear on the screen.</para>
+		<screen>Every 2.0s: who                Sun Jul 17 15:31:03 2011
+
+root     tty1         2011-07-17 13:28
+paul     pts/0        2011-07-17 13:31 (192.168.1.30)
+paul     pts/1        2011-07-17 15:19 (192.168.1.30)</screen>
 	</section>
 	<section><title>rotating logs</title>
-		<para>A lot of log files are always growing in size. To keep this within bounds, you might want to use <command>logrotate</command><indexterm><primary>logrotate(1)</primary></indexterm> to rotate, compress, remove and mail log files. More info on the logrotate command in the scheduling chapter.</para>
+		<para>A lot of log files are always growing in size. To keep this within bounds, you might want to use <command>logrotate</command><indexterm><primary>logrotate(1)</primary></indexterm> to rotate, compress, remove and mail log files. More info on the logrotate command in <command>/etc/logrotate.conf.</command>. Individual configurations can be found in the <command>/etc/logrotate.d/</command> directory.</para>
+		<para>In this screenshot the configuration file for the logfiles from <command>aptitude</command> to configure monthly rotates, keeping the last six and compressing old logs.</para>
+		<screen>paul@ubu1010:/var/log$ cat /etc/logrotate.d/aptitude 
+/var/log/aptitude {
+  rotate 6
+  monthly
+  compress
+  missingok
+  notifempty
+}</screen>
+		<para>And this screenshot is the resolt of the above configuration, for the logfile from <command>aptitude</command>.</para>
+		<screen>paul@ubu1010:/var/log$ ls -l /var/log/aptitude*
+-rw-r--r-- 1 root root 18298 2011-07-17 13:32 /var/log/aptitude
+-rw-r--r-- 1 root root  8163 2011-07-01 01:43 /var/log/aptitude.1.gz
+-rw-r--r-- 1 root root  8163 2011-06-01 01:43 /var/log/aptitude.2.gz
+-rw-r--r-- 1 root root  8163 2011-05-01 01:43 /var/log/aptitude.3.gz</screen>
 	</section>
+	
