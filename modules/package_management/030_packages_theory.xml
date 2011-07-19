@@ -1,8 +1,24 @@
 <?hard-pagebreak?>
+<section><title>terminology</title>
+	<section><title>repositories</title>
+		<para>Most software for your Linux distribution is available in a central distributed <command>repository</command><indexterm><primary>repository</primary></indexterm>. This means that applications in the repository are tested for your distribution and very easy to install with a GUI or command line installer.</para>
+		<para>The GUI is available via the standard menu (look for Add/Remove Software or something similar). The command line is explained below in detail.</para>
+	</section>
+	<section><title>rpm based</title>
+		<para>Red Hat, Fedora, OpenSUSE, Mandriva, Red Flag and others use <command>.rpm</command><indexterm><primary>rpm(8)</primary></indexterm> packages. The tools to manage software packages are called <command>yum</command> and <command>rpm</command>.</para>
+	</section>
+	<section><title>deb based</title>
+		<para>Debian, Ubuntu, Mint and all derivatives from Debian and Ubuntu use <command>.deb</command><indexterm><primary>deb(5)</primary></indexterm> packages. To manage software on these systems, you can use <command>aptitude</command><indexterm><primary>aptitude(8)</primary></indexterm>. <command>aptitude</command> is a front end for <command>dpkg</command><indexterm><primary>dpkg(8)</primary></indexterm>.</para>
+	</section>
+	<section><title>dependency</title>
+		<para>Some packages need other packages to function. Tools like <command>aptitude</command> and <command>yum</command> will install all dependencies you need. When using <command>dpkg</command> or the <command>rpm</command> command, or when building from source, you will need to install dependencies yourself.</para>
+	</section>
+</section>
+<?hard-pagebreak?>
 <section><title>rpm</title>
 	<section><title>about rpm</title>
 		<para>The <command>Red Hat package manager</command><indexterm><primary>rpm</primary></indexterm> can be used on the command line with <command>rpm</command> or in a graphical way going to Applications--System Settings--Add/Remove Applications. Type <command>rpm --help</command> to see some of the options.</para>
-		<para>Software distributed in the rpm format will be named <command>foo-version.platform.rpm</command> .</para>	
+		<para>Software distributed in the <command>rpm</command> format will be named <command>foo-version.platform.rpm</command> .</para>	
 	</section>
 	<section><title>rpm -qa</title>
 		<para>To obtain a list of all installed software, use the <command>rpm -qa</command> command.</para>
@@ -57,7 +73,28 @@ gcc is needed by (installed) systemtap-0.6.2-1.el5_2.2.i386
 	<section><title>/var/lib/rpm</title>
 		<para>The <command>rpm</command> database is located at <command>/var/lib/rpm</command><indexterm><primary>/var/lib/rpm</primary></indexterm>. This database contains all meta information about packages that are installed (via rpm). It keeps track of all files, which enables complete removes of software.</para>
 	</section>
+	<section><title>rpm2cpio</title>
+		<para>We can use <command>rpm2cpio</command><indexterm><primary>rpm2cpio(8)</primary></indexterm> to convert an <command>rpm</command> to a <command>cpio</command><indexterm><primary>cpio(1)</primary></indexterm> archive.</para>
+		<screen>[root@RHEL53 ~]# file kernel.src.rpm 
+kernel.src.rpm: RPM v3 src PowerPC kernel-2.6.18-92.1.13.el5
+[root@RHEL53 ~]# rpm2cpio kernel.src.rpm > kernel.cpio
+[root@RHEL53 ~]# file kernel.cpio 
+kernel.cpio: ASCII cpio archive (SVR4 with no CRC)</screen>
+		<para>But why would you want to do this ?</para>
+		<para>Perhaps just to see of list of files in the <command>rpm</command> file.</para>
+		<screen>[root@RHEL53 ~]# rpm2cpio kernel.src.rpm | cpio -t | head -5
+COPYING.modules
+Config.mk
+Module.kabi_i686
+Module.kabi_i686PAE
+Module.kabi_i686xen</screen>
+		<para>Or to extract one file from an <command>rpm</command> package.</para>
+		<screen>[root@RHEL53 ~]# rpm2cpio kernel.src.rpm | cpio -iv Config.mk
+Config.mk
+246098 blocks</screen>
+	</section>
 </section>
+<?hard-pagebreak?>
 <section><title>yum</title>
 	<section><title>about yum</title>
 		<para>The <command>Yellowdog Updater, Modified (yum)</command><indexterm><primary>yum(8)</primary></indexterm> is an easier command to work with <command>rpm</command> packages. It is installed by default on Fedora and Red Hat Enterprise Linux since version 5.2.</para>
@@ -69,43 +106,36 @@ gcc is needed by (installed) systemtap-0.6.2-1.el5_2.2.i386
 2471
 		</screen>
 		<para>Issue <command>yum list $package</command> to get all versions (in different repositories) of one package.</para>
-		<screen>
-[root@rhel55 ~]# yum list samba
+		<screen>[root@rhel55 ~]# yum list samba
 Loaded plugins: rhnplugin, security
 Installed Packages
 samba.i386                 3.0.33-3.28.el5         installed         
 Available Packages
-samba.i386                 3.0.33-3.29.el5_5       rhel-i386-server-5
-		</screen>
+samba.i386                 3.0.33-3.29.el5_5       rhel-i386-server-5</screen>
 	</section>
 	<section><title>yum search</title>
 		<para>To search for a package containing a certain string in the description or name use <command>yum search $string</command>.</para>
-		<screen>
-[root@rhel55 ~]# yum search gcc44
+		<screen>[root@rhel55 ~]# yum search gcc44
 Loaded plugins: rhnplugin, security
 ========================== Matched: gcc44 ===========================
 gcc44.i386 : Preview of GCC version 4.4
 gcc44-c++.i386 : C++ support for GCC version 4.4
-gcc44-gfortran.i386 : Fortran support for GCC 4.4 previe
-		</screen>
+gcc44-gfortran.i386 : Fortran support for GCC 4.4 previe</screen>
 	</section>
 	<section><title>yum provides</title>
 		<para>To search for a package containing a certain file (you might need for compiling things) use <command>yum provides $filename</command>.</para>
-		<screen>
-[root@rhel55 ~]# yum provides /usr/share/man/man1/gzip.1.gz 
+		<screen>[root@rhel55 ~]# yum provides /usr/share/man/man1/gzip.1.gz 
 Loaded plugins: rhnplugin, security
 Importing additional filelist information
 gzip-1.3.5-9.el5.i386 : The GNU data compression program.
 Repo        : rhel-i386-server-5
 Matched from:
 Filename    : /usr/share/man/man1/gzip.1.gz
-...
-		</screen>
+...</screen>
 	</section>
 	<section><title>yum install</title>
 		<para>To install an application, use <command>yum install $package</command>. Naturally <command>yum</command> will install all the necessary dependencies.</para>
-		<screen>
-[root@rhel55 ~]# yum install sudo
+		<screen>[root@rhel55 ~]# yum install sudo
 Loaded plugins: rhnplugin, security
 Setting up Install Process
 Resolving Dependencies
@@ -129,7 +159,7 @@ Upgrade       0 Package(s)
 Total download size: 230 k
 Is this ok [y/N]: y
 Downloading Packages:
-sudo-1.7.2p1-7.el5_5.i386.rpm                                                                                                         | 230 kB     00:00     
+sudo-1.7.2p1-7.el5_5.i386.rpm                       | 230 kB     00:00 
 Running rpm_check_debug
 Running Transaction Test
 Finished Transaction Test
@@ -148,8 +178,7 @@ Complete!  </screen>
 		<para>To bring all applications up to date, by downloading and installing them, issue <command>yum update</command>. All software that was installed via <command>yum</command> will be updated to the latest version that is available in the repository.</para>
 		<screen>yum update</screen>
 		<para>If you only want to update one package, use <command>yum update $package</command>.</para>
-		<screen>
-[root@rhel55 ~]# yum update sudo
+		<screen>[root@rhel55 ~]# yum update sudo
 Loaded plugins: rhnplugin, security
 Skipping security plugin, no data
 Setting up Update Process
@@ -187,8 +216,7 @@ Running Transaction
 Updated:
   sudo.i386 0:1.7.2p1-7.el5_5
 
-Complete!
-		</screen>
+Complete!</screen>
 	</section>
 	<section><title>yum software groups</title>
 		<para>Issue <command>yum grouplist</command> to see a list of all available software groups.</para>
@@ -232,8 +260,7 @@ Available Groups:
    OpenFabrics Enterprise Distribution
    PostgreSQL Database
    Sound and Video
-Done
-		</screen>
+Done</screen>
 		<para>To install a set of applications, brought together via a group, use <command>yum groupinstall $groupname</command>.</para>
 		<screen>[root@rhel55 ~]# yum groupinstall 'Sound and video'
 Loaded plugins: rhnplugin, security
@@ -257,8 +284,7 @@ Resolving Dependencies
 ---> Package libao.i386 0:0.8.6-7 set to be updated
 ---> Package libmusicbrainz.i386 0:2.1.1-4.1 set to be updated
 --> Finished Dependency Resolution
-...
-		</screen>
+...</screen>
 		<para>Read the manual page of <command>yum</command> for more information about managing groups in <command>yum</command>.</para>
 	</section>
 	<section><title>/etc/yum.conf and repositories</title>
@@ -268,41 +294,14 @@ Resolving Dependencies
 		<para>One important flag for yum is <command>enablerepo</command>. Use this command if you want to use a repository that is not enabled by default.</para>
 		<screen>yum $command $foo --enablerepo=$repo</screen>
 		<para>An example of the contents of the repo file: MyRepo.repo</para>
-		<screen>
-[$repo]
+		<screen>[$repo]
 name=My Repository
 baseurl=http://path/to/MyRepo
 gpgcheck=1
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-MyRep
-		</screen>
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-MyRep</screen>
 	</section>
 </section>
-<section><title>rpm2cpio</title>
-	<para>We can use <command>rpm2cpio</command><indexterm><primary>rpm2cpio(8)</primary></indexterm> to convert an <command>rpm</command> to a <command>cpio</command><indexterm><primary>cpio(1)</primary></indexterm> archive.</para>
-	<screen>
-[root@RHEL53 ~]# file kernel.src.rpm 
-kernel.src.rpm: RPM v3 src PowerPC kernel-2.6.18-92.1.13.el5
-[root@RHEL53 ~]# rpm2cpio kernel.src.rpm > kernel.cpio
-[root@RHEL53 ~]# file kernel.cpio 
-kernel.cpio: ASCII cpio archive (SVR4 with no CRC)
-	</screen>
-	<para>But why would you want to do this ?</para>
-	<para>Perhaps just to see of list of files in the <command>rpm</command> file.</para>
-	<screen>
-[root@RHEL53 ~]# rpm2cpio kernel.src.rpm | cpio -t | head -5
-COPYING.modules
-Config.mk
-Module.kabi_i686
-Module.kabi_i686PAE
-Module.kabi_i686xen
-	</screen>
-	<para>Or to extract one file from an <command>rpm</command> package.</para>
-	<screen>
-[root@RHEL53 ~]# rpm2cpio kernel.src.rpm | cpio -iv Config.mk
-Config.mk
-246098 blocks
-	</screen>
-</section>
+<?hard-pagebreak?>
 <section><title>deb</title>
 	<section><title>about deb</title>
 		<para>Most people use <command>aptitude</command> or <command>apt-get</command> to manage their Debian/Ubuntu family of Linux distributions. Both are a front end for <command>dpkg</command> and are themselves a back end for <command>synaptic</command> or other graphical tools.</para>
@@ -311,16 +310,15 @@ Config.mk
 	</section>
 	<section><title>dpkg -l</title>
 		<para>The low level tool to work with <command>.deb</command> packages is <command>dpkg</command><indexterm><primary>dpkg(8)</primary></indexterm>. Here you see how to obtain a list of all installed packages. The ii at the beginning means the package is installed.</para>
-		<screen>
-root@laika:~# dpkg -l | grep gcc-4.2
+		<screen>root@laika:~# dpkg -l | grep gcc-4.2
 ii gcc-4.2      4.2.4-1ubuntu3 The GNU C compiler
-ii gcc-4.2-base 4.2.4-1ubuntu3 The GNU Compiler Collection (base package)
-		</screen>
+ii gcc-4.2-base 4.2.4-1ubuntu3 The GNU Compiler Collection (base package)</screen>
 	</section>
 	<section><title>dpkg</title>
 		<para>You could use <command>dpkg -i</command> to install a package and <command>dpkg -r</command> to remove a package, but you'd have to manually keep track of dependencies.</para>
 	</section>
 </section>
+<?hard-pagebreak?>
 <section><title>aptitude</title>
 	<para>Most people use <command>aptitude</command><indexterm><primary>aptitude(8)</primary></indexterm> for package management on Debian and Ubuntu Systems.</para>
 	<para>To synchronize with the repositories.</para>
@@ -354,24 +352,23 @@ deb http://security.debian.org/ etch/updates main
 <section><title>alien</title>
 	<para><command>alien</command> is experimental software that converts between <command>rpm</command> and <command>deb</command> package formats (and others).</para>
 	<para>Below an example of how to use <command>alien</command> to convert an <command>rpm</command> package to a <command>deb</command> package.</para>
-	<screen>
-paul@barry:~$ ls -l netcat*
+	<screen>paul@barry:~$ ls -l netcat*
 -rw-r--r-- 1 paul paul 123912 2009-06-04 14:58 netcat-0.7.1-1.i386.rpm
 paul@barry:~$ alien --to-deb netcat-0.7.1-1.i386.rpm 
 netcat_0.7.1-2_i386.deb generated
 paul@barry:~$ ls -l netcat*
 -rw-r--r-- 1 paul paul 123912 2009-06-04 14:58 netcat-0.7.1-1.i386.rpm
--rw-r--r-- 1 root root 125236 2009-06-04 14:59 netcat_0.7.1-2_i386.deb
-	</screen>
-	<para><emphasis>In real life, use the netcat tool provided by your distribution, or use the .deb file from their website.</emphasis></para>
+-rw-r--r-- 1 root root 125236 2009-06-04 14:59 netcat_0.7.1-2_i386.deb</screen>
+	<para><emphasis>In real life, use the <command>netcat</command> tool provided by your distribution, or use the .deb file from their website.</emphasis></para>
 </section>
-<section><title>downloading software</title>
+<?hard-pagebreak?>
+<section><title>downloading software outside the repository</title>
 	<para>First and most important, whenever you download software, start by reading the README file!</para>
 	<para>Normally the readme will explain what to do after download. You will probably receive a .tar.gz or a .tgz file. Read the documentation, then put the compressed file in a directory. You can use the following to find out where the package wants to install.</para>
 	<screen>tar tvzpf $downloadedFile.tgz</screen>
 	<para>You unpack them like with <command>tar xzf</command><indexterm><primary>tar(1)</primary></indexterm>, it will create a directory called applicationName-1.2.3</para>
 	<screen>tar xzf $applicationName.tgz</screen>
-	<para>Replace the z with a j when the file ends in .tar.bz2. The <command>tar</command>, <command>gzip</command> and <command>bzip2</command> commands are explained in detail later.</para>
+	<para>Replace the z with a j when the file ends in .tar.bz2. The <command>tar</command>, <command>gzip</command> and <command>bzip2</command> commands are explained in detail in the Linux Fundamentals course.</para>
 	<para>If you download a <command>.deb</command> file, then you'll have to use <command>dpkg</command> to install it, <command>.rpm</command>'s can be installed with the <command>rpm</command> command.</para>
 </section>
 <section><title>compiling software</title>
