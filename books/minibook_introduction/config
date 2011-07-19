@@ -15,7 +15,6 @@ add_mod chapter distributions
 add_mod chapter getting_help
 
 add_mod appendix certifications
-add_mod appendix installing_linux
 
 # license hardcoden op het einde van een .pdf ?
 # add_mod appendix gnufdl
