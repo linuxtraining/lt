@@ -1,15 +1,30 @@
 <?hard-pagebreak?>
-<section><title>Proprietary</title>
-	<para>Some flavors of Unix, like HP-UX, IBM AIX, and Sun Solaris 9 are delivered in binary form after purchase. You are not authorized to install or use these without paying a licensing fee. You are not authorized to distribute these copies to other people and you are not authorized to look at or change the closed source code of the operating system. This software is usually protected by copyright, patents, and extensive software licensing.</para>
+<section><title>proprietary</title>
+	<para><command>IBM's aix</command>, <command>HP's hp-ux</command> and <command>Sun's Solaris 9</command> are delivered in binary form after purchase. You are not authorized to install or use these operating systems without paying a licensing fee. You are not authorized to distribute these copies to other people and you are not authorized to look at or change the closed source code of the operating system. This software is usually protected by copyright, patents and an extensive software license.</para>
 </section>
-<section><title>BSD</title>
-	<para>BSD style licenses are close to the public domain. They essentially state that you can copy the software, but you have to leave the copyright notice that refers to BSD. This license gives a lot of freedom but offers few protection to someone copying and selling your work.</para>
+<section><title>bsd</title>
+	<para><command>bsd</command> style licenses are close to the public domain. They essentially state that you can copy the software and do whatever you like with it. But you have to leave the copyright notice that refers to <command>bsd</command>. This license gives a lot of freedom but offers few protection to someone copying and selling your work.</para>
 </section>
-<section><title>GNU General Public License (GPL)</title>
-	<para>More and more software is being released under the <command>GPL</command><indexterm><primary>GPL</primary></indexterm> (in 2006 Java was released under the GPL). The goal of the GPL is to guarantee that free software stays free. Everyone can work together on GPL software, knowing that the software will be freely available to everyone. The GPL can protect software, even in court.</para>
+<section><title>free software</title>
+	<para>Free software (not to be confused with freeware!) is defined as software with four freedoms.</para>
+	<para>0. The freedom to use the software for any purpose.</para>
+	<para>1. The freedom to study how the program works, and the freedom to make changes to it. (This requires access to the source code).</para>
+	<para>2. The freedom to distribute copies of the software to anyone else.</para>
+	<para>3. The freedom to distribute your modified copy (see 1).</para>
+	<para>Detailed information about these freedoms can be found here http://www.gnu.org/philosophy/free-sw.html.</para>
+</section>
+<section><title>GNU General Public License</title>
+	<para>More and more software is being released under the <command>GNU GPL</command><indexterm><primary>GPL</primary></indexterm> (in 2006 Java was released under the GPL). The goal of the GPL is to guarantee that free software stays free. Everyone can work together on GPL software, knowing that the software will be freely available to everyone. The GPL can protect software, even in court.</para>
 	<para>Free is to be understood as in <command>freedom of speech</command><indexterm><primary>freedom of speech</primary></indexterm>, not to be confused with free as in not having to pay for your free beer. In other words, or even better, in other languages free software translates to <command>vrije software</command><indexterm><primary>vrije software</primary></indexterm> (Dutch) or <command>Logiciel Libre</command><indexterm><primary>Logiciel Libre</primary></indexterm> (French) whereas the free from free beer translates to gratis.</para>
-	<para>Briefly explained, the GPL allows you to copy software, the GPL allows you to distribute (sell or give away) that software, and the GPL grants you the right to read and change the source code. But the person receiving or buying the software from you has the same rights. And should you decide to distribute modified versions of GPL software, then you are obligated to put the same license on the modifications (and provide the source code of your modifications).</para>
+	<para>Briefly explained, the GPL allows you to copy software, the GPL allows you to distribute (sell or give away) that software, and the GPL grants you the right to read and change the source code. But the person receiving or buying the software from you has the same rights. And should you decide to distribute GPL software of which you modified the source code, then you are obligated to put the same license on the modifications (and provide the source code of your modifications).</para>
 </section>
-<section><title>Others...</title>
-	<para><emphasis>There are many other licenses on software. You should read and understand them before using any software.</emphasis></para>
+<section><title>open source</title>
+	<para>Because of the confusion between <command>free software</command> and <command>freeware</command>, the term <command>open source</command> has been coined instead of <command>free software</command>. In general, when talking <command>open source software</command>, we actually mean software with the four freedoms.</para>
+</section>
+<section><title>freeware</title>
+	<para>Freeware is software that you can download and use without paying for it. This (usually) does not include source code (so the four freedoms do not apply) and does not give you any additional rights on copyrighted or patented parts of that software.</para>
+	<para>For example the game <command>Command and Conquer: Tiberian Sun</command> was sold as proprietary in 1999 and is now (in 2011) available as freeware.</para>
+</section>
+<section><title>more licenses...</title>
+	<para><emphasis>There are many other licenses on operating system software (think <command>cddl</command> for <command>Solaris 10</command>). You should read and understand them before using any software.</emphasis></para>
 </section>
