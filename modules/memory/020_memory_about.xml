@@ -1,0 +1,4 @@
+<para>This chapter will tell you how to manage RAM memory and cache.</para>
+<para>We start with some simple tools to display information about memory: <command>free -om</command><indexterm><primary>free(1)</primary></indexterm>, <command>top</command><indexterm><primary>top(1)</primary></indexterm> and <command>cat /proc/meminfo</command><indexterm><primary>/proc/meminfo</primary></indexterm>.</para>
+<para>We continue with managing swap space, using terms like <command>swapping</command><indexterm><primary>swapping</primary></indexterm>, <command>paging</command><indexterm><primary>paging</primary></indexterm> and <command>virtual memory</command><indexterm><primary>virtual memory</primary></indexterm>.</para>
+<para>The last part is about using <command>vmstat</command> to monitor swap usage.</para>

@@ -1,10 +1,20 @@
 <?hard-pagebreak?>
-<section><title>practice : memory</title>
+<section><title>solution : memory</title>
 	<para>1. Use <command>dmesg</command> to find the total amount of memory in your computer.</para>
+	<screen>dmesg | grep Memory</screen>
 	<para>2. Use <command>free</command> to display memory usage in kilobytes (then in megabytes).</para>
+	<screen>free ; free -m</screen>
 	<para>3. On a virtual machine, create a swap partition (you might need an extra virtual disk for this).</para>
+	<screen>mkswap /dev/sdd1 ; swapon /dev/sdd1</screen>
 	<para>4. Add a 20 megabyte swap file to the system.</para>
+	<screen>dd if=/dev/zero of=/swapfile20mb bs=1024 count=20000
+mkswap /swapfile20mb
+swapon /swapfile20mb</screen>
 	<para>5. Put all swap spaces in <command>/etc/fstab</command> and activate them. Test with a reboot that they are mounted.</para>
+	<screen>root@computer# tail -2 /etc/fstab
+/dev/sdd1     swap swap defaults 0 0
+/swapfile20mb swap swap defaults 0 0</screen>
 	<para>6. Use <command>free</command> to verify usage of current swap.</para>
+	<screen>free -om</screen>
 	<para>7. (optional) Display the usage of swap with <command>vmstat</command> and <command>free -s</command> during a memory leak.</para>
 </section>
