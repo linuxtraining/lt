@@ -1,14 +1,12 @@
 <?hard-pagebreak?>
-<section><title>theory about network layers</title>
+<section><title>network layers</title>
 	<section><title>seven OSI layers</title>
 		<para>When talking about protocol layers, people usually mention the seven layers of the <command>osi</command> protocol (Application, Presentation, Session, Transport, Network, Data Link and Physical). We will discuss layers 2 and 3 in depth, and focus less on the other layers. The reason is that these layers are important for understanding networks. You will hear administrators use words like "this is a layer 2 device" or "this is a layer 3 broadcast", and you should be able to understand what they are talking about.</para>
 	</section>
 	<section><title>four DoD layers</title>
 		<para>The <command>DoD</command> (or tcp/ip) model has only four layers, roughly mapping its <command>network access layer</command> to OSI layers 1 and 2 (Physical and Datalink), its <command>internet</command> (IP) layer to the OSI <command>network layer</command>, its <command>host-to-host</command> (tcp, udp) layer to OSI layer 4 (transport) and its <command>application layer</command> to OSI layers 5, 6 and 7.</para>
 		<para>Below an attempt to put OSI and DoD layers next to some protocols and devices.</para>
-		<para>
- 			<mediaobject><imageobject><imagedata fileref="images/networklayers.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-		</para>
+ 		<mediaobject><imageobject><imagedata fileref="images/networklayers.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 	</section>
 	<section><title>short introduction to the physical layer</title>
 		<para>The physical layer, or <command>layer 1</command>, is all about voltage, electrical signals and mechanical connections. Some networks might still use <command>coax</command> cables, but most will have migrated to <command>utp</command> (cat 5 or better) with <command>rj45</command> connectors.</para>
@@ -29,99 +27,84 @@
 	<section><title>short introduction to the transport layer</title>
 		<para>We will discuss the <command>tcp</command> and <command>udp</command> protocols in the context of layer 4. The DoD model calls this the host-to-host layer.</para>
 	</section>
-	<section><title>short introduction to layers 5, 6 and 7 </title>
-		<para>The tcp/ip application layer includes layers 5, 6 and 7. Details on the difference between these layers our out of scope of this course.</para>
+	<section><title>layers 5, 6 and 7 </title>
+		<para>The tcp/ip application layer includes layers 5, 6 and 7. Details on the difference between these layers are out of scope of this course.</para>
+	</section>
+	<section><title>network layers in this book</title>
+		<para>Stacking of layers in this book is based on the <command>Protocols in Frame</command> explanation in the <command>wireshark</command> sniffer. When sniffing a dhcp packet, we notice the following in the sniffer.</para>
+		<screen>[Protocols in Frame: eth:ip:udp:bootp]</screen>
+		<para>Sniffing for ntp (Network Time Protocol) packets gives us this line, which makes us conclude to put <command>ntp</command> next to <command>bootp</command> in the protocol chart below.</para>
+		<screen>[Protocols in Frame: eth:ip:udp:ntp]</screen>
+		<para>Sniffing an <command>arp</command> broadcast makes us put arp next to <command>ip</command>. All these protocols are explained later in this chapter.</para>
+		<screen>[Protocols in Frame: eth:arp]</screen>
+		<para>Below is a protocol chart based on wireshark's knowledge. It contains some very common protocols that are discussed in this book. The chart does not contain all protocols.</para>
+		<mediaobject><imageobject><imagedata fileref="images/networkprotocols.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 	</section>
 </section>
 <?hard-pagebreak?>
-<section><title>network layers in this book</title>
-	<para>Stacking of layers in this book is based on the <command>Protocols in Frame</command> explanation in the <command>wireshark</command> sniffer. When sniffing a dhcp packet, we notice the following in the sniffer.</para>
-	<screen>[Protocols in Frame: eth:ip:udp:bootp]</screen>
-	<para>Sniffing for ntp (Network Time Protocol) packets gives us this line, which makes us conclude to put <command>ntp</command> next to <command>bootp</command> in the protocol chart below.</para>
-	<screen>[Protocols in Frame: eth:ip:udp:ntp]</screen>
-	<para>Sniffing an <command>arp</command> broadcast makes us put arp next to <command>ip</command>. All these protocols are explained later in this chapter.</para>
-	<screen>[Protocols in Frame: eth:arp]</screen>
-	<para>Below is a protocol chart based on wireshark's knowledge. It contains some very common protocols that are discussed in this book. The chart does not contain all protocols.</para>
-	<para>
- 		<mediaobject><imageobject><imagedata fileref="images/networkprotocols.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-	</para>
-</section>
-<section><title>tcp/ip</title>
-	<para>In the Sixties development of the <command>tcp/ip</command> protocol stack was started by the US Department of Defense. In the Eighties a lot of commercial enterprises developed their own protocol stack: IBM created <command>sna</command>, Novell had <command>ipx/spx</command>, Microsoft completed <command>netbeui</command> and Apple worked with <command>appletalk</command>. All the efforts from the Eighties failed to survive the Nineties. By the end of the Nineties, almost all computers in the world were able to speak tcp/ip.</para>
-	<para>In my humble opinion, the main reason for the survival of <command>tcp/ip</command> over all the other protocols is its openness. Everyone is free to develop and use the tcp/ip protocol suite.</para>
-</section>
-<section><title>rfc (request for comment)</title>
-	<para>The protocols that are used on the internet are defined in <command>rfc's</command>. An rfc or <command>request for comment</command> describes the inner working of all internet protocols. The <command>IETF</command> (Internet Engineering Task Force) is the sole publisher of these protocols since 1986.</para>
-	<para>The official website for the rfc's is <command>http://www.rfc-editor.org</command>. This website contains all rfc's in plain text, for example rfc2132 (which defines dhcp and bootp) is accessible at http://www.rfc-editor.org/rfc/rfc2132.txt.</para>
-</section>
-<section><title>lan - man - wan</title>
-	<para>The term <command>lan</command> is used for local area networks, as opposed to a <command>wan</command> for wide area networks. The difference between the two is determined by the <command>distance</command> between the computers, and not by the number of computers in a network. Some protocols like ATM are designed for use in a <command>wan</command>, others like ethernet are designed for use in a <command>lan</command>.</para>
-	<para>A <command>man</command> is defined as a metropolitan area network (usually connecting buildings that are close to each other. A MAN often uses <command>fddi</command> or even <command>ethernet</command> for connectivity.</para>
-</section>
-<section><title>unicast - multicast - broadcast</title>
-	<para>A <command>unicast</command> communication originates from one computer and is destined for one computer. A <command>broadcast</command> is meant for all, and a <command>multicast</command> is for a group of computers.</para>
-	<para>Careful, a layer 2 broadcast is very different from a layer 3 broadcast. A layer two broadcast is received by all network cards on the same segment (it does not pass any router), whereas a layer 3 broadcast is received by all hosts in the same ip subnet.</para>
-</section>
-<section><title>internet - intranet - extranet</title>
-	<para>The <command>internet</command> is a global network. It connects many networks using the tcp/ip protocol.</para>
-	<para>The origin of the internet is the <command>arpanet</command>. The <command>arpanet</command> was created in 1969, that year only four computers were connected in the network. In 1971 <command>e-mail</command> was invented, taking 75 percent of all arpanet traffic in 1973. 1973 was the year <command>ftp</command> was introduced, and also saw the connection of the first European countries (Norway and UK). In 2009 the internet is available to 25 percent of the world population.</para>
-	<para>An <command>intranet</command> is a private internet. An intranet uses the same protocols as the internet, but is only accessible to people from within one organization.</para>
-	<para>An <command>extranet</command> is similar to an intranet, but some trusted organizations (partners/clients/suppliers/...) also get access.</para>
-</section>
-<section><title>vpn (virtual private network)</title>
-	<para>A <command>vpn</command> is a network that uses another (usually bigger) network for connectivity. Typically a vpn is an encrypted tunnel over the internet.</para>
-</section>
-<?hard-pagebreak?>
-<section><title>zender en ontvangers</title>
-	<para>Alle vier deze termen worden regelmatig gebruikt in datacommunicatie en netwerken om aan te duiden welk bereik een zender heeft. (Met dank aan een anonieme weldoener om deze tekeningen gratis en onvoorwaardelijk in de <command>public domain</command> los te laten.)</para>
+<section><title>unicast, multicast, broadcast, anycast</title>
 	<section><title>unicast</title>
-		<para>Gaat een signaal naar een eenduidige unieke bestemming, dan is dit een <command>unicast</command><indexterm><primary>unicast</primary></indexterm>. Heel wat datacommunicatie bestaat uit <command>unicast</command> berichten tussen twee computers.</para>
-	<para>
-	<mediaobject><imageobject><imagedata fileref="images/unicast.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-	</para>
-		<para>Voorbeelden van een unicast zijn frames op laag 2 naar een specifiek mac-adres en packets op laag 3 naar een ip-adres (dat niet het broadcast adres is).</para>
+		<para>A <command>unicast</command> communication originates from one computer and is destined for exactly one other computer (or host). It is common for computers to have many <command>unicast</command> communications.</para>
+		<mediaobject><imageobject><imagedata fileref="images/unicast.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 	</section>
 	<section><title>multicast</title>
-		<para>Is het signaal bedoeld voor leden van een welbepaalde groep, dan spreken we over een <command>multicast</command><indexterm><primary>multicast</primary></indexterm>.</para>
-	<para>
-	<mediaobject><imageobject><imagedata fileref="images/multicast.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-	</para>
-		<para>Voorbeelden van multicast zijn Realplayer (voor .sdp bestanden) en RIPv2 (zie later bij routers).</para>
+	<para>A <command>multicast</command><indexterm><primary>multicast</primary></indexterm> is destined for a group (of computers).</para>
+		<mediaobject><imageobject><imagedata fileref="images/multicast.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+		<para>Some examples of <command>multicast</command> are Realplayer (.sdp files) and <command>ripv2</command> (a routing protocol).</para>
 	</section>
+<?hard-pagebreak?>
 	<section><title>broadcast</title>
-		<para>Wanneer een signaal gestuurd wordt naar iedereen heet dit <command>broadcast</command><indexterm><primary>broadcast</primary></indexterm>. Let wel op dat je duidelijk bepaalt wie 'iedereen' is. Als we de klas even beschouwen als 'iedereen', dan is een bericht dat de hele klas bereikt een <command>broadcast</command> in de klas. Als we echter alle klassen in de school beschouwen als 'iedereen', dan is een bericht dat de hele klas bereikt, maar niet de hele school, geen <command>broadcast</command>.</para>
-	<para>
-	<mediaobject><imageobject><imagedata fileref="images/broadcast.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-	</para>
-		<para>Typisch voorbeeld hier is de BBC (British Broadcasting Corporation) die uitzendt over de hele wereld. In datacommunicatie is broadcast meestal beperkt tot de LAN.</para>
+		<para>A <command>broadcast</command><indexterm><primary>broadcast</primary></indexterm> is meant for everyone.</para>
+		<mediaobject><imageobject><imagedata fileref="images/broadcast.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+		<para>Typical example here is the BBC (British Broadcasting Corporation) broadcasting to everyone. In datacommunications a broadcast is most common confined to the <command>lan</command>.</para>
+		<para>Careful, a <command>layer 2 broadcast</command> is very different from a <command>layer 3 broadcast</command>. A layer two broadcast is received by all network cards on the same segment (it does not pass any router), whereas a layer 3 broadcast is received by all hosts in the same ip subnet.</para>
+
 	</section>
 	<section><title>anycast</title>
-		<para>Nieuw tegenwoordig, en in de praktijk gebruikt door de <command>root name servers</command><indexterm><primary>root servers(DNS)</primary></indexterm> van internet is de <command>anycast</command><indexterm><primary>anycast</primary></indexterm>. Een <command>anycast</command> is een signaal naar de dichtstbijzijnde van een groep.</para>
-	<para>
-	<mediaobject><imageobject><imagedata fileref="images/anycast.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-	</para>
+		<para>The <command>root name servers</command><indexterm><primary>root servers(DNS)</primary></indexterm> of the internet use <command>anycast</command><indexterm><primary>anycast</primary></indexterm>. An <command>anycast</command> signal goes the the (geographically) nearest of a well defined group.</para>
+		<mediaobject><imageobject><imagedata fileref="images/anycast.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 	</section>
+	<para>With thanks to the nice anonymous wikipedia contributor to put these pictures in the public domain.</para>
 </section>
 <?hard-pagebreak?>
 <section><title>lan-wan-man</title>
+	<para>The term <command>lan</command> is used for local area networks, as opposed to a <command>wan</command> for wide area networks. The difference between the two is determined by the <command>distance</command> between the computers, and not by the number of computers in a network. Some protocols like <command>atm</command> are designed for use in a <command>wan</command>, others like <command>ethernet</command> are designed for use in a <command>lan</command>.</para>
 	<section><title>lan</title>
-		<para>Een <command>lan </command><indexterm><primary>LAN</primary></indexterm> (Local Area Network) is een lokaal netwerk. Dit kan een klaslokaal zijn, of een verdieping, of zelfs een gebouw. Men spreekt over een <command>lan</command> omdat de computers dicht bij elkaar staan. Heden wordt een <command>lan</command> meestal bepaald doordat de computers verbonden zijn met <command>ethernet</command>.</para>
-		<para>Een <command>lan</command> kan bestaan uit meerdere kleine <command>lan</command>'s. In deze tekening zie je een voorbeeld van een netwerk van een school, bestaande uit drie <command>lan</command>'s.</para>
-	<mediaobject><imageobject><imagedata fileref="images/LAN.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-	</section>
-	<section><title>man</title>
-		<para>Een <command>man</command><indexterm><primary>MAN</primary></indexterm> (Metropolitan Area Network) is een term die soms gebruikt wordt voor een netwerk dat meerdere gebouwen in dezelfde agglomeratie omvat.</para>
+		<para>A <command>lan </command><indexterm><primary>LAN</primary></indexterm> (Local Area Network) is a local network. This can be one room, or one floor, or even one big building. We say <command>lan</command> as long as computers are <command>close</command> to each other. You can also define a <command>lan</command> when all computers are <command>ethernet</command> connected.</para>
+		<para>A <command>lan</command> can contain multiple smaller <command>lan</command>'s. The picture below shows three <command>lan</command>'s that together make up one <command>lan</command>.</para>
+	<mediaobject><imageobject><imagedata fileref="images/LAN_en.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 	</section>
 	<section><title>wan</title>
-		<para>Een <command>wan</command><indexterm><primary>WAN</primary></indexterm> (Wide Area Network) is een netwerk waar de computers ver uit elkaar staan. Deze computers zijn dikwijls verbonden via <command>gehuurde lijnen</command>. Een <command>wan</command> is dus het omgekeerde van een <command>lan</command>. Een <command>wan</command> gebruikt geen <command>ethernet</command> maar andere protocols zoals <command>FDDI</command><indexterm><primary>fddi</primary></indexterm>, <command>Frame Relay</command><indexterm><primary>frame relay</primary></indexterm>, <command>ATM</command><indexterm><primary>atm</primary></indexterm> of <command>X.25</command><indexterm><primary>X.25</primary></indexterm> om computers te verbinden die enkele of enkele duizenden kilometers van elkaar verwijderd zijn.</para>
-		<para>Hieronder een voorstelling van een bijkantoor dat via <command>Frame Relay</command> verbonden is met het hoofdkwartier.</para>
+		<para>A <command>wan</command><indexterm><primary>WAN</primary></indexterm> (Wide Area Network) is a network with a lot of distance between the computers (or hosts). These hosts are often connected by <command>leased lines</command>. A <command>wan</command> does not use <command>ethernet</command>, but protocols like <command>fddi</command><indexterm><primary>fddi</primary></indexterm>, <command>frame relay</command><indexterm><primary>frame relay</primary></indexterm>, <command>ATM</command><indexterm><primary>atm</primary></indexterm> or <command>X.25</command><indexterm><primary>X.25</primary></indexterm> to connect computers (and networks).</para>
+		<para>The picture below shows a branch office that is connected through <command>Frame Relay</command> with headquarters.</para>
 	<mediaobject><imageobject><imagedata fileref="images/WAN.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-		<para>De term <command>wan</command> wordt ook gebruikt voor netwerken die een groot oppervlak bestrijken, zoals het <command>internet</command>, ook al gebruiken deze netwerken <command>tcp/ip</command>.</para>
-		<para><command>Cisco</command><indexterm><primary>Cisco</primary></indexterm> is vooral gekend voor <command>wan</command> technologie, zij maken <command>routers</command><indexterm><primary>router</primary></indexterm> die onder andere <command>lan</command> netwerken verbinden via <command>wan</command> protocols.</para>
+		<para>The acronym <command>wan</command> is also used for large surface area networks like the <command>internet</command>.</para>
+		<para><command>Cisco</command><indexterm><primary>Cisco</primary></indexterm> is known for their <command>wan</command> technology. They make <command>routers</command><indexterm><primary>router</primary></indexterm> that connect many <command>lan</command> networks using <command>wan</command> protocols.</para>
 	</section>
-	<section><title>pan-can-wpan</title>
-		<para>Heel soms wordt er gesproken over een <command>pan</command><indexterm><primary>PAN</primary></indexterm> (Personal Area Network) of een <command>can</command> (Campus Area Network). Een draadloze <command>pan</command> is een <command>wpan</command><indexterm><primary>WPAN</primary></indexterm>.</para>
+	<section><title>man</title>
+		<para>A <command>man</command><indexterm><primary>MAN</primary></indexterm> (Metropolitan Area Network) is something inbetween a <command>lan</command> and a <command>wan</command>, often comprising several buildings on the same campus or in the same city. A <command>man</command> can use <command>fddi</command> or <command>ethernet</command> or other protocols for connectivity.</para>
 	</section>
+	<section><title>pan-wpan</title>
+		<para>Your home network is called a <command>pan</command><indexterm><primary>PAN</primary></indexterm> (Personal Area Network). A wireless <command>pan</command> is a <command>wpan</command><indexterm><primary>WPAN</primary></indexterm>.</para>
+	</section>
+</section>
+<section><title>internet - intranet - extranet</title>
+	<para>The <command>internet</command> is a global network. It connects many networks using the <command>tcp/ip</command> protocol stack.</para>
+	<para>The origin of the <command>internet</command> is the <command>arpanet</command>. The <command>arpanet</command> was created in 1969, that year only four computers were connected in the network. In 1971 the first <command>e-mail</command> was sent over the <command>arpanet</command>. <command>E-mail</command> took 75 percent of all <command>arpanet</command> traffic in 1973. 1973 was also the year <command>ftp</command> was introduced, and saw the connection of the first European countries (Norway and UK). In 2009 the internet was available to 25 percent of the world population. In 2011 it is estimated that only a quarter of internet webpages are in English.</para>
+	<para>An <command>intranet</command> is a private <command>tcp/ip</command> network. An <command>intranet</command> uses the same protocols as the <command>internet</command>, but is only accessible to people from within one organization.</para>
+	<para>An <command>extranet</command> is similar to an <command>intranet</command>, but some trusted organizations (partners/clients/suppliers/...) also get access.</para>
+</section>
+<?hard-pagebreak?>
+<section><title>tcp/ip</title>
+	<section><title>history of tcp/ip</title>
+		<para>In the Sixties development of the <command>tcp/ip</command> protocol stack was started by the US Department of Defense. In the Eighties a lot of commercial enterprises developed their own protocol stack: IBM created <command>sna</command>, Novell had <command>ipx/spx</command>, Microsoft completed <command>netbeui</command> and Apple worked with <command>appletalk</command>. All the efforts from the Eighties failed to survive the Nineties. By the end of the Nineties, almost all computers in the world were able to speak tcp/ip.</para>
+		<para>In my humble opinion, the main reason for the survival of <command>tcp/ip</command> over all the other protocols is its openness. Everyone is free to develop and use the tcp/ip protocol suite.</para>
+	</section>
+	<section><title>rfc (request for comment)</title>
+		<para>The protocols that are used on the internet are defined in <command>rfc's</command>. An rfc or <command>request for comment</command> describes the inner working of all internet protocols. The <command>IETF</command> (Internet Engineering Task Force) is the sole publisher of these protocols since 1986.</para>
+		<para>The official website for the rfc's is <command>http://www.rfc-editor.org</command>. This website contains all rfc's in plain text, for example rfc2132 (which defines dhcp and bootp) is accessible at http://www.rfc-editor.org/rfc/rfc2132.txt.</para>
+	</section>
+	<para><command>tcp/ip</command> and how it works on Linux will be discussed in detail in the next chapter.</para>
 </section>
 <?hard-pagebreak?>
 <section><title>topologie van een netwerk</title>
