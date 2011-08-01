@@ -1,20 +1,48 @@
 <?hard-pagebreak?>
 <section><title>about tcp/ip</title>
 <section><title>overview of tcp/ip v4</title>
-	<para>The unicast <command>Internet Protocol</command> is one of the oldest network protocols, commonly used today for <command>lan</command> networks and for the <command>internet</command>. Every <command>host</command><indexterm><primary>host</primary></indexterm> gets a unique 32-bit <command>ip-address</command><indexterm><primary>ip-address</primary></indexterm>, this is either static or received from a <command>DHCP</command> server. Internet networks contain several <command>subnets</command><indexterm><primary>subnet</primary></indexterm>. Those subnets used to be <command>classful</command><indexterm><primary>classful</primary></indexterm> (A,B,C,D or E), but this wasted a lot of address space. Today we work with <command>cidr</command><indexterm><primary>CIDR</primary></indexterm> notation to determine <command>network id</command><indexterm><primary>network id</primary></indexterm> and <command>host id</command><indexterm><primary>host id</primary></indexterm>.</para>
+	<para><command>ip</command> or the <command>Internet Protocol</command> is one of the oldest network protocols, commonly used today for <command>lan</command> networks and for the <command>internet</command>. Every <command>host</command><indexterm><primary>host</primary></indexterm> gets a unique 32-bit <command>ip address</command><indexterm><primary>ip address</primary></indexterm>, this is either static or received from a <command>dhcp</command> server. Internet networks contain several <command>subnets</command><indexterm><primary>subnet</primary></indexterm>. Those subnets used to be <command>classful</command><indexterm><primary>classful</primary></indexterm> (A,B,C,D or E), but this wasted a lot of address space. Today we work <command>classless</command><indexterm><primary>classless</primary></indexterm> to determine <command>network id</command><indexterm><primary>network id</primary></indexterm> and <command>host id</command><indexterm><primary>host id</primary></indexterm>.</para>
 	<para>In a couple of years we will all be using <command>ipv6</command>! <emphasis>At least, that is what people say since 1999...</emphasis></para>
 </section>
 <section><title>internet and routers</title>
-	<para>The internet is a collection of <command>routers</command><indexterm><primary>router</primary></indexterm> that act as gateways between different <command>segments</command><indexterm><primary>segment</primary></indexterm>. Routers use their <command>routing table</command> to determine the route of tcp/ip <command>packets</command>. Routers are <command>layer 3</command> devices, layer 2 contains <command>bridges</command><indexterm><primary>bridge</primary></indexterm> and <command>switches</command><indexterm><primary>switch</primary></indexterm>, layer 1 is cabling with <command>repeaters</command><indexterm><primary>repeater</primary></indexterm> and <command>hubs</command><indexterm><primary>hub</primary></indexterm>. Layer 2 devices know your 48-bit unique in the world <command>mac</command><indexterm><primary>mac-address</primary></indexterm> address.</para>
+	<para>The internet is a collection of <command>routers</command><indexterm><primary>router</primary></indexterm> that act as gateways between different <command>networks</command><indexterm><primary>network</primary></indexterm>. Routers use their <command>routing table</command> to determine the route of <command>tcp/ip packets</command>. Routers are <command>layer 3</command> devices, <command>layer 2</command> contains <command>bridges</command><indexterm><primary>bridge</primary></indexterm> and <command>switches</command><indexterm><primary>switch</primary></indexterm>, layer 1 is cabling with <command>repeaters</command><indexterm><primary>repeater</primary></indexterm> and <command>hubs</command><indexterm><primary>hub</primary></indexterm>. <command>Layer 2</command> devices know your 48-bit unique in the world <command>mac</command><indexterm><primary>mac address</primary></indexterm> address.</para>
 </section>
 <section><title>many protocols</title>
 	<para>For reliable connections, you use <command>tcp</command><indexterm><primary>tcp</primary></indexterm>, whereas <command>udp</command><indexterm><primary>udp</primary></indexterm> is connectionless but faster. The <command>icmp</command><indexterm><primary>icmp</primary></indexterm> error messages are used by <command>ping</command><indexterm><primary>ping</primary></indexterm>, multicast groups are managed by <command>igmp</command><indexterm><primary>igmp</primary></indexterm>.</para>
 	<para>These protocols are visible in the protocol field of the ip header, and are listed in the <command>/etc/protocols</command><indexterm><primary>/etc/protocols</primary></indexterm> file.</para>
-	<screen>
-paul@laika:~$ grep tcp /etc/protocols 
-tcp     6       TCP             # transmission control protocol
-paul@laika:~$
-	</screen>
+	<screen>paul@debian5:~$ grep tcp /etc/protocols 
+tcp     6       TCP             # transmission control protocol</screen>
+</section>
+<section><title>many services</title>
+	<para>Network cards are uniquely identified by their <command>mac address</command>, hosts by their <command>ip address</command> and applications by their <command>port number</command>. This list of <command>ports</command> can be found in <command>/etc/services</command>.</para>
+	<screen>paul@ubu1010:~$ grep ssh /etc/services 
+ssh             22/tcp                 # SSH Remote Login Protocol
+ssh             22/udp</screen>
+</section>
+<section><title>ifconfig</title>
+	<para>The <command>ifconfig</command> command can display a lot of information about <command>tcp/ip</command> for a network interface card.</para>
+	<para>The screenshot below shows the <command>ifconfig</command> command showing information about <command>eth1</command> (the second network card on this computer).</para>
+	<screen>paul@ubu1010:~$ ifconfig eth1
+eth1  Link encap:Ethernet  HWaddr 00:26:bb:12:7a:5e  
+      inet addr:192.168.1.30  Bcast:192.168.1.255  Mask:255.255.255.0
+      inet6 addr: fe80::226:bbff:fe12:7a5e/64 Scope:Link
+      UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+      RX packets:12679673 errors:1179 dropped:0 overruns:0 frame:45358343
+      TX packets:7136619 errors:7623 dropped:0 overruns:0 carrier:0
+      collisions:0 txqueuelen:1000 
+      RX bytes:1661487607 (1.6 GB)  TX bytes:3117527603 (3.1 GB)
+      Interrupt:23</screen>
+	<para>The <command>mac address</command> can be seen behind <command>HWaddr</command>. The <command>ip address</command> (version 4) can be seen right after <command>inet</command>.</para>
+	<para>Some Linux distributions do not put <command>/sbin</command> in the $PATH of a normal user. The screenshot below shows how to use <command>ifconfig</command> on Debian to display information on the fourth network card.</para>
+	<screen>paul@debian5:~$ /sbin/ifconfig eth3
+eth3  Link encap:Ethernet  HWaddr 08:00:27:ab:67:30  
+      inet addr:192.168.1.29  Bcast:192.168.1.255  Mask:255.255.255.0
+      inet6 addr: fe80::a00:27ff:feab:6730/64 Scope:Link
+      UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+      RX packets:27155 errors:0 dropped:0 overruns:0 frame:0
+      TX packets:30527 errors:0 dropped:0 overruns:0 carrier:0
+      collisions:0 txqueuelen:1000 
+      RX bytes:13095386 (12.4 MiB)  TX bytes:25767221 (24.5 MiB)</screen>
 </section>
 <section><title>arp</title>
 	<para>The <command>ip to mac</command> resolution is handled by the <command>layer two broadcast</command> protocol <command>arp</command><indexterm><primary>arp(1)</primary></indexterm>. The <command>arp table</command> can be displayed with the <command>arp tool</command>.</para>
