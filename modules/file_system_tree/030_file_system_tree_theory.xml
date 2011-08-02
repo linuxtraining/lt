@@ -197,8 +197,8 @@ paul@laika:~$ ls /dev/sd*
 paul@barry:~$ ls /dev/hd*
 /dev/hda  /dev/hda1  /dev/hda2  /dev/hdb  /dev/hdb1  /dev/hdb2  /dev/hdc
 			</screen>
-		</section>
 		<para>Besides representing physical hardware, some device files are special. These special devices can be very useful.</para>
+		</section>
 		<section><title>/dev/tty and /dev/pts</title>
 			<para>For example, <command>/dev/tty1</command><indexterm><primary>/dev/tty1</primary></indexterm> represents a terminal or console attached to the system. (Don't break your head on the exact terminology of 'terminal' or 'console', what we mean here is a command line interface.) When typing commands in a terminal that is part of a graphical interface like Gnome or KDE, then your terminal will be represented as <command>/dev/pts/1</command><indexterm><primary>/dev/pts/1</primary></indexterm> (1 can be another number).</para>
 		</section>
