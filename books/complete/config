@@ -44,4 +44,4 @@ add_mod minibook minibook_selinux
 
 add_mod appendix cloning
 # license
-# add_mod appendix license
+add_mod appendix license
