@@ -1,2 +1,2 @@
 <para>When you are finished partitioning the hard disk, you can put a <command>file system</command><indexterm><primary>file system</primary></indexterm> on each partition.</para>
-<para>This chapter prepares you for the next one, where we will <command>mount</command> the filesystems.</para>
+<para>This chapter builds on the <command>partitions</command> from the previous chapter, and prepares you for the next one where we will <command>mount</command> the filesystems.</para>
