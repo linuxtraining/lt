@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>solution : redirection and pipes</title>
+<section><title>solution: redirection and pipes</title>
 	<para>1. Use <command>ls</command> to output the contents of the <command>/etc/</command> directory to a file called <command>etc.txt</command>.</para>
 	<screen>ls /etc &#062; etc.txt</screen>
 	<para>2. Activate the <command>noclobber</command> shell option.</para>
