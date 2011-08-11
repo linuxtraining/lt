@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>solution : working with directories</title>
+<section><title>solution: working with directories</title>
 	<para>1. Display your current directory.</para>
 	<screen>pwd</screen>	
 	<para>2. Change to the /etc directory.</para>

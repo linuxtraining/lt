@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>practice : working with files</title>
+<section><title>practice: working with files</title>
 	<para>1. List the files in the /bin directory</para>
 	<para>2. Display the type of file of /bin/cat, /etc/passwd and /usr/bin/passwd.</para>
 	<para>3a. Download wolf.jpg and book.pdf from http://www.linux-training.be (wget http://linux-training.be/files/studentfiles/wolf.jpg and wget http://linux-training.be/files/books/LinuxFun.pdf)</para>

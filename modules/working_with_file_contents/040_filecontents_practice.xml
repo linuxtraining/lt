@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>practice : file contents</title>
+<section><title>practice: file contents</title>
 	<para>1. Display the first 12 lines of <command>/etc/services</command>.</para>
 	<para>2. Display the last line of <command>/etc/passwd</command>.</para>
 	<para>3. Use cat to create a file named <command>count.txt</command> that looks like this:</para>

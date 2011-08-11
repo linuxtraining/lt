@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>solution : working with files</title>
+<section><title>solution: working with files</title>
 	<para>1. List the files in the /bin directory</para>
 	<screen>ls /bin</screen>
 	<para>2. Display the type of file of /bin/cat, /etc/passwd and /usr/bin/passwd.</para>
