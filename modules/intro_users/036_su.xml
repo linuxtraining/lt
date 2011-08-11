@@ -13,7 +13,7 @@ Password:
 [root@RHEL4b paul]# </screen>
 	</section>
 	<section><title>su as root</title>
-		<para>Uness you are logged in as <command>root</command>, running a shell as another user requires that you know the password of that user. The <command>root</command> user can become any user without knowing the user's password.</para>
+		<para>Unless you are logged in as <command>root</command>, running a shell as another user requires that you know the password of that user. The <command>root</command> user can become any user without knowing the user's password.</para>
 		<screen>[root@RHEL4b paul]# su serena
 [serena@RHEL4b paul]$ </screen>
 	</section>
