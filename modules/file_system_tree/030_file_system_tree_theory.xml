@@ -159,7 +159,7 @@ paul@ubu606:~$ ls -d /home/paul/.*
 		</screen>
 	</section>
 	<section><title>/root</title>
-		<para>On many systems, <command>/root</command><indexterm><primary>/root</primary></indexterm> is the default location for personal data and profile of the <command>root user</command>. If it does not exist by default, then some administrators create it.</para>
+		<para>On many systems <command>/root</command><indexterm><primary>/root</primary></indexterm> is the default location for personal data and profile of the <command>root user</command>. If it does not exist by default, then some administrators create it.</para>
 	</section>
 	<section><title>/srv</title>
 		<para>You may use <command>/srv</command><indexterm><primary>/srv</primary></indexterm> for data that is <command>served by your system</command>. The FHS suggests locating cvs, rsync, ftp and www data in this location. The FHS also approves administrative naming in /srv, like /srv/project55/ftp and /srv/sales/www.</para>
@@ -212,7 +212,7 @@ paul@barry:~$ ls /dev/hd*
 paul@RHELv4u4:~$ mount -t proc
 none on /proc type proc (rw)
 		</screen>
-		<para>When listing the /proc directory, you will see many numbers (on any Unix), and some interesting files (on Linux)</para>
+		<para>When listing the /proc directory you will see many numbers (on any Unix) and some interesting files (on Linux)</para>
 		<screen>
 mul@laika:~$ ls /proc
 1      2339   4724  5418  6587  7201       cmdline      mounts
