@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>solution : parameters and options</title>
+<section><title>solution: parameters and options</title>
 	<para>1. Write a script that receives four parameters, and outputs them in reverse order.</para>
 	<screen>echo $4 $3 $2 $1</screen>
 	<para>2. Write a script that receives two parameters (two filenames) and outputs whether those files exist.</para>
