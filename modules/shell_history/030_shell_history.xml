@@ -34,6 +34,11 @@ paul@debian5:~/test42$</screen>
 ls
 file1  file2  summer.txt  winter.txt</screen>
 </section>
+<section><title>Ctrl-r</title>
+	<para>Another option is to use <command>Ctrl-r</command> to search in the history. In the screenshot below i only typed <command>Ctrl-r</command> followed by four characters <command>apti</command> and it finds the last command containing these four consecutive characters.</para>
+	<screen>paul@debian5:~$ 
+(reverse-i-search)`apti': sudo aptitude install screen
+</section>
 <section><title>$HISTSIZE</title>
 	<para>The $HISTSIZE<indexterm><primary>$HISTSIZE</primary></indexterm> variable determines the number of commands that will be remembered in your current environment. Most distributions default this variable to 500 or 1000.</para>
 	<screen>paul@debian5:~$ echo $HISTSIZE
