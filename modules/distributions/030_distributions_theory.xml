@@ -47,7 +47,7 @@ DISTRIB_DESCRIPTION="Ubuntu 8.04.1"</screen>
 				<para>Novell has signed a very controversial deal with Microsoft. Some high-profile open source developers have left the company because of this agreement and many people from the open source community are actively advocating to abandon Novell completely.</para>
 			</section>
 			<section><title>Debian</title>
-				<para>Debian is one of the most secure Linux distros. It is known to be stable and reliable. The Debian people also have a strong focus towards freedom. You will not find patented technologies or non-free software in the standard Debian repositories. A lot of distributions (Ubuntu, Knoppix, ...) are derived from the Debian codebase. Debian has <command>aptitude</command><indexterm><primary>aptitude(1)</primary></indexterm>, which is considered the best package management system.</para>
+				<para>Debian is one of the most secure Linux distros. It is known to be stable and reliable, and runs on many architectures (including old ones like the Motorola 68k). Debian is maintained by many passionate volunteers that have a strong focus towards freedom. There is no company directly controlling and releasing Debian. You will not find patented technologies or non-free software in the standard Debian repositories. A lot of distributions (Ubuntu, Knoppix, ...) are derived from the Debian codebase. Debian has <command>aptitude</command><indexterm><primary>aptitude(1)</primary></indexterm>, which is considered the best package management system.</para>
 			</section>
 			<section><title>Mandriva</title>
 				<para>Mandriva is the unification of the Brazilian distro Conectiva with the French distro Mandrake. They are considered a user friendly distro with support from the French government. </para> 
