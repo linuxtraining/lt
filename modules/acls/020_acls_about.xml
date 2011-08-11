@@ -1,0 +1,1 @@
+<para>Standard Unix permissions might not be enough for some organisations. This chapter introduces <command>access control lists</command> or <command>acl's</command> to further protect files and directories.</para>
