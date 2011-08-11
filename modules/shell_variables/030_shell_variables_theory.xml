@@ -193,9 +193,10 @@ shell subshell subsub</screen>
 		<screen>[paul@RHELv4u3 ~]$ echo `cd /etc; ls -d * | grep pass`
 passwd passwd- passwd.OLD
 [paul@RHELv4u3 ~]$</screen>
+		<para>You can only use the <command>$()</command> notation to nest embedded shells, <command>backticks</command> cannot do this.</para>
 	</section>
 	<section><title>back ticks or single quotes</title>
-		<para>Placing the embedding between <command>backticks</command><indexterm><primary>backticks</primary></indexterm> uses one character less than the dollar and parenthesis combo. Be careful however, backticks are often confused with single quotes. The technical difference between <command>'</command><indexterm><primary>'(single quote)</primary></indexterm> and <command>`</command><indexterm><primary>`(backtick)</primary></indexterm> is significant! You can not use <command>backticks</command> to nest embedded shells.</para>
+		<para>Placing the embedding between <command>backticks</command><indexterm><primary>backticks</primary></indexterm> uses one character less than the dollar and parenthesis combo. Be careful however, backticks are often confused with single quotes. The technical difference between <command>'</command><indexterm><primary>'(single quote)</primary></indexterm> and <command>`</command><indexterm><primary>`(backtick)</primary></indexterm> is significant!</para>
 		<screen>[paul@RHELv4u3 gen]$ echo `var1=5;echo $var1`
 5
 [paul@RHELv4u3 gen]$ echo 'var1=5;echo $var1'
