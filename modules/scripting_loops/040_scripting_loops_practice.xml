@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>practice : scripting tests and loops</title>
+<section><title>practice: scripting tests and loops</title>
 	<para>1. Write a script that uses a <command>for</command> loop to count from 3 to 7.</para>
 	<para>2. Write a script that uses a <command>for</command> loop to count from 1 to 17000.</para>
 	<para>3. Write a script that uses a <command>while</command> loop to count from 3 to 7.</para>

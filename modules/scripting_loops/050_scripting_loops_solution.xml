@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>solution : scripting tests and loops</title>
+<section><title>solution: scripting tests and loops</title>
 	<para>1. Write a script that uses a <command>for</command> loop to count from 3 to 7.</para>
 	<screen>#!/bin/bash
 
