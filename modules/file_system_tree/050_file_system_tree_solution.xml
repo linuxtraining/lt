@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>solution : file system tree</title>
+<section><title>solution: file system tree</title>
 	<para>1. Does the file <command>/bin/cat</command> exist ? What about <command>/bin/dd</command> and <command>/bin/echo</command>. What is the type of these files ?</para>
 	<screen>ls /bin/cat ; file /bin/cat</screen>
 	<screen>ls /bin/dd ; file /bin/dd</screen>
