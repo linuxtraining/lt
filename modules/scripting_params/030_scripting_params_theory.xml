@@ -1,6 +1,6 @@
 <?hard-pagebreak?>
 	<section><title>script parameters</title>
-		<para>A <command>bash</command> shell script can have parameters. The numbering you see in the script below continues if you have more parameters. You also have special parameters containing the number of parameters, a string of all of them, and also the process id, and the last error code. The man page of <command>bash</command> has a full list.</para>
+		<para>A <command>bash</command> shell script can have parameters. The numbering you see in the script below continues if you have more parameters. You also have special parameters containing the number of parameters, a string of all of them, and also the process id, and the last return code. The man page of <command>bash</command> has a full list.</para>
 		<screen>
 #!/bin/bash
 echo The first argument is $1
@@ -9,7 +9,7 @@ echo The third argument is $3
 
 echo \$ $$  PID of the script
 echo \# $#  count arguments
-echo \? $?  last error code
+echo \? $?  last return code
 echo \* $*  all the arguments
 		</screen>
 		<para>Below is the output of the script above in action.</para>
@@ -20,7 +20,7 @@ The second argument is two
 The third argument is three
 $ 5610 PID of the script
 # 3 count arguments
-? 0 last error code
+? 0 last return code
 * one two three all the arguments
 [paul@RHEL4a scripts]$ ./pars 1 2
 The first argument is 1
@@ -28,7 +28,7 @@ The second argument is 2
 The third argument is
 $ 5612 PID of the script
 # 2 count arguments
-? 0 last error code
+? 0 last return code
 * 1 2 all the arguments
 [paul@RHEL4a scripts]$ 
 		</screen>
