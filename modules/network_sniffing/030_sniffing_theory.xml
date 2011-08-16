@@ -1,7 +1,4 @@
-<section><title>about sniffing</title>
-	<para>A good network administrator should be able to use a sniffer like <command>wireshark</command><indexterm><primary>wireshark</primary></indexterm> or <command>tcpdump</command><indexterm><primary>tcpdump</primary></indexterm> to troubleshoot network problems.</para>
-	<para>A good student will often use a sniffer to learn about networking.</para>
-</section>
+<?hard-pagebreak?>
 <section><title>wireshark</title>
 	<section><title>installing wireshark</title>
 		<para>This example shows how to install <command>wireshark</command> on <command>.deb</command> based distributions like Ubuntu and Debian.</para>
@@ -43,14 +40,11 @@
 <section><title>tcpdump</title>
 	<para>Sniffing on the command line can be done with <command>tcpdump</command>. Here are some examples.</para>
 	<para>Using the <command>tcpdump host $ip</command> command displays all traffic with one host (192.168.1.38 in this example).</para>
-	<screen>
-root@ubuntu910:~# tcpdump host 192.168.1.38
+	<screen>root@ubuntu910:~# tcpdump host 192.168.1.38
 tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
-listening on eth0, link-type EN10MB (Ethernet), capture size 96 bytes
-</screen>
+listening on eth0, link-type EN10MB (Ethernet), capture size 96 bytes</screen>
 	<para>Capturing only ssh (tcp port 22) traffic can be done with <command>tcpdump tcp port $port</command>. This screenshot is cropped to 76 characters for readability in the pdf.</para>
-	<screen>
-root@deb503:~# tcpdump tcp port 22
+	<screen>root@deb503:~# tcpdump tcp port 22
 tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
 listening on eth1, link-type EN10MB (Ethernet), capture size 96 bytes
 14:22:20.716313 IP deb503.local.37973 > rhel53.local.ssh: P 666050963:66605
@@ -66,20 +60,15 @@ listening on eth1, link-type EN10MB (Ethernet), capture size 96 bytes
 ^C
 10 packets captured
 10 packets received by filter
-0 packets dropped by kernel
-	</screen>
+0 packets dropped by kernel</screen>
 	<para>Same as above, but write the output to a file with the <command>tcpdump -w $filename</command> command.</para>
-	<screen>
-root@ubuntu910:~# tcpdump -w sshdump.tcpdump tcp port 22
+	<screen>root@ubuntu910:~# tcpdump -w sshdump.tcpdump tcp port 22
 tcpdump: listening on eth0, link-type EN10MB (Ethernet), capture size 96 bytes
 ^C
 17 packets captured
 17 packets received by filter
-0 packets dropped by kernel
-	</screen>
+0 packets dropped by kernel</screen>
 	<para>With <command>tcpdump -r $filename</command><indexterm><primary>tcpdump</primary></indexterm> the file created above can be displayed.</para>
-	<screen>
-root@ubuntu910:~# tcpdump -r sshdump.tcpdump
-	</screen>
+	<screen>root@ubuntu910:~# tcpdump -r sshdump.tcpdump</screen>
 	<para>Many more examples can be found in the manual page of <command>tcpdump</command>.</para>
 </section>

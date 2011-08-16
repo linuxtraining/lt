@@ -1,0 +1,2 @@
+<para>A good network administrator should be able to use a sniffer like <command>wireshark</command><indexterm><primary>wireshark</primary></indexterm> or <command>tcpdump</command><indexterm><primary>tcpdump</primary></indexterm> to troubleshoot network problems.</para>
+<para>A good student will often use a sniffer to learn about networking. This chapter introduces you to <command>network sniffing</command>.</para>
