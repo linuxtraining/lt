@@ -104,5 +104,5 @@
 		<para>The protocols that are used on the internet are defined in <command>rfc's</command>. An rfc or <command>request for comment</command> describes the inner working of all internet protocols. The <command>IETF</command> (Internet Engineering Task Force) is the sole publisher of these protocols since 1986.</para>
 		<para>The official website for the rfc's is <command>http://www.rfc-editor.org</command>. This website contains all rfc's in plain text, for example rfc2132 (which defines dhcp and bootp) is accessible at http://www.rfc-editor.org/rfc/rfc2132.txt.</para>
 	</section>
-	<para><command>tcp/ip</command> and how it works on Linux will be discussed in detail in the next chapter.</para>
+	<para><command>Tcp/ip</command> and how it works on Linux will be discussed in detail in one of the next chapters.</para>
 </section>
