@@ -1,0 +1,212 @@
+<?hard-pagebreak?>
+<section><title>to gui or not to gui</title>
+	<para>Recent Linux distributions often include a graphical application to configure the network. Some people complain that these applications mess networking configurations up when used simultaneously with command line configurations. Notably <command>Network Manager</command> (often replaced by <command>wicd</command>) and <command>yast</command> are known to not care about configuration changes via the command line.</para>
+	<para>Since the goal of this course is <command>server</command> administration, we will assume our Linux servers are always administered through the command line.</para>
+	<para>This chapter only focuses on using the command line for network interface configuration!</para>
+	<para>Unfortunately there is no single combination of Linux commands and <command>/etc</command> files that works on all Linux distributions. We discuss networking on two (large but distinct) Linux distribution families.</para>
+	<para>We start with <command>Debian/Ubuntu</command>, then continue with <command>Fedora/RHEL</command>.</para>
+</section>
+<?hard-pagebreak?>
+<section><title>Debian/Ubuntu nic configuration</title>
+<section><title>/etc/network/interfaces</title>
+	<para>The <command>/etc/network/interfaces</command> file is a core network interface card configuration file on Ubuntu and Debian.</para>
+	<section><title>dhcp client</title>
+		<para>The screenshot below shows that our current Ubuntu 11.04 is configured for <command>dhcp</command> on <command>eth0</command> (the first network interface card or nic).</para>
+		<screen>root@ubu1104srv:~# cat /etc/network/interfaces
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+auto eth0
+iface eth0 inet dhcp</screen>
+		<para>Configuring network cards for <command>dhcp</command> is good practice for clients, but servers usually require a <command>fixed ip address</command>.</para>
+	</section>
+	<section><title>fixed ip</title>
+		<para>The screenshot below shows <command>/etc/network/interfaces</command> configured with a <command>fixed ip address</command>.</para>
+		<screen>root@ubu1104srv:~# cat /etc/network/interfaces
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+auto eth0
+iface eth0 inet static
+address 192.168.33.100
+network 192.168.33.0
+netmask 255.255.255.0
+gateway 192.168.33.1</screen>
+		<para>The screenshot above also shows that you can provide more configuration than just the ip address. See <command>interfaces(5)</command> for help on setting a <command>gateway</command>, <command>netmask</command> or any of the other options.</para>
+	</section>
+</section>
+<section><title>/sbin/ifdown</title>
+	<para>It is adviced (but not mandatory) to down an interface before changing its configuration. This can be done with the <command>ifdown</command> command.</para>
+	<para>The command will not give any output when downing an interface with a fixed ip address. However <command>ifconfig</command> will no longer show the interface.</para>
+	<screen>root@ubu1104srv:~# ifdown eth0
+root@ubu1104srv:~# ifconfig
+lo   Link encap:Local Loopback  
+     inet addr:127.0.0.1  Mask:255.0.0.0
+     inet6 addr: ::1/128 Scope:Host
+     UP LOOPBACK RUNNING  MTU:16436  Metric:1
+     RX packets:106 errors:0 dropped:0 overruns:0 frame:0
+     TX packets:106 errors:0 dropped:0 overruns:0 carrier:0
+     collisions:0 txqueuelen:0 
+     RX bytes:11162 (11.1 KB)  TX bytes:11162 (11.1 KB)</screen>
+	<para>An interface that is down cannot be used to connect to the network.</para>
+</section>
+<section><title>/sbin/ifup</title>
+	<para>Below a screenshot of <command>ifup</command> bringing the <command>eth0</command> ethernet interface up using dhcp. (Note that this is a Ubuntu 10.10 screenshot, Ubuntu 11.04 omits <command>ifup</command> output by default.)</para>
+	<screen>root@ubu1010srv:/etc/network# ifup eth0
+Internet Systems Consortium DHCP Client V3.1.3
+Copyright 2004-2009 Internet Systems Consortium.
+All rights reserved.
+For info, please visit https://www.isc.org/software/dhcp/
+
+Listening on LPF/eth0/08:00:27:cd:7f:fc
+Sending on   LPF/eth0/08:00:27:cd:7f:fc
+Sending on   Socket/fallback
+DHCPREQUEST of 192.168.1.34 on eth0 to 255.255.255.255 port 67
+DHCPNAK from 192.168.33.100
+DHCPDISCOVER on eth0 to 255.255.255.255 port 67 interval 3
+DHCPOFFER of 192.168.33.77 from 192.168.33.100
+DHCPREQUEST of 192.168.33.77 on eth0 to 255.255.255.255 port 67
+DHCPACK of 192.168.33.77 from 192.168.33.100
+bound to 192.168.33.77 -- renewal in 95 seconds.
+ssh stop/waiting
+ssh start/running, process 1301
+root@ubu1010srv:/etc/network#</screen>
+	<para>The details of <command>dhcp</command> are covered in a separate chapter in the <command>Linux Servers</command> course.</para>
+</section>
+</section>
+<?hard-pagebreak?>
+<section><title>Red Hat/Fedora nic configuration</title>
+	<section><title>/etc/sysconfig/network</title>
+		<para>The <command>/etc/sysconfig/network</command> file is a global (across all network cards) configuration file. It allows us to define whether we want networking (NETWORKING=yes|no), what the hostname should be (HOSTNAME=) and which gateway to use (GATEWAY=).</para>
+		<screen>[root@rhel6 ~]# cat /etc/sysconfig/network
+NETWORKING=yes
+HOSTNAME=rhel6
+GATEWAY=192.168.1.1</screen>
+		<para>There are a dozen more option settable in this file, details can be found in <command>/usr/share/doc/initscripts-*/sysconfig.txt</command>.</para>
+	</section>
+	<section><title>/etc/sysconfig/network-scripts/ifcfg-</title>
+		<para>Each network card can be configured individually using the <command>/etc/sysconfig/network-scripts/ifcfg-*</command> files. When you have only one network card, then this will probably be <command>/etc/sysconfig/network-scripts/ifcfg-eth0</command>.</para>
+	<section><title>dhcp client</title>
+		<para>Below a screenshot of <command>/etc/sysconfig/network-scripts/ifcfg-eth0</command> configured for dhcp (BOOTPROTO="dhcp"). Note also the NM_CONTROLLED paramater to disable control of this nic by <command>Network Manager</command>. This parameter is not explained (not even mentioned) in <command>/usr/share/doc/initscripts-*/sysconfig.txt</command>, but many others are.</para>
+		<screen>[root@rhel6 ~]# cat /etc/sysconfig/network-scripts/ifcfg-eth0
+DEVICE="eth0"
+HWADDR="08:00:27:DD:0D:5C"
+NM_CONTROLLED="no"
+BOOTPROTO="dhcp"
+ONBOOT="yes"</screen>
+	</section>
+	<section><title>fixed ip</title>
+		<para>Below a screenshot of a <command>fixed ip</command> configuration in <command>/etc/sysconfig/network-scripts/ifcfg-eth0</command>.</para>
+		<screen>[root@rhel6 ~]# cat /etc/sysconfig/network-scripts/ifcfg-eth0 
+DEVICE="eth0"
+HWADDR="08:00:27:DD:0D:5C"
+NM_CONTROLLED="no"
+BOOTPROTO="none"
+IPADDR="192.168.1.99"
+NETMASK="255.255.255.0"
+GATEWAY="192.168.1.1"
+ONBOOT="yes"</screen>
+		<para>The BROADCAST= and NETWORK= parameters from previous RHEL/Fedora versions are obsoleted.</para>
+	</section>
+	</section>
+	<section><title>/sbin/ifup and /sbin/ifdown</title>
+		<para>The <command>ifup</command> and <command>ifdown</command> commands will set an interface up or down, using the configuration discussed above. This is identical to their behaviour in Debian and Ubuntu.</para>
+		<screen>[root@rhel6 ~]# ifdown eth0 &#038;&#038; ifup eth0
+[root@rhel6 ~]# ifconfig eth0
+eth0 Link encap:Ethernet  HWaddr 08:00:27:DD:0D:5C  
+     inet addr:192.168.1.99  Bcast:192.168.1.255  Mask:255.255.255.0
+     inet6 addr: fe80::a00:27ff:fedd:d5c/64 Scope:Link
+     UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+     RX packets:2452 errors:0 dropped:0 overruns:0 frame:0
+     TX packets:1881 errors:0 dropped:0 overruns:0 carrier:0
+     collisions:0 txqueuelen:1000 
+     RX bytes:257036 (251.0 KiB)  TX bytes:184767 (180.4 KiB)</screen>
+	</section>
+</section>
+<?hard-pagebreak?>
+<section><title>/sbin/ifconfig</title>
+	<section><title>network interface cards</title>
+		<para>The use of <command>/sbin/ifconfig</command> without any arguments will present you with a list of all active network interface cards, including wireless and the loopback interface. In the screenshot below <command>eth0</command> has no ip address.</para>
+		<screen>root@ubu1010:~# ifconfig 
+eth0 Link encap:Ethernet  HWaddr 00:26:bb:5d:2e:52  
+     UP BROADCAST MULTICAST  MTU:1500  Metric:1
+     RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+     TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+     collisions:0 txqueuelen:1000 
+     RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+     Interrupt:43 Base address:0xe000 
+
+eth1 Link encap:Ethernet  HWaddr 00:26:bb:12:7a:5e  
+     inet addr:192.168.1.30  Bcast:192.168.1.255  Mask:255.255.255.0
+     inet6 addr: fe80::226:bbff:fe12:7a5e/64 Scope:Link
+     UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+     RX packets:11141791 errors:202 dropped:0 overruns:0 frame:11580126
+     TX packets:6473056 errors:3860 dropped:0 overruns:0 carrier:0
+     collisions:0 txqueuelen:1000 
+     RX bytes:3476531617 (3.4 GB)  TX bytes:2114919475 (2.1 GB)
+     Interrupt:23 
+
+lo   Link encap:Local Loopback  
+     inet addr:127.0.0.1  Mask:255.0.0.0
+     inet6 addr: ::1/128 Scope:Host
+     UP LOOPBACK RUNNING  MTU:16436  Metric:1
+     RX packets:2879 errors:0 dropped:0 overruns:0 frame:0
+     TX packets:2879 errors:0 dropped:0 overruns:0 carrier:0
+     collisions:0 txqueuelen:0 
+     RX bytes:486510 (486.5 KB)  TX bytes:486510 (486.5 KB)</screen>
+		<para>You can also use <command>ifconfig</command> to obtain information about just one network card.</para>
+		<screen>[root@rhel6 ~]# ifconfig eth0
+eth0 Link encap:Ethernet  HWaddr 08:00:27:DD:0D:5C  
+     inet addr:192.168.1.99  Bcast:192.168.1.255  Mask:255.255.255.0
+     inet6 addr: fe80::a00:27ff:fedd:d5c/64 Scope:Link
+     UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+     RX packets:2969 errors:0 dropped:0 overruns:0 frame:0
+     TX packets:1918 errors:0 dropped:0 overruns:0 carrier:0
+     collisions:0 txqueuelen:1000 
+     RX bytes:335942 (328.0 KiB)  TX bytes:190157 (185.7 KiB)</screen>
+	</section>
+	<section><title>up and down</title>
+		<para>You can also use <command>ifconfig</command> to bring an interface up or down. The difference with <command>ifup</command> is that <command>ifconfig eth0 up</command> will re-activate the nic keeping its existing (current) configuration, whereas <command>ifup</command> will read the correct file that contains a (possibly new) configuration and use this config file to bring the interface up.</para>
+		<para>In short, <command>ifconfig</command> can disable a nic for a while and enable it back again with the same configuration.</para>
+		<screen>[root@rhel6 ~]# ifconfig eth0 down
+[root@rhel6 ~]# ifconfig eth0 up
+[root@rhel6 ~]# ifconfig eth0
+eth0 Link encap:Ethernet  HWaddr 08:00:27:DD:0D:5C
+     inet addr:192.168.1.99  Bcast:192.168.1.255  Mask:255.255.255.0
+     inet6 addr: fe80::a00:27ff:fedd:d5c/64 Scope:Link
+     UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+     RX packets:2995 errors:0 dropped:0 overruns:0 frame:0
+     TX packets:1927 errors:0 dropped:0 overruns:0 carrier:0
+     collisions:0 txqueuelen:1000 
+     RX bytes:339030 (331.0 KiB)  TX bytes:191583 (187.0 KiB)</screen>
+	</section>
+	<section><title>setting ip address</title>
+		<para>You can <command>temporary</command> set an ip address with <command>ifconfig</command>. This ip address is only valid until the next <command>ifup/ifdown</command> cycle or until the next <command>reboot</command>.</para>
+		<screen>[root@rhel6 ~]# ifconfig eth0 | grep 192
+     inet addr:192.168.1.99  Bcast:192.168.1.255  Mask:255.255.255.0
+[root@rhel6 ~]# ifconfig eth0 192.168.33.42 netmask 255.255.0.0
+[root@rhel6 ~]# ifconfig eth0 | grep 192
+     inet addr:192.168.33.42  Bcast:192.168.255.255  Mask:255.255.0.0
+[root@rhel6 ~]# ifdown eth0 &#038;&#038; ifup eth0
+[root@rhel6 ~]# ifconfig eth0 | grep 192
+     inet addr:192.168.1.99  Bcast:192.168.1.255  Mask:255.255.255.0</screen>
+	</section>
+	<section><title>setting mac address</title>
+		<para>You can also use <command>ifconfig</command> to set another <command>mac address</command> than the one hard coded in the network card. This screenshot shows you how.</para>
+		<screen>[root@rhel6 ~]# ifconfig eth0 | grep HWaddr
+eth0 Link encap:Ethernet  HWaddr 08:00:27:DD:0D:5C  
+[root@rhel6 ~]# ifconfig eth0 hw ether 00:42:42:42:42:42
+[root@rhel6 ~]# ifconfig eth0 | grep HWaddr
+eth0 Link encap:Ethernet  HWaddr 00:42:42:42:42:42</screen>
+	</section>
+</section>
