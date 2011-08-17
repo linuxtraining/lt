@@ -11,8 +11,8 @@ BOOKTITLE="network management"
 
 add_mod chapter general_networking
 # add_mod chapter general_tcpip # too much in Dutch
-add_mod chapter network_sniffing
 add_mod chapter network_ifconfig #new chapter
+add_mod chapter network_sniffing
 # add_mod chapter ipv4_addressing
 # add_mod chapter classful_subnets # still has parts in Dutch
 # add_mod chapter classless_subnets # still has parts in Dutch
