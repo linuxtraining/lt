@@ -134,7 +134,7 @@ eth0 Link encap:Ethernet  HWaddr 08:00:27:DD:0D:5C
 	</section>
 </section>
 <?hard-pagebreak?>
-<section><title>/sbin/ifconfig</title>
+<section><title>ifconfig</title>
 	<section><title>network interface cards</title>
 		<para>The use of <command>/sbin/ifconfig</command> without any arguments will present you with a list of all active network interface cards, including wireless and the loopback interface. In the screenshot below <command>eth0</command> has no ip address.</para>
 		<screen>root@ubu1010:~# ifconfig 
@@ -174,6 +174,16 @@ eth0 Link encap:Ethernet  HWaddr 08:00:27:DD:0D:5C
      TX packets:1918 errors:0 dropped:0 overruns:0 carrier:0
      collisions:0 txqueuelen:1000 
      RX bytes:335942 (328.0 KiB)  TX bytes:190157 (185.7 KiB)</screen>
+	<para>When <command>/sbin</command> is not in the <command>$PATH</command> of a normal user you will have to type the full path, as seen here on Debian.</para>
+	<screen>paul@debian5:~$ /sbin/ifconfig eth3
+eth3 Link encap:Ethernet  HWaddr 08:00:27:ab:67:30  
+     inet addr:192.168.1.29  Bcast:192.168.1.255  Mask:255.255.255.0
+     inet6 addr: fe80::a00:27ff:feab:6730/64 Scope:Link
+     UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+     RX packets:27155 errors:0 dropped:0 overruns:0 frame:0
+     TX packets:30527 errors:0 dropped:0 overruns:0 carrier:0
+     collisions:0 txqueuelen:1000 
+     RX bytes:13095386 (12.4 MiB)  TX bytes:25767221 (24.5 MiB)</screen>
 	</section>
 	<section><title>up and down</title>
 		<para>You can also use <command>ifconfig</command> to bring an interface up or down. The difference with <command>ifup</command> is that <command>ifconfig eth0 up</command> will re-activate the nic keeping its existing (current) configuration, whereas <command>ifup</command> will read the correct file that contains a (possibly new) configuration and use this config file to bring the interface up.</para>
@@ -209,4 +219,64 @@ eth0 Link encap:Ethernet  HWaddr 08:00:27:DD:0D:5C
 [root@rhel6 ~]# ifconfig eth0 | grep HWaddr
 eth0 Link encap:Ethernet  HWaddr 00:42:42:42:42:42</screen>
 	</section>
+</section>
+<?hard-pagebreak?>
+<section><title>hostname</title>
+	<para>Every host receives a <command>hostname</command><indexterm><primary>hostname</primary></indexterm>, often placed in a <command>DNS name space</command> forming the <command>fqdn</command><indexterm><primary>FQDN</primary></indexterm> or Fully Qualified Domain Name.</para>
+	<para>This screenshot shows the <command>hostname</command> command and the configuration of the hostname on Red Hat/Fedora.</para>
+	<screen>[root@rhel6 ~]# grep rhel /etc/sysconfig/network
+HOSTNAME=rhel6
+[root@rhel6 ~]# hostname
+rhel6</screen>
+	<para>Ubuntu/Debian uses the <command>/etc/hostname</command> file to configure the <command>hostname</command>.</para>
+	<screen>paul@ubu1010:~$ cat /etc/hostname 
+ubu1010
+paul@ubu1010:~$ hostname 
+ubu1010</screen>
+	<para>On all Linux distributions you can change the <command>hostname</command> using the <command>hostname $newname</command> command. This is not a permanent change.</para>
+	<screen>[root@rhel6 ~]# hostname server42
+[root@rhel6 ~]# hostname
+server42</screen>
+	<para>On any Linux you can use <command>sysctl</command> to display and set the hostname.</para>
+	<screen>[root@rhel6 ~]# sysctl kernel.hostname
+kernel.hostname = server42
+[root@rhel6 ~]# sysctl kernel.hostname=rhel6
+kernel.hostname = rhel6
+[root@rhel6 ~]# sysctl kernel.hostname
+kernel.hostname = rhel6
+[root@rhel6 ~]# hostname
+rhel6</screen>
+</section>
+<?hard-pagebreak?>
+<section><title>arp</title>
+	<para>The <command>ip to mac</command> resolution is handled by the <command>layer two broadcast</command> protocol <command>arp</command><indexterm><primary>arp(1)</primary></indexterm>. The <command>arp table</command> can be displayed with the <command>arp tool</command>. The screenshot below shows the list of computers that this computer recently communicated with.</para>
+	<screen>root@barry:~# arp -a
+? (192.168.1.191) at 00:0C:29:3B:15:80 [ether] on eth1
+agapi (192.168.1.73) at 00:03:BA:09:7F:D2 [ether] on eth1
+anya (192.168.1.1) at 00:12:01:E2:87:FB [ether] on eth1
+faith (192.168.1.41) at 00:0E:7F:41:0D:EB [ether] on eth1
+kiss (192.168.1.49) at 00:D0:E0:91:79:95 [ether] on eth1
+laika (192.168.1.40) at 00:90:F5:4E:AE:17 [ether] on eth1
+pasha (192.168.1.71) at 00:03:BA:02:C3:82 [ether] on eth1
+shaka (192.168.1.72) at 00:03:BA:09:7C:F9 [ether] on eth1
+root@barry:~#</screen>
+	<para><emphasis>Anya is a Cisco Firewall, faith is a laser printer, kiss is a Kiss DP600, laika is a laptop and Agapi, Shaka and Pasha are SPARC servers. The question mark is a Red Hat Enterprise Linux server running on a virtual machine.</emphasis></para>
+	<para>You can use <command>arp -d</command> to remove an entry from the <command>arp table</command>.</para>
+	<screen>[root@rhel6 ~]# arp
+Address             HWtype  HWaddress           Flags Mask       Iface
+ubu1010             ether   00:26:bb:12:7a:5e   C                eth0
+anya                ether   00:02:cf:aa:68:f0   C                eth0
+[root@rhel6 ~]# arp -d anya
+[root@rhel6 ~]# arp
+Address             HWtype  HWaddress           Flags Mask       Iface
+ubu1010             ether   00:26:bb:12:7a:5e   C                eth0
+anya                        (incomplete)                         eth0
+[root@rhel6 ~]# ping anya
+PING anya (192.168.1.1) 56(84) bytes of data.
+64 bytes from anya (192.168.1.1): icmp_seq=1 ttl=254 time=10.2 ms
+...
+[root@rhel6 ~]# arp
+Address             HWtype  HWaddress           Flags Mask       Iface
+ubu1010             ether   00:26:bb:12:7a:5e   C                eth0
+anya                ether   00:02:cf:aa:68:f0   C                eth0</screen>
 </section>
