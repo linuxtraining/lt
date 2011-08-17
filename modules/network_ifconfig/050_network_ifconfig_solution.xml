@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>solution : about tcp/ip</title>
+<section><title>solution: interface configuration</title>
 	<para>1. Which ports are used by http, pop3, ssh, telnet, nntp and ftp ?</para>
 	<screen>root@rhel6 ~# grep ^'http ' /etc/services 
 http       80/tcp          www www-http    # WorldWideWeb HTTP
