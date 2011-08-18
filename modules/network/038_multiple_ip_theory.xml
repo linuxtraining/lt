@@ -1,18 +1,92 @@
 <?hard-pagebreak?>
-<section><title>multiple ip-addresses</title>
-	<section><title>binding multiple ip-addresses</title>
-		<para>To bind more than one ip-address to the same interface, use <command>ifcfg-eth0:0</command><indexterm><primary>ifcfg(1)</primary></indexterm>, where the last zero can be anything else. Only two directives are required in the file. </para>
-		<screen>
-root@RHELv4u2:/etc/sysconfig/network-scripts# cat ifcfg-eth0:0
-DEVICE=eth0:0
-IPADDR=192.168.1.232
-		</screen>
+<section><title>binding on Redhat/Fedora</title>
+	<section><title>binding extra ip addresses</title>
+		<para>To bind more than one <command>ip address</command><indexterm><primary>binding</primary></indexterm> to the same interface, use <command>ifcfg-eth0:0</command><indexterm><primary>ifcfg(1)</primary></indexterm>, where the last zero can be anything else. Only two directives are required in the files.</para>
+	<screen>[root@rhel6 ~]# ifconfig | grep 'inet '
+          inet addr:192.168.1.99  Bcast:192.168.1.255  Mask:255.255.255.0
+          inet addr:127.0.0.1  Mask:255.0.0.0
+[root@rhel6 ~]# cat /etc/sysconfig/network-scripts/ifcfg-eth0:0
+DEVICE="eth0:0"
+IPADDR="192.168.1.133"
+[root@rhel6 ~]# cat /etc/sysconfig/network-scripts/ifcfg-eth0:1
+DEVICE="eth0:0"
+IPADDR="192.168.1.142"</screen>
 	</section>
 	<section><title>enabling extra ip-addresses</title>
 		<para>To activate a virtual network interface, use <command>ifup</command><indexterm><primary>ifup(1)</primary></indexterm>, to deactivate it, use <command>ifdown</command><indexterm><primary>ifdown(1)</primary></indexterm>. </para>
-		<screen>
-root@RHELv4u2:~# ifdown eth0:0
-root@RHELv4u2:~# ifup eth0:0
-		</screen>
+		<screen>[root@rhel6 ~]# ifup eth0:0
+[root@rhel6 ~]# ifconfig | grep 'inet '
+          inet addr:192.168.1.99  Bcast:192.168.1.255  Mask:255.255.255.0
+          inet addr:192.168.1.133  Bcast:192.168.1.255  Mask:255.255.255.0
+          inet addr:127.0.0.1  Mask:255.0.0.0
+[root@rhel6 ~]# ifup eth0:1
+[root@rhel6 ~]# ifconfig | grep 'inet '
+          inet addr:192.168.1.99  Bcast:192.168.1.255  Mask:255.255.255.0
+          inet addr:192.168.1.133  Bcast:192.168.1.255  Mask:255.255.255.0
+          inet addr:192.168.1.142  Bcast:192.168.1.255  Mask:255.255.255.0
+          inet addr:127.0.0.1  Mask:255.0.0.0</screen>
+	</section>
+	<section><title>verifying extra ip-addresses</title>
+		<para>Use <command>ping</command> from another computer to check the activation, or use <command>ifconfig</command> like in this screenshot.</para>
+		<screen>[root@rhel6 ~]# ifconfig 
+eth0   Link encap:Ethernet  HWaddr 08:00:27:DD:0D:5C  
+       inet addr:192.168.1.99  Bcast:192.168.1.255  Mask:255.255.255.0
+       inet6 addr: fe80::a00:27ff:fedd:d5c/64 Scope:Link
+       UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+       RX packets:1259 errors:0 dropped:0 overruns:0 frame:0
+       TX packets:545 errors:0 dropped:0 overruns:0 carrier:0
+       collisions:0 txqueuelen:1000 
+       RX bytes:115260 (112.5 KiB)  TX bytes:84293 (82.3 KiB)
+
+eth0:0 Link encap:Ethernet  HWaddr 08:00:27:DD:0D:5C  
+       inet addr:192.168.1.133  Bcast:192.168.1.255  Mask:255.255.255.0
+       UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+
+eth0:1 Link encap:Ethernet  HWaddr 08:00:27:DD:0D:5C  
+       inet addr:192.168.1.142  Bcast:192.168.1.255  Mask:255.255.255.0
+       UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1</screen>
+	</section>
+</section>
+<section><title>binding on Debian/Ubuntu</title>
+	<section><title>binding extra ip addresses</title>
+		<para>The configuration of multiple ip addresses on the same network card is done in <command>/etc/network/interfaces</command><indexterm><primary>/etc/network/interfaces</primary></indexterm> by adding <command>eth0:X</command> devices. Adding the <command>netmask</command> is mandatory.</para>
+		<screen>debian5:~# cat /etc/network/interfaces
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+iface eth0 inet static
+address 192.168.1.34
+network 192.168.1.0
+netmask 255.255.255.0
+gateway 192.168.1.1
+auto eth0
+
+auto eth0:0
+iface eth0:0 inet static
+address 192.168.1.233
+netmask 255.255.255.0
+
+auto eth0:1
+iface eth0:1 inet static
+address 192.168.1.242
+netmask 255.255.255.0</screen>
+	</section>
+	<section><title>enabling extra ip-addresses</title>
+		<para>Use <command>ifup</command> to enable the extra addresses.</para>
+		<screen>debian5:~# ifup eth0:0
+debian5:~# ifup eth0:1</screen>
+	</section>
+	<section><title>verifying extra ip-addresses</title>
+		<para>Use <command>ping</command> from another computer to check the activation, or use <command>ifconfig</command> like in this screenshot.</para>
+		<screen>debian5:~# ifconfig | grep 'inet '
+      inet addr:192.168.1.34  Bcast:192.168.1.255  Mask:255.255.255.0
+      inet addr:192.168.1.233  Bcast:192.168.1.255  Mask:255.255.255.0
+      inet addr:192.168.1.242  Bcast:192.168.1.255  Mask:255.255.255.0
+       inet addr:127.0.0.1  Mask:255.0.0.0</screen>
 	</section>
 </section>
