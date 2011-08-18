@@ -1,6 +1,44 @@
 <?hard-pagebreak?>
 <section><title>solution: interface configuration</title>
-	<para>1. Which ports are used by http, pop3, ssh, telnet, nntp and ftp ?</para>
+	<para>1. Verify whether <command>dhclient</command> is running.</para>
+	<screen>paul@debian5:~$ ps fax | grep dhclient</screen>
+	<para>2. Display your current ip address(es).</para>
+	<screen>paul@debian5:~$ /sbin/ifconfig | grep 'inet '
+      inet addr:192.168.1.31  Bcast:192.168.1.255  Mask:255.255.255.0
+      inet addr:127.0.0.1  Mask:255.0.0.0</screen>
+	<para>3. Display the configuration file where this <command>ip address</command> is defined.</para>
+	<screen>Ubuntu/Debian: cat /etc/network/interfaces
+Redhat/Fedora: cat /etc/sysconfig/network-scripts/ifcfg-eth*</screen>
+	<para>4. Follow the <command>nic configuration</command> in the book to change your ip address from <command>dhcp client</command> to <command>fixed</command>. Keep the same <command>ip address</command> to avoid conflicts!</para>
+	<screen>Ubuntu/Debian:
+ifdown eth0
+vi /etc/network/interfaces
+ifup eth0</screen>
+	<screen>Redhat/Fedora:
+ifdown eth0
+vi /etc/sysconfig/network-scripts/ifcfg-eth0
+ifup eth0</screen>
+	<para>5. Did you also configure the correct <command>gateway</command> in the previous question ? If not, then do this now.</para>
+	<screen></screen>
+	<para>6. Verify that you have a gateway.</para>
+	<screen>paul@debian5:~$ /sbin/route
+Kernel IP routing table
+Destination   Gateway       Genmask        Flags Metric Ref  Use Iface
+192.168.1.0   *             255.255.255.0  U     0      0      0 eth0
+default       192.168.1.1   0.0.0.0        UG    0      0      0 eth0</screen>
+	<para>7. Verify that you can connect to the gateway, that it is alive.</para>
+	<screen>paul@debian5:~$ ping -c3 192.168.1.1
+PING 192.168.1.1 (192.168.1.1) 56(84) bytes of data.
+64 bytes from 192.168.1.1: icmp_seq=1 ttl=254 time=2.28 ms
+64 bytes from 192.168.1.1: icmp_seq=2 ttl=254 time=2.94 ms
+64 bytes from 192.168.1.1: icmp_seq=3 ttl=254 time=2.34 ms
+
+--- 192.168.1.1 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2008ms
+rtt min/avg/max/mdev = 2.283/2.524/2.941/0.296 ms</screen>
+	<para>8. Change the last two digits of your <command>mac address</command>.</para>
+	<screen>[root@rhel6 ~]# ifconfig eth0 hw ether 08:00:27:ab:67:XX</screen>
+	<para>9. Which ports are used by http, pop3, ssh, telnet, nntp and ftp ?</para>
 	<screen>root@rhel6 ~# grep ^'http ' /etc/services 
 http       80/tcp          www www-http    # WorldWideWeb HTTP
 http       80/udp          www www-http    # HyperText Transfer Protocol
@@ -20,17 +58,12 @@ root@rhel6 ~# grep ^'ftp ' /etc/services
 ftp        21/tcp
 ftp        21/udp          fsp fspd</screen>
 	<para>Note that <command>sctp</command> was ommitted from the screenshot.</para>
-	<para>2. Explain why e-mail and websites are sent over <command>tcp</command> and not <command>udp</command>.</para>
+	<para>10. Explain why e-mail and websites are sent over <command>tcp</command> and not <command>udp</command>.</para>
 	<screen>Because tcp is reliable and udp is not.</screen>
-	<para>3. Display the <command>hostname</command> of your computer.</para>
-	<screen>paul@deb503:~$ hostname 
-deb503
-	</screen>
-	<para>4. Does your computer have an <command>fqdn</command> ?</para>
-	<screen>paul@deb503:~$ hostname --fqdn
-deb503
-	</screen>
-	<para>5. Which ip-addresses did your computer recently have contact with ?</para>
+	<para>11. Display the <command>hostname</command> of your computer.</para>
+	<screen>paul@debian5:~$ hostname 
+debian5</screen>
+	<para>12. Which ip-addresses did your computer recently have contact with ?</para>
 	<screen>root@rhel6 ~# arp -a
 ? (192.168.1.1) at 00:02:cf:aa:68:f0 [ether] on eth2
 ? (192.168.1.30) at 00:26:bb:12:7a:5e [ether] on eth2

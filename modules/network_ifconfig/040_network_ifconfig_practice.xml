@@ -1,8 +1,16 @@
 <?hard-pagebreak?>
 <section><title>practice: interface configuration</title>
-	<para>1. Which ports are used by http, pop3, ssh, telnet, nntp and ftp ?</para>
-	<para>2. Explain why e-mail and websites are sent over <command>tcp</command> and not <command>udp</command>.</para>
-	<para>3. Display the <command>hostname</command> of your computer.</para>
-	<para>4. Does your computer have an <command>fqdn</command> ?</para>
-	<para>5. Which ip-addresses did your computer recently have contact with ?</para>
+	<para>1. Verify whether <command>dhclient</command> is running.</para>
+	<para>2. Display your current ip address(es).</para>
+	<para>3. Display the configuration file where this <command>ip address</command> is defined.</para>
+	<para>4. Follow the <command>nic configuration</command> in the book to change your ip address from <command>dhcp client</command> to <command>fixed</command>. Keep the same <command>ip address</command> to avoid conflicts!</para>
+	<para>5. Did you also configure the correct <command>gateway</command> in the previous question ? If not, then do this now.</para>
+	<para>6. Verify that you have a gateway.</para>
+	<para>7. Verify that you can connect to the gateway, that it is alive.</para>
+	<para>8. Change the last two digits of your <command>mac address</command>.</para>
+	<para>9. Which ports are used by http, pop3, ssh, telnet, nntp and ftp ?</para>
+	<para>Note that <command>sctp</command> was ommitted from the screenshot.</para>
+	<para>10. Explain why e-mail and websites are sent over <command>tcp</command> and not <command>udp</command>.</para>
+	<para>11. Display the <command>hostname</command> of your computer.</para>
+	<para>12. Which ip-addresses did your computer recently have contact with ?</para>
 </section>
