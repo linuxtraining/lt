@@ -6,7 +6,7 @@ add an /etc/sysconfig/network-scripts/ifcfg-ethX:X file
 as shown in the theory</screen>
 	<screen>Debian/Ubuntu:
 expand the /etc/network/interfaces file
-as shown in the theory
+as shown in the theory</screen>
 	<para>2. Use <command>ifdown</command> to disable this extra <command>ip-address</command>.</para>
 	<screen>ifdown eth0:0</screen>
 	<para>3. Make sure your neighbour also succeeded in <command>binding</command> an extra ip address before you continue.</para>
