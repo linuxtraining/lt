@@ -37,6 +37,7 @@
 		</para>
 	</section>
 </section>
+<?hard-pagebreak?>
 <section><title>tcpdump</title>
 	<para>Sniffing on the command line can be done with <command>tcpdump</command>. Here are some examples.</para>
 	<para>Using the <command>tcpdump host $ip</command> command displays all traffic with one host (192.168.1.38 in this example).</para>
