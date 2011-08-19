@@ -1,0 +1,18 @@
+<?hard-pagebreak?>
+<section><title>solution: binding and bonding</title>
+	<para>1. Add an extra <command>ip-address</command> to one of your network cards. Test that it works (have your neighbour ssh to it)!</para>
+	<screen>Redhat/Fedora:
+add an /etc/sysconfig/network-scripts/ifcfg-ethX:X file
+as shown in the theory</screen>
+	<screen>Debian/Ubuntu:
+expand the /etc/network/interfaces file
+as shown in the theory
+	<para>2. Use <command>ifdown</command> to disable this extra <command>ip-address</command>.</para>
+	<screen>ifdown eth0:0</screen>
+	<para>3. Make sure your neighbour also succeeded in <command>binding</command> an extra ip address before you continue.</para>
+	<screen>ping $extr_ip_neighbour
+or
+ssh $extra_ip_neighbour</screen>
+	<para>4. Add an extra network card (or two) to your virtual machine and use the theory to <command>bond</command> two network cards.</para>
+	<screen></screen>
+</section>

@@ -1,0 +1,3 @@
+<para>Sometimes a server needs more than one <command>ip address</command> on the same network card, we call this <command>binding</command><indexterm><primary>binding(ip)</primary></indexterm> ip addresses.</para>
+<para>Linux can also activate multiple network cards behind the same <command>ip address</command>, this is called <command>bonding</command><indexterm><primary>bonding(ip)</primary></indexterm>.</para>
+<para>This chapter will teach you how to configure <command>binding</command> and <command>bonding</command> on the most common Linux distributions.</para>
