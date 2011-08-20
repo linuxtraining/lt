@@ -1,3 +1,0 @@
-<section><title>practice : multihomed hosts</title>
-	<para>1. Add two network cards to the virtual machine, and bond the two cards as one virtual (double bandwidth and failover) card.</para>
-</section>
