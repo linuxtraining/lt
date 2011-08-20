@@ -86,7 +86,6 @@ debian5:~# ifup eth0:1</screen>
       inet addr:192.168.1.233  Bcast:192.168.1.255  Mask:255.255.255.0
       inet addr:192.168.1.242  Bcast:192.168.1.255  Mask:255.255.255.0
       inet addr:127.0.0.1  Mask:255.0.0.0</screen>
-	</section>
 </section>
 <?hard-pagebreak?>
 <section><title>bonding on Redhat/Fedora</title>
@@ -135,6 +134,25 @@ bond0     Link encap:Ethernet  HWaddr 08:00:27:DA:C1:49
           TX packets:21 errors:0 dropped:0 overruns:0 carrier:0
           collisions:0 txqueuelen:0 
           RX bytes:39852 (38.9 KiB)  TX bytes:1070 (1.0 KiB)</screen>
+	<para>The <command>bond</command> should also be visible in <command>/proc/net/bonding</command><indexterm><primary>/proc/net/bonding</primary></indexterm>.</para>
+	<screen>[root@rhel6 network-scripts]# cat /proc/net/bonding/bond0 
+Ethernet Channel Bonding Driver: v3.5.0 (November 4, 2008)
+
+Bonding Mode: load balancing (round-robin)
+MII Status: up
+MII Polling Interval (ms): 0
+Up Delay (ms): 0
+Down Delay (ms): 0
+
+Slave Interface: eth1
+MII Status: up
+Link Failure Count: 0
+Permanent HW addr: 08:00:27:da:c1:49
+
+Slave Interface: eth2
+MII Status: up
+Link Failure Count: 0
+Permanent HW addr: 08:00:27:40:03:3b</screen>
 </section>
 <?hard-pagebreak?>
 <section><title>bonding on Debian/Ubuntu</title>
@@ -171,6 +189,28 @@ bond0     Link encap:Ethernet  HWaddr 08:00:27:63:9a:95
           TX packets:39 errors:0 dropped:0 overruns:0 carrier:0
           collisions:0 txqueuelen:0 
           RX bytes:31978 (31.2 KiB)  TX bytes:6709 (6.5 KiB)</screen>
+	<para>The <command>bond</command> should also be visible in <command>/proc/net/bonding</command><indexterm><primary>/proc/net/bonding</primary></indexterm>.</para>
+	<screen>debian5:~# cat /proc/net/bonding/bond0 
+Ethernet Channel Bonding Driver: v3.2.5 (March 21, 2008)
+
+Bonding Mode: fault-tolerance (active-backup)
+Primary Slave: eth1
+Currently Active Slave: eth1
+MII Status: up
+MII Polling Interval (ms): 0
+Up Delay (ms): 0
+Down Delay (ms): 0
+
+Slave Interface: eth1
+MII Status: up
+Link Failure Count: 0
+Permanent HW addr: 08:00:27:63:9a:95
+
+Slave Interface: eth2
+MII Status: up
+Link Failure Count: 0
+Permanent HW addr: 08:00:27:27:a4:92</screen>
+	</section>
 </section>
 
 
