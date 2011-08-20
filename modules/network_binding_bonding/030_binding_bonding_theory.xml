@@ -86,6 +86,7 @@ debian5:~# ifup eth0:1</screen>
       inet addr:192.168.1.233  Bcast:192.168.1.255  Mask:255.255.255.0
       inet addr:192.168.1.242  Bcast:192.168.1.255  Mask:255.255.255.0
       inet addr:127.0.0.1  Mask:255.0.0.0</screen>
+	</section>
 </section>
 <?hard-pagebreak?>
 <section><title>bonding on Redhat/Fedora</title>
@@ -210,7 +211,6 @@ Slave Interface: eth2
 MII Status: up
 Link Failure Count: 0
 Permanent HW addr: 08:00:27:27:a4:92</screen>
-	</section>
 </section>
 
 
