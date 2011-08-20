@@ -14,5 +14,12 @@ as shown in the theory</screen>
 or
 ssh $extra_ip_neighbour</screen>
 	<para>4. Add an extra network card (or two) to your virtual machine and use the theory to <command>bond</command> two network cards.</para>
-	<screen></screen>
+	<screen>Redhat/Fedora:
+add ifcfg-ethX and ifcfg-bondX files in /etc/sysconfig/network-scripts
+as shown in the theory
+and don't forget the modprobe.conf</screen>
+	<screen>Debian/Ubuntu:
+expand the /etc/network/interfaces file
+as shown in the theory
+and don't forget to install the ifenslave package</screen>
 </section>
