@@ -160,9 +160,9 @@ iface bond0 inet static
  slaves eth1 eth2
  bond-mode active-backup
  bond_primary eth1</screen>
-	<para>On older version of Debian/Ubuntu you needed to <command>modporbe bonding</command>, but this is no longer required. Use <command>ifup</command> to brin the interface up, then test that it works.</para>
+	<para>On older version of Debian/Ubuntu you needed to <command>modprobe bonding</command>, but this is no longer required. Use <command>ifup</command> to bring the interface up, then test that it works.</para>
 	<screen>debian5:~# ifup bond0
-debian5:~# ifconfig
+debian5:~# ifconfig bond0
 bond0     Link encap:Ethernet  HWaddr 08:00:27:63:9a:95  
           inet addr:192.168.1.42  Bcast:192.168.1.255  Mask:255.255.255.0
           inet6 addr: fe80::a00:27ff:fe63:9a95/64 Scope:Link
@@ -170,39 +170,7 @@ bond0     Link encap:Ethernet  HWaddr 08:00:27:63:9a:95
           RX packets:212 errors:0 dropped:0 overruns:0 frame:0
           TX packets:39 errors:0 dropped:0 overruns:0 carrier:0
           collisions:0 txqueuelen:0 
-          RX bytes:31978 (31.2 KiB)  TX bytes:6709 (6.5 KiB)
-
-eth0      Link encap:Ethernet  HWaddr 08:00:27:bb:18:a4  
-          inet addr:192.168.1.34  Bcast:192.168.1.255  Mask:255.255.255.0
-          inet6 addr: fe80::a00:27ff:febb:18a4/64 Scope:Link
-          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
-          RX packets:2433 errors:0 dropped:0 overruns:0 frame:0
-          TX packets:1090 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:1000 
-          RX bytes:243227 (237.5 KiB)  TX bytes:172819 (168.7 KiB)
-
-eth1      Link encap:Ethernet  HWaddr 08:00:27:63:9a:95  
-          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
-          RX packets:122 errors:0 dropped:0 overruns:0 frame:0
-          TX packets:39 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:1000 
-          RX bytes:17381 (16.9 KiB)  TX bytes:6709 (6.5 KiB)
-
-eth2      Link encap:Ethernet  HWaddr 08:00:27:63:9a:95  
-          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
-          RX packets:90 errors:0 dropped:0 overruns:0 frame:0
-          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:1000 
-          RX bytes:14597 (14.2 KiB)  TX bytes:0 (0.0 B)
-
-lo        Link encap:Local Loopback  
-          inet addr:127.0.0.1  Mask:255.0.0.0
-          inet6 addr: ::1/128 Scope:Host
-          UP LOOPBACK RUNNING  MTU:16436  Metric:1
-          RX packets:2 errors:0 dropped:0 overruns:0 frame:0
-          TX packets:2 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:0 
-          RX bytes:158 (158.0 B)  TX bytes:158 (158.0 B)</screen>
+          RX bytes:31978 (31.2 KiB)  TX bytes:6709 (6.5 KiB)</screen>
 </section>
 
 
