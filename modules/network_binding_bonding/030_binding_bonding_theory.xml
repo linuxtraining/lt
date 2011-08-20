@@ -24,7 +24,7 @@ IPADDR="192.168.1.142"</screen>
           inet addr:127.0.0.1  Mask:255.0.0.0</screen>
 	</section>
 	<section><title>verifying extra ip-addresses</title>
-		<para>Use <command>ping</command> from another computer to check the activation, or use <command>ifconfig</command> like in this screenshot.</para>
+		<para>Use <command>ping</command> from another computer to check the activation, or use <command>ifconfig</command><indexterm><primary>ifconfig(1)</primary></indexterm> like in this screenshot.</para>
 		<screen>[root@rhel6 ~]# ifconfig 
 eth0   Link encap:Ethernet  HWaddr 08:00:27:DD:0D:5C  
        inet addr:192.168.1.99  Bcast:192.168.1.255  Mask:255.255.255.0
@@ -75,12 +75,12 @@ address 192.168.1.242
 netmask 255.255.255.0</screen>
 	</section>
 	<section><title>enabling extra ip-addresses</title>
-		<para>Use <command>ifup</command> to enable the extra addresses.</para>
+		<para>Use <command>ifup</command><indexterm><primary>ifup(1)</primary></indexterm> to enable the extra addresses.</para>
 		<screen>debian5:~# ifup eth0:0
 debian5:~# ifup eth0:1</screen>
 	</section>
 	<section><title>verifying extra ip-addresses</title>
-		<para>Use <command>ping</command> from another computer to check the activation, or use <command>ifconfig</command> like in this screenshot.</para>
+		<para>Use <command>ping</command> from another computer to check the activation, or use <command>ifconfig</command><indexterm><primary>ifconfig(1)</primary></indexterm> like in this screenshot.</para>
 		<screen>debian5:~# ifconfig | grep 'inet '
       inet addr:192.168.1.34  Bcast:192.168.1.255  Mask:255.255.255.0
       inet addr:192.168.1.233  Bcast:192.168.1.255  Mask:255.255.255.0
@@ -88,3 +88,126 @@ debian5:~# ifup eth0:1</screen>
       inet addr:127.0.0.1  Mask:255.0.0.0</screen>
 	</section>
 </section>
+<?hard-pagebreak?>
+<section><title>bonding on Redhat/Fedora</title>
+	<para>We start with <command>ifconfig -a</command><indexterm><primary>ifconfig(1)</primary></indexterm> to get a list of all the network cards on our system.</para>
+	<screen>[root@rhel6 network-scripts]# ifconfig -a | grep Ethernet
+eth0      Link encap:Ethernet  HWaddr 08:00:27:DD:0D:5C  
+eth1      Link encap:Ethernet  HWaddr 08:00:27:DA:C1:49  
+eth2      Link encap:Ethernet  HWaddr 08:00:27:40:03:3B</screen>
+	<para>In this demo we decide to bond <command>eth1</command> and <command>eth2</command>.</para>
+	<para>We will name are bond <command>bond0</command> and add this entry to <command>modprobe</command> so the kernel can load the <command>bonding module</command> when we bring the interface up.</para>
+	<screen>[root@rhel6 network-scripts]# cat /etc/modprobe.d/bonding.conf 
+alias bond0 bonding</screen>
+	<para>Then we create <command>/etc/sysconfig/network-scripts/ifcfg-bond0</command><indexterm><primary>/etc/sysconfig/network-scripts/ifcfg-bond0</primary></indexterm> to configure our <command>bond0</command> interface.</para>
+	<screen>[root@rhel6 network-scripts]# pwd
+/etc/sysconfig/network-scripts
+[root@rhel6 network-scripts]# cat ifcfg-bond0 
+DEVICE=bond0
+IPADDR=192.168.1.199
+NETMASK=255.255.255.0
+ONBOOT=yes
+BOOTPROTO=none
+USERCTL=no</screen>
+	<para>Next we create two files, one for each network card that we will use as slave in <command>bond0</command>.</para>
+	<screen>[root@rhel6 network-scripts]# cat ifcfg-eth1
+DEVICE=eth1
+BOOTPROTO=none
+ONBOOT=yes
+MASTER=bond0
+SLAVE=yes
+USERCTL=no
+[root@rhel6 network-scripts]# cat ifcfg-eth2
+DEVICE=eth2
+BOOTPROTO=none
+ONBOOT=yes
+MASTER=bond0
+SLAVE=yes
+USERCTL=no</screen>
+	<para>Finally we bring the interface up with <command>ifup bond0</command><indexterm><primary>ifup(1)</primary></indexterm>.</para>
+	<screen>[root@rhel6 network-scripts]# ifup bond0
+[root@rhel6 network-scripts]# ifconfig bond0
+bond0     Link encap:Ethernet  HWaddr 08:00:27:DA:C1:49  
+          inet addr:192.168.1.199  Bcast:192.168.1.255  Mask:255.255.255.0
+          inet6 addr: fe80::a00:27ff:feda:c149/64 Scope:Link
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:251 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:21 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0 
+          RX bytes:39852 (38.9 KiB)  TX bytes:1070 (1.0 KiB)</screen>
+</section>
+<?hard-pagebreak?>
+<section><title>bonding on Debian/Ubuntu</title>
+	<para>We start with <command>ifconfig -a</command><indexterm><primary>ifconfig(1)</primary></indexterm> to get a list of all the network cards on our system.</para>
+	<screen>debian5:~# ifconfig -a | grep Ethernet
+eth0      Link encap:Ethernet  HWaddr 08:00:27:bb:18:a4
+eth1      Link encap:Ethernet  HWaddr 08:00:27:63:9a:95
+eth2      Link encap:Ethernet  HWaddr 08:00:27:27:a4:92</screen>
+	<para>In this demo we decide to bond <command>eth1</command> and <command>eth2</command>.</para>
+	<para>We also need to install the <command>ifenslave</command><indexterm><primary>ifenslave</primary></indexterm> package.</para>
+	<screen>debian5:~# aptitude search ifenslave
+p ifenslave     - Attach and detach slave interfaces to a bonding device
+p ifenslave-2.6 - Attach and detach slave interfaces to a bonding device
+debian5:~# aptitude install ifenslave
+Reading package lists... Done
+...</screen>
+	<para>Next we update the <command>/etc/network/interfaces</command><indexterm><primary>/etc/network/interfaces</primary></indexterm> file with information about the <command>bond0</command> interface.</para>
+	<screen>debian5:~# tail -7 /etc/network/interfaces
+iface bond0 inet static
+ address 192.168.1.42
+ netmask 255.255.255.0
+ gateway 192.168.1.1
+ slaves eth1 eth2
+ bond-mode active-backup
+ bond_primary eth1</screen>
+	<para>On older version of Debian/Ubuntu you needed to <command>modporbe bonding</command>, but this is no longer required. Use <command>ifup</command> to brin the interface up, then test that it works.</para>
+	<screen>debian5:~# ifup bond0
+debian5:~# ifconfig
+bond0     Link encap:Ethernet  HWaddr 08:00:27:63:9a:95  
+          inet addr:192.168.1.42  Bcast:192.168.1.255  Mask:255.255.255.0
+          inet6 addr: fe80::a00:27ff:fe63:9a95/64 Scope:Link
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:212 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:39 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0 
+          RX bytes:31978 (31.2 KiB)  TX bytes:6709 (6.5 KiB)
+
+eth0      Link encap:Ethernet  HWaddr 08:00:27:bb:18:a4  
+          inet addr:192.168.1.34  Bcast:192.168.1.255  Mask:255.255.255.0
+          inet6 addr: fe80::a00:27ff:febb:18a4/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:2433 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:1090 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:243227 (237.5 KiB)  TX bytes:172819 (168.7 KiB)
+
+eth1      Link encap:Ethernet  HWaddr 08:00:27:63:9a:95  
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:122 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:39 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:17381 (16.9 KiB)  TX bytes:6709 (6.5 KiB)
+
+eth2      Link encap:Ethernet  HWaddr 08:00:27:63:9a:95  
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:90 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:14597 (14.2 KiB)  TX bytes:0 (0.0 B)
+
+lo        Link encap:Local Loopback  
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope:Host
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:2 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:2 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0 
+          RX bytes:158 (158.0 B)  TX bytes:158 (158.0 B)</screen>
+</section>
+
+
+
+
+
+
+
