@@ -1,7 +1,7 @@
 <?hard-pagebreak?>
 <section><title>practice: binding and bonding</title>
-	<para>1. Add an extra <command>ip-address</command> to one of your network cards. Test that it works (have your neighbour ssh to it)!</para>
-	<para>2. Use <command>ifdown</command> to disable this extra <command>ip-address</command>.</para>
+	<para>1. Add an extra <command>ip address</command> to one of your network cards. Test that it works (have your neighbour ssh to it)!</para>
+	<para>2. Use <command>ifdown</command> to disable this extra <command>ip address</command>.</para>
 	<para>3. Make sure your neighbour also succeeded in <command>binding</command> an extra ip address before you continue.</para>
 	<para>4. Add an extra network card (or two) to your virtual machine and use the theory to <command>bond</command> two network cards.</para>
 </section>
