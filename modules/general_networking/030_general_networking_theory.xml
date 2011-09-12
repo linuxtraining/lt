@@ -104,5 +104,17 @@
 		<para>The protocols that are used on the internet are defined in <command>rfc's</command>. An rfc or <command>request for comment</command> describes the inner working of all internet protocols. The <command>IETF</command> (Internet Engineering Task Force) is the sole publisher of these protocols since 1986.</para>
 		<para>The official website for the rfc's is <command>http://www.rfc-editor.org</command>. This website contains all rfc's in plain text, for example rfc2132 (which defines dhcp and bootp) is accessible at http://www.rfc-editor.org/rfc/rfc2132.txt.</para>
 	</section>
-	<para><command>Tcp/ip</command> and how it works on Linux will be discussed in detail in one of the next chapters.</para>
+	<section><title>many protocols</title>
+		<para>For reliable connections, you use <command>tcp</command><indexterm><primary>tcp</primary></indexterm>, whereas <command>udp</command><indexterm><primary>udp</primary></indexterm> is connectionless but faster. The <command>icmp</command><indexterm><primary>icmp</primary></indexterm> error messages are used by <command>ping</command><indexterm><primary>ping</primary></indexterm>, multicast groups are managed by <command>igmp</command><indexterm><primary>igmp</primary></indexterm>.</para>
+		<para>These protocols are visible in the protocol field of the ip header, and are listed in the <command>/etc/protocols</command><indexterm><primary>/etc/protocols</primary></indexterm> file.</para>
+		<screen>paul@debian5:~$ grep tcp /etc/protocols 
+tcp     6       TCP             # transmission control protocol</screen>
+	</section>
+	<section><title>many services</title>
+	<para>Network cards are uniquely identified by their <command>mac address</command>, hosts by their <command>ip address</command> and applications by their <command>port number</command>.</para>
+	<para>Common application level protocols like smtp, http, ssh, telnet and ftp have fixed <command>port numbers</command>. There is a list of <command>port numbers</command> in <command>/etc/services</command><indexterm><primary>/etc/services</primary></indexterm>.</para>
+		<screen>paul@ubu1010:~$ grep ssh /etc/services 
+ssh             22/tcp                 # SSH Remote Login Protocol
+ssh             22/udp</screen>
+	</section>
 </section>
