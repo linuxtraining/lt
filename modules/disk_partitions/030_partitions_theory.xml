@@ -69,7 +69,7 @@
 <?hard-pagebreak?>
 <section><title>discovering partitions</title>
 	<section><title>fdisk -l</title>
-		<para>In the <command>fdisk -l</command><indexterm><primary>fdisk(1)</primary></indexterm> example below you can see that two partitions exist on <command>/dev/sdb2</command>. The first partition spans 31 cylinders and contains a Linux swap partition. The second partition is much bigger.</para>
+		<para>In the <command>fdisk -l</command><indexterm><primary>fdisk(1)</primary></indexterm> example below you can see that two partitions exist on <command>/dev/sdb</command>. The first partition spans 31 cylinders and contains a Linux swap partition. The second partition is much bigger.</para>
 		<screen>
 root@laika:~# fdisk -l /dev/sdb
 
@@ -221,7 +221,7 @@ root@RHELv4u2:~#</screen>
 	<section><title>logical drives</title>
 		<para>The <command>partition table</command><indexterm><primary>partition table</primary></indexterm> does not contain information about <command>logical drives</command><indexterm><primary>logical drives</primary></indexterm>. So the <command>dd</command> backup of the <command>mbr</command><indexterm><primary>mbr</primary></indexterm> only works for primary and extended partitions. To backup the partition table including the logical drives, you can use <command>sfdisk</command><indexterm><primary>sfdisk(1)</primary></indexterm>.</para>
 		<para>This example shows how to backup all partition and logical drive information to a file.</para>
-		<screen>sfdisk -d /dev/sda &#060; parttable.sda.sfdisk</screen>
+		<screen>sfdisk -d /dev/sda &#062; parttable.sda.sfdisk</screen>
 		<para>The following example copies the <command>mbr</command> and all <command>logical drive</command> info from /dev/sda to /dev/sdb.</para>
 		<screen>sfdisk -d /dev/sda | sfdisk /dev/sdb</screen>
 	</section>
