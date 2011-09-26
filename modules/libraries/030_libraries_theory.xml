@@ -1,16 +1,16 @@
 <section><title>introduction</title>
-	<para>With <command>libraries</command> we are talking about dynamically linked libraries (aka shared objects). These are binaries that contain functions and are not started themselves as programs, but are called by other binaries.</para>
+	<para>With <command>libraries</command><indexterm><primary>libraries</primary></indexterm> we are talking about dynamically linked libraries (aka shared objects). These are binaries that contain functions and are not started themselves as programs, but are called by other binaries.</para>
 	<para>Several programs can use the same library. The name of the library file usually starts with <command>lib</command>, followed by the actual name of the library, then the chracters <command>.so</command> and finally a version number.</para>
 </section>
 <section><title>/lib and /usr/lib</title>
-	<para>When you look at the <command>/lib</command> or the <command>/usr/lib</command> directory, you will see a lot of symbolic links. Most <command>libraries</command> have a detailed version number in their name, but receive a symbolic link from a filename which only contains the major version number.</para>
+	<para>When you look at the <command>/lib</command><indexterm><primary>/lib</primary></indexterm> or the <command>/usr/lib</command><indexterm><primary>/usr/lib</primary></indexterm> directory, you will see a lot of symbolic links. Most <command>libraries</command> have a detailed version number in their name, but receive a symbolic link from a filename which only contains the major version number.</para>
 	<screen>root@rhel53 ~# ls -l /lib/libext*
 lrwxrwxrwx 1 root root   16 Feb 18 16:36 /lib/libext2fs.so.2 -> libext2fs.so.2.4
 -rwxr-xr-x 1 root root 113K Jun 30  2009 /lib/libext2fs.so.2.4</screen>
 </section>
 <section><title>ldd</title>
-	<para>Many programs have dependencies on the installation of certain libraries. You can display these dependencies with <command>ldd</command>.</para>
-	<para>This example shows the dependencies of the <command>su</command> command.</para>
+	<para>Many programs have dependencies on the installation of certain libraries. You can display these dependencies with <command>ldd</command><indexterm><primary>ldd</primary></indexterm>.</para>
+	<para>This example shows the dependencies of the <command>su</command><indexterm><primary>su</primary></indexterm> command.</para>
 	<screen>paul@RHEL5 ~$ ldd /bin/su
 	linux-gate.so.1 =>  (0x003f7000)
 	libpam.so.0 => /lib/libpam.so.0 (0x00d5c000)
@@ -22,7 +22,7 @@ lrwxrwxrwx 1 root root   16 Feb 18 16:36 /lib/libext2fs.so.2 -> libext2fs.so.2.4
 	/lib/ld-linux.so.2 (0x4769c000)</screen>
 </section>
 <section><title>ltrace</title>
-	<para>The <command>ltrace</command> program allows to see all the calls made to library functions by a program. The example below uses the -c option to get only a summary count (there can be many calls), and the -l option to only show calls in one library file. All this to see what calls are made when executing <command>su - serena</command> as root.</para>
+	<para>The <command>ltrace</command><indexterm><primary>ltrace</primary></indexterm> program allows to see all the calls made to library functions by a program. The example below uses the -c option to get only a summary count (there can be many calls), and the -l option to only show calls in one library file. All this to see what calls are made when executing <command>su - serena</command> as root.</para>
 	<screen>root@deb503:~# ltrace -c -l /lib/libpam.so.0 su - serena
 serena@deb503:~$ exit
 logout
@@ -42,16 +42,16 @@ logout
 100.00    0.020079                    11 total</screen>
 </section>
 <section><title>dpkg -S and debsums</title>
-	<para>Find out on Debian/Ubuntu to which package a library belongs.</para>
+	<para>Find out on Debian/Ubuntu to which package a library <indexterm><primary>dpkg -S</primary></indexterm>belongs.</para>
 	<screen>paul@deb503:/lib$ dpkg -S libext2fs.so.2.4 
 e2fslibs: /lib/libext2fs.so.2.4</screen>
-	<para>You can then verify the integrity of all files in this package using <command>debsums</command>.</para>
+	<para>You can then verify the integrity of all files in this package using <command>debsums</command><indexterm><primary>debsums</primary></indexterm>.</para>
 	<screen>paul@deb503:~$ debsums e2fslibs
 /usr/share/doc/e2fslibs/changelog.Debian.gz                               OK
 /usr/share/doc/e2fslibs/copyright                                         OK
 /lib/libe2p.so.2.3                                                        OK
 /lib/libext2fs.so.2.4                                                     OK</screen>
-	<para>Should a library be broken, then reinstall it with <command>aptitude reinstall $package</command>.</para>
+	<para>Should a library be broken, then reinstall it with <command>aptitude reinstall $package</command><indexterm><primary>aptitude</primary></indexterm>.</para>
 	<screen>root@deb503:~# aptitude reinstall e2fslibs
 Reading package lists... Done
 Building dependency tree       
@@ -64,14 +64,14 @@ The following packages will be REINSTALLED:
 ...</screen>
 </section>
 <section><title>rpm -qf and rpm -V</title>
-	<para>Find out on Red Hat/Fedora to which package a library belongs.</para>
+	<para>Find out on Red Hat/Fedora to which package a library <indexterm><primary>rpm -qf</primary></indexterm>belongs.</para>
 	<screen>paul@RHEL5 ~$ rpm -qf /lib/libext2fs.so.2.4 
 e2fsprogs-libs-1.39-8.el5</screen>
-	<para>You can then use <command>rpm -V</command> to verify all files in this package. In the example below the output shows that the <command>S</command>ize and the <command>T</command>ime stamp of the file have changed since installation.</para>
+	<para>You can then use <command>rpm -V</command><indexterm><primary>rpm -V</primary></indexterm> to verify all files in this package. In the example below the output shows that the <command>S</command>ize and the <command>T</command>ime stamp of the file have changed since installation.</para>
 	<screen>root@rhel53 ~# rpm -V e2fsprogs-libs
 prelink: /lib/libext2fs.so.2.4: prelinked file size differs
 S.?....T    /lib/libext2fs.so.2.4</screen>
-	<para>You can then use <command>yum reinstall $package</command> to overwrite the existing library with an original version.</para>
+	<para>You can then use <command>yum reinstall $package</command><indexterm><primary>yum</primary></indexterm> to overwrite the existing library with an original version.</para>
 	<screen>root@rhel53 lib# yum reinstall e2fsprogs-libs
 Loaded plugins: rhnplugin, security
 Setting up Reinstall Process
@@ -86,12 +86,12 @@ Resolving Dependencies
 root@rhel53 lib#</screen>
 </section>
 <section><title>tracing with strace</title>
-	<para>More detailed tracing of all function calls can be done with <command>strace</command>. We start by creating a read only file.</para>
+	<para>More detailed tracing of all function calls can be done with <command>strace</command><indexterm><primary>strace</primary></indexterm>. We start by creating a read only file.</para>
 <screen>root@deb503:~# echo hello > 42.txt
 root@deb503:~# chmod 400 42.txt 
 root@deb503:~# ls -l 42.txt 
 -r-------- 1 root root 6 2011-09-26 12:03 42.txt</screen>
-	<para>We open the file with <command>vi</command>, but include the <command>strace</command> command with an output file for the trace before <command>vi</command>. This will create a file with all the function calls done by <command>vi</command>.</para>
+	<para>We open the file with <command>vi</command><indexterm><primary>vi</primary></indexterm>, but include the <command>strace</command> command with an output file for the trace before <command>vi</command>. This will create a file with all the function calls done by <command>vi</command>.</para>
 <screen>root@deb503:~# strace -o strace.txt vi 42.txt</screen>
 	<para>The file is read only, but we still change the contents, and use the <command>:w!</command> directive to write to this file. Then we close <command>vi</command> and take a look at the trace log.</para>
 <screen>root@deb503:~# grep chmod strace.txt 
