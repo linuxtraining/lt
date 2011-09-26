@@ -38,7 +38,7 @@ paul@RHELv4u4:~$
 	ext3
 			</screen>
 		</section>
-        	<section><title>/sbin/umount</title>
+        	<section><title>/bin/umount</title>
 			<para>You can <command>unmount</command> a mounted file system using the <command>umount</command> command.</para>
         	        <screen>root@pasha:~# umount /home/reet</screen>
 		</section>
