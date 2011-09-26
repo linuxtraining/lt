@@ -38,6 +38,10 @@ paul@RHELv4u4:~$
 	ext3
 			</screen>
 		</section>
+        	<section><title>/sbin/umount</title>
+			<para>You can <command>unmount</command> a mounted file system using the <command>umount</command> command.</para>
+        	        <screen>root@pasha:~# umount /home/reet</screen>
+		</section>
 	</section>
 	<section><title>displaying mounted file systems</title>
 		<para>To display all mounted file systems, issue the <command>mount</command> command. Or look at the files <command>/proc/mounts</command><indexterm><primary>/proc/mounts</primary></indexterm> and <command>/etc/mtab</command><indexterm><primary>/etc/mtab</primary></indexterm>.</para>
@@ -90,10 +94,8 @@ root@laika:~#
 		</section>
         	<section><title>/bin/du</title>
         	        <para>The <command>du</command><indexterm><primary>du(1)</primary></indexterm> command can summarize <command>disk usage</command> for files and directories. Preventing <command>du</command> to go into subdirectories with the <command>-s</command> option will give you a total for that directory. This option is often used together with <command>-h</command>, so <command>du -sh</command> on a mount point gives the total amount used in that partition.</para>
-        	        <screen>
-root@pasha:~# du -sh /home/reet
-881G     /home/reet
-			</screen>
+        	        <screen>root@pasha:~# du -sh /home/reet
+881G     /home/reet</screen>
 		</section>
 	</section>
 	<section><title>permanent mounts</title>
