@@ -4,16 +4,14 @@
 </section>
 <section><title>/lib and /usr/lib</title>
 	<para>When you look at the <command>/lib</command> or the <command>/usr/lib</command> directory, you will see a lot of symbolic links. Most <command>libraries</command> have a detailed version number in their name, but receive a symbolic link from a filename which only contains the major version number.</para>
-	<screen>
-root@rhel53 ~# ls -l /lib/libext*
+	<screen>root@rhel53 ~# ls -l /lib/libext*
 lrwxrwxrwx 1 root root   16 Feb 18 16:36 /lib/libext2fs.so.2 -> libext2fs.so.2.4
 -rwxr-xr-x 1 root root 113K Jun 30  2009 /lib/libext2fs.so.2.4</screen>
 </section>
 <section><title>ldd</title>
 	<para>Many programs have dependencies on the installation of certain libraries. You can display these dependencies with <command>ldd</command>.</para>
 	<para>This example shows the dependencies of the <command>su</command> command.</para>
-	<screen>
-paul@RHEL5 ~$ ldd /bin/su
+	<screen>paul@RHEL5 ~$ ldd /bin/su
 	linux-gate.so.1 =>  (0x003f7000)
 	libpam.so.0 => /lib/libpam.so.0 (0x00d5c000)
 	libpam_misc.so.0 => /lib/libpam_misc.so.0 (0x0073c000)
@@ -21,13 +19,11 @@ paul@RHEL5 ~$ ldd /bin/su
 	libdl.so.2 => /lib/libdl.so.2 (0x00800000)
 	libc.so.6 => /lib/libc.so.6 (0x00ec1000)
 	libaudit.so.0 => /lib/libaudit.so.0 (0x0049f000)
-	/lib/ld-linux.so.2 (0x4769c000)
-</screen>
+	/lib/ld-linux.so.2 (0x4769c000)</screen>
 </section>
 <section><title>ltrace</title>
 	<para>The <command>ltrace</command> program allows to see all the calls made to library functions by a program. The example below uses the -c option to get only a summary count (there can be many calls), and the -l option to only show calls in one library file. All this to see what calls are made when executing <command>su - serena</command> as root.</para>
-	<screen>
-root@deb503:~# ltrace -c -l /lib/libpam.so.0 su - serena
+	<screen>root@deb503:~# ltrace -c -l /lib/libpam.so.0 su - serena
 serena@deb503:~$ exit
 logout
 % time     seconds  usecs/call     calls      function
@@ -43,26 +39,20 @@ logout
   0.25    0.000050          50         1 pam_getenvlist
   0.22    0.000044          44         1 pam_get_item
 ------ ----------- ----------- --------- --------------------
-100.00    0.020079                    11 total
-	</screen>
+100.00    0.020079                    11 total</screen>
 </section>
 <section><title>dpkg -S and debsums</title>
 	<para>Find out on Debian/Ubuntu to which package a library belongs.</para>
-	<screen>
-paul@deb503:/lib$ dpkg -S libext2fs.so.2.4 
-e2fslibs: /lib/libext2fs.so.2.4
-</screen>
+	<screen>paul@deb503:/lib$ dpkg -S libext2fs.so.2.4 
+e2fslibs: /lib/libext2fs.so.2.4</screen>
 	<para>You can then verify the integrity of all files in this package using <command>debsums</command>.</para>
-	<screen>
-paul@deb503:~$ debsums e2fslibs
+	<screen>paul@deb503:~$ debsums e2fslibs
 /usr/share/doc/e2fslibs/changelog.Debian.gz                               OK
 /usr/share/doc/e2fslibs/copyright                                         OK
 /lib/libe2p.so.2.3                                                        OK
-/lib/libext2fs.so.2.4                                                     OK
-	</screen>
+/lib/libext2fs.so.2.4                                                     OK</screen>
 	<para>Should a library be broken, then reinstall it with <command>aptitude reinstall $package</command>.</para>
-	<screen>
-root@deb503:~# aptitude reinstall e2fslibs
+	<screen>root@deb503:~# aptitude reinstall e2fslibs
 Reading package lists... Done
 Building dependency tree       
 Reading state information... Done
@@ -71,24 +61,18 @@ Initializing package states... Done
 Reading task descriptions... Done  
 The following packages will be REINSTALLED:
   e2fslibs 
-...
-	</screen>
+...</screen>
 </section>
 <section><title>rpm -qf and rpm -V</title>
 	<para>Find out on Red Hat/Fedora to which package a library belongs.</para>
-	<screen>
-paul@RHEL5 ~$ rpm -qf /lib/libext2fs.so.2.4 
-e2fsprogs-libs-1.39-8.el5
-</screen>
+	<screen>paul@RHEL5 ~$ rpm -qf /lib/libext2fs.so.2.4 
+e2fsprogs-libs-1.39-8.el5</screen>
 	<para>You can then use <command>rpm -V</command> to verify all files in this package. In the example below the output shows that the <command>S</command>ize and the <command>T</command>ime stamp of the file have changed since installation.</para>
-	<screen>
-root@rhel53 ~# rpm -V e2fsprogs-libs
+	<screen>root@rhel53 ~# rpm -V e2fsprogs-libs
 prelink: /lib/libext2fs.so.2.4: prelinked file size differs
-S.?....T    /lib/libext2fs.so.2.4
-	</screen>
+S.?....T    /lib/libext2fs.so.2.4</screen>
 	<para>You can then use <command>yum reinstall $package</command> to overwrite the existing library with an original version.</para>
-	<screen>
-root@rhel53 lib# yum reinstall e2fsprogs-libs
+	<screen>root@rhel53 lib# yum reinstall e2fsprogs-libs
 Loaded plugins: rhnplugin, security
 Setting up Reinstall Process
 Resolving Dependencies
@@ -96,11 +80,26 @@ Resolving Dependencies
 ---> Package e2fsprogs-libs.i386 0:1.39-23.el5 set to be erased
 ---> Package e2fsprogs-libs.i386 0:1.39-23.el5 set to be updated
 --> Finished Dependency Resolution
-...
-	</screen>
+...</screen>
 	<para>The package verification now reports no problems with the library.</para>
-	<screen>
-root@rhel53 lib# rpm -V e2fsprogs-libs
-root@rhel53 lib# 
-	</screen>
+	<screen>root@rhel53 lib# rpm -V e2fsprogs-libs
+root@rhel53 lib#</screen>
+</section>
+<section><title>tracing with strace</title>
+	<para>More detailed tracing of all function calls can be done with <command>strace</command>. We start by creating a read only file.</para>
+<screen>root@deb503:~# echo hello > 42.txt
+root@deb503:~# chmod 400 42.txt 
+root@deb503:~# ls -l 42.txt 
+-r-------- 1 root root 6 2011-09-26 12:03 42.txt</screen>
+	<para>We open the file with <command>vi</command>, but include the <command>strace</command> command with an output file for the trace before <command>vi</command>. This will create a file with all the function calls done by <command>vi</command>.</para>
+<screen>root@deb503:~# strace -o strace.txt vi 42.txt</screen>
+	<para>The file is read only, but we still change the contents, and use the <command>:w!</command> directive to write to this file. Then we close <command>vi</command> and take a look at the trace log.</para>
+<screen>root@deb503:~# grep chmod strace.txt 
+chmod("42.txt", 0100600)                = -1 ENOENT (No such file or directory)
+chmod("42.txt", 0100400)                = 0
+root@deb503:~# ls -l 42.txt 
+-r-------- 1 root root 12 2011-09-26 12:04 42.txt</screen>
+	<para>Notice that <command>vi</command> changed the permissions on the file twice. The trace log is too long to show a complete screenshot in this book.</para>
+<screen>root@deb503:~# wc -l strace.txt 
+941 strace.txt</screen>
 </section>
