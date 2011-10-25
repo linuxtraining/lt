@@ -1,0 +1,211 @@
+<?hard-pagebreak?>
+<section><title>terminology</title>
+	<para> Target is server</para>
+	<para> Initiator = client</para>
+	<para> </para>
+	<screen> </screen>
+	<para> </para>
+	<screen> </screen>
+	<para> <command>d</command><indexterm><primary>d</primary></indexterm></para>
+</section>	
+<section><title>iSCSI target setup</title>
+	<para>Install the server</para>
+	<screen>root@debby6:~# aptitude install iscsitarget
+The following NEW packages will be installed:
+  iscsitarget 
+0 packages upgraded, 1 newly installed, 0 to remove and 0 not upgraded.
+Need to get 69.4 kB of archives. After unpacking 262 kB will be used.
+Get:1 http://ftp.belnet.be/debian/ squeeze/main iscsitarget i386 1.4.20.2-1 [69.4 kB]
+Fetched 69.4 kB in 0s (415 kB/s)
+Selecting previously deselected package iscsitarget.
+(Reading database ... 36441 files and directories currently installed.)
+Unpacking iscsitarget (from .../iscsitarget_1.4.20.2-1_i386.deb) ...
+Processing triggers for man-db ...
+Setting up iscsitarget (1.4.20.2-1) ...
+iscsitarget not enabled in "/etc/default/iscsitarget", not starting... ... (warning).</screen>
+	<para>On Debian 6 you will also need <command>aptitude install iscsitarget-dkms</command> for the kernel modules, on Debian 5 this is <command>aptitude install iscsitarget-modules-`uname -a`</command>. Ubuntu includes the kernel modules in the main package.</para>
+	<para>Enable the server </para>
+	<screen> root@debby6:~# cat /etc/default/iscsitarget 
+ISCSITARGET_ENABLE=false
+root@debby6:~# vi /etc/default/iscsitarget 
+root@debby6:~# cat /etc/default/iscsitarget 
+ISCSITARGET_ENABLE=true</screen>
+	<para> You can use LVM volumes (/dev/md0/lvol0) , physical partitions (/dev/sda) , raid devices (/dev/md0) or just plain files for storage. In this demo, we use files created with <command>dd</command>.</para>
+	<screen> root@debby6:~# mkdir /iscsi
+root@debby6:~# dd if=/dev/zero of=/iscsi/lun1.img bs=1M count=100
+100+0 records in
+100+0 records out
+104857600 bytes (105 MB) copied, 0.315825 s, 332 MB/s
+root@debby6:~# dd if=/dev/zero of=/iscsi/lun2.img bs=1M count=200
+200+0 records in
+200+0 records out
+209715200 bytes (210 MB) copied, 1.08342 s, 194 MB/s
+root@debby6:~# dd if=/dev/zero of=/iscsi/lun3.img bs=1M count=300
+300+0 records in
+300+0 records out
+314572800 bytes (315 MB) copied, 1.36209 s, 231 MB/s</screen>
+	<para>We declare our files as iSCSI targets in <command>/etc/iet/ietd.conf</command> (used to be /etc/ietd.conf). </para>
+	<screen>root@debby6:/etc/iet# cp ietd.conf ietd.conf.original
+root@debby6:/etc/iet# > ietd.conf
+root@debby6:/etc/iet# vi ietd.conf
+root@debby6:/etc/iet# cat ietd.conf
+Target iqn.2010-02.be.linux-training:storage.lun1
+	IncomingUser isuser hunter2
+	OutgoingUser
+	Lun 0 Path=/iscsi/lun1.img,Type=fileio
+	Alias LUN1
+
+Target iqn.2010-02.be.linux-training:storage.lun2
+	IncomingUser isuser hunter2
+	OutgoingUser
+	Lun 0 Path=/iscsi/lun2.img,Type=fileio
+	Alias LUN2
+
+Target iqn.2010-02.be.linux-training:storage.lun3
+	IncomingUser isuser hunter2
+	OutgoingUser
+	Lun 0 Path=/iscsi/lun3.img,Type=fileio
+	Alias LUN3 </screen>
+	<para> We add our devices to the <command>/etc/initiators.allow</command> file.</para>
+	<screen> root@debby6:/etc/iet# cp initiators.allow initiators.allow.original
+root@debby6:/etc/iet# >initiators.allow
+root@debby6:/etc/iet# vi initiators.allow
+root@debby6:/etc/iet# cat initiators.allow
+iqn.2010-02.be.linux-training:storage.lun1
+iqn.2010-02.be.linux-training:storage.lun2
+iqn.2010-02.be.linux-training:storage.lun3</screen>
+	<para>Time to start the server now: </para>
+	<screen>root@debby6:/etc/iet# /etc/init.d/iscsitarget start
+Starting iSCSI enterprise target service:.
+.
+root@debby6:/etc/iet#  </screen>
+	<para>Verify activation if the storage devices in <command>/proc/net</command>: </para>
+	<screen>root@debby6:/etc/iet# cat /proc/net/iet/volume 
+tid:3 name:iqn.2010-02.be.linux-training:storage.lun3
+	lun:0 state:0 iotype:fileio iomode:wt blocks:614400 blocksize:512 path:/iscsi/lun3.img
+tid:2 name:iqn.2010-02.be.linux-training:storage.lun2
+	lun:0 state:0 iotype:fileio iomode:wt blocks:409600 blocksize:512 path:/iscsi/lun2.img
+tid:1 name:iqn.2010-02.be.linux-training:storage.lun1
+	lun:0 state:0 iotype:fileio iomode:wt blocks:204800 blocksize:512 path:/iscsi/lun1.img
+root@debby6:/etc/iet# cat /proc/net/iet/session 
+tid:3 name:iqn.2010-02.be.linux-training:storage.lun3
+tid:2 name:iqn.2010-02.be.linux-training:storage.lun2
+tid:1 name:iqn.2010-02.be.linux-training:storage.lun1 </screen>
+	<para> <command>d</command><indexterm><primary>d</primary></indexterm></para>
+</section>	
+<section><title>ISCSI client initiator setup</title>
+	<para> </para>
+	<para> </para>
+	<para>install the iSCSi client software </para>
+	<screen>root@ubu1104:~# aptitude install open-iscsi
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+Reading extended state information      
+Initializing package states... Done
+The following NEW packages will be installed:
+  open-iscsi open-iscsi-utils{a} 
+ </screen>
+	<para>Set the iSCSI client to start automatically </para>
+	<screen>root@ubu1104:/etc/iscsi# cp iscsid.conf iscsid.conf.original
+root@ubu1104:/etc/iscsi# vi iscsid.conf
+root@ubu1104:/etc/iscsi# grep ^node.startup iscsid.conf
+node.startup = automatic
+</screen>
+	<para> Start the client</para>
+	<screen>root@ubu1104:/etc/iscsi/nodes# /etc/init.d/open-iscsi start
+ * Starting iSCSI initiator service iscsid                                                                                                                                                                                            [ OK ] 
+ * Setting up iSCSI targets                                                                                                                                                                                                           [ OK ] 
+root@ubu1104:/etc/iscsi/nodes#</screen>
+	<para>Connect to the Target server and discover the devices it offers: </para>
+	<screen>root@ubu1104:/etc/iscsi# iscsiadm  -m discovery -t st -p 192.168.1.31
+192.168.1.31:3260,1 iqn.2010-02.be.linux-training:storage.lun2
+192.168.1.31:3260,1 iqn.2010-02.be.linux-training:storage.lun1
+192.168.1.31:3260,1 iqn.2010-02.be.linux-training:storage.lun3 </screen>
+	<para> Use <command>iscsiadm</command><indexterm><primary>iscsiadm</primary></indexterm> to edit the files in <command>/etc/iscsi/nodes/</command>.</para>
+	<screen>root@ubu1104:/etc/iscsi# iscsiadm -m node --targetname "iqn.2010-02.be.linu\
+x-training:storage.lun1" --portal "192.168.1.31:3260" --op=update --name no\
+de.session.auth.authmethod --value=CHAP
+root@ubu1104:/etc/iscsi# iscsiadm -m node --targetname "iqn.2010-02.be.linu\
+x-training:storage.lun1" --portal "192.168.1.31:3260" --op=update --name no\
+de.session.auth.username --value=isuser
+root@ubu1104:/etc/iscsi# iscsiadm -m node --targetname "iqn.2010-02.be.linu\
+x-training:storage.lun1" --portal "192.168.1.31:3260" --op=update --name no\
+de.session.auth.password --value=hunter2</screen>
+	<para>Repeat the above for the other two devices.</para>
+	<para>Restart the initiator service to log in to the target. </para>
+	<screen>root@ubu1104:/etc/iscsi/nodes# /etc/init.d/open-iscsi restart
+ * Disconnecting iSCSI targets                                                                                                                                                                                                        [ OK ] 
+ * Stopping iSCSI initiator service                                                                                                                                                                                                   [ OK ] 
+ * Starting iSCSI initiator service iscsid                                                                                                                                                                                            [ OK ] 
+ln: target `/lib/init/rw/sendsigs.omit.d/' is not a directory: No such file or directory
+ * Setting up iSCSI targets  </screen>
+	<para>Use <command>fdisk -l</command><indexterm><primary>fdisk</primary></indexterm> to enjoy three new iSCSI devices.</para>
+	<screen>root@ubu1104:/etc/iscsi/nodes# fdisk -l 2> /dev/null | grep Disk
+Disk /dev/sda: 17.2 GB, 17179869184 bytes
+Disk identifier: 0x0001983f
+Disk /dev/sdb: 209 MB, 209715200 bytes
+Disk identifier: 0x00000000
+Disk /dev/sdd: 314 MB, 314572800 bytes
+Disk identifier: 0x00000000
+Disk /dev/sdc: 104 MB, 104857600 bytes
+Disk identifier: 0x00000000 </screen>
+	<para>The Target (the server) now shows active sessions. </para>
+	<screen>root@debby6:/etc/iet# cat /proc/net/iet/session 
+tid:3 name:iqn.2010-02.be.linux-training:storage.lun3
+	sid:5348024611832320 initiator:iqn.1993-08.org.debian:01:8983ed2d770
+		cid:0 ip:192.168.1.35 state:active hd:none dd:none
+tid:2 name:iqn.2010-02.be.linux-training:storage.lun2
+	sid:4785074624856576 initiator:iqn.1993-08.org.debian:01:8983ed2d770
+		cid:0 ip:192.168.1.35 state:active hd:none dd:none
+tid:1 name:iqn.2010-02.be.linux-training:storage.lun1
+	sid:5066549618344448 initiator:iqn.1993-08.org.debian:01:8983ed2d770
+		cid:0 ip:192.168.1.35 state:active hd:none dd:none
+root@debby6:/etc/iet# </screen>
+	<para>You already know the rest of the story. </para>
+	<screen>root@ubu1104:/etc/iscsi/nodes# history | tail -13
+   94  fdisk /dev/sdc
+   95  fdisk /dev/sdd
+   96  fdisk /dev/sdb
+   97  mke2fs /dev/sdb1
+   98  mke2fs -j /dev/sdc1
+   99  mkfs.ext4 /dev/sdd1
+  100  mkdir /mnt/is1
+  101  mkdir /mnt/is2
+  102  mkdir /mnt/is3
+  103  mount /dev/sdb1 /mnt/is1
+  104  mount /dev/sdc1 /mnt/is2
+  105  mount /dev/sdd1 /mnt/is3
+  106  history | tail -13
+root@ubu1104:/etc/iscsi/nodes# mount | grep is
+/dev/sdb1 on /mnt/is1 type ext2 (rw)
+/dev/sdc1 on /mnt/is2 type ext3 (rw)
+/dev/sdd1 on /mnt/is3 type ext4 (rw) </screen>
+</section>	
+<section><title>terminology</title>
+	<para> </para>
+	<para> </para>
+	<para> </para>
+	<screen> </screen>
+	<para> </para>
+	<screen> </screen>
+	<para> <command>d</command><indexterm><primary>d</primary></indexterm></para>
+</section>	
+<section><title>terminology</title>
+	<para> </para>
+	<para> </para>
+	<para> </para>
+	<screen> </screen>
+	<para> </para>
+	<screen> </screen>
+	<para> <command>d</command><indexterm><primary>d</primary></indexterm></para>
+</section>	
+<section><title>terminology</title>
+	<para> </para>
+	<para> </para>
+	<para> </para>
+	<screen> </screen>
+	<para> </para>
+	<screen> </screen>
+	<para> <command>d</command><indexterm><primary>d</primary></indexterm></para>
+</section>	
