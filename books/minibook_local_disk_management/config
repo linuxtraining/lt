@@ -15,3 +15,4 @@ add_mod chapter disk_mounting
 add_mod chapter uuid
 add_mod chapter disk_raid
 add_mod chapter lvm
+add_mod chapter disk_iscsi
