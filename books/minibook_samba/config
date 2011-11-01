@@ -8,4 +8,14 @@ BOOKTITLE="samba"
 ##################
 
 # define book as directories in certain order
-add_mod chapter samba
+#add_mod chapter samba ## old samba was all in 1 directory
+add_mod chapter samba_introduction
+add_mod chapter samba_getting_started
+add_mod chapter samba_read_only_file_server
+add_mod chapter samba_writable_file_server
+add_mod chapter samba_first_user_account
+add_mdo chapter samba_authentication
+add_mod chapter samba_securing_shares
+add_mod chapter samba_domain_member
+add_mod chapter samba_domain_controller
+add_mod chapter samba4

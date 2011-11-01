@@ -1,3 +1,4 @@
+<?hard-pagebreak?>
 <section><title>security based on user name</title>
 	<section><title>valid users</title>
 		<para>To restrict users per share, you can use the <command>valid users</command><indexterm><primary>valid users(samba)</primary></indexterm> parameter. In the example below, only the users listed as valid will be able to access the tennis share.</para>

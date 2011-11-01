@@ -1,4 +1,5 @@
-<section><title>About Domain Controllers</title>
+<?hard-pagebreak?>
+<section><title>about Domain Controllers</title>
 	<section><title>Windows NT4</title>
 		<para>Windows NT4 works with single master replication domain controllers. There is exactly one PDC (Primary Domain Controller) in the domain, and zero or more BDC's (Backup Domain Controllers). Samba 3 has all features found in Windows NT4 PDC and BDC, and more. This includes file and print serving, domain control with single logon, logon scripts, home directories and roaming profiles.</para>
 	</section>

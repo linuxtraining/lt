@@ -1,0 +1,9 @@
+<?hard-pagebreak?>
+<section><title>practice : samba authentication</title>
+	<para>0. Make sure you have properly named backups of your smb.conf of the previous practices.</para>
+	<para>1. Create three users (on the Linux and on the samba), remember their passwords!</para>
+	<para>2. Set up a shared directory that is only accessible to authenticated users.</para>
+	<para>3. Use smbclient and a windows computer to access your share, use more than one user account (windows requires a logoff/logon for this).</para>
+	<para>4. Verify that files created by these users belong to them.</para>
+	<para>5. Try to change or delete a file from another user.</para>
+</section>

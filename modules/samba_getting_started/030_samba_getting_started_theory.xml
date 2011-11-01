@@ -1,3 +1,4 @@
+<?hard-pagebreak?>
 <section><title>/etc/samba/smb.conf</title>
 <section><title>smbd -b</title>
 	<para>Samba configuration is done in the <command>smb.conf</command><indexterm><primary>/etc/samba/smb.conf</primary></indexterm> file. The file can be edited manually, or you can use a web based interface like webmin or swat to manage it. The file is usually located in /etc/samba. You can find the exact location with <command>smbd -b</command><indexterm><primary>smbd(8)</primary></indexterm>.</para>

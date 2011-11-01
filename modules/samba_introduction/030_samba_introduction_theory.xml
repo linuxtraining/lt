@@ -1,3 +1,4 @@
+<?hard-pagebreak?>
 <section><title>verify installed version</title>
 	<section><title>.rpm based distributions</title>
 		<para>To see the version of samba installed on RedHat, use <command>rpm -q samba</command><indexterm><primary>rpm(8)</primary></indexterm>.</para>

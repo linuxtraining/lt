@@ -1,3 +1,4 @@
+<?hard-pagebreak?>
 <section><title>changes in smb.conf</title>
 	<section><title>workgroup</title>
 		<para>The <command>workgroup</command> option in the global section should match the netbios name of the Active Directory domain.</para>

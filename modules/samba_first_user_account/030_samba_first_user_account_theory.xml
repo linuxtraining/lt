@@ -1,3 +1,4 @@
+<?hard-pagebreak?>
 <section><title>creating a samba user</title>
 	<para> We will create a user for our samba file server and make this user the owner of the directory and all of its files. This anonymous user gets a clear description, but does not get a login shell.</para>
 	<screen>

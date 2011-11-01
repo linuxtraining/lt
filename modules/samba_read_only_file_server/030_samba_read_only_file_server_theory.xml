@@ -1,3 +1,4 @@
+<?hard-pagebreak?>
 <section><title>Setting up a directory to share</title>
 	<para>Let's start with setting up a very simple read only file server with Samba. Everyone (even anonymous guests) will receive read access.</para>
 	<para>The first step is to create a directory and put some test files in it.</para>

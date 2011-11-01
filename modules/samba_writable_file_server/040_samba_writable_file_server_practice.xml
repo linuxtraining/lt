@@ -1,0 +1,6 @@
+<?hard-pagebreak?>
+<section><title>practice: writable file server</title>
+	<para>1. Create a directory and share it with Samba.</para>
+	<para>2. Make sure everyone can read and write files, test writing with smbclient and from a Microsoft computer.</para>
+	<para>3. Verify the ownership of files created by (various) users.</para>
+</section>

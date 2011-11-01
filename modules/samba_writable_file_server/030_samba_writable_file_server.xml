@@ -1,3 +1,4 @@
+<?hard-pagebreak?>
 <section><title>set up a directory to share</title>
 	<para>In this second example, we will create a share where everyone can create files and write to files. Again, we start by creating a directory</para>
 	<screen>
