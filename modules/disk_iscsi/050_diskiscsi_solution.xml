@@ -1,4 +1,29 @@
 <?hard-pagebreak?>
 <section><title>solution: iSCSI devices</title>
-	<para>Set up a target (using an LVM and a SCSI device) and an initiator that connects to both.</para>
+	<para>1. Set up a target (using an LVM and a SCSI device) and an initiator that connects to both.</para>
+	<para>Decide (with a partner) on a computer to be the Target and another computer to be the Initiator.</para>
+	<para><command>On the Target computer:</command></para>
+	<para>First install iscsitarget using the standard tools for installing software in your distribution. Then use your knowledge from the previous chapter to setup a logical volume (/dev/vg/lvol0) and use the RAID chapter to setup /dev/md0. Then perform the following step:</para>
+	<screen>vi /etc/default/iscsitarget (set enable to true)</screen>
+	<para>Add your devices to /etc/iet/ietf.conf</para>
+	<screen>root@debby6:/etc/iet# cat ietd.conf
+Target iqn.2010-02.be.linux-training:storage.lun1
+ IncomingUser isuser hunter2
+ OutgoingUser
+ Lun 0 Path=/dev/vg/lvol0,Type=fileio
+ Alias LUN1
+Target iqn.2010-02.be.linux-training:storage.lun2
+ IncomingUser isuser hunter2
+ OutgoingUser
+ Lun 0 Path=/dev/md0,Type=fileio
+ Alias LUN2</screen>
+	<para>Add both devices to /etc/iet/initiators.allow</para>
+	<screen>root@debby6:/etc/iet# cat initiators.allow
+iqn.2010-02.be.linux-training:storage.lun1
+iqn.2010-02.be.linux-training:storage.lun2</screen>
+	<para>Now start the iscsitarget daemon and move over to the Initiator.</para>
+	<para><command>On the Initiator computer:</command></para>
+	<para>Install open-iscsi and start the daemon.</para>
+	<para>Then use <command>iscsiadm -m discovery -t st -p 'target-ip'</command> to see the iscsi devices on the Target.</para>
+	<para>Edit the files <command>/etc/iscsi/nodes/</command> as shown in the book. Then restart the iSCSI daemon and rund <command>fdisk -l</command> to see the iSCSI devices.</para>
 </section>

@@ -162,7 +162,7 @@ tid:1 name:iqn.2010-02.be.linux-training:storage.lun1
 root@debby6:/etc/iet# </screen>
 </section>	
 <?hard-pagebreak?>
-<section><title>Using iSCSI devices</title>
+<section><title>using iSCSI devices</title>
 	<para>There is no difference between using SCSI or iSCSI devices once they are connected : partition, make filesystem, mount.</para>
 	<screen>root@ubu1104:/etc/iscsi/nodes# history | tail -13
    94  fdisk /dev/sdc
