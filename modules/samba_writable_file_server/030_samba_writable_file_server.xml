@@ -1,21 +1,18 @@
 <?hard-pagebreak?>
 <section><title>set up a directory to share</title>
 	<para>In this second example, we will create a share where everyone can create files and write to files. Again, we start by creating a directory</para>
-	<screen>
-[root@RHEL52 samba]# mkdir -p /srv/samba/writable
-[root@RHEL52 samba]# chmod 777 /srv/samba/writable/
-	</screen>
+	<screen>[root@RHEL52 samba]# mkdir -p /srv/samba/writable
+[root@RHEL52 samba]# chmod 777 /srv/samba/writable/</screen>
 </section>
 <section><title>share section in smb.conf</title>
-	<para>There are two parameters to make a share writable. We can use <command>read only</command> or <command>writable</command>. This example shows how to use <command>writable</command> to give write access to a share.</para>
+	<para>There are two parameters to make a share writable. We can use <command>read only</command><indexterm><primary>read only (Samba)</primary></indexterm> or <command>writable</command><indexterm><primary>writable (Samba)</primary></indexterm>. This example shows how to use <command>writable</command> to give write access to a share.</para>
 	<screen>writable = yes</screen>
 	<para>And this is an example of using the <command>read only</command> parameter to give write access to a share.</para>
 	<screen>read only = no</screen>
 </section>
 <section><title>configure the share</title>
 	<para>Then we simply add a share to our file server by editing <command>smb.conf</command><indexterm><primary>/etc/samba/smb.conf</primary></indexterm>. Below the check with testparm. (We could have changed the description of the server...)</para>
-		<screen>
-[root@RHEL52 samba]# testparm
+		<screen>[root@RHEL52 samba]# testparm
 Load smb config files from /etc/samba/smb.conf
 Processing section "[pubwrite]"
 Processing section "[pubread]"
@@ -37,21 +34,17 @@ Press enter to see a dump of your service definitions
 [pubread]
 	comment = files to read
 	path = /srv/samba/readonly
-	guest ok = Yes
-	</screen>
+	guest ok = Yes</screen>
 </section>
 <section><title>test connection with windows</title>
 	<para>We can now test the connection on a windows 2003 computer. We use the <command>net use</command><indexterm><primary>net use(microsoft)</primary></indexterm> for this.</para>
-	<screen>
-C:\>net use L: \\teacher0\pubwrite
+	<screen>C:\>net use L: \\teacher0\pubwrite
 net use L: \\teacher0\pubwrite
-The command completed successfully.
-	</screen>
+The command completed successfully.</screen>
 </section>
 <section><title>test writing with windows</title>
 	<para>We mounted the <command>pubwrite</command> share on the L: drive in windows. Below we test that we can write to this share.</para>
-	<screen>
-L:\&#062;echo hoi &#062; hoi.txt
+	<screen>L:\&#062;echo hoi &#062; hoi.txt
 
 L:\&#062;dir
  Volume in drive L is pubwrite
@@ -63,15 +56,12 @@ L:\&#062;dir
 21/01/2009  06:11    &#060;DIR&#062;          ..
 21/01/2009  06:16                 6 hoi.txt
                1 File(s)              6 bytes
-               2 Dir(s)  13.496.238.080 bytes free
-	</screen>
+               2 Dir(s)  13.496.238.080 bytes free</screen>
 </section>
 <section><title>How is this possible ?</title>
 	<para>Linux (or any Unix) always needs a user account to gain access to a system. The windows computer did not provide the samba server with a user account or a password. Instead, the Linux owner of the files created through this writable share is the Linux guest account (usually named nobody).</para>
-	<screen>
-[root@RHEL52 samba]# ls -l /srv/samba/writable/
+	<screen>[root@RHEL52 samba]# ls -l /srv/samba/writable/
 total 4
--rwxr--r-- 1 nobody nobody 6 Jan 21 06:16 hoi.txt
-	</screen>
+-rwxr--r-- 1 nobody nobody 6 Jan 21 06:16 hoi.txt</screen>
 	<para>So this is not the cleanest solution. We will need to improve this.</para>
 </section>
