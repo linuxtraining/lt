@@ -1,51 +1,43 @@
 <?hard-pagebreak?>
 <section><title>security based on user name</title>
 	<section><title>valid users</title>
-		<para>To restrict users per share, you can use the <command>valid users</command><indexterm><primary>valid users(samba)</primary></indexterm> parameter. In the example below, only the users listed as valid will be able to access the tennis share.</para>
-		<screen>
-[tennis]
+		<para>To restrict users per share, you can use the <command>valid users</command><indexterm><primary>valid users (Samba)</primary></indexterm> parameter. In the example below, only the users listed as valid will be able to access the tennis share.</para>
+		<screen>[tennis]
 	path = /srv/samba/tennis
 	comment = authenticated and valid users only
 	read only = No
 	guest ok = No
-	valid users = serena, kim, venus, justine
-		</screen>
+	valid users = serena, kim, venus, justine </screen>
 	</section>
 	<section><title>invalid users</title>
-		<para>If you are paranoia, you can also use <command>invalid users</command><indexterm><primary>invalid users(samba)</primary></indexterm> to explicitely deny the listed users access. When a user is in both lists, the user has no access!</para>
-		<screen>
-[tennis]
+		<para>If you are paranoia, you can also use <command>invalid users</command><indexterm><primary>invalid users (Samba)</primary></indexterm> to explicitely deny the listed users access. When a user is in both lists, the user has no access!</para>
+		<screen>[tennis]
 	path = /srv/samba/tennis
 	read only = No
 	guest ok = No
 	valid users = kim, serena, venus, justine
-	invalid users = venus
-		</screen>
+	invalid users = venus</screen>
 	</section>
 	<section><title>read list</title>
-		<para>On a writable share, you can set a list of read only users with the <command>read list</command><indexterm><primary>read list(samba)</primary></indexterm> parameter.</para>
-		<screen>
-[football]
+		<para>On a writable share, you can set a list of read only users with the <command>read list</command><indexterm><primary>read list (Samba)</primary></indexterm> parameter.</para>
+		<screen>[football]
 	path = /srv/samba/football
 	read only = No
 	guest ok = No
-	read list = martina, roberto
-		</screen>
+	read list = martina, roberto</screen>
 	</section>
 	<section><title>write list</title>
-		<para>Even on a read only share, you can set a list of users that can write. Use the <command>write list</command><indexterm><primary>write list(samba)</primary></indexterm> parameter.</para>
-		<screen>
-[football]
+		<para>Even on a read only share, you can set a list of users that can write. Use the <command>write list</command><indexterm><primary>write list (Samba)</primary></indexterm> parameter.</para>
+		<screen>[football]
 	path = /srv/samba/golf
 	read only = Yes
 	guest ok = No
-	write list = eddy, jan
-		</screen>
+	write list = eddy, jan</screen>
 	</section>
 </section>
 <section><title>security based on ip-address</title>
 	<section><title>hosts allow</title>
-		<para>The <command>hosts allow</command> or <command>allow hosts</command> parameter is one of the key advantages of Samba. It allows access control of shares on the ip-address level. To allow only specific hosts to access a share, list the hosts, seperated by comma's.</para>
+		<para>The <command>hosts allow</command><indexterm><primary>hosts allow (Samba)</primary></indexterm> or <command>allow hosts</command><indexterm><primary>allow hosts (Samba)</primary></indexterm> parameter is one of the key advantages of Samba. It allows access control of shares on the ip-address level. To allow only specific hosts to access a share, list the hosts, seperated by comma's.</para>
 		<screen>allow hosts = 192.168.1.5, 192.168.1.40</screen>
 		<para>Allowing entire subnets is done by ending the range with a dot.</para>
 		<screen>allow hosts = 192.168.1.</screen>
@@ -55,50 +47,44 @@
 		<screen>hosts allow = 10. except 10.0.0.12</screen>
 	</section>
 	<section><title>hosts deny</title>
-		<para>The <command>hosts deny</command> or <command>deny hosts</command> parameter is the logical counterpart of the previous. The syntax is the same as for hosts allow.</para>
+		<para>The <command>hosts deny</command><indexterm><primary>hosts deny (Samba)</primary></indexterm> or <command>deny hosts</command><indexterm><primary>deny hosts (Samba)</primary></indexterm> parameter is the logical counterpart of the previous. The syntax is the same as for hosts allow.</para>
 		<screen>hosts deny = 192.168.1.55, 192.168.1.56</screen>
 	</section>
 </section>
 <section><title>security through obscurity</title>
 	<section><title>hide unreadable</title>
-		<para>Setting <command>hide unreadable</command> to yes will prevent users from seeing files that cannot be read by them.</para>
+		<para>Setting <command>hide unreadable</command><indexterm><primary>hide unreadable (Samba)</primary></indexterm> to yes will prevent users from seeing files that cannot be read by them.</para>
 		<screen>hide unreadable = yes</screen>
 	</section>
 	<section><title>browsable</title>
-		<para>Setting the <command>browseable = no</command> directive will hide shares from My Network Places. But it will not prevent someone from accessing the share (when the name of the share is known).</para>
-		<para>Note that <command>browsable</command> and <command>browseable</command> are both correct syntax.</para>
-		<screen>
-[pubread]
+		<para>Setting the <command>browseable = no</command><indexterm><primary>browseable (Samba)</primary></indexterm> directive will hide shares from My Network Places. But it will not prevent someone from accessing the share (when the name of the share is known).</para>
+		<para>Note that <command>browsable</command><indexterm><primary>browsable (Samba)</primary></indexterm> and <command>browseable</command> are both correct syntax.</para>
+		<screen>[pubread]
  path = /srv/samba/readonly
  comment = files to read
  read only = yes
  guest ok = yes
- browseable = no
-		</screen>
+ browseable = no</screen>
 	</section>
 </section>
 <section><title>file system security</title>
 	<section><title>create mask</title>
-		<para>You can use <command>create mask</command><indexterm><primary>create mask(samba)</primary></indexterm> and <command>directory mask</command><indexterm><primary>directory mask(samba)</primary></indexterm> to set the maximum allowed permissions for newly created files and directories. The mask you set is an AND mask (it takes permissions away).</para>
-		<screen>
-[tennis]
+		<para>You can use <command>create mask</command><indexterm><primary>create mask (Samba)</primary></indexterm> and <command>directory mask</command><indexterm><primary>directory mask (Samba)</primary></indexterm> to set the maximum allowed permissions for newly created files and directories. The mask you set is an AND mask (it takes permissions away).</para>
+		<screen>[tennis]
 	path = /srv/samba/tennis
 	read only = No
 	guest ok = No
 	create mask = 640
-	directory mask = 750
-		</screen>
+	directory mask = 750</screen>
 	</section>
 	<section><title>force create mode</title>
 		<para>Similar to <command>create mask</command>, but different. Where the mask from above was a logical AND, the mode you set here is a logical OR (so it adds permissions). You can use the <command>force create mode</command><indexterm><primary>force create mode(samba)</primary></indexterm> and <command>force directory mode</command><indexterm><primary>force directory mode(samba)</primary></indexterm> to set the minimal required permissions for newly created files and directories.</para>
-		<screen>
-[tennis]
+		<screen>[tennis]
 	path = /srv/samba/tennis
 	read only = No
 	guest ok = No
 	force create mode = 444
-	force directory mode = 550
-		</screen>
+	force directory mode = 550</screen>
 	</section>
 	<section><title>security mask</title>
 		<para>The <command>security mask</command><indexterm><primary>security mask(samba)</primary></indexterm> and <command>directory security mask</command><indexterm><primary>directory security mask(samba)</primary></indexterm> work in the same way as <command>create mask</command> and <command>directory mask</command>, but apply only when a windows user is changing permissions using the windows security dialog box.</para>
@@ -108,15 +94,13 @@
 	</section>
 	<section><title>inherit permissions</title>
 		<para>With <command>inherit permissions = yes</command> you can force newly created files and directories to inherit permissions from their parent directory, overriding the create mask and directory mask settings.</para>
-		<screen>
-[authwrite]
+		<screen>[authwrite]
 	path = /srv/samba/authwrite
 	comment = authenticated users only
 	read only = no  
 	guest ok = no   
 	create mask = 600
 	directory mask = 555
-	inherit permissions = yes
-		</screen>
+	inherit permissions = yes</screen>
 	</section>
 </section>
