@@ -13,17 +13,16 @@ samba-3.0.10-1.4E.9
 		</screen>
 	</section>
 	<section><title>.deb based distributions</title>
-		<para>Use <command>dpkg -l</command><indexterm><primary>dpkg(8)</primary></indexterm> on Debian or Ubuntu. Ubuntu 7.04 below uses Samba 3.0.24, but the Samba server is not installed, only the common files are installed (for mounting smb file systems).</para>
-		<screen>
-paul@laika:~$ dpkg -l | grep samba
-ii  samba-common    3.0.24-2ubuntu1.2    Samba common files used by both...
-		</screen>
+		<para>Use <command>dpkg -l</command><indexterm><primary>dpkg(8)</primary></indexterm> on Debian or Ubuntu. Ubuntu 11.10 below uses Samba 3.0.24, but the Samba server is not installed, only the common files are installed (for mounting smb file systems).</para>
+		<screen>paul@laika:~$ dpkg -l | grep samba
+ii samba-common 3.0.24-2ubuntu1.2    Samba common files used by both...</screen>
 		<para>Ubuntu 9.04 below uses Samba 3.3.2, and both the Samba server and the common files are installed.</para>
-		<screen>
-paul@laika:~$ dpkg -l | grep samba
-ii samba        2:3.3.2-1ubuntu3 SMB/CIFS file, print, and login server 
-ii samba-common 2:3.3.2-1ubuntu3 common files used by both the Samba ser
-		</screen>
+		<screen>paul@laika:~$ dpkg -l | grep samba
+ii samba        2:3.3.2-1ubuntu3     SMB/CIFS file, print, and login... 
+ii samba-common 2:3.3.2-1ubuntu3 common files used by both the Samba ser</screen>
+		<para>Ubuntu 11.10 is currently at Samba version 3.5.11.</para>
+		<screen>root@ubu1110:~# dpkg -l samba | tail -1
+ii  samba       2:3.5.11~dfsg-4ubuntu3      SMB/CIFS file, print...</screen>
 	</section>
 </section>
 <section><title>installing samba</title>
@@ -69,39 +68,32 @@ root@laika:~# find /usr/share/doc/samba-doc-pdf | grep -i howto
 	<para>Samba 3 consists of three daemons, they are named <command>nmbd</command><indexterm><primary>nmbd(8)</primary></indexterm>, <command>smbd</command><indexterm><primary>smbd(8)</primary></indexterm> and <command>winbindd</command><indexterm><primary>winbindd(8)</primary></indexterm>.</para>
 	<section><title>nmbd</title>
 		<para>The <command>nmbd</command> daemon takes care of all the names and naming. It registers and resolves names, and handles browsing. According to the Samba documentation, it should be the first daemon to start.</para>
-		<screen>
-[root@RHEL52 ~]# ps -C nmbd
+		<screen>[root@RHEL52 ~]# ps -C nmbd
   PID TTY          TIME CMD
- 5681 ?        00:00:00 nmbd
-		</screen>
+ 5681 ?        00:00:00 nmbd</screen>
 	</section>
 	<section><title>smbd</title>
  		<para>The <command>smbd</command> daemon manages file transfers and authentication.</para>
-		<screen>
-[root@RHEL52 ~]# ps -C smbd
+		<screen>[root@RHEL52 ~]# ps -C smbd
   PID TTY          TIME CMD
  5678 ?        00:00:00 smbd
- 5683 ?        00:00:00 smbd
-		</screen>
+ 5683 ?        00:00:00 smbd</screen>
 	</section>
 	<section><title>winbindd</title>
 		<para>The <command>winbind daemon</command><indexterm><primary>winbindd(8)</primary></indexterm> (winbindd) is only started to handle Microsoft Windows domain membership.</para>
 		<para>Note that <command>winbindd</command> is started by the <command>/etc/init.d/winbind</command><indexterm><primary>/etc/init.d/winbind</primary></indexterm> script (two dd's for the daemon and only one d for the script).</para>
-		<screen>
-[root@RHEL52 ~]# /etc/init.d/winbind start
+		<screen>[root@RHEL52 ~]# /etc/init.d/winbind start
 Starting Winbind services:                                 [  OK  ]
 [root@RHEL52 ~]# ps -C winbindd
   PID TTY          TIME CMD
  5752 ?        00:00:00 winbindd
- 5754 ?        00:00:00 winbindd
-		</screen>
+ 5754 ?        00:00:00 winbindd</screen>
 		<para>On Debian and Ubuntu, the winbindd daemon is installed via a seperate package called <command>winbind</command>.</para>
 	</section>
 </section>
 <section><title>starting and stopping samba</title>
 	<para>You can start the daemons by invoking <command>/etc/init.d/smb start</command><indexterm><primary>/etc/init.d/smb</primary></indexterm> (some systems use <command>/etc/init.d/samba</command><indexterm><primary>/etc/init.d/samba</primary></indexterm>) on any linux.</para>
-	<screen>
-root@laika:~# /etc/init.d/samba stop
+	<screen>root@laika:~# /etc/init.d/samba stop
  * Stopping Samba daemons                                    [ OK ] 
 root@laika:~# /etc/init.d/samba start
  * Starting Samba daemons                                    [ OK ] 
@@ -109,11 +101,9 @@ root@laika:~# /etc/init.d/samba restart
  * Stopping Samba daemons                                    [ OK ] 
  * Starting Samba daemons                                    [ OK ] 
 root@laika:~# /etc/init.d/samba status
- * SMBD is running                                           [ OK ] 
-	</screen>
+ * SMBD is running                                           [ OK ]</screen>
 	<para>Red Hat derived systems are happy with <command>service smb start</command><indexterm><primary>service(8)</primary></indexterm>.</para>
-	<screen>
-[root@RHEL4b ~]# /etc/init.d/smb start
+	<screen>[root@RHEL4b ~]# /etc/init.d/smb start
 Starting SMB services:                                     [  OK  ]
 Starting NMB services:                                     [  OK  ]
 [root@RHEL4b ~]# service smb restart
@@ -121,22 +111,21 @@ Shutting down SMB services:                                [  OK  ]
 Shutting down NMB services:                                [  OK  ]
 Starting SMB services:                                     [  OK  ]
 Starting NMB services:                                     [  OK  ]
-[root@RHEL4b ~]# 
-	</screen>
+[root@RHEL4b ~]#</screen>
 </section>
 <section><title>the SMB protocol</title>
 	<section><title>brief history</title>
-		<para>Development of this protocol was started by <command>IBM</command> in the early eighties. By the end of the eighties, most develpment was done by <command>Microsoft</command>. SMB is an application level protocol designed to run on top of NetBIOS/NetBEUI, but can also be run on top of tcp/ip.</para>
+		<para>Development of this protocol was started by <command>IBM</command><indexterm><primary>IBM</primary></indexterm> in the early eighties. By the end of the eighties, most develpment was done by <command>Microsoft</command>. SMB is an application level protocol designed to run on top of NetBIOS/NetBEUI, but can also be run on top of tcp/ip.</para>
 		<para>In 1996 Microsoft was asked to document the protocol. They submitted CIFS (Common Internet File System) as an internet draft, but it never got final rfc status.</para>
 		<para>In 2004 the European Union decided Microsoft should document the protocol to enable other developers to write compatible software. December 20th 2007 Microsoft came to an agreement. The Samba team now has access to SMB/CIFS, Windows for Workgroups and Active Directory documentation.</para>
 	</section>
 	<section><title>broadcasting protocol</title>
-		<para>SMB uses the NetBIOS <command>service location protocol</command>, which is a broadcasting protocol. This means that NetBIOS names have to be unique on the network (even when you have different IP-addresses). Having duplicate names on an SMB network can seriously harm communications.</para>
+		<para>SMB<indexterm><primary>SMB</primary></indexterm> uses the NetBIOS <command>service location protocol</command>, which is a broadcasting protocol. This means that NetBIOS names have to be unique on the network (even when you have different IP-addresses). Having duplicate names on an SMB network can seriously harm communications.</para>
 	</section>
 	<section><title>NetBIOS names</title>
-		<para>NetBIOS names are similar to hostnames, but are always uppercase and only 15 characters in length. Microsoft Windows computers and Samba servers will broadcast this name on the network.</para>
+		<para>NetBIOS<indexterm><primary>NetBIOS names</primary></indexterm> names are similar to <command>hostnames</command><indexterm><primary>hostname</primary></indexterm>, but are always uppercase and only 15 characters in length. Microsoft Windows computers and Samba servers will broadcast this name on the network.</para>
 	</section>
 	<section><title>network bandwidth</title>
-		<para>Having many broadcasting SMB/CIFS computers on your network can cause bandwidth issues. A solution can be the use of a <command>NetBIOS name server</command> (NBNS) like <command>WINS</command> (Windows Internet Naming Service).</para>
+		<para>Having many broadcasting SMB/CIFS<indexterm><primary>CIFS</primary></indexterm> computers on your network can cause bandwidth issues. A solution can be the use of a <command>NetBIOS name server</command> (NBNS) like <command>WINS</command> (Windows Internet Naming Service).</para>
 	</section>
 </section>
