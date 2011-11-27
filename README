@@ -18,9 +18,15 @@ Licensed under the GNU Free Documentation License
 ** Dependencies
 
 - Java : on Ubuntu we use the Canonical partner provided sun-java6-bin package. We have a JAVAHOME hardcoded to this somewhere in the build script.
--xmlto : for building the html pages
+  - sun-java6-bin
+  - default-jdk
+- xmlto : for building the html pages
 
 ** Build commands
 
 - make.sh : builds the pdf, run it without arguments to get some help.
+
+
+- Also have a look at the README in the build/ submodule.
+
 
