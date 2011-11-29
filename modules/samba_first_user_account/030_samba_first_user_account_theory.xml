@@ -1,50 +1,46 @@
 <?hard-pagebreak?>
 <section><title>creating a samba user</title>
 	<para> We will create a user for our samba file server and make this user the owner of the directory and all of its files. This anonymous user gets a clear description, but does not get a login shell.</para>
-	<screen>
-[root@RHEL52 samba]# useradd -s /bin/false sambanobody
+	<screen>[root@RHEL52 samba]# useradd -s /bin/false sambanobody
 [root@RHEL52 samba]# usermod -c "Anonymous Samba Access" sambanobody
 [root@RHEL52 samba]# passwd sambanobody
 Changing password for user sambanobody.
 New UNIX password: 
 Retype new UNIX password: 
-passwd: all authentication tokens updated successfully.
-	</screen>
+passwd: all authentication tokens updated successfully.</screen>
 </section>
 <section><title>ownership of files</title>
 	<para>We can use this user as owner of files and directories, instead of using the root account. This approach is clear and more secure.</para>
-	<screen>
-[root@RHEL52 samba]# chown -R sambanobody:sambanobody /srv/samba/
+	<screen>[root@RHEL52 samba]# chown -R sambanobody:sambanobody /srv/samba/
 [root@RHEL52 samba]# ls -al /srv/samba/writable/
 total 12
 drwxrwxrwx 2 sambanobody sambanobody 4096 Jan 21 06:11 .
 drwxr-xr-x 6 sambanobody sambanobody 4096 Jan 21 06:11 ..
--rwxr--r-- 1 sambanobody sambanobody    6 Jan 21 06:16 hoi.txt
-	</screen>
+-rwxr--r-- 1 sambanobody sambanobody    6 Jan 21 06:16 hoi.txt</screen>
 </section>
 <section><title>/usr/bin/smbpasswd</title>
 	<para>The sambanobody user account that we created in the previous examples is not yet used by samba. It just owns the files and directories that we created for our shares. The goal of this section is to force ownership of files created through the samba share to belong to our sambanobody user. Remember, our server is still accessible to everyone, nobody needs to know this user account or password. We just want a clean Linux server.</para>
 	<para>To accomplish this, we first have to tell Samba about this user. We can do this by adding the account to <command>smbpasswd</command><indexterm><primary>smbpasswd(8)</primary></indexterm>. </para>
-	<screen>
-[root@RHEL52 samba]# smbpasswd -a sambanobody
+	<screen>[root@RHEL52 samba]# smbpasswd -a sambanobody
 New SMB password:
 Retype new SMB password:
-Added user sambanobody.
-	</screen>
+Added user sambanobody.</screen>
 </section>
 <section><title>/etc/samba/smbpasswd</title>
 	<para>To find out where Samba keeps this information (for now), use <command>smbd -b</command><indexterm><primary>smbd(8)</primary></indexterm>. The PRIVATE_DIR variable will show you where the smbpasswd database is located.</para>
-	<screen>
-[root@RHEL52 samba]# smbd -b | grep PRIVATE
+	<screen>[root@RHEL52 samba]# smbd -b | grep PRIVATE
    PRIVATE_DIR: /etc/samba
 [root@RHEL52 samba]# ls -l smbpasswd 
--rw------- 1 root root 110 Jan 21 06:19 smbpasswd
-	</screen>
+-rw------- 1 root root 110 Jan 21 06:19 smbpasswd</screen>
 	<para>You can use a simple cat to see the contents of the <command>smbpasswd</command><indexterm><primary>/etc/samba/smbpasswd</primary></indexterm> database. The sambanobody user does have a password (it is secret).</para>
-	<screen>
-[root@RHEL52 samba]# cat smbpasswd 
-sambanobody:503:AE9 ... 9DB309C528E540978:[U          ]:LCT-4976B05B:
-	</screen>
+	<screen>[root@RHEL52 samba]# cat smbpasswd 
+sambanobody:503:AE9 ... 9DB309C528E540978:[U          ]:LCT-4976B05B:</screen>
+</section>
+<section><title>passdb backend</title>
+	<para>Note that recent versions of Samba have <command>tdbsam</command><indexterm><primary>tdbsam</primary></indexterm> as default for the <command>passdb backend</command><indexterm><primary>passdb backend (Samba)</primary></indexterm> paramater.</para>
+	<screen>root@ubu1110:~# testparm -v 2&#062;/dev/null| grep 'passdb backend'
+
+	passdb backend = tdbsam</screen>
 </section>
 <section><title>forcing this user</title>
 	<para>Now that Samba knows about this user, we can adjust our writable share to force the ownership of files created through it. For this we use the <command>force user</command><indexterm><primary>force user(samba)</primary></indexterm> and <command>force group</command><indexterm><primary>force group(samba)</primary></indexterm> options. Now we can be sure that all files in the Samba writable share are owned by the same sambanobody user.</para>
