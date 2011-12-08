@@ -32,6 +32,8 @@ prompt PS1='> '
 paul@deb503$ 
 paul@deb503$ PS1='\u@\h:\W$'
 paul@deb503:~$</screen>
+	<para>To avoid unrecoverable mistakes, you can set normal user prompts to green and the root prompt to red. This picture shows (one way) to do this.</para>
+	<mediaobject><imageobject><imagedata fileref="images/prompt.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 </section>
 <section><title>$PATH</title>
 	<para>The <command>$PATH</command><indexterm><primary>$PATH</primary></indexterm> variable is determines where the shell is looking for commands to execute (unless the command is builtin or aliased). This variable contains a list of directories, separated by colons.</para>
