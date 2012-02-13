@@ -1,0 +1,57 @@
+<?hard-pagebreak?>
+<section><title>Over de leraar en het programma</title>
+<command>al</command><indexterm><primary>ac</primary></indexterm>
+<command>al</command><indexterm><primary>ac</primary></indexterm>
+	<para>Geeft ook <command>A9 Datacommunicatie en Netwerken</command><indexterm><primary>A9 Datacommunicatie en Netwerken</primary></indexterm>, deze cursus vind je hier http://linux-training.be/files/books/DataNet.pdf en ook op het leerplatform.</para>
+	<para>Het programma staat redelijk vrij, rekening houdend met : het leerplan (op het leerplatform), de realiteit (in balans met de wens van de studenten), de ECTS fiches van HBO5 informatika (op cvotsm.be).</para>
+	<para>Daar waar DC&#38;N vooral theorie was, zoeken we in deze module vooral praktijk.</para>
+</section>
+<section><title>Praktijk ?</title>
+	<para>Op virtuele computers op eigen laptop (of op de laptop van de leraar).</para>
+	<para>Elke les enkele opdrachten, zowel eenvoudige als uitdagende.</para>
+	<para>Laatste les is een praktijk <command>examen</command><indexterm><primary>examen</primary></indexterm>.</para>
+</section>
+<section><title>Virtualisatie</title>
+	<para>Virtualisatie houdt in dat we werken op een computer waar behalve het besturingsysteem dat de hardware bestuurt ook nog een andere software aanwezig is die eigenschappen vertoond van een besturingssysteem. We bespreken enkele (maar lang niet alle!) virtualisatie technieken.</para>
+	<screen>http://nl.wikipedia.org/wiki/Virtualisatie</screen>
+	<para>De meest gekende en waarschijnlijk ok veruit mest gebruikte virtualisatie software heet <command>VMWare</command><indexterm><primary>VMWare</primary></indexterm> en is eigendom van EMC (17 miljard dollar jaarlijkse omzet).</para>
+	<para></para>
+	<screen></screen>
+	<screen></screen>
+	<para></para>
+	<screen></screen>
+	<para></para>
+	<screen></screen>
+	<para></para>
+	<screen></screen>
+	<para></para>
+<command>al</command><indexterm><primary>ac</primary></indexterm>
+</section>
+
+<section><title>acl in /etc/fstab</title>
+	<para></para>
+	<para></para>
+	<screen></screen>
+	<screen></screen>
+	<para></para>
+<command>al</command><indexterm><primary>ac</primary></indexterm>
+</section>
+
+<section><title>acl in /etc/fstab</title>
+	<para></para>
+	<para></para>
+	<screen></screen>
+	<screen></screen>
+	<para></para>
+<command>al</command><indexterm><primary>ac</primary></indexterm>
+</section>
+
+<section><title>acl in /etc/fstab</title>
+	<para></para>
+	<para></para>
+	<screen></screen>
+	<screen></screen>
+	<para></para>
+<command>al</command><indexterm><primary>ac</primary></indexterm>
+</section>
+
