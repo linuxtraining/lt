@@ -1,8 +1,8 @@
 <?hard-pagebreak?>
-<section><title>proprietary software vs Free and open source software</title>
-	<para>There are two predominant software paradigms: <command>Free and Open Source Software</command><indexterm><primary>FOSS</primary></indexterm> (FOSS) and proprietary software. The criteria for differentiation between these two approaches is based on control over the software. With <command>proprietary software</command><indexterm><primary>proprietary</primary></indexterm>, control tends to lie more with the vendor, while with <command>Free and Open Source Software</command><indexterm><primary>Free Software</primary></indexterm> it tends to be more weighted towards the end user. But even though the paradigms differ, they use the same <command>copyright laws</command><indexterm><primary>copyright</primary></indexterm> to reach and enforce their goals. From a legal perspective, <command>Free and Open Source Software</command><indexterm><primary>open source software</primary></indexterm> can be considered as software to which users generally receive more rights via their license agreement than they would have with a proprietary software license, yet the underlying license mechanisms are the same.</para>
+<section><title>about software licenses</title>
+	<para>There are two predominant software paradigms: <command>Free and Open Source Software</command><indexterm><primary>FOSS</primary></indexterm> (FOSS) and <command>proprietary software</command>. The criteria for differentiation between these two approaches is based on control over the software. With <command>proprietary software</command><indexterm><primary>proprietary</primary></indexterm>, control tends to lie more with the vendor, while with <command>Free and Open Source Software</command><indexterm><primary>Free Software</primary></indexterm> it tends to be more weighted towards the end user. But even though the paradigms differ, they use the same <command>copyright laws</command><indexterm><primary>copyright</primary></indexterm> to reach and enforce their goals. From a legal perspective, <command>Free and Open Source Software</command><indexterm><primary>open source software</primary></indexterm> can be considered as software to which users generally receive more rights via their license agreement than they would have with a <command>proprietary software license</command>, yet the underlying license mechanisms are the same.</para>
 	<para>Legal theory states that the author of FOSS, contrary to the author of <command>public domain</command><indexterm><primary>public domain</primary></indexterm> software, has in no way whatsoever given up his rights on his work. FOSS supports on the rights of the author (the <command>copyright</command>) to impose FOSS license conditions. The FOSS license conditions need to be respected by the user in the same way as proprietary license conditions. Always check your license carefully before you use third party software.</para>
-	<para>Examples of proprietary software are <command>IBM's AIX</command>, <command>HP's HP-UX</command> and <command>Sun's Solaris 9</command>. You are not authorized to install or use these operating systems without paying a licensing fee. You are not authorized to distribute these copies to other people and you are not authorized to modify the closed source code of the operating system.</para>
+	<para>Examples of proprietary software are <command>AIX</command> from IBM, <command>HP-UX</command> from HP and <command>Oracle Database 11g</command>. You are not authorized to install or use this software without paying a licensing fee. You are not authorized to distribute copies and you are not authorized to modify the closed source code.</para>
 </section>
 
 <section><title>public domain software and freeware</title>
@@ -16,10 +16,12 @@
 <para>Both the <command>Free Software</command><indexterm><primary>free software</primary></indexterm> and the <command>Open Source Software</command><indexterm><primary>open source</primary></indexterm> movement largely pursue similar goals and endorse similar software licenses. But historically, there has been some perception of differentiation due to different emphases. Where the <command>Free Software</command> movement focuses on the rights (the four freedoms) which Free Software provides to its users, the <command>Open Source Software</command> movement points to its Open Source Definition and the advantages of peer-to-peer software development.</para>
 <para>Below the <command>four freedoms</command><indexterm><primary>four freedoms</primary></indexterm> of <command>free software</command>:</para>
 <screen>0. The freedom to use the software for any purpose.
-1. The freedom to study how the program works, and the freedom to make changes to it. (This requires access to the source code).
+1. The freedom to study how the program works, and the freedom to make
+   changes to it. (This requires access to the source code).
 2. The freedom to distribute copies of the software to anyone else.
 3. The freedom to distribute your modified copy (see 1).</screen>
-<para>Detailed information about these <command>four freedoms</command> can be found here http://www.gnu.org/philosophy/free-sw.html.</para>
+<para>Detailed information about these <command>four freedoms</command> can be found here:</para>
+<screen>http://www.gnu.org/philosophy/free-sw.html.</screen>
 <para>Examples of <command>free software</command> are <command>gcc</command>, <command>MySQL</command> and <command>gimp</command>.</para>
 </section>
 
@@ -44,6 +46,6 @@
 	<para>FOSS or not, there are many kind of licenses on software. You should read and understand them before using any software.</para>
 </section>
 
-<section><title>Combination of software and license compatibility</title>
+<section><title>Combination of software licenses</title>
 	<para>When you use several sources or wishes to redistribute your software under a different license, you need to verify whether all licenses are compatible. Some FOSS licenses (such as BSD) are compatible with proprietary licenses, but most are not. If you detect a license incompatibility, you must contact the author to negotiate different license conditions or refrain from using the incompatible software.</para>
 </section>
