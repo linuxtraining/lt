@@ -46,6 +46,6 @@
 	<para>FOSS or not, there are many kind of licenses on software. You should read and understand them before using any software.</para>
 </section>
 
-<section><title>Combination of software licenses</title>
+<section><title>combination of software licenses</title>
 	<para>When you use several sources or wishes to redistribute your software under a different license, you need to verify whether all licenses are compatible. Some FOSS licenses (such as BSD) are compatible with proprietary licenses, but most are not. If you detect a license incompatibility, you must contact the author to negotiate different license conditions or refrain from using the incompatible software.</para>
 </section>
