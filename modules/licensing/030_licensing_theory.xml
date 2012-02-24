@@ -1,30 +1,49 @@
 <?hard-pagebreak?>
-<section><title>proprietary</title>
-	<para><command>IBM's aix</command>, <command>HP's hp-ux</command> and <command>Sun's Solaris 9</command> are delivered in binary form after purchase. You are not authorized to install or use these operating systems without paying a licensing fee. You are not authorized to distribute these copies to other people and you are not authorized to look at or change the closed source code of the operating system. This software is usually protected by copyright, patents and an extensive software license.</para>
+<section><title>proprietary software vs Free and open source software</title>
+	<para>There are two predominant software paradigms: <command>Free and Open Source Software</command><indexterm><primary>FOSS</primary></indexterm> (FOSS) and proprietary software. The criteria for differentiation between these two approaches is based on control over the software. With <command>proprietary software</command><indexterm><primary>proprietary</primary></indexterm>, control tends to lie more with the vendor, while with <command>Free and Open Source Software</command><indexterm><primary>Free Software</primary></indexterm> it tends to be more weighted towards the end user. But even though the paradigms differ, they use the same <command>copyright laws</command><indexterm><primary>copyright</primary></indexterm> to reach and enforce their goals. From a legal perspective, <command>Free and Open Source Software</command><indexterm><primary>open source software</primary></indexterm> can be considered as software to which users generally receive more rights via their license agreement than they would have with a proprietary software license, yet the underlying license mechanisms are the same.</para>
+	<para>Legal theory states that the author of FOSS, contrary to the author of <command>public domain</command><indexterm><primary>public domain</primary></indexterm> software, has in no way whatsoever given up his rights on his work. FOSS supports on the rights of the author (the <command>copyright</command>) to impose FOSS license conditions. The FOSS license conditions need to be respected by the user in the same way as proprietary license conditions. Always check your license carefully before you use third party software.</para>
+	<para>Examples of proprietary software are <command>IBM's AIX</command>, <command>HP's HP-UX</command> and <command>Sun's Solaris 9</command>. You are not authorized to install or use these operating systems without paying a licensing fee. You are not authorized to distribute these copies to other people and you are not authorized to modify the closed source code of the operating system.</para>
 </section>
-<section><title>bsd</title>
-	<para><command>bsd</command> style licenses are close to the public domain. They essentially state that you can copy the software and do whatever you like with it. But you have to leave the copyright notice that refers to <command>bsd</command>. This license gives a lot of freedom but offers few protection to someone copying and selling your work.</para>
+
+<section><title>public domain software and freeware</title>
+<para>Software that is original in the sense that it is an intellectual creation of the author benefits <command>copyright</command><indexterm><primary>copyright</primary></indexterm> protection. Non-original software does not come into consideration for <command>copyright</command> protection and can, in principle, be used freely.</para>
+<para>Public domain software is considered as software to which the author has given up all rights and on which nobody is able to enforce any rights. This software can be used, reproduced or executed freely, without permission or the payment of a fee. Public domain software can in certain cases even be presented by third parties as own work, and by modifying the original work, third parties can take certain versions of the public domain software out of the public domain again.</para>
+<para><command>Freeware</command><indexterm><primary>freeware</primary></indexterm> is not public domain software or FOSS. It is proprietary software that you can use without paying a license cost. However, the often strict license terms need to be respected.</para>
+<para>Examples of freeware are <command>Adobe Reader</command>, <command>Skype</command> and <command>Command and Conquer: Tiberian Sun</command> (this game was sold as proprietary in 1999 and is since 2011 available as freeware).</para>
 </section>
-<section><title>free software</title>
-	<para>Free software (not to be confused with freeware!) is defined as software with four freedoms.</para>
-	<para>0. The freedom to use the software for any purpose.</para>
-	<para>1. The freedom to study how the program works, and the freedom to make changes to it. (This requires access to the source code).</para>
-	<para>2. The freedom to distribute copies of the software to anyone else.</para>
-	<para>3. The freedom to distribute your modified copy (see 1).</para>
-	<para>Detailed information about these freedoms can be found here http://www.gnu.org/philosophy/free-sw.html.</para>
+
+<section><title>Free Software or Open Source Software</title>
+<para>Both the <command>Free Software</command><indexterm><primary>free software</primary></indexterm> and the <command>Open Source Software</command><indexterm><primary>open source</primary></indexterm> movement largely pursue similar goals and endorse similar software licenses. But historically, there has been some perception of differentiation due to different emphases. Where the <command>Free Software</command> movement focuses on the rights (the four freedoms) which Free Software provides to its users, the <command>Open Source Software</command> movement points to its Open Source Definition and the advantages of peer-to-peer software development.</para>
+<para>Below the <command>four freedoms</command><indexterm><primary>four freedoms</primary></indexterm> of <command>free software</command>:</para>
+<screen>0. The freedom to use the software for any purpose.
+1. The freedom to study how the program works, and the freedom to make changes to it. (This requires access to the source code).
+2. The freedom to distribute copies of the software to anyone else.
+3. The freedom to distribute your modified copy (see 1).</screen>
+<para>Detailed information about these <command>four freedoms</command> can be found here http://www.gnu.org/philosophy/free-sw.html.</para>
+<para>Examples of <command>free software</command> are <command>gcc</command>, <command>MySQL</command> and <command>gimp</command>.</para>
 </section>
+
 <section><title>GNU General Public License</title>
-	<para>More and more software is being released under the <command>GNU GPL</command><indexterm><primary>GPL</primary></indexterm> (in 2006 Java was released under the GPL). The goal of the GPL is to guarantee that free software stays free. Everyone can work together on GPL software, knowing that the software will be freely available to everyone. The GPL can protect software, even in court.</para>
+	<para>More and more software is being released under the <command>GNU GPL</command><indexterm><primary>GPL</primary></indexterm> (in 2006 Java was released under the GPL). The goal of the GPL is to guarantee that free software stays free. Everyone can work together on GPL software, knowing that the software will be freely available to everyone. The GPL can protect software (thanks to copyright) even in court.</para>
 	<para>Free is to be understood as in <command>freedom of speech</command><indexterm><primary>freedom of speech</primary></indexterm>, not to be confused with free as in not having to pay for your free beer. In other words, or even better, in other languages free software translates to <command>vrije software</command><indexterm><primary>vrije software</primary></indexterm> (Dutch) or <command>Logiciel Libre</command><indexterm><primary>Logiciel Libre</primary></indexterm> (French) whereas the free from free beer translates to gratis.</para>
-	<para>Briefly explained, the GPL allows you to copy software, the GPL allows you to distribute (sell or give away) that software, and the GPL grants you the right to read and change the source code. But the person receiving or buying the software from you has the same rights. And should you decide to distribute GPL software of which you modified the source code, then you are obligated to put the same license on the modifications (and provide the source code of your modifications).</para>
 </section>
-<section><title>open source</title>
-	<para>Because of the confusion between <command>free software</command> and <command>freeware</command>, the term <command>open source</command> has been coined instead of <command>free software</command>. In general, when talking <command>open source software</command>, we actually mean software with the four freedoms.</para>
+
+<section><title>using GPLv3 software</title>
+<para>You can use <command>GPLv3 software</command><indexterm><primary>GPLv3</primary></indexterm> almost without any conditions. If you solely run the software you even don’t have to accept the terms of the GPLv3. However, any other use - such as modifying or distributing the software - implies acceptance.</para>
+<para>In case you use the software internally (including over a network), you may modify the software without being obliged to distribute your modification. You may hire third parties to work on the software exclusively for you and under your direction and control. But if you modify the software and use it otherwise than merely internally, this will be considered as distribution. You must distribute your modifications under GPLv3 (the copyleft principle). Several more obligations apply if you distribute GPLv3 software. Check the GPLv3 license carefully.</para>
+<para>You create output with GPLv3 software: The GPLv3 does not automatically apply to the output.</para>
 </section>
-<section><title>freeware</title>
-	<para>Freeware is software that you can download and use without paying for it. This (usually) does not include source code (so the four freedoms do not apply) and does not give you any additional rights on copyrighted or patented parts of that software.</para>
-	<para>For example the game <command>Command and Conquer: Tiberian Sun</command> was sold as proprietary in 1999 and is now (in 2011) available as freeware.</para>
+
+<section><title>BSD License</title>
+<para>There are several versions of the original Berkeley Distribution License. The most common one is the 3-clause license ("New BSD License" or "Modified BSD License").</para>
+<para>This is a permissive free software license. The license places minimal restrictions on how the software can be redistributed. This is in contrast to copyleft licenses such as the GPLv. 3 discussed above, which have a copyleft mechanism.</para>
+<para>This difference is of less importance when you merely use the software, but kicks in when you start redistributing verbatim copies of the software or your own modified versions.</para>
 </section>
-<section><title>more licenses...</title>
-	<para><emphasis>There are many other licenses on operating system software (think <command>cddl</command> for <command>Solaris 10</command>). You should read and understand them before using any software.</emphasis></para>
+
+<section><title>other licenses</title>
+	<para>FOSS or not, there are many kind of licenses on software. You should read and understand them before using any software.</para>
+</section>
+
+<section><title>Combination of software and license compatibility</title>
+	<para>When you use several sources or wishes to redistribute your software under a different license, you need to verify whether all licenses are compatible. Some FOSS licenses (such as BSD) are compatible with proprietary licenses, but most are not. If you detect a license incompatibility, you must contact the author to negotiate different license conditions or refrain from using the incompatible software.</para>
 </section>
