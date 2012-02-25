@@ -1,0 +1,22 @@
+<?hard-pagebreak?>
+<section><title>oefeningen les 1</title>
+<section><title>een gebruiker maken</title>
+	<para>1. Maak een gebruiker aan voor je buurman.</para>
+	<para>2. Geef deze gebruiker een paswoord.</para>
+	<para>3. Geef gebruiker + paswoord + ip-adres door aan je buurman.</para>
+	<para>4. Test met <command>who</command> dat je buurman er in slaagt om aan te loggen op jou computer.</para>
+	<para>5. Log zelf ook aan bij je buurman en verander je paswoord.</para>
+</section>
+<section><title>manual pages</title>
+	<para></para>
+</section>
+<section><title>werken met directories</title>
+	<para>cfr chapter 6 op linux-training.be</para>
+</section>
+<section><title>werken met bestanden</title>
+	<para>cfr chapter 7 op linux-training.be</para>
+</section>
+<section><title>inhoud van bestanden</title>
+	<para>cfr chapter 8 op linux-training.be</para>
+</section>
+</section>

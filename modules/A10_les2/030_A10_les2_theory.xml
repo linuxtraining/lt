@@ -1,0 +1,58 @@
+<?hard-pagebreak?>
+<section><title>website</title>
+	<para>We beginnen met eenvoudige commando's om rond te wandelen in een Unix (of Linux) systeem. Deze les loopt ongeveer gelijk met <command>Part II : first steps on the commandline</command> dat je hier <command>http://linux-training.be/downloads</command><indexterm><primary>linux-training.be</primary></indexterm> in html of pdf kan downloaden.</para>
+	<para>De les bevat vijf delen : werkt uw eigen systeem? , manual pages, werken met directories, werken met bestanden en werken met de inhoud van bestanden.</para>
+</section>
+<section><title>Werkt uw eigen systeem ?</title>
+	<para>Kan je inloggen op je eigen virtuele machine via <command>ssh</command> of <command>putty</command> ? We willen hier vermijden dat mensen rechtstreeks op de server werken, je werkt <command>in remote</command>.</para>
+	<para>De meeste Linux distributies maken behalve de <command>root</command> account ook nog een gewone gebruiker aan tijdens de installatie.</para>
+	<para>Zowel <command>ssh</command> als <command>putty</command> eisen een userid en paswoord, we geven hier aan hoe je een user en paswoord kan aanmaken voor een van je klasgenoten.</para>
+	<screen>paul@debian6~$ su -
+Password:  <command>typ het paswoord van root, dit verschijnt niet!</command>
+root@debian6~# useradd -m marc
+root@debian6~# </screen>
+	<para>De <command>-m</command> zorgt voor automatisch aanmaken van een <command>home directory</command><indexterm><primary>home directory</primary></indexterm> voor deze gebruiker (distributies zoals Fedora en RedHat hebben deze optie default aan staan).</para>
+	<para>Je kan met deze gebruiker pas aanloggen als je hem ook een paswoord geeft:</para>
+	<screen>root@debian6~# passwd marc
+Enter new UNIX password: <command>typ het paswoord, dit verschijnt niet!</command>
+Retype new UNIX password: <command>typ het paswoord, dit verschijnt niet!</command>
+passwd: password updated successfully</screen>
+	<para>Voor de veiligheid kan het aangeraden zijn om je paswoord regelmatig te veranderen. Hieronder zie je hoe dit kan met het <command>passwd</command> commando, vergeet niet eerst je oude paswoord te geven alvorens tweemaal je nieuwe paswoord te typen.</para>
+	<screen>marc@debian6lt:~$ passwd
+Changing password for marc.
+(current) UNIX password: 
+Enter new UNIX password: 
+Retype new UNIX password: 
+passwd: password updated successfully
+marc@debian6lt:~$</screen>
+	<para>Als je de gebruiker niet meer nodig hebt, kan je hem permanent verwijderen (incluis zijn home directory als je de <command>-r</command> erbij typt.</para>
+<screen>root@debian6~# userdel -r marc
+root@debian6~# </screen>
+	<para>Je zou nu in staat moeten zijn om aan te loggen op je eigen Unix.</para>
+</section>
+<section><title>handleiding voor alles</title>
+	<para>Typisch aan Unix is dat er voor elk commando ook steeds een handleiding aanwezig is op de computer. Wil je meer weten over <command>useradd</command><indexterm><primary>useradd</primary></indexterm>, typ dan:</para>
+	<screen>root@debian6~# man useradd</screen>
+	<para>Je kan met de enter toets of met de spatiebalk wandelen in deze <command>man page</command><indexterm><primary>man page</primary></indexterm>. Typ <command>q</command> om de manual te verlaten. Meestal kan je ook de toetsen <command>page up</command> en <command>page down</command> gebruiken.</para>
+	<para>We hebben in de klas gezien hoe je met <command>/</command> kan zoeken in een <command>man page</command>.</para>
+	<para>Niet enkel commando's, maar ook de meeste configuratiebestanden en achtergrondprogramma's (daemons) hebben hun eigen <command>man page</command>.</para>
+	<screen>root@debian6~# man sshd
+root@debian6~# man hosts
+root@debian6~#</screen>
+	<para>Je vind meer informatie over man pages als je <command>man man</command> typt, of ook in chapter 5 op <command>linux-training.be</command>.</para>
+</section>
+<section><title>werken met directories</title>
+	<para>para <command>index</command><indexterm><primary>index</primary></indexterm></para>
+	<para></para>
+	<screen></screen>
+</section>
+<section><title>werken met bestanden</title>
+	<para>para <command>index</command><indexterm><primary>index</primary></indexterm></para>
+	<para></para>
+	<screen></screen>
+</section>
+<section><title>de inhoud van bestanden</title>
+	<para>para <command>index</command><indexterm><primary>index</primary></indexterm></para>
+	<para></para>
+	<screen></screen>
+</section>
