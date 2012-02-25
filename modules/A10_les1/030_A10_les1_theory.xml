@@ -1,57 +1,43 @@
 <?hard-pagebreak?>
-<section><title>Over de leraar en het programma</title>
-<command>al</command><indexterm><primary>ac</primary></indexterm>
-<command>al</command><indexterm><primary>ac</primary></indexterm>
-	<para>Geeft ook <command>A9 Datacommunicatie en Netwerken</command><indexterm><primary>A9 Datacommunicatie en Netwerken</primary></indexterm>, deze cursus vind je hier http://linux-training.be/files/books/DataNet.pdf en ook op het leerplatform.</para>
+<section><title>over de leraar en het programma</title>
+	<para>Paul Cobbaut (paul.cobbaut@gmail.com) geeft ook <command>A9 Datacommunicatie en Netwerken</command><indexterm><primary>A9 Datacommunicatie en Netwerken</primary></indexterm>, deze cursus vind je hier http://linux-training.be/files/books/DataNet.pdf en ook op het leerplatform.</para>
 	<para>Het programma staat redelijk vrij, rekening houdend met : het leerplan (op het leerplatform), de realiteit (in balans met de wens van de studenten), de ECTS fiches van HBO5 informatika (op cvotsm.be).</para>
 	<para>Daar waar DC&#38;N vooral theorie was, zoeken we in deze module vooral praktijk.</para>
 </section>
-<section><title>Praktijk ?</title>
+<section><title>praktijk</title>
 	<para>Op virtuele computers op eigen laptop (of op de laptop van de leraar).</para>
 	<para>Elke les enkele opdrachten, zowel eenvoudige als uitdagende.</para>
 	<para>Laatste les is een praktijk <command>examen</command><indexterm><primary>examen</primary></indexterm>.</para>
 </section>
-<section><title>Virtualisatie</title>
+<section><title>klein beetje uitleg over virtualisatie</title>
 	<para>Virtualisatie houdt in dat we werken op een computer waar behalve het besturingsysteem dat de hardware bestuurt ook nog een andere software aanwezig is die eigenschappen vertoond van een besturingssysteem. We bespreken enkele (maar lang niet alle!) virtualisatie technieken.</para>
 	<screen>http://nl.wikipedia.org/wiki/Virtualisatie</screen>
-	<para>De meest gekende en waarschijnlijk ok veruit mest gebruikte virtualisatie software heet <command>VMWare</command><indexterm><primary>VMWare</primary></indexterm> en is eigendom van EMC (17 miljard dollar jaarlijkse omzet).</para>
-	<para></para>
-	<screen></screen>
-	<screen></screen>
-	<para></para>
-	<screen></screen>
-	<para></para>
-	<screen></screen>
-	<para></para>
-	<screen></screen>
-	<para></para>
-<command>al</command><indexterm><primary>ac</primary></indexterm>
+	<para>De meest gekende en waarschijnlijk ook veruit meest gebruikte virtualisatie software heet <command>VMWare ESX</command><indexterm><primary>VMWare ESX</primary></indexterm> en is eigendom van EMC (17 miljard dollar jaarlijkse omzet).</para>
+	<para>Voor thuisgebruik is er o.a. <command>VMWare Server</command><indexterm><primary>VMWare Server</primary></indexterm> en <command>VirtualBox</command><indexterm><primary>VirtualBox</primary></indexterm>. Beide produkten zijn eenvoudig te installeren op verschillende host besturingssystemen. De virtuele computer draait dan bovenop het host besturingssysteem.</para>
+	<screen>https://www.virtualbox.org/</screen>
+	<para>Minder gekend onder eindgebruikers, maar wel populair bij grote bedrijven is het systeem van <command>zones</command><indexterm><primary>zones (Solaris)</primary></indexterm> (vroeger containers) op Solaris. Dit laat toe om snel (dankzij <command>zfs</command><indexterm><primary>zfs</primary></indexterm>) een volledige copie te maken van een bestaande (virtuele) server.</para>
+	<screen>http://www.solarisinternals.com/wiki/index.php/Zones</screen>
+	<para>Wil je (nog) meer weten:</para>
+	<screen>http://en.wikipedia.org/wiki/Hypervisor
+http://en.wikipedia.org/wiki/Virtualization</screen>
 </section>
-
-<section><title>acl in /etc/fstab</title>
-	<para></para>
-	<para></para>
-	<screen></screen>
-	<screen></screen>
-	<para></para>
-<command>al</command><indexterm><primary>ac</primary></indexterm>
+<section><title>Unix</title>
+	<para>Unix is een verzamelnaam voor een hele reeks besturingssystemen en distributies zoals AIX, Irix, HP-UX, Solaris, MacOSX, FreeBSD, OpenBSD, NetBSD, Openserver, Red Hat, Fedora, Ubuntu, Debian, Illumos, Nexenta en nog veel meer; de meeste Smartphones (iOS, Android), de meeste tablets (iPad, Samsung Galaxy), de meeste rotuers en switches (Cisco IOS), heel wat adsl modems (Thompson) draaien een of andere vorm van Unix.</para>
+	<para>De basis van Unix is stabiel (neem gerust een Unix boek uit de jaren 80, heel wat informatie daarin is nog steeds geldig).</para>
+	<para>Heel wat (maar niet alle!) Unix-like besturingsystemen zijn gratis en legaal te downloaden en te gebruiken, ook commercieel.</para>
 </section>
-
-<section><title>acl in /etc/fstab</title>
-	<para></para>
-	<para></para>
-	<screen></screen>
-	<screen></screen>
-	<para></para>
-<command>al</command><indexterm><primary>ac</primary></indexterm>
+<section><title>Unix filosofie</title>
+	<para>Eenvoudige tools die een enkele taak efficient afwerken.</para>
+	<para>Tools die samenwerken (via stdin/stdout) en kunnen gebruikt worden als legoblokjes.</para>
+	<para>Gewone (platte) tekst.</para>
+	<para>Keep it simple.</para>
+	<para>(alles is een bestand)</para>
+	<para>(moeilijk om te leren != moeilijk om te gebruiken)</para>
+	<para>(Unix laat je toe om domme dingen te doen!)</para>
 </section>
-
-<section><title>acl in /etc/fstab</title>
-	<para></para>
-	<para></para>
-	<screen></screen>
-	<screen></screen>
-	<para></para>
-<command>al</command><indexterm><primary>ac</primary></indexterm>
+<section><title>een eigen virtuele machine</title>
+	<para>Een eigen virtuele machine laat je toe om te werken met een besturingssysteem zonder enig gevaar voor het breken van je host-systeem. De virtuele machine kan beschikken over meerdere (virtuele of echte) harde schijven, meerdere (virtuele of echte) netwerkkaarten en kan op het echte netwerk actief zijn alsof het een aparte fysieke machine is.</para>
+	<para>Al wat je nodig hebt is een redelijk recente laptop en een beetje RAM geheugen op overschot (2GB in totaal is aan te raden, al kan het ook met minder). Je kan virtualbox en een linux server (ubuntu server, rhel, ...) gratis en legaal downloaden en installeren.</para>
+	<screen>Google "download ubuntu server" ofzo.</screen>
+	<para>Studenten die niet over een eigen virtuele machine kunnen beschikken, krijgen er eentje van de leraar.</para>
 </section>
-
