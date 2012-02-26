@@ -19,7 +19,7 @@ Hello World
 Hello World
 [paul@RHELv4u3 ~]$    echo      Hello      World
 Hello World</screen>
-		<para>The <command>echo</command> command will display each argument it receives from the shell. The <command>echo</command> command will also add a new whitespace between the arguments it received.</para>
+		<para>The <command>echo</command> command will display each argument it receives from the shell. The <command>echo</command> command will also add a new white space between the arguments it received.</para>
 	</section>
 	<section><title>single quotes</title>
 		<para>You can prevent the removal of white spaces by quoting the spaces. The contents of the quoted string are considered as one argument. In the screenshot below the <command>echo</command> receives only one <command>argument</command>.</para>
@@ -38,7 +38,7 @@ A line with      double    quotes
 		</screen>
 	</section>
 	<section><title>echo and quotes</title>
-		<para>Quoted lines can include special escaped characters recognized by the <command>echo</command> command (when using <command>echo -e</command><indexterm><primary>echo(1)</primary></indexterm>). The screenshot below shows how to use <command>\n</command> for a newline and <command>\t</command> for a tab (usually eight white spaces).</para>
+		<para>Quoted lines can include special escaped characters recognised by the <command>echo</command> command (when using <command>echo -e</command><indexterm><primary>echo(1)</primary></indexterm>). The screenshot below shows how to use <command>\n</command> for a newline and <command>\t</command> for a tab (usually eight white spaces).</para>
 		<screen>[paul@RHEL4b ~]$ echo -e "A line with \na newline"
 A line with 
 a newline
