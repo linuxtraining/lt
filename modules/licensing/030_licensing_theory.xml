@@ -13,21 +13,22 @@
 </section>
 
 <section><title>Free Software or Open Source Software</title>
-<para>Both the <command>Free Software</command><indexterm><primary>free software</primary></indexterm> and the <command>Open Source Software</command><indexterm><primary>open source</primary></indexterm> movement largely pursue similar goals and endorse similar software licenses. But historically, there has been some perception of differentiation due to different emphases. Where the <command>Free Software</command> movement focuses on the rights (the four freedoms) which Free Software provides to its users, the <command>Open Source Software</command> movement points to its Open Source Definition and the advantages of peer-to-peer software development.</para>
-<para>Below the <command>four freedoms</command><indexterm><primary>four freedoms</primary></indexterm> of <command>free software</command>:</para>
-<screen>0. The freedom to use the software for any purpose.
-1. The freedom to study how the program works, and the freedom to make
-   changes to it. (This requires access to the source code).
-2. The freedom to distribute copies of the software to anyone else.
-3. The freedom to distribute your modified copy (see 1).</screen>
-<para>Detailed information about these <command>four freedoms</command> can be found here:</para>
-<screen>http://www.gnu.org/philosophy/free-sw.html.</screen>
+<para>Both the <command>Free Software</command><indexterm><primary>free software</primary></indexterm> (translates to <command>vrije software</command><indexterm><primary>vrije software</primary></indexterm> in Dutch and to <command>Logiciel Libre</command><indexterm><primary>Logiciel Libre</primary></indexterm> in French) and the <command>Open Source Software</command><indexterm><primary>open source</primary></indexterm> movement largely pursue similar goals and endorse similar software licenses. But historically, there has been some perception of differentiation due to different emphases. Where the <command>Free Software</command> movement focuses on the rights (the four freedoms) which Free Software provides to its users, the <command>Open Source Software</command> movement points to its Open Source Definition and the advantages of peer-to-peer software development.</para>
+
+<para>Free is to be understood as in <command>freedom of speech</command><indexterm><primary>freedom of speech</primary></indexterm>, not to be confused with free as in not having to pay for your free beer. In other words, or even better, in other languages free software translates to <command>vrije software</command><indexterm><primary>vrije software</primary></indexterm> (Dutch) or <command>Logiciel Libre</command><indexterm><primary>Logiciel Libre</primary></indexterm> (French) whereas the free from free beer translates to gratis.</para>
+
+<para> Recently, the term free and open source software or FOSS has arisen as a neutral alternative. A lesser-used variant is free/libre/open source software (FLOSS), which uses <command>libre</command> to clarify the meaning of free as in <command>freedom</command> rather than as in <command>at no charge</command>.</para>
 <para>Examples of <command>free software</command> are <command>gcc</command>, <command>MySQL</command> and <command>gimp</command>.</para>
+<para>Detailed information about the <command>four freedoms</command><indexterm><primary>four freedoms</primary></indexterm> can be found here:</para>
+<screen>http://www.gnu.org/philosophy/free-sw.html</screen>
+<para>The <command>open source definition</command><indexterm><primary>open source definition</primary></indexterm> can be found at:</para>
+<screen>http://www.opensource.org/docs/osd</screen>
+<para>The above definition is based on the <command>Debian Free Software Guidelines</command> available here:</para>
+<screen>http://www.debian.org/social_contract#guidelines</screen>
 </section>
 
 <section><title>GNU General Public License</title>
-	<para>More and more software is being released under the <command>GNU GPL</command><indexterm><primary>GPL</primary></indexterm> (in 2006 Java was released under the GPL). The goal of the GPL is to guarantee that free software stays free. Everyone can work together on GPL software, knowing that the software will be freely available to everyone. The GPL can protect software (thanks to copyright) even in court.</para>
-	<para>Free is to be understood as in <command>freedom of speech</command><indexterm><primary>freedom of speech</primary></indexterm>, not to be confused with free as in not having to pay for your free beer. In other words, or even better, in other languages free software translates to <command>vrije software</command><indexterm><primary>vrije software</primary></indexterm> (Dutch) or <command>Logiciel Libre</command><indexterm><primary>Logiciel Libre</primary></indexterm> (French) whereas the free from free beer translates to gratis.</para>
+	<para>More and more software is being released under the <command>GNU GPL</command><indexterm><primary>GPL</primary></indexterm> (in 2006 Java was released under the GPL). This license (v2 and v3) is the main license endorsed by the Free Software Foundation. It’s main characteristic is the <command>copyleft</command><indexterm><primary>copyleft</primary></indexterm> principle. This means that everyone in the chain of consecutive users, in return for the right of use that is assigned, needs to distribute the improvements he makes to the software and his derivative works under the same conditions to other users, if he chooses to distribute such improvements or derivative works. In other words, software which incorporates GNU GPL software, needs to be distributed in turn as GNU GPL software (or compatible, see below). It is not possible to incorporate copyright protected parts of GNU GPL software in a proprietary licensed work. The GPL has been upheld in court.</para>
 </section>
 
 <section><title>using GPLv3 software</title>
@@ -36,7 +37,7 @@
 <para>You create output with GPLv3 software: The GPLv3 does not automatically apply to the output.</para>
 </section>
 
-<section><title>BSD License</title>
+<section><title>BSD license</title>
 <para>There are several versions of the original Berkeley Distribution License. The most common one is the 3-clause license ("New BSD License" or "Modified BSD License").</para>
 <para>This is a permissive free software license. The license places minimal restrictions on how the software can be redistributed. This is in contrast to copyleft licenses such as the GPLv. 3 discussed above, which have a copyleft mechanism.</para>
 <para>This difference is of less importance when you merely use the software, but kicks in when you start redistributing verbatim copies of the software or your own modified versions.</para>
