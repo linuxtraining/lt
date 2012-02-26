@@ -395,7 +395,7 @@
 </table>
 </section>
 <section><title>replace all ( &#058;1,$ s&#047;foo&#047;bar&#047;g )</title>
-	<para>To replace all occurrences of the string foo with bar, first switch to ex mode with &#058; . Then tell vi which lines to use, for example 1,&#036; will do the replace all from the first to the last line. You can write 1,5 to only process the first five lines. The s&#047;foo&#047;bar&#047;g will replace all occurences of foo with bar.</para>
+	<para>To replace all occurrences of the string foo with bar, first switch to ex mode with &#058; . Then tell vi which lines to use, for example 1,&#036; will do the replace all from the first to the last line. You can write 1,5 to only process the first five lines. The s&#047;foo&#047;bar&#047;g will replace all occurrences of foo with bar.</para>
 <table frame='all'><title>replace</title>
 <?dbfo table-width="90%" ?>
 <tgroup cols='2' align='center' colsep='1' rowsep='1'>
@@ -542,7 +542,7 @@
 </section>
 <section><title>key mappings</title>
 	<para>Similarly to their abbreviations, you can use mappings with <command>:map</command> for command mode and <command>:map!</command> for insert mode.</para>
-	<para>This example shows how to set the F6 function key to toggle between <command>set number</command> and <command>set nonumber</command>. The &#060;bar&#062; seperates the two commands, <command>set number!</command> toggles the state and <command>set number?</command> reports the current state.</para>
+	<para>This example shows how to set the F6 function key to toggle between <command>set number</command> and <command>set nonumber</command>. The &#060;bar&#062; separates the two commands, <command>set number!</command> toggles the state and <command>set number?</command> reports the current state.</para>
 	<screen>:map &#060;F6&#062; :set number!&#060;bar&#062;set number?&#060;CR&#062;</screen>
 </section>
 <section><title>setting options</title>
