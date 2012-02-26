@@ -168,7 +168,7 @@ received -z
 option -f needs an argument</screen>
 	</section>
 	<section><title>get shell options with shopt</title>
-		<para>You can toggle the values of variables controlling optional shell behavior with the <command>shopt</command><indexterm><primary>shopt</primary></indexterm> built-in shell command. The example below first verifies whether the cdspell option is set; it is not. The next shopt command sets the value, and the third shopt command verifies that the option really is set. You can now use minor spelling mistakes in the cd command. The man page of bash has a complete list of options.</para>
+		<para>You can toggle the values of variables controlling optional shell behaviour with the <command>shopt</command><indexterm><primary>shopt</primary></indexterm> built-in shell command. The example below first verifies whether the cdspell option is set; it is not. The next shopt command sets the value, and the third shopt command verifies that the option really is set. You can now use minor spelling mistakes in the cd command. The man page of bash has a complete list of options.</para>
 		<screen>
 paul@laika:~$ shopt -q cdspell ; echo $?
 1
