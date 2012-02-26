@@ -35,11 +35,11 @@ Password:
 		<para>Most Linux distributions will schedule the <command>updatedb</command> to run once every day.</para>
 	</section>
 	<section><title>date</title>
-		<para>The <command>date</command><indexterm><primary>date</primary></indexterm> command can display the date, time, timezone and more.</para>
+		<para>The <command>date</command><indexterm><primary>date</primary></indexterm> command can display the date, time, time zone and more.</para>
 		<screen>paul@rhel55 ~$ date
 Sat Apr 17 12:44:30 CEST 2010
 		</screen>
-		<para>A date string can be customized to display the format of your choice. Check the man page for more options.</para>
+		<para>A date string can be customised to display the format of your choice. Check the man page for more options.</para>
 		<screen>paul@rhel55 ~$ date +'%A %d-%m-%Y'
 Saturday 17-04-2010
 		</screen>
