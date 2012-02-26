@@ -1,6 +1,6 @@
 <?hard-pagebreak?>
 <section><title>filesystem hierarchy standard</title>
-	<para>Many Linux distributions partially follow the <command>Filesystem Hierarchy Standard</command><indexterm><primary>Filesystem Hierarchy Standard</primary></indexterm>. The <command>FHS</command> may help make more Unix/Linux file system trees conform better in the future. The <command>FHS</command><indexterm><primary>FHS</primary></indexterm> is available online at <command>http://www.pathname.com/fhs/</command><indexterm><primary>http://www.pathname.com/fhs/</primary></indexterm> where we read: "The filesystem hierarchy standard has been designed to be used by Unix distribution developers, package developers, and system implementors. However, it is primarily intended to be a reference and is not a tutorial on how to manage a Unix filesystem or directory hierarchy."</para>
+	<para>Many Linux distributions partially follow the <command>Filesystem Hierarchy Standard</command><indexterm><primary>Filesystem Hierarchy Standard</primary></indexterm>. The <command>FHS</command> may help make more Unix/Linux file system trees conform better in the future. The <command>FHS</command><indexterm><primary>FHS</primary></indexterm> is available online at <command>http://www.pathname.com/fhs/</command><indexterm><primary>http://www.pathname.com/fhs/</primary></indexterm> where we read: "The filesystem hierarchy standard has been designed to be used by Unix distribution developers, package developers, and system implementers. However, it is primarily intended to be a reference and is not a tutorial on how to manage a Unix filesystem or directory hierarchy."</para>
 </section>
 <section><title>man hier</title>
 	<para>There are some differences in the filesystems between <command>Linux distributions</command><indexterm><primary>distributions</primary></indexterm>. For help about your machine, enter <command>man hier</command><indexterm><primary>man hier</primary></indexterm> to find information about the file system hierarchy. This manual will explain the directory structure on your computer.</para>
@@ -46,7 +46,7 @@ cat              kill              pidof            umount
 	</section>
 	<section><title>/sbin</title>
 		<para><command>/sbin</command><indexterm><primary>/sbin</primary></indexterm> contains binaries to configure the operating system. Many of the <command>system binaries</command> require <command>root</command> privilege to perform certain tasks.</para>
-		<para>Below a screenshot containing <command>system binaries</command> to change the ip-address, partition a disk and create an ext4 file system.</para>
+		<para>Below a screenshot containing <command>system binaries</command> to change the ip address, partition a disk and create an ext4 file system.</para>
 		<screen>
 paul@ubu1010:~$ ls -l /sbin/ifconfig /sbin/fdisk /sbin/mkfs.ext4
 -rwxr-xr-x 1 root root 97172 2011-02-02 09:56 /sbin/fdisk
@@ -108,7 +108,7 @@ version 1 (SYSV), stripped
 paul@laika:~$ </screen>
 		<para>There is much more to be found in <command>/etc</command>.</para>
 		<section><title>/etc/init.d/</title>
-			<para>A lot of Unix/Linux distributions have an <command>/etc/init.d</command><indexterm><primary>/etc/init.d/</primary></indexterm> directory that contains scripts to start and stop <command>daemons</command>. This directory could dissapear as Linux migrates to systems that replace the old <command>init</command> way of starting all <command>daemons</command>.</para>
+			<para>A lot of Unix/Linux distributions have an <command>/etc/init.d</command><indexterm><primary>/etc/init.d/</primary></indexterm> directory that contains scripts to start and stop <command>daemons</command>. This directory could disappear as Linux migrates to systems that replace the old <command>init</command> way of starting all <command>daemons</command>.</para>
 		</section>
 		<section><title>/etc/X11/</title>
 			<para>The graphical display (aka <command>X Window System</command><indexterm><primary>X Window System</primary></indexterm> or just <command>X</command><indexterm><primary>X</primary></indexterm>) is driven by software from the X.org foundation. The configuration file for your graphical display is <command>/etc/X11/xorg.conf</command><indexterm><primary>/etc/X11/xorg.conf</primary></indexterm>. </para>
@@ -147,10 +147,10 @@ KEYTABLE="us"</screen>
 <?hard-pagebreak?>
 <section><title>data directories</title>
 	<section><title>/home</title>
-		<para>Users can store personal or project data under <command>/home</command><indexterm><primary>/home</primary></indexterm>. It is common (but not mandatory by the fhs) practice to name the users home directory after the username in the format <command>/home/$USERNAME</command>. For example:</para>
+		<para>Users can store personal or project data under <command>/home</command><indexterm><primary>/home</primary></indexterm>. It is common (but not mandatory by the fhs) practice to name the users home directory after the user name in the format <command>/home/$USERNAME</command>. For example:</para>
 		<screen>paul@ubu606:~$ ls /home 
 geert  annik  sandra  paul  tom</screen>
-		<para>Besides giving every user (or every project or group) a location to store personal files, the home directory of a user also serves as a location to store the user profile. A typical Unix user profile contains many hidden files (files whose filename starts with a dot). The hidden files of the Unix user profiles contain settings specific for that user.</para>
+		<para>Besides giving every user (or every project or group) a location to store personal files, the home directory of a user also serves as a location to store the user profile. A typical Unix user profile contains many hidden files (files whose file name starts with a dot). The hidden files of the Unix user profiles contain settings specific for that user.</para>
 		<screen>
 paul@ubu606:~$ ls -d /home/paul/.*
 /home/paul/.              /home/paul/.bash_profile  /home/paul/.ssh
@@ -181,7 +181,7 @@ cdrom  cdrom0  usbdisk</screen>
 <?hard-pagebreak?>
 <section><title>in memory directories</title>
 	<section><title>/dev</title>
-		<para>Device files in <command>/dev</command><indexterm><primary>/dev</primary></indexterm> appear to be ordinary files, but are not actually located on the hard disk. The <command>/dev</command> directory is populated with files as the kernel is recognizing hardware.</para>
+		<para>Device files in <command>/dev</command><indexterm><primary>/dev</primary></indexterm> appear to be ordinary files, but are not actually located on the hard disk. The <command>/dev</command> directory is populated with files as the kernel is recognising hardware.</para>
 		<section><title>common physical devices</title>
 			<para>Common hardware such as hard disk devices are represented by device files in <command>/dev</command>. Below a screenshot of SATA device files on a laptop and then IDE attached drives on a desktop. (The detailed meaning of these devices will be discussed later.)</para>
 			<screen>
@@ -354,7 +354,7 @@ paul@laika:~$</screen>
 </section>
 <?hard-pagebreak?>
 <section><title>/usr Unix System Resources</title>
-	<para>Although <command>/usr</command><indexterm><primary>/usr</primary></indexterm> is pronounced like user, remember that it stands for <command>Unix System Resources</command>. The <command>/usr</command> hierarchy should contain <command>sharable, read only</command> data. Some people choose to mount <command>/usr</command> as read only. This can be done from its own partition or from a read only NFS share.</para>
+	<para>Although <command>/usr</command><indexterm><primary>/usr</primary></indexterm> is pronounced like user, remember that it stands for <command>Unix System Resources</command>. The <command>/usr</command> hierarchy should contain <command>shareable, read only</command> data. Some people choose to mount <command>/usr</command> as read only. This can be done from its own partition or from a read only NFS share.</para>
 	<section><title>/usr/bin</title>
 		<para>The <command>/usr/bin</command><indexterm><primary>/usr/bin</primary></indexterm> directory contains a lot of commands.</para>
 		<screen>paul@deb508:~$ ls /usr/bin | wc -l
