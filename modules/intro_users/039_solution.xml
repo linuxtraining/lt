@@ -18,7 +18,7 @@ tail /etc/passwd ; tail /etc/shadow ; ls /home </screen>
 	<para>5b. Use <command>passwd -d</command> to disable the serena password. Verify the serena line in <command>/etc/shadow</command> before and after disabling.</para>
 	<screen>grep serena /etc/shadow; passwd -d serena ; grep serena /etc/shadow</screen>
 	<para>5c. What is the difference between locking a user account and disabling a user account's password ?</para>
-	<para>Locking will prevent the user from logging on to the system with his password (by putting a ! in front of the password in /etc/shadow). Disbling with passwd will erase the password from /etc/shadow.</para>
+	<para>Locking will prevent the user from logging on to the system with his password (by putting a ! in front of the password in /etc/shadow). Disabling with passwd will erase the password from /etc/shadow.</para>
 	<para>6. As <command>root</command> change the password of <command>einstime</command> to stargate.</para>
 	<screen>Log on as root and type: passwd einstime</screen>
 	<para>7. Now try changing the password of serena to serena as serena.</para>
