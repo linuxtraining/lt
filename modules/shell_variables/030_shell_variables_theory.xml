@@ -94,7 +94,7 @@ We are in $city today. </screen>
 [paul@RHEL4b ~]$</screen>
 </section>
 <section><title>env</title>			
-	<para>The <command>env</command><indexterm><primary>env(1)</primary></indexterm> command without options will display a list of <command>exported variables</command>. The difference with <command>set</command> with options is that <command>set</command> lists all variables, inlcuding those not exported to child shells.</para>
+	<para>The <command>env</command><indexterm><primary>env(1)</primary></indexterm> command without options will display a list of <command>exported variables</command>. The difference with <command>set</command> with options is that <command>set</command> lists all variables, including those not exported to child shells.</para>
 	<para>But <command>env</command> can also be used to start a clean shell (a shell without any inherited environment). The <command>env -i</command><indexterm><primary>env(1)</primary></indexterm> command clears the environment for the subshell.</para>
 	<para>Notice in this screenshot that <command>bash</command> will set the <command>$SHELL</command> variable on startup.</para>
 	<screen>[paul@RHEL4b ~]$ bash -c 'echo $SHELL $HOME $USER'
@@ -130,7 +130,7 @@ three four
 [paul@RHEL4b ~]$</screen>
 </section>
 <section><title>delineate variables</title>
-	<para>Until now, we have seen that bash interpretes a variable starting from a dollar sign, continuing until the first occurrence of a non-alphanumeric character that is not an underscore. In some situations, this can be a problem. This issue can be resolved with curly braces like in this example.</para>
+	<para>Until now, we have seen that bash interprets a variable starting from a dollar sign, continuing until the first occurrence of a non-alphanumeric character that is not an underscore. In some situations, this can be a problem. This issue can be resolved with curly braces like in this example.</para>
 	<screen>[paul@RHEL4b ~]$ prefix=Super
 [paul@RHEL4b ~]$ echo Hello $prefixman and $prefixgirl
 Hello  and
@@ -190,14 +190,14 @@ himBH
 	<screen>paul@deb503:~$ A=shell
 paul@deb503:~$ echo $C$B$A $(B=sub;echo $C$B$A; echo $(A=sub;echo $C$B$A))
 shell subshell subsub</screen>
-	<section><title>back ticks</title>
-		<para>Single embedding can be useful to avoid changing your current directory. The screenshot below uses <command>back ticks</command> instead of dollar-bracket to embed.</para>
+	<section><title>backticks</title>
+		<para>Single embedding can be useful to avoid changing your current directory. The screenshot below uses <command>backticks</command> instead of dollar-bracket to embed.</para>
 		<screen>[paul@RHELv4u3 ~]$ echo `cd /etc; ls -d * | grep pass`
 passwd passwd- passwd.OLD
 [paul@RHELv4u3 ~]$</screen>
 		<para>You can only use the <command>$()</command> notation to nest embedded shells, <command>backticks</command> cannot do this.</para>
 	</section>
-	<section><title>back ticks or single quotes</title>
+	<section><title>backticks or single quotes</title>
 		<para>Placing the embedding between <command>backticks</command><indexterm><primary>backticks</primary></indexterm> uses one character less than the dollar and parenthesis combo. Be careful however, backticks are often confused with single quotes. The technical difference between <command>'</command><indexterm><primary>'(single quote)</primary></indexterm> and <command>`</command><indexterm><primary>`(backtick)</primary></indexterm> is significant!</para>
 		<screen>[paul@RHELv4u3 gen]$ echo `var1=5;echo $var1`
 5
