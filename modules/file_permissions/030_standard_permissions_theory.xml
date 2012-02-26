@@ -186,7 +186,7 @@ dr-xr-x--- 2 paul paul 4.0K 2007-02-07 22:25 UserAndGroupEnter
 dr-x------ 2 paul paul 4.0K 2007-02-07 22:25 OnlyUserEnter
 paul@laika:~/perms$ 
 	</screen>
-	<para>To summarize, the first <command>rwx</command> triplet represents the permissions for the <command>user owner</command>. The second triplet corresponds to the <command>group owner</command>; it specifies permissions for all members of that group. The third triplet defines permissions for all <command>other</command> users that are not the user owner and are not a member of the group owner.</para>
+	<para>To summarise, the first <command>rwx</command> triplet represents the permissions for the <command>user owner</command>. The second triplet corresponds to the <command>group owner</command>; it specifies permissions for all members of that group. The third triplet defines permissions for all <command>other</command> users that are not the user owner and are not a member of the group owner.</para>
 	</section>
 	<section><title>setting permissions (chmod)</title>
 		<para>Permissions can be changed with <command>chmod</command><indexterm><primary>chmod(1)</primary></indexterm>. The first example gives the user owner execute permissions.</para>
