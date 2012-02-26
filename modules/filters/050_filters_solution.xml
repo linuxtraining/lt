@@ -16,7 +16,7 @@ This is, yes really! , a text with ?&#038;* too many str$ange# characters ;-)
 paul@deb503:~$ cat text | tr -d ',!$?.*&#038;^%#@;()-'
 This is yes really  a text with  too many strange characters
 	</screen>
-	<para>7. Write a line that receives a textfile, and outputs all words on a separate line.</para>
+	<para>7. Write a line that receives a text file, and outputs all words on a separate line.</para>
 	<screen>
 paul@deb503:~$ cat text2 
 it is very cold today without the sun
