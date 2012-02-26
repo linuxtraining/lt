@@ -122,7 +122,7 @@ paul@laika:~/test$
 	</screen>
 </section>
 <section><title>more and less</title>
-	<para>The <command>more</command><indexterm><primary>more(1)</primary></indexterm> command is useful for displaying files that take up more than one screen. More will allow you to see the contents of the file page by page. Use the spacebar to see the next page, or <command>q</command> to quit. Some people prefer the <command>less</command><indexterm><primary>less(1)</primary></indexterm> command to <command>more</command>.</para>
+	<para>The <command>more</command><indexterm><primary>more(1)</primary></indexterm> command is useful for displaying files that take up more than one screen. More will allow you to see the contents of the file page by page. Use the space bar to see the next page, or <command>q</command> to quit. Some people prefer the <command>less</command><indexterm><primary>less(1)</primary></indexterm> command to <command>more</command>.</para>
 </section>
 <section><title>strings</title>
 	<para>With the <command>strings</command><indexterm><primary>strings(1)</primary></indexterm> command you can display readable ascii strings found in (binary) files. This example locates the <command>ls</command> binary then displays readable strings in the binary file (output is truncated).</para>
