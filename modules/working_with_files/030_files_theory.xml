@@ -1,7 +1,7 @@
 <?hard-pagebreak?>
 <section><title>all files are case sensitive</title>
 	<para>Linux is <command>case sensitive</command><indexterm><primary>case sensitive</primary></indexterm>, this means that <command>FILE1</command> is different from <command>file1</command>, and <command>/etc/hosts</command> is different from <command>/etc/Hosts</command> (the latter one does not exist on a typical Linux computer).</para>
-	<para>This screenshot shows the difference between two files, one with uppercase <command>W</command>, the other with lowercase <command>w</command>.</para>
+	<para>This screenshot shows the difference between two files, one with upper case <command>W</command>, the other with lower case <command>w</command>.</para>
 	<screen>
 paul@laika:~/Linux$ ls
 winter.txt  Winter.txt
@@ -47,7 +47,7 @@ Linux 2.4.1, dynamically linked (uses shared libs), for GNU/Linux 2.4.1\
 serena@AIX7 /home/serena$ file /bin/date
 /bin/date: executable (RISC System/6000) or object module
 	</screen>
-	<para>The file command uses a magic file that contains patterns to recognize filetypes. The magic file is located in <command>/usr/share/file/magic</command><indexterm><primary>magic(5)</primary></indexterm>. Type <command>man 5 magic</command> for more information.</para>
+	<para>The file command uses a magic file that contains patterns to recognise file types. The magic file is located in <command>/usr/share/file/magic</command><indexterm><primary>magic(5)</primary></indexterm>. Type <command>man 5 magic</command> for more information.</para>
 </section>
 <section><title>touch</title>
 	<para>One easy way to create a file is with <command>touch</command><indexterm><primary>touch(1)</primary></indexterm>. (We will see many other ways for creating files later in this book.)</para>
@@ -74,7 +74,7 @@ total 0
 	</section>
 </section>
 <section><title>rm</title>
-	<para>When you no longer need a file, use <command>rm</command><indexterm><primary>rm(1)</primary></indexterm> to remove it. Unlike some graphical user interfaces, the command line in general does not have a <emphasis>waste bin</emphasis> or <emphasis>trashcan</emphasis> to recover files. When you use rm to remove a file, the file is gone. Therefore, be careful when removing files! </para>
+	<para>When you no longer need a file, use <command>rm</command><indexterm><primary>rm(1)</primary></indexterm> to remove it. Unlike some graphical user interfaces, the command line in general does not have a <emphasis>waste bin</emphasis> or <emphasis>trash can</emphasis> to recover files. When you use rm to remove a file, the file is gone. Therefore, be careful when removing files! </para>
 	<screen>
 paul@laika:~/test$ ls
 BigBattle  SinkoDeMayo
@@ -135,7 +135,7 @@ FileA
 		</screen>
 	</section>
 	<section><title>cp multiple files to directory</title>
-		<para>You can also use cp to copy multiple files into a directory. In this case, the last argument (aka the target) must be a directory.</para>
+		<para>You can also use cp to copy multiple files into a directory. In this case, the last argument (a.k.a. the target) must be a directory.</para>
 		<screen>cp file1 file2 dir1/file3 dir1/file55 dir2</screen>
 	</section>
 	<section><title>cp -i</title>
@@ -182,7 +182,7 @@ paul@laika:~/test$
 	<para>When you need to rename only one file then <command>mv</command> is the preferred command to use.</para>
 </section>
 <section><title>rename</title>
-	<para>The <command>rename</command><indexterm><primary>rename(1)</primary></indexterm> command can also be used but it has a more complex syntax to enable renaming of many files at once. Below are two examples, the first switches all occurrences of txt to png for all filenames ending in .txt. The second example switches all occurrences of uppercase ABC in lowercase abc for all filenames ending in .png . The following syntax will work on debian and ubuntu (prior to Ubuntu 7.10).</para>
+	<para>The <command>rename</command><indexterm><primary>rename(1)</primary></indexterm> command can also be used but it has a more complex syntax to enable renaming of many files at once. Below are two examples, the first switches all occurrences of txt to png for all filenames ending in .txt. The second example switches all occurrences of upper case ABC in lower case abc for all filenames ending in .png . The following syntax will work on debian and ubuntu (prior to Ubuntu 7.10).</para>
 	<screen>
 paul@laika:~/test$ ls
 123.txt  ABC.txt
