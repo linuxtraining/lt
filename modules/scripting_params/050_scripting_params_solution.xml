@@ -15,7 +15,7 @@ then echo $2 exists!
 else echo $2 not found!
 fi
 	</screen>
-	<para>3. Write a script that asks for a filename. Verify existance of the file, then verify that you own the file, and whether it is writable. If not, then make it writable.</para>
+	<para>3. Write a script that asks for a filename. Verify existence of the file, then verify that you own the file, and whether it is writable. If not, then make it writable.</para>
 	<screen></screen>
 	<para>4. Make a configuration file for the previous script. Put a logging switch in the config file, logging means writing detailed output of everything the script does to a log file in /tmp.</para>
 </section>
