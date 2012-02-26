@@ -103,7 +103,7 @@ paul@laika$ pwd
 		<para>This was the last screenshot with <command>pwd</command><indexterm><primary>pwd(1)</primary></indexterm> statements. From now on, the current directory will often be displayed in the prompt. Later in this book we will explain how the shell variable <command>$PS1</command><indexterm><primary>$PS1</primary></indexterm> can be configured to show this.</para>
 	</section>
 	<section><title>path completion</title>
-		<para>The <command>tab key</command><indexterm><primary>tab key(bash)</primary></indexterm> can help you in typing a path without errors. Typing <command>cd /et</command> followed by the <command>tab key</command> will expand the command line to <command>cd /etc/</command>. When typing <command>cd /Et</command> followed by the <command>tab key</command>, nothing will happen because you typed the wrong <command>path</command><indexterm><primary>path</primary></indexterm> (uppercase E).</para>
+		<para>The <command>tab key</command><indexterm><primary>tab key(bash)</primary></indexterm> can help you in typing a path without errors. Typing <command>cd /et</command> followed by the <command>tab key</command> will expand the command line to <command>cd /etc/</command>. When typing <command>cd /Et</command> followed by the <command>tab key</command>, nothing will happen because you typed the wrong <command>path</command><indexterm><primary>path</primary></indexterm> (upper case E).</para>
 		<para>You will need fewer key strokes when using the <command>tab key</command>, and you will be sure your typed <command>path</command> is correct!</para>
 	</section>
 	<section><title>ls</title>
@@ -114,7 +114,7 @@ allfiles.txt  dmesg.txt  httpd.conf  stuff  summer.txt
 paul@pasha:~$ 
 		</screen>
 		<section><title>ls -a</title>
-			<para>A frequently used option with ls is <command>-a</command> to show all files. Showing all files means including the <command>hidden files</command><indexterm><primary>hidden files</primary></indexterm>. When a filename on a Unix file system starts with a dot, it is considered a hidden file and it doesn't show up in regular file listings.</para>
+			<para>A frequently used option with ls is <command>-a</command> to show all files. Showing all files means including the <command>hidden files</command><indexterm><primary>hidden files</primary></indexterm>. When a file name on a Unix file system starts with a dot, it is considered a hidden file and it doesn't show up in regular file listings.</para>
 			<screen>
 paul@pasha:~$ ls
 allfiles.txt  dmesg.txt  httpd.conf  stuff  summer.txt
