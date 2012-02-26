@@ -71,7 +71,7 @@ fileab2
 [paul@RHELv4u3 gen]$</screen>
 </section>
 <section><title>$LANG and square brackets</title>
-	<para>But, don't forget the influence of the <command>LANG</command><indexterm><primary>$LANG</primary></indexterm> variable. Some languages include lowercase letters in an uppercase range (and vice versa).</para>
+	<para>But, don't forget the influence of the <command>LANG</command><indexterm><primary>$LANG</primary></indexterm> variable. Some languages include lower case letters in an upper case range (and vice versa).</para>
 	<screen>paul@RHELv4u4:~/test$ ls [A-Z]ile?
 file1  file2  file3  File4
 paul@RHELv4u4:~/test$ ls [a-z]ile?
