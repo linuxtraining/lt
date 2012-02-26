@@ -35,7 +35,7 @@ paul@debian5:~/test$ echo $?
 paul@debian5:~/test$</screen>
 </section>
 <section><title>&#038;&#038; double ampersand</title>
-	<para>The shell will interprete <command>&#038;&#038;</command><indexterm><primary>&#038;&#038;</primary></indexterm> as a <command>logical AND</command>. When using <command>&#038;&#038;</command> the second command is executed only if the first one succeeds (returns a zero exit status). </para>
+	<para>The shell will interpret <command>&#038;&#038;</command><indexterm><primary>&#038;&#038;</primary></indexterm> as a <command>logical AND</command>. When using <command>&#038;&#038;</command> the second command is executed only if the first one succeeds (returns a zero exit status). </para>
 	<screen>paul@barry:~$ echo first &#038;&#038; echo second
 first
 second
