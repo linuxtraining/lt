@@ -27,42 +27,54 @@
 <section><title>huiswerk</title>
 	<para>Installeer op je eigen laptop een virtuele Unix server, bij voorkeur zonder grafische interface.</para>
 	<para>Hieronder volgen de stappen op een Mac om met Virtualbox een virtuele Ubuntu Linux server te maken. De kleine verschillen met deze procedure op Microsoft of op Linux worden vermeld. Lees eerst een keer alle stappen alvorens te beginnen!</para>
-	<para>Begin met Google en zoek naar "Download Ubuntu server". Je vind dan een pagina zoals hieronder getoond. Kies voor 64-bit als je een 64-bit host besturingssysteem hebt, kies anders voor 32-bit. Kies AMD als je een AMD ipv een intel cpu hebt. Als je twijfelt kan je gewoon de 32-bit i386 versie nemen, die zou op alle intel en AMD systemen moeten werken. Wat je krijgt is een .iso bestand, dit is een exacte kopie van een CD. Hou dit bij in een aparte directory.</para>
+	<para>Begin met Google en zoek naar "Download Ubuntu server" (of Fedora of Debian of RedHat...). Je vind dan een pagina zoals hieronder getoond. Kies voor 64-bit als je een 64-bit host besturingssysteem hebt, kies anders voor 32-bit. Kies AMD als je een AMD ipv een intel cpu hebt. Als je twijfelt kan je gewoon de 32-bit i386 versie nemen, die zou op alle intel en AMD systemen moeten werken. Wat je krijgt is een .iso bestand, dit is een exacte kopie van een CD. Hou dit bij in een aparte directory.</para>
+	<para></para>
 	<mediaobject><imageobject><imagedata fileref="images/vm1_download.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+<?hard-pagebreak?>
 	<para>Stap 2 is het downloaden en installeren van virtualbox (of VMWare Server, maar de screenshots gaan verder wel over Virtualbox). Als er al Microsoft Windows op je computer staat, download dan Virtualbox voor Microsoft Windows (en dubbelklik nadien om te installeren). Mac OSX gebruikers kunnen Virtualbox voor Mac OSX installeren. Linux gebruikers kunnen best <command>niet</command> van de website downloaden. Linux gebruikers hebben in hun grafisch menu ergens wel een "add/remove software" of "software center" waar ze virtualbox kunnen selecteren en automatisch installeren vanuit een vertrouwde repository.</para>
 	<mediaobject><imageobject><imagedata fileref="images/vm2_download.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+<?hard-pagebreak?>
 	<para>Stap 3 is het starten van Virtualbox, in tegenstelling tot het screenshot hieronder zal die bij jullie nog helemaal leeg zijn aan de linkerkant.</para>
 	<mediaobject><imageobject><imagedata fileref="images/vm3_virtualbox.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 	<para>Klik op "New" of "Nieuw" om een nieuwe virtuele machine te maken. We wandelen samen even door de wizard. Het zou kunnen dat de screenshots een beetje afwijken op Windows, maar je zou wel dezelfde knopjes moeten vinden. Klik op "Continue" om de wizard te starten.</para>
 	<mediaobject><imageobject><imagedata fileref="images/vm_wizard1.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+<?hard-pagebreak?>
 	<para>Geef een naam aan je virtuele machine en kies indien nodig het juiste besturingssysteem en 32-bit of 64-bit.</para>
 	<mediaobject><imageobject><imagedata fileref="images/vm_wizard2.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 	<para>Geef je virtuele machine een beetje virtueel geheugen (512MB indien je laptop 2GB of meer heeft, geef 256MB indien je echte pc maar 1GB RAM heeft). Klik "continue".</para>
 	<mediaobject><imageobject><imagedata fileref="images/vm_wizard3.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+<?hard-pagebreak?>
 	<para>Kies voor de creatie van een nieuwe disk.</para>
 	<mediaobject><imageobject><imagedata fileref="images/vm_wizard4.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 	<para>Als je deze vraag krijgt, kies dan vdi.</para>
 	<mediaobject><imageobject><imagedata fileref="images/vm_wizard5.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+<?hard-pagebreak?>
 	<para>Kies 'dynamically allocated' op een moderne laptop. Dit is te vergelijken met 'thin provisioning' en bespaart je echte diskruimte. Kies 'fixed size' enkel als je deze virtuele computer gedurende langere tijd in productie gebruikt, of indien je PC te traag is met de andere setting.</para>
 	<mediaobject><imageobject><imagedata fileref="images/vm_wizard6.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 	<para>Kies ongeveer 10GB voor de grootte van de disk, dit laat ruim toe om alles te installeren op de Linux Server.</para>
 	<mediaobject><imageobject><imagedata fileref="images/vm_wizard7.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+<?hard-pagebreak?>
 	<para>Klik "create" om de virtuele disk aan te maken.</para>
 	<mediaobject><imageobject><imagedata fileref="images/vm_wizard8.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 	<para>Klik "create" om de virtuele machine aan te maken.</para>
 	<mediaobject><imageobject><imagedata fileref="images/vm_wizard9.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+<?hard-pagebreak?>
 	<para>Voordat we de machine starten gaan we eerst een paar instellingen (settings) aanpassen. Normaalgezien heb je nu een scherm zoals hieronder, met links enkel jou virtuele machine. Klik op de knop settings.</para>
 	<mediaobject><imageobject><imagedata fileref="images/vm_settings1.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 	<para>Maak u geen zorgen als het onderstaande scherm er anders uitziet, je zou wel dezelfde items (storage, network etc) moeten terugvinden. Verander de naam van je virtuele machine <command>niet</command>! Klik op "storage".</para>
 	<mediaobject><imageobject><imagedata fileref="images/vm_settings2.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+<?hard-pagebreak?>
 	<para>We gaan nu de .iso image die we gedownload hebben verbinden met deze virtuele machine (je weet toch nog waar je die bewaard hebt?). Zoek links het blinkende CD-ikoontje en klik op "empty".</para>
 	<mediaobject><imageobject><imagedata fileref="images/vm_settings4.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 	<para>Klik vervolgens op het rechts CD-ikoontje en kies de .iso image die je daarstraks gedownload hebt (de .iso in de screenshot staan er bij jullie nog niet bij).</para>
 	<mediaobject><imageobject><imagedata fileref="images/vm_settings5.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+<?hard-pagebreak?>
 	<para>Controleer dat de CD die je gedownload hebt nu achter het linkse CD ikoontje staat. Indien de download niet volledig was, zal Virtualbox hier klagen dat de .iso image niet correct is. Klik "network".</para>
 	<mediaobject><imageobject><imagedata fileref="images/vm_settings6.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 	<para>Standaard zal Virtualbox de virtuele netwerkkaart op "NAT" zetten. Je mag dit zo laten, of op "bridge" zetten om je virtuele computer in je echte netwerk te zetten.</para>
 	<mediaobject><imageobject><imagedata fileref="images/vm_settings7.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+<?hard-pagebreak?>
+	<para>Controleer dat de CD die je gedownload hebt nu achter het linkse CD ikoontje staat. Indien de download niet volledig was, zal Virtualbox hier klagen dat de .iso image niet correct is. Klik "network".</para>
 	<para>Je virtuele machine is nu klaar om te starten. Normaalgezien krijg je een menu te zien als je op start drukt, kies dan voor "install". Als je een obscure foutboodschap krijgt, controleer dan dat de .ISO image goed verbonden is, en dat het de juiste CD is (32 of 64 bit, AMD of i686).</para>
 	<para>Verwittig mij als er zaken ontbreken in deze gids, of als er dingen onduidelijk zijn.</para>
 </section>
