@@ -42,12 +42,48 @@ root@debian6~#</screen>
 	<para>Je vind meer informatie over man pages als je <command>man man</command> typt, of ook in chapter 5 op <command>linux-training.be</command>.</para>
 </section>
 <section><title>werken met directories</title>
-	<para>para <command>index</command><indexterm><primary>index</primary></indexterm></para>
-	<para></para>
-	<screen></screen>
+	<para>Bestanden op Unix staan steeds in een <command>directory</command>. De naam van een <command>directory</command><indexterm><primary>directory</primary></indexterm> begint steeds met een / (slash). We oefenen even met enkele commando's om directories te beheren. Dit laat ons toe om <emphasis>rond te wandelen</emphasis> op ons Unix systeem.</para>
+	<para>Om te weten in welke directory je bent is er <command>pwd</command>.</para>
+	<screen>paul@debian6:~$ pwd
+/home/paul</screen>
+	<para>Om naar een andere directory te wandelen gebruiken we <command>cd</command>.</para>
+	<screen>paul@debian6$ cd /etc
+paul@debian6$ pwd
+/etc
+paul@debian6$ cd /bin
+paul@debian6$ pwd
+/bin</screen>
+	<para>Tegenwoordig kan je in de shell gebruik maken van <command>path completion</command><indexterm><primary>path completion</primary></indexterm> door de <command>tab-toets</command> te gebruiken.</para>
+	<screen>cd /et <command>(druk nu op de tab toets)</command></screen>
+	<para>Om te zien welke bestanden er in een directory zitten gebruik je <command>ls</command>.</para>
+	<screen>paul@debian6~/github/lt/modules/A10_les2$ pwd
+/home/paul/github/lt/modules/A10_les2
+paul@debian6~/github/lt/modules/A10_les2$ ls
+010_A10_les2_title.xml   030_A10_les2_theory.xml
+020_A10_les2_about.xml   040_A10_les2_practice.xml</screen>
+	<para>Je kan zelf een directory aanmaken met <command>mkdir</command>.</para>
+	<screen>paul@debian6~$ pwd
+/home/paul
+paul@debian6~$ mkdir test42
+paul@debian6~$ cd test42/
+paul@debian6~/test42$ pwd
+/home/paul/test42
+paul@debian6~/test42$</screen>
+	<para>Een <command>lege</command> directory kan je verwijderen met <command>rmdir</command>.</para>
+	<screen>paul@debian6~/test42$ cd ..
+paul@debian6~$ rmdir test42/
+paul@debian6~$ cd test42
+bash: cd: test42: No such file or directory
+paul@debian6~$</screen>
+	<para>Meer informatie over werken met directories kan je vinden in <command>Linux Fundamentals Chapter 6. Working with Directories</command> op :</para>
+	<screen>http://linux-training.be/Downloads</screen>
 </section>
 <section><title>werken met bestanden</title>
 	<para>para <command>index</command><indexterm><primary>index</primary></indexterm></para>
+	<para></para>
+	<screen></screen>
+	<para></para>
+	<screen></screen>
 	<para></para>
 	<screen></screen>
 </section>
