@@ -1,0 +1,57 @@
+<?hard-pagebreak?>
+<section><title>overzicht</title>
+	<para>Welke stappen hebben we nodig (met onze beperkte kennis van Linux) om een webserver op te zetten:</para>
+	<screen>1. Hoe software installeren
+2. Hoe een tekstbestand editeren
+3. Hoe een kleine testwebpagina in html maken
+4. Hoe een webserver configureren
+5. Hoe een daemon (service) starten en stoppen</screen>
+	<para>Voor stap 1 beperken we ons even tot software op onze virtuele machines in de klas. Stap 2 is een inleiding tot <command>vi</command>. Stap 3 gaat over enkel <command>tags</command> die nodig zijn om een browser iets te laten tonen. Stap 4 is ons doel en kan meteen een herhaling zijn vanwat we over http besproken hebben in de vorige module. En met een beetje geluk halen we vandaag al stap 5, maar dan hebben we wel hard gewerkt!</para>
+</section>
+<section><title>software beheren op Linux</title>
+	<para>We bekijken enkele commando's om software te beheren. In de Linux wereld heb je (grotendeels) twee formaten genaamd Debian packages en RPM Packages. Debian, Ubuntu, *buntu en Mint gebruiken allemaal packages die geleverd worden als een .deb bestand. De populairste tools om deze te beheren zijn <command>dpkg</command><indexterm><primary>dpkg</primary></indexterm>, <command>apt-get</command><indexterm><primary>apt-get</primary></indexterm>, <command>aptitude</command><indexterm><primary>aptitude</primary></indexterm> en <command>synaptic</command><indexterm><primary>synaptic</primary></indexterm>(grafisch). Elke recente distributie heeft wel een 'software center' in het grafische menu dat gebaseerd is op deze tools.</para>
+	<para>De basis tool is <command>dpkg</command>. Deze werkt met individuele packages en een niet-intuitieve syntax. Dankzij <command>apt-get</command> en <command>aptitude</command> hoeven we deze nauwelijks nog te kennen. Hieronder een screenshot van <command>dpkg -l</command> in combinatie met <command>grep</command><indexterm><primary>grep</primary></indexterm> om na te kijken of <command>apache2</command><indexterm><primary>apache2</primary></indexterm> geinstalleerd is.</para>
+	<screen>root@mac~# dpkg -l | grep apache2
+ii apache2            2.2.20-1ubuntu1.2  Apache HTTP Server metapackage
+ii apache2-mpm-worker 2.2.20-1ubuntu1.2  Apache HTTP Server - high speed threaded model
+ii apache2-utils      2.2.20-1ubuntu1.2  utility programs for webservers
+ii apache2.2-bin      2.2.20-1ubuntu1.2  Apache HTTP Server common binary files
+ii apache2.2-common   2.2.20-1ubuntu1.2  Apache HTTP Server common files</screen>
+	<para>In dit screenshot hierboven is apache reeds aanwezig op de server. Als dit niet het geval is, dan heb je volgende opties:</para>
+	<screen>aptitude install apache2
+apt-get install apache2</screen>
+	<para>Beide commando's zullen het package genaamd <command>apache2</command> installeren incluis alle packages die nodig zijn (dependencies).</para>
+	<para>Je kan packages weer verwijderen met:</para>
+	<screen>aptitude remove apache2
+apt-get remove apache2</screen>
+	<para>Meer info op linux-training.be in het boek <command>Linux System Administration</command>.</para>
+</section>
+
+<section><title>vi</title>
+	<para>De leraar legt de basis uit van <command>vi</command><indexterm><primary>vi</primary></indexterm>. Deze editor is standaard aanwezig op zowat elke Unix en Linux sinds de jaren 70. Alhoewel moeilijk om te leren, is <command>vi</command> niet moeilijk om te gebruiken.</para>
+	<para>Op Ubuntu kan het handig zijn om eerst <command>aptitude install vim</command> uit te voeren. <command>vim</command><indexterm><primary>vim</primary></indexterm> staat voor <command>vi improved</command> en heeft enkele voordelen voor beginners.</para>
+</section>
+
+<section><title>html</title>
+	<para>We weten nog dat een webserver html paginas stuurt naar een web browser. Om de goede werking van onze server te testen, hebben we dus een kleine test webpagina nodig.</para>
+	<para>Je kan het eenvoudig houden en dit werkende voorbeeld downloaden via:</para>
+	<screen>wget linux-training.be/files/studentfiles/index.html</screen>
+	<para>Of je kan zelf met <command>vi</command> een klein html bestand maken. Wat je nodig hebt zijn de tags <command>html</command><indexterm><primary>html</primary></indexterm>, <command>head</command>, <command>title</command> en <command>body</command>.</para>
+	<screen>paul@mac~$ cat index.html 
+&#060;html>
+&#060;head>&#060;title>litte test website&#060;/title>&#060;/head>
+&#060;body>
+&#060;h1>Welcome to linux-training.be&#060;/h1>
+&#060;p>42&#060;/p>
+&#060;/body>
+&#060;/html></screen>
+</section>
+
+<section><title>apache2</title>
+	<para>Noteren, onthouden of online bekijken...</para>
+</section>
+
+<section><title>log bestanden bekijken</title>
+	<para>Dit doen we indien nodig, of indien er tijd over is.</para>
+</section>
+
