@@ -1,0 +1,21 @@
+<?hard-pagebreak?>
+<section><title>Red Hat</title>
+<para>Red Hat is a billion dollar commercial Linux company that puts a lot of effort in developing Linux. They have hundreds of Linux specialists and are know for their execellent support. They give their products (Red Hat Enterprise Linux and Fedora) away for free. Where <command>Red Hat Enterprise Linux</command><indexterm><primary>Red Hat</primary></indexterm> (RHEL) is well tested before release and supported for up to seven years after release, <command>Fedora</command><indexterm><primary>Fedora</primary></indexterm> is a distro with faster updates but without support.</para>
+</section>
+<section><title>Ubuntu</title>
+<para>Canonical started sending out free compact disc with <command>Ubuntu</command><indexterm><primary>Ubuntu</primary></indexterm> Linux in 2004 and quickly became popular for home users (many switching from Microsoft Windows). Canonical wants Ubuntu to be an easy to use graphical Linux desktop where there is no need to ever see a command line. Of course they also want to make a profit by selling support for Ubuntu.</para>
+</section>
+<section><title>Debian</title>
+<para>There is no company behind <command>Debian</command><indexterm><primary>Debian</primary></indexterm>, instead there are thousands of well organized developers that elect a Debian Project Leader every two years. Debian is seen as one of the most stable Linux distributions. It is also the basis for every release of Ubuntu. Debian comes in three versions: stable, testing and unstable. Every Debian release is named after a character in the movie Toy Story.</para>
+</section>
+<section><title>other</title>
+<para>Distributians like CentOS<indexterm><primary>CentOS</primary></indexterm>, Oracle Enterprise Linux<indexterm><primary>OEL</primary></indexterm> <indexterm><primary>Oracle Enterprise Linux</primary></indexterm>and Scientific Linux<indexterm><primary>Scientific</primary></indexterm> are based on Red hat Enterprise Linux and share many of the same principles, directories and system administration techniques. Linux Mint<indexterm><primary>Linux Mint</primary></indexterm>, Edubuntu<indexterm><primary>Edubuntu</primary></indexterm> and many other *buntu named distributions are based on Ubuntu and thus share a lot with Debian. There are hundreds of other Linux distributions.</para>
+</section>
+<section><title>What to choose ?</title>
+<para>When you are new to Linux in 2012 go for the latest Ubuntu or Fedora. If you only want to practice the Linux command line then install one Ubuntu server and/or one CentOS server (without graphical interface).</para>
+<screen>redhat.com
+ubuntu.com
+debian.org
+centos.org
+distrowatch.com</screen>
+</section>
