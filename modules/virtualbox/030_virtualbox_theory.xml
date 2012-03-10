@@ -1,0 +1,82 @@
+<?hard-pagebreak?>
+<section><title>download a Linux CD image</title>
+	<para>Start by downloading a Linux CD image (an .ISO file) from the distribution of your choice from the internet. Take care about the cpu architecture of your computer, choose <command>i386</command> if unsure. Choosing the wrong cpu type (like x86_64 when you have an old Pentium) will almost immediately fail to boot the CD.</para>
+	<para></para>
+	<mediaobject><imageobject><imagedata fileref="images/vm1_download.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+</section>
+<section><title>download Virtualbox</title>
+	<para>Step two (when the .ISO file has finished downloading) is to download Virtualbox. If you are running Microsoft Windows now, then download and install Virtualbox for Windows!</para>
+	<para></para>
+	<mediaobject><imageobject><imagedata fileref="images/vm2_download.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+</section>
+<?hard-pagebreak?>
+<section><title>create a virtual machine</title>
+	<para>Now start Virtualbox. Contrary to the screenshot below, your left pane should still be empty.</para>
+	<para></para>
+	<mediaobject><imageobject><imagedata fileref="images/vm3_virtualbox.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>Click <command>New</command> to create a new virtual machine. We will walk together through the wizard. The screenshots below are taken on Mac OSX, so they will be a bit different if you have Microsoft Windows.</para>
+	<para></para>
+	<mediaobject><imageobject><imagedata fileref="images/vm_wizard1.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+<?hard-pagebreak?>
+	<para>Name your virtual machine (and maybe select 32-bit or 64-bit).</para>
+	<para></para>
+	<mediaobject><imageobject><imagedata fileref="images/vm_wizard2.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para></para>
+	<para>Give the virtual machine some memory (512MB if you have 2GB or more, otherwise select 256MB).</para>
+	<para></para>
+	<mediaobject><imageobject><imagedata fileref="images/vm_wizard3.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+<?hard-pagebreak?>
+	<para>Select to create a new disk (remember it is a virtual disk).</para>
+	<para></para>
+	<mediaobject><imageobject><imagedata fileref="images/vm_wizard4.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para></para>
+	<para>If you get the question below, choose vdi.</para>
+	<para></para>
+	<mediaobject><imageobject><imagedata fileref="images/vm_wizard5.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+<?hard-pagebreak?>
+	<para>Choose <command>dynamically allocated</command> (fixed size is only useful in production or on really old slow hardware).</para>
+	<para></para>
+	<mediaobject><imageobject><imagedata fileref="images/vm_wizard6.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para></para>
+	<para>Choose 10GB to 16GB as disk size.</para>
+	<para></para>
+	<mediaobject><imageobject><imagedata fileref="images/vm_wizard7.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+<?hard-pagebreak?>
+	<para>Click <command>create</command> to create the virtual disk.</para>
+	<para></para>
+	<mediaobject><imageobject><imagedata fileref="images/vm_wizard8.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para></para>
+	<para>Click <command>create</command> to create the virtual machine.</para>
+	<para></para>
+	<mediaobject><imageobject><imagedata fileref="images/vm_wizard9.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+</section>
+<?hard-pagebreak?>
+<section><title>attach the CD image</title>
+	<para>Before we start the virtual computer, let us take a look at some setttings (click <command>Settings</command>).</para>
+	<para></para>
+	<mediaobject><imageobject><imagedata fileref="images/vm_settings1.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para></para>
+	<para>Do not worry if your screen looks different, just find the button named <command>storage</command>.</para>
+	<para></para>
+	<mediaobject><imageobject><imagedata fileref="images/vm_settings2.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+<?hard-pagebreak?>
+	<para>Remember the .ISO file you downloaded ? Connect this .ISO file to this virtual machine by clicking on the CD icon next to <command>Empty</command>.</para>
+	<para></para>
+	<mediaobject><imageobject><imagedata fileref="images/vm_settings4.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para></para>
+	<para>Now click on the other CD icon and attach your ISO file to this virtual CD drive.</para>
+	<para></para>
+	<mediaobject><imageobject><imagedata fileref="images/vm_settings5.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+<?hard-pagebreak?>
+	<para>Verify that your download is accepted. If Virtualbox complains at this point, then you probably did not finish the download of the CD (download again).</para>
+	<para></para>
+	<mediaobject><imageobject><imagedata fileref="images/vm_settings6.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para></para>
+	<para>It could be useful to set the network adapter to bridge instead of NAT. Bridged usually will connect your virtual computer to the internet.</para>
+	<para></para>
+	<mediaobject><imageobject><imagedata fileref="images/vm_settings7.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+</section>
+<?hard-pagebreak?>
+<section><title>install Linux</title>
+	<para>The virtual machine is now ready to start. When given a choice at boot, select <command>install</command> and follow the instructions on the screen. When the installation is finished, you can log on to the machine and start practicing Linux!</para>
+</section>
