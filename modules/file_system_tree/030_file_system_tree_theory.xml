@@ -17,7 +17,7 @@ boot  etc  lib   misc   opt  root  selinux  sys  tmp       var
 <section><title>binary directories</title>
 	<para><command>Binaries</command> are files that contain compiled source code (or machine code). Binaries can be <command>executed</command> on the computer. Sometimes binaries are called <command>executables</command><indexterm><primary>executables</primary></indexterm>.</para>
 	<section><title>/bin</title>
-		<para>The <command>/bin</command><indexterm><primary>/bin</primary></indexterm> directory contains <command>binaries</command> for use by all users. According to the FHS the <command>/bin</command> directory should contain <command>/bin/cat</command> and <command>/bin/date</command> (among others).</para>
+		<para>The <command>/bin</command><indexterm><primary>/bin</primary></indexterm> directory contains <command>binaries</command><indexterm><primary>binaries</primary></indexterm> for use by all users. According to the FHS the <command>/bin</command> directory should contain <command>/bin/cat</command><indexterm><primary>/bin/cat</primary></indexterm> and <command>/bin/date</command><indexterm><primary>/bin/date</primary></indexterm> (among others).</para>
 		<para>In the screenshot below you see common Unix/Linux commands like cat, cp, cpio, date, dd, echo, grep, and so on. Many of these will be covered in this book.</para>
 		<screen>
 paul@laika:~$ ls /bin
@@ -41,11 +41,11 @@ cat              kill              pidof            umount
 		</screen>
 	</section>
 	<section><title>other /bin directories</title>
-		<para>You can find a <command>/bin subdirectory</command> in many other directories. A user named <command>Serena</command> could put her own programs in <command>/home/serena/bin</command>.</para>
+		<para>You can find a <command>/bin subdirectory</command> in many other directories. A user named <command>serena</command> could put her own programs in <command>/home/serena/bin</command>.</para>
 		<para>Some applications, often when installed directly from source will put themselves in <command>/opt</command>. A <command>samba server</command> installation can use <command>/opt/samba/bin</command> to store its binaries.</para>
 	</section>
 	<section><title>/sbin</title>
-		<para><command>/sbin</command><indexterm><primary>/sbin</primary></indexterm> contains binaries to configure the operating system. Many of the <command>system binaries</command> require <command>root</command> privilege to perform certain tasks.</para>
+		<para><command>/sbin</command><indexterm><primary>/sbin</primary></indexterm> contains binaries to configure the operating system. Many of the <command>system binaries</command> require <command>root</command><indexterm><primary>root</primary></indexterm> privilege to perform certain tasks.</para>
 		<para>Below a screenshot containing <command>system binaries</command> to change the ip address, partition a disk and create an ext4 file system.</para>
 		<screen>
 paul@ubu1010:~$ ls -l /sbin/ifconfig /sbin/fdisk /sbin/mkfs.ext4
@@ -64,7 +64,7 @@ paul@laika:~$ ls /lib/libc*
 /lib/libcfont.so.0   /lib/libcom_err.so.2    /lib/libcrypt-2.5.so      
 		</screen>
 		<section><title>/lib/modules</title>
-			<para>Typically, the <command>Linux kernel</command> loads kernel modules from <command>/lib/modules/$kernel-version/</command><indexterm><primary>/lib/modules</primary></indexterm>. This directory is discussed in detail in the Linux kernel chapter.</para>
+			<para>Typically, the <command>Linux kernel</command><indexterm><primary>kernel</primary></indexterm> loads kernel modules from <command>/lib/modules/$kernel-version/</command><indexterm><primary>/lib/modules</primary></indexterm>. This directory is discussed in detail in the Linux kernel chapter.</para>
 		</section>
 		<section><title>/lib32 and /lib64</title>
 			<para>We currently are in a transition between <command>32-bit</command> and <command>64-bit</command> systems. Therefore, you may encounter directories named <command>/lib32</command><indexterm><primary>/lib32</primary></indexterm> and <command>/lib64</command><indexterm><primary>/lib64</primary></indexterm> which clarify the register size used during compilation time of the libraries. A 64-bit computer may have some 32-bit binaries and libraries for compatibility with legacy applications. This screenshot uses the <command>file</command><indexterm><primary>file(1)</primary></indexterm> utility to demonstrate the difference.</para>
