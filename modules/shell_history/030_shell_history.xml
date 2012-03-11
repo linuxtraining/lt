@@ -1,6 +1,6 @@
 <?hard-pagebreak?>
 <section><title>repeating the last command</title>
-	<para>To repeat the last command in bash, type <command>!!</command><indexterm><primary>!!</primary></indexterm>. This is pronounced as <command>bang bang</command>.</para>
+	<para>To repeat the last command in bash, type <command>!!</command><indexterm><primary>!! (shell)</primary></indexterm>. This is pronounced as <command>bang bang</command>.</para>
 	<screen>paul@debian5:~/test42$ echo this will be repeated > file42.txt
 paul@debian5:~/test42$ !!
 echo this will be repeated > file42.txt
@@ -15,7 +15,7 @@ touch file42
 paul@debian5:~/test42$</screen>
 </section>
 <section><title>history</title>
-	<para>To see older commands, use <command>history</command><indexterm><primary>history</primary></indexterm> to display the shell command history (or use <command>history n</command> to see the last n commands).</para>
+	<para>To see older commands, use <command>history</command><indexterm><primary>bash history</primary></indexterm> to display the shell command history (or use <command>history n</command> to see the last n commands).</para>
 		<screen>paul@debian5:~/test$ history 10
 38  mkdir test
 39  cd test
@@ -29,13 +29,13 @@ paul@debian5:~/test42$</screen>
 47  history 10</screen>
 </section>
 <section><title>!n</title>
-	<para>When typing <command>!</command><indexterm><primary>!</primary></indexterm> followed by the number preceding the command you want repeated, then the shell will echo the command and execute it.</para>
+	<para>When typing <command>!</command><indexterm><primary>! (bash history)</primary></indexterm> followed by the number preceding the command you want repeated, then the shell will echo the command and execute it.</para>
 	<screen>paul@debian5:~/test$ !43
 ls
 file1  file2  summer.txt  winter.txt</screen>
 </section>
 <section><title>Ctrl-r</title>
-	<para>Another option is to use <command>Ctrl-r</command> to search in the history. In the screenshot below i only typed <command>Ctrl-r</command> followed by four characters <command>apti</command> and it finds the last command containing these four consecutive characters.</para>
+	<para>Another option is to use <command>ctrl-r</command><indexterm><primary>ctrl-r</primary></indexterm> to search in the history. In the screenshot below i only typed <command>ctrl-r</command> followed by four characters <command>apti</command> and it finds the last command containing these four consecutive characters.</para>
 	<screen>paul@debian5:~$ 
 (reverse-i-search)`apti': sudo aptitude install screen</screen>
 </section>
@@ -49,11 +49,11 @@ paul@debian5:~$ echo $HISTSIZE
 15000</screen>
 </section>
 <section><title>$HISTFILE</title>
-	<para>The $HISTFILE<indexterm><primary>$HISTFILE</primary></indexterm> variable points to the file that contains your history. The <command>bash</command> shell defaults this value to <command>~/.bash_history</command>.</para>
+	<para>The $HISTFILE<indexterm><primary>$HISTFILE</primary></indexterm> variable points to the file that contains your history. The <command>bash</command> shell defaults this value to <command>~/.bash_history</command><indexterm><primary>.bash_history</primary></indexterm>.</para>
 	<screen>paul@debian5:~$ echo $HISTFILE
 /home/paul/.bash_history</screen>
-	<para>A session history is saved to this file when you <command>exit</command> the session!</para>
-	<para><emphasis>Closing a gnome-terminal with the mouse, or typing <command>reboot</command> as root will NOT save your terminal's history.</emphasis></para>
+	<para>A session history is saved to this file when you <command>exit</command><indexterm><primary>exit (bash)</primary></indexterm> the session!</para>
+	<para><emphasis>Closing a gnome-terminal with the mouse, or typing <command>reboot</command><indexterm><primary>reboot</primary></indexterm> as root will NOT save your terminal's history.</emphasis></para>
 </section>
 <section><title>$HISTFILESIZE</title>
 	<para>The number of commands kept in your history file can be set using $HISTFILESIZE<indexterm><primary>$HISTFILESIZE</primary></indexterm>.</para>
@@ -61,7 +61,7 @@ paul@debian5:~$ echo $HISTSIZE
 15000</screen>
 </section>
 <section><title>(optional)regular expressions</title>
-	<para>It is possible to use <command>regular expressions</command> when using the <command>bang</command> to repeat commands. The screenshot below switches 1 into 2.</para>
+	<para>It is possible to use <command>regular expressions</command><indexterm><primary>regular expressions</primary></indexterm> when using the <command>bang</command> to repeat commands. The screenshot below switches 1 into 2.</para>
 	<screen>paul@deianb5:~/test$ cat file1
 paul@debian5:~/test$ !c:s/1/2
 cat file2
@@ -70,8 +70,7 @@ paul@debian5:~/test$</screen>
 </section>
 <?hard-pagebreak?>
 <section><title>(optional)repeating commands in ksh</title>
-	<para><emphasis>(just in case you end up on an AIX or Solaris computer that does not have <command>bash</command> installed)</emphasis></para>
-	<para>Repeating a command in the <command>Korn shell</command> is very similar. The Korn shell also has the <command>history</command> command, but uses the letter <command>r</command> to recall lines from history.</para>
+	<para>Repeating a command in the <command>Korn shell</command><indexterm><primary>Korn shell</primary></indexterm> is very similar. The Korn shell <indexterm><primary>ksh</primary></indexterm> also has the <command>history</command> command, but uses the letter <command>r</command> to recall lines from history.</para>
 	<para>This screenshot shows the history command. Note the different meaning of the parameter.</para>
 	<screen>$ history 17
 17  clear
