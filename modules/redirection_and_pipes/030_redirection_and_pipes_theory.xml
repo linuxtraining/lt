@@ -100,7 +100,7 @@ ZZO
 		</screen>
 	</section>
 	<section><title>&#060;&#060; here document</title>
-		<para>The <command>here document</command> (sometimes called here-is-document) is a way to append input until a certain sequence (usually EOF) is encountered. The <command>EOF</command><indexterm><primary>EOF</primary></indexterm> marker can be typed literally or can be called with Ctrl-D.</para>
+		<para>The <command>here document</command><indexterm><primary>here document</primary></indexterm> (sometimes called here-is-document) is a way to append input until a certain sequence (usually EOF) is encountered. The <command>EOF</command><indexterm><primary>EOF</primary></indexterm> marker can be typed literally or can be called with Ctrl-D.</para>
 		<screen>
 [paul@RHEL4b ~]$ cat &#060;&#060;EOF &#062; text.txt
 > one
@@ -116,6 +116,14 @@ two
 brel
 [paul@RHEL4b ~]$
 		</screen>
+	</section>
+	<section><title>&#060;&#060;&#060; here string</title>
+		<para>The <command>here string</command><indexterm><primary>here string</primary></indexterm> can be used to directly pass strings to a command. The result is the same as using <command>echo string | command</command> (but you have one less process running).</para>
+		<screen>paul@mac~$ base64 &#060;&#060;&#060; linux-training.be
+bGludXgtdHJhaW5pbmcuYmUK
+paul@mac~$ base64 -d &#060;&#060;&#060; bGludXgtdHJhaW5pbmcuYmUK
+linux-training.be</screen>
+		<para>See rfc 3548 for more information about <command>base64</command></command><indexterm><primary>base64</primary></indexterm>.</para>
 	</section>
 </section>
 <section><title>confusing redirection</title>
