@@ -78,14 +78,14 @@ It failed!
 paul@laika:~/test$</screen>
 </section>
 <section><title># pound sign</title>
-	<para>Everything written after a <command>pound sign</command> (#) is ignored by the shell. This is useful to write a <command>shell comment</command><indexterm><primary>shell comment</primary></indexterm>, but has no influence on the command execution or shell expansion.</para>
+	<para>Everything written after a <command>pound sign</command><indexterm><primary># (pound sign)</primary></indexterm> (#) is ignored by the shell. This is useful to write a <command>shell comment</command><indexterm><primary>shell comment</primary></indexterm>, but has no influence on the command execution or shell expansion.</para>
 	<screen>paul@debian4:~$ mkdir test    # we create a directory
 paul@debian4:~$ cd test       #### we enter the directory
 paul@debian4:~/test$ ls       # is it empty ?
 paul@debian4:~/test$</screen>
 </section>
 <section><title>\ escaping special characters</title>
-	<para>The backslash <command>\</command><indexterm><primary>\</primary></indexterm> character enables the use of control characters, but without the shell interpreting it, this is called <command>escaping</command><indexterm><primary>shell escaping</primary></indexterm> characters.</para>
+	<para>The backslash <command>\</command><indexterm><primary>\ (backslash)</primary></indexterm> character enables the use of control characters, but without the shell interpreting it, this is called <command>escaping</command><indexterm><primary>shell escaping</primary></indexterm> characters.</para>
 	<screen>[paul@RHELv4u3 ~]$ echo hello \; world
 hello ; world
 [paul@RHELv4u3 ~]$ echo hello\ \ \ world
