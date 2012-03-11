@@ -9,7 +9,7 @@ Smurfs are blue</screen>
 <section><title>arguments</title>
 	<para>One of the primary features of a shell is to perform a <command>command line scan</command><indexterm><primary>command line scan</primary></indexterm>. When you enter a command at the shell's command prompt and press the enter key, then the shell will start scanning that line, cutting it up in <command>arguments</command>. While scanning the line, the shell may make many changes to the <command>arguments</command> you typed. This process is called <command>shell expansion</command><indexterm><primary>shell expansion</primary></indexterm>. When the shell has finished scanning and modifying that line, then it will be executed.</para>
 	<section><title>white space removal</title>
-		<para>Parts that are separated by one or more consecutive <command>white spaces</command> (or tabs) are considered separate <command>arguments</command>, any white space is removed. The first <command>argument</command> is the command to be executed, the other <command>arguments</command> are given to the command. The shell effectively cuts your command into one or more arguments.</para>
+		<para>Parts that are separated by one or more consecutive <command>white spaces</command><indexterm><primary>white space(shell)</primary></indexterm> (or tabs) are considered separate <command>arguments</command>, any white space is removed. The first <command>argument</command><indexterm><primary>arguments(shell)</primary></indexterm> is the command to be executed, the other <command>arguments</command> are given to the command. The shell effectively cuts your command into one or more arguments.</para>
 		<para>This explains why the following four different command lines are the same after <command>shell expansion</command><indexterm><primary>shell expansion</primary></indexterm>.</para>
 		<screen>[paul@RHELv4u3 ~]$ echo Hello World
 Hello World
@@ -19,7 +19,7 @@ Hello World
 Hello World
 [paul@RHELv4u3 ~]$    echo      Hello      World
 Hello World</screen>
-		<para>The <command>echo</command> command will display each argument it receives from the shell. The <command>echo</command> command will also add a new white space between the arguments it received.</para>
+		<para>The <command>echo</command><indexterm><primary>echo</primary></indexterm> command will display each argument it receives from the shell. The <command>echo</command> command will also add a new white space between the arguments it received.</para>
 	</section>
 	<section><title>single quotes</title>
 		<para>You can prevent the removal of white spaces by quoting the spaces. The contents of the quoted string are considered as one argument. In the screenshot below the <command>echo</command> receives only one <command>argument</command>.</para>
@@ -30,7 +30,7 @@ A line with      single    quotes
 		</screen>
 	</section>
 	<section><title>double quotes</title>
-		<para>You can also prevent the removal of white spaces by double quoting the spaces. Same as above, <command>echo</command> only receives one <command>argument</command>.</para>
+		<para>You can also prevent the removal of white spaces by double quoting <indexterm><primary>" (double quotes)</primary></indexterm> the spaces. Same as above, <command>echo</command> only receives one <command>argument</command>.</para>
 		<screen>
 [paul@RHEL4b ~]$ echo "A line with      double    quotes"
 A line with      double    quotes
@@ -103,7 +103,7 @@ two
 one</screen>
 	</section>
 	<section><title>abbreviate commands</title>
-		<para>An <command>alias</command><indexterm><primary>alias(bash)</primary></indexterm> can also be useful to abbreviate an existing command.</para>
+		<para>An <command>alias</command><indexterm><primary>alias(shell)</primary></indexterm> can also be useful to abbreviate an existing command.</para>
 		<screen>paul@laika:~$ alias ll='ls -lh --color=auto'
 paul@laika:~$ alias c='clear'
 paul@laika:~$</screen>
