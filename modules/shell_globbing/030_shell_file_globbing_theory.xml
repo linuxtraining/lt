@@ -30,7 +30,7 @@ File55  Fileab  FileAB
 [paul@RHELv4u3 gen]$</screen>
 </section>
 <section><title>[] square brackets</title>
-	<para>The square bracket <command>[</command><indexterm><primary>[</primary></indexterm> is interpreted by the shell as a sign to generate filenames, matching any of the characters between <command>[</command> and the first subsequent <command>]</command>. The order in this list between the brackets is not important. Each pair of brackets is replaced by exactly one character.</para>
+	<para>The square bracket <command>[</command><indexterm><primary>[ (file globbing)</primary></indexterm> is interpreted by the shell as a sign to generate filenames, matching any of the characters between <command>[</command> and the first subsequent <command>]</command>. The order in this list between the brackets is not important. Each pair of brackets is replaced by exactly one character.</para>
 	<screen>[paul@RHELv4u3 gen]$ ls 
 file1  file2  file3  File4  File55  FileA  fileab  Fileab  FileAB  fileabc
 [paul@RHELv4u3 gen]$ ls File[5A]
@@ -46,7 +46,7 @@ ls: File[a5][5b][abcdefghijklm]: No such file or directory
 [paul@RHELv4u3 gen]$ ls file[a5][5b][abcdefghijklm]
 fileabc
 [paul@RHELv4u3 gen]$</screen>
-	<para>You can also exclude characters from a list between square brackets with the exclamation mark <command>!</command><indexterm><primary>!</primary></indexterm>. And you are allowed to make combinations of these <command>wild cards</command><indexterm><primary>wild cards</primary></indexterm>.</para>
+	<para>You can also exclude characters from a list between square brackets with the exclamation mark <command>!</command><indexterm><primary>! (file globbing)</primary></indexterm>. And you are allowed to make combinations of these <command>wild cards</command><indexterm><primary>wild cards</primary></indexterm>.</para>
 	<screen>[paul@RHELv4u3 gen]$ ls 
 file1  file2  file3  File4  File55  FileA  fileab  Fileab  FileAB  fileabc
 [paul@RHELv4u3 gen]$ ls file[a5][!Z]
@@ -88,7 +88,7 @@ File4
 paul@RHELv4u4:~/test$</screen>
 </section>
 <section><title>preventing file globbing</title>
-	<para>The screenshot below should be no surprise. The <command>echo *</command> will echo a * when in an empty directory. And it will echo the names of all files when the directory is not empty.</para>
+	<para>The screenshot below should be no surprise. The <command>echo *</command><indexterm><primary>echo *</primary></indexterm> will echo a * when in an empty directory. And it will echo the names of all files when the directory is not empty.</para>
 	<screen>paul@ubu1010:~$ mkdir test42
 paul@ubu1010:~$ cd test42
 paul@ubu1010:~/test42$ echo *
@@ -96,7 +96,7 @@ paul@ubu1010:~/test42$ echo *
 paul@ubu1010:~/test42$ touch file42 file33
 paul@ubu1010:~/test42$ echo *
 file33 file42</screen>
-	<para>Globbing can be prevented using quotes or by escaping the special characters, as shown in this screenshot.</para>
+	<para>Globbing can be prevented using quotes or by escaping <indexterm><primary>escaping (shell)</primary></indexterm>the special characters, as shown in this screenshot.</para>
 	<screen>paul@ubu1010:~/test42$ echo *
 file33 file42
 paul@ubu1010:~/test42$ echo \*
