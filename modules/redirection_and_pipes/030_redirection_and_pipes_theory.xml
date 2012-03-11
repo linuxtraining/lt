@@ -119,11 +119,11 @@ brel
 	</section>
 	<section><title>&#060;&#060;&#060; here string</title>
 		<para>The <command>here string</command><indexterm><primary>here string</primary></indexterm> can be used to directly pass strings to a command. The result is the same as using <command>echo string | command</command> (but you have one less process running).</para>
-		<screen>paul@mac~$ base64 &#060;&#060;&#060; linux-training.be
+		<screen>paul@ubu1110~$ base64 &#060;&#060;&#060; linux-training.be
 bGludXgtdHJhaW5pbmcuYmUK
-paul@mac~$ base64 -d &#060;&#060;&#060; bGludXgtdHJhaW5pbmcuYmUK
+paul@ubu1110~$ base64 -d &#060;&#060;&#060; bGludXgtdHJhaW5pbmcuYmUK
 linux-training.be</screen>
-		<para>See rfc 3548 for more information about <command>base64</command></command><indexterm><primary>base64</primary></indexterm>.</para>
+		<para>See rfc 3548 for more information about <command>base64</command><indexterm><primary>base64</primary></indexterm>.</para>
 	</section>
 </section>
 <section><title>confusing redirection</title>
