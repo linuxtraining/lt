@@ -87,7 +87,7 @@ version 1 (SYSV), stripped
 <?hard-pagebreak?>
 <section><title>configuration directories</title>
 	<section><title>/boot</title>
-		<para>The <command>/boot</command><indexterm><primary>/boot</primary></indexterm> directory contains all files needed to boot the computer. These files don't change very often. On Linux systems you typically find the <command>/boot/grub</command><indexterm><primary>/boot/grub</primary></indexterm> directory here. <command>/boot/grub</command> contains <command>/boot/grub/menu.lst</command><indexterm><primary>/boot/grub/menu.lst</primary></indexterm> (the grub configuration file is often linked to <command>/boot/grub/grub.conf</command><indexterm><primary>/boot/grub/grub.conf</primary></indexterm>) which defines the boot menu that is displayed before the kernel starts.</para>
+		<para>The <command>/boot</command><indexterm><primary>/boot</primary></indexterm> directory contains all files needed to boot the computer. These files don't change very often. On Linux systems you typically find the <command>/boot/grub</command><indexterm><primary>/boot/grub</primary></indexterm> directory here. <command>/boot/grub</command> contains <command>/boot/grub/grub.cfg</command><indexterm><primary>/boot/grub/grub.cfg</primary></indexterm> (older systems may still have <command>/boot/grub/grub.conf</command><indexterm><primary>/boot/grub/grub.conf</primary></indexterm>) which defines the boot menu that is displayed before the kernel starts.</para>
 	</section>
 	<section><title>/etc</title>
 		<para>All of the machine-specific <command>configuration files</command> should be located in <command>/etc</command><indexterm><primary>/etc</primary></indexterm>. Historically <command>/etc</command> stood for <command>etcetera</command>, today people often use the <command>Editable Text Configuration</command> backronym.</para>
@@ -162,7 +162,7 @@ paul@ubu606:~$ ls -d /home/paul/.*
 		<para>On many systems <command>/root</command><indexterm><primary>/root</primary></indexterm> is the default location for personal data and profile of the <command>root user</command>. If it does not exist by default, then some administrators create it.</para>
 	</section>
 	<section><title>/srv</title>
-		<para>You may use <command>/srv</command><indexterm><primary>/srv</primary></indexterm> for data that is <command>served by your system</command>. The FHS suggests locating cvs, rsync, ftp and www data in this location. The FHS also approves administrative naming in /srv, like /srv/project55/ftp and /srv/sales/www.</para>
+		<para>You may use <command>/srv</command><indexterm><primary>/srv</primary></indexterm> for data that is <command>served by your system</command>. The FHS allows locating cvs, rsync, ftp and www data in this location. The FHS also approves administrative naming in /srv, like /srv/project55/ftp and /srv/sales/www.</para>
 		<para>On Sun Solaris (or Oracle Solaris) <command>/export</command><indexterm><primary>/export</primary></indexterm> is used for this purpose.</para>
 	</section>
 	<section><title>/media</title>
@@ -437,7 +437,7 @@ cron            maillog   ppp         secure.2         Xorg.0.log
 cron.1          maillog.1 prelink.log secure.3         Xorg.0.log.old</screen>
 	</section>
 	<section><title>/var/log/messages</title>
-		<para>A typical first file to check when troubleshooting is the <command>/var/log/messages</command><indexterm><primary>/var/log/messages</primary></indexterm> file. By default this file will contain information on what just happened to the system.</para>
+		<para>A typical first file to check when troubleshooting on Red Hat (and derivatives) is the <command>/var/log/messages</command><indexterm><primary>/var/log/messages</primary></indexterm> file. By default this file will contain information on what just happened to the system. The file is called <command>/var/log/syslog</command><indexterm><primary>/var/log/syslog</primary></indexterm> on Debian and Ubuntu.</para>
 		<screen>[root@RHEL4b ~]# tail /var/log/messages
 Jul 30 05:13:56 anacron: anacron startup succeeded
 Jul 30 05:13:56 atd: atd startup succeeded
@@ -460,13 +460,12 @@ debconf  fonts                  ldconfig  samba</screen>
 	</section>
 	<section><title>/var/spool</title>
 		<para>The <command>/var/spool</command><indexterm><primary>/var/spool</primary></indexterm> directory typically contains spool directories for <command>mail</command> and <command>cron</command>, but also serves as a parent directory for other spool files (for example print spool files).</para>
-		<para>The <command>Red Hat Update Agent</command><indexterm><primary>Red Hat Update Agent</primary></indexterm> for example uses files in <command>/var/spool/up2date</command><indexterm><primary>/var/spool/up2date</primary></indexterm>. This location is also used when files are downloaded from the <command>Red Hat Network</command><indexterm><primary>Red Hat Network</primary></indexterm>.</para>
 	</section>
 	<section><title>/var/lib</title>
 		<para>The <command>/var/lib</command><indexterm><primary>/var/lib</primary></indexterm> directory contains application state information.</para>
 		<para>Red Hat Enterprise Linux for example keeps files pertaining to <command>rpm</command><indexterm><primary>rpm</primary></indexterm> in <command>/var/lib/rpm/</command><indexterm><primary>/var/lib/rpm</primary></indexterm>.</para>
 	</section>
 	<section><title>/var/...</title>
-		<para><command>/var</command> also contains Process ID files in <command>/var/run</command><indexterm><primary>/var/run</primary></indexterm> and temporary files that survive a reboot in <command>/var/tmp</command><indexterm><primary>/var/tmp</primary></indexterm> and information about file locks in <command>/var/lock</command><indexterm><primary>/var/lock</primary></indexterm>. There will be more examples of <command>/var</command> usage further in this book.</para>
+		<para><command>/var</command> also contains Process ID files in <command>/var/run</command><indexterm><primary>/var/run</primary></indexterm> (soon to be replaced with <command>/run</command><indexterm><primary>/run</primary></indexterm> and temporary files that survive a reboot in <command>/var/tmp</command><indexterm><primary>/var/tmp</primary></indexterm> and information about file locks in <command>/var/lock</command><indexterm><primary>/var/lock</primary></indexterm>. There will be more examples of <command>/var</command> usage further in this book.</para>
 	</section>
 </section>
