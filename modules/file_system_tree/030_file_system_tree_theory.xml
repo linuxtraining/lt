@@ -466,6 +466,6 @@ debconf  fonts                  ldconfig  samba</screen>
 		<para>Red Hat Enterprise Linux for example keeps files pertaining to <command>rpm</command><indexterm><primary>rpm</primary></indexterm> in <command>/var/lib/rpm/</command><indexterm><primary>/var/lib/rpm</primary></indexterm>.</para>
 	</section>
 	<section><title>/var/...</title>
-		<para><command>/var</command> also contains Process ID files in <command>/var/run</command><indexterm><primary>/var/run</primary></indexterm> (soon to be replaced with <command>/run</command><indexterm><primary>/run</primary></indexterm> and temporary files that survive a reboot in <command>/var/tmp</command><indexterm><primary>/var/tmp</primary></indexterm> and information about file locks in <command>/var/lock</command><indexterm><primary>/var/lock</primary></indexterm>. There will be more examples of <command>/var</command> usage further in this book.</para>
+		<para><command>/var</command> also contains Process ID files in <command>/var/run</command><indexterm><primary>/var/run</primary></indexterm> (soon to be replaced with <command>/run</command><indexterm><primary>/run</primary></indexterm>) and temporary files that survive a reboot in <command>/var/tmp</command><indexterm><primary>/var/tmp</primary></indexterm> and information about file locks in <command>/var/lock</command><indexterm><primary>/var/lock</primary></indexterm>. There will be more examples of <command>/var</command> usage further in this book.</para>
 	</section>
 </section>
