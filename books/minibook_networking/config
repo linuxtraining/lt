@@ -17,4 +17,5 @@ add_mod chapter network_binding_bonding #new chapter
 # add_mod chapter ipv4_addressing
 # add_mod chapter classful_subnets # still has parts in Dutch
 # add_mod chapter classless_subnets # still has parts in Dutch
+add_mod chapter nfs
 add_mod chapter network
