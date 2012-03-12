@@ -50,7 +50,7 @@ paul@laika:~$
 six
 seven
 eight</screen>
-	<para>The <command>tail</command> command has other useful options, some of which we will use some of them during this course.</para>
+	<para>The <command>tail</command> command has other useful options, some of which we will use during this course.</para>
 </section>
 <section><title>cat</title>
 	<para>The <command>cat</command><indexterm><primary>cat(1)</primary></indexterm> command is one of the most universal tools. All it does is copy standard input to standard output. In combination with the shell this can be very powerful and diverse. Some examples will give a glimpse into the possibilities. The first example is simple, you can use cat to display a file on the screen. If the file is longer than the screen, it will scroll to the end.</para>
@@ -62,9 +62,9 @@ paul@laika:~$
 	<section><title>concatenate</title>
 		<para><command>cat</command> is short for <command>concatenate</command>. One of the basic uses of cat is to concatenate files into a bigger (or complete) file.</para>
 		<screen>
-paul@laika:~$ echo one > part1
-paul@laika:~$ echo two > part2
-paul@laika:~$ echo three > part3
+paul@laika:~$ echo one &#062; part1
+paul@laika:~$ echo two &#062; part2
+paul@laika:~$ echo three &#062; part3
 paul@laika:~$ cat part1 part2 part3
 one
 two
@@ -73,9 +73,9 @@ paul@laika:~$
 		</screen>
 	</section>
 	<section><title>create files</title>
-		<para>You can use <command>cat</command> to create files with one or more lines of text. Type the command as shown in the screenshot below. Then type one or more lines, finishing each line with the enter key. After the last line, type and hold the Control (Ctrl) key and press d. The <command>Ctrl d</command><indexterm><primary>Ctrl D</primary></indexterm> key combination will send an <command>EOF</command> (End of File) to the running process ending the <command>cat</command> command.</para>
+		<para>You can use <command>cat</command> to create flat text files. Type the <command>cat &#062; winter.txt</command> command as shown in the screenshot below. Then type one or more lines, finishing each line with the enter key. After the last line, type and hold the Control (Ctrl) key and press d. The <command>Ctrl d</command><indexterm><primary>Ctrl D</primary></indexterm> key combination will send an <command>EOF</command> (End of File) to the running process ending the <command>cat</command> command.</para>
 		<screen>
-paul@laika:~/test$ cat > winter.txt
+paul@laika:~/test$ cat &#062; winter.txt
 It is very cold today!
 paul@laika:~/test$ cat winter.txt 
 It is very cold today!
