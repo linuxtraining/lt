@@ -14,6 +14,7 @@ add_mod chapter linux_history
 #add_mod chapter distributions
 add_mod chapter linux_distributions
 add_mod chapter licensing
+add_mod chapter virtualbox
 #add_mod chapter getting_help
 
 add_mod appendix certifications
