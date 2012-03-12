@@ -9,8 +9,6 @@ paul@laika:~$ sudo useradd -m inge
 [sudo] password for paul: 
 paul@laika:~$
 		</screen>
-		<para>Image copied from <command>xkcd.com</command><indexterm><primary>http://xkcd.com</primary></indexterm>.</para>
-        	<mediaobject><imageobject><imagedata fileref="images/sandwich.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
         </section>
 
 	<section><title>setuid on sudo</title>
