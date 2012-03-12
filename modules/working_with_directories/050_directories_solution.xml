@@ -29,7 +29,7 @@
 	<para>14. Create a directory testdir in your home directory.</para>
 	<screen>mkdir &#126;/testdir</screen>	
 	<para>15. Change to the /etc directory, stay here and create a directory newdir in your home directory.</para>
-	<screen>cd /etc ; mkdir &#126;/newdir</screen>	
+	<screen>cd /etc &#59; mkdir &#126;/newdir</screen>	
 	<para>16. Create in one command the directories &#126;/dir1/dir2/dir3 (dir3 is a subdirectory from dir2, and dir2 is a subdirectory from dir1 ).</para>
 	<screen>mkdir -p &#126;/dir1/dir2/dir3</screen>	
 	<para>17. Remove the directory testdir.</para>
