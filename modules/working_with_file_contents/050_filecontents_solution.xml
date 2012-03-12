@@ -5,12 +5,12 @@
 	<para>2. Display the last line of <command>/etc/passwd</command>.</para>
 	<screen>tail -1 /etc/passwd</screen>
 	<para>3. Use cat to create a file named <command>count.txt</command> that looks like this:</para>
-	<screen>One
+	<screen>cat > count.txt
+One
 Two
 Three
 Four
-Five</screen>
-	<screen>cat > count.txt</screen>
+Five (followed by Ctrl-d)</screen>
 	<para>4. Use <command>cp</command> to make a backup of this file to <command>cnt.txt</command>.</para>
 	<screen>cp count.txt cnt.txt</screen>
 	<para>5. Use <command>cat</command> to make a backup of this file to <command>catcnt.txt</command>.</para>
