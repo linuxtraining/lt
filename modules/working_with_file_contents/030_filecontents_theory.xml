@@ -82,7 +82,7 @@ It is very cold today!
 paul@laika:~/test$
 		</screen>
 		<para>The <command>Ctrl d</command><indexterm><primary>Ctrl D</primary></indexterm> key combination will send an <command>EOF</command> (End of File) to the running process ending the <command>cat</command> command.</para>
-		<para>You can choose an end marker for <command>cat</command> with <command>&#060;&#060;</command> as is shown in this screenshot.</para>
+		<para>You can choose an end marker for <command>cat</command> with <command>&#060;&#060;</command> as is shown in this screenshot. This construction is called a <command>here directive</command><indexterm><primary>here directive</primary></indexterm> and will end the <command>cat</command> command.</para>
 		<screen>
 paul@laika:~/test$ cat &#062; hot.txt &#060;&#060;stop
 &#062; It is hot today!
