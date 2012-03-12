@@ -16,46 +16,21 @@ It is very cold!
 </section>
 <section><title>file</title>
 	<para>The <command>file</command><indexterm><primary>file(1)</primary></indexterm> utility determines the file type. Linux does not use extensions to determine the file type. Your editor does not care whether a file ends in .TXT or .DOC. As a system administrator, you should use the <command>file</command> command to determine the file type. Here are some examples on a typical Linux system.</para>
-	<screen>
-paul@laika:~$ file pic33.png 
+	<screen>paul@laika:~$ file pic33.png 
 pic33.png: PNG image data, 3840 x 1200, 8-bit/color RGBA, non-interlaced
 paul@laika:~$ file /etc/passwd
 /etc/passwd: ASCII text
 paul@laika:~$ file HelloWorld.c 
-HelloWorld.c: ASCII C program text
-	</screen>
-	<para>Here's another example of the file utility. It shows different type of binaries on different architectures.</para>
-	<screen>
-# Solaris 9 on Intel
-bash-2.05$ file /bin/date
-/bin/date:      ELF 32-bit LSB executable 80386 Version 1, dynamically \
-linked, stripped
-
-# Ubuntu Linux on AMD64
-paul@laika:~$ file /bin/date 
-/bin/date: ELF 64-bit LSB executable, AMD x86-64, version 1 (SYSV), for\
- GNU/Linux 2.6.0, dynamically linked (uses shared libs), for GNU/Linux \
-2.6.0, stripped
-
-# Debian Sarge on SPARC
-paul@pasha:~$ file /bin/date 
-/bin/date: ELF 32-bit MSB executable, SPARC, version 1 (SYSV), for GNU/\
-Linux 2.4.1, dynamically linked (uses shared libs), for GNU/Linux 2.4.1\
-, stripped
-
-# AIX on RS/6000
-serena@AIX7 /home/serena$ file /bin/date
-/bin/date: executable (RISC System/6000) or object module
-	</screen>
+HelloWorld.c: ASCII C program text</screen>
 	<para>The file command uses a magic file that contains patterns to recognise file types. The magic file is located in <command>/usr/share/file/magic</command><indexterm><primary>magic(5)</primary></indexterm>. Type <command>man 5 magic</command> for more information.</para>
 	<para>It is interesting to point out <command>file -s</command> for special files like those in <command>/dev</command><indexterm><primary>/dev</primary></indexterm> and <command>/proc</command><indexterm><primary>/proc</primary></indexterm>.</para>
-	<screen>root@debian6lt~# file /dev/sda
+	<screen>root@debian6~# file /dev/sda
 /dev/sda: block special
-root@debian6lt~# file -s /dev/sda
+root@debian6~# file -s /dev/sda
 /dev/sda: x86 boot sector; partition 1: ID=0x83, active, starthead...
-root@debian6lt~# file /proc/cpuinfo 
+root@debian6~# file /proc/cpuinfo 
 /proc/cpuinfo: empty
-root@debian6lt~# file -s /proc/cpuinfo 
+root@debian6~# file -s /proc/cpuinfo 
 /proc/cpuinfo: ASCII C++ program text</screen>
 </section>
 <section><title>touch</title>
