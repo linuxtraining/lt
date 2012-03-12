@@ -12,7 +12,7 @@ It is very cold!
 	</screen>
 </section>
 <section><title>everything is a file</title>
-	<para>A <command>directory</command> is a special kind of <command>file</command>, but it is still a <command>file</command>. Even a terminal window (<command>/dev/pts/4</command>) or a hard disk (<command>/dev/sdb</command>) is represented somewhere in the <command>file system</command> as a <command>file</command>. It will become clear throughout this course that everything on Linux is a <command>file</command>.</para>
+	<para>A <command>directory</command> is a special kind of <command>file</command>, but it is still a (case sensitive!) <command>file</command>. Even a terminal window (<command>/dev/pts/4</command>) or a hard disk (<command>/dev/sdb</command>) is represented somewhere in the <command>file system</command> as a <command>file</command>. It will become clear throughout this course that everything on Linux is a <command>file</command>.</para>
 </section>
 <section><title>file</title>
 	<para>The <command>file</command><indexterm><primary>file(1)</primary></indexterm> utility determines the file type. Linux does not use extensions to determine the file type. Your editor does not care whether a file ends in .TXT or .DOC. As a system administrator, you should use the <command>file</command> command to determine the file type. Here are some examples on a typical Linux system.</para>
@@ -48,6 +48,15 @@ serena@AIX7 /home/serena$ file /bin/date
 /bin/date: executable (RISC System/6000) or object module
 	</screen>
 	<para>The file command uses a magic file that contains patterns to recognise file types. The magic file is located in <command>/usr/share/file/magic</command><indexterm><primary>magic(5)</primary></indexterm>. Type <command>man 5 magic</command> for more information.</para>
+	<para>It is interesting to point out <command>file -s</command> for special files like those in <command>/dev</command><indexterm><primary>/dev</primary></indexterm> and <command>/proc</command><indexterm><primary>/proc</primary></indexterm>.</para>
+	<screen>root@debian6lt~# file /dev/sda
+/dev/sda: block special
+root@debian6lt~# file -s /dev/sda
+/dev/sda: x86 boot sector; partition 1: ID=0x83, active, starthead...
+root@debian6lt~# file /proc/cpuinfo 
+/proc/cpuinfo: empty
+root@debian6lt~# file -s /proc/cpuinfo 
+/proc/cpuinfo: ASCII C++ program text</screen>
 </section>
 <section><title>touch</title>
 	<para>One easy way to create a file is with <command>touch</command><indexterm><primary>touch(1)</primary></indexterm>. (We will see many other ways for creating files later in this book.)</para>
@@ -92,7 +101,7 @@ paul@laika:~/Linux$
 		</screen>
 	</section>
 	<section><title>rm -rf</title>
-		<para>By default, rm will not remove non-empty directories. However rm accepts several options that will allow you to remove any directory. The <command>rm -rf</command><indexterm><primary>rm -rf</primary></indexterm> statement is famous because it will erase anything (providing that you have the permissions to do so). When you are logged on as root, be very careful with <command>rm -rf</command> (the <command>f</command> means <command>force</command> and the <command>r</command> means <command>recursive</command>) since being root implies that permissions don't apply to you, so you can literally erase your entire file system by accident.</para>
+		<para>By default, <command>rm -r</command> will not remove non-empty directories. However <command>rm</command> accepts several options that will allow you to remove any directory. The <command>rm -rf</command><indexterm><primary>rm -rf</primary></indexterm> statement is famous because it will erase anything (providing that you have the permissions to do so). When you are logged on as root, be very careful with <command>rm -rf</command> (the <command>f</command> means <command>force</command> and the <command>r</command> means <command>recursive</command>) since being root implies that permissions don't apply to you. You can literally erase your entire file system by accident.</para>
 		<screen>
 paul@laika:~$ ls test
 SinkoDeMayo
