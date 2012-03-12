@@ -73,7 +73,7 @@ paul@laika:~$
 		</screen>
 	</section>
 	<section><title>create files</title>
-		<para>You can use <command>cat</command> to create flat text files. Type the <command>cat &#062; winter.txt</command> command as shown in the screenshot below. Then type one or more lines, finishing each line with the enter key. After the last line, type and hold the Control (Ctrl) key and press d. The <command>Ctrl d</command><indexterm><primary>Ctrl D</primary></indexterm> key combination will send an <command>EOF</command> (End of File) to the running process ending the <command>cat</command> command.</para>
+		<para>You can use <command>cat</command> to create flat text files. Type the <command>cat &#062; winter.txt</command> command as shown in the screenshot below. Then type one or more lines, finishing each line with the enter key. After the last line, type and hold the Control (Ctrl) key and press d.</para>
 		<screen>
 paul@laika:~/test$ cat &#062; winter.txt
 It is very cold today!
@@ -81,7 +81,8 @@ paul@laika:~/test$ cat winter.txt
 It is very cold today!
 paul@laika:~/test$
 		</screen>
-		<para>You can choose this end marker for <command>cat</command> with <command>&#060;&#060;</command> as is shown in this screenshot.</para>
+		<para>The <command>Ctrl d</command><indexterm><primary>Ctrl D</primary></indexterm> key combination will send an <command>EOF</command> (End of File) to the running process ending the <command>cat</command> command.</para>
+		<para>You can choose an end marker for <command>cat</command> with <command>&#060;&#060;</command> as is shown in this screenshot.</para>
 		<screen>
 paul@laika:~/test$ cat &#062; hot.txt &#060;&#060;stop
 &#062; It is hot today!
