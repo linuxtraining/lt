@@ -186,7 +186,7 @@ cdrom  cdrom0  usbdisk</screen>
 			<para>Common hardware such as hard disk devices are represented by device files in <command>/dev</command>. Below a screenshot of SATA device files on a laptop and then IDE attached drives on a desktop. (The detailed meaning of these devices will be discussed later.)</para>
 			<screen>
 #
-# SATA or SCSI
+# SATA or SCSI or USB
 #
 paul@laika:~$ ls /dev/sd*
 /dev/sda  /dev/sda1  /dev/sda2  /dev/sda3  /dev/sdb  /dev/sdb1  /dev/sdb2
