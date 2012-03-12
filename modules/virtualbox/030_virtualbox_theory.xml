@@ -1,6 +1,6 @@
 <?hard-pagebreak?>
 <section><title>download a Linux CD image</title>
-	<para>Start by downloading a Linux CD image (an .ISO file) from the distribution of your choice from the internet. Take care about the cpu architecture of your computer, choose <command>i386</command> if unsure. Choosing the wrong cpu type (like x86_64 when you have an old Pentium) will almost immediately fail to boot the CD.</para>
+	<para>Start by downloading a Linux CD image (an .ISO file) from the distribution of your choice from the Internet. Take care about the cpu architecture of your computer, choose <command>i386</command> if unsure. Choosing the wrong cpu type (like x86_64 when you have an old Pentium) will almost immediately fail to boot the CD.</para>
 	<para></para>
 	<mediaobject><imageobject><imagedata fileref="images/vm1_download.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 </section>
@@ -52,7 +52,7 @@
 </section>
 <?hard-pagebreak?>
 <section><title>attach the CD image</title>
-	<para>Before we start the virtual computer, let us take a look at some setttings (click <command>Settings</command>).</para>
+	<para>Before we start the virtual computer, let us take a look at some settings (click <command>Settings</command>).</para>
 	<para></para>
 	<mediaobject><imageobject><imagedata fileref="images/vm_settings1.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 	<para></para>
@@ -72,11 +72,11 @@
 	<para></para>
 	<mediaobject><imageobject><imagedata fileref="images/vm_settings6.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 	<para></para>
-	<para>It could be useful to set the network adapter to bridge instead of NAT. Bridged usually will connect your virtual computer to the internet.</para>
+	<para>It could be useful to set the network adapter to bridge instead of NAT. Bridged usually will connect your virtual computer to the Internet.</para>
 	<para></para>
 	<mediaobject><imageobject><imagedata fileref="images/vm_settings7.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 </section>
 <?hard-pagebreak?>
 <section><title>install Linux</title>
-	<para>The virtual machine is now ready to start. When given a choice at boot, select <command>install</command> and follow the instructions on the screen. When the installation is finished, you can log on to the machine and start practicing Linux!</para>
+	<para>The virtual machine is now ready to start. When given a choice at boot, select <command>install</command> and follow the instructions on the screen. When the installation is finished, you can log on to the machine and start practising Linux!</para>
 </section>
