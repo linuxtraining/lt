@@ -1,0 +1,2 @@
+<para>The <command>network file system</command><indexterm><primary>network file system</primary></indexterm> (or simply <command>nfs</command>) enables us since the eighties to share a directory with other computers on the network.</para>
+<para>In this chapter we see how to setup an <command>nfs</command><indexterm><primary>nfs</primary></indexterm> server and and <command>nfs</command> client computer.</para>
