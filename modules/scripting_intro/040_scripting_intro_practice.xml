@@ -8,5 +8,4 @@
 	<para>5. The previous script does not influence your current shell (the variables do not exist outside of the script). Now run the script so that it influences your current shell.</para>
 	<para>6. Is there a shorter way to <command>source</command> the script ?</para>
 	<para>7. Comment your scripts so that you know what they are doing.</para>
-	<mediaobject><imageobject><imagedata fileref="images/command_line_fu.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>	
 </section>
