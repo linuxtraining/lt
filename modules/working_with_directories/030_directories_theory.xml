@@ -125,7 +125,7 @@ paul@pasha:~$
 			</screen>
 		</section>
 		<section><title>ls -l</title>
-			<para>Many times you will be using options with ls to display the contents of the directory in different formats or to display different parts of the directory. Typing just <command>ls</command> gives you a list of files in the directory. Typing <command>ls -l</command><indexterm><primary>ls(1)</primary></indexterm> (that is a letter L, not the number 1) gives you a long listing (more information on the contents).</para>
+			<para>Many times you will be using options with <command>ls</command> to display the contents of the directory in different formats or to display different parts of the directory. Typing just <command>ls</command> gives you a list of files in the directory. Typing <command>ls -l</command><indexterm><primary>ls(1)</primary></indexterm> (that is a letter L, not the number 1) gives you a long listing.</para>
 			<screen>
 paul@pasha:~$ ls -l
 total 23992
