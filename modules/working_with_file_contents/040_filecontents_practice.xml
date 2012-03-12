@@ -15,5 +15,6 @@ Five</screen>
 	<para>8. Display the readable character strings from the <command>/usr/bin/passwd</command> command.</para>
 	<para>9. Use <command>ls</command> to find the biggest file in <command>/etc</command>.</para>
 	<para>10. Open two terminal windows (or tabs) and make sure you are in the same directory in both. Type <command>echo this is the first line > tailing.txt</command> in the first terminal, then issue <command>tail -f tailing.txt</command> in the second terminal. Now go back to the first terminal and type <command>echo This is another line >> tailing.txt</command> (note the double >>), verify that the <command>tail -f</command> in the second terminal shows both lines. Stop the <command>tail -f</command> with <command>Ctrl-C</command>.</para>
-	<para>11. Use <command>cat</command> to create a file named <command>tailing.txt</command> that contains the contents of <command>tailing.txt</command> and <command>/etc/passwd</command>.</para>
+	<para>11. Use <command>cat</command> to create a file named <command>tailing.txt</command> that contains the contents of <command>tailing.txt</command> followed by the contents of <command>/etc/passwd</command>.</para>
+	<para>12. Use <command>cat</command> to create a file named <command>tailing.txt</command> that contains the contents of <command>tailing.txt</command> preceded by the contents of <command>/etc/passwd</command>.</para>
 </section>
