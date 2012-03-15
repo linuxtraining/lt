@@ -27,6 +27,7 @@ echo -n hello
 echo a Korn subshell `echo -n hello`
 		</screen>
 	</section>
+<?hard-pagebreak?>
 	<section><title>comment</title>
 		<para>Let's expand our example a little further by adding comment lines.</para>
 		<screen>#!/bin/bash
@@ -70,6 +71,7 @@ var1 = 4
 [paul@RHEL4a ~]$ 
 		</screen>
 	</section>
+<?hard-pagebreak?>
 	<section><title>troubleshooting a script</title>
 	<para>Another way to run a script in a separate shell is by typing <command>bash</command> with the name of the script as a parameter.</para>
 	<screen>paul@debian6~/test$ bash runme
