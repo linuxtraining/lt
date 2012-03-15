@@ -68,6 +68,7 @@ serena@deb503:~$ ls -l .bashrc
 -rw-r--r-- 1 serena serena 3116 2008-05-12 21:02 .bashrc
 		</screen>
 	</section>
+<?hard-pagebreak?>
 	<section><title>~/.bash_logout</title>
 		<para>When exiting <command>bash</command>, it can execute <command>~/.bash_logout</command><indexterm><primary>.bash_logout</primary></indexterm>. Debian and Red Hat both use this opportunity to clear the screen.</para>
 		<screen>
