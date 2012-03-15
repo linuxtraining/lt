@@ -297,8 +297,7 @@ Sweet</screen>
 	</section>
 	<section><title>od</title>
 		<para>European humans like to work with ascii characters, but computers store files in bytes. The example below creates a simple file, and then uses <command>od</command><indexterm><primary>od(1)</primary></indexterm> to show the contents of the file in hexadecimal bytes, in octal bytes and in ascii (or backslashed) characters.</para>
-	<screen>
-paul@laika:~/test$ cat > text.txt
+	<screen>paul@laika:~/test$ cat > text.txt
 abcdefg
 1234567
 paul@laika:~/test$ od -t x1 text.txt 
@@ -310,11 +309,10 @@ paul@laika:~/test$ od -b text.txt
 paul@laika:~/test$ od -c text.txt 
 0000000   a   b   c   d   e   f   g  \n   1   2   3   4   5   6   7  \n
 0000020
-paul@laika:~/test$
-	</screen>
+paul@laika:~/test$</screen>
 	</section>
 	<section><title>sed</title>
-		<para>The <command>s</command>tream <command>ed</command>itor <command>sed</command> can perform editing functions in the stream, using <command>regular expressions</command>.</para>
+		<para>The <command>s</command>tream <command>ed</command>itor <command>sed</command><indexterm><primary>sed</primary></indexterm> can perform editing functions in the stream, using <command>regular expressions</command>.</para>
 		<screen>
 paul@debian5:~/pipes$ echo level5 | sed 's/5/42/'
 level42
@@ -344,7 +342,7 @@ Serena williams, USA</screen>
 	</section>
 <section><title>pipe examples</title>
 	<section><title>who | wc</title>
-		<para>How many users are logged on to this system ?</para>
+		<para>How many users are logged <indexterm><primary>who</primary></indexterm> on to this system ?</para>
 		<screen>[paul@RHEL4b pipes]$ who
 root     tty1         Jul 25 10:50
 paul     pts/0        Jul 25 09:29 (laika)
@@ -354,20 +352,20 @@ paul     pts/2        Jul 25 12:26 (pasha)
 4</screen>
 	</section>
 	<section><title>who | cut | sort</title>
-		<para>Display a sorted list of logged on users.</para>
+		<para>Display a sorted <indexterm><primary>sort</primary></indexterm> list of logged on users.</para>
 		<screen>[paul@RHEL4b pipes]$ who | cut -d' ' -f1 | sort
 Harry
 paul
 paul
 root</screen>
-		<para>Display a sorted list of logged on users, but every user only once.</para>
+		<para>Display a sorted list of logged on users<indexterm><primary>cut</primary></indexterm>, but every user only once <indexterm><primary>uniq</primary></indexterm>.</para>
 		<screen>[paul@RHEL4b pipes]$ who | cut -d' ' -f1 | sort | uniq
 Harry
 paul
 root</screen>
 	</section>
 	<section><title>grep | cut</title>
-		<para>Display a list of all bash user accounts on this computer. Users accounts are explained in detail later.</para>
+		<para>Display a list of all bash <command>user accounts</command><indexterm><primary>/etc/passwd</primary></indexterm> on this computer. Users accounts are explained in detail later.</para>
 		<screen>paul@debian5:~$ grep bash /etc/passwd
 root:x:0:0:root:/root:/bin/bash
 paul:x:1000:1000:paul,,,:/home/paul:/bin/bash
