@@ -13,7 +13,7 @@
 true
 [paul@RHEL4b ~]$ test 6 -gt 55 &#038;&#038; echo true || echo false
 false</screen>
-		<para>The test command can also be written as square brackets, the screenshot below is identical to the one above.</para>
+		<para>The test command can also be written as square brackets<indexterm><primary>[ (shell)</primary></indexterm>, the screenshot below is identical to the one above.</para>
 		<screen>[paul@RHEL4b ~]$ [ 56 -gt 55 ] &#038;&#038; echo true || echo false
 true
 [paul@RHEL4b ~]$ [ 6 -gt 55 ] &#038;&#038; echo true || echo false
@@ -55,7 +55,7 @@ isit.txt exists!
 [paul@RHEL4a scripts]$</screen>
 	</section>
 	<section><title>if then elif</title>
-	<para>You can nest a new <command>if</command> inside an <command>else</command> with <command>elif</command>. This is a simple example.</para>
+	<para>You can nest a new <command>if</command> inside an <command>else</command> with <command>elif</command><indexterm><primary>elif</primary></indexterm>. This is a simple example.</para>
 <screen>#!/bin/bash
 count=42
 if [ $count -eq 42 ]
@@ -69,7 +69,7 @@ else
 fi</screen>
 	</section>
 	<section><title>for loop</title>
-		<para>The example below shows the syntax of a classical <command>for loop</command><indexterm><primary>for loop (bash)</primary></indexterm> in bash.</para>
+		<para>The example below shows the syntax of a classical <command>for loop</command><indexterm><primary>for (bash)</primary></indexterm> in bash.</para>
 		<screen>for i in 1 2 4
 do
    echo $i
@@ -96,7 +96,7 @@ kahlan@solexp11$ ls
 count.ksh  count.ksh.backup  go.ksh  go.ksh.backup </screen>
 	</section>
 	<section><title>while loop</title>
-		<para>Below a simple example of a <command>while loop</command><indexterm><primary>while loop (bash)</primary></indexterm>.</para>
+		<para>Below a simple example of a <command>while loop</command><indexterm><primary>while (bash)</primary></indexterm>.</para>
 		<screen>i=100;
 while [ $i -ge 0 ] ;
 do
@@ -113,7 +113,7 @@ do
 done</screen>
 	</section>
 	<section><title>until loop</title>
-		<para>Below a simple example of an <command>until loop</command><indexterm><primary>until loop (bash)</primary></indexterm>.</para>
+		<para>Below a simple example of an <command>until loop</command><indexterm><primary>until (bash)</primary></indexterm>.</para>
 		<screen>let i=100;
 until [ $i -le 0 ] ;
 do
