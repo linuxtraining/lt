@@ -10,7 +10,7 @@ drwxr-xr-x 4 root pro42 4.0K Mar 27 14:29 /home/project42/
 		</screen>
 	</section>
 	<section><title>inode table</title>
-		<para>The <command>inode table</command><indexterm><primary>inode table</primary></indexterm> contains all of the <command>inodes</command> and is created when you create the file system (with <command>mkfs</command>). You can use the <command>df -i</command><indexterm><primary>df -i</primary></indexterm> command to see how many <command>inodes</command> are used and free on mounted file systems.</para>
+		<para>The <command>inode table</command><indexterm><primary>inode table</primary></indexterm> contains all of the <command>inodes</command> and is created when you create the file system (with <command>mkfs</command><indexterm><primary>mkfs</primary></indexterm>). You can use the <command>df -i</command><indexterm><primary>df -i</primary></indexterm> command to see how many <command>inodes</command> are used and free on mounted file systems.</para>
 		<screen>
 oot@rhel53 ~# df -i
 Filesystem            Inodes   IUsed   IFree IUse% Mounted on
@@ -71,7 +71,7 @@ paul@RHELv4u4:~/test$
 		</screen>
 	</section>
 	<section><title>. and ..</title>
-		<para>You can see five names, and the mapping to their five inodes. The dot <command>.</command><indexterm><primary>.</primary></indexterm> is a mapping to itself, and the dotdot <command>..</command><indexterm><primary>..</primary></indexterm> is a mapping to the parent directory. The three other names are mappings to different inodes.</para>
+		<para>You can see five names, and the mapping to their five inodes. The dot <command>.</command><indexterm><primary>. (directory)</primary></indexterm> is a mapping to itself, and the dotdot <command>..</command><indexterm><primary>.. (directory)</primary></indexterm> is a mapping to the parent directory. The three other names are mappings to different inodes.</para>
 	</section>
 </section>
 <section><title>hard links</title>
