@@ -23,19 +23,16 @@ Hello World</screen>
 	</section>
 	<section><title>single quotes</title>
 		<para>You can prevent the removal of white spaces by quoting the spaces. The contents of the quoted string are considered as one argument. In the screenshot below the <command>echo</command> receives only one <command>argument</command>.</para>
-		<screen>
-[paul@RHEL4b ~]$ echo 'A line with      single    quotes'
+		<screen>[paul@RHEL4b ~]$ echo 'A line with      single    quotes'
 A line with      single    quotes
-[paul@RHEL4b ~]$
-		</screen>
+[paul@RHEL4b ~]$</screen>
 	</section>
 	<section><title>double quotes</title>
 		<para>You can also prevent the removal of white spaces by double quoting <indexterm><primary>" (double quotes)</primary></indexterm> the spaces. Same as above, <command>echo</command> only receives one <command>argument</command>.</para>
-		<screen>
-[paul@RHEL4b ~]$ echo "A line with      double    quotes"
+		<screen>[paul@RHEL4b ~]$ echo "A line with      double    quotes"
 A line with      double    quotes
-[paul@RHEL4b ~]$
-		</screen>
+[paul@RHEL4b ~]$</screen>
+	<para>Later in this book, when discussing <command>variables</command> we will see important differences between single and double quotes.</para>
 	</section>
 	<section><title>echo and quotes</title>
 		<para>Quoted lines can include special escaped characters recognised by the <command>echo</command> command (when using <command>echo -e</command><indexterm><primary>echo(1)</primary></indexterm>). The screenshot below shows how to use <command>\n</command> for a newline and <command>\t</command> for a tab (usually eight white spaces).</para>
