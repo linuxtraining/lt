@@ -2,47 +2,40 @@
 <section><title>file ownership</title>
 	<section><title>user owner and group owner</title>
 		<para>The <command>users</command> and <command>groups</command> of a system can be locally managed in <command>/etc/passwd</command><indexterm><primary>/etc/passwd</primary></indexterm> and <command>/etc/group</command><indexterm><primary>/etc/group</primary></indexterm>, or they can be in a NIS, LDAP, or Samba domain. These users and groups can <command>own</command> files. Actually, every file has a <command>user owner</command><indexterm><primary>file ownership</primary></indexterm> and a <command>group owner</command>, as can be seen in the following screenshot.</para>
-		<screen>
-paul@RHELv4u4:~/test$ ls -l
+		<screen>paul@RHELv4u4:~/test$ ls -l
 total 24
 -rw-rw-r--  1 paul paul  17 Feb  7 11:53 file1
 -rw-rw-r--  1 paul paul 106 Feb  5 17:04 file2
 -rw-rw-r--  1 paul proj 984 Feb  5 15:38 data.odt
 -rw-r--r--  1 root root   0 Feb  7 16:07 stuff.txt
-paul@RHELv4u4:~/test$ 
-		</screen>
+paul@RHELv4u4:~/test$</screen>
 		<para>User paul owns three files, two of those are also owned by the group paul; data.odt is owned by the group proj. The root user owns the file stuff.txt, as does the group root.</para>
 	</section>
 	<section><title>chgrp</title>
 		<para>You can change the group owner of a file using the <command>chgrp</command><indexterm><primary>chgrp(1)</primary></indexterm> command.</para>
-		<screen>
-root@laika:/home/paul# touch FileForPaul
+		<screen>root@laika:/home/paul# touch FileForPaul
 root@laika:/home/paul# ls -l FileForPaul 
 -rw-r--r-- 1 root root 0 2008-08-06 14:11 FileForPaul
 root@laika:/home/paul# chgrp paul FileForPaul 
 root@laika:/home/paul# ls -l FileForPaul 
--rw-r--r-- 1 root paul 0 2008-08-06 14:11 FileForPaul
-		</screen>
+-rw-r--r-- 1 root paul 0 2008-08-06 14:11 FileForPaul</screen>
 	</section>
 	<section><title>chown</title>
 		<para>The user owner of a file can be changed with <command>chown</command><indexterm><primary>chown(1)</primary></indexterm> command.</para>
-		<screen>
-root@laika:/home/paul# ls -l FileForPaul 
+		<screen>root@laika:/home/paul# ls -l FileForPaul 
 -rw-r--r-- 1 root paul 0 2008-08-06 14:11 FileForPaul
 root@laika:/home/paul# chown paul FileForPaul 
 root@laika:/home/paul# ls -l FileForPaul 
--rw-r--r-- 1 paul paul 0 2008-08-06 14:11 FileForPaul
-		</screen>
+-rw-r--r-- 1 paul paul 0 2008-08-06 14:11 FileForPaul</screen>
 		<para>You can also use <command>chown</command> to change both the user owner and the group owner.</para>
-		<screen>
-root@laika:/home/paul# ls -l FileForPaul 
+		<screen>root@laika:/home/paul# ls -l FileForPaul 
 -rw-r--r-- 1 paul paul 0 2008-08-06 14:11 FileForPaul
 root@laika:/home/paul# chown root:project42 FileForPaul 
 root@laika:/home/paul# ls -l FileForPaul 
--rw-r--r-- 1 root project42 0 2008-08-06 14:11 FileForPaul
-		</screen>
+-rw-r--r-- 1 root project42 0 2008-08-06 14:11 FileForPaul</screen>
 	</section>
 </section>
+<?hard-pagebreak?>
 <section><title>list of special files</title>
 	<para>When you use <command>ls -l</command><indexterm><primary>ls -l</primary></indexterm>, for each file you can see ten characters before the user and group owner. The first character tells us the type of file. Regular files get a <command>-</command>, directories get a <command>d</command>, symbolic links are shown with an <command>l</command>, pipes get a <command>p</command>, character devices a <command>c</command>, block devices a <command>b</command>, and sockets an <command>s</command>.</para>
 <table frame='all'><title>Unix special files</title>
@@ -88,7 +81,23 @@ root@laika:/home/paul# ls -l FileForPaul
 </tbody>
 </tgroup>
 </table>
+	<screen>
+</screen>
+	<para>Below a screenshot of a character device (the console) and a block device (the hard disk).</para>
+	<screen>
+paul@debian6lt~$ ls -ld /dev/console /dev/sda
+crw-------   1 root root  5, 1 Mar 15 12:45 /dev/console
+brw-rw----   1 root disk  8, 0 Mar 15 12:45 /dev/sda
+	</screen>
+	<para>And here you can see a directory, a regular file and a symbolic link.</para>
+<screen>
+paul@debian6lt~$ ls -ld /etc /etc/hosts /etc/motd
+drwxr-xr-x 128 root root 12288 Mar 15 18:34 /etc
+-rw-r--r--   1 root root   372 Dec 10 17:36 /etc/hosts
+lrwxrwxrwx   1 root root    13 Dec  5 10:36 /etc/motd -> /var/run/motd
+	</screen>
 </section>
+<?hard-pagebreak?>
 <section><title>permissions</title>
 	<section><title>rwx</title>
 		<para>The nine characters following the file type denote the permissions in three triplets. A permission can be <command>r</command> for read access, <command>w</command> for write access, and <command>x</command> for execute. You need the <command>r</command> permission to list (ls) the contents of a directory. You need the <command>x</command> permission to enter (cd) a directory. You need the <command>w</command> permission to create files in or remove files from a directory.</para>
@@ -240,6 +249,7 @@ paul@laika:~/perms$ ls -l permissions.txt
 -rwxrw-r-- 1 paul paul 0 2007-02-07 22:34 permissions.txt
 		</screen>
 	</section>
+<?hard-pagebreak?>
 	<section><title>setting octal permissions</title>
 		<para>Most Unix administrators will use the <command>old school</command><indexterm><primary>octal permissions</primary></indexterm> octal system to talk about and set permissions. Look at the triplet bitwise, equating r to 4, w to 2, and x to 1.</para>
 <table frame='all'><title>Octal permissions</title>
@@ -312,6 +322,7 @@ paul@laika:~/perms$ ls -l permissions.txt
 -rwxr-x--- 1 paul paul 0 2007-02-07 22:34 permissions.txt
 		</screen>
 	</section>
+<?hard-pagebreak?>
 	<section><title>umask</title>
 		<para>When creating a file or directory, a set of default permissions are applied. These default permissions are determined by the <command>umask</command><indexterm><primary>umask(1)</primary></indexterm>. The <command>umask</command> specifies permissions that you do not want set on by default. You can display the <command>umask</command> with the <command>umask</command> command.</para>
 		<screen>
