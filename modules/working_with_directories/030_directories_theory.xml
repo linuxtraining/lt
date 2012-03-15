@@ -1,15 +1,12 @@
 <?hard-pagebreak?>
 	<section><title>pwd</title>
 		<para>The <command>you are here</command> sign can be displayed with the <command>pwd</command><indexterm><primary>pwd(1)</primary></indexterm> command (Print Working Directory). Go ahead, try it: Open a command line interface (like gnome-terminal, konsole, xterm, or a tty) and type <command>pwd</command>. The tool displays your <command>current directory</command><indexterm><primary>current directory</primary></indexterm>.</para>
-		<screen>
-paul@laika:~$ pwd
-/home/paul
-		</screen>
+		<screen>paul@laika:~$ pwd
+/home/paul</screen>
 	</section>
 	<section><title>cd</title>
 		<para>You can change your current directory with the <command>cd</command><indexterm><primary>cd(bash builtin)</primary></indexterm> command (Change Directory). </para>
-		<screen>
-paul@laika$ cd /etc
+		<screen>paul@laika$ cd /etc
 paul@laika$ pwd
 /etc
 paul@laika$ cd /bin
@@ -17,12 +14,10 @@ paul@laika$ pwd
 /bin
 paul@laika$ cd /home/paul/
 paul@laika$ pwd
-/home/paul
-		</screen>
+/home/paul</screen>
 		<section><title>cd ~</title>
 			<para>You can pull off a trick with cd. Just typing <command>cd</command> without a target directory, will put you in your home directory. Typing <command>cd ~</command><indexterm><primary>~</primary></indexterm> has the same effect.</para>
-			<screen>
-paul@laika$ cd /etc
+			<screen>paul@laika$ cd /etc
 paul@laika$ pwd
 /etc
 paul@laika$ cd
@@ -30,28 +25,20 @@ paul@laika$ pwd
 /home/paul
 paul@laika$ cd ~
 paul@laika$ pwd
-/home/paul
-			</screen>
+/home/paul</screen>
 		</section>
 		<section><title>cd ..</title>
 			<para>To go to the <command>parent directory</command><indexterm><primary>parent directory</primary></indexterm> (the one just above your current directory in the directory tree), type <command>cd ..</command><indexterm><primary>..</primary></indexterm> .</para>
-			<screen>
-paul@laika$ pwd
+			<screen>paul@laika$ pwd
 /usr/share/games
 paul@laika$ cd ..
 paul@laika$ pwd
-/usr/share
-paul@laika$ cd ..
-paul@laika$ cd ..
-paul@laika$ pwd
-/
-			</screen>
+/usr/share</screen>
 			<para><emphasis>To stay in the current directory, type <command>cd .</command><indexterm><primary>.</primary></indexterm> ;-)</emphasis> We will see useful use of the <command>.</command> character representing the current directory later.</para>
 		</section>
 		<section><title>cd -</title>
 			<para>Another useful shortcut with cd is to just type <command>cd -</command><indexterm><primary>cd -(bash builtin)</primary></indexterm> to go to the previous directory.</para>
-			<screen>
-paul@laika$ pwd
+			<screen>paul@laika$ pwd
 /home/paul
 paul@laika$ cd /etc
 paul@laika$ pwd
@@ -59,47 +46,37 @@ paul@laika$ pwd
 paul@laika$ cd -
 /home/paul
 paul@laika$ cd -
-/etc
- 			</screen>
+/etc</screen>
 		</section>
 	</section>
 	<section><title>absolute and relative paths</title>
 		<para>You should be aware of <command>absolute and relative paths</command><indexterm><primary>path</primary></indexterm> in the file tree. When you type a path starting with a <command>slash (/)</command>, then the <command>root</command><indexterm><primary>/</primary></indexterm> of the file tree is assumed. If you don't start your path with a slash, then the current directory is the assumed starting point.</para>
 		<para>The screenshot below first shows the current directory <command>/home/paul</command>. From within this directory, you have to type <command>cd /home</command> instead of <command>cd home</command> to go to the <command>/home</command> directory.</para>
-		<screen>
-paul@laika$ pwd
+		<screen>paul@laika$ pwd
 /home/paul
 paul@laika$ cd home
 bash: cd: home: No such file or directory
 paul@laika$ cd /home
 paul@laika$ pwd
-/home
-		</screen>
+/home</screen>
 		<para>When inside <command>/home</command>, you have to type <command>cd paul</command> instead of <command>cd /paul</command> to enter the subdirectory <command>paul</command> of the current directory <command>/home</command>.</para>
-		<screen>
-paul@laika$ pwd
+		<screen>paul@laika$ pwd
 /home
 paul@laika$ cd /paul
 bash: cd: /paul: No such file or directory
 paul@laika$ cd paul
 paul@laika$ pwd
-/home/paul
-		</screen>
+/home/paul</screen>
 		<para>In case your current directory is the <command>root directory /</command>, then both <command>cd /home</command> and <command>cd home</command> will get you in the <command>/home</command> directory.</para>
-		<screen>
-paul@laika$ cd /
-paul@laika$ pwd
+		<screen>paul@laika$ pwd
 /
 paul@laika$ cd home
 paul@laika$ pwd
 /home
 paul@laika$ cd /
-paul@laika$ pwd
-/
 paul@laika$ cd /home 
 paul@laika$ pwd
-/home
-		</screen>
+/home</screen>
 		<para>This was the last screenshot with <command>pwd</command><indexterm><primary>pwd(1)</primary></indexterm> statements. From now on, the current directory will often be displayed in the prompt. Later in this book we will explain how the shell variable <command>$PS1</command><indexterm><primary>$PS1</primary></indexterm> can be configured to show this.</para>
 	</section>
 	<section><title>path completion</title>
@@ -108,11 +85,9 @@ paul@laika$ pwd
 	</section>
 	<section><title>ls</title>
 		<para>You can list the contents of a directory with <command>ls</command><indexterm><primary>ls(1)</primary></indexterm>.</para>
-		<screen>
-paul@pasha:~$ ls
+		<screen>paul@pasha:~$ ls
 allfiles.txt  dmesg.txt  httpd.conf  stuff  summer.txt
-paul@pasha:~$ 
-		</screen>
+paul@pasha:~$</screen>
 		<section><title>ls -a</title>
 			<para>A frequently used option with ls is <command>-a</command> to show all files. Showing all files means including the <command>hidden files</command><indexterm><primary>hidden files</primary></indexterm>. When a file name on a Unix file system starts with a dot, it is considered a hidden file and it doesn't show up in regular file listings.</para>
 			<screen>
@@ -121,25 +96,22 @@ allfiles.txt  dmesg.txt  httpd.conf  stuff  summer.txt
 paul@pasha:~$ ls -a
 .   allfiles.txt   .bash_profile  dmesg.txt   .lesshst  stuff       
 ..  .bash_history  .bashrc        httpd.conf  .ssh      summer.txt 
-paul@pasha:~$ 
-			</screen>
+paul@pasha:~$</screen>
 		</section>
 		<section><title>ls -l</title>
 			<para>Many times you will be using options with <command>ls</command> to display the contents of the directory in different formats or to display different parts of the directory. Typing just <command>ls</command> gives you a list of files in the directory. Typing <command>ls -l</command><indexterm><primary>ls(1)</primary></indexterm> (that is a letter L, not the number 1) gives you a long listing.</para>
-			<screen>
-paul@pasha:~$ ls -l
+			<screen>paul@pasha:~$ ls -l
 total 23992
 -rw-r--r-- 1 paul paul 24506857 2006-03-30 22:53 allfiles.txt
 -rw-r--r-- 1 paul paul    14744 2006-09-27 11:45 dmesg.txt
 -rw-r--r-- 1 paul paul     8189 2006-03-31 14:01 httpd.conf
 drwxr-xr-x 2 paul paul     4096 2007-01-08 12:22 stuff
--rw-r--r-- 1 paul paul        0 2006-03-30 22:45 summer.txt
-			</screen>
+-rw-r--r-- 1 paul paul        0 2006-03-30 22:45 summer.txt</screen>
 		</section>
+<?hard-pagebreak?>
 		<section><title>ls -lh</title>
 			<para>Another frequently used ls option is <command>-h</command>. It shows the numbers (file sizes) in a more human readable format. Also shown below is some variation in the way you can give the options to ls. We will explain the details of the output later in this book.</para>
-			<screen>
-paul@pasha:~$ ls -l -h
+			<screen>paul@pasha:~$ ls -l -h
 total 24M
 -rw-r--r-- 1 paul paul  24M 2006-03-30 22:53 allfiles.txt
 -rw-r--r-- 1 paul paul  15K 2006-09-27 11:45 dmesg.txt
@@ -166,14 +138,13 @@ total 24M
 -rw-r--r-- 1 paul paul  15K 2006-09-27 11:45 dmesg.txt
 -rw-r--r-- 1 paul paul 8.0K 2006-03-31 14:01 httpd.conf
 drwxr-xr-x 2 paul paul 4.0K 2007-01-08 12:22 stuff
--rw-r--r-- 1 paul paul    0 2006-03-30 22:45 summer.txt
-			</screen>
+-rw-r--r-- 1 paul paul    0 2006-03-30 22:45 summer.txt</screen>
 		</section>
 	</section>
+<?hard-pagebreak?>
 	<section><title>mkdir</title>
 		<para>Walking around the Unix file tree is fun, but it is even more fun to create your own directories with <command>mkdir</command><indexterm><primary>mkdir(1)</primary></indexterm>. You have to give at least one parameter to <command>mkdir</command>, the name of the new directory to be created. Think before you type a leading <command>/</command> . </para>
-		<screen>
-paul@laika:~$ mkdir MyDir
+		<screen>paul@laika:~$ mkdir MyDir
 paul@laika:~$ cd MyDir
 paul@laika:~/MyDir$ ls -al
 total 8
@@ -185,38 +156,31 @@ paul@laika:~/MyDir$ ls -l
 total 8
 drwxr-xr-x 2 paul paul 4096 2007-01-10 21:14 otherstuff
 drwxr-xr-x 2 paul paul 4096 2007-01-10 21:14 stuff
-paul@laika:~/MyDir$ 
-		</screen>
+paul@laika:~/MyDir$</screen>
 		<section><title>mkdir -p</title>
 			<para>When given the option <command>-p</command><indexterm><primary>mkdir -p</primary></indexterm>, then mkdir will create parent directories as needed.</para>
-			<screen>
-paul@laika:~$ mkdir -p MyDir2/MySubdir2/ThreeDeep
+			<screen>paul@laika:~$ mkdir -p MyDir2/MySubdir2/ThreeDeep
 paul@laika:~$ ls MyDir2
 MySubdir2
 paul@laika:~$ ls MyDir2/MySubdir2
 ThreeDeep
-paul@laika:~$ ls MyDir2/MySubdir2/ThreeDeep/
-			</screen>
+paul@laika:~$ ls MyDir2/MySubdir2/ThreeDeep/</screen>
 		</section>
 	</section>
 	<section><title>rmdir</title>
 		<para>When a directory is empty, you can use <command>rmdir</command><indexterm><primary>rmdir(1)</primary></indexterm> to remove the directory.</para>
-		<screen>
-paul@laika:~/MyDir$ rmdir otherstuff
+		<screen>paul@laika:~/MyDir$ rmdir otherstuff
 paul@laika:~/MyDir$ ls
 stuff
 paul@laika:~/MyDir$ cd ..
 paul@laika:~$ rmdir MyDir
 rmdir: MyDir/: Directory not empty
 paul@laika:~$ rmdir MyDir/stuff
-paul@laika:~$ rmdir MyDir
-		</screen>
+paul@laika:~$ rmdir MyDir</screen>
 		<section><title>rmdir -p</title>
 			<para>And similar to the <command>mkdir -p</command><indexterm><primary>rmdir -p</primary></indexterm> option, you can also use <command>rmdir</command> to recursively remove directories.</para>
-			<screen>
-paul@laika:~$ mkdir -p dir/subdir/subdir2
+			<screen>paul@laika:~$ mkdir -p dir/subdir/subdir2
 paul@laika:~$ rmdir -p dir/subdir/subdir2
-paul@laika:~$ 	
-			</screen>
+paul@laika:~$</screen>
 		</section>
 	</section>
