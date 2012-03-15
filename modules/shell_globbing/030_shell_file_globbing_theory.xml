@@ -87,6 +87,7 @@ paul@RHELv4u4:~/test$ ls [A-Z]ile?
 File4
 paul@RHELv4u4:~/test$</screen>
 </section>
+<?hard-pagebreak?>
 <section><title>preventing file globbing</title>
 	<para>The screenshot below should be no surprise. The <command>echo *</command><indexterm><primary>echo *</primary></indexterm> will echo a * when in an empty directory. And it will echo the names of all files when the directory is not empty.</para>
 	<screen>paul@ubu1010:~$ mkdir test42
