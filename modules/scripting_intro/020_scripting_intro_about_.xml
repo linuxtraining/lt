@@ -1,4 +1,3 @@
 <para>Shells like <command>bash</command> and <command>Korn</command> have support for programming constructs that can be saved as <command>scripts</command>. These <command>scripts</command> in turn then become more <command>shell</command> commands. Many Linux commands are <command>scripts</command>. <command>User profile scripts</command> are run when a user logs on and <command>init scripts</command> are run when a <command>daemon</command> is stopped or started.</para>
 		<para>This means that system administrators also need basic knowledge of <command>scripting</command> to understand how their servers and their applications are started, updated, upgraded, patched, maintained, configured and removed, and also to understand how a user environment is built.</para>
-	</section>
 <para>The goal of this chapter is to give you enough information to be able to read and understand scripts. Not to become a writer of complex scripts.</para>
