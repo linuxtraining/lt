@@ -1,6 +1,6 @@
 <?hard-pagebreak?>
 	<section><title>eval</title>
-		<para><command>eval</command> reads arguments as input to the shell (the resulting commands are executed). This allows using the value of a variable as a variable.</para>
+		<para><command>eval</command><indexterm><primary>eval</primary></indexterm> reads arguments as input to the shell (the resulting commands are executed). This allows using the value of a variable as a variable.</para>
 		<screen>paul@deb503:~/test42$ answer=42
 paul@deb503:~/test42$ word=answer
 paul@deb503:~/test42$ eval x=\$$word ; echo $x
@@ -12,8 +12,7 @@ kahlan@solexp11$ eval "y=\$$word" ; echo $y
 42</screen>
 	</section>
 	<section><title>(( ))</title>
-		<para>The <command>(( ))</command> allows for evaluation of numerical expressions.</para>
-		<para></para>
+		<para>The <command>(( ))</command><indexterm><primary>(( (shell)</primary></indexterm> allows for evaluation of numerical expressions.</para>
 		<screen>paul@deb503:~/test42$ (( 42 > 33 )) &#038;&#038; echo true || echo false
 true
 paul@deb503:~/test42$ (( 42 > 1201 )) &#038;&#038; echo true || echo false
@@ -63,7 +62,7 @@ kahlan@solexp11$ echo $dec $oct $hex
 15 15 15</screen>
 	</section>
 	<section><title>case</title>
-		<para>You can sometimes simplify nested if statements with a case construct.</para>
+		<para>You can sometimes simplify nested if statements with a <command>case</command><indexterm><primary>case</primary></indexterm> construct.</para>
 		<screen>
 [paul@RHEL4b ~]$ ./help
 What animal did you see ? lion
@@ -105,7 +104,7 @@ esac
 		</screen>
 	</section>
 	<section><title>shell functions</title>
-		<para>Shell <command>functions</command> can be used to group commands in a logical way.</para>
+		<para>Shell <command>functions</command><indexterm><primary>function (shell)</primary></indexterm> can be used to group commands in a logical way.</para>
 		<screen>kahlan@solexp11$ cat funcs.ksh 
 #!/bin/ksh
                                           
@@ -117,7 +116,7 @@ echo and hello to $USER to!
 echo We will now call a function
 greetings
 echo The end</screen>
-		<para>This is sample output from this script with a <command>function</command>.</para>
+		<para>This is sample output from this script with a <command>function</command><indexterm><primary>shell functions</primary></indexterm>.</para>
 		<screen>kahlan@solexp11$ ./funcs.ksh              
 We will now call a function
 Hello World!
