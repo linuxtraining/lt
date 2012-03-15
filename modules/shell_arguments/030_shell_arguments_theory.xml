@@ -50,6 +50,7 @@ A line with     a tab
 		<para>The echo command can generate more than white spaces, tabs and newlines. Look in the man page for a list of options.</para>
 	</section>
 </section>
+<?hard-pagebreak?>
 <section><title>commands</title>
 	<section><title>external or builtin commands ?</title>
 		<para>Not all commands are external to the shell, some are <command>builtin</command>. <command>External commands</command> are programs that have their own binary and reside somewhere in the file system. Many external commands are located in <command>/bin</command><indexterm><primary>/bin</primary></indexterm> or <command>/sbin</command><indexterm><primary>/sbin</primary></indexterm>. <command>Builtin commands</command> are an integral part of the shell program itself.</para>
@@ -75,15 +76,12 @@ Running the external echo command...</screen>
 	</section>
 	<section><title>which</title>
 		<para>The <command>which</command><indexterm><primary>which(1)</primary></indexterm> command will search for binaries in the <command>$PATH</command><indexterm><primary>$PATH</primary></indexterm> environment variable (variables will be explained later). In the screenshot below, it is determined that <command>cd</command> is <command>builtin</command>, and <command>ls, cp, rm, mv, mkdir, pwd,</command> and <command>which</command> are external commands.</para> 
-		<screen>[root@RHEL4b ~]# which cp ls mv rm cd mkdir pwd which
+		<screen>[root@RHEL4b ~]# which cp ls cd mkdir pwd 
 /bin/cp
 /bin/ls
-/bin/mv
-/bin/rm
 /usr/bin/which: no cd in (/usr/kerberos/sbin:/usr/kerberos/bin:...
 /bin/mkdir
-/bin/pwd
-/usr/bin/which</screen>
+/bin/pwd</screen>
 	</section>
 </section>
 <section><title>aliases</title>
