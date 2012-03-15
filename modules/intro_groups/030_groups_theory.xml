@@ -25,10 +25,10 @@ root@laika:~#
 </screen>
 	<para>The first field is the group's name. The second field is the group's (encrypted) password (can be empty). The third field is the group identification or <command>GID</command><indexterm><primary>GID</primary></indexterm>. The fourth field is the list of members, these groups have no members.</para>
 </section>
+<?hard-pagebreak?>
 <section><title>usermod</title>
 	<para>Group membership can be modified with the useradd or <command>usermod</command><indexterm><primary>usermod</primary></indexterm> command.</para>
-	<screen>
-root@laika:~# usermod -a -G tennis inge
+	<screen>root@laika:~# usermod -a -G tennis inge
 root@laika:~# usermod -a -G tennis katrien
 root@laika:~# usermod -a -G salsa katrien
 root@laika:~# usermod -a -G snooker sandra
@@ -39,37 +39,31 @@ football:x:1007:
 snooker:x:1008:sandra
 formula1:x:1009:annelies
 salsa:x:1010:katrien
-root@laika:~# 
-	</screen>
+root@laika:~#</screen>
 	<para>Be careful when using <command>usermod</command> to add users to groups. By default, the <command>usermod</command> command will <command>remove</command> the user from every group of which he is a member if the group is not listed in the command! Using the <command>-a</command> (append) switch prevents this behaviour.</para>
 </section>
 <section><title>groupmod</title>
 	  <para>You can change the group name with the <command>groupmod</command><indexterm><primary>groupmod(1)</primary></indexterm> command.</para>
-	<screen>
-root@laika:~# groupmod -n darts snooker 
+	<screen>root@laika:~# groupmod -n darts snooker 
 root@laika:~# tail -5 /etc/group
 tennis:x:1006:inge,katrien
 football:x:1007:
 formula1:x:1009:annelies
 salsa:x:1010:katrien
-darts:x:1008:sandra
-	</screen>
+darts:x:1008:sandra</screen>
 </section>
 <section><title>groupdel</title>
 	  <para>You can permanently remove a group with the <command>groupdel</command><indexterm><primary>groupdel(1)</primary></indexterm> command.</para>
-	<screen>
-root@laika:~# groupdel tennis
-root@laika:~# 
-	</screen>
+	<screen>root@laika:~# groupdel tennis
+root@laika:~#</screen>
 </section>
 <section><title>groups</title>
 	<para>A user can type the <command>groups</command><indexterm><primary>groups(1)</primary></indexterm> command to see a list of groups where the user belongs to.</para>
-	<screen>
-[harry@RHEL4b ~]$ groups
+	<screen>[harry@RHEL4b ~]$ groups
 harry sports
-[harry@RHEL4b ~]$ 
-	</screen>
+[harry@RHEL4b ~]$</screen>
 </section>
+<?hard-pagebreak?>
 <section><title>gpasswd</title>
 	<para>You can delegate control of group membership to another user with the <command>gpasswd</command><indexterm><primary>gpasswd</primary></indexterm> command. In the example below we delegate permissions to add and remove group members to serena for the sports group. Then we <command>su</command><indexterm><primary>su</primary></indexterm> to serena and add harry to the sports group.</para>
 	<screen>
