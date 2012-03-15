@@ -44,7 +44,7 @@ root@laika:/home/paul# ls -l FileForPaul
 	</section>
 </section>
 <section><title>list of special files</title>
-	<para>When you use <command>ls -l</command>, for each file you can see ten characters before the user and group owner. The first character tells us the type of file. Regular files get a <command>-</command>, directories get a <command>d</command>, symbolic links are shown with an <command>l</command>, pipes get a <command>p</command>, character devices a <command>c</command>, block devices a <command>b</command>, and sockets an <command>s</command>.</para>
+	<para>When you use <command>ls -l</command><indexterm><primary>ls -l</primary></indexterm>, for each file you can see ten characters before the user and group owner. The first character tells us the type of file. Regular files get a <command>-</command>, directories get a <command>d</command>, symbolic links are shown with an <command>l</command>, pipes get a <command>p</command>, character devices a <command>c</command>, block devices a <command>b</command>, and sockets an <command>s</command>.</para>
 <table frame='all'><title>Unix special files</title>
 <?dbfo table-width="50%" ?>
 <tgroup cols='2' align='left' colsep='1' rowsep='1'>
@@ -169,7 +169,7 @@ paul@RHELv4u4:~/test$ ls -l proc42.bash
 </tbody>
 </tgroup>
 </table>
-		<para>When you are the <command>user owner</command> of a file, then the <command>user owner permissions</command> apply to you. The rest of the permissions have no influence on your access to the file.</para>
+		<para>When you are the <command>user owner</command><indexterm><primary>owner</primary></indexterm> of a file, then the <command>user owner permissions</command> apply to you. The rest of the permissions have no influence on your access to the file.</para>
 		<para>When you belong to the <command>group</command> that is the <command>group owner</command> of a file, then the <command>group owner permissions</command> apply to you. The rest of the permissions have no influence on your access to the file.</para>
 		<para>When you are not the <command>user owner</command> of a file and you do not belong to the <command>group owner</command>, then the <command>others permissions</command> apply to you. The rest of the permissions have no influence on your access to the file.</para>
 	</section>
@@ -241,7 +241,7 @@ paul@laika:~/perms$ ls -l permissions.txt
 		</screen>
 	</section>
 	<section><title>setting octal permissions</title>
-		<para>Most Unix administrators will use the <command>old school</command> octal system to talk about and set permissions. Look at the triplet bitwise, equating r to 4, w to 2, and x to 1.</para>
+		<para>Most Unix administrators will use the <command>old school</command><indexterm><primary>octal permissions</primary></indexterm> octal system to talk about and set permissions. Look at the triplet bitwise, equating r to 4, w to 2, and x to 1.</para>
 <table frame='all'><title>Octal permissions</title>
 <?dbfo table-width="50%" ?>
 <tgroup cols='3' align='left' colsep='1' rowsep='1'>
