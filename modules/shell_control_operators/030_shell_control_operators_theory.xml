@@ -46,8 +46,7 @@ paul@barry:~$ zecho first &#038;&#038; echo second
 file1  file3  File55  fileab  FileAB   fileabc
 file2  File4  FileA   Fileab  fileab2
 [paul@RHELv4u3 gen]$ cd gen &#038;&#038; ls
--bash: cd: gen: No such file or directory
-[paul@RHELv4u3 gen]$</screen>
+-bash: cd: gen: No such file or directory</screen>
 </section>
 <section><title>|| double vertical bar</title>
 	<para>The <command>||</command><indexterm><primary>||</primary></indexterm> represents a <command>logical OR</command>. The second command is executed only when the first command fails (returns a non-zero exit status).</para>
@@ -58,15 +57,13 @@ paul@barry:~$ zecho first || echo second ; echo third
 -bash: zecho: command not found
 second
 third
-paul@barry:~$
-	</screen>
+paul@barry:~$</screen>
 	<para>Another example of the same <command>logical OR</command><indexterm><primary>logical OR</primary></indexterm> principle.</para>
 	<screen>[paul@RHELv4u3 ~]$ cd gen || ls
 [paul@RHELv4u3 gen]$ cd gen || ls
 -bash: cd: gen: No such file or directory
 file1  file3  File55  fileab  FileAB   fileabc
-file2  File4  FileA   Fileab  fileab2
-[paul@RHELv4u3 gen]$</screen>
+file2  File4  FileA   Fileab  fileab2</screen>
 </section>
 <section><title>combining &#038;&#038; and ||</title>
 	<para>You can use this logical AND and logical OR to write an <command>if-then-else</command> structure on the command line. This example uses <command>echo</command> to display whether the <command>rm</command> command was successful.</para>
