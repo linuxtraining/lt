@@ -1,0 +1,2 @@
+<para>An average computer using Linux has a file system with many <command>hard links</command> and <command>symbolic links</command>.</para>
+<para>To understand links in a file system, you first have to understand what an <command>inode</command><indexterm><primary>inode</primary></indexterm> is.</para>
