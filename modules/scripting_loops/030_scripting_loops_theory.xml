@@ -38,6 +38,7 @@ false
 paul@RHEL4b:~$ [ 66 -gt 55 -o 660 -lt 500 ] &#038;&#038; echo true || echo false
 true</screen>
 	</section>
+<?hard-pagebreak?>
 	<section><title>if then else</title>
 		<para>The <command>if then else</command><indexterm><primary>if then else (bash)</primary></indexterm> construction is about choice. If a certain condition is met, then execute something, else execute something else. The example below tests whether a file exists, and if the file exists then a proper message is echoed.</para>
 		<screen>#!/bin/bash
