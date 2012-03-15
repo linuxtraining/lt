@@ -20,8 +20,7 @@
 	</section>
 	<section><title>locate</title>
 		<para>The <command>locate</command><indexterm><primary>locate(1)</primary></indexterm> tool is very different from <command>find</command> in that it uses an index to locate files. This is a lot faster than traversing all the directories, but it also means that it is always outdated. If the index does not exist yet, then you have to create it (as root on Red Hat Enterprise Linux) with the <command>updatedb</command><indexterm><primary>updatedb(1)</primary></indexterm> command.</para>
-		<screen>
-[paul@RHEL4b ~]$ locate Samba
+		<screen>[paul@RHEL4b ~]$ locate Samba
 warning: locate: could not open database: /var/lib/slocate/slocate.db:...
 warning: You need to run the 'updatedb' command (as root) to create th...
 Please have a look at /etc/updatedb.conf to enable the daily cron job.
@@ -30,40 +29,33 @@ fatal error: updatedb: You are not authorized to create a default sloc...
 [paul@RHEL4b ~]$ su -
 Password: 
 [root@RHEL4b ~]# updatedb
-[root@RHEL4b ~]# 
-		</screen>
+[root@RHEL4b ~]#</screen>
 		<para>Most Linux distributions will schedule the <command>updatedb</command> to run once every day.</para>
 	</section>
 	<section><title>date</title>
 		<para>The <command>date</command><indexterm><primary>date</primary></indexterm> command can display the date, time, time zone and more.</para>
 		<screen>paul@rhel55 ~$ date
-Sat Apr 17 12:44:30 CEST 2010
-		</screen>
+Sat Apr 17 12:44:30 CEST 2010</screen>
 		<para>A date string can be customised to display the format of your choice. Check the man page for more options.</para>
 		<screen>paul@rhel55 ~$ date +'%A %d-%m-%Y'
-Saturday 17-04-2010
-		</screen>
+Saturday 17-04-2010</screen>
 		<para>Time on any Unix is calculated in number of seconds since 1969 (the first second being the first second of the first of January 1970). Use <command>date +%s</command> to display Unix time in seconds.</para>
 		<screen>paul@rhel55 ~$ date +%s
-1271501080
-		</screen>
+1271501080</screen>
 		<para>When will this seconds counter reach two thousand million ?</para>
 		<screen>paul@rhel55 ~$ date -d '1970-01-01 + 2000000000 seconds'
-Wed May 18 04:33:20 CEST 2033
-		</screen>
+Wed May 18 04:33:20 CEST 2033</screen>
 	</section>
 	<section><title>cal</title>
 		<para>The <command>cal</command><indexterm><primary>cal</primary></indexterm> command displays the current month, with the current day highlighted.</para>
-		<screen>
-paul@rhel55 ~$ cal
+		<screen>paul@rhel55 ~$ cal
      April 2010     
 Su Mo Tu We Th Fr Sa
              1  2  3
  4  5  6  7  8  9 10
 11 12 13 14 15 16 17
 18 19 20 21 22 23 24
-25 26 27 28 29 30
-		</screen>
+25 26 27 28 29 30</screen>
 		<para>You can select any month in the past or the future.</para>
 		<screen>paul@rhel55 ~$ cal 2 1970
    February 1970    
@@ -71,8 +63,7 @@ Su Mo Tu We Th Fr Sa
  1  2  3  4  5  6  7
  8  9 10 11 12 13 14
 15 16 17 18 19 20 21
-22 23 24 25 26 27 28
-		</screen>
+22 23 24 25 26 27 28</screen>
 	</section>
 	<section><title>sleep</title>
 		<para>The <command>sleep</command><indexterm><primary>sleep</primary></indexterm> command is sometimes used in scripts to wait a number of seconds. This example shows a five second <command>sleep</command>.</para>
@@ -81,51 +72,40 @@ paul@rhel55 ~$</screen>
 	</section>
 	<section><title>time</title>
 		<para>The <command>time</command><indexterm><primary>time</primary></indexterm> command can display how long it takes to execute a command. The <command>date</command> command takes only a little time.</para>
-		<screen>
-paul@rhel55 ~$ time date
+		<screen>paul@rhel55 ~$ time date
 Sat Apr 17 13:08:27 CEST 2010
 
 real    0m0.014s
 user    0m0.008s
-sys     0m0.006s
-		</screen>
+sys     0m0.006s</screen>
 		<para>The <command>sleep 5</command> command takes five <command>real</command> seconds to execute, but consumes little <command>cpu time</command>.</para>
-		<screen>
-paul@rhel55 ~$ time sleep 5
+		<screen>paul@rhel55 ~$ time sleep 5
 
 real    0m5.018s
 user    0m0.005s
-sys     0m0.011s
-		</screen>
-		<para>This <command>bzip2</command> command compresses a file and uses a lot of <command>cpu time</command>.</para>
-		<screen>
-paul@rhel55 ~$ time bzip2 text.txt 
+sys     0m0.011s</screen>
+		<para>This <command>bzip2</command><indexterm><primary>bzip2</primary></indexterm> command compresses a file and uses a lot of <command>cpu time</command>.</para>
+		<screen>paul@rhel55 ~$ time bzip2 text.txt 
 
 real    0m2.368s
 user    0m0.847s
-sys     0m0.539s
-		</screen>
+sys     0m0.539s</screen>
 	</section>
 	<section><title>gzip - gunzip</title>
 		<para>Users never have enough disk space, so compression comes in handy. The <command>gzip</command><indexterm><primary>gzip(1)</primary></indexterm> command can make files take up less space.</para>
-		<screen>
-paul@rhel55 ~$ ls -lh text.txt 
+		<screen>paul@rhel55 ~$ ls -lh text.txt 
 -rw-rw-r-- 1 paul paul 6.4M Apr 17 13:11 text.txt
 paul@rhel55 ~$ gzip text.txt 
 paul@rhel55 ~$ ls -lh text.txt.gz 
--rw-rw-r-- 1 paul paul 760K Apr 17 13:11 text.txt.gz
-		</screen>
+-rw-rw-r-- 1 paul paul 760K Apr 17 13:11 text.txt.gz</screen>
 		<para>You can get the original back with <command>gunzip</command><indexterm><primary>gunzip(1)</primary></indexterm>.</para>
-		<screen>
-paul@rhel55 ~$ gunzip text.txt.gz 
+		<screen>paul@rhel55 ~$ gunzip text.txt.gz 
 paul@rhel55 ~$ ls -lh text.txt
--rw-rw-r-- 1 paul paul 6.4M Apr 17 13:11 text.txt
-		</screen>
+-rw-rw-r-- 1 paul paul 6.4M Apr 17 13:11 text.txt</screen>
 	</section>
 	<section><title>zcat - zmore</title>
 		<para>Text files that are compressed with <command>gzip</command><indexterm><primary>gzip</primary></indexterm> can be viewed with <command>zcat</command><indexterm><primary>zcat</primary></indexterm> and <command>zmore</command><indexterm><primary>zmore</primary></indexterm>.</para>
-		<screen>
-paul@rhel55 ~$ head -4 text.txt 
+		<screen>paul@rhel55 ~$ head -4 text.txt 
 /
 /opt
 /opt/VBoxGuestAdditions-3.1.6
@@ -135,31 +115,24 @@ paul@rhel55 ~$ zcat text.txt.gz | head -4
 /
 /opt
 /opt/VBoxGuestAdditions-3.1.6
-/opt/VBoxGuestAdditions-3.1.6/routines.sh
-		</screen>
+/opt/VBoxGuestAdditions-3.1.6/routines.sh</screen>
 	</section>
 	<section><title>bzip2 - bunzip2</title>
 		<para>Files can also be compressed with <command>bzip2</command><indexterm><primary>bzip2</primary></indexterm> which takes a little more time than <command>gzip</command>, but compresses better.</para>
-		<screen>
-paul@rhel55 ~$ bzip2 text.txt 
+		<screen>paul@rhel55 ~$ bzip2 text.txt 
 paul@rhel55 ~$ ls -lh text.txt.bz2 
--rw-rw-r-- 1 paul paul 569K Apr 17 13:11 text.txt.bz2
-		</screen>
+-rw-rw-r-- 1 paul paul 569K Apr 17 13:11 text.txt.bz2</screen>
 		<para>Files can be uncompressed again with <command>bunzip2</command><indexterm><primary>bunzip2</primary></indexterm>.</para>
-		<screen>
-paul@rhel55 ~$ bunzip2 text.txt.bz2 
+		<screen>paul@rhel55 ~$ bunzip2 text.txt.bz2 
 paul@rhel55 ~$ ls -lh text.txt 
--rw-rw-r-- 1 paul paul 6.4M Apr 17 13:11 text.txt
-		</screen>
+-rw-rw-r-- 1 paul paul 6.4M Apr 17 13:11 text.txt</screen>
 	</section>
 	<section><title>bzcat - bzmore</title>
 		<para>And in the same way <command>bzcat</command><indexterm><primary>bzcat</primary></indexterm> and <command>bzmore</command><indexterm><primary>bzmore</primary></indexterm> can display files compressed with <command>bzip2</command><indexterm><primary>bzip2</primary></indexterm>.</para>
-		<screen>
-paul@rhel55 ~$ bzip2 text.txt 
+		<screen>paul@rhel55 ~$ bzip2 text.txt 
 paul@rhel55 ~$ bzcat text.txt.bz2 | head -4
 /
 /opt
 /opt/VBoxGuestAdditions-3.1.6
-/opt/VBoxGuestAdditions-3.1.6/routines.sh
-		</screen>
+/opt/VBoxGuestAdditions-3.1.6/routines.sh</screen>
 	</section>
