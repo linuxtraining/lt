@@ -81,7 +81,14 @@ do
    echo counting from 1 to 20, now at $counter
    sleep 1
 done</screen>
-		<para>This <command>for loop</command> use file globbing (from the shell expansion). Putting the instruction on the command line has identical functionality.</para>
+		<para>The same example as above can be written without the embedded shell using the bash <command>{from..to}</command> shorthand.</para>
+		<screen>#!/bin/bash
+for counter in {1..20}
+do
+   echo counting from 1 to 20, now at $counter
+   sleep 1
+done</screen>
+		<para>This <command>for loop</command> uses file globbing (from the shell expansion). Putting the instruction on the command line has identical functionality.</para>
 		<screen>kahlan@solexp11$ ls
 count.ksh  go.ksh
 kahlan@solexp11$ for file in *.ksh ; do cp $file $file.backup ; done
