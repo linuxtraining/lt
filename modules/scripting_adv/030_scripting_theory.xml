@@ -10,6 +10,20 @@ paul@deb503:~/test42$ eval x=\$$word ; echo $x
 kahlan@solexp11$ word=answer
 kahlan@solexp11$ eval "y=\$$word" ; echo $y
 42</screen>
+		<para>Sometimes the <command>eval</command> is needed to have correct parsing of arguments. Consider this example where the <command>date</command> command receives one parameter <command>1 week ago</command>.</para>
+<screen>
+paul@debian6~$ date --date="1 week ago"
+Thu Mar  8 21:36:25 CET 2012
+</screen>
+	<para>When we set this command in a variable, then executing that variable fails unless we use <command>eval</command>.</para>
+<screen>
+paul@debian6~$ lastweek='date --date="1 week ago"'
+paul@debian6~$ $lastweek
+date: extra operand `ago"'
+Try `date --help' for more information.
+paul@debian6~$ eval $lastweek
+Thu Mar  8 21:36:39 CET 2012
+</screen>
 	</section>
 	<section><title>(( ))</title>
 		<para>The <command>(( ))</command><indexterm><primary>(( (shell)</primary></indexterm> allows for evaluation of numerical expressions.</para>
@@ -26,6 +40,7 @@ paul@deb503:~/test42$ var42=33
 paul@deb503:~/test42$ (( 42 == var42 )) &#038;&#038; echo true || echo false
 false</screen>
 	</section>
+<?hard-pagebreak?>
 	<section><title>let</title>
 		<para>The <command>let</command><indexterm><primary>let</primary></indexterm> built-in shell function instructs the shell to perform an evaluation of arithmetic expressions. It will return 0 unless the last arithmetic expression evaluates to 0.</para>
 		<screen>
@@ -61,6 +76,7 @@ kahlan@solexp11$ let dec=15 ; let oct=017 ; let hex=0x0f
 kahlan@solexp11$ echo $dec $oct $hex
 15 15 15</screen>
 	</section>
+<?hard-pagebreak?>
 	<section><title>case</title>
 		<para>You can sometimes simplify nested if statements with a <command>case</command><indexterm><primary>case</primary></indexterm> construct.</para>
 		<screen>
@@ -103,6 +119,7 @@ esac
 [paul@RHEL4b ~]$ 			
 		</screen>
 	</section>
+<?hard-pagebreak?>
 	<section><title>shell functions</title>
 		<para>Shell <command>functions</command><indexterm><primary>function (shell)</primary></indexterm> can be used to group commands in a logical way.</para>
 		<screen>kahlan@solexp11$ cat funcs.ksh 
