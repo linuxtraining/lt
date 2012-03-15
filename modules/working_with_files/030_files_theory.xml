@@ -2,14 +2,12 @@
 <section><title>all files are case sensitive</title>
 	<para>Linux is <command>case sensitive</command><indexterm><primary>case sensitive</primary></indexterm>, this means that <command>FILE1</command> is different from <command>file1</command>, and <command>/etc/hosts</command> is different from <command>/etc/Hosts</command> (the latter one does not exist on a typical Linux computer).</para>
 	<para>This screenshot shows the difference between two files, one with upper case <command>W</command>, the other with lower case <command>w</command>.</para>
-	<screen>
-paul@laika:~/Linux$ ls
+	<screen>paul@laika:~/Linux$ ls
 winter.txt  Winter.txt
 paul@laika:~/Linux$ cat winter.txt 
 It is cold.
 paul@laika:~/Linux$ cat Winter.txt 
-It is very cold!
-	</screen>
+It is very cold!</screen>
 </section>
 <section><title>everything is a file</title>
 	<para>A <command>directory</command> is a special kind of <command>file</command>, but it is still a (case sensitive!) <command>file</command>. Even a terminal window (<command>/dev/pts/4</command>) or a hard disk (<command>/dev/sdb</command>) is represented somewhere in the <command>file system</command> as a <command>file</command>. It will become clear throughout this course that everything on Linux is a <command>file</command>.</para>
@@ -35,63 +33,53 @@ root@debian6~# file -s /proc/cpuinfo
 </section>
 <section><title>touch</title>
 	<para>One easy way to create a file is with <command>touch</command><indexterm><primary>touch(1)</primary></indexterm>. (We will see many other ways for creating files later in this book.)</para>
-	<screen>
-paul@laika:~/test$ touch file1
+	<screen>paul@laika:~/test$ touch file1
 paul@laika:~/test$ touch file2
 paul@laika:~/test$ touch file555
 paul@laika:~/test$ ls -l
 total 0
 -rw-r--r-- 1 paul paul 0 2007-01-10 21:40 file1
 -rw-r--r-- 1 paul paul 0 2007-01-10 21:40 file2
--rw-r--r-- 1 paul paul 0 2007-01-10 21:40 file555
-	</screen>
+-rw-r--r-- 1 paul paul 0 2007-01-10 21:40 file555</screen>
 	<section><title>touch -t</title>
 		<para>Of course, touch can do more than just create files. Can you determine what by looking at the next screenshot? If not, check the manual for touch.</para>
-		<screen>
-paul@laika:~/test$ touch -t 200505050000 SinkoDeMayo
+		<screen>paul@laika:~/test$ touch -t 200505050000 SinkoDeMayo
 paul@laika:~/test$ touch -t 130207111630 BigBattle
 paul@laika:~/test$ ls -l
 total 0
 -rw-r--r-- 1 paul paul 0 1302-07-11 16:30 BigBattle
--rw-r--r-- 1 paul paul 0 2005-05-05 00:00 SinkoDeMayo
-		</screen>
+-rw-r--r-- 1 paul paul 0 2005-05-05 00:00 SinkoDeMayo</screen>
 	</section>
 </section>
 <section><title>rm</title>
 	<para>When you no longer need a file, use <command>rm</command><indexterm><primary>rm(1)</primary></indexterm> to remove it. Unlike some graphical user interfaces, the command line in general does not have a <emphasis>waste bin</emphasis> or <emphasis>trash can</emphasis> to recover files. When you use rm to remove a file, the file is gone. Therefore, be careful when removing files! </para>
-	<screen>
-paul@laika:~/test$ ls
+	<screen>paul@laika:~/test$ ls
 BigBattle  SinkoDeMayo
 paul@laika:~/test$ rm BigBattle 
 paul@laika:~/test$ ls
-SinkoDeMayo
-	</screen>
+SinkoDeMayo</screen>
 	<section><title>rm -i</title>
 		<para>To prevent yourself from accidentally removing a file, you can type <command>rm -i</command>.</para>
-		<screen>
-paul@laika:~/Linux$ touch brel.txt
+		<screen>paul@laika:~/Linux$ touch brel.txt
 paul@laika:~/Linux$ rm -i brel.txt 
 rm: remove regular empty file `brel.txt'? y
-paul@laika:~/Linux$ 
-		</screen>
+paul@laika:~/Linux$</screen>
 	</section>
+<?hard-pagebreak?>
 	<section><title>rm -rf</title>
 		<para>By default, <command>rm -r</command> will not remove non-empty directories. However <command>rm</command> accepts several options that will allow you to remove any directory. The <command>rm -rf</command><indexterm><primary>rm -rf</primary></indexterm> statement is famous because it will erase anything (providing that you have the permissions to do so). When you are logged on as root, be very careful with <command>rm -rf</command> (the <command>f</command> means <command>force</command> and the <command>r</command> means <command>recursive</command>) since being root implies that permissions don't apply to you. You can literally erase your entire file system by accident.</para>
-		<screen>
-paul@laika:~$ ls test
+		<screen>paul@laika:~$ ls test
 SinkoDeMayo
 paul@laika:~$ rm test
 rm: cannot remove `test': Is a directory
 paul@laika:~$ rm -rf test
 paul@laika:~$ ls test
-ls: test: No such file or directory
-		</screen>
+ls: test: No such file or directory</screen>
 	</section>
 </section>
 <section><title>cp</title>
 	<para>To copy a file, use <command>cp</command><indexterm><primary>cp(1)</primary></indexterm> with a source and a target argument. If the target is a directory, then the source files are copied to that target directory.</para>
-	<screen>
-paul@laika:~/test$ touch FileA
+	<screen>paul@laika:~/test$ touch FileA
 paul@laika:~/test$ ls
 FileA
 paul@laika:~/test$ cp FileA FileB
@@ -102,8 +90,7 @@ paul@laika:~/test$ ls
 FileA  FileB  MyDir
 paul@laika:~/test$ cp FileA MyDir/
 paul@laika:~/test$ ls MyDir/
-FileA
-	</screen>
+FileA</screen>
 	<section><title>cp -r</title>
 		<para>To copy complete directories, use <command>cp -r</command><indexterm><primary>cp(1)</primary></indexterm> (the <command>-r</command> option forces <command>recursive</command> copying of all files in all subdirectories).</para>
 		<screen>
