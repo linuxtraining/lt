@@ -1,32 +1,25 @@
 <?hard-pagebreak?>
 	<section><title>sticky bit on directory</title>
 		<para>You can set the <command>sticky bit</command><indexterm><primary>sticky bit</primary></indexterm> on a directory to prevent users from removing files that they do not own as a user owner. The sticky bit is displayed at the same location as the x permission for others. The sticky bit is represented by a <command>t</command> (meaning x is also there) or a <command>T</command> (when there is no x for others).</para>
-		<screen>
-root@RHELv4u4:~# mkdir /project55
+		<screen>root@RHELv4u4:~# mkdir /project55
 root@RHELv4u4:~# ls -ld /project55
 drwxr-xr-x  2 root root 4096 Feb  7 17:38 /project55
 root@RHELv4u4:~# chmod +t /project55/
 root@RHELv4u4:~# ls -ld /project55
 drwxr-xr-t  2 root root 4096 Feb  7 17:38 /project55
-root@RHELv4u4:~# 
-		</screen>
+root@RHELv4u4:~#</screen>
 		<para>The <command>sticky bit</command> can also be set with octal permissions, it is binary 1 in the first of four triplets.</para>
-		<screen>
-root@RHELv4u4:~# chmod 1775 /project55/
+		<screen>root@RHELv4u4:~# chmod 1775 /project55/
 root@RHELv4u4:~# ls -ld /project55
 drwxrwxr-t  2 root root 4096 Feb  7 17:38 /project55
-root@RHELv4u4:~# 
-		</screen>
+root@RHELv4u4:~#</screen>
 		<para>You will typically find the <command>sticky bit</command> on the <command>/tmp</command><indexterm><primary>/tmp</primary></indexterm> directory.</para>
-		<screen>
-root@barry:~# ls -ld /tmp
-drwxrwxrwt 6 root root 4096 2009-06-04 19:02 /tmp
-		</screen>
+		<screen>root@barry:~# ls -ld /tmp
+drwxrwxrwt 6 root root 4096 2009-06-04 19:02 /tmp</screen>
 	</section>	
 	<section><title>setgid bit on directory</title>
 		<para><command>setgid</command><indexterm><primary>setgid</primary></indexterm> can be used on directories to make sure that all files inside the directory are owned by the group owner of the directory. The <command>setgid</command> bit is displayed at the same location as the x permission for group owner. The <command>setgid</command> bit is represented by an <command>s</command> (meaning x is also there) or a <command>S</command> (when there is no x for the group owner). As this example shows, even though <command>root</command> does not belong to the group proj55, the files created by root in /project55 will belong to proj55 since the <command>setgid</command> is set.</para>
-		<screen>
-root@RHELv4u4:~# groupadd proj55
+		<screen>root@RHELv4u4:~# groupadd proj55
 root@RHELv4u4:~# chown root:proj55 /project55/
 root@RHELv4u4:~# chmod 2775 /project55/
 root@RHELv4u4:~# touch /project55/fromroot.txt
@@ -35,17 +28,15 @@ drwxrwsr-x  2 root proj55 4096 Feb  7 17:45 /project55/
 root@RHELv4u4:~# ls -l /project55/
 total 4
 -rw-r--r--  1 root proj55 0 Feb  7 17:45 fromroot.txt
-root@RHELv4u4:~# 
-		</screen>
+root@RHELv4u4:~#</screen>
 		<para>You can use the <command>find</command><indexterm><primary>find(1)</primary></indexterm> command to find all <command>setgid</command><indexterm><primary>setgid</primary></indexterm> directories.</para>
-		<screen>
-paul@laika:~$ find / -type d -perm -2000 2> /dev/null
+		<screen>paul@laika:~$ find / -type d -perm -2000 2> /dev/null
 /var/log/mysql
 /var/log/news
 /var/local
-...
-		</screen>
+...</screen>
 	</section>
+<?hard-pagebreak?>
 	<section><title>setgid and setuid on regular files</title>
 		<para>These two permissions cause an executable file to be executed with the permissions of the <command>file owner</command> instead of the <command>executing owner</command>. This means that if any user executes a program that belongs to the <command>root user</command>, and the <command>setuid</command><indexterm><primary>setuid</primary></indexterm> bit is set on that program, then the program runs as <command>root</command>. This can be dangerous, but sometimes this is good for security.</para>
 		<para>Take the example of passwords; they are stored in <command>/etc/shadow</command><indexterm><primary>/etc/shadow</primary></indexterm> which is only readable by <command>root</command>. (The <command>root</command> user never needs permissions anyway.)</para>
