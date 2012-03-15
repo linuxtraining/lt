@@ -34,6 +34,7 @@ paul@debian5:~/test42$</screen>
 ls
 file1  file2  summer.txt  winter.txt</screen>
 </section>
+<?hard-pagebreak?>
 <section><title>Ctrl-r</title>
 	<para>Another option is to use <command>ctrl-r</command><indexterm><primary>ctrl-r</primary></indexterm> to search in the history. In the screenshot below i only typed <command>ctrl-r</command> followed by four characters <command>apti</command> and it finds the last command containing these four consecutive characters.</para>
 	<screen>paul@debian5:~$ 
@@ -60,6 +61,7 @@ paul@debian5:~$ echo $HISTSIZE
 	<screen>paul@debian5:~$ echo $HISTFILESIZE
 15000</screen>
 </section>
+<?hard-pagebreak?>
 <section><title>(optional)regular expressions</title>
 	<para>It is possible to use <command>regular expressions</command><indexterm><primary>regular expressions</primary></indexterm> when using the <command>bang</command> to repeat commands. The screenshot below switches 1 into 2.</para>
 	<screen>paul@deianb5:~/test$ cat file1
@@ -68,7 +70,6 @@ cat file2
 hello
 paul@debian5:~/test$</screen>
 </section>
-<?hard-pagebreak?>
 <section><title>(optional)repeating commands in ksh</title>
 	<para>Repeating a command in the <command>Korn shell</command><indexterm><primary>Korn shell</primary></indexterm> is very similar. The Korn shell <indexterm><primary>ksh</primary></indexterm> also has the <command>history</command> command, but uses the letter <command>r</command> to recall lines from history.</para>
 	<para>This screenshot shows the history command. Note the different meaning of the parameter.</para>
