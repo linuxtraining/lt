@@ -7,7 +7,7 @@ Password:
 [harry@RHEL4b paul]$ </screen>
 	</section>
 	<section><title>su to root</title>
-		<para>Yes you can alsu <command>su</command> to become <command>root</command>, when you know the <command>root password</command>.</para>
+		<para>Yes you can alsu <command>su</command> to become <command>root</command><indexterm><primary>root</primary></indexterm>, when you know the <command>root password</command>.</para>
 		<screen>[harry@RHEL4b paul]$ su root
 Password: 
 [root@RHEL4b paul]# </screen>
