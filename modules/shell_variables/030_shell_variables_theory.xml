@@ -93,6 +93,7 @@ We are in $city today. </screen>
 
 [paul@RHEL4b ~]$</screen>
 </section>
+<?hard-pagebreak?>
 <section><title>env</title>			
 	<para>The <command>env</command><indexterm><primary>env(1)</primary></indexterm> command without options will display a list of <command>exported variables</command>. The difference with <command>set</command> with options is that <command>set</command> lists all variables, including those not exported to child shells.</para>
 	<para>But <command>env</command> can also be used to start a clean shell (a shell without any inherited environment). The <command>env -i</command><indexterm><primary>env(1)</primary></indexterm> command clears the environment for the subshell.</para>
@@ -129,6 +130,7 @@ exit
 three four
 [paul@RHEL4b ~]$</screen>
 </section>
+<?hard-pagebreak?>
 <section><title>delineate variables</title>
 	<para>Until now, we have seen that bash interprets a variable starting from a dollar sign, continuing until the first occurrence of a non-alphanumeric character that is not an underscore. In some situations, this can be a problem. This issue can be resolved with curly braces like in this example.</para>
 	<screen>[paul@RHEL4b ~]$ prefix=Super
@@ -153,6 +155,7 @@ paul@laika:~$ echo $Myvar
 paul@laika:~$</screen>
 	<para>In the bash shell <command>set -u</command> is identical to <command>set -o nounset</command> and likewise <command>set +u</command> is identical to <command>set +o nounset</command>.</para>
 </section>
+<?hard-pagebreak?>
 <section><title>shell options</title>
 	<para>Both <command>set</command><indexterm><primary>set</primary></indexterm> and <command>unset</command><indexterm><primary>unset</primary></indexterm> are builtin shell commands. They can be used to set options of the bash shell itself. The next example will clarify this. By default, the shell will treat unset variables as a variable having no value. By setting the -u option, the shell will treat any reference to unset variables as an error. See the man page of bash for more information.</para>
 	<screen>[paul@RHEL4b ~]$ echo $var123
@@ -176,6 +179,7 @@ himBH
 [paul@RHEL4b ~]$</screen>
 	<para>When typing <command>set</command> without options, you get a list of all variables without function when the shell is on <command>posix</command> mode. You can set bash in posix mode typing <command>set -o posix</command>.</para>
 </section>
+<?hard-pagebreak?>
 <section><title>shell embedding</title>
 	<para>Shells can be embedded on the command line, or in other words, the command line scan can spawn new processes containing a fork of the current shell. You can use variables to prove that new shells are created. In the screenshot below, the variable $var1 only exists in the (temporary) sub shell.</para>
 	<screen>[paul@RHELv4u3 gen]$ echo $var1
