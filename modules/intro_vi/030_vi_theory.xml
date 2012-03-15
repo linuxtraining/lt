@@ -63,6 +63,7 @@
 </tgroup>
 </table>
 </section>
+<?hard-pagebreak?>
 <section><title>replace and delete a character (r x X)</title>
 	<para>When in command mode (it doesn't hurt to hit the escape key more than once) you can use the x key to delete the current character. The big X key (or shift x) will delete the character left of the cursor. Also when in command mode, you can use the r key to replace one single character. The r key will bring you in insert mode for just one key press, and will return you immediately to command mode.</para>
 <table frame='all'><title>replace and delete</title>
@@ -161,6 +162,7 @@
 </tgroup>
 </table>
 </section>
+<?hard-pagebreak?>
 <section><title>cut, copy and paste lines (3dd 2yy)</title>
 	<para>When in command mode, before typing dd or yy, you can type a number to repeat the command a number of times. Thus, 5dd will cut 5 lines and 4yy will copy (yank) 4 lines. That last one will be noted by vi in the bottom left corner as "4 line yanked".</para>
 <table frame='all'><title>cut, copy and paste lines</title>
@@ -255,6 +257,7 @@
 </tgroup>
 </table>
 </section>
+<?hard-pagebreak?>
 <section><title>words (w b)</title>
 	<para>When in command mode, <command>w</command> will jump to the next word and <command>b</command> will move to the previous word. w and b can also be combined with d and y to copy and cut words (dw db yw yb).</para>
 <table frame='all'><title>words</title>
@@ -540,6 +543,7 @@
 </tgroup>
 </table>
 </section>
+<?hard-pagebreak?>
 <section><title>key mappings</title>
 	<para>Similarly to their abbreviations, you can use mappings with <command>:map</command> for command mode and <command>:map!</command> for insert mode.</para>
 	<para>This example shows how to set the F6 function key to toggle between <command>set number</command> and <command>set nonumber</command>. The &#060;bar&#062; separates the two commands, <command>set number!</command> toggles the state and <command>set number?</command> reports the current state.</para>
