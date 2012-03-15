@@ -1,8 +1,7 @@
 <?hard-pagebreak?>
 <section><title>head</title>
 	<para>You can use <command>head</command><indexterm><primary>head(1)</primary></indexterm> to display the first ten lines of a file.</para>
-	<screen>
-paul@laika:~$ head /etc/passwd
+	<screen>paul@laika:~$ head /etc/passwd
 root:x:0:0:root:/root:/bin/bash
 daemon:x:1:1:daemon:/usr/sbin:/bin/sh
 bin:x:2:2:bin:/bin:/bin/sh
@@ -13,26 +12,20 @@ man:x:6:12:man:/var/cache/man:/bin/sh
 lp:x:7:7:lp:/var/spool/lpd:/bin/sh
 mail:x:8:8:mail:/var/mail:/bin/sh
 news:x:9:9:news:/var/spool/news:/bin/sh
-paul@laika:~$ 
-	</screen>
+paul@laika:~$</screen>
 	<para>The head command can also display the first n lines of a file.</para>
-	<screen>
-paul@laika:~$ head -4 /etc/passwd
+	<screen>paul@laika:~$ head -4 /etc/passwd
 root:x:0:0:root:/root:/bin/bash
 daemon:x:1:1:daemon:/usr/sbin:/bin/sh
 bin:x:2:2:bin:/bin:/bin/sh
-sys:x:3:3:sys:/dev:/bin/sh
-	</screen>
+sys:x:3:3:sys:/dev:/bin/sh</screen>
 	<para>Head can also display the first n bytes.</para>
-	<screen>
-paul@laika:~$ head -c4 /etc/passwd
-rootpaul@laika:~$
-	</screen>		
+	<screen>paul@laika:~$ head -c4 /etc/passwd
+rootpaul@laika:~$</screen>		
 </section>
 <section><title>tail</title>
 	<para>Similar to head, the <command>tail</command><indexterm><primary>tail(1)</primary></indexterm> command will display the last ten lines of a file.</para>
-	<screen>
-paul@laika:~$ tail /etc/services 
+	<screen>paul@laika:~$ tail /etc/services 
 vboxd           20012/udp
 binkp           24554/tcp             # binkp fidonet protocol
 asp             27374/tcp             # Address Search Protocol
@@ -43,8 +36,7 @@ tfido           60177/tcp             # fidonet EMSI over telnet
 fido            60179/tcp             # fidonet EMSI over TCP
 
 # Local services
-paul@laika:~$
-	</screen>
+paul@laika:~$</screen>
 	<para>You can give <command>tail</command> the number of lines you want to see.</para>
 	<screen>$ tail -3 count.txt 
 six
@@ -54,62 +46,54 @@ eight</screen>
 </section>
 <section><title>cat</title>
 	<para>The <command>cat</command><indexterm><primary>cat(1)</primary></indexterm> command is one of the most universal tools. All it does is copy standard input to standard output. In combination with the shell this can be very powerful and diverse. Some examples will give a glimpse into the possibilities. The first example is simple, you can use cat to display a file on the screen. If the file is longer than the screen, it will scroll to the end.</para>
-	<screen>
-paul@laika:~$ cat /etc/resolv.conf
+	<screen>paul@laika:~$ cat /etc/resolv.conf
 nameserver 194.7.1.4
-paul@laika:~$
-	</screen>
+paul@laika:~$</screen>
 	<section><title>concatenate</title>
 		<para><command>cat</command> is short for <command>concatenate</command>. One of the basic uses of cat is to concatenate files into a bigger (or complete) file.</para>
-		<screen>
-paul@laika:~$ echo one &#062; part1
+		<screen>paul@laika:~$ echo one &#062; part1
 paul@laika:~$ echo two &#062; part2
 paul@laika:~$ echo three &#062; part3
 paul@laika:~$ cat part1 part2 part3
 one
 two
 three
-paul@laika:~$
-		</screen>
+paul@laika:~$</screen>
 	</section>
 	<section><title>create files</title>
 		<para>You can use <command>cat</command> to create flat text files. Type the <command>cat &#062; winter.txt</command> command as shown in the screenshot below. Then type one or more lines, finishing each line with the enter key. After the last line, type and hold the Control (Ctrl) key and press d.</para>
-		<screen>
-paul@laika:~/test$ cat &#062; winter.txt
+		<screen>paul@laika:~/test$ cat &#062; winter.txt
 It is very cold today!
 paul@laika:~/test$ cat winter.txt 
 It is very cold today!
-paul@laika:~/test$
-		</screen>
-		<para>The <command>Ctrl d</command><indexterm><primary>Ctrl D</primary></indexterm> key combination will send an <command>EOF</command> (End of File) to the running process ending the <command>cat</command> command.</para>
+paul@laika:~/test$</screen>
+		<para>The <command>Ctrl d</command><indexterm><primary>Ctrl d</primary></indexterm> key combination will send an <command>EOF</command> (End of File) to the running process ending the <command>cat</command> command.</para>
+	</section>
+<?hard-pagebreak?>
+	<section><title>custom end marker</title>
 		<para>You can choose an end marker for <command>cat</command> with <command>&#060;&#060;</command> as is shown in this screenshot. This construction is called a <command>here directive</command><indexterm><primary>here directive</primary></indexterm> and will end the <command>cat</command> command.</para>
-		<screen>
-paul@laika:~/test$ cat &#062; hot.txt &#060;&#060;stop
+		<screen>paul@laika:~/test$ cat &#062; hot.txt &#060;&#060;stop
 &#062; It is hot today!
 &#062; Yes it is summer.
 &#062; stop
 paul@laika:~/test$ cat hot.txt 
 It is hot today!
 Yes it is summer.
-paul@laika:~/test$ 
-		</screen>
+paul@laika:~/test$</screen>
 	</section>
 	<section><title>copy files</title>
 		<para>In the third example you will see that cat can be used to copy files. We will explain in detail what happens here in the bash shell chapter.</para>
-		<screen>
-paul@laika:~/test$ cat winter.txt 
+		<screen>paul@laika:~/test$ cat winter.txt 
 It is very cold today!
 paul@laika:~/test$ cat winter.txt > cold.txt
 paul@laika:~/test$ cat cold.txt 
 It is very cold today!
-paul@laika:~/test$
-		</screen>		
+paul@laika:~/test$</screen>		
 	</section>
 </section>
 <section><title>tac</title>
 	<para>Just one example will show you the purpose of <command>tac</command><indexterm><primary>tac(1)</primary></indexterm> (as the opposite of cat).</para>
-	<screen>
-paul@laika:~/test$ cat count 
+	<screen>paul@laika:~/test$ cat count 
 one
 two
 three
@@ -119,9 +103,9 @@ four
 three
 two
 one
-paul@laika:~/test$
-	</screen>
+paul@laika:~/test$</screen>
 </section>
+<?hard-pagebreak?>
 <section><title>more and less</title>
 	<para>The <command>more</command><indexterm><primary>more(1)</primary></indexterm> command is useful for displaying files that take up more than one screen. More will allow you to see the contents of the file page by page. Use the space bar to see the next page, or <command>q</command> to quit. Some people prefer the <command>less</command><indexterm><primary>less(1)</primary></indexterm> command to <command>more</command>.</para>
 </section>
