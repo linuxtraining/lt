@@ -2,22 +2,39 @@
 	<section><title>find</title>
 		<para>The <command>find</command><indexterm><primary>find(1)</primary></indexterm> command can be very useful at the start of a pipe to search for files. Here are some examples. You might want to add <command>2&#062;/dev/null</command> to the command lines to avoid cluttering your screen with error messages.</para>
 		<para>Find all files in <command>/etc</command> and put the list in etcfiles.txt</para>
-		<screen>find /etc &#062; etcfiles.txt</screen>
+		<screen>find /etc &#062; etcfiles.txt
+
+</screen>
 		<para>Find all files of the entire system and put the list in allfiles.txt</para>
-		<screen>find / &#062; allfiles.txt</screen>
+		<screen>find / &#062; allfiles.txt
+
+</screen>
 		<para>Find files that end in .conf in the current directory (and all subdirs).</para>
-		<screen>find . -name "*.conf"</screen>
+		<screen>find . -name "*.conf"
+
+</screen>
 		<para>Find files of type file (not directory, pipe or etc.) that end in .conf.</para>
-		<screen>find . -type f -name "*.conf"</screen>
+		<screen>find . -type f -name "*.conf"
+
+</screen>
 		<para>Find files of type directory that end in .bak .</para>
-		<screen>find /data -type d -name "*.bak"</screen>
+		<screen>find /data -type d -name "*.bak"
+
+</screen>
 		<para>Find files that are newer than file42.txt</para>
-		<screen>find . -newer file42.txt</screen>
+		<screen>find . -newer file42.txt
+
+</screen>
 		<para>Find can also execute another command on every file found. This example will look for *.odf files and copy them to /backup/.</para>
-		<screen>find /data -name "*.odf" -exec cp {} /backup/ \;</screen>
+		<screen>find /data -name "*.odf" -exec cp {} /backup/ \;
+
+</screen>
 		<para>Find can also execute, after your confirmation, another command on every file found. This example will remove *.odf files if you approve of it for every file found.</para>
-		<screen>find /data -name "*.odf" -ok rm {} \;</screen>
+		<screen>find /data -name "*.odf" -ok rm {} \;
+
+</screen>
 	</section>
+<?hard-pagebreak?>
 	<section><title>locate</title>
 		<para>The <command>locate</command><indexterm><primary>locate(1)</primary></indexterm> tool is very different from <command>find</command> in that it uses an index to locate files. This is a lot faster than traversing all the directories, but it also means that it is always outdated. If the index does not exist yet, then you have to create it (as root on Red Hat Enterprise Linux) with the <command>updatedb</command><indexterm><primary>updatedb(1)</primary></indexterm> command.</para>
 		<screen>[paul@RHEL4b ~]$ locate Samba
@@ -35,17 +52,22 @@ Password:
 	<section><title>date</title>
 		<para>The <command>date</command><indexterm><primary>date</primary></indexterm> command can display the date, time, time zone and more.</para>
 		<screen>paul@rhel55 ~$ date
-Sat Apr 17 12:44:30 CEST 2010</screen>
+Sat Apr 17 12:44:30 CEST 2010
+</screen>
 		<para>A date string can be customised to display the format of your choice. Check the man page for more options.</para>
 		<screen>paul@rhel55 ~$ date +'%A %d-%m-%Y'
-Saturday 17-04-2010</screen>
+Saturday 17-04-2010
+</screen>
 		<para>Time on any Unix is calculated in number of seconds since 1969 (the first second being the first second of the first of January 1970). Use <command>date +%s</command> to display Unix time in seconds.</para>
 		<screen>paul@rhel55 ~$ date +%s
-1271501080</screen>
+1271501080
+</screen>
 		<para>When will this seconds counter reach two thousand million ?</para>
 		<screen>paul@rhel55 ~$ date -d '1970-01-01 + 2000000000 seconds'
-Wed May 18 04:33:20 CEST 2033</screen>
+Wed May 18 04:33:20 CEST 2033
+</screen>
 	</section>
+<?hard-pagebreak?>
 	<section><title>cal</title>
 		<para>The <command>cal</command><indexterm><primary>cal</primary></indexterm> command displays the current month, with the current day highlighted.</para>
 		<screen>paul@rhel55 ~$ cal
@@ -84,12 +106,14 @@ sys     0m0.006s</screen>
 real    0m5.018s
 user    0m0.005s
 sys     0m0.011s</screen>
+<?hard-pagebreak?>
 		<para>This <command>bzip2</command><indexterm><primary>bzip2</primary></indexterm> command compresses a file and uses a lot of <command>cpu time</command>.</para>
 		<screen>paul@rhel55 ~$ time bzip2 text.txt 
 
 real    0m2.368s
 user    0m0.847s
-sys     0m0.539s</screen>
+sys     0m0.539s
+</screen>
 	</section>
 	<section><title>gzip - gunzip</title>
 		<para>Users never have enough disk space, so compression comes in handy. The <command>gzip</command><indexterm><primary>gzip(1)</primary></indexterm> command can make files take up less space.</para>
@@ -97,11 +121,13 @@ sys     0m0.539s</screen>
 -rw-rw-r-- 1 paul paul 6.4M Apr 17 13:11 text.txt
 paul@rhel55 ~$ gzip text.txt 
 paul@rhel55 ~$ ls -lh text.txt.gz 
--rw-rw-r-- 1 paul paul 760K Apr 17 13:11 text.txt.gz</screen>
+-rw-rw-r-- 1 paul paul 760K Apr 17 13:11 text.txt.gz
+</screen>
 		<para>You can get the original back with <command>gunzip</command><indexterm><primary>gunzip(1)</primary></indexterm>.</para>
 		<screen>paul@rhel55 ~$ gunzip text.txt.gz 
 paul@rhel55 ~$ ls -lh text.txt
--rw-rw-r-- 1 paul paul 6.4M Apr 17 13:11 text.txt</screen>
+-rw-rw-r-- 1 paul paul 6.4M Apr 17 13:11 text.txt
+</screen>
 	</section>
 	<section><title>zcat - zmore</title>
 		<para>Text files that are compressed with <command>gzip</command><indexterm><primary>gzip</primary></indexterm> can be viewed with <command>zcat</command><indexterm><primary>zcat</primary></indexterm> and <command>zmore</command><indexterm><primary>zmore</primary></indexterm>.</para>
@@ -115,17 +141,21 @@ paul@rhel55 ~$ zcat text.txt.gz | head -4
 /
 /opt
 /opt/VBoxGuestAdditions-3.1.6
-/opt/VBoxGuestAdditions-3.1.6/routines.sh</screen>
+/opt/VBoxGuestAdditions-3.1.6/routines.sh
+</screen>
 	</section>
+<?hard-pagebreak?>
 	<section><title>bzip2 - bunzip2</title>
 		<para>Files can also be compressed with <command>bzip2</command><indexterm><primary>bzip2</primary></indexterm> which takes a little more time than <command>gzip</command>, but compresses better.</para>
 		<screen>paul@rhel55 ~$ bzip2 text.txt 
 paul@rhel55 ~$ ls -lh text.txt.bz2 
--rw-rw-r-- 1 paul paul 569K Apr 17 13:11 text.txt.bz2</screen>
+-rw-rw-r-- 1 paul paul 569K Apr 17 13:11 text.txt.bz2
+</screen>
 		<para>Files can be uncompressed again with <command>bunzip2</command><indexterm><primary>bunzip2</primary></indexterm>.</para>
 		<screen>paul@rhel55 ~$ bunzip2 text.txt.bz2 
 paul@rhel55 ~$ ls -lh text.txt 
--rw-rw-r-- 1 paul paul 6.4M Apr 17 13:11 text.txt</screen>
+-rw-rw-r-- 1 paul paul 6.4M Apr 17 13:11 text.txt
+</screen>
 	</section>
 	<section><title>bzcat - bzmore</title>
 		<para>And in the same way <command>bzcat</command><indexterm><primary>bzcat</primary></indexterm> and <command>bzmore</command><indexterm><primary>bzmore</primary></indexterm> can display files compressed with <command>bzip2</command><indexterm><primary>bzip2</primary></indexterm>.</para>
@@ -134,5 +164,6 @@ paul@rhel55 ~$ bzcat text.txt.bz2 | head -4
 /
 /opt
 /opt/VBoxGuestAdditions-3.1.6
-/opt/VBoxGuestAdditions-3.1.6/routines.sh</screen>
+/opt/VBoxGuestAdditions-3.1.6/routines.sh
+</screen>
 	</section>
