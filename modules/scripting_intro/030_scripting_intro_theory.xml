@@ -13,10 +13,10 @@ Hello World
 [paul@RHEL4a ~]$</screen>
 	</section>
 	<section><title>she-bang</title>
-		<para>Let's expand our example a little further by putting <command>#!/bin/bash</command> on the first line of the script. The <command>#!</command> is called a <command>she-bang</command> (sometimes called <command>sha-bang</command>), where the <command>she-bang</command> is the first two characters of the script.</para>
+		<para>Let's expand our example a little further by putting <command>#!/bin/bash</command> on the first line of the script. The <command>#!</command><indexterm><primary>#! (shell)</primary></indexterm> is called a <command>she-bang</command><indexterm><primary>she-bang (shell)</primary></indexterm> (sometimes called <command>sha-bang</command>), where the <command>she-bang</command> is the first two characters of the script.</para>
 		<screen>#!/bin/bash
 echo Hello World</screen>
-		<para>You can never be sure which shell a user is running. A script that works flawlessly in <command>bash</command> might not work in <command>ksh</command>, <command>csh</command>, or <command>dash</command>. To instruct a shell to run your script in a certain shell, you can start your script with a <command>she-bang</command><indexterm><primary>#!/bin/bash</primary></indexterm> followed by the shell it is supposed to run in. This script will run in a bash shell.</para>
+		<para>You can never be sure which shell a user is running. A script that works flawlessly in <command>bash</command> might not work in <command>ksh</command><indexterm><primary>ksh</primary></indexterm>, <command>csh</command><indexterm><primary>csh</primary></indexterm>, or <command>dash</command>. To instruct a shell to run your script in a certain shell, you can start your script with a <command>she-bang</command><indexterm><primary>#!/bin/bash</primary></indexterm> followed by the shell it is supposed to run in. This script will run in a bash shell.</para>
 		<screen>#!/bin/bash
 echo -n hello
 echo A bash subshell `echo -n hello`
@@ -53,7 +53,7 @@ var1 = 4
 [paul@RHEL4a ~]$</screen>
 	</section>
 	<section><title>sourcing a script</title>
-		<para>Luckily, you can force a script to run in the same shell; this is called <command>sourcing</command> a script.</para>
+		<para>Luckily, you can force a script to run in the same shell; this is called <command>sourcing</command><indexterm><primary>source</primary></indexterm> a script.</para>
 		<screen>
 [paul@RHEL4a ~]$ source ./vars
 var1 = 4
@@ -61,7 +61,7 @@ var1 = 4
 4
 [paul@RHEL4a ~]$ 
 		</screen>
-		<para>The above is identical to the below.</para>
+		<para>The above is identical<indexterm><primary>. (shell)</primary></indexterm> to the below.</para>
 		<screen>
 [paul@RHEL4a ~]$ . ./vars
 var1 = 4
@@ -74,7 +74,7 @@ var1 = 4
 	<para>Another way to run a script in a separate shell is by typing <command>bash</command> with the name of the script as a parameter.</para>
 	<screen>paul@debian6~/test$ bash runme
 42</screen>
-	<para>Expanding this to <command>bash -x</command> allows you to see the commands that the shell is executing (after shell expansion).</para>
+	<para>Expanding this to <command>bash -x</command><indexterm><primary>bash -x</primary></indexterm> allows you to see the commands that the shell is executing (after shell expansion).</para>
 <screen>paul@debian6~/test$ bash -x runme
 + var4=42
 + echo 42
@@ -88,9 +88,9 @@ paul@debian6~/test$</screen>
 
 	</section>
 	<section><title>prevent setuid root spoofing</title>
-		<para>Some user may try to perform <command>setuid</command> based script <command>root spoofing</command>. This is a rare but possible attack. To improve script security and to avoid interpreter spoofing, you need to add <command>--</command> after the <command>#!/bin/bash</command>, which disables further option processing so the shell will not accept any options.</para>
+		<para>Some user may try to perform <command>setuid</command><indexterm><primary>setuid</primary></indexterm> based script <command>root spoofing</command>. This is a rare but possible attack. To improve script security and to avoid interpreter spoofing, you need to add <command>--</command> after the <command>#!/bin/bash</command>, which disables further option processing so the shell will not accept any options.</para>
 		<screen>#!/bin/bash -
 or
 #!/bin/bash --</screen>
-		<para>Any arguments after the -- are treated as filenames and arguments. An argument of - is equivalent to --.</para>
+		<para>Any arguments after the <command>--</command><indexterm><primary>-- (shell)</primary></indexterm> are treated as filenames and arguments. An argument of - is equivalent to --.</para>
 	</section>
