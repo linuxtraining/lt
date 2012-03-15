@@ -1,7 +1,8 @@
 <?hard-pagebreak?>
 	<section><title>script parameters</title>
 		<para>A <command>bash</command><indexterm><primary>bash</primary></indexterm> shell script can have parameters. The numbering you see in the script below continues if you have more parameters. You also have special parameters containing the number of parameters, a string of all of them, and also the process id, and the last return code. The man page of <command>bash</command> has a full list.</para>
-		<screen>#!/bin/bash
+		<screen>
+#!/bin/bash
 echo The first argument is $1
 echo The second argument is $2
 echo The third argument is $3
@@ -11,7 +12,8 @@ echo \# $#  count arguments
 echo \? $?  last return code
 echo \* $*  all the arguments</screen>
 		<para>Below is the output of the script above in action.</para>
-		<screen>[paul@RHEL4a scripts]$ ./pars one two three
+		<screen>
+[paul@RHEL4a scripts]$ ./pars one two three
 The first argument is one
 The second argument is two
 The third argument is three
@@ -19,6 +21,9 @@ $ 5610 PID of the script
 # 3 count arguments
 ? 0 last return code
 * one two three all the arguments
+</screen>
+		<para>Once more the same script, but with only two parameters.</para>
+<screen>
 [paul@RHEL4a scripts]$ ./pars 1 2
 The first argument is 1
 The second argument is 2
@@ -27,12 +32,23 @@ $ 5612 PID of the script
 # 2 count arguments
 ? 0 last return code
 * 1 2 all the arguments
-[paul@RHEL4a scripts]$</screen>
-		<para>The <command>$0</command> parameter contains the name of the script.</para>
+[paul@RHEL4a scripts]$
+</screen>
+		<para>Here is another example, where we use <command>$0</command>. The <command>$0</command> parameter contains the name of the script.</para>
+		<screen>
+paul@debian6~$ cat myname 
+echo this script is called $0
+paul@debian6~$ ./myname 
+this script is called ./myname
+paul@debian6~$ mv myname test42
+paul@debian6~$ ./test42 
+this script is called ./test42</screen>
 	</section>
+<?hard-pagebreak?>
 	<section><title>shift through parameters</title>
 		<para>The <command>shift</command><indexterm><primary>shift</primary></indexterm> statement can parse all <command>parameters</command> one by one. This is a sample script.</para>
-		<screen>kahlan@solexp11$ cat shift.ksh 
+		<screen>
+kahlan@solexp11$ cat shift.ksh 
 #!/bin/ksh                                
                                           
 if [ "$#" == "0" ] 
@@ -45,9 +61,11 @@ while (( $# ))
  do
   echo You gave me $1
   shift
- done</screen>
+ done
+</screen>
 		<para>Below is some sample output of the script above.</para>
-		<screen>kahlan@solexp11$ ./shift.ksh one  
+		<screen>
+kahlan@solexp11$ ./shift.ksh one  
 You gave me one
 kahlan@solexp11$ ./shift.ksh one two three 1201 "33 42"
 You gave me one                           
@@ -56,7 +74,8 @@ You gave me three
 You gave me 1201
 You gave me 33 42
 kahlan@solexp11$ ./shift.ksh                           
-You have to give at least one parameter.</screen>
+You have to give at least one parameter.
+</screen>
 	</section>
 	<section><title>runtime input</title>
 		<para>You can ask the user for input with the <command>read</command><indexterm><primary>read</primary></indexterm> command in a script.</para>
@@ -66,8 +85,10 @@ echo -n Enter a number:
 read number
 		</screen>
 	</section>
+<?hard-pagebreak?>
 	<section><title>sourcing a config file</title>
 		<para>The <command>source</command><indexterm><primary>source</primary></indexterm> (as seen in the shell chapters) can be used to source a configuration file.</para>
+		<para>Below a sample configuration file for an application.</para>
 		<screen>[paul@RHEL4a scripts]$ cat myApp.conf 
 # The config file of myApp
 
@@ -76,7 +97,9 @@ myAppPath=/var/myApp
 
 # Enter the number of quines here
 quines=5
-
+</screen>
+		<para>And her an application that uses this file.</para>
+<screen>
 [paul@RHEL4a scripts]$ cat myApp.bash 
 #!/bin/bash
 #
@@ -86,14 +109,18 @@ quines=5
 . ./myApp.conf
 
 echo There are $quines quines
-
+</screen>
+		<para>The running application can use the values inside the sourced configuration file.</para>
+<screen>
 [paul@RHEL4a scripts]$ ./myApp.bash 
 There are 5 quines
 [paul@RHEL4a scripts]$</screen>
 	</section>
+<?hard-pagebreak?>
 	<section><title>get script options with getopts</title>
-		<para>The <command>getopts</command><indexterm><primary>getopts</primary></indexterm> function allows you to parse options given to a command.</para>
-		<screen>kahlan@solexp11$ cat options.ksh 
+		<para>The <command>getopts</command><indexterm><primary>getopts</primary></indexterm> function allows you to parse options given to a command. The following script allows for any compination of the options a, f and z.</para>
+		<screen>
+kahlan@solexp11$ cat options.ksh 
 #!/bin/ksh
 
 while getopts ":afz" option;
@@ -112,9 +139,11 @@ do
    echo "invalid option -$OPTARG" 
    ;;
  esac
-done</screen>
-		<para>This is sample output from the script above.</para>
-		<screen>kahlan@solexp11$ ./options.ksh        
+done
+</screen>
+		<para>This is sample output from the script above. First we use correct options, then we enter twice an invalid option.</para>
+		<screen>
+kahlan@solexp11$ ./options.ksh        
 kahlan@solexp11$ ./options.ksh -af
 received -a
 received -f
@@ -125,7 +154,9 @@ invalid option -g
 kahlan@solexp11$ ./options.ksh -a -b -z
 received -a
 invalid option -b
-received -z</screen>
+received -z
+</screen>
+<?hard-pagebreak?>
 		<para>You can also check for options that need an argument, as this example shows.</para>
 		<screen>kahlan@solexp11$ cat argoptions.ksh 
 #!/bin/ksh
