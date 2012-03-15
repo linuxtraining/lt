@@ -1,6 +1,6 @@
 <?hard-pagebreak?>
 	<section><title>script parameters</title>
-		<para>A <command>bash</command> shell script can have parameters. The numbering you see in the script below continues if you have more parameters. You also have special parameters containing the number of parameters, a string of all of them, and also the process id, and the last return code. The man page of <command>bash</command> has a full list.</para>
+		<para>A <command>bash</command><indexterm><primary>bash</primary></indexterm> shell script can have parameters. The numbering you see in the script below continues if you have more parameters. You also have special parameters containing the number of parameters, a string of all of them, and also the process id, and the last return code. The man page of <command>bash</command> has a full list.</para>
 		<screen>#!/bin/bash
 echo The first argument is $1
 echo The second argument is $2
@@ -31,7 +31,7 @@ $ 5612 PID of the script
 		<para>The <command>$0</command> parameter contains the name of the script.</para>
 	</section>
 	<section><title>shift through parameters</title>
-		<para>The <command>shift</command> statement can parse all <command>parameters</command> one by one. This is a sample script.</para>
+		<para>The <command>shift</command><indexterm><primary>shift</primary></indexterm> statement can parse all <command>parameters</command> one by one. This is a sample script.</para>
 		<screen>kahlan@solexp11$ cat shift.ksh 
 #!/bin/ksh                                
                                           
@@ -67,6 +67,7 @@ read number
 		</screen>
 	</section>
 	<section><title>sourcing a config file</title>
+		<para>The <command>source</command><indexterm><primary>source</primary></indexterm> (as seen in the shell chapters) can be used to source a configuration file.</para>
 		<screen>[paul@RHEL4a scripts]$ cat myApp.conf 
 # The config file of myApp
 
@@ -91,7 +92,7 @@ There are 5 quines
 [paul@RHEL4a scripts]$</screen>
 	</section>
 	<section><title>get script options with getopts</title>
-		<para>The <command>getopts</command> function allows you to parse options given to a command.</para>
+		<para>The <command>getopts</command><indexterm><primary>getopts</primary></indexterm> function allows you to parse options given to a command.</para>
 		<screen>kahlan@solexp11$ cat options.ksh 
 #!/bin/ksh
 
@@ -164,8 +165,7 @@ option -f needs an argument</screen>
 	</section>
 	<section><title>get shell options with shopt</title>
 		<para>You can toggle the values of variables controlling optional shell behaviour with the <command>shopt</command><indexterm><primary>shopt</primary></indexterm> built-in shell command. The example below first verifies whether the cdspell option is set; it is not. The next shopt command sets the value, and the third shopt command verifies that the option really is set. You can now use minor spelling mistakes in the cd command. The man page of bash has a complete list of options.</para>
-		<screen>
-paul@laika:~$ shopt -q cdspell ; echo $?
+		<screen>paul@laika:~$ shopt -q cdspell ; echo $?
 1
 paul@laika:~$ shopt -s cdspell
 paul@laika:~$ shopt -q cdspell ; echo $?
