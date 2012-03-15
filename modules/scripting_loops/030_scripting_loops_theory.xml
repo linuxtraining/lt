@@ -97,7 +97,7 @@ count.ksh  count.ksh.backup  go.ksh  go.ksh.backup </screen>
 	</section>
 	<section><title>while loop</title>
 		<para>Below a simple example of a <command>while loop</command><indexterm><primary>while loop (bash)</primary></indexterm>.</para>
-		<screen>let i=100;
+		<screen>i=100;
 while [ $i -ge 0 ] ;
 do
    echo Counting down, from 100 to 0, now at $i;
