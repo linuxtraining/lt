@@ -1,4 +1,7 @@
 <?hard-pagebreak?>
+	<section><title>prerequisites</title>
+		<para>You should have read and understood <command>part III shell expansion</command> and <command>part IV pipes and commands</command> before starting this chapter.</para>
+	</section>
 	<section><title>hello world</title>
 		<para>Just like in every programming course, we start with a simple <command>hello_world</command> script. The following script will output <command>Hello World</command>.</para>
 		<screen>echo Hello World</screen>
@@ -66,6 +69,23 @@ var1 = 4
 4
 [paul@RHEL4a ~]$ 
 		</screen>
+	</section>
+	<section><title>troubleshooting a script</title>
+	<para>Another way to run a script in a separate shell is by typing <command>bash</command> with the name of the script as a parameter.</para>
+	<screen>paul@debian6~/test$ bash runme
+42</screen>
+	<para>Expanding this to <command>bash -x</command> allows you to see the commands that the shell is executing (after shell expansion).</para>
+<screen>paul@debian6~/test$ bash -x runme
++ var4=42
++ echo 42
+42
+paul@debian6~/test$ cat runme
+# the runme script
+var4=42
+echo $var4
+paul@debian6~/test$</screen>
+	<para>Notice the absence of the commented (#) line, and the replacement of the variable before execution of <command>echo</command>.</para>
+
 	</section>
 	<section><title>prevent setuid root spoofing</title>
 		<para>Some user may try to perform <command>setuid</command> based script <command>root spoofing</command>. This is a rare but possible attack. To improve script security and to avoid interpreter spoofing, you need to add <command>--</command> after the <command>#!/bin/bash</command>, which disables further option processing so the shell will not accept any options.</para>
