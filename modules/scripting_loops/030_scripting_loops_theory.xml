@@ -20,6 +20,7 @@ true
 false</screen>
 		<para>Below are some example tests. Take a look at <command>man test</command> to see more options for tests.</para>
 		<screen>[ -d foo ]             Does the directory foo exist ?
+[ -e bar ]             Does the file bar exist ?
 [ '/etc' = $PWD ]      Is the string /etc equal to the variable $PWD ?
 [ $1 != 'secret' ]     Is the first parameter different from secret ?
 [ 55 -lt $bar ]        Is 55 less than the value of $bar ?
@@ -37,7 +38,7 @@ false
 paul@RHEL4b:~$ [ 66 -gt 55 -o 660 -lt 500 ] &#038;&#038; echo true || echo false
 true</screen>
 	</section>
-	<section><title>if if, then then, or else</title>
+	<section><title>if then else</title>
 		<para>The <command>if then else</command><indexterm><primary>if then else (bash)</primary></indexterm> construction is about choice. If a certain condition is met, then execute something, else execute something else. The example below tests whether a file exists, and if the file exists then a proper message is echoed.</para>
 		<screen>#!/bin/bash
 
@@ -52,6 +53,20 @@ isit.txt not found!
 [paul@RHEL4a scripts]$ ./choice 
 isit.txt exists!
 [paul@RHEL4a scripts]$</screen>
+	</section>
+	<section><title>if then elif</title>
+	<para>You can nest a new <command>if</command> inside an <command>else</command> with <command>elif</command>. This is a simple example.</para>
+<screen>#!/bin/bash
+count=42
+if [ $count -eq 42 ]
+then
+  echo "42 is correct."
+elif [ $count -gt 42 ]
+then
+  echo "Too much."
+else
+  echo "Not enough."
+fi</screen>
 	</section>
 	<section><title>for loop</title>
 		<para>The example below shows the syntax of a classical <command>for loop</command><indexterm><primary>for loop (bash)</primary></indexterm> in bash.</para>
