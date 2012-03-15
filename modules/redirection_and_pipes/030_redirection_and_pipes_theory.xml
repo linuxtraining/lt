@@ -6,38 +6,32 @@
 <section><title>output redirection</title>
 	<section><title>&#062; stdout</title>
 		<para><command>stdout</command> can be redirected with a <command>greater than</command> sign. While scanning the line, the shell will see the <command>&#062;</command><indexterm><primary>&#062;</primary></indexterm> sign and will clear the file.</para>
-		<screen>
-[paul@RHELv4u3 ~]$ echo It is cold today!
+		<screen>[paul@RHELv4u3 ~]$ echo It is cold today!
 It is cold today!
 [paul@RHELv4u3 ~]$ echo It is cold today! &#062; winter.txt
 [paul@RHELv4u3 ~]$ cat winter.txt 
 It is cold today!
-[paul@RHELv4u3 ~]$
-		</screen>
+[paul@RHELv4u3 ~]$</screen>
 		<para>Note that the <command>&#062;</command> notation is in fact the abbreviation of <command>1&#062;</command> (<command>stdout</command> being referred to as stream <command>1</command>.</para>
 	</section>
 	<section><title>output file is erased</title>
 		<para>To repeat: While scanning the line, the shell will see the &#062; sign and <command>will clear the file</command>! This means that even when the command fails, the file will be cleared!</para>
-		<screen>
-[paul@RHELv4u3 ~]$ cat winter.txt 
+		<screen>[paul@RHELv4u3 ~]$ cat winter.txt 
 It is cold today!
 [paul@RHELv4u3 ~]$ zcho It is cold today! &#062; winter.txt
 -bash: zcho: command not found
 [paul@RHELv4u3 ~]$ cat winter.txt 
-[paul@RHELv4u3 ~]$ 
-		</screen>
+[paul@RHELv4u3 ~]$</screen>
 	</section>
 	<section><title>noclobber</title>
 		<para>Erasing a file while using &#062; can be prevented by setting the <command>noclobber</command><indexterm><primary>noclobber</primary></indexterm> option.</para>
-		<screen>
-[paul@RHELv4u3 ~]$ cat winter.txt 
+		<screen>[paul@RHELv4u3 ~]$ cat winter.txt 
 It is cold today!
 [paul@RHELv4u3 ~]$ set -o noclobber
 [paul@RHELv4u3 ~]$ echo It is cold today! &#062; winter.txt
 -bash: winter.txt: cannot overwrite existing file
 [paul@RHELv4u3 ~]$ set +o noclobber
-[paul@RHELv4u3 ~]$
-		</screen>
+[paul@RHELv4u3 ~]$</screen>
 	</section>
 	<section><title>overruling noclobber</title>
 		<para>The <command>noclobber</command> can be overruled with <command>&#062;|</command><indexterm><primary>&#062;|</primary></indexterm>.</para>
@@ -65,6 +59,7 @@ Where is the summer ?
 		</screen>
 	</section>
 </section>
+<?hard-pagebreak?>
 <section><title>error redirection</title>
 	<section><title>2&#062; stderr</title>
 		<para>Redirecting <command>stderr</command> is done with <command>2&#062;</command><indexterm><primary>2&#062;</primary></indexterm>. This can be very useful to prevent error messages from cluttering your screen. The screenshot below shows redirection of <command>stdout</command> to a file, and <command>stderr</command> to <command>/dev/null</command><indexterm><primary>/dev/null</primary></indexterm>. Writing <command>1&#062;</command><indexterm><primary>1&#062;</primary></indexterm> is the same as &#062;.</para>
@@ -86,6 +81,7 @@ Where is the summer ?
 		<para>directs only the standard output to file dirlist, because the standard error was made a copy of the standard output before the standard output was redirected to dirlist. </para>
 	</section>
 </section>
+<?hard-pagebreak?>
 <section><title>input redirection</title>
 	<section><title>&#060; stdin</title>
 		<para>Redirecting <command>stdin</command> is done with &#060; (short for 0&#060;).</para>
@@ -126,6 +122,7 @@ linux-training.be</screen>
 		<para>See rfc 3548 for more information about <command>base64</command><indexterm><primary>base64</primary></indexterm>.</para>
 	</section>
 </section>
+<?hard-pagebreak?>
 <section><title>confusing redirection</title>
 	<para>The shell will scan the whole line before applying redirection. The following command line is very readable and is correct.</para>
 	<screen>cat winter.txt &#062; snow.txt 2&#062; errors.txt</screen>
