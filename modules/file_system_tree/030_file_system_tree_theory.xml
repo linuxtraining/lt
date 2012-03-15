@@ -19,8 +19,7 @@ boot  etc  lib   misc   opt  root  selinux  sys  tmp       var
 	<section><title>/bin</title>
 		<para>The <command>/bin</command><indexterm><primary>/bin</primary></indexterm> directory contains <command>binaries</command><indexterm><primary>binaries</primary></indexterm> for use by all users. According to the FHS the <command>/bin</command> directory should contain <command>/bin/cat</command><indexterm><primary>/bin/cat</primary></indexterm> and <command>/bin/date</command><indexterm><primary>/bin/date</primary></indexterm> (among others).</para>
 		<para>In the screenshot below you see common Unix/Linux commands like cat, cp, cpio, date, dd, echo, grep, and so on. Many of these will be covered in this book.</para>
-		<screen>
-paul@laika:~$ ls /bin
+		<screen>paul@laika:~$ ls /bin
 archdetect       egrep             mt               setupcon
 autopartition    false             mt-gnu           sh
 bash             fgconsole         mv               sh.distrib
@@ -37,8 +36,7 @@ bzip2recover     hw-detect         partman          touch
 bzless           ip                partman-commit   true
 bzmore           kbd_mode          perform_recipe   ulockmgr
 cat              kill              pidof            umount
-...
-		</screen>
+...</screen>
 	</section>
 	<section><title>other /bin directories</title>
 		<para>You can find a <command>/bin subdirectory</command> in many other directories. A user named <command>serena</command> could put her own programs in <command>/home/serena/bin</command>.</para>
@@ -47,22 +45,18 @@ cat              kill              pidof            umount
 	<section><title>/sbin</title>
 		<para><command>/sbin</command><indexterm><primary>/sbin</primary></indexterm> contains binaries to configure the operating system. Many of the <command>system binaries</command> require <command>root</command><indexterm><primary>root</primary></indexterm> privilege to perform certain tasks.</para>
 		<para>Below a screenshot containing <command>system binaries</command> to change the ip address, partition a disk and create an ext4 file system.</para>
-		<screen>
-paul@ubu1010:~$ ls -l /sbin/ifconfig /sbin/fdisk /sbin/mkfs.ext4
+		<screen>paul@ubu1010:~$ ls -l /sbin/ifconfig /sbin/fdisk /sbin/mkfs.ext4
 -rwxr-xr-x 1 root root 97172 2011-02-02 09:56 /sbin/fdisk
 -rwxr-xr-x 1 root root 65708 2010-07-02 09:27 /sbin/ifconfig
--rwxr-xr-x 5 root root 55140 2010-08-18 18:01 /sbin/mkfs.ext4
-		</screen>
+-rwxr-xr-x 5 root root 55140 2010-08-18 18:01 /sbin/mkfs.ext4</screen>
 	</section>
 	<section><title>/lib</title>
 		<para>Binaries found in <command>/bin</command> and <command>/sbin</command> often use <command>shared libraries</command> located in <command>/lib</command><indexterm><primary>/lib</primary></indexterm>. Below is a screenshot of the partial contents of <command>/lib</command>.</para>
-		<screen>
-paul@laika:~$ ls /lib/libc*
+		<screen>paul@laika:~$ ls /lib/libc*
 /lib/libc-2.5.so     /lib/libcfont.so.0.0.0  /lib/libcom_err.so.2.1    
 /lib/libcap.so.1     /lib/libcidn-2.5.so     /lib/libconsole.so.0      
 /lib/libcap.so.1.10  /lib/libcidn.so.1       /lib/libconsole.so.0.0.0  
-/lib/libcfont.so.0   /lib/libcom_err.so.2    /lib/libcrypt-2.5.so      
-		</screen>
+/lib/libcfont.so.0   /lib/libcom_err.so.2    /lib/libcrypt-2.5.so</screen>
 		<section><title>/lib/modules</title>
 			<para>Typically, the <command>Linux kernel</command><indexterm><primary>kernel</primary></indexterm> loads kernel modules from <command>/lib/modules/$kernel-version/</command><indexterm><primary>/lib/modules</primary></indexterm>. This directory is discussed in detail in the Linux kernel chapter.</para>
 		</section>
@@ -299,6 +293,7 @@ CPU0: online
 CPU1: online 
 		</screen>
 		<para>Most of the files in /proc are read only, some require root privileges, some files are writable, and many files in <command>/proc/sys</command><indexterm><primary>/proc/sys</primary></indexterm> are writable. Let's discuss some of the files in /proc.</para>
+<?hard-pagebreak?>
 		<section><title>/proc/interrupts</title>
 			<para>On the x86 architecture, <command>/proc/interrupts</command><indexterm><primary>/proc/interrupts</primary></indexterm> displays the interrupts.</para>
 			<screen>
@@ -316,10 +311,9 @@ paul@RHELv4u4:~$ cat /proc/interrupts
 NMI:          0 
 LOC:   13878037 
 ERR:          0
-MIS:          0 </screen>
+MIS:          0</screen>
 			<para>On a machine with two CPU's, the file looks like this.</para>
-			<screen>
-paul@laika:~$ cat /proc/interrupts 
+			<screen>paul@laika:~$ cat /proc/interrupts 
           CPU0      CPU1       
   0:    860013        0  IO-APIC-edge     timer
   1:      4533        0  IO-APIC-edge     i8042
@@ -337,16 +331,16 @@ paul@laika:~$ cat /proc/interrupts
  24:    234739        0  IO-APIC-fasteoi  nvidia
 NMI:        72       42 
 LOC:    860000   859994 
-ERR:         0 </screen>
+ERR:         0</screen>
 		</section>
 		<section><title>/proc/kcore</title>
 			<para>The physical memory is represented in <command>/proc/kcore</command><indexterm><primary>/proc/kcore</primary></indexterm>. Do not try to cat this file, instead use a debugger. The size of /proc/kcore is the same as your physical memory, plus four bytes.</para>
-			<screen>
-paul@laika:~$ ls -lh /proc/kcore 
+			<screen>paul@laika:~$ ls -lh /proc/kcore 
 -r-------- 1 root root 2.0G 2007-01-30 08:57 /proc/kcore
 paul@laika:~$</screen>
 		</section>
 	</section>
+<?hard-pagebreak?>
 	<section><title>/sys Linux 2.6 hot plugging</title>
 		<para>The <command>/sys</command><indexterm><primary>/sys</primary></indexterm> directory was created for the Linux 2.6 kernel. Since 2.6, Linux uses <command>sysfs</command><indexterm><primary>sysfs</primary></indexterm> to support <command>usb</command><indexterm><primary>usb</primary></indexterm> and <command>IEEE 1394</command><indexterm><primary>IEEE 1394</primary></indexterm> (<command>FireWire</command><indexterm><primary>FireWire</primary></indexterm>) hot plug devices. See the manual pages of udev(8) (the successor of <command>devfs</command><indexterm><primary>devfs</primary></indexterm>) and hotplug(8) for more info (or visit http://linux-hotplug.sourceforge.net/ ).</para>
 		<para>Basically the <command>/sys</command> directory contains kernel information about hardware.</para>
@@ -361,7 +355,6 @@ paul@laika:~$</screen>
 1395</screen>
 		<para>(On Solaris the <command>/bin</command> directory is a symbolic link to <command>/usr/bin</command>.)</para>
 	</section>
-	
 	<section><title>/usr/include</title>
 		<para>The <command>/usr/include</command><indexterm><primary>/usr/include</primary></indexterm> directory contains general use include files for C.</para>
 		<screen>paul@ubu1010:~$ ls /usr/include/
