@@ -1,8 +1,7 @@
 <?hard-pagebreak?>
 	<section><title>script parameters</title>
 		<para>A <command>bash</command> shell script can have parameters. The numbering you see in the script below continues if you have more parameters. You also have special parameters containing the number of parameters, a string of all of them, and also the process id, and the last return code. The man page of <command>bash</command> has a full list.</para>
-		<screen>
-#!/bin/bash
+		<screen>#!/bin/bash
 echo The first argument is $1
 echo The second argument is $2
 echo The third argument is $3
@@ -10,11 +9,9 @@ echo The third argument is $3
 echo \$ $$  PID of the script
 echo \# $#  count arguments
 echo \? $?  last return code
-echo \* $*  all the arguments
-		</screen>
+echo \* $*  all the arguments</screen>
 		<para>Below is the output of the script above in action.</para>
-		<screen>
-[paul@RHEL4a scripts]$ ./pars one two three
+		<screen>[paul@RHEL4a scripts]$ ./pars one two three
 The first argument is one
 The second argument is two
 The third argument is three
@@ -30,8 +27,8 @@ $ 5612 PID of the script
 # 2 count arguments
 ? 0 last return code
 * 1 2 all the arguments
-[paul@RHEL4a scripts]$ 
-		</screen>
+[paul@RHEL4a scripts]$</screen>
+		<para>The <command>$0</command> parameter contains the name of the script.</para>
 	</section>
 	<section><title>shift through parameters</title>
 		<para>The <command>shift</command> statement can parse all <command>parameters</command> one by one. This is a sample script.</para>
@@ -70,8 +67,7 @@ read number
 		</screen>
 	</section>
 	<section><title>sourcing a config file</title>
-		<screen>
-[paul@RHEL4a scripts]$ cat myApp.conf 
+		<screen>[paul@RHEL4a scripts]$ cat myApp.conf 
 # The config file of myApp
 
 # Enter the path here
@@ -92,8 +88,7 @@ echo There are $quines quines
 
 [paul@RHEL4a scripts]$ ./myApp.bash 
 There are 5 quines
-[paul@RHEL4a scripts]$ 
-		</screen>
+[paul@RHEL4a scripts]$</screen>
 	</section>
 	<section><title>get script options with getopts</title>
 		<para>The <command>getopts</command> function allows you to parse options given to a command.</para>
