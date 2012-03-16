@@ -74,10 +74,8 @@ paul@laika:~$ man /usr/share/man/man1/whois.1.gz
 	<section><title>man man</title>
 		<para>If you want to know more about <command>man</command>, then Read The Fantastic Manual (RTFM).</para>
 		<para><emphasis>Unfortunately, manual pages do not have the answer to everything...</emphasis></para>
-		<screen>
-paul@laika:~$ man woman
-No manual entry for woman
-		</screen>
+		<screen>paul@laika:~$ man woman
+No manual entry for woman</screen>
 	</section>
 	<section><title>mandb</title>
 		<para>Should you be convinced that a man page exists, but you can't access it, then try running <command>mandb</command><indexterm><primary>mandb(1)</primary></indexterm>.</para>
