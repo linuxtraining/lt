@@ -1,7 +1,7 @@
 <?hard-pagebreak?>
 <section><title>stdin, stdout, and stderr</title>
 	<para>The shell (and almost every other Linux command) takes input from <command>stdin</command> (stream <command>0</command>) <indexterm><primary>stdin</primary></indexterm> and sends output to <command>stdout</command> (stream <command>1</command>) <indexterm><primary>stdout</primary></indexterm> and error messages to <command>stderr</command> (stream <command>2</command>) <indexterm><primary>stderr</primary></indexterm>.</para>
-	<para>The keyboard often server as <command>stdin</command>, <command>stdout</command> and <command>stderr</command> both go to the disply. The shell allows you to redirect these streams.</para>
+	<para>The keyboard often serves as <command>stdin</command>, <command>stdout</command> and <command>stderr</command> both go to the display. The shell allows you to redirect these streams.</para>
 </section>
 <section><title>output redirection</title>
 	<section><title>&#062; stdout</title>
@@ -78,7 +78,7 @@ Where is the summer ?
 		<screen>ls > dirlist 2>&amp;1</screen>
 		<para>directs both standard output (file descriptor 1) and standard error (file descriptor 2) to the file dirlist, while the command</para>
 		<screen>ls 2>&amp;1 > dirlist</screen>
-		<para>directs only the standard output to file dirlist, because the standard error was made a copy of the standard output before the standard output was redirected to dirlist. </para>
+		<para>directs only the standard output to file dirlist, because the standard error made a copy of the standard output before the standard output was redirected to dirlist. </para>
 	</section>
 </section>
 <?hard-pagebreak?>
