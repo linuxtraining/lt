@@ -1,0 +1,2 @@
+<para>The <command>secure shell</command> or <command>ssh</command> is a collection of tools using a secure protocol for communications with remote Linux computers.</para>
+<para>This chapter is small overview of the most common commands to use and configure the <command>sshd</command> server and the <command>ssh</command> client.</para>
