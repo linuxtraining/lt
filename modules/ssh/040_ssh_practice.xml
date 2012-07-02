@@ -1,3 +1,4 @@
+<?hard-pagebreak?>
 <section><title>practice: ssh</title>
 	<para>1. Create a user for your neighbour, then test ssh to your neighbour (by ip-address or by hostname). (You might need to install the openssh-server with aptitude.)</para>
 	<para>2. Create a bookmark in Firefox, then close your firefox! Use ssh -X to run firefox on your screen, but on your neighbour's computer. Do you see your neighbour's bookmark ?</para>
