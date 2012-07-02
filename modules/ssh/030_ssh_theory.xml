@@ -67,6 +67,7 @@ admin42@192.168.1.30's password:
 /home/admin42
 paul@ubu1204:~$</screen>
 </section>
+<?hard-pagebreak?>
 <section><title>scp</title>
 	<para>The <command>scp</command> command works just like <command>cp</command>, but allows the source and destination of the copy to be behind <command>ssh</command>. Here is an example where we copy the <command>/etc/hosts</command> file from the remote server to the home directory of user paul.</para>
 	<screen>paul@ubu1204:~$ scp admin42@192.168.1.30:/etc/hosts /home/paul/serverhosts
@@ -77,6 +78,7 @@ hosts                                        100%  809     0.8KB/s   00:00</scre
 admin42@192.168.1.30's password: 
 serverhosts                                  100%  809     0.8KB/s   00:00</screen>
 </section>
+<?hard-pagebreak?>
 <section><title>setting up passwordless ssh</title>
 	<para>To set up passwordless ssh authentication through public/private keys, use <command>ssh-keygen</command> to generate a key pair without a passphrase, and then copy your public key to the destination server. Let's do this step by step.</para>
 	<para>In the example that follows, we will set up ssh without password between Alice and Bob. Alice has an account on a Red Hat Enterprise Linux server, Bob is using Ubuntu on his laptop. Bob wants to give Alice access using ssh and the public and private key system. This means that even if Bob changes his password on his laptop, Alice will still have access.</para>
