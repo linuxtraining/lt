@@ -17,6 +17,7 @@
 paul@ubu1204:/etc/ssh$ grep Protocol sshd_config 
 Protocol 2</screen>
 	</section>
+<?hard-pagebreak?>
 	<section><title>public and private keys</title>
 	<para>The <command>ssh</command> protocol uses the well known system of <command>public and private keys</command><indexterm><primary>public key</primary></indexterm>. The below explanation is succinct, more information can be found on wikipedia.</para>
 <screen>http://en.wikipedia.org/wiki/Public-key_cryptography</screen>
@@ -30,6 +31,7 @@ Protocol 2</screen>
 http://en.wikipedia.org/wiki/Digital_Signature_Algorithm</screen>
 	</section>
 </section>
+<?hard-pagebreak?>
 <section><title>log on to a remote server</title>
 	<para>The following screenshot shows how to use <command>ssh</command> to log on to a remote computer running Linux. The local user is named <command>paul</command> and he is logging on as user <command>admin42</command> on the remote system.</para>
 <screen>paul@ubu1204:~$ ssh admin42@192.168.1.30
@@ -59,30 +61,28 @@ Connection to 192.168.1.30 closed.
 paul@ubu1204:~$</screen>
 </section>
 <section><title>executing a command in remote</title>
-	<para>This screenshot shows how to execute the <command>pwd</command> on the remote server. There is no need to <command>exit</command> the server manually.</para>
+	<para>This screenshot shows how to execute the <command>pwd</command> command on the remote server. There is no need to <command>exit</command> the server manually.</para>
 	<screen>paul@ubu1204:~$ ssh admin42@192.168.1.30 pwd
 admin42@192.168.1.30's password: 
 /home/admin42
 paul@ubu1204:~$</screen>
 </section>
 <section><title>scp</title>
-	<para>The <command>scp</command> command works just like <command>cp</command>, but allows the source and destination of the copy to be behind <command>ssh</command>. Here is an example where we copy /etc/hosts from the remote server to the home directory of user paul.</para>
-	<screen>paul@ubu1204:~$ scp admin42@192.168.1.30:/etc/hosts /home/paul/server_hosts
+	<para>The <command>scp</command> command works just like <command>cp</command>, but allows the source and destination of the copy to be behind <command>ssh</command>. Here is an example where we copy the <command>/etc/hosts</command> file from the remote server to the home directory of user paul.</para>
+	<screen>paul@ubu1204:~$ scp admin42@192.168.1.30:/etc/hosts /home/paul/serverhosts
 admin42@192.168.1.30's password: 
 hosts                                        100%  809     0.8KB/s   00:00</screen>
+	<para>Here is an example of the reverse, copying a local file to a remote server.</para>
+	<screen>paul@ubu1204:~$ scp ~/serverhosts admin42@192.168.1.30:/etc/hosts.new
+admin42@192.168.1.30's password: 
+serverhosts                                  100%  809     0.8KB/s   00:00</screen>
 </section>
-
-
-
-
-
 <section><title>setting up passwordless ssh</title>
 	<para>To set up passwordless ssh authentication through public/private keys, use <command>ssh-keygen</command> to generate a key pair without a passphrase, and then copy your public key to the destination server. Let's do this step by step.</para>
 	<para>In the example that follows, we will set up ssh without password between Alice and Bob. Alice has an account on a Red Hat Enterprise Linux server, Bob is using Ubuntu on his laptop. Bob wants to give Alice access using ssh and the public and private key system. This means that even if Bob changes his password on his laptop, Alice will still have access.</para>
 <section><title>ssh-keygen</title>
 	<para>The example below shows how Alice uses <command>ssh-keygen</command><indexterm><primary>ssh-keygen(1)</primary></indexterm> to generate a key pair. Alice does not enter a passphrase.</para>
-	<screen>
-[alice@RHEL5 ~]$ ssh-keygen -t rsa
+	<screen>[alice@RHEL5 ~]$ ssh-keygen -t rsa
 Generating public/private rsa key pair.
 Enter file in which to save the key (/home/alice/.ssh/id_rsa): 
 Created directory '/home/alice/.ssh'.
@@ -92,73 +92,66 @@ Your identification has been saved in /home/alice/.ssh/id_rsa.
 Your public key has been saved in /home/alice/.ssh/id_rsa.pub.
 The key fingerprint is:
 9b:ac:ac:56:c2:98:e5:d9:18:c4:2a:51:72:bb:45:eb alice@RHEL5
-[alice@RHEL5 ~]$ 
-		</screen>
+[alice@RHEL5 ~]$</screen>
+	<para>You can use <command>ssh-keygen -t dsa</command> in the same way.</para>
 	</section>
 	<section><title>~/.ssh</title>
-		<para>While <command>ssh-keygen</command> generates a public and a private key, it will also create a hidden <command>.ssh</command><indexterm><primary>.ssh</primary></indexterm> directory with proper permissions. If you create the .ssh directory manually, then you need to chmod 700 it! Otherwise ssh will refuse to use the keys (world readable private keys are not secure!).</para>
+		<para>While <command>ssh-keygen</command> generates a public and a private key, it will also create a hidden <command>.ssh</command><indexterm><primary>.ssh</primary></indexterm> directory with proper permissions. If you create the <command>.ssh</command> directory manually, then you need to chmod 700 it! Otherwise ssh will refuse to use the keys (world readable private keys are not secure!).</para>
 		<para>As you can see, the <command>.ssh</command> directory is secure in Alice's home directory.</para>
-		<screen>
-[alice@RHEL5 ~]$ ls -ld .ssh
+		<screen>[alice@RHEL5 ~]$ ls -ld .ssh
 drwx------ 2 alice alice 4096 May  1 07:38 .ssh
-[alice@RHEL5 ~]$ 
-		</screen>
+[alice@RHEL5 ~]$</screen>
 		<para>Bob is using Ubuntu at home. He decides to manually create the <command>.ssh</command> directory, so he needs to manually secure it.</para>
-		<screen>
-bob@laika:~$ mkdir .ssh
+		<screen>bob@laika:~$ mkdir .ssh
 bob@laika:~$ ls -ld .ssh
 drwxr-xr-x 2 bob bob 4096 2008-05-14 16:53 .ssh
 bob@laika:~$ chmod 700 .ssh/
-bob@laika:~$
-		</screen>
+bob@laika:~$</screen>
 	</section>
 	<section><title>id_rsa and id_rsa.pub</title>
-		<para>The ssh-keygen command generate two keys in .ssh. The public key is named <command>~/.ssh/id_rsa.pub</command><indexterm><primary>~/.ssh/id_rsa.pub</primary></indexterm>. The private key is named <command>~/.ssh/id_rsa</command><indexterm><primary>~/.ssh/id_rsa</primary></indexterm>.</para>
-		<screen>
-[alice@RHEL5 ~]$ ls -l .ssh/
+		<para>The <command>ssh-keygen</command><indexterm><primary>ssh-keygen</primary></indexterm> command generate two keys in .ssh. The public key is named <command>~/.ssh/id_rsa.pub</command><indexterm><primary>id_rsa.pub</primary></indexterm>. The private key is named <command>~/.ssh/id_rsa</command><indexterm><primary>id_rsa</primary></indexterm>.</para>
+		<screen>[alice@RHEL5 ~]$ ls -l .ssh/
 total 16
 -rw------- 1 alice alice 1671 May  1 07:38 id_rsa
 -rw-r--r-- 1 alice alice  393 May  1 07:38 id_rsa.pub
-[alice@RHEL5 ~]$ 
-		</screen>
+[alice@RHEL5 ~]$</screen>
+		<para>The files will be named <command>id_dsa</command><indexterm><primary>id_dsa</primary></indexterm> and <command>id_dsa.pub</command><indexterm><primary>id_dsa.pub</primary></indexterm> when using <command>dsa</command> instead of <command>rsa</command>.</para>
 	</section>
-	<section><title>scp</title>
+	<section><title>copy the public key to the other computer</title>
 		<para>To copy the public key from Alice's server tot Bob's laptop, Alice decides to use <command>scp</command><indexterm><primary>scp(1)</primary></indexterm>.</para>
-		<screen>
-[alice@RHEL5 .ssh]$ scp id_rsa.pub bob@192.168.48.92:~/.ssh/authorized_keys
+		<screen>[alice@RHEL5 .ssh]$ scp id_rsa.pub bob@192.168.48.92:~/.ssh/authorized_keys
 bob@192.168.48.92's password: 
 id_rsa.pub                                    100%  393     0.4KB/s   00:00    
-[alice@RHEL5 .ssh]$
-		</screen>
-		<para>Be careful when copying a second key! Do not overwrite the first key, instead append the key to the same ~/.ssh/authorized_keys file!</para>
+[alice@RHEL5 .ssh]$</screen>
+		<para>Be careful when copying a second key! Do not overwrite the first key, instead append the key to the same <command>~/.ssh/authorized_keys</command> file!</para>
+		<screen>cat id_rsa.pub >> ~/.ssh/authorized_keys</screen>
+
+	<para>Alice could also have used <command>ssh-copy-id</command> like in this example.</para>
+	<screen>ssh-copy-id -i .ssh/id_rsa.pub bob@192.168.48.92</screen>
+
 	</section>
 	<section><title>authorized_keys</title>
 		<para>In your ~/.ssh directory, you can create a file called <command>authorized_keys</command><indexterm><primary>~/.ssh/authorized_keys</primary></indexterm>. This file can contain one or more public keys from people you trust. Those trusted people can use their private keys to prove their identity and gain access to your account via ssh (without password). The example shows Bob's authorized_keys file containing the public key of Alice.</para>
-		<screen>
-bob@laika:~$ cat .ssh/authorized_keys 
+		<screen>bob@laika:~$ cat .ssh/authorized_keys 
 ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEApCQ9xzyLzJes1sR+hPyqW2vyzt1D4zTLqk\
 MDWBR4mMFuUZD/O583I3Lg/Q+JIq0RSksNzaL/BNLDou1jMpBe2Dmf/u22u4KmqlJBfDhe\
 yTmGSBzeNYCYRSMq78CT9l9a+y6x/shucwhaILsy8A2XfJ9VCggkVtu7XlWFDL2cum08/0\
 mRFwVrfc/uPsAn5XkkTscl4g21mQbnp9wJC40pGSJXXMuFOk8MgCb5ieSnpKFniAKM+tEo\
 /vjDGSi3F/bxu691jscrU0VUdIoOSo98HUfEf7jKBRikxGAC7I4HLa+/zX73OIvRFAb2hv\
 tUhn6RHrBtUJUjbSGiYeFTLDfcTQ== alice@RHEL5
-bob@laika:~$ 
-		</screen>
+bob@laika:~$</screen>
 	</section>
 	<section><title>passwordless ssh</title>
-		<para>Alice can now use ssh to connect passwordless to Bob's laptop. In combination with ssh's capability to execute commands on the remote host, this can be useful in pipes across different machines.</para>
-		<screen>
-[alice@RHEL5 ~]$ ssh bob@192.168.48.92 "ls -l .ssh"
+		<para>Alice can now use ssh to connect passwordless to Bob's laptop. In combination with <command>ssh</command>'s capability to execute commands on the remote host, this can be useful in pipes across different machines.</para>
+		<screen>[alice@RHEL5 ~]$ ssh bob@192.168.48.92 "ls -l .ssh"
 total 4
 -rw-r--r-- 1 bob bob 393 2008-05-14 17:03 authorized_keys
-[alice@RHEL5 ~]$ 
-		</screen>
+[alice@RHEL5 ~]$</screen>
 	</section>
 <section><title>X forwarding via SSH</title>
 	<para> The <command>ssh protocol</command><indexterm><primary>ssh</primary></indexterm> will remember the servers it connected to (and warn you in case something suspicious happened), and will use strong 128-bit encryption. Another popular feature of ssh is called <command>X11 forwarding</command> and is implemented with <command>ssh -X</command><indexterm><primary>ssh -X</primary></indexterm>.</para>
 	<para>Below an example of X11 forwarding: user paul logs in as user greet on her computer to start the graphical application mozilla-thunderbird. Although the application will run on the remote computer from greet, it will be displayed on the screen attached locally to paul's computer.</para>
-	<screen>
-paul@laika:~/PDF$ ssh -X greet@greet.dyndns.org -p 55555
+	<screen>paul@debian5:~/PDF$ ssh -X greet@greet.dyndns.org -p 55555
 Warning: Permanently added the RSA host key for IP address \
 '81.240.174.161' to the list of known hosts.
 Password: 
@@ -167,13 +160,11 @@ Linux raika 2.6.8-2-686 #1 Tue Aug 16 13:22:48 UTC 2005 i686 GNU/Linux
 Last login: Thu Jan 18 12:35:56 2007
 greet@raika:~$ ps fax | grep thun
 greet@raika:~$ mozilla-thunderbird &#038;
-[1] 30336
-	</screen>
+[1] 30336</screen>
 </section>
 <section><title>troubleshooting ssh</title>
 	<para>Use <command>ssh -v</command> to get debug information about the ssh connection attempt.</para>
-	<screen>
-paul@laika:~$ ssh -v bert@192.168.1.192
+	<screen>paul@debian5:~$ ssh -v bert@192.168.1.192
 OpenSSH_4.3p2 Debian-8ubuntu1, OpenSSL 0.9.8c 05 Sep 2006
 debug1: Reading configuration data /home/paul/.ssh/config
 debug1: Reading configuration data /etc/ssh/ssh_config
@@ -186,7 +177,6 @@ debug1: identity file /home/paul/.ssh/id_dsa type -1
 debug1: Remote protocol version 1.99, remote software version OpenSSH_3
 debug1: match: OpenSSH_3.9p1 pat OpenSSH_3.*
 debug1: Enabling compatibility mode for protocol 2.0
-...
-	</screen>
+...</screen>
 </section>
 </section>
