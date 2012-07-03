@@ -5,6 +5,7 @@
 	<para>The <command>ssh protocol</command> is secure in two ways. Firstly the connection is <command>encrypted</command> and secondly the connection is <command>authenticated</command> both ways.</para>
 	<para>An ssh connection always starts with a cryptographic handshake, followed by <command>encryption</command> of the transport layer using a symmetric cypher. In other words, the tunnel is encrypted before you start typing anything.</para>
 	<para>Then <command>authentication</command> takes place (using user id/password or public/private keys) and communication can begin over the encrypted connection.</para>
+	<para>The <command>ssh protocol</command> will remember the servers it connected to (and warn you in case something suspicious happened).</para>
 	<para>The <command>openssh</command> package is maintained by the <command>OpenBSD</command><indexterm><primary>OpenBSD</primary></indexterm> people and is distributed with a lot of operating systems (it may even be the most popular package in the world).</para>
 	</section>
 	<section><title>/etc/ssh/</title>
@@ -123,14 +124,11 @@ total 16
 		<para>To copy the public key from Alice's server tot Bob's laptop, Alice decides to use <command>scp</command><indexterm><primary>scp(1)</primary></indexterm>.</para>
 		<screen>[alice@RHEL5 .ssh]$ scp id_rsa.pub bob@192.168.48.92:~/.ssh/authorized_keys
 bob@192.168.48.92's password: 
-id_rsa.pub                                    100%  393     0.4KB/s   00:00    
-[alice@RHEL5 .ssh]$</screen>
+id_rsa.pub                                    100%  393     0.4KB/s   00:00</screen>
 		<para>Be careful when copying a second key! Do not overwrite the first key, instead append the key to the same <command>~/.ssh/authorized_keys</command> file!</para>
 		<screen>cat id_rsa.pub >> ~/.ssh/authorized_keys</screen>
-
 	<para>Alice could also have used <command>ssh-copy-id</command> like in this example.</para>
 	<screen>ssh-copy-id -i .ssh/id_rsa.pub bob@192.168.48.92</screen>
-
 	</section>
 	<section><title>authorized_keys</title>
 		<para>In your ~/.ssh directory, you can create a file called <command>authorized_keys</command><indexterm><primary>~/.ssh/authorized_keys</primary></indexterm>. This file can contain one or more public keys from people you trust. Those trusted people can use their private keys to prove their identity and gain access to your account via ssh (without password). The example shows Bob's authorized_keys file containing the public key of Alice.</para>
@@ -140,8 +138,7 @@ MDWBR4mMFuUZD/O583I3Lg/Q+JIq0RSksNzaL/BNLDou1jMpBe2Dmf/u22u4KmqlJBfDhe\
 yTmGSBzeNYCYRSMq78CT9l9a+y6x/shucwhaILsy8A2XfJ9VCggkVtu7XlWFDL2cum08/0\
 mRFwVrfc/uPsAn5XkkTscl4g21mQbnp9wJC40pGSJXXMuFOk8MgCb5ieSnpKFniAKM+tEo\
 /vjDGSi3F/bxu691jscrU0VUdIoOSo98HUfEf7jKBRikxGAC7I4HLa+/zX73OIvRFAb2hv\
-tUhn6RHrBtUJUjbSGiYeFTLDfcTQ== alice@RHEL5
-bob@laika:~$</screen>
+tUhn6RHrBtUJUjbSGiYeFTLDfcTQ== alice@RHEL5</screen>
 	</section>
 	<section><title>passwordless ssh</title>
 		<para>Alice can now use ssh to connect passwordless to Bob's laptop. In combination with <command>ssh</command>'s capability to execute commands on the remote host, this can be useful in pipes across different machines.</para>
@@ -150,9 +147,10 @@ total 4
 -rw-r--r-- 1 bob bob 393 2008-05-14 17:03 authorized_keys
 [alice@RHEL5 ~]$</screen>
 	</section>
+</section>
 <section><title>X forwarding via SSH</title>
-	<para> The <command>ssh protocol</command><indexterm><primary>ssh</primary></indexterm> will remember the servers it connected to (and warn you in case something suspicious happened), and will use strong 128-bit encryption. Another popular feature of ssh is called <command>X11 forwarding</command> and is implemented with <command>ssh -X</command><indexterm><primary>ssh -X</primary></indexterm>.</para>
-	<para>Below an example of X11 forwarding: user paul logs in as user greet on her computer to start the graphical application mozilla-thunderbird. Although the application will run on the remote computer from greet, it will be displayed on the screen attached locally to paul's computer.</para>
+	<para>Another popular feature of <command>ssh</command> is called <command>X11 forwarding</command> and is implemented with <command>ssh -X</command><indexterm><primary>ssh -X</primary></indexterm>.</para>
+	<para>Below an example of X forwarding: user paul logs in as user greet on her computer to start the graphical application mozilla-thunderbird. Although the application will run on the remote computer from greet, it will be displayed on the screen attached locally to paul's computer.</para>
 	<screen>paul@debian5:~/PDF$ ssh -X greet@greet.dyndns.org -p 55555
 Warning: Permanently added the RSA host key for IP address \
 '81.240.174.161' to the list of known hosts.
@@ -181,4 +179,22 @@ debug1: match: OpenSSH_3.9p1 pat OpenSSH_3.*
 debug1: Enabling compatibility mode for protocol 2.0
 ...</screen>
 </section>
+<?hard-pagebreak?>
+<section><title>sshd</title>
+	<para>The ssh server is called <command>sshd</command><indexterm><primary>sshd</primary></indexterm> and is provided by the <command>openssh-server</command><indexterm><primary>openssh-server</primary></indexterm> package.</para>
+	<screen>root@ubu1204~# dpkg -l openssh-server | tail -1
+ii  openssh-server   1:5.9p1-5ubuntu1    secure shell (SSH) server,... </screen>
+</section>
+<section><title>sshd keys</title>
+	<para>The public keys used by the sshd server are located in <command>/etc/ssh</command><indexterm><primary>ssh_host_dsa_key</primary></indexterm><indexterm><primary>ssh_host_rsa_key</primary></indexterm><indexterm><primary>ssh_host_rsa_key.pub</primary></indexterm><indexterm><primary>ssh_host_dsa_key.pub</primary></indexterm> and are world readable. The private keys are only readable by root.</para>
+	<screen>root@ubu1204~# ls -l /etc/ssh/ssh_host_*
+-rw------- 1 root root  668 Jun  7  2011 /etc/ssh/ssh_host_dsa_key
+-rw-r--r-- 1 root root  598 Jun  7  2011 /etc/ssh/ssh_host_dsa_key.pub
+-rw------- 1 root root 1679 Jun  7  2011 /etc/ssh/ssh_host_rsa_key
+-rw-r--r-- 1 root root  390 Jun  7  2011 /etc/ssh/ssh_host_rsa_key.pub</screen>
+</section>
+<section><title>sshd</title>
+	<para></para>
+	<para></para>
+	<para></para>
 </section>
