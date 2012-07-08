@@ -342,6 +342,42 @@ mysql> select * from country where population='82000000';
 +---------------+------------+
 10 rows in set (0.00 sec)</screen>
 	</section>
+	<section><title>grouping records</title>
+		<para>Consider this table of people. The screenshot shows how to use the <command>avg</command> function to calculate an average.</para>
+	<screen>mysql&#062; select * from people;
++-----------------+-----------+-----------+-------------+
+| Name            | Field     | birthyear | countrycode |
++-----------------+-----------+-----------+-------------+
+| Barack Obama    | politics  | 1961      | US          |
+| Deng Xiaoping   | politics  | 1904      | CN          |
+| Guy Verhofstadt | politics  | 1953      | BE          |
+| Justine Henin   | tennis    | 1982      | BE          |
+| Kim Clijsters   | tennis    | 1983      | BE          |
+| Li Na           | tennis    | 1982      | CN          |
+| Liu Yang        | astronaut | 1978      | CN          |
+| Serena Williams | tennis    | 1981      | US          |
+| Venus Williams  | tennis    | 1980      | US          |
++-----------------+-----------+-----------+-------------+
+9 rows in set (0.00 sec)
+
+mysql&#062; select Field,AVG(birthyear) from people;
++----------+-------------------+
+| Field    | AVG(birthyear)    |
++----------+-------------------+
+| politics | 1967.111111111111 |
++----------+-------------------+
+1 row in set (0.00 sec)</screen>
+	<para>Using the <command>group by</command><indexterm><primary>group by(mysql)</primary></indexterm> clause, we can have an average per field.</para>
+	<screen>mysql&#062; select Field,AVG(birthyear) from people group by Field;
++-----------+--------------------+
+| Field     | AVG(birthyear)     |
++-----------+--------------------+
+| astronaut |               1978 |
+| politics  | 1939.3333333333333 |
+| tennis    |             1981.6 |
++-----------+--------------------+
+3 rows in set (0.00 sec)</screen>
+	</section>
 	<section><title>deleting records</title>
 		<para>You can use the <command>delete</command><indexterm><primary>delete(mysql)</primary></indexterm> to permanently remove a record from a table.</para>
 		<screen>mysql&#062; delete from country where countryname='Spain';
@@ -349,5 +385,54 @@ Query OK, 1 row affected (0.06 sec)
 
 mysql> select * from country where countryname='Spain';
 Empty set (0.00 sec)</screen>
+	</section>
+</section>
+<section><title>joining two tables</title>
+	<section><title>inner join</title>
+		<para>With an <command>inner join</command> you can take values from two tables and combine them in one result. Consider the country and the people tables from the previous section when looking at this screenshot of an <command>inner join</command>.</para>
+		<screen>mysql&#062; select Name,Field,countryname
+    -&#062; from country
+    -&#062; inner join people on people.countrycode=country.countrycode;
++-----------------+-----------+---------------+
+| Name            | Field     | countryname   |
++-----------------+-----------+---------------+
+| Barack Obama    | politics  | United States |
+| Deng Xiaoping   | politics  | China         |
+| Guy Verhofstadt | politics  | Belgium       |
+| Justine Henin   | tennis    | Belgium       |
+| Kim Clijsters   | tennis    | Belgium       |
+| Li Na           | tennis    | China         |
+| Liu Yang        | astronaut | China         |
+| Serena Williams | tennis    | United States |
+| Venus Williams  | tennis    | United States |
++-----------------+-----------+---------------+
+9 rows in set (0.00 sec)</screen>
+		<para>This <command>inner join</command> will show only records with a match on <command>countrycode</command> in both tables.</para>
+	</section>
+	<section><title>left join</title>
+		<para>A <command>left join</command> is different from an <command>inner join</command> in that it will take all rows from the left table, regardless of a match in the right table.</para>
+		<screen>mysql> select Name,Field,countryname from country left join people on people.countrycode=country.countrycode;
++-----------------+-----------+---------------+
+| Name            | Field     | countryname   |
++-----------------+-----------+---------------+
+| Guy Verhofstadt | politics  | Belgium       |
+| Justine Henin   | tennis    | Belgium       |
+| Kim Clijsters   | tennis    | Belgium       |
+| Deng Xiaoping   | politics  | China         |
+| Li Na           | tennis    | China         |
+| Liu Yang        | astronaut | China         |
+| NULL            | NULL      | Germany       |
+| NULL            | NULL      | Egypt         |
+| NULL            | NULL      | Spain         |
+| NULL            | NULL      | France        |
+| NULL            | NULL      | India         |
+| NULL            | NULL      | Japan         |
+| NULL            | NULL      | Mexico        |
+| Barack Obama    | politics  | United States |
+| Serena Williams | tennis    | United States |
+| Venus Williams  | tennis    | United States |
++-----------------+-----------+---------------+
+16 rows in set (0.00 sec)</screen>
+		<para>You can see that some countries are present, even when they haev no matching records in the <command>people</command> table.</para>
 	</section>
 </section>
