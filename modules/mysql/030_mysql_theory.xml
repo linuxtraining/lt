@@ -212,3 +212,142 @@ Query OK, 0 rows affected (0.18 sec)</screen>
 Query OK, 0 rows affected (0.00 sec)</screen>
 </section>
 </section>
+<?hard-pagebreak?>
+<section><title>mysql records</title>
+	<section><title>creating records</title>
+		<para>Use <command>insert</command><indexterm><primary>insert(mysql)</primary></indexterm> to enter data into the table. The screenshot shows several insert statements that insert values depending on the position of the data in the statement.</para>
+		<screen>mysql&#062; insert into country values ('BE','Belgium','11000000','Brussels');
+Query OK, 1 row affected (0.05 sec)
+
+mysql&#062; insert into country values ('DE','Germany','82000000','Berlin');
+Query OK, 1 row affected (0.05 sec)
+
+mysql&#062; insert into country values ('JP','Japan','128000000','Tokyo');
+Query OK, 1 row affected (0.05 sec)</screen>
+		<para>Some administrators prefer to use uppercase for <command>sql</command><indexterm><primary>SQL</primary></indexterm> keywords. The mysql client accepts both.</para>
+		<screen>mysql&#062; INSERT INTO country VALUES ('FR','France','64000000','Paris');
+Query OK, 1 row affected (0.00 sec)</screen>
+		<para>Note that you get an error when using a duplicate <command>primary key</command>.</para>
+		<screen>mysql&#062; insert into country values ('DE','Germany','82000000','Berlin');
+ERROR 1062 (23000): Duplicate entry 'DE' for key 'PRIMARY'</screen>
+	</section>
+	<section><title>viewing all records</title>
+		<para>Below an example of a simple <command>select</command><indexterm><primary>select(mysql)</primary></indexterm> query to look at the contents of a table.</para>
+		<screen>mysql&#062; select * from country;
++-------------+---------------+------------+----------------+
+| countrycode | countryname   | population | countrycapital |
++-------------+---------------+------------+----------------+
+| BE          | Belgium       |   11000000 | Brussels       |
+| CN          | China         | 1400000000 | Beijing        |
+| DE          | Germany       |   82000000 | Berlin         |
+| FR          | France        |   64000000 | Paris          |
+| IN          | India         | 1300000000 | New Delhi      |
+| JP          | Japan         |  128000000 | Tokyo          |
+| MX          | Mexico        |  113000000 | Mexico City    |
+| US          | United States |  313000000 | Washington     |
++-------------+---------------+------------+----------------+
+8 rows in set (0.00 sec)</screen>
+	</section>
+<?hard-pagebreak?>
+	<section><title>updating records</title>
+		<para>Consider the following <command>insert</command> statement. The capital of Spain is not Barcelona, it is Madrid.</para>
+		<screen>mysql&#062; insert into country values ('ES','Spain','48000000','Barcelona');
+Query OK, 1 row affected (0.08 sec)</screen>
+		<para>Using an <command>update</command><indexterm><primary>update(mysql)</primary></indexterm> statement, the record can be updated.</para>
+	<screen>mysql&#062; update country set countrycapital='Madrid' where countrycode='ES';
+Query OK, 1 row affected (0.07 sec)
+Rows matched: 1  Changed: 1  Warnings: 0</screen>
+	<para>We can use a <command>select</command><indexterm><primary>select(mysql)</primary></indexterm> statement to verify this change.</para>
+	<screen>mysql&#062; select * from country;
++-------------+---------------+------------+----------------+
+| countrycode | countryname   | population | countrycapital |
++-------------+---------------+------------+----------------+
+| BE          | Belgium       |   11000000 | Brussels       |
+| CN          | China         | 1400000000 | Beijing        |
+| DE          | Germany       |   82000000 | Berlin         |
+| ES          | Spain         |   48000000 | Madrid         |
+| FR          | France        |   64000000 | Paris          |
+| IN          | India         | 1300000000 | New Delhi      |
+| JP          | Japan         |  128000000 | Tokyo          |
+| MX          | Mexico        |  113000000 | Mexico City    |
+| US          | United States |  313000000 | Washington     |
++-------------+---------------+------------+----------------+
+9 rows in set (0.00 sec)</screen>
+	</section>
+	<section><title>viewing selected records</title>
+		<para>Using a <command>where</command> clause in a <command>select</command><indexterm><primary>select(mysql)</primary></indexterm> statement, you can specify which record(s) you want to see.</para>
+		<screen>mysql&#062; SELECT * FROM country WHERE countrycode='ES';
++-------------+-------------+------------+----------------+
+| countrycode | countryname | population | countrycapital |
++-------------+-------------+------------+----------------+
+| ES          | Spain       |   48000000 | Madrid         |
++-------------+-------------+------------+----------------+
+1 row in set (0.00 sec)</screen>
+		<para>Another example of the <command>where</command> clause.</para>
+		<screen>mysql> select * from country where countryname='Spain';
++-------------+-------------+------------+----------------+
+| countrycode | countryname | population | countrycapital |
++-------------+-------------+------------+----------------+
+| ES          | Spain       |   48000000 | Madrid         |
++-------------+-------------+------------+----------------+
+1 row in set (0.00 sec)</screen>
+	</section>
+	<section><title>primary key in where clause ?</title>
+		<para>The <command>primary key</command> of a table is a field that uniquely identifies every record (every row) in the table. when using another field in the <command>where</command> clause, it is possible to get multiple rows returned.</para>
+		<screen>mysql&#062; insert into country values ('EG','Egypt','82000000','Cairo');
+Query OK, 1 row affected (0.33 sec)
+
+mysql> select * from country where population='82000000';
++-------------+-------------+------------+----------------+
+| countrycode | countryname | population | countrycapital |
++-------------+-------------+------------+----------------+
+| DE          | Germany     |   82000000 | Berlin         |
+| EG          | Egypt       |   82000000 | Cairo          |
++-------------+-------------+------------+----------------+
+2 rows in set (0.00 sec)</screen>
+	</section>
+	<section><title>ordering records</title>
+		<para>We know that <command>select</command> allows us to see all records in a table. Consider this table.</para>
+		<screen>mysql&#062; select countryname,population from country;
++---------------+------------+
+| countryname   | population |
++---------------+------------+
+| Belgium       |   11000000 |
+| China         | 1400000000 |
+| Germany       |   82000000 |
+| Egypt         |   82000000 |
+| Spain         |   48000000 |
+| France        |   64000000 |
+| India         | 1300000000 |
+| Japan         |  128000000 |
+| Mexico        |  113000000 |
+| United States |  313000000 |
++---------------+------------+
+10 rows in set (0.00 sec)</screen>
+		<para>Using the <command>order by</command><indexterm><primary>order by(mysql)</primary></indexterm> clause, we can change the order in which the records are presented.</para>
+		<screen>mysql&#062; select countryname,population from country order by countryname;
++---------------+------------+
+| countryname   | population |
++---------------+------------+
+| Belgium       |   11000000 |
+| China         | 1400000000 |
+| Egypt         |   82000000 |
+| France        |   64000000 |
+| Germany       |   82000000 |
+| India         | 1300000000 |
+| Japan         |  128000000 |
+| Mexico        |  113000000 |
+| Spain         |   48000000 |
+| United States |  313000000 |
++---------------+------------+
+10 rows in set (0.00 sec)</screen>
+	</section>
+	<section><title>deleting records</title>
+		<para>You can use the <command>delete</command><indexterm><primary>delete(mysql)</primary></indexterm> to permanently remove a record from a table.</para>
+		<screen>mysql&#062; delete from country where countryname='Spain';
+Query OK, 1 row affected (0.06 sec)
+
+mysql> select * from country where countryname='Spain';
+Empty set (0.00 sec)</screen>
+	</section>
+</section>
