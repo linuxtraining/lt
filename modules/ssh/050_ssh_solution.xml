@@ -29,5 +29,7 @@ xeyes</screen>
 	<para>10. Verify that the <command>ssh-agent</command> is running.</para>
 	<screen>ps fax | grep ssh-agent</screen>
 	<para>11. (optional) Protect your keypair with a <command>passphrase</command>, then add this key to the <command>ssh-agent</command> and test your passwordless ssh to the server.</para>
-	<screen>man ssh-keygen ;-)</screen>
+	<screen>man ssh-keygen
+man ssh-agent
+man ssh-add</screen>
 </section>
