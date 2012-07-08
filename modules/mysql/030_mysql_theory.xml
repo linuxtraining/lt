@@ -1,0 +1,158 @@
+<?hard-pagebreak?>
+<section><title>installing mysql</title>
+	<para>On Debian/Ubuntu you can use <command>aptitude install mysql-server</command><indexterm><primary>aptitude(8)</primary></indexterm> to install the <command>mysql server</command><indexterm><primary>mysql-server</primary></indexterm> and <command>client</command><indexterm><primary>mysql-client</primary></indexterm>.</para>
+	<screen>root@ubu1204~# aptitude install mysql-server
+The following NEW packages will be installed:
+  libdbd-mysql-perl{a} libdbi-perl{a} libhtml-template-perl{a}
+  libnet-daemon-perl{a} libplrpc-perl{a} mysql-client-5.5{a} 
+  mysql-client-core-5.5{a} mysql-server mysql-server-5.5{a}
+  mysql-server-core-5.5{a} 
+0 packages upgraded, 10 newly installed, 0 to remove and 1 not upgraded.
+Need to get 25.5 MB of archives. After unpacking 88.4 MB will be used.
+Do you want to continue? [Y/n/?]</screen>
+	<para>During the installation you will be asked to provide a password for the <command>root mysql user</command><indexterm><primary>root(mysql)</primary></indexterm>, remember this password (or use <command>hunter2</command> like i do.</para>
+	<para>To verify the installed version, use <command>dpkg -l</command><indexterm><primary>dpkg(1)</primary></indexterm> on Debian/Ubuntu. This screenshot shows version 5.0 installed.</para>
+	<screen>root@ubu1204~# dpkg -l mysql-server | tail -1 | tr -s ' ' | cut -c-72
+ii mysql-server 5.5.24-0ubuntu0.12.04.1 MySQL database server (metapacka</screen>
+	<para>Issue <command>rpm -q</command><indexterm><primary>rpm(1)</primary></indexterm> to get version information about MySQL on Red Hat/Fedora/CentOS.</para>
+	<screen>[paul@RHEL52 ~]$ rpm -q mysql-server
+mysql-server-5.0.45-7.el5</screen>
+	<para>You will need at least version 5.0 to work with <command>triggers</command><indexterm><primary>triggers(mysql)</primary></indexterm>.</para>
+</section>
+<?hard-pagebreak?>
+<section><title>accessing mysql</title>
+	<section><title>Linux users</title>
+		<para>The installation of <command>mysql</command><indexterm><primary>mysql(user)</primary></indexterm> creates a user account in <command>/etc/passwd</command><indexterm><primary>/etc/passwd</primary></indexterm> and a group account<indexterm><primary>mysql(group)</primary></indexterm> in <command>/etc/group</command><indexterm><primary>/etc/group</primary></indexterm>.</para>
+		<screen>kevin@ubu1204:~$ tail -1 /etc/passwd
+mysql:x:120:131:MySQL Server,,,:/nonexistent:/bin/false
+kevin@ubu1204:~$ tail -1 /etc/group
+mysql:x:131:</screen>
+		<para>The mysql daemon <command>mysqld</command><indexterm><primary>mysqld</primary></indexterm> will run with the credentials of this user and group.</para>
+	<screen>root@ubu1204~# ps -eo uid,user,gid,group,comm | grep mysqld
+  120 mysql      131 mysql    mysqld</screen>
+	</section>
+	<section><title>mysql client application</title>
+		<para>You can now use mysql from the commandline by just typing <command>mysql -u root -p</command><indexterm><primary>mysql</primary></indexterm> and you 'll be asked for the password (of the <command>mysql root</command> account). In the screenshot below the user typed <command>exit</command> to exit the mysql console.</para>
+		<screen>root@ubu1204~# mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 43
+Server version: 5.5.24-0ubuntu0.12.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2011, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql&#062; <command>exit</command>
+Bye</screen>
+		<para>You could also put the password in clear text on the command line, but that would not be very secure. Anyone with access to your bash history would be able to read your mysql root password.</para>
+		<screen>root@ubu1204~# mysql -u root -phunter2
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+...</screen>
+	</section>
+<?hard-pagebreak?>
+	<section><title>~/.my.cnf</title>
+		<para>You can save configuration in your home directory in the hidden file <command>.my.cnf</command><indexterm><primary>.my.cnf</primary></indexterm>. In the screenshot below we put the root user and password in .my.cnf.</para>
+		<screen>kevin@ubu1204:~$ pwd
+/home/kevin
+kevin@ubu1204:~$ cat .my.cnf 
+[client]
+user=root
+password=hunter2
+kevin@ubu1204:~$</screen>
+	<para>This enables us to log on as the <command>root mysql</command> user just by typing <command>mysql</command>.</para>
+<screen>kevin@ubu1204:~$ mysql
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 56
+Server version: 5.5.24-0ubuntu0.12.04.1 (Ubuntu)</screen>
+	</section>
+	<section><title>the mysql command line client</title>
+		<para>You can use the <command>mysql</command><indexterm><primary>mysql</primary></indexterm> command to take a look at the databases, and to execute SQL queries on them. The screenshots below show you how.</para>
+		<para>Here we execute the command <command>show databases</command>. Every command must be terminated by a delimiter. The default delimiter is <command>;</command> (the semicolon).</para>
+		<screen>mysql&#062; show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| test               |
++--------------------+
+4 rows in set (0.00 sec)</screen>
+		<para>We will use this prompt in the next sections.</para>
+	</section>
+</section>
+<?hard-pagebreak?>
+<section><title>mysql databases</title>
+	<section><title>listing all databases</title>
+		<para>You can use the <command>mysql</command><indexterm><primary>mysql</primary></indexterm> command to take a look at the databases, and to execute SQL queries on them. The screenshots below show you how. First, we log on to our MySQL server and execute the command <command>show databases</command><indexterm><primary>show(mysql)</primary></indexterm> to see which databases exist on our mysql server.</para>
+		<screen>kevin@ubu1204:~$ mysql
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 57
+Server version: 5.5.24-0ubuntu0.12.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2011, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql&#062; show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| test               |
++--------------------+
+4 rows in set (0.00 sec)</screen>
+	</section>
+	<section><title>creating databases</title>
+		<para>You can create a new database with the <command>create database</command><indexterm><primary>create(mysql)</primary></indexterm> command.</para>
+		<screen>mysql&#062; create database famouspeople;
+Query OK, 1 row affected (0.00 sec)
+
+mysql&#062; show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| famouspeople       |
+| mysql              |
+| performance_schema |
+| test               |
++--------------------+
+5 rows in set (0.00 sec)</screen>
+	</section>
+<?hard-pagebreak?>
+	<section><title>using a database</title>
+		<para>Next we tell <command>mysql</command> to use one particular database with the <command>use $database</command><indexterm><primary>use(mysql)</primary></indexterm> command. This screenshot shows how to make wikidb the current database (in use).</para>
+		<screen>mysql&#062; use famouspeople;
+Database changed
+mysql&#062;</screen>
+	</section>
+	<section><title>access to databases</title>
+		<para>To give someone access to a mysql database, use the <command>grant</command><indexterm><primary>grant(mysql)</primary></indexterm> command.</para>
+		<screen>mysql&#0062; grant all on famouspeople.* to kevin@localhost IDENTIFIED BY "hunter2";
+Query OK, 0 rows affected (0.00 sec)</screen>
+	</section>
+	<section><title>deleting databases</title>
+		<para>When a database is no longer needed, you can permanently remove it with the <command>drop database</command><indexterm><primary>drop(mysql)</primary></indexterm> command.</para>
+		<screen>mysql&#062; drop database demodb;
+Query OK, 1 row affected (0.09 sec)
+		</screen>
+	</section>
+	<section><title>backup and restore databases</title>
+		<para>You can take a backup of a database, or move it to another computer using the <command>mysql</command> and <command>mysqldump</command> commands. In the screenshot below, we take a backup of the wikidb database on the computer named laika.</para>
+		<screen>mysqldump -u root famouspeople &#062; famouspeople.backup.20120708.sql</screen>
+		<para>Here is a screenshot of a database restore operation from this backup.</para>
+		<screen>mysql -u root famouspeople &#060; famouspeople.backup.20120708.sql</screen>
+	</section>
+</section>
