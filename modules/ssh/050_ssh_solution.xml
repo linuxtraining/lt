@@ -24,7 +24,7 @@ xeyes</screen>
 	<para>7. (optional, same as previous) Create a bookmark in firefox, then quit firefox on client and server. Use <command>ssh -X</command> to run firefox on your display, but on your neighbour's computer. Do you see your neighbour's bookmark ?</para>
 	<para>8. Use <command>ssh-keygen</command> to create a key pair without passphrase. Setup passwordless ssh between you and your neighbour. (or between your client and your server)</para>
 	<screen>See solution in book "setting up passwordless ssh"</screen>
-	<para>9. Verify that the permissions on the server key files are correct ; world readable for the public keys and only root access for the private keys.</para>
+	<para>9. Verify that the permissions on the server key files are correct; world readable for the public keys and only root access for the private keys.</para>
 	<screen>ls -l /etc/ssh/ssh_host_*</screen>
 	<para>10. Verify that the <command>ssh-agent</command> is running.</para>
 	<screen>ps fax | grep ssh-agent</screen>

@@ -147,7 +147,7 @@ total 4
 [alice@RHEL5 ~]$</screen>
 	</section>
 </section>
-<section><title>X forwarding via SSH</title>
+<section><title>X forwarding via ssh</title>
 	<para>Another popular feature of <command>ssh</command> is called <command>X11 forwarding</command> and is implemented with <command>ssh -X</command><indexterm><primary>ssh -X</primary></indexterm>.</para>
 	<para>Below an example of X forwarding: user paul logs in as user greet on her computer to start the graphical application mozilla-thunderbird. Although the application will run on the remote computer from greet, it will be displayed on the screen attached locally to paul's computer.</para>
 	<screen>paul@debian5:~/PDF$ ssh -X greet@greet.dyndns.org -p 55555
