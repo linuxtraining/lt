@@ -436,3 +436,37 @@ Empty set (0.00 sec)</screen>
 		<para>You can see that some countries are present, even when they have no matching records in the <command>people</command> table.</para>
 	</section>
 </section>
+<section><title>mysql triggers</title>
+<section><title>using a before trigger</title>
+	<para>Consider the following <command>create table</command><indexterm><primary>create(mysql)</primary></indexterm> command. The last field (<command>amount</command>) is the multiplication of the two fields named <command>unitprice</command> and <command>unitcount</command>.</para>
+	<screen>mysql&#062; create table invoices (
+    -&#062; id char(8) NOT NULL,
+    -&#062; customerid char(3) NOT NULL,
+    -&#062; unitprice int,
+    -&#062; unitcount smallint,
+    -&#062; amount int );
+Query OK, 0 rows affected (0.00 sec)</screen>
+	<para>We can let mysql do the calculation for that by using a <command>before trigger</command><indexterm><primary>trigger(mysql)</primary></indexterm>. The screenshot below shows the creation of a trigger that calculates the amount by multiplying two fields that are about to be inserted.</para>
+	<screen>mysql&#062; create trigger total_amount before INSERT on invoices
+    -&#062; for each row set new.amount = new.unitprice * new.unitcount ;
+Query OK, 0 rows affected (0.02 sec)</screen>
+	<para>Here we verify that the trigger works by inserting a new record, without providing the total amount.</para>
+	<screen>
+mysql&#062; insert into invoices values ('20090526','ABC','199','10','');
+Query OK, 1 row affected (0.02 sec)
+	</screen>
+	<para>Looking at the record proves that the trigger works.</para>
+	<screen>mysql> select * from invoices;
++----------+------------+-----------+-----------+--------+
+| id       | customerid | unitprice | unitcount | amount |
++----------+------------+-----------+-----------+--------+
+| 20090526 | ABC        |       199 |        10 |   1990 | 
++----------+------------+-----------+-----------+--------+
+1 row in set (0.00 sec)</screen>
+</section>
+<section><title>removing a trigger</title>
+	<para>When a <command>trigger</command> is no longer needed, you can delete it with the <command>drop trigger</command><indexterm><primary>drop(mysql)</primary></indexterm> command.</para>
+	<screen>mysql&#062; drop trigger total_amount;
+Query OK, 0 rows affected (0.00 sec)</screen>
+</section>
+</section>
