@@ -114,7 +114,7 @@ mysql&#062; show databases;
 +--------------------+
 4 rows in set (0.00 sec)</screen>
 	</section>
-	<section><title>creating databases</title>
+	<section><title>creating a database</title>
 		<para>You can create a new database with the <command>create database</command><indexterm><primary>create(mysql)</primary></indexterm> command.</para>
 		<screen>mysql&#062; create database famouspeople;
 Query OK, 1 row affected (0.00 sec)
@@ -138,21 +138,77 @@ mysql&#062; show databases;
 Database changed
 mysql&#062;</screen>
 	</section>
-	<section><title>access to databases</title>
+	<section><title>access to a database</title>
 		<para>To give someone access to a mysql database, use the <command>grant</command><indexterm><primary>grant(mysql)</primary></indexterm> command.</para>
 		<screen>mysql&#0062; grant all on famouspeople.* to kevin@localhost IDENTIFIED BY "hunter2";
 Query OK, 0 rows affected (0.00 sec)</screen>
 	</section>
-	<section><title>deleting databases</title>
+	<section><title>deleting a database</title>
 		<para>When a database is no longer needed, you can permanently remove it with the <command>drop database</command><indexterm><primary>drop(mysql)</primary></indexterm> command.</para>
 		<screen>mysql&#062; drop database demodb;
 Query OK, 1 row affected (0.09 sec)
 		</screen>
 	</section>
-	<section><title>backup and restore databases</title>
+	<section><title>backup and restore a database</title>
 		<para>You can take a backup of a database, or move it to another computer using the <command>mysql</command> and <command>mysqldump</command> commands. In the screenshot below, we take a backup of the wikidb database on the computer named laika.</para>
 		<screen>mysqldump -u root famouspeople &#062; famouspeople.backup.20120708.sql</screen>
 		<para>Here is a screenshot of a database restore operation from this backup.</para>
 		<screen>mysql -u root famouspeople &#060; famouspeople.backup.20120708.sql</screen>
 	</section>
+</section>
+<?hard-pagebreak?>
+<section><title>mysql tables</title>
+<section><title>listing tables</title>
+	<para>You can see a list of tables in the current database with the <command>show tables;</command><indexterm><primary>show(mysql)</primary></indexterm> command. Our <command>famouspeople</command> database has no tables yet.</para>
+	<screen>mysql&#062; use famouspeople;
+Database changed
+mysql&#062; show tables;
+Empty set (0.00 sec)</screen>
+</section>
+<section><title>creating a table</title>
+	<para>The <command>create table</command><indexterm><primary>create(mysql)</primary></indexterm> command will create a new table.</para>
+	<para>This screenshot shows the creation of a country table. We use the <command>countrycode</command> as a <command>primary key</command> (all country codes are uniquely defined). Most country codes are two or three letters, so a <command>char</command><indexterm><primary>char(mysql)</primary></indexterm> of three uses less space than a <command>varchar</command><indexterm><primary>varchar(mysql)</primary></indexterm> of three. The <command>country name</command> and the name of the capital are both defined as <command>varchar</command>. The population can be seen as an <command>integer</command><indexterm><primary>integer(mysql)</primary></indexterm>.</para>
+	<screen>mysql&#062; create table country (
+    -&#062; countrycode char(3) NOT NULL,
+    -&#062; countryname varchar(70) NOT NULL,
+    -&#062; population int,
+    -&#062; countrycapital varchar(50),
+    -&#062; primary key (countrycode)
+    -&#062; );
+Query OK, 0 rows affected (0.19 sec)
+
+mysql&#062; show tables;
++------------------------+
+| Tables_in_famouspeople |
++------------------------+
+| country                |
++------------------------+
+1 row in set (0.00 sec)
+
+mysql&#062;</screen>
+	<para>You are allowed to type the <command>create table</command> command on one long line, but administrators often use multiple lines to improve readability.</para>
+	<screen>mysql&#062; create table country ( countrycode char(3) NOT NULL, countryname\
+ varchar(70) NOT NULL, population int, countrycapital varchar(50), prim\
+ary key (countrycode) );
+Query OK, 0 rows affected (0.18 sec)</screen>
+</section>
+<?hard-pagebreak?>
+<section><title>describing a table</title>
+	<para>To see a description of the structure of a table, issue the <command>describe $tablename</command><indexterm><primary>describe(mysql)</primary></indexterm> command as shown below.</para>
+	<screen>mysql> describe country;
++----------------+-------------+------+-----+---------+-------+
+| Field          | Type        | Null | Key | Default | Extra |
++----------------+-------------+------+-----+---------+-------+
+| countrycode    | char(3)     | NO   | PRI | NULL    |       |
+| countryname    | varchar(70) | NO   |     | NULL    |       |
+| population     | int(11)     | YES  |     | NULL    |       |
+| countrycapital | varchar(50) | YES  |     | NULL    |       |
++----------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)</screen>
+</section>
+<section><title>removing a table</title>
+	<para>To remove a table from a database, issue the <command>drop table $tablename</command><indexterm><primary>drop(mysql)</primary></indexterm> command as shown below.</para>
+	<screen>mysql&#062; drop table country;
+Query OK, 0 rows affected (0.00 sec)</screen>
+</section>
 </section>
