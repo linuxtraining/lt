@@ -1,0 +1,287 @@
+<?hard-pagebreak?>
+<section><title>rpm</title>
+	<section><title>about rpm</title>
+		<para>The <command>Red Hat package manager</command><indexterm><primary>rpm</primary></indexterm> can be used on the command line with <command>rpm</command> or in a graphical way going to Applications--System Settings--Add/Remove Applications. Type <command>rpm --help</command> to see some of the options.</para>
+		<para>Software distributed in the <command>rpm</command> format will be named <command>foo-version.platform.rpm</command> .</para>	
+	</section>
+	<section><title>rpm -qa</title>
+		<para>To obtain a list of all installed software, use the <command>rpm -qa</command> command.</para>
+		<screen>
+[root@RHEL52 ~]# rpm -qa | grep samba
+system-config-samba-1.2.39-1.el5
+samba-3.0.28-1.el5_2.1
+samba-client-3.0.28-1.el5_2.1
+samba-common-3.0.28-1.el5_2.1
+		</screen>
+	</section>
+	<section><title>rpm -q</title>
+		<para>To verify whether one package is installed, use <command>rpm -q</command>.</para>
+		<screen>
+root@RHELv4u4:~# rpm -q gcc
+gcc-3.4.6-3
+root@RHELv4u4:~# rpm -q laika
+package laika is not installed
+		</screen>
+	</section>
+	<section><title>rpm -q --redhatprovides</title>
+		<para>To check whether a package is provided by Red Hat, use the <command>--redhatprovides</command> option.</para>
+		<screen>
+root@RHELv4u4:~# rpm -q --redhatprovides bash
+bash-3.0-19.3
+root@RHELv4u4:~# rpm -q --redhatprovides gcc
+gcc-3.4.6-3
+root@RHELv4u4:~# rpm -q --redhatprovides laika
+no package provides laika
+		</screen>	
+	</section>
+	<section><title>rpm -Uvh</title>
+		<para>To install or upgrade a package, use the -Uvh switches. The -U switch is the same as -i for install, except that older versions of the software are removed. The -vh switches are for nicer output.</para>
+		<screen>
+root@RHELv4u4:~# rpm -Uvh gcc-3.4.6-3
+		</screen>
+	</section>
+	<section><title>rpm -e</title>
+		<para>To remove a package, use the -e switch.</para>
+		<screen>
+root@RHELv4u4:~# rpm -e gcc-3.4.6-3
+		</screen>
+		<para><command>rpm -e</command> verifies dependencies, and thus will prevent you from accidentailly erasing packages that are needed by other packages.</para>
+		<screen>
+[root@RHEL52 ~]# rpm -e gcc-4.1.2-42.el5
+error: Failed dependencies:
+gcc = 4.1.2-42.el5 is needed by (installed) gcc-c++-4.1.2-42.el5.i386
+gcc = 4.1.2-42.el5 is needed by (installed) gcc-gfortran-4.1.2-42.el5.i386
+gcc is needed by (installed) systemtap-0.6.2-1.el5_2.2.i386
+		</screen>
+	</section>
+	<section><title>/var/lib/rpm</title>
+		<para>The <command>rpm</command> database is located at <command>/var/lib/rpm</command><indexterm><primary>/var/lib/rpm</primary></indexterm>. This database contains all meta information about packages that are installed (via rpm). It keeps track of all files, which enables complete removes of software.</para>
+	</section>
+	<section><title>rpm2cpio</title>
+		<para>We can use <command>rpm2cpio</command><indexterm><primary>rpm2cpio(8)</primary></indexterm> to convert an <command>rpm</command> to a <command>cpio</command><indexterm><primary>cpio(1)</primary></indexterm> archive.</para>
+		<screen>[root@RHEL53 ~]# file kernel.src.rpm 
+kernel.src.rpm: RPM v3 src PowerPC kernel-2.6.18-92.1.13.el5
+[root@RHEL53 ~]# rpm2cpio kernel.src.rpm > kernel.cpio
+[root@RHEL53 ~]# file kernel.cpio 
+kernel.cpio: ASCII cpio archive (SVR4 with no CRC)</screen>
+		<para>But why would you want to do this ?</para>
+		<para>Perhaps just to see of list of files in the <command>rpm</command> file.</para>
+		<screen>[root@RHEL53 ~]# rpm2cpio kernel.src.rpm | cpio -t | head -5
+COPYING.modules
+Config.mk
+Module.kabi_i686
+Module.kabi_i686PAE
+Module.kabi_i686xen</screen>
+		<para>Or to extract one file from an <command>rpm</command> package.</para>
+		<screen>[root@RHEL53 ~]# rpm2cpio kernel.src.rpm | cpio -iv Config.mk
+Config.mk
+246098 blocks</screen>
+	</section>
+</section>
+<?hard-pagebreak?>
+<section><title>yum</title>
+	<section><title>about yum</title>
+		<para>The <command>Yellowdog Updater, Modified (yum)</command><indexterm><primary>yum(8)</primary></indexterm> is an easier command to work with <command>rpm</command> packages. It is installed by default on Fedora and Red Hat Enterprise Linux since version 5.2.</para>
+	</section>
+	<section><title>yum list</title>
+		<para>Issue <command>yum list available</command> to see a list of available packages. The <command>available</command> parameter is optional.</para>
+		<screen>
+[root@rhel55 ~]# yum list | wc -l
+2471
+		</screen>
+		<para>Issue <command>yum list $package</command> to get all versions (in different repositories) of one package.</para>
+		<screen>[root@rhel55 ~]# yum list samba
+Loaded plugins: rhnplugin, security
+Installed Packages
+samba.i386                 3.0.33-3.28.el5         installed         
+Available Packages
+samba.i386                 3.0.33-3.29.el5_5       rhel-i386-server-5</screen>
+	</section>
+	<section><title>yum search</title>
+		<para>To search for a package containing a certain string in the description or name use <command>yum search $string</command>.</para>
+		<screen>[root@rhel55 ~]# yum search gcc44
+Loaded plugins: rhnplugin, security
+========================== Matched: gcc44 ===========================
+gcc44.i386 : Preview of GCC version 4.4
+gcc44-c++.i386 : C++ support for GCC version 4.4
+gcc44-gfortran.i386 : Fortran support for GCC 4.4 previe</screen>
+	</section>
+	<section><title>yum provides</title>
+		<para>To search for a package containing a certain file (you might need for compiling things) use <command>yum provides $filename</command>.</para>
+		<screen>[root@rhel55 ~]# yum provides /usr/share/man/man1/gzip.1.gz 
+Loaded plugins: rhnplugin, security
+Importing additional filelist information
+gzip-1.3.5-9.el5.i386 : The GNU data compression program.
+Repo        : rhel-i386-server-5
+Matched from:
+Filename    : /usr/share/man/man1/gzip.1.gz
+...</screen>
+	</section>
+	<section><title>yum install</title>
+		<para>To install an application, use <command>yum install $package</command>. Naturally <command>yum</command> will install all the necessary dependencies.</para>
+		<screen>[root@rhel55 ~]# yum install sudo
+Loaded plugins: rhnplugin, security
+Setting up Install Process
+Resolving Dependencies
+--> Running transaction check
+---> Package sudo.i386 0:1.7.2p1-7.el5_5 set to be updated
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+=======================================================================
+ Package     Arch      Version            Repository               Size
+=======================================================================
+Installing:
+ sudo        i386      1.7.2p1-7.el5_5    rhel-i386-server-5      230 k
+
+Transaction Summary
+=======================================================================
+Install       1 Package(s)
+Upgrade       0 Package(s)
+
+Total download size: 230 k
+Is this ok [y/N]: y
+Downloading Packages:
+sudo-1.7.2p1-7.el5_5.i386.rpm                       | 230 kB     00:00 
+Running rpm_check_debug
+Running Transaction Test
+Finished Transaction Test
+Transaction Test Succeeded
+Running Transaction
+  Installing     : sudo                                        1/1 
+
+Installed:
+  sudo.i386 0:1.7.2p1-7.el5_5
+
+Complete!  </screen>
+		<para>You can add more than one parameter here.</para>
+		<screen>yum install $package1 $package2 $package3</screen>
+	</section>
+	<section><title>yum update</title>
+		<para>To bring all applications up to date, by downloading and installing them, issue <command>yum update</command>. All software that was installed via <command>yum</command> will be updated to the latest version that is available in the repository.</para>
+		<screen>yum update</screen>
+		<para>If you only want to update one package, use <command>yum update $package</command>.</para>
+		<screen>[root@rhel55 ~]# yum update sudo
+Loaded plugins: rhnplugin, security
+Skipping security plugin, no data
+Setting up Update Process
+Resolving Dependencies
+Skipping security plugin, no data
+--> Running transaction check
+---> Package sudo.i386 0:1.7.2p1-7.el5_5 set to be updated
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+=====================================================================
+ Package     Arch    Version           Repository                Size
+=====================================================================
+Updating:
+ sudo        i386    1.7.2p1-7.el5_5   rhel-i386-server-5       230 k
+
+Transaction Summary
+=====================================================================
+Install       0 Package(s)
+Upgrade       1 Package(s)
+
+Total download size: 230 k
+Is this ok [y/N]: y
+Downloading Packages:
+sudo-1.7.2p1-7.el5_5.i386.rpm                      | 230 kB     00:00 
+Running rpm_check_debug
+Running Transaction Test
+Finished Transaction Test
+Transaction Test Succeeded
+Running Transaction
+  Updating       : sudo                                           1/2
+  Cleanup        : sudo                                           2/2
+
+Updated:
+  sudo.i386 0:1.7.2p1-7.el5_5
+
+Complete!</screen>
+	</section>
+	<section><title>yum software groups</title>
+		<para>Issue <command>yum grouplist</command> to see a list of all available software groups.</para>
+		<screen>[root@rhel55 ~]# yum grouplist
+Loaded plugins: rhnplugin, security
+Setting up Group Process
+Installed Groups:
+   Administration Tools
+   Authoring and Publishing
+   DNS Name Server
+   Development Libraries
+   Development Tools
+   Editors
+   GNOME Desktop Environment
+   GNOME Software Development
+   Graphical Internet
+   Graphics
+   Legacy Network Server
+   Legacy Software Development
+   Legacy Software Support
+   Mail Server
+   Network Servers
+   Office/Productivity
+   Printing Support
+   Server Configuration Tools
+   System Tools
+   Text-based Internet
+   Web Server
+   Windows File Server
+   X Software Development
+   X Window System
+Available Groups:
+   Engineering and Scientific
+   FTP Server
+   Games and Entertainment
+   Java Development
+   KDE (K Desktop Environment)
+   KDE Software Development
+   MySQL Database
+   News Server
+   OpenFabrics Enterprise Distribution
+   PostgreSQL Database
+   Sound and Video
+Done</screen>
+		<para>To install a set of applications, brought together via a group, use <command>yum groupinstall $groupname</command>.</para>
+		<screen>[root@rhel55 ~]# yum groupinstall 'Sound and video'
+Loaded plugins: rhnplugin, security
+Setting up Group Process
+Package alsa-utils-1.0.17-1.el5.i386 already installed and latest version
+Package sox-12.18.1-1.i386 already installed and latest version
+Package 9:mkisofs-2.01-10.7.el5.i386 already installed and latest version
+Package 9:cdrecord-2.01-10.7.el5.i386 already installed and latest version
+Package cdrdao-1.2.1-2.i386 already installed and latest version
+Resolving Dependencies
+--> Running transaction check
+---> Package cdda2wav.i386 9:2.01-10.7.el5 set to be updated
+---> Package cdparanoia.i386 0:alpha9.8-27.2 set to be updated
+---> Package sound-juicer.i386 0:2.16.0-3.el5 set to be updated
+--> Processing Dependency: libmusicbrainz >= 2.1.0 for package: sound-juicer
+--> Processing Dependency: libmusicbrainz.so.4 for package: sound-juicer
+---> Package vorbis-tools.i386 1:1.1.1-3.el5 set to be updated
+--> Processing Dependency: libao >= 0.8.4 for package: vorbis-tools
+--> Processing Dependency: libao.so.2 for package: vorbis-tools
+--> Running transaction check
+---> Package libao.i386 0:0.8.6-7 set to be updated
+---> Package libmusicbrainz.i386 0:2.1.1-4.1 set to be updated
+--> Finished Dependency Resolution
+...</screen>
+		<para>Read the manual page of <command>yum</command> for more information about managing groups in <command>yum</command>.</para>
+	</section>
+	<section><title>/etc/yum.conf and repositories</title>
+		<para>The configuration of <command>yum</command> repositories is done in <command>/etc/yum/yum.conf</command> and <command>/etc/yum/repos.d/</command>.</para>
+		<para>Configurating <command>yum</command> itself is done in <command>/etc/yum.conf</command><indexterm><primary>/etc/yum.conf</primary></indexterm>. This file will contain the location of a log file and a cache directory for <command>yum</command> and can also contain a list of repositories.</para>
+		<para>Recently <command>yum</command> started accepting several <command>repo</command> files with each file containing a list of <command>repositories</command>. These <command>repo</command> files are located in the <command>/etc/yum.repos.d/</command><indexterm><primary>/etc/yum.repos.d/</primary></indexterm> directory.</para>
+		<para>One important flag for yum is <command>enablerepo</command>. Use this command if you want to use a repository that is not enabled by default.</para>
+		<screen>yum $command $foo --enablerepo=$repo</screen>
+		<para>An example of the contents of the repo file: MyRepo.repo</para>
+		<screen>[$repo]
+name=My Repository
+baseurl=http://path/to/MyRepo
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-MyRep</screen>
+	</section>
+</section>

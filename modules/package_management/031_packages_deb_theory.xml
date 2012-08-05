@@ -1,0 +1,80 @@
+<?hard-pagebreak?>
+<section><title>deb</title>
+	<section><title>about deb</title>
+		<para>Most people use <command>aptitude</command> or <command>apt-get</command> to manage their Debian/Ubuntu family of Linux distributions. Both are a front end for <command>dpkg</command> and are themselves a back end for <command>synaptic</command> or other graphical tools.</para>
+	</section>
+	<section><title>dpkg -l</title>
+		<para>The low level tool to work with <command>.deb</command> packages is <command>dpkg</command><indexterm><primary>dpkg(8)</primary></indexterm>. Here you see how to obtain a list of all installed packages. The ii at the beginning means the package is installed.</para>
+		<screen>root@laika:~# dpkg -l | grep gcc-4.2
+ii gcc-4.2      4.2.4-1ubuntu3 The GNU C compiler
+ii gcc-4.2-base 4.2.4-1ubuntu3 The GNU Compiler Collection (base package)</screen>
+	</section>
+	<section><title>dpkg</title>
+		<para>You could use <command>dpkg -i</command> to install a package and <command>dpkg -r</command> to remove a package, but you'd have to manually keep track of dependencies.</para>
+	</section>
+</section>
+<?hard-pagebreak?>
+<section><title>apt-get</title>
+	<para><command>Debian</command> has been using <command>apt-get</command><indexterm><primary>apt-get(8)</primary></indexterm> to manage packages since 1998. Today Debain and many Debian-based distributions still actively support <command>apt-get</command>, though some experts claim <command>aptitude</command> is better at handling dependencies than <command>apt-get</command>.</para>
+	<para>Both commands use the same configuration files and can be used alternately; whenever you see <command>apt-get</command> in documentation, feel free to type <command>aptitude</command>.</para>
+	<para>We will start with <command>apt-get</command> and discuss <command>aptitude</command> in the next section.</para>
+	<section><title>apt-get update</title>
+		<para>When typing <command>apt-get update</command> you are downloading the names, versions and short description of all packages available on all configured repositories for your system.</para>
+		<para>In the example below you can see some repositories at the url <command>be.archive.ubuntu.com</command> because this computer was installed in Belgium. This url can be different for you.</para>
+		<screen>root@ubu1204~# apt-get update
+Ign http://be.archive.ubuntu.com precise InRelease
+Ign http://extras.ubuntu.com precise InRelease
+Ign http://security.ubuntu.com precise-security InRelease            
+Ign http://archive.canonical.com precise InRelease                                         
+Ign http://be.archive.ubuntu.com precise-updates InRelease                                 
+...
+Hit http://be.archive.ubuntu.com precise-backports/main Translation-en                                                             
+Hit http://be.archive.ubuntu.com precise-backports/multiverse Translation-en                                                       
+Hit http://be.archive.ubuntu.com precise-backports/restricted Translation-en                                                       
+Hit http://be.archive.ubuntu.com precise-backports/universe Translation-en                                                         
+Fetched 13.7 MB in 8s (1682 kB/s)                                                                                                  
+Reading package lists... Done
+root@mac~#</screen>
+	</section>
+	<section><title>apt-get clean</title>
+		<para><command>apt-get</command> keeps a copy of downloaded packages in <command>/var/cache/apt/archives</command>, as can be seen in this screenshot.</para>
+		<para></para>
+		<screen></screen>
+		<screen></screen>
+	</section>
+	<section><title>apt-get</title>
+		<para></para>
+		<screen></screen>
+	</section>
+	<section><title>apt-get</title>
+		<para></para>
+		<screen></screen>
+	</section>
+</section>
+<section><title>aptitude</title>
+	<para>Most people use <command>aptitude</command><indexterm><primary>aptitude(8)</primary></indexterm> for package management on Debian and Ubuntu Systems.</para>
+	<para>To synchronize with the repositories.</para>
+	<screen>aptitude update</screen>
+	<para>To patch and upgrade all software to the latest version on Debian.</para>
+	<screen>aptitude upgrade</screen>
+	<para>To patch and upgrade all software to the latest version on Ubuntu and Mint.</para>
+	<screen>aptitude safe-upgrade</screen>
+	<para>To install an application with all dependencies.</para>
+	<screen>aptitude install $package</screen>
+	<para>To search the repositories for applications that contain a certain string in their name or description.</para>
+	<screen>aptitude search $string</screen>
+	<para>To remove an application and all unused files.</para>
+	<screen>aptitude remove $package</screen>
+	<section><title>/etc/apt/sources.list</title>
+		<para>The resource list for both <command>apt-get</command> and <command>aptitude</command> is located in <command>/etc/apt/sources.list</command><indexterm><primary>/etc/apt/sources.list</primary></indexterm>. This file contains a list of http or ftp sources where packages for the distribution can be downloaded.</para>
+		<screen>root@barry:~# cat /etc/apt/sources.list
+
+deb http://ftp.be.debian.org/debian/ etch main non-free contrib
+# deb http://ftp.be.debian.org/debian/ sarge main non-free contrib
+# deb http://ftp.be.debian.org/debian/ unstable main non-free contrib
+# deb-src http://ftp.be.debian.org/debian/ etch main non-free contrib
+
+deb http://security.debian.org/ etch/updates main
+# deb-src http://security.debian.org/ etch/updates main</screen>
+	</section>
+</section>

@@ -1,0 +1,30 @@
+<?hard-pagebreak?>
+<section><title>alien</title>
+	<para><command>alien</command> is experimental software that converts between <command>rpm</command> and <command>deb</command> package formats (and others).</para>
+	<para>Below an example of how to use <command>alien</command> to convert an <command>rpm</command> package to a <command>deb</command> package.</para>
+	<screen>paul@barry:~$ ls -l netcat*
+-rw-r--r-- 1 paul paul 123912 2009-06-04 14:58 netcat-0.7.1-1.i386.rpm
+paul@barry:~$ alien --to-deb netcat-0.7.1-1.i386.rpm 
+netcat_0.7.1-2_i386.deb generated
+paul@barry:~$ ls -l netcat*
+-rw-r--r-- 1 paul paul 123912 2009-06-04 14:58 netcat-0.7.1-1.i386.rpm
+-rw-r--r-- 1 root root 125236 2009-06-04 14:59 netcat_0.7.1-2_i386.deb</screen>
+	<para><emphasis>In real life, use the <command>netcat</command> tool provided by your distribution, or use the .deb file from their website.</emphasis></para>
+</section>
+<?hard-pagebreak?>
+<section><title>downloading software outside the repository</title>
+	<para>First and most important, whenever you download software, start by reading the README file!</para>
+	<para>Normally the readme will explain what to do after download. You will probably receive a .tar.gz or a .tgz file. Read the documentation, then put the compressed file in a directory. You can use the following to find out where the package wants to install.</para>
+	<screen>tar tvzpf $downloadedFile.tgz</screen>
+	<para>You unpack them like with <command>tar xzf</command><indexterm><primary>tar(1)</primary></indexterm>, it will create a directory called applicationName-1.2.3</para>
+	<screen>tar xzf $applicationName.tgz</screen>
+	<para>Replace the z with a j when the file ends in .tar.bz2. The <command>tar</command>, <command>gzip</command> and <command>bzip2</command> commands are explained in detail in the Linux Fundamentals course.</para>
+	<para>If you download a <command>.deb</command> file, then you'll have to use <command>dpkg</command> to install it, <command>.rpm</command>'s can be installed with the <command>rpm</command> command.</para>
+</section>
+<section><title>compiling software</title>
+	<para>First and most important, whenever you download source code for installation, start by reading the README file!</para>
+	<para>Usually the steps are always the same three : running <command>./configure</command><indexterm><primary>./configure</primary></indexterm> followed by <command>make</command><indexterm><primary>make(1)</primary></indexterm> (which is the actual compiling) and then by <command>make install</command> to copy the files to their proper location.</para>
+	<screen>./configure
+make
+make install</screen>
+</section>
