@@ -5,13 +5,13 @@
 		<para>The graphical applications are usually available via the desktop (look for Add/Remove Software or something similar) and are not discussed in this chapter. The most common command line tools for managing <command>packages</command> are explained below in detail.</para>
 	</section>
 	<section><title>.deb packages</title>
-		<para>Debian, Ubuntu, Mint and all derivatives from Debian and Ubuntu use <command>.deb</command><indexterm><primary>deb(5)</primary></indexterm> packages. To manage software on these systems, you can use <command>aptitude</command><indexterm><primary>aptitude(8)</primary></indexterm>. <command>aptitude</command> is a front end for <command>dpkg</command><indexterm><primary>dpkg(8)</primary></indexterm>.</para>
+		<para>Debian, Ubuntu, Mint and all derivatives from Debian and Ubuntu use <command>.deb</command><indexterm><primary>deb(5)</primary></indexterm> packages. To manage software on these systems, you can use <command>aptitude</command><indexterm><primary>aptitude(8)</primary></indexterm> or <command>apt-get</command><indexterm><primary>apt-get(8)</primary></indexterm>, both the tools are a front end for <command>dpkg</command><indexterm><primary>dpkg(8)</primary></indexterm>.</para>
 	</section>
 	<section><title>.rpm packages</title>
-		<para>Red Hat, Fedora, OpenSUSE, Mandriva, Red Flag and others use <command>.rpm</command><indexterm><primary>rpm(8)</primary></indexterm> packages. The tools to manage software packages are called <command>yum</command> and <command>rpm</command>.</para>
+		<para>Red Hat, Fedora, CentOS, OpenSUSE, Mandriva, Red Flag and others use <command>.rpm</command><indexterm><primary>rpm(8)</primary></indexterm> packages. The tools to manage software packages on these systems are <command>yum</command> and <command>rpm</command>.</para>
 	</section>
 	<section><title>dependency</title>
-		<para>Some packages need other packages to function. Tools like <command>aptitude</command> and <command>yum</command> will install all <command>dependencies</command> you need. When using <command>dpkg</command> or the <command>rpm</command> command, or when building from source, you will need to install dependencies yourself.</para>
+		<para>Some packages need other packages to function. Tools like <command>aptitude</command> and <command>yum</command> will install all <command>dependencies</command> you need. When using <command>dpkg</command> or <command>rpm</command>, or when building from <command>source</command>, you will need to install dependencies yourself.</para>
 	</section>
 	<section><title>open source</title>
 		<para>These repositories contain a lot of independent <command>open source software</command>. Often the source code is customized to integrate better with your distribution. Most distributions also offer this modified source code as a <command>package</command> in one or more <command>source repositories</command>.</para>
