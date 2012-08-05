@@ -16,8 +16,12 @@
 		<para>These repositories contain a lot of independent <command>open source software</command>. Often the source code is customized to integrate better with your distribution. Most distributions also offer this modified source code as a <command>package</command> in one or more <command>source repositories</command>.</para>
 		<para>You are free to go to the project website itself (samba.org, apache.org, github.com, ...) an download the <command>vanilla</command><indexterm><primary>vanilla</primary></indexterm> (= without the custom distribution changes) source code.</para>
 	</section>
+<?hard-pagebreak?>
 	<section><title>GUI software management</title>
-		<para>Several graphical applications are available via the desktop (look for Add/Remove Software or something similar) and are not discussed in this chapter. Below a screenshot of Ubuntu Software Center running on Ubuntu 12.04. This tool is clearly meant for end users.</para>
+		<para>Several graphical applications are available via the desktop (look for 'add/remove software' or something similar) and are not discussed in this chapter.</para>
+		<para>Below a screenshot of Ubuntu Software Center running on Ubuntu 12.04. This tool is clearly meant for end users.</para>
+		<para>
 		<mediaobject><imageobject><imagedata fileref="images/ubuntu_software_center.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>			
+		</para>
 	</section>
 </section>
