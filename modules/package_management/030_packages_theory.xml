@@ -1,17 +1,21 @@
 <?hard-pagebreak?>
 <section><title>terminology</title>
-	<section><title>repositories</title>
-		<para>Most software for your Linux distribution is available in a central distributed <command>repository</command><indexterm><primary>repository</primary></indexterm>. This means that applications in the repository are tested for your distribution and very easy to install with a GUI or command line installer.</para>
-		<para>The GUI is available via the standard menu (look for Add/Remove Software or something similar). The command line is explained below in detail.</para>
+	<section><title>repository</title>
+		<para>A lot of software and documentation for your Linux distribution is available as <command>packages</command> in one or more centrally distributed <command>repositories</command><indexterm><primary>repository</primary></indexterm>. These <command>packages</command> in such a <command>repository</command> are tested and very easy to install (or remove) with a graphical or command line installer.</para>
+		<para>The graphical applications are usually available via the desktop (look for Add/Remove Software or something similar) and are not discussed in this chapter. The most common command line tools for managing <command>packages</command> are explained below in detail.</para>
 	</section>
-	<section><title>rpm based</title>
-		<para>Red Hat, Fedora, OpenSUSE, Mandriva, Red Flag and others use <command>.rpm</command><indexterm><primary>rpm(8)</primary></indexterm> packages. The tools to manage software packages are called <command>yum</command> and <command>rpm</command>.</para>
-	</section>
-	<section><title>deb based</title>
+	<section><title>.deb packages</title>
 		<para>Debian, Ubuntu, Mint and all derivatives from Debian and Ubuntu use <command>.deb</command><indexterm><primary>deb(5)</primary></indexterm> packages. To manage software on these systems, you can use <command>aptitude</command><indexterm><primary>aptitude(8)</primary></indexterm>. <command>aptitude</command> is a front end for <command>dpkg</command><indexterm><primary>dpkg(8)</primary></indexterm>.</para>
 	</section>
+	<section><title>.rpm packages</title>
+		<para>Red Hat, Fedora, OpenSUSE, Mandriva, Red Flag and others use <command>.rpm</command><indexterm><primary>rpm(8)</primary></indexterm> packages. The tools to manage software packages are called <command>yum</command> and <command>rpm</command>.</para>
+	</section>
 	<section><title>dependency</title>
-		<para>Some packages need other packages to function. Tools like <command>aptitude</command> and <command>yum</command> will install all dependencies you need. When using <command>dpkg</command> or the <command>rpm</command> command, or when building from source, you will need to install dependencies yourself.</para>
+		<para>Some packages need other packages to function. Tools like <command>aptitude</command> and <command>yum</command> will install all <command>dependencies</command> you need. When using <command>dpkg</command> or the <command>rpm</command> command, or when building from source, you will need to install dependencies yourself.</para>
+	</section>
+	<section><title>open source</title>
+		<para>These repositories contain a lot of independent <command>open source software</command>. Often the source code is customized to integrate better with your distribution. Most distributions also offer this modified source code as a <command>package</command> in one or more <command>source repositories</command>.</para>
+		<para>You are free to go to the project website itself (samba.org, apache.org, github.com, ...) an download the <command>vanilla</command><indexterm><primary>vanilla</primary></indexterm> (= without the custom distribution changes) source code.</para>
 	</section>
 </section>
 <?hard-pagebreak?>
@@ -319,6 +323,43 @@ ii gcc-4.2-base 4.2.4-1ubuntu3 The GNU Compiler Collection (base package)</scree
 	</section>
 </section>
 <?hard-pagebreak?>
+<section><title>apt-get</title>
+	<para><command>Debian</command> has been using <command>apt-get</command><indexterm><primary>apt-get(8)</primary></indexterm> to manage packages since 1998. Today Debain and many Debian-based distributions still actively support <command>apt-get</command>, though some experts claim <command>aptitude</command> is better at handling dependencies than <command>apt-get</command>.</para>
+	<para>Both commands use the same configuration files and can be used alternately; whenever you see <command>apt-get</command> in documentation, feel free to type <command>aptitude</command>.</para>
+	<para>We will start with <command>apt-get</command> and discuss <command>aptitude</command> in the next section.</para>
+	<section><title>apt-get update</title>
+		<para>When typing <command>apt-get update</command> you are downloading the names, versions and short description of all packages available on all configured repositories for your system.</para>
+		<para>In the example below you can see some repositories at the url <command>be.archive.ubuntu.com</command> because this computer was installed in Belgium. This url can be different for you.</para>
+		<screen>root@ubu1204~# apt-get update
+Ign http://be.archive.ubuntu.com precise InRelease
+Ign http://extras.ubuntu.com precise InRelease
+Ign http://security.ubuntu.com precise-security InRelease            
+Ign http://archive.canonical.com precise InRelease                                         
+Ign http://be.archive.ubuntu.com precise-updates InRelease                                 
+...
+Hit http://be.archive.ubuntu.com precise-backports/main Translation-en                                                             
+Hit http://be.archive.ubuntu.com precise-backports/multiverse Translation-en                                                       
+Hit http://be.archive.ubuntu.com precise-backports/restricted Translation-en                                                       
+Hit http://be.archive.ubuntu.com precise-backports/universe Translation-en                                                         
+Fetched 13.7 MB in 8s (1682 kB/s)                                                                                                  
+Reading package lists... Done
+root@mac~#</screen>
+	</section>
+	<section><title>apt-get clean</title>
+		<para><command>apt-get</command> keeps a copy of downloaded packages in <command>/var/cache/apt/archives</command>, as can be seen in this screenshot.</para>
+		<para></para>
+		<screen></screen>
+		<screen></screen>
+	</section>
+	<section><title>apt-get</title>
+		<para></para>
+		<screen></screen>
+	</section>
+	<section><title>apt-get</title>
+		<para></para>
+		<screen></screen>
+	</section>
+</section>
 <section><title>aptitude</title>
 	<para>Most people use <command>aptitude</command><indexterm><primary>aptitude(8)</primary></indexterm> for package management on Debian and Ubuntu Systems.</para>
 	<para>To synchronize with the repositories.</para>
@@ -333,9 +374,6 @@ ii gcc-4.2-base 4.2.4-1ubuntu3 The GNU Compiler Collection (base package)</scree
 	<screen>aptitude search $string</screen>
 	<para>To remove an application and all unused files.</para>
 	<screen>aptitude remove $package</screen>
-	<section><title>apt-get</title>
-		<para>We could also use <command>apt-get</command><indexterm><primary>apt-get(8)</primary></indexterm>, but <command>aptitude</command> is better at handling dependencies than <command>apt-get</command>. Whenever you see <command>apt-get</command> in a howto, feel free to type <command>aptitude</command>.</para>
-	</section>
 	<section><title>/etc/apt/sources.list</title>
 		<para>The resource list for both <command>apt-get</command> and <command>aptitude</command> is located in <command>/etc/apt/sources.list</command><indexterm><primary>/etc/apt/sources.list</primary></indexterm>. This file contains a list of http or ftp sources where packages for the distribution can be downloaded.</para>
 		<screen>root@barry:~# cat /etc/apt/sources.list
