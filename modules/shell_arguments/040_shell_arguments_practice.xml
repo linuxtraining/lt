@@ -26,5 +26,6 @@
 10+14   =24</screen>
 	<para>18. Use <command>echo</command> to display the following exactly:</para>
 	<screen>??\\</screen>
+	<para>Find two solutions with single quotes, two with double quotes and one without quotes (and say thank you to Ren&#233; and Darioush from Google for this extra).</para>
 	<para>19. Use one <command>echo</command> command to display three words on three lines.</para>
 </section>
