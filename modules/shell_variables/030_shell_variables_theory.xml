@@ -32,8 +32,14 @@ prompt PS1='> '
 paul@deb503$ 
 paul@deb503$ PS1='\u@\h:\W$'
 paul@deb503:~$</screen>
-	<para>To avoid unrecoverable mistakes, you can set normal user prompts to green and the root prompt to red. This picture shows (one way) to do this.</para>
-	<mediaobject><imageobject><imagedata fileref="images/prompt.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+<?hard-pagebreak?>
+	<para>To avoid unrecoverable mistakes, you can set normal user prompts to green and the root prompt to red. Add the following to your <command>.bashrc</command> for a green user prompt:</para>
+	<screen># color prompt by paul
+RED='\[\033[01;31m\]'
+WHITE='\[\033[01;00m\]'
+GREEN='\[\033[01;32m\]'
+BLUE='\[\033[01;34m\]'
+export PS1="${debian_chroot:+($debian_chroot)}$GREEN\u$WHITE@$BLUE\h$WHITE\w\$ "</screen>
 </section>
 <section><title>$PATH</title>
 	<para>The <command>$PATH</command><indexterm><primary>$PATH</primary></indexterm> variable is determines where the shell is looking for commands to execute (unless the command is builtin or aliased). This variable contains a list of directories, separated by colons.</para>
@@ -64,6 +70,7 @@ Password:
 [paul@RHELv4u3 gen]$</screen>
 </section>
 </section>
+<?hard-pagebreak?>
 <section><title>quotes</title>
 	<para>Notice that double quotes still allow the parsing of variables, whereas single quotes prevent this.</para>
 	<screen>[paul@RHELv4u3 ~]$ MyVar=555
@@ -192,8 +199,8 @@ himBH
 	<para>You can embed a shell in an <command>embedded shell</command><indexterm><primary>embedding(shell)</primary></indexterm>, this is called <command>nested embedding</command> of shells.</para>
 	<para>This screenshot shows an embedded shell inside an embedded shell.</para>
 	<screen>paul@deb503:~$ A=shell
-paul@deb503:~$ echo $C$B$A $(B=sub;echo $C$B$A; echo $(A=sub;echo $C$B$A))
-shell subshell subsub</screen>
+paul@deb503:~$ echo $C$B$A $(B=sub;echo $C$B$A; echo $(C=sub;echo $C$B$A))
+shell subshell subsubshell</screen>
 	<section><title>backticks</title>
 		<para>Single embedding can be useful to avoid changing your current directory. The screenshot below uses <command>backticks</command> instead of dollar-bracket to embed.</para>
 		<screen>[paul@RHELv4u3 ~]$ echo `cd /etc; ls -d * | grep pass`
