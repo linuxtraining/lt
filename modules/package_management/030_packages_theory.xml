@@ -10,7 +10,7 @@
 		<para>Red Hat, Fedora, CentOS, OpenSUSE, Mandriva, Red Flag and others use <command>.rpm</command><indexterm><primary>rpm(8)</primary></indexterm> packages. The tools to manage software packages on these systems are <command>yum</command> and <command>rpm</command>.</para>
 	</section>
 	<section><title>dependency</title>
-		<para>Some packages need other packages to function. Tools like <command>aptitude</command> and <command>yum</command> will install all <command>dependencies</command> you need. When using <command>dpkg</command> or <command>rpm</command>, or when building from <command>source</command>, you will need to install dependencies yourself.</para>
+		<para>Some packages need other packages to function. Tools like <command>apt-get</command>, <command>aptitude</command> and <command>yum</command> will install all <command>dependencies</command> you need. When using <command>dpkg</command> or <command>rpm</command>, or when building from <command>source</command>, you will need to install dependencies yourself.</para>
 	</section>
 	<section><title>open source</title>
 		<para>These repositories contain a lot of independent <command>open source software</command>. Often the source code is customized to integrate better with your distribution. Most distributions also offer this modified source code as a <command>package</command> in one or more <command>source repositories</command>.</para>
@@ -18,8 +18,8 @@
 	</section>
 <?hard-pagebreak?>
 	<section><title>GUI software management</title>
-		<para>Several graphical applications are available via the desktop (look for 'add/remove software' or something similar) and are not discussed in this chapter.</para>
-		<para>Below a screenshot of Ubuntu Software Center running on Ubuntu 12.04. This tool is clearly meant for end users.</para>
+		<para>End users have several graphical applications available via the desktop (look for 'add/remove software' or something similar).</para>
+		<para>Below a screenshot of Ubuntu Software Center running on Ubuntu 12.04. Graphical tools are not discussed in this book.</para>
 		<para>
 		<mediaobject><imageobject><imagedata fileref="images/ubuntu_software_center.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>			
 		</para>
