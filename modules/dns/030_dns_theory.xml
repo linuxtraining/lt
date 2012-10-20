@@ -1,13 +1,20 @@
 <?hard-pagebreak?>
-	<section><title>What is DNS ?</title>
-		<para>DNS is a service on a tcp/ip network that enables clients to translate names into ip-addresses. DNS is much more than that, but let's keep it simple for now.</para>
-		<para>When you use a browser to go to a website, then you type the name of that website in the url bar. But for your computer to actually communicate with the web server hosting said website, your computer needs the ip-address of that web server. That is where DNS comes in.</para>
+<section><title>about dns</title>
+	<section><title>name to ip-address resolution</title>
+		<para>The <command>domain name system</command> or <command>dns</command> is a service on a tcp/ip network that enables clients to translate names into ip-addresses. It is much more than that, but let's keep it simple for now.</para>
+		<para>When you use a browser to go to a website, then you type the name of that website in the url bar. But for your computer to actually communicate with the web server hosting said website, your computer needs the ip-address of that web server. That is where <command>dns</command> comes in.</para>
 		<mediaobject><imageobject><imagedata fileref="images/dns_01_what_is_dns.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 		<para>In wireshark you can use the <command>dns</command> filter to see this traffic.</para>
 		<mediaobject><imageobject><imagedata fileref="images/dns_01_what_is_dns.ws.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 	</section>
+	<section><title>history</title>
+		<para>In the Seventies, only a few hundred computers were connected to the internet. To resolve names, computers had a flat file that contained a table to resolve hostnames to ip-addresses. This local file was downloaded from <command>hosts.txt</command> on an ftp server in Stanford.</para>
+		<para>In 1984 <command>Paul Mockapetris</command><indexterm><primary>Paul Mockapetris</primary></indexterm> created <command>dns</command>, a distributed treelike hierarchical database that will be explained in detail in these chapters.</para>
+		<para>The old <command>hosts.txt</command> file is still active today on most computer systems under the name <command>/etc/hosts</command>. We will discuss this file later, as it can influence name resolution.</para>
+	</section>
+<?hard-pagebreak?>
 	<section><title>forward and reverse lookup queries</title>
-		<para>The question a client asks a dns server is called a <command>query</command>. When a client queries for an ip-address, this is called a <command>forward lookup query</command> (as seen in the picture above).</para>
+		<para>The question a client asks a dns server is called a <command>query</command>. When a client queries for an ip-address, this is called a <command>forward lookup query</command> (as seen in the previous drawing).</para>
 		<para>The reverse, a query for the name of a host, is called a <command>reverse lookup query</command>.</para>
 		<para>Below a picture of a <command>reverse lookup query</command>.</para>
 		<mediaobject><imageobject><imagedata fileref="images/dns_02_reverse.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
@@ -25,25 +32,30 @@ Non-authoritative answer:
 	</section>
 	<section><title>/etc/resolv.conf</title>
 		<para>A client computer needs to know the ip-address of the <command>dns server</command> to be able to send queries to it. This is either provided by a <command>dhcp server</command> or manually entered.</para>
-		<para>Linux clients keep this information in <command>/etc/resolv.conf</command>.</para>
+		<para>Linux clients keep this information in the <command>/etc/resolv.conf</command> file.</para>
 		<screen>paul@ubu1010:~$ cat /etc/resolv.conf 
 nameserver 212.71.8.10</screen>
 	</section>
+</section>
 <?hard-pagebreak?>
-	<section><title>DNS namespace</title>
-		<para>The <command>dns namespace</command> is hierarchical tree structure, with the <command>root servers</command> (aka dot-servers) at the top. The <command>root servers</command><indexterm><primary>root(DNS)</primary></indexterm> are usually represented by a dot.</para>
-		<para>Below the <command>root-servers</command> are the <command>Top Level Domains</command> or TLD's.</para>
-		<mediaobject><imageobject><imagedata fileref="images/dns_03_namespace_tld.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-		<para>There are more TLD's than shown in the picture. Currently about 200 countries have a TLD. And there are several general TLD's like .com, .edu, .org, .gov, .net, .mil, .int and more recently also .aero, .info, .museum, ...</para>
-	</section>
+<section><title>dns namespace</title>
 	<section><title>root servers</title>
-		<para>There are thirteen <command>root servers</command> on the internet, they are named A to M. Journalists often refer to these servers as <command>the master servers of the internet</command>, because if these servers go down, then nobody can (use names to) connect to websites.</para>
-		<para>The root servers are not thirteen physical machines, they are many more. For example the F root server (http://f.root-servers.org) consists of 46 physical machines that all behave as one (using anycast). More information at http://root-servers.org and http://en.wikipedia.org/wiki/Root_nameserver.</para>
+		<para>There are thirteen <command>root servers</command> on the internet, they are named <command>A</command> to <command>M</command>. Journalists often refer to these servers as <command>the master servers of the internet</command>, because if these servers go down, then nobody can (use names to) connect to websites.</para>
+		<para>The root servers are not thirteen physical machines, they are many more. For example the <command>F</command> root server consists of 46 physical machines that all behave as one (using anycast).</para>
+		<screen>http://root-servers.org
+http://f.root-servers.org
+http://en.wikipedia.org/wiki/Root_nameserver.</screen>
+	</section>
+	<section><title>hierarchy</title>
+		<para>The <command>dns namespace</command> is hierarchical tree structure, with the <command>root servers</command> (aka dot-servers) at the top. The <command>root servers</command><indexterm><primary>root(DNS)</primary></indexterm> are usually represented by a dot.</para>
+		<para><mediaobject><imageobject><imagedata fileref="images/dns_03_namespace_tld.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+		<para>Below the <command>root-servers</command> are the <command>Top Level Domains</command> or <command>tld</command>'s.</para>
+		<para>There are more <command>tld</command>'s than shown in the picture. Currently about 200 countries have a <command>tld</command>. And there are several general <command>tld</command>'s like .com, .edu, .org, .gov, .net, .mil, .int and more recently also .aero, .info, .museum, ...</para>
 	</section>
 <?hard-pagebreak?>
-	<section><title>top level domains (TLD)</title>
-		<para>Below the root level are the <command>top level domains</command><indexterm><primary>top level domain</primary></indexterm> or <command>TLD's</command><indexterm><primary>TLD</primary></indexterm>. Originally there were only seven defined:</para>
-<table frame='all'><title>The first TLD's</title>
+	<section><title>top level domains</title>
+		<para>Below the root level are the <command>top level domains</command><indexterm><primary>top level domain</primary></indexterm> or <command>tld's</command><indexterm><primary>tld</primary></indexterm>. Originally there were only seven defined:</para>
+<table frame='all'><title>the first top level domains</title>
 <?dbfo table-width="90%" ?>
 <tgroup cols='3' align='left' colsep='1' rowsep='1'>
 <colspec colname='c1' colwidth="4*" align="center"/>
@@ -100,9 +112,9 @@ nameserver 212.71.8.10</screen>
 </tbody>
 </tgroup>
 </table>
-		<para>Country TLD's were defined for individual countries, like <command>.uk</command> in 1985 for Great Britain (yes really), <command>.be</command> for Belgium in 1988 and <command>.fr</command> for France in 1986. See RFC 1591 for more info.</para>
-		<para>In 1998 seven new general purpose TLD's where chosen, they became active in the 21st century.</para>
-<table frame='all'><title>new general purpose TLD's</title>
+		<para>Country <command>tld</command>'s were defined for individual countries, like <command>.uk</command> in 1985 for Great Britain (yes really), <command>.be</command> for Belgium in 1988 and <command>.fr</command> for France in 1986. See RFC 1591 for more info.</para>
+		<para>In 1998 seven new general purpose <command>tld</command>'s where chosen, they became active in the 21st century.</para>
+<table frame='all'><title>new general purpose tld's</title>
 <?dbfo table-width="90%" ?>
 <tgroup cols='3' align='left' colsep='1' rowsep='1'>
 <colspec colname='c1' colwidth="4*" align="center"/>
@@ -154,31 +166,35 @@ nameserver 212.71.8.10</screen>
 </tbody>
 </tgroup>
 </table>
-		<para>Many people were surprised by the choices, claiming not much use for them and wanting a separate <command>.xxx</command> domain (introduced in 2011) for adult content, and <command>.kidz</command> a save haven for children. In the meantime more useless TLD's were create like <command>.travel</command> (for travel agents) and <command>.tel</command> (for internet communications) and <command>.jobs</command> (for jobs sites).</para>
+		<para>Many people were surprised by the choices, claiming not much use for them and wanting a separate <command>.xxx</command> domain (introduced in 2011) for adult content, and <command>.kidz</command> a save haven for children. In the meantime more useless <command>tld</command>'s were create like <command>.travel</command> (for travel agents) and <command>.tel</command> (for internet communications) and <command>.jobs</command> (for jobs sites).</para>
 	</section>
 <?hard-pagebreak?>
-	<section><title>DNS domains</title>
+	<section><title>domains</title>
 		<para>One level below the <command>top level domains</command> are the <command>domains</command><indexterm><primary>domain(DNS)</primary></indexterm>. Domains can have subdomains (also called child domains).</para>
 		<para>This picture shows <command>dns domains</command> like google.com, chess.com, linux-training.be (there are millions more).</para>
 		<mediaobject><imageobject><imagedata fileref="images/dns_03_namespace_domains.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-		<para>DNS domains are registered at the TLD servers, the TLD servers are registered at the <command>dot servers</command>.</para>
+		<para>DNS domains are registered at the <command>tld</command> servers, the <command>tld</command> servers are registered at the <command>dot servers</command>.</para>
 	</section>
 	<section><title>fully qualified domain name</title>
-		<para>The <command>fully qualified domain name</command><indexterm><primary>fully qualified domain name</primary></indexterm> or <command>FQDN</command><indexterm><primary>FQDN</primary></indexterm> is the combination of the <command>hostname</command> of a machine appended with its <command>domain name</command>.</para>
-		<para>If for example a system is called <command>wolf</command> and it is in the domain <command>linux-training.be</command>, then the FQDN of this system is <command>wolf.linux-training.be</command>.</para>
-	</section>
-	<section><title>hostname and domainname commands</title>
-		<para>On Linux systems you can use the <command>hostname</command> and <command>domainname</command> commands to verify this information.</para>
-		<screen>paul@shared-010:~$ hostname 
-shared-010
-paul@shared-010:~$ hostname --fqdn
-shared-010.openminds.be</screen>
+		<para>The <command>fully qualified domain name</command><indexterm><primary>fully qualified domain name</primary></indexterm> or <command>fqdn</command><indexterm><primary>fqdn</primary></indexterm> is the combination of the <command>hostname</command> of a machine appended with its <command>domain name</command>.</para>
+		<para>If for example a system is called <command>gwen</command> and it is in the domain <command>linux-training.be</command>, then the fqdn of this system is <command>gwen.linux-training.be</command>.</para>
+		<para>On Linux systems you can use the <command>hostname</command><indexterm><primary>hostname</primary></indexterm> and <command>domainname</command><indexterm><primary>domainname</primary></indexterm> commands to verify this information.</para>
+		<screen>root@gwen:~# hostname 
+gwen
+root@gwen:~# domainname
+linux-training.be
+root@gwen:~# hostname --fqdn
+gwen.netsec.local</screen>
 	</section>
 <?hard-pagebreak?>
-	<section><title>zones and records</title>
-		<para>A <command>zone</command> (aka a <command>zone of authority</command>) is a portion of the DNS tree. The picture below represents zones as blue ovals. Some zones will contain only one <command>dns domain</command> while others might have a whole tree of domains.</para>
-		<mediaobject><imageobject><imagedata fileref="images/dns_04_zones.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-		<para>In a zone are records, also called <command>resource records</command>. We will list some of those records here, and look at them in more detail later.</para>
+	<section><title>dns zones</title>
+		<para>A <command>zone</command> (aka a <command>zone of authority</command>) is a portion of the DNS tree that covers one domain name or child domain name. The picture below represents zones as blue ovals. Some zones will contain delegate authority over a child domain to another zone.</para>
+		<para><mediaobject><imageobject><imagedata fileref="images/dns_04_zones.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+		<para>A <command>dns server</command> can be <command>authoritative</command> over 0, 1 or more <command>dns zones</command>. We will see more details later on the relation between a <command>dns server</command> and a <command>dns zone</command>.</para>
+		<para>A <command>dns zone</command> consists of <command>records</command>, also called <command>resource records</command>. We will list some of those <command>resource records</command> on the next page.</para>
+	</section>
+<?hard-pagebreak?>
+	<section><title>dns records</title>
 		<section><title>A record</title>
 			<para>The <command>A record</command><indexterm><primary>A (DNS record)</primary></indexterm>, which is also called a <command>host record</command><indexterm><primary>host (DNS record)</primary></indexterm> contains the ipv4-address of a computer. When a DNS client queries a DNS server for an A record, then the DNS server will resolve the hostname in the query to an ip-address. An <command>AAAA record</command><indexterm><primary>AAAA (DNS record)</primary></indexterm> is similar but contains an ipv6 address instead of ipv4.</para>
 		</section>
@@ -201,21 +217,22 @@ shared-010.openminds.be</screen>
 			<para>The <command>MX</command><indexterm><primary>MX (DNS record)</primary></indexterm> record points to an <command>smtp server</command>. When you send an email to another domain, then your mail server will need the MX record of the target domain's mail server.</para>
 		</section>
 	</section>
+</section>
 <?hard-pagebreak?>
-	<section><title>caching only server</title>
-		<para>A DNS server that is set up without its own zone, but that is connected to other name servers and caches the queries is called a <command>caching only name server</command><indexterm><primary>cahing only name server</primary></indexterm>. Caching only name servers do not have a <command>zone database</command> with resource records. Instead they connect to other name servers and cache that information.</para>
-		<para>There are two kinds of caching only name servers. Those with a <command>forwarder</command>, and those without.</para>
+	<section><title>caching only servers</title>
+		<para>A <command>dns server</command> that is set up without <command>authority</command> over a <command>zone</command>, but that is connected to other name servers and caches the queries is called a <command>caching only name server</command><indexterm><primary>cahing only name server</primary></indexterm>. Caching only name servers do not have a <command>zone database</command> with resource records. Instead they connect to other name servers and cache that information.</para>
+		<para>There are two kinds of caching only name servers. Those with a <command>forwarder</command>, and those that use the <command>root servers</command>.</para>
 	<section><title>caching only server with forwarder</title>
-		<para>A <command>caching only server</command> with a <command>forwarder</command> is a DNS server that will get all its information from the <command>forwarder</command>. The <command>forwarder</command> can be the DNS server of an ISP.</para>
-		<mediaobject><imageobject><imagedata fileref="images/dns_05_forwarder.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-		<para>This picture shows a DNS server on the company LAN that has set the DNS server from their ISP as a forwarder. If the ip address of the ISP DNS server is 212.71.8.10, then the following lines would occur in the <command>named.conf</command> file of the company DNS server:</para>
+		<para>A <command>caching only server</command> with a <command>forwarder</command> is a DNS server that will get all its information from the <command>forwarder</command>. The <command>forwarder</command> must be a <command>dns server</command> for example the <command>dns server</command> of an <command>internet service provider</command>.</para>
+		<para><mediaobject><imageobject><imagedata fileref="images/dns_05_forwarder.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+		<para>This picture shows a <command>dns server</command> on the company LAN that has set the <command>dns server</command> from their <command>isp</command> as a <command>forwarder</command>. If the ip address of the <command>isp dns server</command> is 212.71.8.10, then the following lines would occur in the <command>named.conf</command> file of the company <command>dns server</command>:</para>
 <screen>forwarders {
  	212.71.8.10;
  };</screen>
 	</section>
 <?hard-pagebreak?>
 	<section><title>caching only server without forwarder</title>
-		<para>A caching only server without forwarder will have to get information elsewhere. When it receives a query from a client, then it will consult one of the root servers. The root server will refer it to a TLD server, which will refer it to another dns server. That last server might know the answer to the query, or may refer to yet another dns server. In the end, our hard working dns server will find an answer and report this back to the client. </para>
+		<para>A caching only server without forwarder will have to get information elsewhere. When it receives a query from a client, then it will consult one of the <command>root servers</command>. The <command>root server</command> will refer it to a <command>tld</command> server, which will refer it to another <command>dns</command> server. That last server might know the answer to the query, or may refer to yet another server. In the end, our hard working <command>dns</command> server will find an answer and report this back to the client. </para>
 		<para>In the picture below, the clients asks for the ip address of linux-training.be. Our caching only server will contact the root server, and be refered to the .be server. It will then contact the .be server and be refered to one of the name servers of Openminds. One of these name servers (in this cas ns1.openminds.be) will answer the query with the ip-address of linux-training.be. When our caching only server reports this to the client, then the client can connect to this website.</para>
 		<mediaobject><imageobject><imagedata fileref="images/dns_06_caching_only.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 	</section>
@@ -245,8 +262,8 @@ shared-010.openminds.be</screen>
 		<para>When a zone tranfer occurs, this can be either a full zone transfer or an incremental zone transfer. The decision depends on the size of the transfer that is needed to completely update the zone on the slave server. An incremental zone transfer is prefered when the total size of changes is smaller than the size of the zone database. Full zone transfers use the <command>axfr</command><indexterm><primary>axfr</primary></indexterm> protocol, incremental zone transfer use the <command>ixfr</command><indexterm><primary>ixfr</primary></indexterm> protocol. </para>
 	</section>
 	<section><title>DNS cache</title>
-		<para>DNS is a caching protocol. When a client queries its local DNS server, and the local DNS server is not authoritative for the query, then this server will go looking for an authoritative name server in the DNS tree. The local name server will first query a root server, then a TLD server and then a domain server. When the local name server resolves the query, then it will relay this information to the client that submitted the query, and it will also keep a copy of these queries in its cache. So when a(nother) client submits the same query to this name server, then it will retrieve this information form its cache.</para>
-		<para>For example, a client queries for the A record on www.linux-training.be to its local server. This is the first query ever received by this local server. The local server checks that it is not authoritative for the linux-training.be domain, nor for the .be TLD, and it is also not a root server. So the local server will use the root hints to send an <command>iterative</command> query to a root server. The root server will reply with a reference to the server that is authoritative for the .be domain (root DNS servers do not resolve fqdn's, and root servers do not respond to recursive queries). The local server will then sent an iterative query to the authoritative server for the .be TLD. This server will respond with a reference to the name server that is authoritative for the linux-training.be domain. The local server will then sent the query for www.linux-training.be to the authoritative server (or one of its slave servers) for the linux-training.be domain. When the local server receives the ip-address for www.linux-training.be, then it will provide this information to the client that submitted this query. Besides caching the A record for www.linux-training.be, the local server will also cache the NS and A record for the linux-training.be name server and the .be name server.</para>
+		<para>DNS is a caching protocol. When a client queries its local DNS server, and the local DNS server is not authoritative for the query, then this server will go looking for an authoritative name server in the DNS tree. The local name server will first query a root server, then a <command>tld</command> server and then a domain server. When the local name server resolves the query, then it will relay this information to the client that submitted the query, and it will also keep a copy of these queries in its cache. So when a(nother) client submits the same query to this name server, then it will retrieve this information form its cache.</para>
+		<para>For example, a client queries for the A record on www.linux-training.be to its local server. This is the first query ever received by this local server. The local server checks that it is not authoritative for the linux-training.be domain, nor for the <command>.be tld</command>, and it is also not a root server. So the local server will use the root hints to send an <command>iterative</command> query to a root server. The root server will reply with a reference to the server that is authoritative for the .be domain (root DNS servers do not resolve fqdn's, and root servers do not respond to recursive queries). The local server will then sent an iterative query to the authoritative server for the <command>.be tld</command>. This server will respond with a reference to the name server that is authoritative for the linux-training.be domain. The local server will then sent the query for www.linux-training.be to the authoritative server (or one of its slave servers) for the linux-training.be domain. When the local server receives the ip-address for www.linux-training.be, then it will provide this information to the client that submitted this query. Besides caching the A record for www.linux-training.be, the local server will also cache the NS and A record for the linux-training.be name server and the .be name server.</para>
 	</section>
 <?hard-pagebreak?>
 <section><title>Practice: caching only DNS server</title>
