@@ -1,21 +1,28 @@
 <?hard-pagebreak?>
 <section><title>deb</title>
 	<section><title>about deb</title>
-		<para>Most people use <command>aptitude</command> or <command>apt-get</command> to manage their Debian/Ubuntu family of Linux distributions. Both are a front end for <command>dpkg</command> and are themselves a back end for <command>synaptic</command> or other graphical tools.</para>
+		<para>Most people use <command>aptitude</command> or <command>apt-get</command> to manage their Debian/Ubuntu family of Linux distributions. Both are a front end for <command>dpkg</command> and are themselves a back end for <command>synaptic</command> and other graphical tools.</para>
 	</section>
 	<section><title>dpkg -l</title>
-		<para>The low level tool to work with <command>.deb</command> packages is <command>dpkg</command><indexterm><primary>dpkg(8)</primary></indexterm>. Here you see how to obtain a list of all installed packages. The ii at the beginning means the package is installed.</para>
-		<screen>root@laika:~# dpkg -l | grep gcc-4.2
-ii gcc-4.2      4.2.4-1ubuntu3 The GNU C compiler
-ii gcc-4.2-base 4.2.4-1ubuntu3 The GNU Compiler Collection (base package)</screen>
+		<para>The low level tool to work with <command>.deb</command> packages is <command>dpkg</command><indexterm><primary>dpkg(8)</primary></indexterm>. Here you see how to obtain a list of all installed packages on a Debian server.</para>
+		<screen>root@debian6:~# dpkg -l | wc -l
+265</screen>
+		<para>Compare this to the same list on a Ubuntu Desktop computer.</para>
+		<screen>root@ubu1204~# dpkg -l | wc -l
+2527</screen>
+	</section>
+	<section><title>dpkg -l $package</title>
+ 	<para>Here is an example on how to get information on anindividual packaga. The ii at the beginning means the package is installed.</para>
+	<screen>root@debian6:~# dpkg -l rsync | tail -1 | tr -s  ' ' 
+ii rsync 3.0.7-2 fast remote file copy program (like rcp)</screen>
 	</section>
 	<section><title>dpkg</title>
-		<para>You could use <command>dpkg -i</command> to install a package and <command>dpkg -r</command> to remove a package, but you'd have to manually keep track of dependencies.</para>
+		<para>You could use <command>dpkg -i</command> to install a package and <command>dpkg -r</command> to remove a package, but you'd have to manually keep track of dependencies. Using <command>apt-get</command> or <command>aptitude</command> is much easier.</para>
 	</section>
 </section>
 <?hard-pagebreak?>
 <section><title>apt-get</title>
-	<para><command>Debian</command> has been using <command>apt-get</command><indexterm><primary>apt-get(8)</primary></indexterm> to manage packages since 1998. Today Debain and many Debian-based distributions still actively support <command>apt-get</command>, though some experts claim <command>aptitude</command> is better at handling dependencies than <command>apt-get</command>.</para>
+	<para><command>Debian</command> has been using <command>apt-get</command><indexterm><primary>apt-get(8)</primary></indexterm> to manage packages since 1998. Today Debian and many Debian-based distributions still actively support <command>apt-get</command>, though some experts claim <command>aptitude</command> is better at handling dependencies than <command>apt-get</command>.</para>
 	<para>Both commands use the same configuration files and can be used alternately; whenever you see <command>apt-get</command> in documentation, feel free to type <command>aptitude</command>.</para>
 	<para>We will start with <command>apt-get</command> and discuss <command>aptitude</command> in the next section.</para>
 	<section><title>apt-get update</title>
@@ -35,24 +42,110 @@ Hit http://be.archive.ubuntu.com precise-backports/universe Translation-en
 Fetched 13.7 MB in 8s (1682 kB/s)                                                                                                  
 Reading package lists... Done
 root@mac~#</screen>
+	<para>Run <command>apt-get update</command> every time before performing other package operations.</para>
+	</section>
+	<section><title>apt-get upgrade</title>
+		<para>One of the nicest features of <command>apt-get</command> is that it allows for a secure update of <command>all software currently installed</command> on your computer with just <command>one</command> command.</para>
+		<screen>root@debian6:~# apt-get upgrade
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+root@debian6:~# </screen>
+		<para>The above screenshot shows that all software is updated to the latest version available for my distribution.</para>
 	</section>
 	<section><title>apt-get clean</title>
 		<para><command>apt-get</command> keeps a copy of downloaded packages in <command>/var/cache/apt/archives</command>, as can be seen in this screenshot.</para>
-		<para></para>
-		<screen></screen>
-		<screen></screen>
+		<screen>root@ubu1204~# ls /var/cache/apt/archives/ | head
+accountsservice_0.6.15-2ubuntu9.4_i386.deb
+apport_2.0.1-0ubuntu14_all.deb
+apport-gtk_2.0.1-0ubuntu14_all.deb
+apt_0.8.16~exp12ubuntu10.3_i386.deb
+apt-transport-https_0.8.16~exp12ubuntu10.3_i386.deb
+apt-utils_0.8.16~exp12ubuntu10.3_i386.deb
+bind9-host_1%3a9.8.1.dfsg.P1-4ubuntu0.4_i386.deb
+chromium-browser_20.0.1132.47~r144678-0ubuntu0.12.04.1_i386.deb
+chromium-browser-l10n_20.0.1132.47~r144678-0ubuntu0.12.04.1_all.deb
+chromium-codecs-ffmpeg_20.0.1132.47~r144678-0ubuntu0.12.04.1_i386.deb</screen>
+		<para>Running <command>apt-get clean</command> removes all .deb files from that directory.</para>
+		<screen>root@ubu1204~# apt-get clean
+root@ubu1204~# ls /var/cache/apt/archives/*.deb
+ls: cannot access /var/cache/apt/archives/*.deb: No such file or directory</screen>
 	</section>
-	<section><title>apt-get</title>
-		<para></para>
-		<screen></screen>
+	<section><title>apt-cache search</title>
+		<para>Use <command>apt-cache search</command> to search for availability of a package. Here we look for <command>rsync</command>.</para>
+		<screen>root@ubu1204~# apt-cache search rsync | grep ^rsync
+rsync - fast, versatile, remote (and local) file-copying tool
+rsyncrypto - rsync friendly encryption</screen>
 	</section>
-	<section><title>apt-get</title>
-		<para></para>
-		<screen></screen>
+	<section><title>apt-get install</title>
+		<para>You can install one or more applications by appending their name behind <command>apt-get install</command>. The screenshot shows how to install the <command>rsync</command> package.</para>
+		<screen>root@ubu1204~# apt-get install rsync
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+The following NEW packages will be installed:
+  rsync
+0 upgraded, 1 newly installed, 0 to remove and 8 not upgraded.
+Need to get 299 kB of archives.
+After this operation, 634 kB of additional disk space will be used.
+Get:1 http://be.archive.ubuntu.com/ubuntu/ precise/main rsync i386 3.0.9-1ubuntu1 [299 kB]
+Fetched 299 kB in 0s (740 kB/s)
+Selecting previously unselected package rsync.
+(Reading database ... 323649 files and directories currently installed.)
+Unpacking rsync (from .../rsync_3.0.9-1ubuntu1_i386.deb) ...
+Processing triggers for man-db ...
+Processing triggers for ureadahead ...
+Setting up rsync (3.0.9-1ubuntu1) ...
+ Removing any system startup links for /etc/init.d/rsync ...
+root@ubu1204~#</screen>
+	</section>
+	<section><title>apt-get remove</title>
+		<para>You can remove one or more applications by appending their name behind <command>apt-get remove</command>. The screenshot shows how to remove the <command>rsync</command> package.</para>
+		<screen>root@ubu1204~# apt-get remove rsync
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+The following packages will be REMOVED:
+  rsync ubuntu-standard
+0 upgraded, 0 newly installed, 2 to remove and 8 not upgraded.
+After this operation, 692 kB disk space will be freed.
+Do you want to continue [Y/n]? 
+(Reading database ... 323681 files and directories currently installed.)
+Removing ubuntu-standard ...
+Removing rsync ...
+ * Stopping rsync daemon rsync                                                                                                                                                                 [ OK ] 
+Processing triggers for ureadahead ...
+Processing triggers for man-db ...
+root@ubu1204~#</screen>
+		<para>Note however that some configuration information is not removed.</para>
+		<screen>root@ubu1204~# dpkg -l rsync | tail -1 | tr -s ' ' 
+rc rsync 3.0.9-1ubuntu1 fast, versatile, remote (and local) file-copying tool</screen>
+	</section>
+	<section><title>apt-get purge</title>
+		<para>You can purge one or more applications by appending their name behind <command>apt-get remove</command>. Purging will also remove all existing configuration files related to that application. The screenshot shows how to purge the <command>rsync</command> package.</para>
+		<screen>root@ubu1204~# apt-get purge rsync
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+The following packages will be REMOVED:
+  rsync*
+0 upgraded, 0 newly installed, 1 to remove and 8 not upgraded.
+After this operation, 0 B of additional disk space will be used.
+Do you want to continue [Y/n]? 
+(Reading database ... 323651 files and directories currently installed.)
+Removing rsync ...
+Purging configuration files for rsync ...
+Processing triggers for ureadahead ...
+root@ubu1204~#</screen>
+		<para>Note that <command>dpkg</command> has no information about a purged package, except that it is uninstalled and no configuration is left on the system.</para>
+		<screen>root@ubu1204~# dpkg -l rsync | tail -1 | tr -s ' ' 
+un rsync &#060;none&#062; (no description available)</screen>
 	</section>
 </section>
+<?hard-pagebreak?>
 <section><title>aptitude</title>
-	<para>Most people use <command>aptitude</command><indexterm><primary>aptitude(8)</primary></indexterm> for package management on Debian and Ubuntu Systems.</para>
+	<para>Most people use <command>aptitude</command><indexterm><primary>aptitude(8)</primary></indexterm> for package management on Debian, Mint and Ubuntu systems.</para>
 	<para>To synchronize with the repositories.</para>
 	<screen>aptitude update</screen>
 	<para>To patch and upgrade all software to the latest version on Debian.</para>
@@ -63,18 +156,30 @@ root@mac~#</screen>
 	<screen>aptitude install $package</screen>
 	<para>To search the repositories for applications that contain a certain string in their name or description.</para>
 	<screen>aptitude search $string</screen>
-	<para>To remove an application and all unused files.</para>
+	<para>To remove an application.</para>
 	<screen>aptitude remove $package</screen>
+	<para>To remove an application and all configuration files.</para>
+	<screen>aptitude purge $package</screen>
+</section>
+<?hard-pagebreak?>
+<section><title>apt</title>
+	<para>Both <command>apt-get</command> and <command>aptitude</command> use the same configuration information in <command>/etc/apt/</command>. Thus adding a repository for one of them, will automatically add it for both.</para>
 	<section><title>/etc/apt/sources.list</title>
-		<para>The resource list for both <command>apt-get</command> and <command>aptitude</command> is located in <command>/etc/apt/sources.list</command><indexterm><primary>/etc/apt/sources.list</primary></indexterm>. This file contains a list of http or ftp sources where packages for the distribution can be downloaded.</para>
-		<screen>root@barry:~# cat /etc/apt/sources.list
+		<para>The resource list used by <command>apt-get</command> and <command>aptitude</command> is located in <command>/etc/apt/sources.list</command><indexterm><primary>/etc/apt/sources.list</primary></indexterm>. This file contains a list of http or ftp sources where packages for the distribution can be downloaded.</para>
+		<para>This is what that list looks like on my Debian server.</para>
+		<screen>root@debian6:~# cat /etc/apt/sources.list
+deb http://ftp.be.debian.org/debian/ squeeze main
+deb-src http://ftp.be.debian.org/debian/ squeeze main
 
-deb http://ftp.be.debian.org/debian/ etch main non-free contrib
-# deb http://ftp.be.debian.org/debian/ sarge main non-free contrib
-# deb http://ftp.be.debian.org/debian/ unstable main non-free contrib
-# deb-src http://ftp.be.debian.org/debian/ etch main non-free contrib
+deb http://security.debian.org/ squeeze/updates main
+deb-src http://security.debian.org/ squeeze/updates main
 
-deb http://security.debian.org/ etch/updates main
-# deb-src http://security.debian.org/ etch/updates main</screen>
+# squeeze-updates, previously known as 'volatile'
+deb http://ftp.be.debian.org/debian/ squeeze-updates main
+deb-src http://ftp.be.debian.org/debian/ squeeze-updates main</screen>
+		<para>On my Ubuntu there are four times as many online repositories in use.</para>
+		<screen>root@ubu1204~# wc -l /etc/apt/sources.list
+63 /etc/apt/sources.list</screen>
 	</section>
+	<para>There is much more to learn about <command>apt</command>, explore commands like <command>add-apt-repository</command>, <command>apt-key</command> and <command>apropos apt</command>.</para>
 </section>
