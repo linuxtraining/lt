@@ -239,21 +239,44 @@ gwen.netsec.local</screen>
 	<section><title>iterative or recursive query</title>
 		<para>A <command>recursive query</command><indexterm><primary>recursive query</primary></indexterm> is a DNS query where the client that is submitting the query expects a complete answer (Like the fat red arrow above going from the Macbook to the DNS server). An <command>iterative query</command><indexterm><primary>iterative query</primary></indexterm> is a DNS query where the client does not expect a complete answer (the three black arrows originating from the DNS server in the picture above). Iterative queries usually take place between name servers. The root name servers do not respond to recursive queries.</para>
 	</section>
-	</section>
+</section>
 <?hard-pagebreak?>
-	<section><title>primary and secondary</title>
-		<para>A DNS server that is controlling a zone, is said to be the <command>authoritative</command> DNS server for that zone. Remember that a <command>zone</command> is a collection of <command>resource records</command>.</para>
-		<para>When you set up the first <command>authoritative</command> dns server for a zone, the this is called the <command>primary dns server</command>. This server will have a readable and writable copy of the <command>zone database</command>. For reasons of fault tolerance, performance or load balancing you may decide to set up another dns server with authority over that zone. This is called a <command>secondary</command> dns server.</para>
-	</section>
-	<section><title>master and slave</title>
-		<para>When adding a <command>secondary DNS server</command><indexterm><primary>secondary server (DNS)</primary></indexterm> to a zone, then you will configure this server as a <command>slave server</command><indexterm><primary>slave server (DNS)</primary></indexterm> to the <command>primary server</command><indexterm><primary>primary server (DNS)</primary></indexterm>. The primary server then becomes the <command>master server</command><indexterm><primary>master server (DNS)</primary></indexterm> of the slave server.</para>
-		<para>Often the primary DNS server is the master server of all slaves. Sometimes a slave server is master server for a second line slave server. In the picture below ns1 is the primary dns server and ns2, ns3 and ns4 are secondaries. The master for slaves ns2 and ns3 is ns1, but the master for ns4 is ns3.</para>
-		<mediaobject><imageobject><imagedata fileref="images/dns_07_primary_master.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-	</section>
+<section><title>authoritative dns servers</title>
+	<para>A DNS server that is controlling a zone, is said to be the <command>authoritative</command> DNS server for that zone. Remember that a <command>zone</command> is a collection of <command>resource records</command>.</para>
+	<para><mediaobject><imageobject><imagedata fileref="images/dns_authoritative_zone.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+</section>
+<section><title>primary and secondary</title>
+	<para>When you set up the first <command>authoritative</command> dns server for a zone, then this is called the <command>primary dns server</command>. This server will have a readable and writable copy of the <command>zone database</command>. For reasons of fault tolerance, performance or load balancing you may decide to set up another <command>dns server</command> with authority over that zone. This is called a <command>secondary</command> dns server.</para>
+	<para><mediaobject><imageobject><imagedata fileref="images/dns_primary_secondary.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+</section>
+<section><title>zone transfers</title>
+		<para>The slave server receives a copy of the zone database from the master server using a <command>zone transfer</command><indexterm><primary>zone transfer (dns)</primary></indexterm>. Zone transfers are requested by the slave servers at regular intervals. Those intervals are defined in the <command>soa record</command><indexterm><primary>soa (dns record)</primary></indexterm>.</para>
+	<para><mediaobject><imageobject><imagedata fileref="images/dns_zone_transfer_pic.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+</section>
 <?hard-pagebreak?>
-	<section><title>zone transfers</title>
-		<para>The slave server receives a copy of the zone database using a <command>zone transfer</command><indexterm><primary>zone transfer (DNS)</primary></indexterm>. Zone transfers are requested by the slave servers at regular intervals. Those intervals are defined in the <command>SOA record</command><indexterm><primary>SOA (DNS record)</primary></indexterm>.</para>
-		<para>The SOA record contains a <command>refresh</command> value. If this is set to 30 minutes, then the slave server will request a copy of the zone file every 30 minutes. There is also a <command>retry</command> value. The retry value is used when the master server did not reply to the last zone transfer request. The value for <command>expiry time</command> says how long the slave server will answer to queries, without receiving a zone update.</para>
+<section><title>master and slave</title>
+	<para>When adding a <command>secondary dns server</command><indexterm><primary>secondary server (DNS)</primary></indexterm> to a zone, then you will configure this server as a <command>slave server</command><indexterm><primary>slave server (DNS)</primary></indexterm> to the <command>primary server</command><indexterm><primary>primary server (DNS)</primary></indexterm>. The primary server then becomes the <command>master server</command><indexterm><primary>master server (DNS)</primary></indexterm> of the slave server.</para>
+	<para>Often the <command>primary dns server</command> is the <command>master</command> server of all slaves. Sometimes a <command>slave server</command> is <command>master server</command> for a second line slave server. In the picture below ns1 is the primary dns server and ns2, ns3 and ns4 are secondaries. The master for slaves ns2 and ns3 is ns1, but the master for ns4 is ns2.</para>
+	<para><mediaobject><imageobject><imagedata fileref="images/dns_master_slave.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+</section>
+<section><title>SOA record</title>
+		<para>The <command>soa record</command> contains a <command>refresh</command> value. If this is set to 30 minutes, then the slave server will request a copy of the zone file every 30 minutes. There is also a <command>retry</command> value. The retry value is used when the master server did not reply to the last zone transfer request. The value for <command>expiry time</command> says how long the slave server will answer to queries, without receiving a zone update.</para>
+		<para>Below an example of how to use nslookup to query the <command>soa record</command> of a zone (linux-training.be).</para>
+		<screen>root@debian6:~# nslookup 
+> set type=SOA
+> server ns1.openminds.be
+> linux-training.be
+Server:         ns1.openminds.be
+Address:        195.47.215.14#53
+
+linux-training.be
+        origin = ns1.openminds.be
+        mail addr = hostmaster.openminds.be
+        serial = 2321001133
+        refresh = 14400
+        retry = 3600
+        expire = 604800
+        minimum = 3600</screen>
 		<para>Zone transfers only occur when the zone database was updated (meaning when one or more resource records were added, removed or changed on the master server). The slave server will compare the <command>serial number</command> of its own copy of the SOA record with the serial number of its master's SOA record. When both serial numbers are the same, then no update is needed (because no records were added, removed or deleted). When the slave has a lower serial number than its master, then a zone transfer is requested.</para>
 		<para>Below a zone transfer captured in wireshark.</para>
 		<mediaobject><imageobject><imagedata fileref="images/dns_zone_transfer.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
