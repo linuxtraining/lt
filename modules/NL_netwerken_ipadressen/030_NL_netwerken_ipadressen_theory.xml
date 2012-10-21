@@ -1,0 +1,607 @@
+<section><title>oefening</title>
+	<para>0. Sluit je browser, tijdens de oefening ben je even het internet kwijt.</para>
+	<para>1. Gebruik <command>ipconfig</command> op Microsoft of <command>ifconfig</command> op alle andere besturingssystemen om je eigen <command>ip-adres</command> te vinden. Noteer het hier.</para>
+	<para></para>
+	<para></para>
+	<para>2. Zoek een partner en noteer zijn/haar <command>ip-adres</command>.</para>
+	<para></para>
+	<para></para>
+	<para>3. Test met <command>ping</command> dat jullie elkaar kunnen bereiken. Dit zou moeten werken.</para>
+	<screen>ping ip-adres-partner</screen>
+	<para></para>
+	<para></para>
+	<para>4a. Zoek met <command>netstat -nr</command> of <command>route</command> of <command>route print</command> de default router (default gateway) en test of je deze kan pingen.  Dit zou moeten werken.</para>
+	<para></para>
+	<para></para>
+	<para>4b. Zoek met <command>ipconfig /all</command> op Windows of <command>cat /etc/resolv.conf</command> op Linux het ip-adres van de nameserver (dns server) en test dat je ook deze kan pingen. Dit zou moeten werken.</para>
+	<para></para>
+	<para></para>
+	<para>5. Zoek de <command>grafische interface</command> om de eigenschappen van je ip-configuratie aan te passen, en noteer de informatie de je daar vindt. De kans is groot dat hier 'automatisch' of 'dhcp' staat.</para>
+	<para></para>
+	<para></para>
+	<para></para>
+	<para>6. Gebruik deze grafische interface en de informatie uit vraag 1 om het <command>eerste cijfer</command> van je ip-adres aan te passen. Verander dit eerste cijfer in 10. Heb je nog steeds verbinding met je buurman ? (Dit zou moeten werken als jullie allebei de aanpassing gedaan hebben.)</para>
+	<para></para>
+	<para>7. Test met <command>ping</command> dat jullie nog steeds de router en dns-server kunnen bereiken. Dit zou niet meer mogen werken.</para>
+	<para></para>
+	<para></para>
+	<para>8. Lukt dit ook als je het eerste cijfer verandert in 8 ? Idem als voorheen zou je wel met elkaar verbinding moeten hebben, maar niet met de dns-server of router.</para>
+	<para></para>
+	<para></para>
+	<para>9. Lukt dit ook als je het eerste cijfer verandert in 127 ? Dit zou niet mogen werken.</para>
+	<para></para>
+	<para></para>
+	<para>10. Verander de eerste twee cijfers van je ip-adres in <command>169.254</command>, maar behoud de laatste twee. Lukt dit ?</para>
+	<para></para>
+	<para></para>
+	<para>11. Verander je ip-adres in 192.168.1.259. Waarom lukt dit niet ?</para>
+	<para></para>
+	<para></para>
+	<para>12. Zet je ip-configuratie terug zoals ze stond voor de oefening. Test dat je terug verbinding hebt met internet door te surfen naar linux-training.be .</para>
+</section>
+<?hard-pagebreak?>
+<section><title>ip-adressen</title>
+	<para>Een <command>ip-adres</command><indexterm><primary>ip-adres</primary></indexterm> is een 32-bit getal dat als logisch adres aan een computer wordt gegeven. Een <command>ip-adres</command> is de unieke identificatie van een <command>host</command> op laag 3.</para>
+	<para>Theoretisch hebben we 4294967296 ip-adressen (256*256*256*256).</para>
+	<para>In decimale octetjes schrijven we dat van 0.0.0.0 tot 255.255.255.255, in hexadecimale bytes is dat van 00:00:00:00 tot FF:FF:FF:FF en binair is dat van 00000000.00000000.00000000.00000000 tot 11111111.11111111.11111111.11111111.</para>
+</section>
+<section><title>private en publieke adressen</title>
+	<para>Om een geldig <command>ip-adres</command> te hebben op het <command>internet</command>, moet je dit aankopen bij je lokale <command>RIR (Regional Internet Registry)</command><indexterm><primary>regional internet registry</primary></indexterm>. Voor Europa is dit <command>RIPE NCC (Réseaux IP Européens Network Coordination Centre)</command><indexterm><primary>ripe</primary></indexterm> in Amsterdam.</para>
+	<para>In de meeste gevallen is het de <command>isp (Internet Service Provider)</command><indexterm><primary>isp</primary></indexterm> die deze aankoop doet, eindgebruikers merken daar weinig van.</para>
+	<para>Niet alle <command>ip-adressen</command> zijn geldig op internet. Sommige reeksen zijn gereserveerd voor speciale doeleinden.</para>
+	<section><title>private adressen</title>
+		<para>Er zijn drie reeksen gereserveerd voor <command>privé</command><indexterm><primary>private ip ranges</primary></indexterm>-gebruik. Deze ip-adressen zijn niet te gebruiken op internet (ze werken niet). Technisch kan je zeggen dat routers op internet alle packetjes voor deze adresssen automatisch verwerpen.</para>
+		<para>De drie reeksen zijn:</para>
+<table frame='all'><title>private ip-adressen</title>
+<?dbfo table-width="90%" ?>
+<tgroup cols='3' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="1*" align="center"/>
+<colspec colname='c2' colwidth="1*" align="center"/>
+<colspec colname='c3' colwidth="2*" align="center"/>
+<thead>
+<row>
+  <entry>eerste ip-adres</entry>
+  <entry>laatste ip-adres</entry>
+  <entry>aantal adressen in de reeks</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>10.0.0.0</entry>
+  <entry>10.255.255.255</entry>
+  <entry>16777216 (+16 miljoen)</entry>
+</row>
+<row>
+  <entry>172.16.0.0</entry>
+  <entry>172.31.255.255</entry>
+  <entry>1048576 (+1 miljoen)</entry>
+</row>
+<row>
+  <entry>192.168.0.0</entry>
+  <entry>192.168.255.255</entry>
+  <entry>65536 (+65 duizend)</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+		<para>De volledige definitie van deze reeksen vindt u in <command>rfc 1918</command>.</para>
+		<screen>http://www.rfc-editor.org/rfc/rfc1918.txt</screen>
+	</section>
+	<section><title>loopback adressen</title>
+		<para>Elke <command>tcp/ip stack</command> heeft een virtuele <command>loopback interface</command>. Dit is een ip-adres dat gebruikt wordt om naar de computer zelf te wijzen (en om te testen of je <command>tcp/ip</command> stack werkt).</para>
+		<para>Meestal is dit <command>127.0.0.1</command><indexterm><primary>127.0.0.1</primary></indexterm>, vaak wijst de hele reeks echter naar ditzelfde adres.</para>
+		<screen>
+van 127.0.0.0 tot 127.255.255.255
+		</screen>
+		<para>Meestal wordt <command>localhost</command><indexterm><primary>localhost</primary></indexterm> vertaald naar <command>127.0.0.1</command>.</para>
+	</section>
+	<section><title>zeroconf adressen</title>
+		<para>Een <command>zeroconf</command><indexterm><primary>zeroconf</primary></indexterm> adres wordt ook wel een <command>link local</command><indexterm><primary>link local</primary></indexterm> adres genoemd. Het is een ip-adres dat begint met <command>169.254</command><indexterm><primary>169.254.x.y</primary></indexterm> en dan twee willekeurig gekozen bytes. Microsoft noemt dit <command>APIPA (Automatic Private IP Adddressing)</command><indexterm><primary>apipa</primary></indexterm>.</para>
+		<para>Een host die automatisch een ip-adres zou moeten krijgen van <command>dhcp</command><indexterm><primary>dhcp</primary></indexterm>, maar dit niet krijgt, kan zichzelf van een <command>zeroconf</command> adres voorzien. De host zal op het lokale netwerk (de <command>local link</command>) eerst testen dat geen enkele andere host dit adres gebruikt, alvorens het aan zichzelf toe te wijzen.</para>
+		<screen>
+van 169.254.0.0 tot 169.254.255.255
+		</screen>
+		<para>Als een computer in de praktijk in een bedrijf een <command>zeroconf</command> adres heeft, dan wil dit meestal zeggen dat de netwerkbekabeling van de computer onderbroken is. Soms duidt zo'n adres op een probleem met de <command>dhcp server</command>.</para>
+	</section>
+	<section><title>oefening ip-adressen</title>
+		<para>Duid voor de volgende ip-adressen aan waarvoor ze dienen (privaat, publiek, loopback of zeroconf)</para> 
+<table frame='all'><title>oefening gereserveerde ip-adressen</title>
+<?dbfo table-width="70%" ?>
+<tgroup cols='2' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="1*" align="center"/>
+<colspec colname='c2' colwidth="1*" align="center"/>
+<thead>
+<row>
+  <entry>ip-adres</entry>
+  <entry>gereserveerd doel</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>192.168.244.16</entry>
+  <entry>privaat</entry>
+</row>
+<row>
+  <entry>195.238.2.21</entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>169.254.33.42</entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>127.0.0.1</entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>9.33.42.12</entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>10.11.12.13</entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>171.191.42.33</entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>172.18.33.42</entry>
+  <entry></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+	</section>
+</section>
+<section><title>ip-adres klassen</title>
+	<para><command>IP-adressen</command><indexterm><primary>ip-adres</primary></indexterm> zijn onderverdeeld in klassen. Een adres van <command>klasse A</command><indexterm><primary>class A</primary></indexterm> begint binair met als meest significante bit een 0. Een <command>klasse B</command><indexterm><primary>class B</primary></indexterm> adres begint binair met 10, <command>klasse C</command><indexterm><primary>class C</primary></indexterm> met 110, <command>klasse D</command> met 1110 en tenslotte <command>klasse E</command> met 1111.</para>
+<para>De eerste byte decimaal omgerekend, komen we tot de volgende indeling van ip-adressen:</para>
+<table frame='all'><title>ip address classes</title>
+<?dbfo table-width="80%" ?>
+<tgroup cols='3' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="1*" align="center"/>
+<colspec colname='c2' colwidth="1*" align="left"/>
+<colspec colname='c3' colwidth="2*" align="center"/>
+<thead>
+<row>
+  <entry>class</entry>
+  <entry>first bit(s)</entry>
+  <entry>first decimal byte</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>A</entry>
+  <entry>0</entry>
+  <entry>0-127</entry>
+</row>
+<row>
+  <entry>B</entry>
+  <entry>10</entry>
+  <entry>128-191</entry>
+</row>
+<row>
+  <entry>C</entry>
+  <entry>110</entry>
+  <entry>192-223</entry>
+</row>
+<row>
+  <entry>D</entry>
+  <entry>1110</entry>
+  <entry>224-239</entry>
+</row>
+<row>
+  <entry>E</entry>
+  <entry>1111</entry>
+  <entry>240-255</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<para>Alle ip-adressen die beginnen met een getal lager dan 127 zijn dus klasse A adressen (onthoud dat 127 zelf gereserveerd is voor de loopback adapter).</para>
+</section>
+<section><title>oefening ip-adres klassen</title>
+<para>Duid voor de volgende ip-adressen steeds de correcte klasse aan:</para>
+<table frame='all'><title>oefening classful ip addressing</title>
+<?dbfo table-width="70%" ?>
+<tgroup cols='2' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="3*" align="center"/>
+<colspec colname='c2' colwidth="2*" align="center"/>
+<thead>
+<row>
+  <entry>ip-adres</entry>
+  <entry>klasse ?</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>192.168.42.33</entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>9.101.12.01</entry>
+  <entry>A</entry>
+</row>
+<row>
+  <entry>188.33.42.33</entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>9.42.12.33</entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>230.19.4.42</entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>11.19.6.200</entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>191.192.193.194</entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>134.0.0.42</entry>
+  <entry></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</section>
+<?hard-pagebreak?>
+<section><title>default subnet masks</title>
+<para>Klasse A, B en C ip-adressen hebben een standaard <command>subnet mask</command><indexterm><primary>subnet mask</primary></indexterm>. Klasse A heeft een subnet mask waar de eerste 8 bits gelijk zijn aan 1 (en de rest aan 0). Bij klasse B zijn de eerste 16 bits een 1, en bij klasse C de eerste 24 bits.</para>
+<para>Dit geeft ons de volgende tabel:</para>
+<table frame='all'><title>default subnet mask</title>
+<?dbfo table-width="80%" ?>
+<tgroup cols='3' align='left' colsep='1' rowsep='1'>
+<colspec colname='klasse' colwidth="2*" align="center"/>
+<colspec colname='bits' colwidth="4*" align="center"/>
+<colspec colname='subnet' colwidth="5*" align="center"/>
+<thead>
+<row>
+  <entry>klasse</entry>
+  <entry>aantal bits op 1</entry>
+  <entry>default subnet mask</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>A</entry>
+  <entry>8</entry>
+  <entry>255.0.0.0</entry>
+</row>
+<row>
+  <entry>B</entry>
+  <entry>16</entry>
+  <entry>255.255.0.0</entry>
+</row>
+<row>
+  <entry>C</entry>
+  <entry>24</entry>
+  <entry>255.255.255.0</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</section>
+<section><title>oefening default subnet masks</title>
+<para>Schrijf voor de volgende ip-adressen steeds de default subnet mask op:</para>
+<table frame='all'><title>oefening default subnet masks</title>
+<?dbfo table-width="70%" ?>
+<tgroup cols='2' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="3*" align="center"/>
+<colspec colname='c2' colwidth="3*" align="center"/>
+<thead>
+<row>
+  <entry>ip-adres</entry>
+  <entry>mask ?</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>192.168.42.33</entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>9.101.12.01</entry>
+  <entry>255.0.0.0</entry>
+</row>
+<row>
+  <entry>188.33.42.33</entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>9.42.12.33</entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>230.19.4.42</entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>11.19.6.200</entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>191.192.193.194</entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>134.0.0.42</entry>
+  <entry></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</section>
+<?hard-pagebreak?>
+<section><title>network id en host id</title>
+	<para>Bij het uitvoeren van <command>ifconfig</command><indexterm><primary>ifconfig(Unix)</primary></indexterm> op een Unix/Linux en <command>ipconfig</command><indexterm><primary>ipconfig(MS)</primary></indexterm> op een MS Windows computer merkt je dat je steeds een <command>ip-adres</command><indexterm><primary>ip-adres</primary></indexterm> en en <command>subnet mask</command><indexterm><primary>subnet mask</primary></indexterm> krijgt. De combinatie van die twee bepaalt in welk netwerk een computer zich bevindt.</para>
+	<para>Als het subnet mask gelijk is aan 255.0.0.0, dan vormt de eerste byte van het ip-adres aangevuld met nullen het <command>network id</command><indexterm><primary>network id</primary></indexterm>. Bij 255.255.0.0 als subnet mask zijn er twee bytes (aangevuld met nullen) die het <command>network id</command> vormen. Bij 255.255.255.0 zijn er drie bytes (en een nul) die het <command>network id</command> vormen.</para>
+	<para>De rest van het ip-adres is dan het <command>host id</command>. Het <command>network id</command> bepaalt het netwerk waarin een computer zich bevindt, het <command>host id</command><indexterm><primary>host id</primary></indexterm> is uniek voor een host binnen het netwerk.</para>
+	<para>Een overzichtje met voorbeelden:</para>
+<table frame='all'><title>network id en host id</title>
+<?dbfo table-width="95%" ?>
+<tgroup cols='4' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="2*" align="center"/>
+<colspec colname='c2' colwidth="3*" align="center"/>
+<colspec colname='c3' colwidth="2*" align="center"/>
+<colspec colname='c4' colwidth="1*" align="center"/>
+<thead>
+<row>
+  <entry>ip-adres</entry>
+  <entry>default subnet mask</entry>
+  <entry>network id</entry>
+  <entry>host id</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>192.168.1.42</entry>
+  <entry>255.255.255.0</entry>
+  <entry>192.168.1.0</entry>
+  <entry>42</entry>
+</row>
+<row>
+  <entry>192.168.1.33</entry>
+  <entry>255.255.255.0</entry>
+  <entry>192.168.1.0</entry>
+  <entry>33</entry>
+</row>
+<row>
+  <entry>192.168.12.1</entry>
+  <entry>255.255.255.0</entry>
+  <entry>192.168.12.0</entry>
+  <entry>1</entry>
+</row>
+<row>
+  <entry>172.16.12.1</entry>
+  <entry>255.255.0.0</entry>
+  <entry>172.16.0.0</entry>
+  <entry>12.1</entry>
+</row>
+<row>
+  <entry>172.16.33.42</entry>
+  <entry>255.255.0.0</entry>
+  <entry>172.16.0.0</entry>
+  <entry>33.42</entry>
+</row>
+<row>
+  <entry>10.3.0.4</entry>
+  <entry>255.0.0.0</entry>
+  <entry>10.0.0.0</entry>
+  <entry>3.0.4</entry>
+</row>
+<row>
+  <entry>10.33.0.42</entry>
+  <entry>255.0.0.0</entry>
+  <entry>10.0.0.0</entry>
+  <entry>33.0.42</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</section>
+<?hard-pagebreak?>
+<section><title>oefening network id en host id</title>
+	<para>1. Noteer de <command>network id</command> en <command>host id</command> voor de volgende ip-adressen.</para>
+	<screen>192.168.42.42</screen>
+	<para></para>
+	<para></para>
+	<screen>9.8.7.6</screen>
+	<para></para>
+	<para></para>
+	<screen>42.42.42.42</screen>
+	<para></para>
+	<para></para>
+	<screen>169.254.42.1</screen>
+	<para></para>
+	<para></para>
+	<screen>191.42.17.18</screen>
+	<para></para>
+	<para></para>
+	<screen>193.42.17.18</screen>
+	<para></para>
+</section>
+<?hard-pagebreak?>
+<section><title>lokale computer of niet ?</title>
+	<para>Wat is het nut van het kennen van een <command>network id</command>? Wel het <command>network id</command> bepaalt of een computer lokaal in je netwerk staat of niet.</para>
+	<para>Indien je wil communiceren met een andere computer, dan heb je zijn <command>ip-adres</command> nodig. Als die computer dan op hetzelfde netwerk zit, dan doet jouw computer een <command>arp</command><indexterm><primary>arp</primary></indexterm> om het <command>MAC adres</command><indexterm><primary>MAC</primary></indexterm> van de andere computer te vinden. Als die computer echter op een ander netwerk zet, dan stuurt jouw computer het packetje naar de <command>router</command>.</para>
+	<para>Alvorens over te gaan tot een <command>arp</command> (voor die andere computer of voor de router) zal jouw computer het <command>network id</command> van jouw computer vergelijken met dat van de andere computer. Indien gelijk, dan betreft het een computer op hetzelfde netwerk, indien verschillend, dan staat die computer achter de <command>router</command><indexterm><primary>router</primary></indexterm>.</para>
+	<para>Een overzichtje met voorbeelden (gebruik standaard subnet mask):</para>
+<table frame='all'><title>local or remote computer?</title>
+<?dbfo table-width="98%" ?>
+<tgroup cols='5' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1' align="center"/>
+<colspec colname='c2' align="center"/>
+<colspec colname='c3' align="center"/>
+<colspec colname='c4' align="center"/>
+<colspec colname='c5' align="center"/>
+<thead>
+<row>
+  <entry>computer A</entry>
+  <entry>computer B</entry>
+  <entry>network id A</entry>
+  <entry>network id B</entry>
+  <entry>lokaal ?</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>192.168.1.42</entry>
+  <entry>192.168.1.33</entry>
+  <entry>192.168.1.0</entry>
+  <entry>192.168.1.0</entry>
+  <entry>ja</entry>
+</row>
+<row>
+  <entry>192.168.1.33</entry>
+  <entry>192.168.12.1</entry>
+  <entry>192.168.1.0</entry>
+  <entry>192.168.12.0</entry>
+  <entry>nee</entry>
+</row>
+<row>
+  <entry>10.3.0.4</entry>
+  <entry>10.33.0.42</entry>
+  <entry>10.0.0.0</entry>
+  <entry>10.0.0.0</entry>
+  <entry>ja</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</section>
+<?hard-pagebreak?>
+<section><title>oefening lokale computer of niet?</title>
+	<para>1. Staan de volgende computers in hetzelfde netwerk ?</para>
+	<screen>192.168.1.42 en 192.168.1.33</screen>
+	<para></para>
+	<para></para>
+	<screen>10.105.42.42 en 10.105.42.33</screen>
+	<para></para>
+	<para></para>
+	<screen>10.105.42.42 en 10.99.42.33</screen>
+	<para></para>
+	<para></para>
+	<screen>11.16.42.42 en 12.16.42.33</screen>
+	<para></para>
+	<para></para>
+	<screen>169.254.18.42 en 169.254.33.42</screen>
+	<para></para>
+	<para></para>
+	<screen>191.168.42.42 en 191.168.33.33</screen>
+	<para></para>
+	<para></para>
+	<screen>9.1.2.3 en 9.123.234.42</screen>
+	<para></para>
+	<para></para>
+</section>
+<?hard-pagebreak?>
+<section><title>subnet notatie</title>
+	<para>We kunnen de notatie van <command>ip-adres/subnet mask</command><indexterm><primary>cidr</primary></indexterm> afkorten als we voor de subnet mask enkel het aantal bits vernoemen dat op 1 staat. Zo wordt 255.0.0.0 gelijk aan /8, wordt 255.255.0.0 gelijk aan /16 en 255.255.255.0 gelijk aan /24.</para>
+<para>Afgekort kunnen we dus 192.168.1.42/24 schrijven i.p.v. 192.168.1.42 met subnet mask 255.255.255.0 .</para>
+<table frame='all'><title>cidr notatie</title>
+<?dbfo table-width="80%" ?>
+<tgroup cols='3' align='left' colsep='1' rowsep='1'>
+<colspec colname='klasse' colwidth="1*" align="center"/>
+<colspec colname='bits' colwidth="2*" align="center"/>
+<colspec colname='subnet' colwidth="1*" align="center"/>
+<thead>
+<row>
+  <entry>klasse</entry>
+  <entry>default subnet mask</entry>
+  <entry>notatie</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>A</entry>
+  <entry>255.0.0.0</entry>
+  <entry>/8</entry>
+</row>
+<row>
+  <entry>B</entry>
+  <entry>255.255.0.0</entry>
+  <entry>/16</entry>
+</row>
+<row>
+  <entry>C</entry>
+  <entry>255.255.255.0</entry>
+  <entry>/24</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</section>
+<section><title>computers in een netwerk tellen</title>
+<para>Hoeveel computers kan je zetten in een netwerk? Houd rekening met de <command>network id</command><indexterm><primary>network id</primary></indexterm> die zelf al een ip-adres gebruikt. Elk netwerk heeft ook een <command>broadcast</command><indexterm><primary>broadcast</primary></indexterm> adres (alle decimale delen van het host id zijn dan 255).</para>
+<para>Bijvoorbeeld:</para>
+
+<table frame='all'><title>aantal computers in een subnet<indexterm><primary>subnet mask</primary></indexterm></title>
+<?dbfo table-width="100%" ?>
+<tgroup cols='4' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="7*" align="center"/>
+<colspec colname='c2' colwidth="6*" align="center"/>
+<colspec colname='c3' colwidth="7*" align="center"/>
+<colspec colname='c4' colwidth="13*" align="center"/>
+<thead>
+<row>
+  <entry>network</entry>
+  <entry>network id</entry>
+  <entry>broadcast ip</entry>
+  <entry>max aantal hosts</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>192.168.1.0/24</entry>
+  <entry>192.168.1.0</entry>
+  <entry>192.168.1.255</entry>
+  <entry>256 - 2 = 254</entry>
+</row>
+<row>
+  <entry>192.168.15.0/24</entry>
+  <entry>192.168.15.0</entry>
+  <entry>192.168.15.255</entry>
+  <entry>256 - 2 = 254</entry>
+</row>
+<row>
+  <entry>172.16.0.0/16</entry>
+  <entry>172.16.0.0</entry>
+  <entry>172.16.255.255</entry>
+  <entry>256*256 - 2 = 65534</entry>
+</row>
+<row>
+  <entry>10.0.0.0/8</entry>
+  <entry>10.0.0.0</entry>
+  <entry>10.255.255.255</entry>
+  <entry>256*256*256 - 2 = 16777214</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</section>
+</chapter>
+<chapter><title>4 miljard ip-adressen</title>
+<section><title>te weinig ip-adressen ?</title>
+	<para>Is vier miljard dan niet genoeg ? We verspillen enorm veel ip-adressen door de verkoop van klasse A en klasse B aan organisaties die eigenlijk veel minder adressen nodig hebben.</para>
+	<para>Wat doe je als je 300 adressen nodig hebt ? Of 2000 ? Je kan kiezen voor een klasse B<indexterm><primary>class B</primary></indexterm> range, maar dan verspil je meer dan 90 procent. Je kan ook zeggen dat 8 klasse C<indexterm><primary>class C</primary></indexterm> adressen voldoen voor 2000 computers, maar dan vergroot je de <command>routing tables</command> weer.</para>
+</section>
+<section><title>ip-adressen verdelen</title>
+<para><command>Klasse A</command><indexterm><primary>class A</primary></indexterm> adressen kunnen dus een dikke 16 miljoen computers bevatten, <command>klasse B</command><indexterm><primary>class B</primary></indexterm> een goeie 65 duizend en <command>klasse C</command><indexterm><primary>class C</primary></indexterm> iets meer dan 200.</para>
+<para>Stel dat jouw organisatie 3000 ip-adressen nodig heeft, dan moet je een klasse B gebruiken. Maar dat wil zeggen dat je meer dan 62 duizend ip-adressen <command>verspilt</command>. Onthou ook dat heel wat klasse A ranges begin jaren 90 in hun geheel verkocht zijn.</para>
+<para>In de jaren 70-80 was dit een goed systeem, er waren immers maar enkele duizenden computers op dit <command>internetwerk</command><indexterm><primary>internet</primary></indexterm>. Maar de laatste jaren zijn er meer dan een miljard computers verbonden met internet. Met een totaal van vier miljard (256*256*256*256) ip-adressen kunnen we ons niet langer veroorloven om ip-adressen te verspillen.</para>
+</section>
+<section><title>probleem voor de routing tables</title>
+<para>Je zou kunnen argumenteren op het vorige dat je ook twaalf <command>klasse C</command><indexterm><primary>class C</primary></indexterm> kan gebruiken voor een netwerk met 3000 computers. En dat is correct, maar heeft wel tot gevolg dat de <command>routing tables</command><indexterm><primary>router</primary></indexterm> in de internet routers er twaalf routes bij krijgen i.p.v. slechts eentje.</para>
+<para>Alle grote netwerken opbouwen met klasse C ip ranges is dus ook geen oplosssing. (routing tables bespreken we later)</para>
+</section>
+<section><title>Is nat een oplossing ?</title>
+<para>Een andere verzachtende techniek voor het naderende tekort aan ip-adressen is <command>nat</command><indexterm><primary>nat</primary></indexterm>. Een <command>nat</command> toestel kan meerdere <command>private ip-adressen </command><indexterm><primary>private ip-adressen</primary></indexterm>(en dus meerdere computers) met een (of enkele) publieke adressen verbinden met het internet.</para>
+<para>Maar <command>nat</command> heeft dan weer het nadeel dat niet alle applicaties kunnen werken achter een <command>nat</command>. Bijvoorbeeld <command>ipsec</command><indexterm><primary>ipsec</primary></indexterm> (want de poort-informatie is versleuteld), <command>sip</command><indexterm><primary>sip</primary></indexterm> (Voice over IP), <command>ftp</command><indexterm><primary>ftp</primary></indexterm>, <command>dns zone transfers</command><indexterm><primary>dns</primary></indexterm> (we bespreken dit later), <command>dhcp</command>, <command>snmp</command> en sommige multiplayer spelletjes op Microsofts xbox werken niet over <command>nat</command>.</para>
+</section>
