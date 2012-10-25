@@ -123,7 +123,7 @@ root@ubu1204~#</screen>
 rc rsync 3.0.9-1ubuntu1 fast, versatile, remote (and local) file-copying tool</screen>
 	</section>
 	<section><title>apt-get purge</title>
-		<para>You can purge one or more applications by appending their name behind <command>apt-get remove</command>. Purging will also remove all existing configuration files related to that application. The screenshot shows how to purge the <command>rsync</command> package.</para>
+		<para>You can purge one or more applications by appending their name behind <command>apt-get purge</command>. Purging will also remove all existing configuration files related to that application. The screenshot shows how to purge the <command>rsync</command> package.</para>
 		<screen>root@ubu1204~# apt-get purge rsync
 Reading package lists... Done
 Building dependency tree       
