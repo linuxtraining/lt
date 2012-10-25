@@ -12,7 +12,7 @@
 2527</screen>
 	</section>
 	<section><title>dpkg -l $package</title>
- 	<para>Here is an example on how to get information on anindividual packaga. The ii at the beginning means the package is installed.</para>
+ 	<para>Here is an example on how to get information on an individual packaga. The ii at the beginning means the package is installed.</para>
 	<screen>root@debian6:~# dpkg -l rsync | tail -1 | tr -s  ' ' 
 ii rsync 3.0.7-2 fast remote file copy program (like rcp)</screen>
 	</section>
