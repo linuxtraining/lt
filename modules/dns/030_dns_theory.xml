@@ -1,25 +1,25 @@
 <?hard-pagebreak?>
 <section><title>about dns</title>
 	<section><title>name to ip-address resolution</title>
-		<para>The <command>domain name system</command> or <command>dns</command> is a service on a tcp/ip network that enables clients to translate names into ip-addresses. It is much more than that, but let's keep it simple for now.</para>
+		<para>The <command>domain name system</command><indexterm><primary>domain name system</primary></indexterm> or <command>dns</command><indexterm><primary>dns</primary></indexterm> is a service on a tcp/ip network that enables clients to translate names into ip-addresses. It is much more than that, but let's keep it simple for now.</para>
 		<para>When you use a browser to go to a website, then you type the name of that website in the url bar. But for your computer to actually communicate with the web server hosting said website, your computer needs the ip-address of that web server. That is where <command>dns</command> comes in.</para>
 		<mediaobject><imageobject><imagedata fileref="images/dns_01_what_is_dns.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 		<para>In wireshark you can use the <command>dns</command> filter to see this traffic.</para>
 		<mediaobject><imageobject><imagedata fileref="images/dns_01_what_is_dns.ws.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 	</section>
 	<section><title>history</title>
-		<para>In the Seventies, only a few hundred computers were connected to the internet. To resolve names, computers had a flat file that contained a table to resolve hostnames to ip-addresses. This local file was downloaded from <command>hosts.txt</command> on an ftp server in Stanford.</para>
+		<para>In the Seventies, only a few hundred computers were connected to the internet. To resolve names, computers had a flat file that contained a table to resolve hostnames to ip-addresses. This local file was downloaded from <command>hosts.txt</command><indexterm><primary>hosts.txt</primary></indexterm> on an ftp server in Stanford.</para>
 		<para>In 1984 <command>Paul Mockapetris</command><indexterm><primary>Paul Mockapetris</primary></indexterm> created <command>dns</command>, a distributed treelike hierarchical database that will be explained in detail in these chapters.</para>
 		<para>Today, <command>dns</command><indexterm><primary>dns</primary></indexterm> or <command>domain name system</command><indexterm><primary>domain name system</primary></indexterm> is a worldwide distributed hierarchical database controlled by <command>ICANN</command>. Its primary function is to resolve names to ip addresses, and to point to internet servers providing <command>smtp</command> or <command>ldap</command> services.</para>
 		<para>The old <command>hosts.txt</command> file is still active today on most computer systems under the name <command>/etc/hosts</command>. We will discuss this file later, as it can influence name resolution.</para>
 	</section>
 <?hard-pagebreak?>
 	<section><title>forward and reverse lookup queries</title>
-		<para>The question a client asks a dns server is called a <command>query</command>. When a client queries for an ip-address, this is called a <command>forward lookup query</command> (as seen in the previous drawing).</para>
-		<para>The reverse, a query for the name of a host, is called a <command>reverse lookup query</command>.</para>
+		<para>The question a client asks a dns server is called a <command>query</command><indexterm><primary>query (dns)</primary></indexterm>. When a client queries for an ip-address, this is called a <command>forward lookup query</command><indexterm><primary>forward lookup query</primary></indexterm> (as seen in the previous drawing).</para>
+		<para>The reverse, a query for the name of a host, is called a <command>reverse lookup query</command><indexterm><primary>reverse lookup query</primary></indexterm>.</para>
 		<para>Below a picture of a <command>reverse lookup query</command>.</para>
 		<mediaobject><imageobject><imagedata fileref="images/dns_02_reverse.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-		<para>Here is a screenshot of a <command>reverse lookup query</command> in <command>nslookup</command>.</para>
+		<para>Here is a screenshot of a <command>reverse lookup query</command> in <command>nslookup</command><indexterm><primary>nslookup</primary></indexterm>.</para>
 		<screen>paul@ubu1010:~$ nslookup 
 > set type=PTR
 > 178.63.30.100
@@ -32,8 +32,8 @@ Non-authoritative answer:
 		<mediaobject><imageobject><imagedata fileref="images/dns_02_reverse.ws.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 	</section>
 	<section><title>/etc/resolv.conf</title>
-		<para>A client computer needs to know the ip-address of the <command>dns server</command> to be able to send queries to it. This is either provided by a <command>dhcp server</command> or manually entered.</para>
-		<para>Linux clients keep this information in the <command>/etc/resolv.conf</command> file.</para>
+		<para>A client computer needs to know the ip-address of the <command>dns server</command><indexterm><primary>dns server</primary></indexterm> to be able to send queries to it. This is either provided by a <command>dhcp server</command><indexterm><primary>dhcp server</primary></indexterm> or manually entered.</para>
+		<para>Linux clients keep this information in the <command>/etc/resolv.conf</command><indexterm><primary>/etc/resolv.conf</primary></indexterm> file.</para>
 		<screen>paul@ubu1010:~$ cat /etc/resolv.conf 
 nameserver 212.71.8.10</screen>
 	</section>
@@ -41,14 +41,14 @@ nameserver 212.71.8.10</screen>
 <?hard-pagebreak?>
 <section><title>dns namespace</title>
 	<section><title>root servers</title>
-		<para>There are thirteen <command>root servers</command> on the internet, they are named <command>A</command> to <command>M</command>. Journalists often refer to these servers as <command>the master servers of the internet</command>, because if these servers go down, then nobody can (use names to) connect to websites.</para>
+		<para>There are thirteen <command>root servers</command><indexterm><primary>root servers (dns)</primary></indexterm> on the internet, they are named <command>A</command> to <command>M</command>. Journalists often refer to these servers as <command>the master servers of the internet</command>, because if these servers go down, then nobody can (use names to) connect to websites.</para>
 		<para>The root servers are not thirteen physical machines, they are many more. For example the <command>F</command> root server consists of 46 physical machines that all behave as one (using anycast).</para>
 		<screen>http://root-servers.org
 http://f.root-servers.org
 http://en.wikipedia.org/wiki/Root_nameserver.</screen>
 	</section>
 	<section><title>hierarchy</title>
-		<para>The <command>dns namespace</command> is hierarchical tree structure, with the <command>root servers</command> (aka dot-servers) at the top. The <command>root servers</command><indexterm><primary>root(DNS)</primary></indexterm> are usually represented by a dot.</para>
+		<para>The <command>dns namespace</command><indexterm><primary>dns namespace</primary></indexterm> is hierarchical tree structure, with the <command>root servers</command> (aka dot-servers) at the top. The <command>root servers</command><indexterm><primary>root(DNS)</primary></indexterm> are usually represented by a dot.</para>
 		<para><mediaobject><imageobject><imagedata fileref="images/dns_03_namespace_tld.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 		<para>Below the <command>root-servers</command> are the <command>Top Level Domains</command> or <command>tld</command>'s.</para>
 		<para>There are more <command>tld</command>'s than shown in the picture. Currently about 200 countries have a <command>tld</command>. And there are several general <command>tld</command>'s like .com, .edu, .org, .gov, .net, .mil, .int and more recently also .aero, .info, .museum, ...</para>
@@ -113,7 +113,7 @@ http://en.wikipedia.org/wiki/Root_nameserver.</screen>
 </tbody>
 </tgroup>
 </table>
-		<para>Country <command>tld</command>'s were defined for individual countries, like <command>.uk</command> in 1985 for Great Britain (yes really), <command>.be</command> for Belgium in 1988 and <command>.fr</command> for France in 1986. See RFC 1591 for more info.</para>
+		<para>Country <command>tld</command><indexterm><primary>TLD (dns)</primary></indexterm>'s were defined for individual countries, like <command>.uk</command> in 1985 for Great Britain (yes really), <command>.be</command> for Belgium in 1988 and <command>.fr</command> for France in 1986. See RFC 1591 for more info.</para>
 		<para>In 1998 seven new general purpose <command>tld</command>'s where chosen, they became active in the 21st century.</para>
 <table frame='all'><title>new general purpose tld's</title>
 <?dbfo table-width="90%" ?>
@@ -171,7 +171,7 @@ http://en.wikipedia.org/wiki/Root_nameserver.</screen>
 	</section>
 <?hard-pagebreak?>
 	<section><title>domains</title>
-		<para>One level below the <command>top level domains</command> are the <command>domains</command><indexterm><primary>domain(DNS)</primary></indexterm>. Domains can have subdomains (also called child domains).</para>
+		<para>One level below the <command>top level domains</command> are the <command>domains</command><indexterm><primary>domain (dns)</primary></indexterm>. Domains can have subdomains (also called child domains).</para>
 		<para>This picture shows <command>dns domains</command> like google.com, chess.com, linux-training.be (there are millions more).</para>
 		<mediaobject><imageobject><imagedata fileref="images/dns_03_namespace_domains.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 		<para>DNS domains are registered at the <command>tld</command> servers, the <command>tld</command> servers are registered at the <command>dot servers</command>.</para>
@@ -189,9 +189,9 @@ gwen.netsec.local</screen>
 	</section>
 <?hard-pagebreak?>
 	<section><title>dns zones</title>
-		<para>A <command>zone</command> (aka a <command>zone of authority</command>) is a portion of the DNS tree that covers one domain name or child domain name. The picture below represents zones as blue ovals. Some zones will contain delegate authority over a child domain to another zone.</para>
+		<para>A <command>zone</command><indexterm><primary>zone (dns)</primary></indexterm> (aka a <command>zone of authority</command>) is a portion of the DNS tree that covers one domain name or child domain name. The picture below represents zones as blue ovals. Some zones will contain delegate authority over a child domain to another zone.</para>
 		<para><mediaobject><imageobject><imagedata fileref="images/dns_04_zones.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
-		<para>A <command>dns server</command> can be <command>authoritative</command> over 0, 1 or more <command>dns zones</command>. We will see more details later on the relation between a <command>dns server</command> and a <command>dns zone</command>.</para>
+		<para>A <command>dns server</command> can be <command>authoritative</command><indexterm><primary>authoritative zone</primary></indexterm> over 0, 1 or more <command>dns zones</command>. We will see more details later on the relation between a <command>dns server</command> and a <command>dns zone</command>.</para>
 		<para>A <command>dns zone</command> consists of <command>records</command>, also called <command>resource records</command>. We will list some of those <command>resource records</command> on the next page.</para>
 	</section>
 <?hard-pagebreak?>
@@ -206,13 +206,13 @@ gwen.netsec.local</screen>
 			<para>A <command>NS record</command><indexterm><primary>NS (DNS record)</primary></indexterm> or <command>nameserver record</command> is a record that points to a DNS name server (in this zone). You can list all your name servers for your DNS zone in distinct NS records.</para>
 		</section>
 		<section><title>glue A record</title>
-			<para>An A record that maps the name of an NS record to an ip address is said to be a <command>glue record</command>.</para>
+			<para>An A record that maps the name of an NS record to an ip address is said to be a <command>glue record</command><indexterm><primary>glue record (dns)</primary></indexterm>.</para>
 		</section>
 		<section><title>SOA record</title>
 			<para>The SOA record of a zone contains meta information about the zone itself. The contents of the SOA record is explained in detail in the section about zone transfers. There is exactly one SOA record for each zone.</para>
 		</section>
 		<section><title>CNAME record</title>
-			<para>A <command>CNAME record</command><indexterm><primary>CNAME (DNS record)</primary></indexterm> maps a hostname to a hostname, creating effectively an alias for an existing hostname. The name of the mail server is often aliased to <command>mail</command> or <command>smtp</command>, and the name of a web server to <command>www</command>.</para>
+			<para>A <command>CNAME record</command><indexterm><primary>CNAME (DNS record)</primary></indexterm> maps a hostname to a hostname, creating effectively an alias for an existing hostname. The name of the mail server is often aliased to <command>mail</command> or <command>smtp</command><indexterm><primary>smtp</primary></indexterm>, and the name of a web server to <command>www</command>.</para>
 		</section>
 		<section><title>MX record</title>
 			<para>The <command>MX</command><indexterm><primary>MX (DNS record)</primary></indexterm> record points to an <command>smtp server</command>. When you send an email to another domain, then your mail server will need the MX record of the target domain's mail server.</para>
@@ -224,7 +224,7 @@ gwen.netsec.local</screen>
 		<para>A <command>dns server</command> that is set up without <command>authority</command> over a <command>zone</command>, but that is connected to other name servers and caches the queries is called a <command>caching only name server</command><indexterm><primary>cahing only name server</primary></indexterm>. Caching only name servers do not have a <command>zone database</command> with resource records. Instead they connect to other name servers and cache that information.</para>
 		<para>There are two kinds of caching only name servers. Those with a <command>forwarder</command>, and those that use the <command>root servers</command>.</para>
 	<section><title>caching only server with forwarder</title>
-		<para>A <command>caching only server</command> with a <command>forwarder</command> is a DNS server that will get all its information from the <command>forwarder</command>. The <command>forwarder</command> must be a <command>dns server</command> for example the <command>dns server</command> of an <command>internet service provider</command>.</para>
+		<para>A <command>caching only server</command> with a <command>forwarder</command><indexterm><primary>forwarder (dns)</primary></indexterm> is a DNS server that will get all its information from the <command>forwarder</command>. The <command>forwarder</command> must be a <command>dns server</command> for example the <command>dns server</command> of an <command>internet service provider</command>.</para>
 		<para><mediaobject><imageobject><imagedata fileref="images/dns_05_forwarder.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 		<para>This picture shows a <command>dns server</command> on the company LAN that has set the <command>dns server</command> from their <command>isp</command> as a <command>forwarder</command>. If the ip address of the <command>isp dns server</command> is 212.71.8.10, then the following lines would occur in the <command>named.conf</command> file of the company <command>dns server</command>:</para>
 <screen>forwarders {
@@ -233,7 +233,7 @@ gwen.netsec.local</screen>
 	</section>
 <?hard-pagebreak?>
 	<section><title>caching only server without forwarder</title>
-		<para>A caching only server without forwarder will have to get information elsewhere. When it receives a query from a client, then it will consult one of the <command>root servers</command>. The <command>root server</command> will refer it to a <command>tld</command> server, which will refer it to another <command>dns</command> server. That last server might know the answer to the query, or may refer to yet another server. In the end, our hard working <command>dns</command> server will find an answer and report this back to the client. </para>
+		<para>A caching only server without forwarder will have to get information elsewhere. When it receives a query from a client, then it will consult one of the <command>root servers</command>. The <command>root server</command><indexterm><primary>root server (dns)</primary></indexterm> will refer it to a <command>tld</command> server, which will refer it to another <command>dns</command> server. That last server might know the answer to the query, or may refer to yet another server. In the end, our hard working <command>dns</command> server will find an answer and report this back to the client. </para>
 		<para>In the picture below, the clients asks for the ip address of linux-training.be. Our caching only server will contact the root server, and be refered to the .be server. It will then contact the .be server and be refered to one of the name servers of Openminds. One of these name servers (in this cas ns1.openminds.be) will answer the query with the ip-address of linux-training.be. When our caching only server reports this to the client, then the client can connect to this website.</para>
 		<mediaobject><imageobject><imagedata fileref="images/dns_06_caching_only.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 	</section>
@@ -243,11 +243,11 @@ gwen.netsec.local</screen>
 </section>
 <?hard-pagebreak?>
 <section><title>authoritative dns servers</title>
-	<para>A DNS server that is controlling a zone, is said to be the <command>authoritative</command> DNS server for that zone. Remember that a <command>zone</command> is a collection of <command>resource records</command>.</para>
+	<para>A DNS server that is controlling a zone, is said to be the <command>authoritative</command><indexterm><primary>authoritative (dns)</primary></indexterm> DNS server for that zone. Remember that a <command>zone</command><indexterm><primary>zone (dns)</primary></indexterm> is a collection of <command>resource records</command>.</para>
 	<para><mediaobject><imageobject><imagedata fileref="images/dns_authoritative_zone.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 </section>
 <section><title>primary and secondary</title>
-	<para>When you set up the first <command>authoritative</command> dns server for a zone, then this is called the <command>primary dns server</command>. This server will have a readable and writable copy of the <command>zone database</command>. For reasons of fault tolerance, performance or load balancing you may decide to set up another <command>dns server</command> with authority over that zone. This is called a <command>secondary</command> dns server.</para>
+	<para>When you set up the first <command>authoritative</command> dns server for a zone, then this is called the <command>primary dns server</command><indexterm><primary>primary dns server</primary></indexterm>. This server will have a readable and writable copy of the <command>zone database</command>. For reasons of fault tolerance, performance or load balancing you may decide to set up another <command>dns server</command> with authority over that zone. This is called a <command>secondary</command><indexterm><primary>secondary dns server</primary></indexterm> dns server.</para>
 	<para><mediaobject><imageobject><imagedata fileref="images/dns_primary_secondary.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 </section>
 <section><title>zone transfers</title>
@@ -297,8 +297,8 @@ linux-training.be
 	</section>
 <?hard-pagebreak?>
 <section><title>forward lookup zone example</title>
-	<para>The way to set up zones in /etc/named.conf is to create a zone entry with a reference to another file located in /var/named.</para>
-	<para>Here is an example of such an entry in /etc/named.conf</para>
+	<para>The way to set up zones in <command>/etc/named.conf</command><indexterm><primary>/etc/named.conf</primary></indexterm> is to create a zone entry with a reference to another file located in /var/named.</para>
+	<para>Here is an example of such an entry in <command>/etc/named.conf</command>:</para>
 	<screen>zone "classdemo.local" IN {
 	type master;
 	file "classdemo.local.zone";

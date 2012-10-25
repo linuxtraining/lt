@@ -1,0 +1,2 @@
+<para>Every computer on the internet is connected to a huge worldwide tree of <command>dns</command> servers. Most organisations have more than one <command>dns server</command>, and even Personal Area Networks have a <command>built-in dns server</command> in a small modem or router.</para>
+<para>In this chapter we will explain what <command>dns</command> actually is and how to set it up using Linux.</para>
