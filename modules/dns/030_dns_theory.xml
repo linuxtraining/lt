@@ -185,7 +185,7 @@ gwen
 root@gwen:~# domainname
 linux-training.be
 root@gwen:~# hostname --fqdn
-gwen.netsec.local</screen>
+gwen.linux-training.be</screen>
 	</section>
 <?hard-pagebreak?>
 	<section><title>dns zones</title>
