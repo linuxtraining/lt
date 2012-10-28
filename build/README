@@ -1,0 +1,10 @@
+Build script for the Linux-Training books.
+
+Dependencies: 
+
+xmlto
+- Java : on Ubuntu we use the Canonical partner provided sun-java6-bin package. We have a JAVAHOME hardcoded to this somewhere in the build script.
+  - sun-java6-bin
+  - default-jdk
+- xmlto : for building the html pages
+
