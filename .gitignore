@@ -1,1 +1,3 @@
 output/
+build/build-lt.conf
+build/build-datanet.conf
