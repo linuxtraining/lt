@@ -1,0 +1,6 @@
+# environment
+wwwbooksdir=
+outputdir=./output/
+www=
+MAKEOPTS="-d 1"
+V="-v"
