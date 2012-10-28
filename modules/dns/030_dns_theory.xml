@@ -40,6 +40,12 @@ nameserver 212.71.8.10</screen>
 </section>
 <?hard-pagebreak?>
 <section><title>dns namespace</title>
+	<section><title>hierarchy</title>
+		<para>The <command>dns namespace</command><indexterm><primary>dns namespace</primary></indexterm> is hierarchical tree structure, with the <command>root servers</command> (aka dot-servers) at the top. The <command>root servers</command><indexterm><primary>root(DNS)</primary></indexterm> are usually represented by a dot.</para>
+		<para><mediaobject><imageobject><imagedata fileref="images/dns_03_namespace_tld.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+		<para>Below the <command>root-servers</command> are the <command>Top Level Domains</command> or <command>tld</command>'s.</para>
+		<para>There are more <command>tld</command>'s than shown in the picture. Currently about 200 countries have a <command>tld</command>. And there are several general <command>tld</command>'s like .com, .edu, .org, .gov, .net, .mil, .int and more recently also .aero, .info, .museum, ...</para>
+	</section>
 	<section><title>root servers</title>
 		<para>There are thirteen <command>root servers</command><indexterm><primary>root servers (dns)</primary></indexterm> on the internet, they are named <command>A</command> to <command>M</command>. Journalists often refer to these servers as <command>the master servers of the internet</command>, because if these servers go down, then nobody can (use names to) connect to websites.</para>
 		<para>The root servers are not thirteen physical machines, they are many more. For example the <command>F</command> root server consists of 46 physical machines that all behave as one (using anycast).</para>
@@ -47,11 +53,29 @@ nameserver 212.71.8.10</screen>
 http://f.root-servers.org
 http://en.wikipedia.org/wiki/Root_nameserver.</screen>
 	</section>
-	<section><title>hierarchy</title>
-		<para>The <command>dns namespace</command><indexterm><primary>dns namespace</primary></indexterm> is hierarchical tree structure, with the <command>root servers</command> (aka dot-servers) at the top. The <command>root servers</command><indexterm><primary>root(DNS)</primary></indexterm> are usually represented by a dot.</para>
-		<para><mediaobject><imageobject><imagedata fileref="images/dns_03_namespace_tld.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
-		<para>Below the <command>root-servers</command> are the <command>Top Level Domains</command> or <command>tld</command>'s.</para>
-		<para>There are more <command>tld</command>'s than shown in the picture. Currently about 200 countries have a <command>tld</command>. And there are several general <command>tld</command>'s like .com, .edu, .org, .gov, .net, .mil, .int and more recently also .aero, .info, .museum, ...</para>
+<?hard-pagebreak?>
+	<section><title>root hints</title>
+		<para>Every <command>dns server software</command> will come with a list of <command>root hints</command><indexterm><primary>root hints</primary></indexterm> to locate the <command>root servers</command>.</para>
+		<screen>root@gwen:~# grep ' A ' /etc/bind/db.root 
+A.ROOT-SERVERS.NET.      3600000      A     198.41.0.4
+B.ROOT-SERVERS.NET.      3600000      A     192.228.79.201
+C.ROOT-SERVERS.NET.      3600000      A     192.33.4.12
+D.ROOT-SERVERS.NET.      3600000      A     128.8.10.90
+E.ROOT-SERVERS.NET.      3600000      A     192.203.230.10
+F.ROOT-SERVERS.NET.      3600000      A     192.5.5.241
+G.ROOT-SERVERS.NET.      3600000      A     192.112.36.4
+H.ROOT-SERVERS.NET.      3600000      A     128.63.2.53
+I.ROOT-SERVERS.NET.      3600000      A     192.36.148.17
+J.ROOT-SERVERS.NET.      3600000      A     192.58.128.30
+K.ROOT-SERVERS.NET.      3600000      A     193.0.14.129
+L.ROOT-SERVERS.NET.      3600000      A     199.7.83.42
+M.ROOT-SERVERS.NET.      3600000      A     202.12.27.33</screen>
+	</section>
+	<section><title>domains</title>
+		<para>One level below the <command>top level domains</command> are the <command>domains</command><indexterm><primary>domain (dns)</primary></indexterm>. Domains can have subdomains (also called child domains).</para>
+		<para>This picture shows <command>dns domains</command> like google.com, chess.com, linux-training.be (there are millions more).</para>
+		<mediaobject><imageobject><imagedata fileref="images/dns_03_namespace_domains.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+		<para>DNS domains are registered at the <command>tld</command> servers, the <command>tld</command> servers are registered at the <command>dot servers</command>.</para>
 	</section>
 <?hard-pagebreak?>
 	<section><title>top level domains</title>
@@ -170,12 +194,6 @@ http://en.wikipedia.org/wiki/Root_nameserver.</screen>
 		<para>Many people were surprised by the choices, claiming not much use for them and wanting a separate <command>.xxx</command> domain (introduced in 2011) for adult content, and <command>.kidz</command> a save haven for children. In the meantime more useless <command>tld</command>'s were create like <command>.travel</command> (for travel agents) and <command>.tel</command> (for internet communications) and <command>.jobs</command> (for jobs sites).</para>
 	</section>
 <?hard-pagebreak?>
-	<section><title>domains</title>
-		<para>One level below the <command>top level domains</command> are the <command>domains</command><indexterm><primary>domain (dns)</primary></indexterm>. Domains can have subdomains (also called child domains).</para>
-		<para>This picture shows <command>dns domains</command> like google.com, chess.com, linux-training.be (there are millions more).</para>
-		<mediaobject><imageobject><imagedata fileref="images/dns_03_namespace_domains.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-		<para>DNS domains are registered at the <command>tld</command> servers, the <command>tld</command> servers are registered at the <command>dot servers</command>.</para>
-	</section>
 	<section><title>fully qualified domain name</title>
 		<para>The <command>fully qualified domain name</command><indexterm><primary>fully qualified domain name</primary></indexterm> or <command>fqdn</command><indexterm><primary>fqdn</primary></indexterm> is the combination of the <command>hostname</command> of a machine appended with its <command>domain name</command>.</para>
 		<para>If for example a system is called <command>gwen</command> and it is in the domain <command>linux-training.be</command>, then the fqdn of this system is <command>gwen.linux-training.be</command>.</para>
@@ -187,7 +205,6 @@ linux-training.be
 root@gwen:~# hostname --fqdn
 gwen.linux-training.be</screen>
 	</section>
-<?hard-pagebreak?>
 	<section><title>dns zones</title>
 		<para>A <command>zone</command><indexterm><primary>zone (dns)</primary></indexterm> (aka a <command>zone of authority</command>) is a portion of the DNS tree that covers one domain name or child domain name. The picture below represents zones as blue ovals. Some zones will contain delegate authority over a child domain to another zone.</para>
 		<para><mediaobject><imageobject><imagedata fileref="images/dns_04_zones.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
