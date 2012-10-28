@@ -16,7 +16,7 @@ HTMLDIR="$OUTPUTDIR/html"
 HTMLIMGDIR="$HTMLDIR/images"
 IMAGESDIR="./images" 
 MODULESDIR="./modules"
-BUILDDIR="./build"
+BUILDDIR="."
 LIBDIR="$BUILDDIR/lib"
 FOPDIR="$LIBDIR/fop"
 export FOP_OPTS="-Xms512m -Xmx512m"
@@ -84,11 +84,7 @@ set_JAVA() {
 
 check_ROOTDIR() {
 
-	if	[ -x make.sh -a -x buildheader.pl ]
-	then	echor "We are in the build directory, changing to parent directory."
-            cd ..
-	fi
-	if	[ -d $BOOKSDIR -a -d $BOOKSDIR -a -d $MODULESDIR -a -d $BUILDDIR ]
+	if	[ -d $BOOKSDIR -a -d $MODULESDIR -a -d $BUILDDIR ]
 	then	echor "Current dir is book project root directory."
 	else	echor "Please run this script from the book root directory."
 		return 1
