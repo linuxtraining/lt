@@ -23,7 +23,7 @@ outputdir=
 www=
 MAKEOPTS=
 V=
-. build-lt.conf || exit 1
+. $GIT_DIR/../build-lt.conf || exit 1
 
 if [ -z "$wwwbooksdir" -o -z "$outputdir" -o -z "$www" ] 
 then	echo "Please configure lt-build.conf accordingly." >&2
