@@ -5,19 +5,19 @@
 		<para>Het <command>arpanet</command> groeide tot honderden verbonden computers in 1983 (toen werd het opgesplitst in het publieke arpanet en het militaire <command>milnet</command><indexterm><primary>milnet</primary></indexterm>).</para>
 	</section>
 	<section><title>packet switching</title>
-		<para>Ter vervanging van vast toegewezen communicatiekanalen werd in de jaren 60 een nieuwe techniek ontwikkeld die alle gegevens die over een netwerk moeten getransporteerd worden opdeelt in kleine <command>packetjes</command><indexterm><primary>packet switching</primary></indexterm>. Elk packetje bepaalt onafhankelijk van alle andere packetjes zijn route naar zijn bestemming. Dit laat toe dat meerdere computers tegelijkertijd gebruik maken van dezelfde (fysische) communicatiekanalen.</para>
+		<para>Ter vervanging van vast toegewezen communicatiekanalen werd in de jaren zestig een nieuwe techniek ontwikkeld die alle gegevens die over een netwerk moeten getransporteerd worden opdeelt in kleine <command>packetjes</command><indexterm><primary>packet switching</primary></indexterm>. Elk packetje bepaalt onafhankelijk van alle andere packetjes zijn route naar zijn bestemming. Dit laat toe dat meerdere computers tegelijkertijd gebruik maken van dezelfde (fysische) communicatiekanalen.</para>
 		<para>Beknopte uitleg op de Nederlandstalige wikipedia pagina, uitgebreide uitleg in het Engels.</para>
 <screen>
 http://nl.wikipedia.org/wiki/Packet_switching
 http://en.wikipedia.org/wiki/Packet_switching
 </screen>
 	</section>
-	<section><title>jaren 70</title>
+	<section><title>jaren zeventig</title>
 	<mediaobject><imageobject><imagedata fileref="images/arpanet_1977.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-		<para>De jaren 70 zagen ook de creatie van het <command>X.25</command><indexterm><primary>X.25</primary></indexterm> netwerk, <command>fidonet</command><indexterm><primary>fidonet</primary></indexterm>, <command>compuserve</command>, <command>bulletin board systems</command><indexterm><primary>bbs</primary></indexterm> en <command>uucp</command><indexterm><primary>uucp</primary></indexterm>. Al deze netwerken zijn vandaag volledig opgegaan in het <command>internet</command><indexterm><primary>internet</primary></indexterm> en <command>tcp/ip</command><indexterm><primary>tcp/ip</primary></indexterm>.</para>
+		<para>De jaren zeventig zagen ook de creatie van het <command>X.25</command><indexterm><primary>X.25</primary></indexterm> netwerk, <command>fidonet</command><indexterm><primary>fidonet</primary></indexterm>, <command>compuserve</command>, <command>bulletin board systems</command><indexterm><primary>bbs</primary></indexterm> en <command>uucp</command><indexterm><primary>uucp</primary></indexterm>. Al deze netwerken zijn vandaag volledig opgegaan in het <command>internet</command><indexterm><primary>internet</primary></indexterm> en <command>tcp/ip</command><indexterm><primary>tcp/ip</primary></indexterm>.</para>
 	</section>
 	<section><title>tcp/ip</title>
-		<para>De jaren 70 waren ook de start voor het <command>tcp/ip</command> protocol. Deze protocol stack zullen we later uitgebreid bespreken.</para>
+		<para>De jaren zeventig waren ook de start voor het <command>tcp/ip</command> protocol. Deze protocol stack zullen we later uitgebreid bespreken.</para>
 		<para>Vandaag gebruikt 99 procent van het internet <command>ipv4</command><indexterm><primary>ipv4</primary></indexterm> (Internet Protocol versie 4). De opvolger <command>ipv6</command><indexterm><primary>ipv6</primary></indexterm> is klaar, maar breekt nauwelijks door.</para>
 	</section>
 	<section><title>ncp en osi</title>
@@ -25,7 +25,7 @@ http://en.wikipedia.org/wiki/Packet_switching
 		<para>Terzijde ook even vermelden dat in de jaren 80 zowat elke grote computerfirma begon met een eigen protocol ; IBM met <command>SNA</command><indexterm><primary>SNA</primary></indexterm>, Novell met <command>IPX/SPX</command><indexterm><primary>ipx/spx</primary></indexterm>, Microsoft met <command>NetBEUI</command><indexterm><primary>NetBEUI</primary></indexterm>, Apple met <command>Appletalk</command><indexterm><primary>appletalk</primary></indexterm> en Banyan met <command>Vines</command><indexterm><primary>Banyan Vines</primary></indexterm>. Maar al deze protocols werden van de kaart geveegd door het oudere en open <command>tcp/ip</command>.</para>
 	</section>
 	<section><title>e-mail</title>
-		<para>Reeds in 1965 bestond er <command>e-mail</command><indexterm><primary>e-mail</primary></indexterm> op mainframe computers. Het <command>@ teken</command> dateert uit 1971. In de jaren 70 kon je e-mailen tussen verschillende netwerken zoals arpanet, vnet(ibm), bitnet, nsfnet en alle computers die uucp of ncp spraken.</para>
+		<para>Reeds in 1965 bestond er <command>e-mail</command><indexterm><primary>e-mail</primary></indexterm> op mainframe computers. Het <command>@ teken</command> dateert uit 1971. In de jaren zeventig kon je e-mailen tussen verschillende netwerken zoals arpanet, vnet(ibm), bitnet, nsfnet en alle computers die uucp of ncp spraken.</para>
 		<para>Sinds 1982 bestaat e-mail als <command>SMTP (Simple Mail Transfer Protocol)</command><indexterm><primary>smtp</primary></indexterm>, gedefineerd oorspronkelijk in <command>rfc 821</command><indexterm><primary>rfc 821</primary></indexterm> (later meermaals uitgebreid).</para>
 
 <screen>
@@ -36,7 +36,7 @@ http://www.rfc-editor.org/rfc/rfc5321.txt
 </screen>
 	</section>
 	<section><title>rfc</title>
-		<para>Sinds 1969 maakt men voor elk internet protocol een <command>rfc (Request for Comments)</command>. Een <command>rfc</command><indexterm><primary>rfc</primary></indexterm> is een (ascii) tekstbestand en bepaalt de werking van alle protocols op het internet. Deze tekstbestanden zijn vrij te raadplegen en te implementeren. Enkele voorbeelden van protocols die bepaald zijn door een <command>rfc</command> zijn tcp, ip, ftp, udp, dns, smtp, ntp, dhcp, http en duizenden anderen.</para>
+		<para>Sinds 1969 maakt men voor elk internet protocol een <command>rfc (Request for Comments)</command>. Een <command>rfc</command><indexterm><primary>rfc</primary></indexterm> is een (ascii) tekstbestand en bepaalt de werking van alle protocols op het internet. Deze tekstbestanden zijn vrij te raadplegen en te implementeren. Enkele voorbeelden van protocols die bepaald zijn door een <command>rfc</command> zijn tcp, ip, ftp, udp, dns, smtp, ntp, dhcp en http.</para>
 		<para>Op <command>www.rfc-editor.org</command><indexterm><primary>www.rfc-editor.org</primary></indexterm> vind je alle rfc's. Je kan ook rechtstreeks naar de tekstversie gaan als je de rfc nummer kent (zoals 2131 voor dhcp) via :</para>
 <screen>http://www.rfc-editor.org/rfc/rfc2131.txt</screen>
 		<para>Elke <command>rfc</command> bevat o.a. een datum, opgepast voor humor als je <command>1 april</command> ziet.</para>
@@ -53,7 +53,7 @@ http://www.rfc-editor.org/rfc/rfc5321.txt
 <?hard-pagebreak?>
 	<section><title>web 2.0</title>
 		<para>Sinds de opkomst van <command>myspace</command>, <command>orkut</command><indexterm><primary>orkut</primary></indexterm>, <command>linkedin</command><indexterm><primary>linkedin</primary></indexterm> en zeker <command>facebook</command><indexterm><primary>facebook</primary></indexterm> is het al <command>web 2.0</command> wat de klok slaat. We noemen deze nieuwe trend van <command>vriendjes maken</command> in het Engels <command>social networking</command><indexterm><primary>social networking</primary></indexterm>, soms ongelukkig vertaald in het Nederlands als <command>sociale netwerken</command>.</para>
-		<para>De strijd om de gebruiker, die gewonnen leek door <command>Microsoft</command> met hun bijna monopolistische aandeel op de eindgebruikers' desktop, speelt zich nu vooral online af. <command>Google</command><indexterm><primary>Google</primary></indexterm>, <command>Microsoft</command>, <command>Yahoo</command> en vele anderen proberen nu ook met <command>web 2.0</command> technieken om het succes van <command>Facebook</command> te bereiken.</para>
+		<para>De strijd om de gebruiker, die gewonnen leek door <command>Microsoft</command> met hun bijna monopolistische aandeel op de eindgebruikers' desktop, speelt zich nu vooral online af. <command>Google</command><indexterm><primary>Google</primary></indexterm>, <command>Microsoft</command>, <command>Yahoo</command> en vele anderen proberen nu ook met <command>web 2.0</command> technieken het succes van <command>Facebook</command> te bereiken.</para>
 	</section>
 	<section><title>Wie bestuurt het internet ?</title>
 		<section><title>IETF</title>
@@ -66,9 +66,9 @@ http://www.rfc-editor.org/rfc/rfc5321.txt
 			<para>Elke <command>Regional Internet Registry</command><indexterm><primary>RIR</primary></indexterm> krijgt ip-adressen van IANA en verdeelt die over een regio. Er zijn vijf van deze RIR in de wereld:</para>
 <screen>ARIN : USA + Canada
 RIPE : Europa + USSR + Midden-Oosten
-AFRINIC : Africa
+AFRINIC : Afrika
 LACNIC : Latijns Amerika
-APNIC : Oceanie + Asia (zonder USSR/Midden Oosten)</screen>
+APNIC : Oceani&#235; + Azi&#0235; (zonder USSR/Midden-Oosten)</screen>
 		</section>
 		<section><title>IANA</title>
 			<para>De <command>Internet Assigned Numbers Authority</command> beslist wereldwijd over wie welke ip-adressen krijgt (via de RIR's), beheert de DNS root servers en controleert MIME-types.</para>
@@ -79,11 +79,11 @@ APNIC : Oceanie + Asia (zonder USSR/Midden Oosten)</screen>
 	</section>
 	<section><title>mensen</title>
 		<section><title>Vint Cerf</title>
-			<para><command>Vinton Gray Cerf</command><indexterm><primary>Vint Cerf</primary></indexterm> werkte van 1976 tot 1982 bij DARPA aan de ontwikkeling van tcp/ip. Sinds 2005 werkt hij voor Google. Hij is medeoprichter van ICANN en de uitvinder van de EOF byte en de ASCII tabel. Hij is ook auteur van heel wat RFC's, onder andere rfc2468. Samen met <command>Kahn, Kleinrock en Roberts</command> vormt hij de vier vaders van het internet.</para>
+			<para><command>Vinton Gray Cerf</command><indexterm><primary>Vint Cerf</primary></indexterm> werkte van 1976 tot 1982 bij DARPA aan de ontwikkeling van tcp/ip. Sinds 2005 werkt hij voor Google. Hij is medeoprichter van ICANN en de uitvinder van de EOF byte en de <command>ascii</command> tabel. Hij is ook auteur van heel wat <command>rfc</command>'s, onder andere rfc2468. Samen met <command>Kahn, Kleinrock en Roberts</command> vormt hij de vier vaders van het internet.</para>
 		</section>
 		<section><title>Jon Postel</title>
-			<para><command>Jon Postel</command><indexterm><primary>Jon Postel</primary></indexterm> is de man die in 1969 gestart was met de RFC's. Hij beheerde ook tot zijn dood in 1998 de IANA.</para>
-			<para>Jon Postel is ook de man achter de uitspraak "wees conservatief in wat je zegt, en liberaal in wat je aanvaardt".</para>
+			<para><command>Jon Postel</command><indexterm><primary>Jon Postel</primary></indexterm> is de man die in 1969 gestart was met de <command>rfc</command><indexterm><primary>rfc</primary></indexterm>'s. Hij beheerde ook tot zijn dood in 1998 de IANA.</para>
+			<para>Jon Postel is ook de man achter de uitspraak "Wees conservatief in wat je zegt, en liberaal in wat je aanvaardt".</para>
 			<screen>http://tools.ietf.org/html/rfc2468
 http://www.postel.org/postel.html</screen>
 		</section>
@@ -93,9 +93,9 @@ http://www.postel.org/postel.html</screen>
 http://en.wikipedia.org/wiki/Robert_Cailliau</screen>
 		</section>
 		<section><title>Al Gore</title>
-			<para>Ondanks de misplaatste grappen rond zijn uitspraak "I invented the internet" tijdens de presidentsverkiezingen van 2000 hoort <command>Al Gore</command><indexterm><primary>Al Gore</primary></indexterm> toch thuis in dit rijtje omdat hij tijdens de jaren 70, 80 en 90 de grote drijfveer was achter de commercialisatie van het internet.</para>
+			<para>Ondanks de misplaatste grappen rond zijn uitspraak "I invented the internet" tijdens de presidentsverkiezingen van 2000 hoort <command>Al Gore</command><indexterm><primary>Al Gore</primary></indexterm> toch thuis in dit rijtje omdat hij tijdens de jaren zeventig, tachtig en begentig de grote drijfveer was achter de commercialisatie van het internet.</para>
 		</section>
 	</section>
 	<section><title>internet servers</title>
-		<para>In tegenstelling tot de desktop markt waar <command>Microsoft</command> dominant is, draaien de overgrote meerderheid van internet webservers, internet dns-servers en internet routers een of andere vorm van <command>Unix</command><indexterm><primary>Unix</primary></indexterm>.</para>
+		<para>In tegenstelling tot de desktop markt waar <command>Microsoft</command> dominant is, draaien de overgrote meerderheid van internet webservers, internet dns-servers en internet routers &#233;&#233;n of andere vorm van <command>Unix</command><indexterm><primary>Unix</primary></indexterm>.</para>
 	</section>
