@@ -18,5 +18,6 @@ add_mod chapter NL_netwerken_enkele_protocols
 add_mod chapter NL_talstelsels
 add_mod chapter NL_netwerken_ipadressen
 add_mod chapter NL_netwerken_ipadressen_binair
+add_mod chapter NL_netwerken_routers
 
 add_mod chapter license
