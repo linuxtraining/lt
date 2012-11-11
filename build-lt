@@ -65,6 +65,11 @@ mv $V $outputdir/*.pdf $www/LinuxSrv.pdf
 ./make.sh $MAKEOPTS clean
 mv $V $outputdir/*.pdf $www/LinuxTraining.pdf
 
+# Netwerken
+./make.sh $MAKEOPTS build minibook_netwerken
+./make.sh $MAKEOPTS clean
+mv $V $outputdir/*.pdf $www/Netwerken.pdf
+
 # cleanup
 clean
 
