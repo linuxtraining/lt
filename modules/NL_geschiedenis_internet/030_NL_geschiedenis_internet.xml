@@ -2,7 +2,7 @@
 	<section><title>1969 arpanet</title>
 	<mediaobject><imageobject><imagedata fileref="images/arpanet_1969.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 		<para>Het <command>arpanet</command><indexterm><primary>arpanet</primary></indexterm> was het eerste netwerk van computers dat gebruik maakte van <command>packet switching</command><indexterm><primary>packet switching</primary></indexterm> technologie. Eind 1969 waren vier computers verbonden op dit <command>inter-network</command>. </para>
-		<para>Het <command>arpanet</command> groeide tot honderden verbonden computers in 1983 (toen werd het opgesplitst in het publieke arpanet en het militaire <command>milnet</command><indexterm><primary>milnet</primary></indexterm>).</para>
+		<para>Het <command>arpanet</command> groeide aan tot honderden verbonden computers in 1983 (toen werd het opgesplitst in het publieke arpanet en het militaire <command>milnet</command><indexterm><primary>milnet</primary></indexterm>).</para>
 	</section>
 	<section><title>packet switching</title>
 		<para>Ter vervanging van vast toegewezen communicatiekanalen werd in de jaren zestig een nieuwe techniek ontwikkeld die alle gegevens die over een netwerk moeten getransporteerd worden opdeelt in kleine <command>packetjes</command><indexterm><primary>packet switching</primary></indexterm>. Elk packetje bepaalt onafhankelijk van alle andere packetjes zijn route naar zijn bestemming. Dit laat toe dat meerdere computers tegelijkertijd gebruik maken van dezelfde (fysische) communicatiekanalen.</para>
