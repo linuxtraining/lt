@@ -69,7 +69,6 @@ option domain-name "linux-training.be";
 option routers 192.168.42.1;
 }</screen>
 </section>
-<?hard-pagebreak?>
 <section><title>example config files</title>
 	<para>Below you see several sections of <command>/etc/dhcp/dhcpd.conf</command> on a <command>Debian 6</command> server.</para>
 	<screen># NetSec Antwerp Network
