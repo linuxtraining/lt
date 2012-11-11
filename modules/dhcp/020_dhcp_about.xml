@@ -1,0 +1,2 @@
+<para>Dynamic Host Configuration Protocol (or short <command>dhcp</command>) is a standard tcp/ip protocol that distributes ip configurations to clients. <command>dhcp</command> is defined in <command>rfc 2131</command> (before that it was defined as an update to <command>bootp</command> in rfc 1531/1541.</para>
+<para>The alternative to <command>dhcp</command> is manually entering the ip configuration on each client computer.</para>

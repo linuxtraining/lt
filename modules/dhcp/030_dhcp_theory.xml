@@ -1,21 +1,23 @@
 <?hard-pagebreak?>
-<section><title>Introduction to dhcp</title>
-	<para>DHCP is a standard tcp/ip protocol that distributes ip configurations to clients. DHCP is defined in rfc 2131 (before this time DHCP it was defined as an update to bootp in rfc 1531/1541.</para>
-	<para>The alternative to DHCP is manually entering the ip configuration on each client computer.</para>
+<section><title>four broadcasts</title>
+	<para><command>dhcp</command> works with layer 2 broadcasts. A dhcp client that starts, will send a <command>dhcp discover</command> on the network. All <command>dhcp servers</command> (that have a lease available) will respond with a <command>dhcp offer</command>. The client will choose one of those offers and will send a <command>dhcp request</command> containing the chosen offer. The <command>dhcp server</command> usually responds with a <command>dhcp ack</command>(knowledge).</para>
+	<para>In wireshark it looks like this.</para>
+	<mediaobject><imageobject><imagedata fileref="images/wireshark_dhcp_four_broadcasts.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>When this procedure is finished, then the client is allowed to use that ip-configuration until the end of its lease time.</para>
 </section>
-<section><title>vier broadcasts</title>
-	<para><command>dhcp</command> werkt met broadcasts. Als een dhcp client opstart, dan stuurt die een <command>DHCPdiscover</command>. Alle dhcp servers antwoorden met een <command>DHCPoffer</command>. De client kiest een van de offers (volgens de rfc het eerste offer) en stuurt een <command>DHCPrequest</command>. De server antwoordt dan (meestal) met een <command>DHCPack</command>(knowledge). U ziet een sniff hiervan hieronder.</para>
-	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/wireshark_dhcp_four_broadcasts.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-	<para>Pas na deze vier broadcasts mag de client de ip-configuratie die hij gekregen heeft gebruiken. Dit tot aan het einde van de lease periode.</para>
+<?hard-pagebreak?>
+<section><title>picturing dhcp</title>
+	<para>Here we have a small network with two <command>dhcp servers</command> named DHCP-SRV1 and DHCP-SRV2 and two clients (SunWS1 and Mac42). All computers are connected by a hub or switch (pictured in the middle). All four computers have a cable to the hub (cables not pictured).</para>
+	<mediaobject><imageobject><imagedata fileref="images/dhcp.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>1. The client SunWS1 sends a <command>dhcp discover</command> on the network. All computers receive this broadcast.</para>
+	<para>2. Both <command>dhcp servers</command> answer with a <command>dhcp offer</command>. DHCP-SRV1 is a <command>dedicated dhcp server</command> and is faster in sending a <command>dhcp offer</command> than DHCP-SRV2 (who happens to also be a file server).</para>
+	<para>3. The client chooses the offer from DHCP-SRV1 and sends a <command>dhcp request</command> on the network.</para>
+	<para>4. DHCP-SRV1 answers with a <command>dhcp ack</command> (short for acknowledge).</para>
+	<para>All four broadcasts (or five when you count both offers) can be layer 2 ethernet broadcast to mac address <command>ff:ff:ff:ff:ff:ff</command> and a layer 3 ip broadcast to 255.255.255.255.</para>
+	<para>The same story can be read in <command>rfc 2131</command>.</para>
 </section>
-<section><title>dhcp options</title>
-	<para>Options can be set on the global, scope, client-reservation level.</para>
-	<screen>option subnet-mask 255.255.255.0;
-option domain-name "linux-training.be";
-option domain-name-servers "ns1.openminds.be";
-option routers 192.168.42.1;</screen>
-</section>
-<section><title>installing dhcp</title>
+<?hard-pagebreak?>
+<section><title>installing a dhcp server</title>
 	<para>On Debian/Ubuntu</para>
 	<screen>debian5:~# aptitude install dhcp3-server
 Reading package lists... Done
@@ -30,23 +32,13 @@ The following NEW packages will be installed:
 	<screen>debian5:~# ls -l /etc/dhcp3/dhcpd.conf 
 -rw-r--r-- 1 root root 3551 2011-04-10 21:23 /etc/dhcp3/dhcpd.conf</screen>
 </section>
-<section><title>tekening DHCP</title>
-	<para>We hebben een klein netwerk met twee servers (DHCP-SRV1 en DHCP-SRV2) en twee clients (SunWS1 en Mac42). In het midden staat een hub (of een switch) om aan te tonen dat deze vier computers op hetzelfde netwerk, hetzelfde segment zitten. Alle vier de computers hebben een kabel naar de hub (niet getekend hier).</para>
-	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/dhcp.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-	<para>1. De client SunWS1 start op en stuurt een DHCPDiscover op het netwerk. Alle computers ontvangen deze broadcast.</para>
-	<para>2. Beide DHCP servers antwoorden met een DHCPOffer. DHCP-SRV1 is een dedicated DHCP server en is sneller met zijn offer dan DHCP-SRV2 (die ook fileserver is).</para>
-	<para>3. De client kiest het offer van DHCP-SRV1 en stuurt een DHCPRequest op het netwerk.</para>
-	<para>4. DHCP-SRV1 antwoordt met een DHCPAck (een acknowledge).</para>
-	<para>Alle vier broadcasts (of vijf want er waren twee offers) zijn een layer 2 ethernet broadcast naar ff:ff:ff:ff:ff:ff en een layer 3 ip broadcast naar 255.255.255.255. Alle vier de computers hebben alle broadcasts ontvangen.</para>
-	<para>Dit verhaal staat ook mooi in rfc 2131.</para>
-</section>
-<section><title>dhcp server op Red Hat Enterprise Linux</title>
-	<para>Eerste stap is om even te kijken in het <command>/etc/dhcpd.conf</command> bestand (om te zien of er al iets gedefinieerd is). Er is nog geen bestaande config, het bestand wijst ons naar een voorbeeld config genaamd <command>dhcpd.conf.sample</command>.</para>
+<section><title>dhcp server on Red Hat</title>
+	<para>After installing we get a <command>/etc/dhcpd.conf</command> that points us to an example file named <command>dhcpd.conf.sample</command>.</para>
 	<screen>[root@localhost ~]# cat /etc/dhcpd.conf 
 #
 # DHCP Server Configuration file.
 #   see /usr/share/doc/dhcp*/dhcpd.conf.sample</screen>
-	<para>We passen het voorbeeldje een beetje aan en kopiëren de volgende configuratie naar <command>/etc/dhcpd.conf</command>.</para>
+	<para>So we copy the sample and adjust it for our real situation. We name the copy <command>/etc/dhcpd.conf</command>.</para>
 	<screen>subnet 192.168.1.0 netmask 255.255.255.0 {
 	range 192.168.1.140 192.168.1.159
 	option routers               192.168.1.1;
@@ -56,21 +48,12 @@ The following NEW packages will be installed:
 	default-lease-time           21600;
 }</screen>
 </section>
-<section><title>dhcp server op windows</title>
-	<para>De installatie verloopt geheel gelijk aan die van Microsoft Windows 2003 DNS server, we beperken ons tot een enkel screenshot hier.</para>
-	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/dhcp_w2003_install.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-	<para>Zoals de meeste Windows settings wordt je ook hier een wizard kado gedaan die je begeleidt door de setup van een nieuwe scope (of range).</para>
-	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/dhcp_w2003_new_scope.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-	<para>Elke setting krijgt een aparte pagina in de wizard. Hieronder de vraag naar de range van ip-adressen.</para>
-	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/dhcp_w2003_range.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-	<para>Als een client een ip-adres (of een ip-configuratie met subnet+router+dns+...) krijgt, dan is dit altijd tijdelijk. Als de helft van deze <command>lease time</command> bereikt is, dan zal de client terug een <command>DHCPrequest</command> broadcasten. Meestal komt er dan een <command>DHCPack</command> van de server, met een nieuwe (meestal dezelfde) lease time.</para>
-	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/dhcp_w2003_lease_time.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-	<para>Eens de wizard doorlopen, en de scope geactiveerd, kan je alle settings en alle leases bekijken via de DHCP tool (eigenlijk een dhcp snapin voor de mmc).</para>
-	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/dhcp_w2003_done.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-</section>
-<section><title>dhcp client</title>
-	<para>Hieronder een voorbeeldje van een Windows 2003 computer die client is van een RHEL5 dhcp server.</para>
-	<mediaobject><imageobject><imagedata fileref="modules/mod_cvotsm/dhcp_w2003_client.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+<section><title>dhcp options</title>
+	<para>Options can be set on the global, scope, client-reservation level.</para>
+	<screen>option subnet-mask 255.255.255.0;
+option domain-name "linux-training.be";
+option domain-name-servers "ns1.openminds.be";
+option routers 192.168.42.1;</screen>
 </section>
 <section><title>client reservations</title>
 	<para>You can reserve an ip configuration for a client using the mac address.</para>
@@ -86,44 +69,36 @@ option domain-name "linux-training.be";
 option routers 192.168.42.1;
 }</screen>
 </section>
-<section><title>80/20 rule</title>
-	<para>DHCP servers should not be a single point of failure. Let us discuss redundant dhcp server setups.</para>
-</section>
-<section><title>relay agent</title>
-	<para>To avoid having to place a dhcp server on every segment, we can use <command>dhcp relay agents</command>.</para>
-</section>
-<section><title>rogue dhcp servers</title>
-	<para>Rogue dhcp servers are a problem without a solution. For example accidental connection of a (believed to be simple) hub/switch to a network with an internal dhcp server.</para>
-</section>
-<section><title>DHCP and DDNS</title>
-	<para>DHCP can dynamically update DNS when it configures a client computer. DDNS can be used with or without secure keys.</para>
-	<para>When set up properly records can be added automaticall to the zone file:</para>
-	<screen>root@fedora14~# tail -2 /var/named/db.office.linux-training.be
-ubu1010srv         A     192.168.42.151
-                   TXT   "00dfbb15e144a273c3cf2d6ae933885782"</screen>
-</section>
 <?hard-pagebreak?>
-<section><title>Exercise DHCP and DDNS</title>
-	<para>1. Make sure you have a unique fixed ip address for your DNS and DHCP server (easier on the same machine).</para>
-	<para>2. Install DHCP and browse the explanation in the default configuration file /etc/dhcp/dhcpd.conf or /etc/dhcp3/dhcpd.conf.</para>
-	<para>3. Decide on a valid scope and activate it.</para>
-	<para>4. Test with a client that your DHCP server works.</para>
-	<para>5. Use wireshark to capture the four broadcasts when a client receives an ip (for the first time).</para>
-	<para>6. Use wireshark to capture a DHCPNAK and a DHCPrelease.</para>
-	<para>7. Reserve a configuration for a particular client (using mac address).</para>
-	<para>8. Configure your DHCP/DNS server(s) with a proper hostname and domainname (/etc/hosts, /etc/hostname, /etc/sysconfig/network on Fedora/RHEL, /etc/resolv.conf ...). You may need to disable NetworkManager on *buntu-desktops.</para>
-	<para>9. Make sure your DNS server still works, and is master over (at least) one domain.</para>
-	<para>There are several ways to do steps 10-11-12. Google is your friend in exploring DDNS with keys, with key-files or without keys.</para>
-	<para>10. Configure your DNS server to allow dynamic updates from your DHCP server.</para>
-	<para>11. Configure your DHCP server to send dynamic updates to your DNS server.</para>
-	<para>12. Test the working of Dynamic DNS.</para>
+<section><title>example config files</title>
+	<para>Below you see several sections of <command>/etc/dhcp/dhcpd.conf</command> on a <command>Debian 6</command> server.</para>
+	<screen># NetSec Antwerp Network
+subnet 192.168.1.0 netmask 255.255.255.0 {
+ range 192.168.1.20 192.168.1.199;
+ option domain-name-servers ns1.netsec.local;
+ option domain-name "netsec.local";
+ option routers 192.168.1.1;
+ option broadcast-address 192.168.1.255;
+ default-lease-time 7200;
+ max-lease-time 7200;
+}</screen>
+	<para>Above the general configuration for the network, with a pool of 180 addresses.</para>
+	<para>Below two client reservations:</para>
+	<screen>#
+# laptops
+#
+
+host mac {
+  hardware ethernet 00:26:bb:xx:xx:xx;
+  fixed-address mac.netsec.local;
+}
+
+host vmac {
+  hardware ethernet 8c:7b:9d:xx:xx:xx;
+  fixed-address vmac.netsec.local;
+}</screen>
 </section>
-<section><title>Exercise DHCP in Packet Tracer</title>
-	<para>1. Setup a dhcp server and a client in packet tracer.</para>
-	<para>2. Test that it works, use simulation to sniff the four broadcasts.</para>
-	<para>3. Setup a relay agent in packet tracer.</para>
-</section>
-<section><title>Example config files</title>
+<section><title>older example config files</title>
 	<para>For dhcpd.conf on Fedora with dynamic updates for a DNS domain.</para>
 	<screen>[root@fedora14 ~]# cat /etc/dhcp/dhcpd.conf 
 authoritative;
@@ -175,4 +150,23 @@ key "rndc-key" {
 	<para>How to include a key in a config file:</para>
 	<screen>include "/etc/bind/rndc.key";</screen>
 	<para>Also make sure that <command>bind</command> can write to your db.zone file (using chmod/chown). For Ubuntu this can be in /etc/bind, for Fedora in /var/named.</para>
+</section>
+<?hard-pagebreak?>
+<section><title>advanced dhcp</title>
+<section><title>80/20 rule</title>
+	<para>DHCP servers should not be a single point of failure. Let us discuss redundant dhcp server setups (todo later).</para>
+</section>
+<section><title>relay agent</title>
+	<para>To avoid having to place a dhcp server on every segment, we can use <command>dhcp relay agents</command>.</para>
+</section>
+<section><title>rogue dhcp servers</title>
+	<para>Rogue dhcp servers are a problem without a solution. For example accidental connection of a (believed to be simple) hub/switch to a network with an internal dhcp server.</para>
+</section>
+<section><title>dhcp and ddns</title>
+	<para>DHCP can dynamically update DNS when it configures a client computer. DDNS can be used with or without secure keys.</para>
+	<para>When set up properly records can be added automaticall to the zone file:</para>
+	<screen>root@fedora14~# tail -2 /var/named/db.office.linux-training.be
+ubu1010srv         A     192.168.42.151
+                   TXT   "00dfbb15e144a273c3cf2d6ae933885782"</screen>
+</section>
 </section>

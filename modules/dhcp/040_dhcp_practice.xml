@@ -1,0 +1,16 @@
+<?hard-pagebreak?>
+<section><title>Practice: DHCP and DDNS</title>
+	<para>1. Make sure you have a unique fixed ip address for your DNS and DHCP server (easier on the same machine).</para>
+	<para>2. Install DHCP and browse the explanation in the default configuration file /etc/dhcp/dhcpd.conf or /etc/dhcp3/dhcpd.conf.</para>
+	<para>3. Decide on a valid scope and activate it.</para>
+	<para>4. Test with a client that your DHCP server works.</para>
+	<para>5. Use wireshark to capture the four broadcasts when a client receives an ip (for the first time).</para>
+	<para>6. Use wireshark to capture a DHCPNAK and a DHCPrelease.</para>
+	<para>7. Reserve a configuration for a particular client (using mac address).</para>
+	<para>8. Configure your DHCP/DNS server(s) with a proper hostname and domainname (/etc/hosts, /etc/hostname, /etc/sysconfig/network on Fedora/RHEL, /etc/resolv.conf ...). You may need to disable NetworkManager on *buntu-desktops.</para>
+	<para>9. Make sure your DNS server still works, and is master over (at least) one domain.</para>
+	<para>There are several ways to do steps 10-11-12. Google is your friend in exploring DDNS with keys, with key-files or without keys.</para>
+	<para>10. Configure your DNS server to allow dynamic updates from your DHCP server.</para>
+	<para>11. Configure your DHCP server to send dynamic updates to your DNS server.</para>
+	<para>12. Test the working of Dynamic DNS.</para>
+</section>
