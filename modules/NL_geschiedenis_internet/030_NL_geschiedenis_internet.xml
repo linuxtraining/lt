@@ -96,6 +96,3 @@ http://en.wikipedia.org/wiki/Robert_Cailliau</screen>
 			<para>Ondanks de misplaatste grappen rond zijn uitspraak "I invented the internet" tijdens de presidentsverkiezingen van 2000 hoort <command>Al Gore</command><indexterm><primary>Al Gore</primary></indexterm> toch thuis in dit rijtje omdat hij tijdens de jaren zeventig, tachtig en begentig de grote drijfveer was achter de commercialisatie van het internet.</para>
 		</section>
 	</section>
-	<section><title>internet servers</title>
-		<para>In tegenstelling tot de desktop markt waar <command>Microsoft</command> dominant is, draaien de overgrote meerderheid van internet webservers, internet dns-servers en internet routers &#233;&#233;n of andere vorm van <command>Unix</command><indexterm><primary>Unix</primary></indexterm>.</para>
-	</section>
