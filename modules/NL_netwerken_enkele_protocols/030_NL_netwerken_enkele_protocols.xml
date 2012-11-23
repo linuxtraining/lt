@@ -17,6 +17,21 @@
 	<para>Aangekomen in de onderste laag beschouwt <command>ethernet</command> het hele <command>ip datagram</command> als <command>data</command> en voegt er vervolgens een <command>ethernet header</command> aan toe zodat het <command>frame</command> tot aan de volgende link geraakt.</para>
 </section>
 <?hard-pagebreak?>
+<section><title>port demultiplexing</title>	
+	<para>Hoe raakt het packetje bij de juiste applicatie ?</para>
+	<para><mediaobject><imageobject><imagedata fileref="images/port_demultiplexing.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+	<para>Een <command>frame</command> dat aankomt in een computer, wordt gecontroleerd op het juiste <command>link layer address</command> (mac adres in ethernet etc). Daarna wordt het resterende gedeelte gecontroleerd op <command>ip adres</command>. Indien het <command>destination ip address</command> anders is dan het ip adres van deze computer, dan wordt dit packetje weggegooid.</para>
+	<para>Raakt het alsnog door de controle, dan wordt gekeken naar de <command>destination port</command> en aan de hand van dit poortnummer wordt beslist aan welke applicatie de bytes moeten gegeven worden.</para>
+</section>
+<?hard-pagebreak?>
+<section><title>waar zitten de lagen ?</title>
+	<para>Soms vragen studenten zich af waar deze lagen te vinden zijn in de computer, daarvoor hebben we deze tekening.</para>
+	<para><mediaobject><imageobject><imagedata fileref="images/waarzittendelagen.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+	<para>De bovenste laag zit in wat <command>user space</command> wordt genoemd. Dat is het gedeelte van het operating system en het geheugen waar de applicaties voor eindgebruikers zitten. Programmeurs gebruiken een <command>socket</command> om iets te doen op het netwerk, en kunnen deze aanmaken via aan <command>api</command> (Application Programming Interface).</para>
+	<para>De transport en de netwerklaag zijn ook geschreven in software, maar zitten in <command>kernel space</command>. Op Unix/Linux computers maken de protocols <command>tcp</command> en <command>ip</command> deel uit van de <command>kernel</command> (als module), terwijl dit in Microsoft systemen ook als <command>driver</command> kan geprogrammeerd zijn.</para>
+	<para>Als we bij de linklaag komen, dan vinden we ons frame als bytes in <command>ic's</command> op de netwerkkaart. Een <command>ic</command> is een integrated circuit (of chip). De bits van de bytes zelf zitten opgeslagen in wat men een <command>flip flop</command> noemt. Eens op de utp kabel zijn onze bytes volledig omgezet in electromagnetische straling.</para>
+</section>
+<?hard-pagebreak?>
 <section><title>ping en arp</title>
 	<para>Het <command>arp</command> protocol is een <command>layer 2</command> protocol dat een link legt tussen het <command>ip-adres</command> en het <command>mac-adres</command> van een computer. We hebben in de klas deze werking aangetoond met behulp van het <command>ping</command> commando en de <command>wireshark</command> sniffer. We hebben ook het <command>arp</command> commando uitgevoerd om de <command>arp-cache-table</command> te bekijken.</para>
 	<para><mediaobject><imageobject><imagedata fileref="images/arp_ping.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
