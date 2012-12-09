@@ -24,7 +24,6 @@ Setting up git (1:1.7.2.5-3) ...</screen>
 	<screen>paul@debian6~$ mkdir project42
 paul@debian6~$ cd project42/
 paul@debian6~/project42$ echo "echo The answer is 42." &#062;&#062; question.sh</screen>
-</section>
 <section><title>git init</title>
 	<para>Then we tell <command>git</command> to create an empty git repository in this directory.</para>
 	<screen>paul@debian6~/project42$ ls -la
@@ -142,6 +141,7 @@ paul@debian6~/project42$ git commit -m "improved naming scheme"
  1 file changed, 0 insertions(+), 0 deletions(-)
  rename question.sh => thequestion.sh (100%)</screen>
 </section>
+</section>
 <?hard-pagebreak?>
 <section><title>git branches</title>
 	<para>Working on the project can be done in one or more <command>git branches</command>. Here we create a new branch that will make changes to the script. We will <command>merge</command> this branch with the <command>master branch</command> when we are sure the script works. (It can be useful to add <command>git status</command> commands when practicing).</para>
@@ -199,16 +199,13 @@ Deleted branch newheader (was 730a22b).
 paul@debian6~/project42$ git branch
 * master</screen>
 </section>
-<section><title>starting a project</title>
-	<para></para>
-	<screen>
-</screen>
+<section><title>to be continued...</title>
+	<para>The <command>git</command> story is not finished.</para>
+	<para>There are many excellent online tutorials for <command>git</command>. This list can save you one Google query:</para>
+	<screen>http://gitimmersion.com/
+http://git-scm.com/book</screen>
 </section>
-<section><title>starting a project</title>
-	<para></para>
-	<screen>
-</screen>
-</section>
+
 
 
 
@@ -218,7 +215,6 @@ paul@debian6~/project42$ git branch
 	<screen>https://github.com/signup/free</screen>
 	<para>This account is free of charge, we will use it in the examples below.</para>
 </section>
-
 <section><title>add your public key to github</title>
 	<para>I prefer to use github with a <command>public key</command><indexterm><primary>public key</primary></indexterm>, so it probably is a good idea that you also upload your public key to github.com.</para>
 	<para><mediaobject><imageobject><imagedata fileref="images/github_pubkey.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
@@ -227,58 +223,3 @@ paul@debian6~/project42$ git branch
 	<para>Please do not forget to protect your <command>private key</command>!</para>
 </section>
 
-<section><title>tell git who you are</title>
-	<para>Since <command>git</command><indexterm><primary>git</primary></indexterm> can put your projects on the internet, it is a good idea to tell git who you are. So after installing git, issue the following two commands. <command>Use your own name and email, not mine!!</command></para>
-	<screen>git config --global user.name "Paul Cobbaut"
-git config --global user.email "paul.cobbaut@gmail.com"</screen>
-</section>
-
-<section><title>git</title>
-	<para> <command>a git</command><indexterm><primary>git</primary></indexterm>.</para>
-	<para></para>
-	<screen>
-</screen>
-	<para></para>
-	<screen>
-</screen>
-</section>
-
-<section><title>git</title>
-	<para> <command>a git</command><indexterm><primary>git</primary></indexterm>.</para>
-	<para></para>
-	<screen>
-</screen>
-	<para></para>
-	<screen>
-</screen>
-</section>
-
-<section><title>git</title>
-	<para> <command>a git</command><indexterm><primary>git</primary></indexterm>.</para>
-	<para></para>
-	<screen>
-</screen>
-	<para></para>
-	<screen>
-</screen>
-</section>
-
-<section><title>git</title>
-	<para> <command>a git</command><indexterm><primary>git</primary></indexterm>.</para>
-	<para></para>
-	<screen>
-</screen>
-	<para></para>
-	<screen>
-</screen>
-</section>
-
-<section><title>git</title>
-	<para> <command>a git</command><indexterm><primary>git</primary></indexterm>.</para>
-	<para></para>
-	<screen>
-</screen>
-	<para></para>
-	<screen>
-</screen>
-</section>
