@@ -1,0 +1,11 @@
+#!/bin/sh
+#
+
+BOOKTITLE="introducing git"
+
+##################
+# define minibook
+##################
+
+# define book as directories in certain order
+add_mod chapter git
