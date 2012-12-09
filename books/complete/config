@@ -38,6 +38,7 @@ add_mod minibook minibook_dhcp
 add_mod minibook minibook_router
 add_mod minibook minibook_firewall
 add_mod minibook minibook_webserver  # seperate squid?
+add_mod minibook minibook_git
 add_mod minibook minibook_ipv6
 add_mod minibook minibook_database
 add_mod minibook minibook_selinux
