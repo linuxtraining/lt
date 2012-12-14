@@ -11,8 +11,8 @@
 	<para>6. Change the date on yesterday.txt to match yesterday's date.</para>
 	<para>7. Copy yesterday.txt to copy.yesterday.txt</para>
 	<para>8. Rename copy.yesterday.txt to kim</para>
-	<para>9. Create a directory called &#126;/testbackup and copy all files from &#126;/touched in it.</para>
-	<para>10. Use one command to remove the directory &#126;/testbackup and all files in it.</para>
-	<para>11. Create a directory &#126;/etcbackup and copy all *.conf files from /etc in it. Did you include all subdirectories of /etc ?</para>
+	<para>9. Create a directory called &#126;/testbackup and copy all files from &#126;/touched into it.</para>
+	<para>10. Use one command to remove the directory &#126;/testbackup and all files into it.</para>
+	<para>11. Create a directory &#126;/etcbackup and copy all *.conf files from /etc into it. Did you include all subdirectories of /etc ?</para>
 	<para>12. Use rename to rename all *.conf files to *.backup . (if you have more than one distro available, try it on all!)</para>
 </section>
