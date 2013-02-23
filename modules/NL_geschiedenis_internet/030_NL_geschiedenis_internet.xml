@@ -51,10 +51,24 @@ http://www.rfc-editor.org/rfc/rfc5321.txt
 	<para>Altijd opletten met statistieken!</para>
 	</section>
 <?hard-pagebreak?>
-	<section><title>web 2.0</title>
-		<para>Sinds de opkomst van <command>myspace</command>, <command>orkut</command><indexterm><primary>orkut</primary></indexterm>, <command>linkedin</command><indexterm><primary>linkedin</primary></indexterm> en zeker <command>facebook</command><indexterm><primary>facebook</primary></indexterm> is het al <command>web 2.0</command> wat de klok slaat. We noemen deze nieuwe trend van <command>vriendjes maken</command> in het Engels <command>social networking</command><indexterm><primary>social networking</primary></indexterm>, soms ongelukkig vertaald in het Nederlands als <command>sociale netwerken</command>.</para>
-		<para>De strijd om de gebruiker, die gewonnen leek door <command>Microsoft</command> met hun bijna monopolistische aandeel op de eindgebruikers' desktop, speelt zich nu vooral online af. <command>Google</command><indexterm><primary>Google</primary></indexterm>, <command>Microsoft</command>, <command>Yahoo</command> en vele anderen proberen nu ook met <command>web 2.0</command> technieken het succes van <command>Facebook</command> te bereiken.</para>
+	<section><title>piraterij</title>
+		<para>Vanaf eind jaren 90 brak de <command>piraterij</command> definitief door op het internet. Eerst populair via <command>napster</command>, een peer-to-peer programma om duizenden <command>mp3-tjes</command> te downloaden via een simpele muisklik. Groot verschil met het (jarenlang gedoogde) copieren van cassettebandjes was dat er geen kwaliteitsverlies was bij het nemen van een kopie van een kopie (van een kopie...).</para>
+	<mediaobject><imageobject><imagedata fileref="images/napster-screenshot.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+		<para>Napster werd opgedoekt, maar er kwamen snel alternatieven zoals kazaa, emule, gnutella, limewire en in 2002 verscheen <command>suprnova.org</command>. Deze laatste werd immens populair.</para>
+	<para>Het (uiteindelijk) neerhalen van de suprnova.org website werd als een overwinning gezien voor Hollywood, ware het niet dat kort nadien <command>thepiratebay</command> verscheen.</para>
+	<para>Hieronder een foto (copyright dekaminski.se) van de allereerste piratebay server.</para>
+	<mediaobject><imageobject><imagedata fileref="images/tpb-server1.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 	</section>
+<?hard-pagebreak?>
+	<section><title>sociale netwerken</title>
+		<para>Sinds de opkomst van <command>myspace</command>, <command>orkut</command><indexterm><primary>orkut</primary></indexterm>, <command>linkedin</command><indexterm><primary>linkedin</primary></indexterm> en zeker <command>facebook</command><indexterm><primary>facebook</primary></indexterm> is het al <command>web 2.0</command> wat de klok slaat. We noemen deze nieuwe trend van <command>vriendjes maken</command> in het Engels <command>social networking</command><indexterm><primary>social networking</primary></indexterm>, soms ongelukkig vertaald in het Nederlands als <command>sociale netwerken</command>.</para>
+		<para>De strijd om de gebruiker, die gewonnen leek door <command>Microsoft</command> met hun bijna monopolistische aandeel op de eindgebruikers' desktop, speelt zich nu vooral online af. <command>Google</command><indexterm><primary>Google</primary></indexterm>, <command>Microsoft</command>, <command>Yahoo</command> en vele anderen proberen nu ook met <command>social networking</command> technieken het succes van <command>Facebook</command> te bereiken.</para>
+		<para>Nieuwe spelers op dit terrein zijn <command>twitter</command> en sinds dit jaar ook <command>Mega</command> (van Kim Dotcom) met plannen om ook email, chat, voice, video, mobile en vooral ook bitcoin te aanvaarden.</para>
+	</section>
+	<section><title>bitcoin</title>
+		<para>Sinds enkele jaren dwalen er <command>bitcoins</command> rond op het internet. Dit is een betaalmiddel dat vooral door <command>grijze websites</command> gerbuikt wordt, maar wel bezig is aan een serieuze opmars. Banken en regeringen vrezen nu al de grootte van facebook (1 miljard gebruikers) en Google/Blogger/Youtube (800 miljoen gebruikers). Wat als deze ook nog eens een betaalmiddel (en dus een economie) hebben die groter is dan het BNP van pakweg de G7 ?</para>
+	</section>
+<?hard-pagebreak?>
 	<section><title>Wie bestuurt het internet ?</title>
 		<section><title>IETF</title>
 			<para>De <command>Internet Engineering Task Force</command><indexterm><primary>IETF</primary></indexterm> is een organisatie die <command>rfc</command><indexterm><primary>rfc</primary></indexterm>'s kan goedkeuren als zijnde een <command>internet standard protocol</command>.</para>
