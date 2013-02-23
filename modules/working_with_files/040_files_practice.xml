@@ -2,17 +2,17 @@
 <section><title>practice: working with files</title>
 	<para>1. List the files in the /bin directory</para>
 	<para>2. Display the type of file of /bin/cat, /etc/passwd and /usr/bin/passwd.</para>
-	<para>3a. Download wolf.jpg and book.pdf from http://www.linux-training.be (wget http://linux-training.be/files/studentfiles/wolf.jpg and wget http://linux-training.be/files/books/LinuxFun.pdf)</para>
-	<para>3b. Display the type of file of wolf.jpg and book.pdf</para>
+	<para>3a. Download wolf.jpg and LinuxFun.pdf from http://linux-training.be (wget http://linux-training.be/files/studentfiles/wolf.jpg and wget http://linux-training.be/files/books/LinuxFun.pdf)</para>
+	<para>3b. Display the type of file of wolf.jpg and LinuxFun.pdf</para>
 	<para>3c. Rename wolf.jpg to wolf.pdf (use mv).</para>
-	<para>3d. Display the type of file of wolf.pdf and book.pdf.</para>
+	<para>3d. Display the type of file of wolf.pdf and LinuxFun.pdf.</para>
 	<para>4. Create a directory &#126;/touched and enter it.</para>
 	<para>5. Create the files today.txt and yesterday.txt in touched.</para>
 	<para>6. Change the date on yesterday.txt to match yesterday's date.</para>
 	<para>7. Copy yesterday.txt to copy.yesterday.txt</para>
 	<para>8. Rename copy.yesterday.txt to kim</para>
-	<para>9. Create a directory called &#126;/testbackup and copy all files from &#126;/touched in it.</para>
-	<para>10. Use one command to remove the directory &#126;/testbackup and all files in it.</para>
-	<para>11. Create a directory &#126;/etcbackup and copy all *.conf files from /etc in it. Did you include all subdirectories of /etc ?</para>
+	<para>9. Create a directory called &#126;/testbackup and copy all files from &#126;/touched into it.</para>
+	<para>10. Use one command to remove the directory &#126;/testbackup and all files into it.</para>
+	<para>11. Create a directory &#126;/etcbackup and copy all *.conf files from /etc into it. Did you include all subdirectories of /etc ?</para>
 	<para>12. Use rename to rename all *.conf files to *.backup . (if you have more than one distro available, try it on all!)</para>
 </section>

@@ -4,16 +4,16 @@
 	<screen>ls /bin</screen>
 	<para>2. Display the type of file of /bin/cat, /etc/passwd and /usr/bin/passwd.</para>
 	<screen>file /bin/cat /etc/passwd /usr/bin/passwd</screen>
-	<para>3a. Download wolf.jpg and book.pdf from http://www.linux-training.be (wget http://linux-training.be/files/studentfiles/wolf.jpg and wget http://linux-training.be/files/books/LinuxFun.pdf)</para>
+	<para>3a. Download wolf.jpg and LinuxFun.pdf from http://linux-training.be (wget http://linux-training.be/files/studentfiles/wolf.jpg and wget http://linux-training.be/files/books/LinuxFun.pdf)</para>
 	<screen>wget http://linux-training.be/files/studentfiles/wolf.jpg
 wget http://linux-training.be/files/studentfiles/wolf.png
 wget http://linux-training.be/files/books/LinuxFun.pdf</screen>
-	<para>3b. Display the type of file of wolf.jpg and book.pdf</para>
-	<screen>file wolf.jpg book.pdf</screen>
+	<para>3b. Display the type of file of wolf.jpg and LinuxFun.pdf</para>
+	<screen>file wolf.jpg LinuxFun.pdf</screen>
 	<para>3c. Rename wolf.jpg to wolf.pdf (use mv).</para>
 	<screen>mv wolf.jpg wolf.pdf</screen>
-	<para>3d. Display the type of file of wolf.pdf and book.pdf.</para>
-	<screen>file wolf.pdf book.pdf</screen>
+	<para>3d. Display the type of file of wolf.pdf and LinuxFun.pdf.</para>
+	<screen>file wolf.pdf LinuxFun.pdf</screen>
 	<para>4. Create a directory &#126;/touched and enter it.</para>
 	<screen>mkdir &#126;/touched ; cd &#126;/touched</screen>
 	<para>5. Create the files today.txt and yesterday.txt in touched.</para>
@@ -24,11 +24,11 @@ wget http://linux-training.be/files/books/LinuxFun.pdf</screen>
 	<screen>cp yesterday.txt copy.yesterday.txt</screen>
 	<para>8. Rename copy.yesterday.txt to kim</para>
 	<screen>mv copy.yesterday.txt kim</screen>
-	<para>9. Create a directory called &#126;/testbackup and copy all files from &#126;/touched in it.</para>
+	<para>9. Create a directory called &#126;/testbackup and copy all files from &#126;/touched into it.</para>
 	<screen>mkdir &#126;/testbackup ; cp -r &#126;/touched &#126;/testbackup/ </screen>
-	<para>10. Use one command to remove the directory &#126;/testbackup and all files in it.</para>
+	<para>10. Use one command to remove the directory &#126;/testbackup and all files into it.</para>
 	<screen>rm -rf &#126;/testbackup </screen>
-	<para>11. Create a directory &#126;/etcbackup and copy all *.conf files from /etc in it. Did you include all subdirectories of /etc ?</para>
+	<para>11. Create a directory &#126;/etcbackup and copy all *.conf files from /etc into it. Did you include all subdirectories of /etc ?</para>
 	<screen>cp -r /etc/*.conf &#126;/etcbackup</screen>
 	<screen>Only *.conf files that are directly in /etc/ are copied.</screen>
 	<para>12. Use rename to rename all *.conf files to *.backup . (if you have more than one distro available, try it on all!)</para>
