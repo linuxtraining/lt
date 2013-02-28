@@ -18,10 +18,44 @@ ii rsync 3.0.7-2 fast remote file copy program (like rcp)</screen>
 	</section>
 	<section><title>dpkg -S</title>
 		<para>You can find the package that installed a certain file on your computer with <command>dpkg -S</command>. This example shows how to find the package for three files on a typical Debian server.</para>
-		<screen>root@zena10:~# dpkg -S /usr/share/doc/tmux/ /etc/ssh/ssh_config /sbin/ifconfig 
+		<screen>root@debian6:~# dpkg -S /usr/share/doc/tmux/ /etc/ssh/ssh_config /sbin/ifconfig 
 tmux: /usr/share/doc/tmux/
 openssh-client: /etc/ssh/ssh_config
 net-tools: /sbin/ifconfig</screen>
+	</section>
+	<section><title>dpkg -L</title>
+		<para>You can also get a list of all files that are installed by a certain program. Below is the list for the <command>tmux</command> package.</para>
+		<screen>root@debian6:~# dpkg -L tmux
+/.
+/etc
+/etc/init.d
+/etc/init.d/tmux-cleanup
+/usr
+/usr/share
+/usr/share/lintian
+/usr/share/lintian/overrides
+/usr/share/lintian/overrides/tmux
+/usr/share/doc
+/usr/share/doc/tmux
+/usr/share/doc/tmux/TODO.gz
+/usr/share/doc/tmux/FAQ.gz
+/usr/share/doc/tmux/changelog.Debian.gz
+/usr/share/doc/tmux/NEWS.Debian.gz
+/usr/share/doc/tmux/changelog.gz
+/usr/share/doc/tmux/copyright
+/usr/share/doc/tmux/examples
+/usr/share/doc/tmux/examples/tmux.vim.gz
+/usr/share/doc/tmux/examples/h-boetes.conf
+/usr/share/doc/tmux/examples/n-marriott.conf
+/usr/share/doc/tmux/examples/screen-keys.conf
+/usr/share/doc/tmux/examples/t-williams.conf
+/usr/share/doc/tmux/examples/vim-keys.conf
+/usr/share/doc/tmux/NOTES
+/usr/share/man
+/usr/share/man/man1
+/usr/share/man/man1/tmux.1.gz
+/usr/bin
+/usr/bin/tmux</screen>
 	</section>
 	<section><title>dpkg</title>
 		<para>You could use <command>dpkg -i</command> to install a package and <command>dpkg -r</command> to remove a package, but you'd have to manually keep track of dependencies. Using <command>apt-get</command> or <command>aptitude</command> is much easier.</para>
