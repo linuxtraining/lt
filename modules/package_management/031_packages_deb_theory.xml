@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>deb</title>
+<section><title>deb package management</title>
 	<section><title>about deb</title>
 		<para>Most people use <command>aptitude</command> or <command>apt-get</command> to manage their Debian/Ubuntu family of Linux distributions. Both are a front end for <command>dpkg</command> and are themselves a back end for <command>synaptic</command> and other graphical tools.</para>
 	</section>
@@ -12,9 +12,16 @@
 2527</screen>
 	</section>
 	<section><title>dpkg -l $package</title>
- 	<para>Here is an example on how to get information on an individual packaga. The ii at the beginning means the package is installed.</para>
+ 	<para>Here is an example on how to get information on an individual package. The ii at the beginning means the package is installed.</para>
 	<screen>root@debian6:~# dpkg -l rsync | tail -1 | tr -s  ' ' 
 ii rsync 3.0.7-2 fast remote file copy program (like rcp)</screen>
+	</section>
+	<section><title>dpkg -S</title>
+		<para>You can find the package that installed a certain file on your computer with <command>dpkg -S</command>. This example shows how to find the package for three files on a typical Debian server.</para>
+		<screen>root@zena10:~# dpkg -S /usr/share/doc/tmux/ /etc/ssh/ssh_config /sbin/ifconfig 
+tmux: /usr/share/doc/tmux/
+openssh-client: /etc/ssh/ssh_config
+net-tools: /sbin/ifconfig</screen>
 	</section>
 	<section><title>dpkg</title>
 		<para>You could use <command>dpkg -i</command> to install a package and <command>dpkg -r</command> to remove a package, but you'd have to manually keep track of dependencies. Using <command>apt-get</command> or <command>aptitude</command> is much easier.</para>

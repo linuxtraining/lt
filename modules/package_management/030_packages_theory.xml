@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>terminology</title>
+<section><title>package terminology</title>
 	<section><title>repository</title>
 		<para>A lot of software and documentation for your Linux distribution is available as <command>packages</command> in one or more centrally distributed <command>repositories</command><indexterm><primary>repository</primary></indexterm>. These <command>packages</command> in such a <command>repository</command> are tested and very easy to install (or remove) with a graphical or command line installer.</para>
 	</section>
