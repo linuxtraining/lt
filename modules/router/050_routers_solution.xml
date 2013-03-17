@@ -1,41 +1,21 @@
 <?hard-pagebreak?>
 <section><title>solution: packet forwarding</title>
-	<para>1. Set up two dsl (Damn Small Linux) machines, one on vmnet1, the other on vmnet8. Make sure they both get an ip-address in the correct subnet. These two machines will be 'left' and 'right' from the 'router'.</para>
-	<para>The configuration of the dsl machines can be similar to the following two screenshots. Both machines must be in a different subnet (here 192.168.187.0/24 and 172.16.122.0/24)</para>
-	<screen>
-root@ttyp1[root]# ifconfig eth0 | grep -A1 eth0
-eth0 Link encap:Ethernet  HWaddr 00:0C:29:08:F4:C1  
-     inet addr:192.168.187.130  Bcast:192.168.187.255  Mask:255.255.255.0
-root@ttyp1[root]# route
-Kernel IP routing table
-Destination    Gateway         Genmask        Flags Metric Ref  Use Iface
-192.168.187.0  *               255.255.255.0  U     0      0      0 eth0
-default        192.168.187.128 0.0.0.0        UG    0      0      0 eth0
-root@ttyp1[root]#
-	</screen>
-	<screen>
-root@ttyp1[root]# ifconfig eth0 | grep -A1 eth0
-eth0 Link encap:Ethernet  HWaddr 00:0C:29:6E:1A:AA  
-     inet addr:172.16.122.129  Bcast:172.16.122.255  Mask:255.255.255.0
-root@ttyp1[root]# route
-Kernel IP routing table
-Destination    Gateway         Genmask        Flags Metric Ref  Use Iface
-172.16.122.0   *               255.255.255.0  U     0      0      0 eth0
-default        172.16.122.128  0.0.0.0        UG    0      0      0 eth0
-root@ttyp1[root]#
-	</screen>
-	<para>2. Set up a RHEL server with two network cards, one on vmnet1, the other on vmnet8. This computer will be the 'router'.</para>
-	<para>The 'router' can be set up like this screenshot shows.</para>
-	<screen>
-[root@RHEL5 ~]# ifconfig | grep -A1 eth
-eth1 Link encap:Ethernet  HWaddr 00:0C:29:8C:90:49  
-     inet addr:192.168.187.128  Bcast:192.168.187.255  Mask:255.255.255.0
---
-eth2 Link encap:Ethernet  HWaddr 00:0C:29:8C:90:53  
-     inet addr:172.16.122.128  Bcast:172.16.122.255  Mask:255.255.255.0
-[root@RHEL5 ~]# 
-	</screen>
-	<para>Your setup may use different ip and mac addresses than the ones in the table below. This table serves as a reference for the screenshots from this solution to the practice.</para>
+	<para><mediaobject><imageobject><imagedata fileref="images/LAN_networks.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+	<para>1. Set up two Linux machines, one on <command>leftnet</command>, the other on <command>rightnet</command>. Make sure they both get an ip-address in the correct subnet. These two machines will be 'left' and 'right' from the 'router'.</para>
+	<para><mediaobject><imageobject><imagedata fileref="images/leftnet_rightnet_router2.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+	<para>The ip configuration on your computers should be similar to the following two screenshots. Both machines must be in a different subnet (here 192.168.60.0/24 and 192.168.70.0/24). I created a little script on both machines to configure the interfaces.</para>
+	<screen>root@left~# cat leftnet.sh
+pkill dhclient
+ifconfig eth0 192.168.60.8 netmask 255.255.255.0</screen>
+	<screen>root@right~# cat rightnet.sh
+pkill dhclient
+ifconfig eth0 192.168.70.9 netmask 255.255.255.0</screen>
+	<para>2. Set up a third Linux computer with three network cards, one on <command>leftnet</command>, the other on <command>rightnet</command>. This computer will be the 'router'. Complete the table below with the relevant names, ip-addresses and mac-addresses.</para>
+	<screen>root@router~# cat router.sh
+ifconfig eth1 192.168.60.1 netmask 255.255.255.0
+ifconfig eth2 192.168.70.1 netmask 255.255.255.0
+#echo 1 > /proc/sys/net/ipv4/ip_forward</screen>
+	<para>Your setup may use different ip and mac addresses than the ones in the table below.</para>
 <table frame='all'><title>Packet Forwarding Solution</title>
 <?dbfo table-width="100%" ?>
 <tgroup cols='4' align='left' colsep='1' rowsep='1'>
@@ -45,76 +25,45 @@ eth2 Link encap:Ethernet  HWaddr 00:0C:29:8C:90:53
 <colspec colname='c5' colwidth="1*" align="center"/>
 <thead>
 <row>
-  <entry>left: dsl</entry>
-  <entry namest="c2" nameend="c3">router: RHEL5</entry>
-  <entry>right: dsl</entry>
+  <entry>leftnet computer</entry>
+  <entry namest="c2" nameend="c3">the router</entry>
+  <entry>rightnet computer</entry>
 </row>
 </thead>
 <tbody>
 <row>
-  <entry>00:0c:29:08:f4:c1</entry>
-  <entry>00:0c:29:8c:90:49</entry>
-  <entry>00:0c:29:8c:90:53</entry>
-  <entry>00:0c:29:6e:1a:aa</entry>
+  <entry>08:00:27:f6:ab:b9</entry>
+  <entry>08:00:27:43:1f:5a</entry>
+  <entry>08:00:27:be:4a:6b</entry>
+  <entry>08:00:27:14:8b:17</entry>
 </row>
 <row>
-  <entry>192.168.187.130</entry>
-  <entry>192.168.187.128</entry>
-  <entry>172.16.122.128</entry>
-  <entry>172.16.122.129</entry>
+  <entry>192.168.60.8</entry>
+  <entry>192.168.60.1</entry>
+  <entry>192.168.70.1</entry>
+  <entry>192.168.70.9</entry>
 </row>
 </tbody>
 </tgroup>
 </table>
-
-	<para>3. How can you verify whether the RHEL will allow packet forwarding by default or not ? Test that you can ping from the RHEL to the two dsl machines, and from the two dsl machines to the RHEL. Use <command>arp -a</command> to make sure you are connected with the correct MAC addresses.</para>
-	<para>This can be done with "<command>grep ip_forward /etc/sysctl.conf</command>" (1 is enabled, 0 is disabled).</para>
-	<screen>
-[root@RHEL5 ~]# grep ip_for /etc/sysctl.conf 
-net.ipv4.ip_forward = 0
-	</screen>
-	<para>4. Ping from one dsl to the other. Enable and/or disable packet forwarding on the RHEL server and verify what happens to the ping between the two dsl machines. If you do not succeed in pinging between the two dsl machines (on different subnets), then use a sniffer like ethereal or tcpdump to discover the problem.</para>
-	<para>Did you forget to add a default gateway to the dsl machines ? Use <command>route add default gw 'ip-address'</command>. </para>
+	<para>3. How can you verify whether the <command>router</command> will allow packet forwarding by default or not ? Test that you can ping from the <command>router</command> to the two other machines, and from those two machines to the <command>router</command>. Use <command>arp -a</command> to make sure you are connected with the correct <command>mac addresses</command>.</para>
+	<para>This can be done with "<command>grep ip_forward /etc/sysctl.conf</command>" (1 is enabled, 0 is disabled) or with <command>sysctl -a | grep ip_for</command>.</para>
+	<screen>root@router~# grep ip_for /etc/sysctl.conf 
+net.ipv4.ip_forward = 0</screen>
+	<para>4. Ping from the leftnet computer to the rightnet computer. Enable and/or disable packet forwarding on the <command>router</command> and verify what happens to the ping between the two networks. If you do not succeed in pinging between the two networks (on different subnets), then use a sniffer like wireshark or tcpdump to discover the problem.</para>
+	<para>Did you forget to add a <command>default gateway</command> to the LAN machines ? Use <command>route add default gw 'ip-address'</command>. </para>
+	<screen>root@left~# route add default gw 192.168.60.1</screen>
+	<screen>root@right~# route add default gw 192.168.70.1</screen>
 	<para>You should be able to ping when packet forwarding is enabled (and both default gateways are properly configured). The ping will not work when packet forwarding is disabled or when gateways are not configured correctly.</para>
-	<para></para>
 	<para>5. Use wireshark or tcpdump -xx to answer the following questions. Does the source MAC change when a packet passes through the filter ? And the destination MAC ? What about source and destination IP-addresses ?</para>
-	<para>Both MAC addresses are changed when passing the router. The screenshots below show tcpdump -xx output on the router. The first one is taken on the eth1(vmnet1) interface in the 192.168.187.0/24 network, the second one is from the other interface (eth2 on vmnet8 in 172.16.122.0/24). The first six bytes are the destination MAC, the next six are the source.</para>
-	<screen>
-[root@RHEL5 ~]# tcpdump -xx -i eth1
-tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
-listening on eth1, link-type EN10MB (Ethernet), capture size 96 bytes
-04:18:23.817854 IP 192.168.187.130 > 172.16.122.129: ICMP echo request...
-	0x0000:  000c 298c 9049 000c 2908 f4c1 0800 4500
-	0x0010:  0054 0000 4000 4001 97ec c0a8 bb82 ac10
-	0x0020:  7a81 0800 3b28 a717 0006 8059 d148 d614
-	0x0030:  0300 0809 0a0b 0c0d 0e0f 1011 1213 1415
-	0x0040:  1617 1819 1a1b 1c1d 1e1f 2021 2223 2425
-	0x0050:  2627 2829 2a2b 2c2d 2e2f 3031 3233 3435
-04:18:23.817962 IP 172.16.122.129 > 192.168.187.130: ICMP echo reply...
-	0x0000:  000c 2908 f4c1 000c 298c 9049 0800 4500
-	0x0010:  0054 d364 0000 3f01 0588 ac10 7a81 c0a8
-	0x0020:  bb82 0000 4328 a717 0006 8059 d148 d614
-	0x0030:  0300 0809 0a0b 0c0d 0e0f 1011 1213 1415
-	0x0040:  1617 1819 1a1b 1c1d 1e1f 2021 2223 2425
-	0x0050:  2627 2829 2a2b 2c2d 2e2f 3031 3233 3435
-	</screen>
-	<screen>
-[root@RHEL5 ~]# tcpdump -xx -i eth2
-tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
-listening on eth2, link-type EN10MB (Ethernet), capture size 96 bytes
-04:18:33.904697 IP 192.168.187.130 > 172.16.122.129: ICMP echo request...
-	0x0000:  000c 296e 1aaa 000c 298c 9053 0800 4500
-	0x0010:  0054 0000 4000 3f01 98ec c0a8 bb82 ac10
-	0x0020:  7a81 0800 2320 a717 0008 8a59 d148 e41a
-	0x0030:  0300 0809 0a0b 0c0d 0e0f 1011 1213 1415
-	0x0040:  1617 1819 1a1b 1c1d 1e1f 2021 2223 2425
-	0x0050:  2627 2829 2a2b 2c2d 2e2f 3031 3233 3435
-04:18:33.944514 IP 172.16.122.129 > 192.168.187.130: ICMP echo reply...
-	0x0000:  000c 298c 9053 000c 296e 1aaa 0800 4500
-	0x0010:  0054 d366 0000 4001 0486 ac10 7a81 c0a8
-	0x0020:  bb82 0000 2b20 a717 0008 8a59 d148 e41a
-	0x0030:  0300 0809 0a0b 0c0d 0e0f 1011 1213 1415
-	0x0040:  1617 1819 1a1b 1c1d 1e1f 2021 2223 2425
-	0x0050:  2627 2829 2a2b 2c2d 2e2f 3031 3233 3435
-	</screen>
+	<para>Both MAC addresses are changed when passing the router. Use <command>tcpdump -xx</command> like this:</para>
+	<screen>root@router~# tcpdump -xx -i eth1</screen>
+	<screen>root@router~# tcpdump -xx -i eth2</screen>
+<?hard-pagebreak?>
+	<para>6. Remember the third network card on the router ? Connect this card to a LAN with internet connection. On many LAN's the command <command>dhclient eth0</command> just works (replace <command>eth0</command> with the correct interface.</para>
+	<screen>root@router~# dhclient eth0</screen>
+	<para>You now have a setup similar to this picture. What needs to be done to give internet access to <command>leftnet</command> and <command>rightnet</command>.</para>
+	<para><mediaobject><imageobject><imagedata fileref="images/leftnet_rightnet_router3.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+	<para>The clients on <command>leftnet</command> and <command>rightnet</command> need a working <command>dns server</command>. We use one of Google's dns servers here.</para> 
+	<screen>echo nameserver 8.8.8.8 > /etc/resolv.conf</screen>
 </section>
