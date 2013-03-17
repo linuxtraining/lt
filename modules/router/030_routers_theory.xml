@@ -1,6 +1,6 @@
 <?hard-pagebreak?>
 <section><title>router or firewall</title>
-	<para>A router is a device that connects two networks. A <command>firewall</command><indexterm><primary>firewall</primary></indexterm> is a device that besides acting as a <command>router</command>, also contains (and implements) rules to determine whether packets are allowed to travel from one network to another. A firewall can be configured to block access based on networks, hosts, protocols and ports. Firewalls can also change the contents of packets while forwarding them.</para>
+	<para>A <command>router</command><indexterm><primary>router</primary></indexterm> is a device that connects two networks. A <command>firewall</command><indexterm><primary>firewall</primary></indexterm> is a device that besides acting as a <command>router</command>, also contains (and implements) rules to determine whether packets are allowed to travel from one network to another. A firewall can be configured to block access based on networks, hosts, protocols and ports. Firewalls can also change the contents of packets while forwarding them.</para>
 	<para><mediaobject><imageobject><imagedata fileref="images/router_or_firewall.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 </section>
 <section><title>packet forwarding</title>
@@ -24,7 +24,7 @@
 	<para>A <command>snat</command><indexterm><primary>SNAT</primary></indexterm> device is changing the source ip-address when a packet passes our <command>nat</command>. <command>snat</command> configuration with iptables includes a fixed target source address.</para>
 </section>
 <section><title>masquerading</title>
-	<para>Masquerading is a form of <command>snat</command> that will hide the (private) source ip-addresses of your private network using a public ip-address. Masquerading is common on dynamic internet interfaces (broadband modem/routers). Masquerade configuration with iptables uses a dynamic target source address.</para>
+	<para><command>Masquerading</command><indexterm><primary>masquerading</primary></indexterm> is a form of <command>snat</command> that will hide the (private) source ip-addresses of your private network using a public ip-address. Masquerading is common on dynamic internet interfaces (broadband modem/routers). Masquerade configuration with iptables uses a dynamic target source address.</para>
 </section>
 <section><title>dnat (destination nat)</title>
 	<para>A <command>dnat</command><indexterm><primary>DNAT</primary></indexterm> device is changing the destination ip-address when a packet passes our <command>nat</command>.</para>
@@ -53,7 +53,7 @@ root@router~# cat /proc/sys/net/ipv4/ip_forward
 net.ipv4.ip_forward = 0</screen>
 </section>
 <section><title>sysctl</title>
-	<para>For more information, take a look at the man page of <command>sysctl</command>.</para>
+	<para>For more information, take a look at the man page of <command>sysctl</command><indexterm><primary>sysctl</primary></indexterm>.</para>
 	<screen>root@debian6~# man sysctl
 root@debian6~# sysctl -a 2>/dev/null | grep ip_forward
 net.ipv4.ip_forward = 0</screen>

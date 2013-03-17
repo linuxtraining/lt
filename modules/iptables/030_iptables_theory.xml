@@ -1,7 +1,7 @@
 <?hard-pagebreak?>
 <section><title>iptables tables</title>
-	<para>By default there are three <command>tables</command> in the kernel that contain sets of rules.</para>
-	<para>The <command>filter table</command> is used for packet filtering.</para>
+	<para>By default there are three <command>tables</command><indexterm><primary>iptables</primary></indexterm> in the kernel that contain sets of rules.</para>
+	<para>The <command>filter table</command><indexterm><primary>filter table (iptables)</primary></indexterm> is used for packet filtering.</para>
 	<screen>root@debian6~# iptables -t filter -L
 Chain INPUT (policy ACCEPT)
 target     prot opt source               destination         
@@ -11,7 +11,7 @@ target     prot opt source               destination
 
 Chain OUTPUT (policy ACCEPT)
 target     prot opt source               destination</screen>
-	<para>The <command>nat table</command> is used for address translation.</para>
+	<para>The <command>nat table</command><indexterm><primary>nat table (iptables)</primary></indexterm> is used for address translation.</para>
 	<screen>root@debian6~# iptables -t nat -L
 Chain PREROUTING (policy ACCEPT)
 target     prot opt source               destination         
@@ -21,11 +21,11 @@ target     prot opt source               destination
 
 Chain OUTPUT (policy ACCEPT)
 target     prot opt source               destination</screen>
-	<para>The <command>mangle table</command> can be used for special-purpose processing of packets.</para>
-	<para>Series of rules in each table are called a <command>chain</command><indexterm><primary>chain(iptables)</primary></indexterm>. We will discuss chains and the nat table later in this chapter.</para>
+	<para>The <command>mangle table</command><indexterm><primary>mangle table (iptables)</primary></indexterm> can be used for special-purpose processing of packets.</para>
+	<para>Series of rules in each table are called a <command>chain</command><indexterm><primary>chain (iptables)</primary></indexterm>. We will discuss chains and the nat table later in this chapter.</para>
 </section>
 <section><title>starting and stopping iptables</title>
-	<para>The following screenshot shows how to stop and start iptables on Red Hat/Fedora/CentOS and compatible distributions.</para>
+	<para>The following screenshot shows how to stop and start <command>iptables</command> on Red Hat/Fedora/CentOS and compatible distributions.</para>
 	<screen>[root@centos6 ~]# service iptables stop
 [root@centos6 ~]# service iptables start
 iptables: Applying firewall rules                              [ ok ]
@@ -36,7 +36,7 @@ iptables: Applying firewall rules                              [ ok ]
 <?hard-pagebreak?>
 <section><title>the filter table</title>
 <section><title>about packet filtering</title>
-	<para><command>Packet filtering</command> is a bit more than <command>packet forwarding</command>. While <command>packet forwarding</command> uses only a routing table to make decisions, <command>packet filtering</command> also uses a list of rules. The kernel will inspect packets and decide based on these rules what to do with each packet.</para>
+	<para><command>Packet filtering</command><indexterm><primary>packet filtering</primary></indexterm> is a bit more than <command>packet forwarding</command>. While <command>packet forwarding</command> uses only a routing table to make decisions, <command>packet filtering</command> also uses a list of rules. The kernel will inspect packets and decide based on these rules what to do with each packet.</para>
 </section>
 <section><title>filter table</title>
 	<para>The filter table in <command>iptables</command> has three chains (sets of rules). The INPUT chain is used for any packet coming into the system. The OUTPUT chain is for any packet leaving the system. And the FORWARD chain is for packets that are forwarded (routed) through the system.</para>

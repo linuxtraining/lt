@@ -1,10 +1,10 @@
 <?hard-pagebreak?>
 <section><title>practice: packet forwarding</title>
-	<para>0. You have the option to select (or create) an internal network when adding a network card in VirtualBox or VMWare. Use this option to create two internal networks. I named them <command>leftnet</command> and <command>rightnet</command>, but you can choose any other name.</para>
+	<para>0. You have the option to select (or create) an internal network when adding a network card in <command>VirtualBox</command><indexterm><primary>virtualbox</primary></indexterm> or <command>VMWare</command><indexterm><primary>vmware</primary></indexterm>. Use this option to create two internal networks. I named them <command>leftnet</command> and <command>rightnet</command>, but you can choose any other name.</para>
 	<para><mediaobject><imageobject><imagedata fileref="images/LAN_networks.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 	<para>1. Set up two Linux machines, one on <command>leftnet</command>, the other on <command>rightnet</command>. Make sure they both get an ip-address in the correct subnet. These two machines will be 'left' and 'right' from the 'router'.</para>
 	<para><mediaobject><imageobject><imagedata fileref="images/leftnet_rightnet_router2.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
-	<para>2. Set up a third Linux computer with three network cards, one on <command>leftnet</command>, the other on <command>rightnet</command>. This computer will be the 'router'. Complete the table below with the relevant names, ip-addresses and mac-addresses.</para>
+	<para>2. Set up a third Linux computer with three network cards, one on <command>leftnet</command>, the other on <command>rightnet</command>. This computer will be the 'router'. Complete the table below with the relevant names, ip-addresses and <command>mac-addresses</command><indexterm><primary>mac address</primary></indexterm>.</para>
 <table frame='all'><title>Packet Forwarding Exercise</title>
 <?dbfo table-width="100%" ?>
 <tgroup cols='5' align='left' colsep='1' rowsep='1'>
@@ -39,11 +39,11 @@
 </tbody>
 </tgroup>
 </table>
-	<para>3. How can you verify whether the <command>router</command> will allow packet forwarding by default or not ? Test that you can ping from the <command>router</command> to the two other machines, and from those two machines to the <command>router</command>. Use <command>arp -a</command> to make sure you are connected with the correct <command>mac addresses</command>.</para>
+	<para>3. How can you verify whether the <command>router</command> will allow packet forwarding by default or not ? Test that you can <command>ping</command><indexterm><primary>ping</primary></indexterm> from the <command>router</command> to the two other machines, and from those two machines to the <command>router</command>. Use <command>arp -a</command> to make sure you are connected with the correct <command>mac addresses</command>.</para>
 <?hard-pagebreak?>
-	<para>4. Ping from the leftnet computer to the rightnet computer. Enable and/or disable packet forwarding on the <command>router</command> and verify what happens to the ping between the two networks. If you do not succeed in pinging between the two networks (on different subnets), then use a sniffer like wireshark or tcpdump to discover the problem.</para>
-	<para>5. Use wireshark or tcpdump -xx to answer the following questions. Does the source MAC change when a packet passes through the filter ? And the destination MAC ? What about source and destination IP-addresses ?</para>
-	<para>6. Remember the third network card on the router ? Connect this card to a LAN with internet connection. On many LAN's the command <command>dhclient eth0</command> just works (replace <command>eth0</command> with the correct interface).</para>
+	<para>4. <command>Ping</command><indexterm><primary>ping</primary></indexterm> from the leftnet computer to the rightnet computer. Enable and/or disable packet forwarding on the <command>router</command> and verify what happens to the ping between the two networks. If you do not succeed in pinging between the two networks (on different subnets), then use a sniffer like <command>wireshark</command> or <command>tcpdump</command> to discover the problem.</para>
+	<para>5. Use <command>wireshark</command><indexterm><primary>wireshark</primary></indexterm> or <command>tcpdump</command><indexterm><primary>tcpdump</primary></indexterm> -xx to answer the following questions. Does the source MAC change when a packet passes through the filter ? And the destination MAC ? What about source and destination IP-addresses ?</para>
+	<para>6. Remember the third network card on the router ? Connect this card to a LAN with internet connection. On many LAN's the command <command>dhclient eth0</command><indexterm><primary>dhclient</primary></indexterm> just works (replace <command>eth0</command> with the correct interface).</para>
 	<screen>root@router~# dhclient eth0</screen>
 	<para>You now have a setup similar to this picture. What needs to be done to give internet access to <command>leftnet</command> and <command>rightnet</command>.</para>
 	<para><mediaobject><imageobject><imagedata fileref="images/leftnet_rightnet_router3.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
