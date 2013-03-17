@@ -1,6 +1,7 @@
-<section><title>terminology</title>
+<?hard-pagebreak?>
 <section><title>router or firewall</title>
 	<para>A router is a device that connects two networks. A <command>firewall</command><indexterm><primary>firewall</primary></indexterm> is a device that besides acting as a <command>router</command>, also contains (and implements) rules to determine whether packets are allowed to travel from one network to another. A firewall can be configured to block access based on networks, hosts, protocols and ports. Firewalls can also change the contents of packets while forwarding them.</para>
+	<mediaobject><imageobject><imagedata fileref="images/router_or_firewall.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 </section>
 <section><title>packet forwarding</title>
 	<para>Packet forwarding means allowing packets to go from one network to another. When a multihomed host is connected to two different networks, and it allows packets to travel from one network to another through its two network interfaces, it is said to have enabled <command>packet forwarding</command><indexterm><primary>packet forwarding</primary></indexterm>. </para>
@@ -11,30 +12,25 @@
 <section><title>stateful</title>
 	<para>A <command>stateful</command><indexterm><primary>stateful firewall</primary></indexterm> firewall is an advancement over stateless firewalls that inspect every individual packet. A stateful firewall will keep a table of active connections, and is knowledgeable enough to recognise when new connections are part of an active session. Linux iptables is a stateful firewall.</para>
 </section>
+<?hard-pagebreak?>
 <section><title>NAT (network address translation)</title>
 	<para>A <command>NAT</command><indexterm><primary>NAT</primary></indexterm> device is a router that is also changing the source and/or target ip-address in packets. It is typically used to connect multiple computers in a private address range (rfc 1918) with the (public) internet. A NAT can hide private addresses from the internet.</para>
 	<para>It is important to understand that people and vendors do not always use the right term when referring to a certain type of NAT. Be sure you talk about the same thing. We can distuinguish several types of NAT.</para>
-	<section><title>PAT (port address translation)</title>
-		<para>NAT often includes PAT. A <command>PAT</command><indexterm><primary>PAT</primary></indexterm> device is a router that is also changing the source and/or target tcp/udp port in packets. PAT is Cisco terminology and is used by <command>SNAT</command>, <command>DNAT</command>, <command>masquerading</command> and <command>port forwarding</command> in Linux. RFC 3022 calls it <command>NAPT</command><indexterm><primary>NAPT</primary></indexterm> and defines the NAT/PAT combo as "traditional NAT". A device sold to you as a NAT-device will probably do NAT and PAT.</para>
-	</section>
-	<section><title>SNAT (source network address translation)</title>
-		<para>A <command>SNAT</command><indexterm><primary>SNAT</primary></indexterm> device is changing the source ip-address when a packet passes our NAT. SNAT configuration with iptables includes a fixed target source address.</para>
-	</section>
-	<section><title>masquerading</title>
-		<para>Masquerading is a form of SNAT that will hide the (private) source ip-addresses of your private network using a public ip-address. Masquerading is common on dynamic internet interfaces (broadband modem/routers). Masquerade configuration with iptables uses a dynamic target source address.</para>
-	</section>
-	<section><title>DNAT (destination network address translation)</title>
-		<para>A <command>DNAT</command><indexterm><primary>DNAT</primary></indexterm> device is changing the destination ip-address when a packet passes our NAT.</para>
-	</section>
-	<section><title>port forwarding</title>
-		<para>When static DNAT is set up in a way that allows outside connections to enter our private network, then we call it <command>port forwarding</command><indexterm><primary>port forwarding</primary></indexterm>.</para>
-	</section>
 </section>
+<section><title>PAT (port address translation)</title>
+	<para>NAT often includes PAT. A <command>PAT</command><indexterm><primary>PAT</primary></indexterm> device is a router that is also changing the source and/or target tcp/udp port in packets. PAT is Cisco terminology and is used by <command>SNAT</command>, <command>DNAT</command>, <command>masquerading</command> and <command>port forwarding</command> in Linux. RFC 3022 calls it <command>NAPT</command><indexterm><primary>NAPT</primary></indexterm> and defines the NAT/PAT combo as "traditional NAT". A device sold to you as a NAT-device will probably do NAT and PAT.</para>
 </section>
-
-<section><title>packet forwarding</title>
-<section><title>about packet forwarding</title>
-	<para>Packet forwarding means allowing packets to go from one network to another. When a multihomed host is connected to two different networks, and it allows packets to travel from one network to another through its two network interfaces, it is said to have enabled packet forwarding. </para>
+<section><title>SNAT (source network address translation)</title>
+	<para>A <command>SNAT</command><indexterm><primary>SNAT</primary></indexterm> device is changing the source ip-address when a packet passes our NAT. SNAT configuration with iptables includes a fixed target source address.</para>
+</section>
+<section><title>masquerading</title>
+	<para>Masquerading is a form of SNAT that will hide the (private) source ip-addresses of your private network using a public ip-address. Masquerading is common on dynamic internet interfaces (broadband modem/routers). Masquerade configuration with iptables uses a dynamic target source address.</para>
+</section>
+<section><title>DNAT (destination network address translation)</title>
+	<para>A <command>DNAT</command><indexterm><primary>DNAT</primary></indexterm> device is changing the destination ip-address when a packet passes our NAT.</para>
+</section>
+<section><title>port forwarding</title>
+	<para>When static DNAT is set up in a way that allows outside connections to enter our private network, then we call it <command>port forwarding</command><indexterm><primary>port forwarding</primary></indexterm>.</para>
 </section>
 <section><title>/proc/sys/net/ipv4/ip_forward</title>
 	<para>Whether a host is forwarding packets is defined in <command>/proc/sys/net/ipv4/ip_forward</command><indexterm><primary>/proc/sys/net/ipv4/ip_forward</primary></indexterm>. The following screenshot shows how to enable packet forwarding on Linux.</para>
@@ -52,170 +48,12 @@
 </section>
 <section><title>/etc/sysctl.conf</title>
 	<para>By default, most Linux computers are not configured for automatic packet forwarding. To enable packet forwarding whenever the system starts, change the <command>net.ipv4.ip_forward</command> variable in <command>/etc/sysctl.conf</command><indexterm><primary>/etc/sysctl.conf</primary></indexterm> to the value 1.</para>
-	<screen>
-[root@RHEL5 ~]# grep ip_forward /etc/sysctl.conf 
-net.ipv4.ip_forward = 0
-	</screen>
+	<screen>[root@RHEL5 ~]# grep ip_forward /etc/sysctl.conf 
+net.ipv4.ip_forward = 0</screen>
 </section>
-<section><title>Practice: packet forwarding</title>
-	<para>1. Set up two dsl (Damn Small Linux) machines, one on vmnet1, the other on vmnet8. Make sure they both get an ip-address in the correct subnet. These two machines will be 'left' and 'right' from the 'router'.</para>
-	<para>2. Set up a RHEL server with two network cards, one on vmnet1, the other on vmnet8. This computer will be the 'router'. Complete the table below with the relevant names, ip-addresses and mac-addresses.</para>
-<table frame='all'><title>Packet Forwarding Exercise</title>
-<?dbfo table-width="100%" ?>
-<tgroup cols='5' align='left' colsep='1' rowsep='1'>
-<colspec colname='c1' colwidth="1*" align="left"/>
-<colspec colname='c2' colwidth="3*" align="left"/>
-<colspec colname='c3' colwidth="3*" align="left"/>
-<colspec colname='c4' colwidth="3*" align="left"/>
-<colspec colname='c5' colwidth="3*" align="left"/>
-<thead>
-<row>
-  <entry></entry>
-  <entry>left:</entry>
-  <entry namest="c2" nameend="c3">router:</entry>
-  <entry>right:</entry>
-</row>
-</thead>
-<tbody>
-<row>
-  <entry>MAC</entry>
-  <entry></entry>
-  <entry></entry>
-  <entry></entry>
-  <entry></entry>
-</row>
-<row>
-  <entry>IP</entry>
-  <entry></entry>
-  <entry></entry>
-  <entry></entry>
-  <entry></entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-	<para>3. How can you verify whether the RHEL will allow packet forwarding by default or not ? Test that you can ping from the RHEL to the two dsl machines, and from the two dsl machines to the RHEL. Use <command>arp -a</command> to make sure you are connected with the correct MAC addresses.</para>
-	<para>4. Ping from one dsl to the other. Enable and/or disable packet forwarding on the RHEL server and verify what happens to the ping between the two dsl machines. If you do not succeed in pinging between the two dsl machines (on different subnets), then use a sniffer like wireshark or tcpdump to discover the problem.</para>
-	<para>5. Use wireshark or tcpdump -xx to answer the following questions. Does the source MAC change when a packet passes through the filter ? And the destination MAC ? What about source and destination IP-addresses ?</para>
-	<para></para>
-</section>
-<section><title>Solution: packet forwarding</title>
-	<para>1. Set up two dsl (Damn Small Linux) machines, one on vmnet1, the other on vmnet8. Make sure they both get an ip-address in the correct subnet. These two machines will be 'left' and 'right' from the 'router'.</para>
-	<para>The configuration of the dsl machines can be similar to the following two screenshots. Both machines must be in a different subnet (here 192.168.187.0/24 and 172.16.122.0/24)</para>
-	<screen>
-root@ttyp1[root]# ifconfig eth0 | grep -A1 eth0
-eth0 Link encap:Ethernet  HWaddr 00:0C:29:08:F4:C1  
-     inet addr:192.168.187.130  Bcast:192.168.187.255  Mask:255.255.255.0
-root@ttyp1[root]# route
-Kernel IP routing table
-Destination    Gateway         Genmask        Flags Metric Ref  Use Iface
-192.168.187.0  *               255.255.255.0  U     0      0      0 eth0
-default        192.168.187.128 0.0.0.0        UG    0      0      0 eth0
-root@ttyp1[root]#
-	</screen>
-	<screen>
-root@ttyp1[root]# ifconfig eth0 | grep -A1 eth0
-eth0 Link encap:Ethernet  HWaddr 00:0C:29:6E:1A:AA  
-     inet addr:172.16.122.129  Bcast:172.16.122.255  Mask:255.255.255.0
-root@ttyp1[root]# route
-Kernel IP routing table
-Destination    Gateway         Genmask        Flags Metric Ref  Use Iface
-172.16.122.0   *               255.255.255.0  U     0      0      0 eth0
-default        172.16.122.128  0.0.0.0        UG    0      0      0 eth0
-root@ttyp1[root]#
-	</screen>
-	<para>2. Set up a RHEL server with two network cards, one on vmnet1, the other on vmnet8. This computer will be the 'router'.</para>
-	<para>The 'router' can be set up like this screenshot shows.</para>
-	<screen>
-[root@RHEL5 ~]# ifconfig | grep -A1 eth
-eth1 Link encap:Ethernet  HWaddr 00:0C:29:8C:90:49  
-     inet addr:192.168.187.128  Bcast:192.168.187.255  Mask:255.255.255.0
---
-eth2 Link encap:Ethernet  HWaddr 00:0C:29:8C:90:53  
-     inet addr:172.16.122.128  Bcast:172.16.122.255  Mask:255.255.255.0
-[root@RHEL5 ~]# 
-	</screen>
-	<para>Your setup may use different ip and mac addresses than the ones in the table below. This table serves as a reference for the screenshots from this solution to the practice.</para>
-<table frame='all'><title>Packet Forwarding Solution</title>
-<?dbfo table-width="100%" ?>
-<tgroup cols='4' align='left' colsep='1' rowsep='1'>
-<colspec colname='c2' colwidth="1*" align="center"/>
-<colspec colname='c3' colwidth="1*" align="center"/>
-<colspec colname='c4' colwidth="1*" align="center"/>
-<colspec colname='c5' colwidth="1*" align="center"/>
-<thead>
-<row>
-  <entry>left: dsl</entry>
-  <entry namest="c2" nameend="c3">router: RHEL5</entry>
-  <entry>right: dsl</entry>
-</row>
-</thead>
-<tbody>
-<row>
-  <entry>00:0c:29:08:f4:c1</entry>
-  <entry>00:0c:29:8c:90:49</entry>
-  <entry>00:0c:29:8c:90:53</entry>
-  <entry>00:0c:29:6e:1a:aa</entry>
-</row>
-<row>
-  <entry>192.168.187.130</entry>
-  <entry>192.168.187.128</entry>
-  <entry>172.16.122.128</entry>
-  <entry>172.16.122.129</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-
-	<para>3. How can you verify whether the RHEL will allow packet forwarding by default or not ? Test that you can ping from the RHEL to the two dsl machines, and from the two dsl machines to the RHEL. Use <command>arp -a</command> to make sure you are connected with the correct MAC addresses.</para>
-	<para>This can be done with "<command>grep ip_forward /etc/sysctl.conf</command>" (1 is enabled, 0 is disabled).</para>
-	<screen>
-[root@RHEL5 ~]# grep ip_for /etc/sysctl.conf 
-net.ipv4.ip_forward = 0
-	</screen>
-	<para>4. Ping from one dsl to the other. Enable and/or disable packet forwarding on the RHEL server and verify what happens to the ping between the two dsl machines. If you do not succeed in pinging between the two dsl machines (on different subnets), then use a sniffer like ethereal or tcpdump to discover the problem.</para>
-	<para>Did you forget to add a default gateway to the dsl machines ? Use <command>route add default gw 'ip-address'</command>. </para>
-	<para>You should be able to ping when packet forwarding is enabled (and both default gateways are properly configured). The ping will not work when packet forwarding is disabled or when gateways are not configured correctly.</para>
-	<para></para>
-	<para>5. Use wireshark or tcpdump -xx to answer the following questions. Does the source MAC change when a packet passes through the filter ? And the destination MAC ? What about source and destination IP-addresses ?</para>
-	<para>Both MAC addresses are changed when passing the router. The screenshots below show tcpdump -xx output on the router. The first one is taken on the eth1(vmnet1) interface in the 192.168.187.0/24 network, the second one is from the other interface (eth2 on vmnet8 in 172.16.122.0/24). The first six bytes are the destination MAC, the next six are the source.</para>
-	<screen>
-[root@RHEL5 ~]# tcpdump -xx -i eth1
-tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
-listening on eth1, link-type EN10MB (Ethernet), capture size 96 bytes
-04:18:23.817854 IP 192.168.187.130 > 172.16.122.129: ICMP echo request...
-	0x0000:  000c 298c 9049 000c 2908 f4c1 0800 4500
-	0x0010:  0054 0000 4000 4001 97ec c0a8 bb82 ac10
-	0x0020:  7a81 0800 3b28 a717 0006 8059 d148 d614
-	0x0030:  0300 0809 0a0b 0c0d 0e0f 1011 1213 1415
-	0x0040:  1617 1819 1a1b 1c1d 1e1f 2021 2223 2425
-	0x0050:  2627 2829 2a2b 2c2d 2e2f 3031 3233 3435
-04:18:23.817962 IP 172.16.122.129 > 192.168.187.130: ICMP echo reply...
-	0x0000:  000c 2908 f4c1 000c 298c 9049 0800 4500
-	0x0010:  0054 d364 0000 3f01 0588 ac10 7a81 c0a8
-	0x0020:  bb82 0000 4328 a717 0006 8059 d148 d614
-	0x0030:  0300 0809 0a0b 0c0d 0e0f 1011 1213 1415
-	0x0040:  1617 1819 1a1b 1c1d 1e1f 2021 2223 2425
-	0x0050:  2627 2829 2a2b 2c2d 2e2f 3031 3233 3435
-	</screen>
-	<screen>
-[root@RHEL5 ~]# tcpdump -xx -i eth2
-tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
-listening on eth2, link-type EN10MB (Ethernet), capture size 96 bytes
-04:18:33.904697 IP 192.168.187.130 > 172.16.122.129: ICMP echo request...
-	0x0000:  000c 296e 1aaa 000c 298c 9053 0800 4500
-	0x0010:  0054 0000 4000 3f01 98ec c0a8 bb82 ac10
-	0x0020:  7a81 0800 2320 a717 0008 8a59 d148 e41a
-	0x0030:  0300 0809 0a0b 0c0d 0e0f 1011 1213 1415
-	0x0040:  1617 1819 1a1b 1c1d 1e1f 2021 2223 2425
-	0x0050:  2627 2829 2a2b 2c2d 2e2f 3031 3233 3435
-04:18:33.944514 IP 172.16.122.129 > 192.168.187.130: ICMP echo reply...
-	0x0000:  000c 298c 9053 000c 296e 1aaa 0800 4500
-	0x0010:  0054 d366 0000 4001 0486 ac10 7a81 c0a8
-	0x0020:  bb82 0000 2b20 a717 0008 8a59 d148 e41a
-	0x0030:  0300 0809 0a0b 0c0d 0e0f 1011 1213 1415
-	0x0040:  1617 1819 1a1b 1c1d 1e1f 2021 2223 2425
-	0x0050:  2627 2829 2a2b 2c2d 2e2f 3031 3233 3435
-	</screen>
-</section>
+<section><title>sysctl</title>
+	<para>For more information, take a look at the man page of <command>sysctl</command>.</para>
+	<screen>root@debian6~# man sysctl
+root@debian6~# sysctl -a 2>/dev/null | grep ip_forward
+net.ipv4.ip_forward = 0</screen>
 </section>

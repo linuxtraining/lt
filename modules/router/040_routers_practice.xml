@@ -1,0 +1,43 @@
+<?hard-pagebreak?>
+<section><title>practice: packet forwarding</title>
+	<para>1. Set up two dsl (Damn Small Linux) machines, one on vmnet1, the other on vmnet8. Make sure they both get an ip-address in the correct subnet. These two machines will be 'left' and 'right' from the 'router'.</para>
+	<para>2. Set up a RHEL server with two network cards, one on vmnet1, the other on vmnet8. This computer will be the 'router'. Complete the table below with the relevant names, ip-addresses and mac-addresses.</para>
+<table frame='all'><title>Packet Forwarding Exercise</title>
+<?dbfo table-width="100%" ?>
+<tgroup cols='5' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="1*" align="left"/>
+<colspec colname='c2' colwidth="3*" align="left"/>
+<colspec colname='c3' colwidth="3*" align="left"/>
+<colspec colname='c4' colwidth="3*" align="left"/>
+<colspec colname='c5' colwidth="3*" align="left"/>
+<thead>
+<row>
+  <entry></entry>
+  <entry>left:</entry>
+  <entry namest="c2" nameend="c3">router:</entry>
+  <entry>right:</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>MAC</entry>
+  <entry></entry>
+  <entry></entry>
+  <entry></entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>IP</entry>
+  <entry></entry>
+  <entry></entry>
+  <entry></entry>
+  <entry></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+	<para>3. How can you verify whether the RHEL will allow packet forwarding by default or not ? Test that you can ping from the RHEL to the two dsl machines, and from the two dsl machines to the RHEL. Use <command>arp -a</command> to make sure you are connected with the correct MAC addresses.</para>
+	<para>4. Ping from one dsl to the other. Enable and/or disable packet forwarding on the RHEL server and verify what happens to the ping between the two dsl machines. If you do not succeed in pinging between the two dsl machines (on different subnets), then use a sniffer like wireshark or tcpdump to discover the problem.</para>
+	<para>5. Use wireshark or tcpdump -xx to answer the following questions. Does the source MAC change when a packet passes through the filter ? And the destination MAC ? What about source and destination IP-addresses ?</para>
+	<para></para>
+</section>
