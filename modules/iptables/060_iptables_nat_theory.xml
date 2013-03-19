@@ -4,6 +4,7 @@
 	<para>A NAT device is a router that is also changing the source and/or target ip-address in packets. It is typically used to connect multiple computers in a private address range with the (public) internet. A NAT can hide private addresses from the internet.</para>
 	<para>NAT was developed to mitigate the use of real ip addresses, to allow private address ranges to reach the internet and back, and to not disclose details about internal networks to the outside.</para>
 	<para>The nat table in iptables adds two new chains. PREROUTING allows altering of packets before they reach the INPUT chain. POSTROUTING allows altering packets after they exit the OUTPUT chain.</para>
+	<para><mediaobject><imageobject><imagedata fileref="images/iptables_filter_nat2.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 	<para>Use <command>iptables -t nat -nvL</command> to look at the NAT table. The screenshot below shows an empty NAT table.</para>
 	<screen>
 [root@RHEL5 ~]# iptables -t nat -nL
