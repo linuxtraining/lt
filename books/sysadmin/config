@@ -51,4 +51,4 @@ add_mod minibook minibook_backup
 # add_mod appendix bootfloppy
 
 # license
-#add_mod appendix license
+add_mod appendix license
