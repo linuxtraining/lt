@@ -29,4 +29,4 @@ add_mod appendix hardware
 
 # license
 # (automatic at end of pdf file ?)
-# add_mod appendix license
+add_mod appendix license
