@@ -18,7 +18,6 @@ IMAGESDIR="./images"
 MODULESDIR="./modules"
 BUILDDIR="."
 LIBDIR="$BUILDDIR/lib"
-FOPDIR="$LIBDIR/fop"
 export FOP_OPTS="-Xms512m -Xmx512m"
 export BOOKSDIR=./books
 
@@ -354,7 +353,7 @@ build_pdf() {
 	echo 
 	echo "---------------------------------"
 	echo "Generating $pdffile"
-	eval $(echo $FOPDIR/fop -xml $xmlfile -xsl $XSLFILE -pdf $pdffile $EXECDEBUG) >&2
+	eval $(echo fop -xml $xmlfile -xsl $XSLFILE -pdf $pdffile $EXECDEBUG) >&2
 	ln -s $V $filename.pdf $OUTPUTDIR/book.pdf
 	echo "---------------------------------"
 	}
