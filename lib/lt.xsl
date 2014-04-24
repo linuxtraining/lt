@@ -24,6 +24,13 @@
    <fo:block break-after='page'/>
  </xsl:template>
 
+<!-- screen tags in cyan -->
+<xsl:param name="shade.verbatim" select="1"/> 
+<xsl:attribute-set condition="fo" name="shade.verbatim.style">
+  <xsl:attribute name="background-color">#E0FFFF</xsl:attribute>
+</xsl:attribute-set>
+<!-- screen tags in cyan -->
+
 <xsl:comment>
  this forces screen-tag content to be kept together on one page
  can only be enabled when we remove all screen-tags with large content imho
