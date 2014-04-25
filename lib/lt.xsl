@@ -5,9 +5,9 @@
 
 <xsl:param name="paper.type" select="'A4'"/>
 
-
-
-
+<xsl:param name="title.margin.left">0pt</xsl:param>
+<xsl:param name="body.start.indent">15pt</xsl:param>
+<xsl:param name="body.end.indent">0pt</xsl:param>
 
 <xsl:param name="toc.section.depth" select="'1'"/>
 
