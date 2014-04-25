@@ -5,6 +5,10 @@
 
 <xsl:param name="paper.type" select="'A4'"/>
 
+
+
+
+
 <xsl:param name="toc.section.depth" select="'1'"/>
 
 <xsl:param name="section.autolabel" select="'1'"/>
@@ -30,13 +34,5 @@
   <xsl:attribute name="background-color">#E0FFFF</xsl:attribute>
 </xsl:attribute-set>
 <!-- screen tags in cyan -->
-
-<xsl:comment>
- this forces screen-tag content to be kept together on one page
- can only be enabled when we remove all screen-tags with large content imho
- <xsl:attribute-set name="monospace.verbatim.properties">
- <xsl:attribute name="keep-together.within-column">always</xsl:attribute>
- </xsl:attribute-set>
-</xsl:comment>
 
 </xsl:stylesheet>
