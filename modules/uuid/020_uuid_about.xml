@@ -1,0 +1,2 @@
+<para>A <command>uuid</command><indexterm><primary>uuid</primary></indexterm> or <command>universally unique identifier</command><indexterm><primary> universally unique identifier</primary></indexterm> is used to uniquely identify objects. This 128bit standard allows anyone to create a unique <command>uuid</command>.</para>
+<para>This chapter takes a brief look at <command>uuid's</command>.</para>

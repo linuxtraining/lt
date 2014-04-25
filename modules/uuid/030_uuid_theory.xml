@@ -1,67 +1,55 @@
 <?hard-pagebreak?>
 <section><title>about unique objects</title>
-	<para>A <command>uuid</command><indexterm><primary>uuid</primary></indexterm> or <command>universally unique identifier</command><indexterm><primary> universally unique identifier</primary></indexterm> is used to uniquely identify objects. This 128bit standard allows anyone to create a unique <command>uuid</command>.</para>
-	<section><title>/sbin/vol_id</title>
-		<para>Below we use the <command>vol_id</command><indexterm><primary>vol_id(1)</primary></indexterm> utility to display the <command>uuid</command> of an <command>ext3</command> file system.</para>
-		<screen>
-root@laika:~# vol_id --uuid /dev/sda1
-825d4b79-ec40-4390-8a71-9261df8d4c82
-		</screen>
-	</section>
-	<section><title>/lib/udev/vol_id</title>
-		<para>Red Hat Enterprise Linux 5 puts <command>vol_id</command> in <command>/lib/udev/vol_id</command>, which is not in the $PATH. The syntax is also a bit different from Debian/Ubuntu.</para>
-		<screen>
-root@rhel53 ~# /lib/udev/vol_id -u /dev/hda1
-48a6a316-9ca9-4214-b5c6-e7b33a77e860
-		</screen>
-	</section>
-	<section><title>/sbin/tune2fs</title>
-		<para>We can also use <command>tune2fs</command><indexterm><primary>tune2fs(1)</primary></indexterm> to find the <command>uuid</command> of a file system.</para>
-		<screen>
-[root@RHEL5 ~]# tune2fs -l /dev/sda1 | grep UUID
+	<para>Older versions of Linux have a <command>vol_id</command><indexterm><primary>vol_id(1)</primary></indexterm> utility to display the <command>uuid</command> of a file system.</para>
+	<screen>root@debian5:~# vol_id --uuid /dev/sda1
+193c3c9b-2c40-9290-8b71-4264ee4d4c82</screen>
+	<para>Red Hat Enterprise Linux 5 puts <command>vol_id</command> in <command>/lib/udev/vol_id</command>, which is not in the $PATH. The syntax is also a bit different from Debian/Ubuntu/Mint.</para>
+	<screen>root@rhel53 ~# /lib/udev/vol_id -u /dev/hda1
+48a6a316-9ca9-4214-b5c6-e7b33a77e860</screen>
+	<para>This utility is not available in standard installations of RHEL6 or Debian6.</para>
+</section>
+<section><title>tune2fs</title>
+	<para>Use <command>tune2fs</command><indexterm><primary>tune2fs(1)</primary></indexterm> to find the <command>uuid</command> of a file system.</para>
+	<screen>[root@RHEL5 ~]# tune2fs -l /dev/sda1 | grep UUID
 Filesystem UUID:          11cfc8bc-07c0-4c3f-9f64-78422ef1dd5c
 [root@RHEL5 ~]# /lib/udev/vol_id -u /dev/sda1
-11cfc8bc-07c0-4c3f-9f64-78422ef1dd5c
-		</screen>
-	</section>
+11cfc8bc-07c0-4c3f-9f64-78422ef1dd5c</screen>
 </section>
+<section><title>uuid</title>
+	<para>There is more information in the manual of <command>uuid</command>, a tool that can generate uuid's.</para>
+	<screen>[root@rhel65 ~]# yum install uuid
+(output truncated)
+[root@rhel65 ~]# man uuid</screen>
+</section>
+<?hard-pagebreak?>
 <section><title>uuid in /etc/fstab</title>
 	<para>You can use the <command>uuid</command> to make sure that a volume is universally uniquely identified in <command>/etc/fstab</command>. The device name can change depending on the disk devices that are present at boot time, but a <command>uuid</command> never changes.</para>
 	<para>First we use <command>tune2fs</command> to find the <command>uuid</command>.</para>
-	<screen>
-[root@RHEL5 ~]# tune2fs -l /dev/sdc1 | grep UUID
-Filesystem UUID:          7626d73a-2bb6-4937-90ca-e451025d64e8
-	</screen>
+	<screen>[root@RHEL5 ~]# tune2fs -l /dev/sdc1 | grep UUID
+Filesystem UUID:          7626d73a-2bb6-4937-90ca-e451025d64e8</screen>
 	<para>Then we check that it is properly added to <command>/etc/fstab</command><indexterm><primary>/etc/fstab</primary></indexterm>, the <command>uuid</command> replaces the variable devicename /dev/sdc1.</para>
-	<screen>
-[root@RHEL5 ~]# grep UUID /etc/fstab 
-UUID=7626d73a-2bb6-4937-90ca-e451025d64e8 /home/pro42 ext3 defaults 0 0
-	</screen>
+	<screen>[root@RHEL5 ~]# grep UUID /etc/fstab 
+UUID=7626d73a-2bb6-4937-90ca-e451025d64e8 /home/pro42 ext3 defaults 0 0</screen>
 	<para>Now we can mount the volume using the mount point defined in <command>/etc/fstab</command>.</para>
-	<screen>
-[root@RHEL5 ~]# mount /home/pro42
+	<screen>[root@RHEL5 ~]# mount /home/pro42
 [root@RHEL5 ~]# df -h | grep 42
-/dev/sdc1             397M   11M  366M   3% /home/pro42
-	</screen>
+/dev/sdc1             397M   11M  366M   3% /home/pro42</screen>
 	<para>The real test now, is to remove <command>/dev/sdb</command><indexterm><primary>/dev/sdb</primary></indexterm> from the system, reboot the machine and see what happens. After the reboot, the disk previously known as <command>/dev/sdc</command> is now <command>/dev/sdb</command>.</para>
-	<screen>
-[root@RHEL5 ~]# tune2fs -l /dev/sdb1 | grep UUID
-Filesystem UUID:          7626d73a-2bb6-4937-90ca-e451025d64e8
-	</screen>
+	<screen>[root@RHEL5 ~]# tune2fs -l /dev/sdb1 | grep UUID
+Filesystem UUID:          7626d73a-2bb6-4937-90ca-e451025d64e8</screen>
 	<para>And thanks to the <command>uuid</command> in <command>/etc/fstab</command>, the mountpoint is mounted on the same disk as before.</para>
-	<screen>
-[root@RHEL5 ~]# df -h | grep sdb
-/dev/sdb1             397M   11M  366M   3% /home/pro42
-	</screen>
+	<screen>[root@RHEL5 ~]# df -h | grep sdb
+/dev/sdb1             397M   11M  366M   3% /home/pro42</screen>
 </section>
-<section><title>uuid in menu.lst</title>
-	<para>Recent incarnations of the Ubuntu distribution will use a <command>uuid</command> to identify the root file system. This example shows how a <command>root=/dev/sda1</command> is replaced with a <command>uuid</command>.</para>
-	<screen>
-title		Ubuntu 9.10, kernel 2.6.31-19-generic
-uuid		f001ba5d-9077-422a-9634-8d23d57e782a
-kernel		/boot/vmlinuz-2.6.31-19-generic \
+<?hard-pagebreak?>
+<section><title>uuid as a boot device</title>
+	<para>Recent Linux distributions (Debian, Ubuntu, ...) use <command>grub</command> with a <command>uuid</command> to identify the root file system.</para>
+	<para>This example shows how a <command>root=/dev/sda1</command> is replaced with a <command>uuid</command>.</para>
+	<screen>title           Ubuntu 9.10, kernel 2.6.31-19-generic
+uuid            f001ba5d-9077-422a-9634-8d23d57e782a
+kernel          /boot/vmlinuz-2.6.31-19-generic \
 root=UUID=f001ba5d-9077-422a-9634-8d23d57e782a ro quiet splash 
-initrd		/boot/initrd.img-2.6.31-19-generic
-	</screen>
+initrd          /boot/initrd.img-2.6.31-19-generic</screen>
 	<para>The screenshot above contains only four lines. The line starting with <command>root=</command> is the continuation of the <command>kernel</command> line.</para>
+	<para>RHEL and CentOS boot from LVM after a default install.</para>
 </section>
