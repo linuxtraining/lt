@@ -103,8 +103,28 @@ major minor  #blocks  name
 		<para>The <command>major</command><indexterm><primary>major number</primary></indexterm> number corresponds to the device type (or driver) and can be found in <command>/proc/devices</command><indexterm><primary>/proc/devices</primary></indexterm>. In this case 3 corresponds to <command>ide</command><indexterm><primary>ide</primary></indexterm> and 8 to <command>sd</command>. The <command>major</command> number determines the <command>device driver</command><indexterm><primary>device driver</primary></indexterm> to be used with this device.</para>
 		<para>The <command>minor</command><indexterm><primary>minor number</primary></indexterm> number is a unique identification of an instance of this device type. The <command>devices.txt</command><indexterm><primary>devices.txt</primary></indexterm> file in the kernel tree contains a full list of major and minor numbers.</para>
 	</section>
-	<section><title>other tools</title>
-		<para>You might be interested in alternatives to fdisk like <command>parted</command>, <command>cfdisk</command>, <command>sfdisk</command> and <command>gparted</command>. This course mainly uses <command>fdisk</command> to partition hard disks.</para>
+<?hard-pagebreak?>
+	<section><title>parted and others</title>
+		<para>You may be interested in alternatives to <command>fdisk</command> like <command>parted</command>, <command>cfdisk</command>, <command>sfdisk</command> and <command>gparted</command>. This course mainly uses <command>fdisk</command> to partition hard disks.</para>
+		<para><command>parted</command> is recommended by some Linux distributions for handling storage with <command>gpt</command> instead of <command>mbr</command>.</para>
+		<para>Below a screenshot of <command>parted</command> on CentOS.</para>
+		<screen>[root@centos65 ~]# <command>rpm -q parted</command>
+parted-2.1-21.el6.x86_64
+[root@centos65 ~]# <command>parted /dev/sda</command>
+GNU Parted 2.1
+Using /dev/sda
+Welcome to GNU Parted! Type 'help' to view a list of commands.
+(parted) <command>print</command>
+Model: ATA VBOX HARDDISK (scsi)
+Disk /dev/sda: 42.9GB
+Sector size (logical/physical): 512B/512B
+Partition Table: msdos
+
+Number  Start   End     Size    Type     File system  Flags
+ 1      1049kB  525MB   524MB   primary  ext4         boot
+ 2      525MB   42.9GB  42.4GB  primary               lvm
+
+(parted)</screen>
 	</section>
 </section>
 <?hard-pagebreak?>
@@ -213,10 +233,8 @@ root@RHELv4u2:~#</screen>
 	</section>
 	<section><title>partprobe</title>
 		<para>Don't forget that after restoring a <command>master boot record</command> with <command>dd</command>, that you need to force the kernel to reread the partition table with <command>partprobe</command><indexterm><primary>partprobe(1)</primary></indexterm>. After running <command>partprobe</command>, the partitions can be used again.</para>
-		<screen>
-[root@RHEL5 ~]# partprobe 
-[root@RHEL5 ~]#
-		</screen>
+		<screen>[root@RHEL5 ~]# partprobe 
+[root@RHEL5 ~]#</screen>
 	</section>
 	<section><title>logical drives</title>
 		<para>The <command>partition table</command><indexterm><primary>partition table</primary></indexterm> does not contain information about <command>logical drives</command><indexterm><primary>logical drives</primary></indexterm>. So the <command>dd</command> backup of the <command>mbr</command><indexterm><primary>mbr</primary></indexterm> only works for primary and extended partitions. To backup the partition table including the logical drives, you can use <command>sfdisk</command><indexterm><primary>sfdisk(1)</primary></indexterm>.</para>
