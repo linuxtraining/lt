@@ -3,9 +3,10 @@
 	<para>1. Add three virtual disks of 1GB each to a virtual machine.</para>
 	<para>2. Create a software <command>raid 5</command> on the three disks. (It is not necessary to put a filesystem on it)</para>
 	<para>3. Verify with <command>fdisk</command> and in <command>/proc</command> that the <command>raid 5</command> exists.</para>
-	<para>4. (optional) Stop and remove the <command>raid 5</command>.</para>
-	<para>5. (optional) Create a <command>raid 1</command> to mirror two disks.</para>
-	<screen>[root@rhel6c ~]# mdadm --create /dev/md0 --level=1 --raid-devices=2 /dev/sdb1 /dev/sdc1 
+	<para>4. Stop and remove the <command>raid 5</command>.</para>
+	<para>5. Create a <command>raid 1</command> to mirror two disks.</para>
+	<screen>[root@rhel6c ~]# mdadm --create /dev/md0 --level=1 --raid-devices=2 \
+/dev/sdb1 /dev/sdc1 
 mdadm: Defaulting to version 1.2 metadata
 mdadm: array /dev/md0 started.
 [root@rhel6c ~]# cat /proc/mdstat 

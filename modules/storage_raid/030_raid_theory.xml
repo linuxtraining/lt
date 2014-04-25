@@ -18,6 +18,7 @@
 	<section><title>raid 6</title>
 		<para><command>raid 6</command> is very similar to <command>raid 5</command>, but uses two parity chunks. <command>raid 6</command> protects against two hard disk failures. Oracle Solaris <command>zfs</command> calls this <command>raidz2</command> (and also had <command>raidz3</command> with triple parity).</para>
 	</section>
+<?hard-pagebreak?>
 	<section><title>raid 0+1</title>
 		<para><command>raid 0+1</command> is a mirror(1) of stripes(0). This means you first create two <command>raid 0 stripe</command> sets, and then you set them up as a mirror set. For example, when you have six 100GB disks, then the stripe sets are each 300GB. Combined in a mirror, this makes 300GB total. <command>raid 0+1</command> will survive one disk failure. It will only survive the second disk failure if this disk is in the same stripe set as the previous failed disk.</para>
 	</section>
@@ -73,6 +74,7 @@ Syncing disks.</screen>
 /dev/sdc1       1        1044     8385898+  fd  Linux raid autodetect
 /dev/sdd1       1        1044     8385898+  fd  Linux raid autodetect</screen>
 	</section>
+<?hard-pagebreak?>
 	<section><title>create the raid5</title>
 		<para>The next step used to be <emphasis>create the <command>raid table</command> in <command>/etc/raidtab</command><indexterm><primary>/etc/raidtab</primary></indexterm></emphasis>. Nowadays, you can just issue the command <command>mdadm</command><indexterm><primary>mdadm(1)</primary></indexterm> with the correct parameters.</para>
 		<para>The command below is split on two lines to fit this print, but you should type it on one line, without the backslash (\).</para>
@@ -108,6 +110,7 @@ Personalities : [raid6] [raid5] [raid4]
 md0 : active raid5 sdd1[3] sdc1[1] sdb1[0]
     16769664 blocks super 1.2 level 5, 64k chunk, algorithm 2 [3/3] [UUU]</screen>
 	</section>
+<?hard-pagebreak?>
 	<section><title>mdadm --detail</title>
 		<para>Use <command>mdadm --detail</command> to get information on a raid device.</para>
 		<screen>[root@rhel6c ~]# mdadm --detail /dev/md0
@@ -145,5 +148,9 @@ Working Devices : 3
 		<screen>[root@rhel6c ~]# mdadm --stop /dev/md0
 mdadm: stopped /dev/md0</screen>
 		<para>The disks can now be repartitioned.</para>
+	</section>
+	<section><title>further reading</title>
+		<para>Take a look at the man page of <command>mdadm</command> for more information. Below an example command to add a new partition while removing a faulty one.</para>
+		<screen>mdadm /dev/md0 --add /dev/sdd1 --fail /dev/sdb1 --remove /dev/sdb1</screen>
 	</section>
 </section>

@@ -3,6 +3,6 @@
 	<para>1. Add three virtual disks of 1GB each to a virtual machine.</para>
 	<para>2. Create a software <command>raid 5</command> on the three disks. (It is not necessary to put a filesystem on it)</para>
 	<para>3. Verify with <command>fdisk</command> and in <command>/proc</command> that the <command>raid 5</command> exists.</para>
-	<para>4. (optional) Stop and remove the <command>raid 5</command>.</para>
-	<para>5. (optional) Create a <command>raid 1</command> to mirror two disks.</para>
+	<para>4. Stop and remove the <command>raid 5</command>.</para>
+	<para>5. Create a <command>raid 1</command> to mirror two disks.</para>
 </section>
