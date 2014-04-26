@@ -14,6 +14,6 @@ add_mod chapter disk_filesystems
 add_mod chapter storage_mounting
 add_mod chapter uuid
 add_mod chapter storage_raid
-add_mod chapter lvm
+add_mod chapter storage_lvm
 add_mod chapter disk_iscsi
 add_mod chapter storage_multipathing
