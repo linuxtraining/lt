@@ -1,0 +1,55 @@
+<?hard-pagebreak?>
+<section><title>shell embedding</title>
+	<para>Shells can be <command>embedded</command><indexterm><primary>shell embedding</primary></indexterm> on the command line, or in other words, the command line scan can spawn new processes containing a fork of the current shell. You can use variables to prove that new shells are created. In the screenshot below, the variable $var1 only exists in the (temporary) sub shell.</para>
+	<screen>[paul@RHELv4u3 gen]$ echo $var1
+
+[paul@RHELv4u3 gen]$ echo $(var1=5;echo $var1)
+5
+[paul@RHELv4u3 gen]$ echo $var1
+
+[paul@RHELv4u3 gen]$</screen>
+	<para>You can embed a shell in an <command>embedded shell</command><indexterm><primary>embedding(shell)</primary></indexterm>, this is called <command>nested embedding</command> of shells.</para>
+	<para>This screenshot shows an embedded shell inside an embedded shell.</para>
+	<screen>paul@deb503:~$ A=shell
+paul@deb503:~$ echo $C$B$A $(B=sub;echo $C$B$A; echo $(C=sub;echo $C$B$A))
+shell subshell subsubshell</screen>
+	<section><title>backticks</title>
+		<para>Single embedding can be useful to avoid changing your current directory. The screenshot below uses <command>backticks</command> instead of dollar-bracket to embed.</para>
+		<screen>[paul@RHELv4u3 ~]$ echo `cd /etc; ls -d * | grep pass`
+passwd passwd- passwd.OLD
+[paul@RHELv4u3 ~]$</screen>
+		<para>You can only use the <command>$()</command><indexterm><primary>$() embedded shell</primary></indexterm> notation to nest embedded shells, <command>backticks</command> cannot do this.</para>
+	</section>
+	<section><title>backticks or single quotes</title>
+		<para>Placing the embedding between <command>backticks</command><indexterm><primary>backticks</primary></indexterm> uses one character less than the dollar and parenthesis combo. Be careful however, backticks are often confused with single quotes. The technical difference between <command>'</command><indexterm><primary>'(single quote)</primary></indexterm> and <command>`</command><indexterm><primary>`(backtick)</primary></indexterm> is significant!</para>
+		<screen>[paul@RHELv4u3 gen]$ echo `var1=5;echo $var1`
+5
+[paul@RHELv4u3 gen]$ echo 'var1=5;echo $var1'
+var1=5;echo $var1
+[paul@RHELv4u3 gen]$</screen>
+	</section>
+</section>
+<?hard-pagebreak?>
+<section><title>shell options</title>
+	<para>Both <command>set</command><indexterm><primary>set</primary></indexterm> and <command>unset</command><indexterm><primary>unset</primary></indexterm> are builtin shell commands. They can be used to set options of the bash shell itself. The next example will clarify this. By default, the shell will treat unset variables as a variable having no value. By setting the -u option, the shell will treat any reference to unset variables as an error. See the man page of bash for more information.</para>
+	<screen>[paul@RHEL4b ~]$ echo $var123
+
+[paul@RHEL4b ~]$ set -u
+[paul@RHEL4b ~]$ echo $var123
+-bash: var123: unbound variable
+[paul@RHEL4b ~]$ set +u
+[paul@RHEL4b ~]$ echo $var123
+
+[paul@RHEL4b ~]$</screen>
+	<para>To list all the set options for your shell, use <command>echo $-</command><indexterm><primary>echo $-</primary></indexterm>. The <command>noclobber</command> (or <command>-C</command>) option will be explained later in this book (in the I/O redirection chapter).</para>
+	<screen>[paul@RHEL4b ~]$ echo $-
+himBH
+[paul@RHEL4b ~]$ set -C ; set -u
+[paul@RHEL4b ~]$ echo $-
+himuBCH
+[paul@RHEL4b ~]$ set +C ; set +u
+[paul@RHEL4b ~]$ echo $-
+himBH
+[paul@RHEL4b ~]$</screen>
+	<para>When typing <command>set</command> without options, you get a list of all variables without function when the shell is on <command>posix</command> mode. You can set bash in posix mode typing <command>set -o posix</command>.</para>
+</section>

@@ -1,0 +1,13 @@
+<?hard-pagebreak?>
+<section><title>practice: shell embedding</title>
+	<para>1. Find the list of shell options in the man page of <command>bash</command>. What is the difference between <command>set -u</command> and <command>set -o nounset</command>?</para>
+	<para>2. Activate <command>nounset</command> in your shell. Test that it shows an error message when using non-existing variables.</para>	
+	<para>3. Deactivate nounset.</para>	
+	<para>4. Execute <command>cd /var</command> and <command>ls</command> in an embedded shell.</para>
+	<para>The <command>echo</command> command is only needed to show the result of the <command>ls</command> command. Omitting will result in the shell trying to execute the first file as a command.</para>
+	<para>5. Create the variable embvar in an embedded shell and echo it. Does the variable exist in your current shell now ?</para>
+	<para>6. Explain what "set -x" does. Can this be useful ?</para>
+	<para>(optional)7. Given the following screenshot, add exactly four characters to that command line so that the total output is FirstMiddleLast.</para>
+	<screen>[paul@RHEL4b ~]$ echo  First; echo  Middle; echo  Last</screen>
+	<para>8. Display a <command>long listing</command> (ls -l) of the <command>passwd</command> command using the <command>which</command> command inside an embedded shell.</para>
+</section>

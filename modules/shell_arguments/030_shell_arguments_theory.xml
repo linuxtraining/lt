@@ -1,17 +1,12 @@
 <?hard-pagebreak?>
-<section><title>echo</title>
-	<para>This chapter frequently uses the <command>echo</command><indexterm><primary>echo(1)</primary></indexterm> command to demonstrate shell features. The <command>echo</command> command is very simple: it echoes the input that it receives.</para>
-	<screen>paul@laika:~$ echo Burtonville
-Burtonville
-paul@laika:~$ echo Smurfs are blue
-Smurfs are blue</screen>
-</section>
 <section><title>arguments</title>
-	<para>One of the primary features of a shell is to perform a <command>command line scan</command><indexterm><primary>command line scan</primary></indexterm>. When you enter a command at the shell's command prompt and press the enter key, then the shell will start scanning that line, cutting it up in <command>arguments</command>. While scanning the line, the shell may make many changes to the <command>arguments</command> you typed. This process is called <command>shell expansion</command><indexterm><primary>shell expansion</primary></indexterm>. When the shell has finished scanning and modifying that line, then it will be executed.</para>
-	<section><title>white space removal</title>
-		<para>Parts that are separated by one or more consecutive <command>white spaces</command><indexterm><primary>white space(shell)</primary></indexterm> (or tabs) are considered separate <command>arguments</command>, any white space is removed. The first <command>argument</command><indexterm><primary>arguments(shell)</primary></indexterm> is the command to be executed, the other <command>arguments</command> are given to the command. The shell effectively cuts your command into one or more arguments.</para>
-		<para>This explains why the following four different command lines are the same after <command>shell expansion</command><indexterm><primary>shell expansion</primary></indexterm>.</para>
-		<screen>[paul@RHELv4u3 ~]$ echo Hello World
+	<para>One of the primary features of a shell is to perform a <command>command line scan</command><indexterm><primary>command line scan</primary></indexterm>. When you enter a command at the shell's command prompt and press the enter key, then the shell will start scanning that line, cutting it up in <command>arguments</command>. While scanning the line, the shell may make many changes to the <command>arguments</command> you typed.</para>
+	<para>This process is called <command>shell expansion</command><indexterm><primary>shell expansion</primary></indexterm>. When the shell has finished scanning and modifying that line, then it will be executed.</para>
+</section>
+<section><title>white space removal</title>
+	<para>Parts that are separated by one or more consecutive <command>white spaces</command><indexterm><primary>white space(shell)</primary></indexterm> (or tabs) are considered separate <command>arguments</command>, any white space is removed. The first <command>argument</command><indexterm><primary>arguments(shell)</primary></indexterm> is the command to be executed, the other <command>arguments</command> are given to the command. The shell effectively cuts your command into one or more arguments.</para>
+	<para>This explains why the following four different command lines are the same after <command>shell expansion</command><indexterm><primary>shell expansion</primary></indexterm>.</para>
+	<screen>[paul@RHELv4u3 ~]$ echo Hello World
 Hello World
 [paul@RHELv4u3 ~]$ echo Hello   World
 Hello World
@@ -19,24 +14,25 @@ Hello World
 Hello World
 [paul@RHELv4u3 ~]$    echo      Hello      World
 Hello World</screen>
-		<para>The <command>echo</command><indexterm><primary>echo</primary></indexterm> command will display each argument it receives from the shell. The <command>echo</command> command will also add a new white space between the arguments it received.</para>
-	</section>
-	<section><title>single quotes</title>
-		<para>You can prevent the removal of white spaces by quoting the spaces. The contents of the quoted string are considered as one argument. In the screenshot below the <command>echo</command> receives only one <command>argument</command>.</para>
-		<screen>[paul@RHEL4b ~]$ echo 'A line with      single    quotes'
+	<para>The <command>echo</command><indexterm><primary>echo</primary></indexterm> command will display each argument it receives from the shell. The <command>echo</command> command will also add a new white space between the arguments it received.</para>
+</section>
+<?hard-pagebreak?>
+<section><title>single quotes</title>
+	<para>You can prevent the removal of white spaces by quoting the spaces. The contents of the quoted string are considered as one argument. In the screenshot below the <command>echo</command> receives only one <command>argument</command>.</para>
+	<screen>[paul@RHEL4b ~]$ echo 'A line with      single    quotes'
 A line with      single    quotes
 [paul@RHEL4b ~]$</screen>
-	</section>
-	<section><title>double quotes</title>
-		<para>You can also prevent the removal of white spaces by double quoting <indexterm><primary>" (double quotes)</primary></indexterm> the spaces. Same as above, <command>echo</command> only receives one <command>argument</command>.</para>
-		<screen>[paul@RHEL4b ~]$ echo "A line with      double    quotes"
+</section>
+<section><title>double quotes</title>
+	<para>You can also prevent the removal of white spaces by double quoting <indexterm><primary>" (double quotes)</primary></indexterm> the spaces. Same as above, <command>echo</command> only receives one <command>argument</command>.</para>
+	<screen>[paul@RHEL4b ~]$ echo "A line with      double    quotes"
 A line with      double    quotes
 [paul@RHEL4b ~]$</screen>
 	<para>Later in this book, when discussing <command>variables</command> we will see important differences between single and double quotes.</para>
-	</section>
-	<section><title>echo and quotes</title>
-		<para>Quoted lines can include special escaped characters recognised by the <command>echo</command> command (when using <command>echo -e</command><indexterm><primary>echo(1)</primary></indexterm>). The screenshot below shows how to use <command>\n</command> for a newline and <command>\t</command> for a tab (usually eight white spaces).</para>
-		<screen>[paul@RHEL4b ~]$ echo -e "A line with \na newline"
+</section>
+<section><title>echo and quotes</title>
+	<para>Quoted lines can include special escaped characters recognised by the <command>echo</command> command (when using <command>echo -e</command><indexterm><primary>echo(1)</primary></indexterm>). The screenshot below shows how to use <command>\n</command> for a newline and <command>\t</command> for a tab (usually eight white spaces).</para>
+	<screen>[paul@RHEL4b ~]$ echo -e "A line with \na newline"
 A line with 
 a newline
 [paul@RHEL4b ~]$ echo -e 'A line with \na newline'
@@ -47,8 +43,7 @@ A line with     a tab
 [paul@RHEL4b ~]$ echo -e 'A line with \ta tab'
 A line with     a tab
 [paul@RHEL4b ~]$</screen>
-		<para>The echo command can generate more than white spaces, tabs and newlines. Look in the man page for a list of options.</para>
-	</section>
+	<para>The echo command can generate more than white spaces, tabs and newlines. Look in the man page for a list of options.</para>
 </section>
 <?hard-pagebreak?>
 <section><title>commands</title>
@@ -123,6 +118,7 @@ rm: remove regular empty file `winter.txt'? no
 alias c='clear'
 alias ll='ls -lh --color=auto'</screen>
 	</section>
+<?hard-pagebreak?>
 	<section><title>unalias</title>
 		<para>You can undo an alias with the <command>unalias</command><indexterm><primary>unalias(bash)</primary></indexterm> command.</para>
 		<screen>[paul@RHEL4b ~]$ which rm

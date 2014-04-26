@@ -29,6 +29,7 @@ File4  FileA
 File55  Fileab  FileAB
 [paul@RHELv4u3 gen]$</screen>
 </section>
+<?hard-pagebreak?>
 <section><title>[] square brackets</title>
 	<para>The square bracket <command>[</command><indexterm><primary>[ (file globbing)</primary></indexterm> is interpreted by the shell as a sign to generate filenames, matching any of the characters between <command>[</command> and the first subsequent <command>]</command>. The order in this list between the brackets is not important. Each pair of brackets is replaced by exactly one character.</para>
 	<screen>[paul@RHELv4u3 gen]$ ls 
@@ -57,6 +58,7 @@ file1  file2  file3  fileab  fileabc
 fileab
 [paul@RHELv4u3 gen]$</screen>
 </section>
+<?hard-pagebreak?>
 <section><title>a-z and 0-9 ranges</title>
 	<para>The bash shell will also understand ranges of characters between brackets.</para>
 	<screen>[paul@RHELv4u3 gen]$ ls
@@ -86,6 +88,7 @@ file1  file2  file3
 paul@RHELv4u4:~/test$ ls [A-Z]ile?
 File4
 paul@RHELv4u4:~/test$</screen>
+	<para>If <command>$LC_ALL</command> is set, then this will also need to be reset to prevent file globbing.</para>
 </section>
 <?hard-pagebreak?>
 <section><title>preventing file globbing</title>

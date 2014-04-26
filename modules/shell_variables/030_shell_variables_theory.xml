@@ -1,5 +1,4 @@
 <?hard-pagebreak?>
-<section><title>about variables</title>
 <section><title>$ dollar sign</title>
 	<para>Another important character interpreted by the shell is the dollar sign <command>$</command><indexterm><primary>$ (shell variables)</primary></indexterm>. The shell will look for an <command>environment variable</command><indexterm><primary>environment variable</primary></indexterm> named like the string following the <command>dollar sign</command> and replace it with the value of the variable (or with nothing if the variable does not exist).</para>
 	<para>These are some examples using $HOSTNAME, $USER, $UID, $SHELL, and $HOME.</para>
@@ -19,56 +18,12 @@ Hello paul
 [paul@RHELv4u3 ~]$ echo Hello $user
 Hello</screen>
 </section>
-<section><title>$PS1</title>
-	<para>The <command>$PS1</command> variable determines your shell prompt. You can use backslash escaped special characters like <command>\u</command> for the username or <command>\w</command> for the working directory. The <command>bash</command> manual has a complete reference.</para>
-	<para>In this example we change the value of <command>$PS1</command> a couple of times.</para>
-	<screen>paul@deb503:~$ PS1=prompt
-prompt
-promptPS1='prompt '
-prompt 
-prompt PS1='> '
-> 
-> PS1='\u@\h$ '
-paul@deb503$ 
-paul@deb503$ PS1='\u@\h:\W$'
-paul@deb503:~$</screen>
-<?hard-pagebreak?>
-	<para>To avoid unrecoverable mistakes, you can set normal user prompts to green and the root prompt to red. Add the following to your <command>.bashrc</command> for a green user prompt:</para>
-	<screen># color prompt by paul
-RED='\[\033[01;31m\]'
-WHITE='\[\033[01;00m\]'
-GREEN='\[\033[01;32m\]'
-BLUE='\[\033[01;34m\]'
-export PS1="${debian_chroot:+($debian_chroot)}$GREEN\u$WHITE@$BLUE\h$WHITE\w\$ "</screen>
-</section>
-<section><title>$PATH</title>
-	<para>The <command>$PATH</command><indexterm><primary>$PATH</primary></indexterm> variable is determines where the shell is looking for commands to execute (unless the command is builtin or aliased). This variable contains a list of directories, separated by colons.</para>
-	<screen>[[paul@RHEL4b ~]$ echo $PATH
-/usr/kerberos/bin:/usr/local/bin:/bin:/usr/bin:</screen>
-	<para>The shell will not look in the current directory for commands to execute! (Looking for executables in the current directory provided an easy way to hack PC-DOS computers). If you want the shell to look in the current directory, then add a . at the end of your $PATH.</para>
-<screen>[paul@RHEL4b ~]$ PATH=$PATH:.
-[paul@RHEL4b ~]$ echo $PATH
-/usr/kerberos/bin:/usr/local/bin:/bin:/usr/bin:.
-[paul@RHEL4b ~]$</screen>
-	<para>Your path might be different when using su instead of <command>su -</command><indexterm><primary>su -</primary></indexterm> because the latter will take on the environment of the target user. The root user typically has <command>/sbin</command> directories added to the $PATH variable.</para>
-	<screen>[paul@RHEL3 ~]$ su
-Password: 
-[root@RHEL3 paul]# echo $PATH
-/usr/local/bin:/bin:/usr/bin:/usr/X11R6/bin
-[root@RHEL3 paul]# exit
-[paul@RHEL3 ~]$ su -
-Password: 
-[root@RHEL3 ~]# echo $PATH
-/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:
-[root@RHEL3 ~]#</screen>
-</section>
 <section><title>creating variables</title>
 	<para>This example creates the variable <command>$MyVar</command> and sets its value. It then uses <command>echo</command> to verify the value.</para>
 	<screen>[paul@RHELv4u3 gen]$ MyVar=555
 [paul@RHELv4u3 gen]$ echo $MyVar
 555
 [paul@RHELv4u3 gen]$</screen>
-</section>
 </section>
 <?hard-pagebreak?>
 <section><title>quotes</title>
@@ -99,6 +54,50 @@ We are in $city today. </screen>
 [paul@RHEL4b ~]$ echo $MyVar
 
 [paul@RHEL4b ~]$</screen>
+</section>
+<?hard-pagebreak?>
+<section><title>$PS1</title>
+	<para>The <command>$PS1</command> variable determines your shell prompt. You can use backslash escaped special characters like <command>\u</command> for the username or <command>\w</command> for the working directory. The <command>bash</command> manual has a complete reference.</para>
+	<para>In this example we change the value of <command>$PS1</command> a couple of times.</para>
+	<screen>paul@deb503:~$ PS1=prompt
+prompt
+promptPS1='prompt '
+prompt 
+prompt PS1='> '
+> 
+> PS1='\u@\h$ '
+paul@deb503$ 
+paul@deb503$ PS1='\u@\h:\W$'
+paul@deb503:~$</screen>
+	<para>To avoid unrecoverable mistakes, you can set normal user prompts to green and the root prompt to red. Add the following to your <command>.bashrc</command> for a green user prompt:</para>
+	<screen># color prompt by paul
+RED='\[\033[01;31m\]'
+WHITE='\[\033[01;00m\]'
+GREEN='\[\033[01;32m\]'
+BLUE='\[\033[01;34m\]'
+export PS1="${debian_chroot:+($debian_chroot)}$GREEN\u$WHITE@$BLUE\h$WHITE\w\$ "</screen>
+</section>
+<?hard-pagebreak?>
+<section><title>$PATH</title>
+	<para>The <command>$PATH</command><indexterm><primary>$PATH</primary></indexterm> variable is determines where the shell is looking for commands to execute (unless the command is builtin or aliased). This variable contains a list of directories, separated by colons.</para>
+	<screen>[[paul@RHEL4b ~]$ echo $PATH
+/usr/kerberos/bin:/usr/local/bin:/bin:/usr/bin:</screen>
+	<para>The shell will not look in the current directory for commands to execute! (Looking for executables in the current directory provided an easy way to hack PC-DOS computers). If you want the shell to look in the current directory, then add a . at the end of your $PATH.</para>
+<screen>[paul@RHEL4b ~]$ PATH=$PATH:.
+[paul@RHEL4b ~]$ echo $PATH
+/usr/kerberos/bin:/usr/local/bin:/bin:/usr/bin:.
+[paul@RHEL4b ~]$</screen>
+	<para>Your path might be different when using su instead of <command>su -</command><indexterm><primary>su -</primary></indexterm> because the latter will take on the environment of the target user. The root user typically has <command>/sbin</command> directories added to the $PATH variable.</para>
+	<screen>[paul@RHEL3 ~]$ su
+Password: 
+[root@RHEL3 paul]# echo $PATH
+/usr/local/bin:/bin:/usr/bin:/usr/X11R6/bin
+[root@RHEL3 paul]# exit
+[paul@RHEL3 ~]$ su -
+Password: 
+[root@RHEL3 ~]# echo $PATH
+/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:
+[root@RHEL3 ~]#</screen>
 </section>
 <?hard-pagebreak?>
 <section><title>env</title>			
@@ -161,59 +160,4 @@ paul@laika:~$ echo $Myvar
 
 paul@laika:~$</screen>
 	<para>In the bash shell <command>set -u</command> is identical to <command>set -o nounset</command> and likewise <command>set +u</command> is identical to <command>set +o nounset</command>.</para>
-</section>
-<?hard-pagebreak?>
-<section><title>shell options</title>
-	<para>Both <command>set</command><indexterm><primary>set</primary></indexterm> and <command>unset</command><indexterm><primary>unset</primary></indexterm> are builtin shell commands. They can be used to set options of the bash shell itself. The next example will clarify this. By default, the shell will treat unset variables as a variable having no value. By setting the -u option, the shell will treat any reference to unset variables as an error. See the man page of bash for more information.</para>
-	<screen>[paul@RHEL4b ~]$ echo $var123
-
-[paul@RHEL4b ~]$ set -u
-[paul@RHEL4b ~]$ echo $var123
--bash: var123: unbound variable
-[paul@RHEL4b ~]$ set +u
-[paul@RHEL4b ~]$ echo $var123
-
-[paul@RHEL4b ~]$</screen>
-	<para>To list all the set options for your shell, use <command>echo $-</command><indexterm><primary>echo $-</primary></indexterm>. The <command>noclobber</command> (or <command>-C</command>) option will be explained later in this book (in the I/O redirection chapter).</para>
-	<screen>[paul@RHEL4b ~]$ echo $-
-himBH
-[paul@RHEL4b ~]$ set -C ; set -u
-[paul@RHEL4b ~]$ echo $-
-himuBCH
-[paul@RHEL4b ~]$ set +C ; set +u
-[paul@RHEL4b ~]$ echo $-
-himBH
-[paul@RHEL4b ~]$</screen>
-	<para>When typing <command>set</command> without options, you get a list of all variables without function when the shell is on <command>posix</command> mode. You can set bash in posix mode typing <command>set -o posix</command>.</para>
-</section>
-<?hard-pagebreak?>
-<section><title>shell embedding</title>
-	<para>Shells can be embedded on the command line, or in other words, the command line scan can spawn new processes containing a fork of the current shell. You can use variables to prove that new shells are created. In the screenshot below, the variable $var1 only exists in the (temporary) sub shell.</para>
-	<screen>[paul@RHELv4u3 gen]$ echo $var1
-
-[paul@RHELv4u3 gen]$ echo $(var1=5;echo $var1)
-5
-[paul@RHELv4u3 gen]$ echo $var1
-
-[paul@RHELv4u3 gen]$</screen>
-	<para>You can embed a shell in an <command>embedded shell</command><indexterm><primary>embedding(shell)</primary></indexterm>, this is called <command>nested embedding</command> of shells.</para>
-	<para>This screenshot shows an embedded shell inside an embedded shell.</para>
-	<screen>paul@deb503:~$ A=shell
-paul@deb503:~$ echo $C$B$A $(B=sub;echo $C$B$A; echo $(C=sub;echo $C$B$A))
-shell subshell subsubshell</screen>
-	<section><title>backticks</title>
-		<para>Single embedding can be useful to avoid changing your current directory. The screenshot below uses <command>backticks</command> instead of dollar-bracket to embed.</para>
-		<screen>[paul@RHELv4u3 ~]$ echo `cd /etc; ls -d * | grep pass`
-passwd passwd- passwd.OLD
-[paul@RHELv4u3 ~]$</screen>
-		<para>You can only use the <command>$()</command><indexterm><primary>$() embedded shell</primary></indexterm> notation to nest embedded shells, <command>backticks</command> cannot do this.</para>
-	</section>
-	<section><title>backticks or single quotes</title>
-		<para>Placing the embedding between <command>backticks</command><indexterm><primary>backticks</primary></indexterm> uses one character less than the dollar and parenthesis combo. Be careful however, backticks are often confused with single quotes. The technical difference between <command>'</command><indexterm><primary>'(single quote)</primary></indexterm> and <command>`</command><indexterm><primary>`(backtick)</primary></indexterm> is significant!</para>
-		<screen>[paul@RHELv4u3 gen]$ echo `var1=5;echo $var1`
-5
-[paul@RHELv4u3 gen]$ echo 'var1=5;echo $var1'
-var1=5;echo $var1
-[paul@RHELv4u3 gen]$</screen>
-	</section>
 </section>

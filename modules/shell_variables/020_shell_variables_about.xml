@@ -1,2 +1,1 @@
-<para>In this chapter we learn to manage environment <command>variables</command> in the shell. These <command>variables</command> are often read by applications.</para>
-<para>We also take a brief look at <command>child shells</command>, <command>embedded shells</command> and <command>shell options</command>.</para>
+<para>In this chapter we learn to manage environment <command>variables</command> in the shell. These <command>variables</command> are often needed by applications.</para>

@@ -16,40 +16,16 @@
 set | more</screen>
 	<para>6. Destroy your <command>answer</command> variable.</para>
 	<screen>unset answer</screen>
-	<para>7. Find the list of shell options in the man page of <command>bash</command>. What is the difference between <command>set -u</command> and <command>set -o nounset</command>?</para>
-	<para>read the manual of bash (man bash), search for nounset -- both mean the same thing.</para>
-	<para>8. Create two variables, and <command>export</command> one of them.</para>
+	<para>7. Create two variables, and <command>export</command> one of them.</para>
 	<screen>var1=1; export var2=2</screen>
-	<para>9. Display the exported variable in an interactive child shell.</para>
+	<para>8. Display the exported variable in an interactive child shell.</para>
 	<screen>bash
 echo $var2</screen>
-	<para>10. Create a variable, give it the value 'Dumb', create another variable with value 'do'. Use <command>echo</command> and the two variables to echo Dumbledore.</para>
+	<para>9. Create a variable, give it the value 'Dumb', create another variable with value 'do'. Use <command>echo</command> and the two variables to echo Dumbledore.</para>
 	<screen>varx=Dumb; vary=do</screen>
 	<screen>echo ${varx}le${vary}re
 solution by Yves from Dexia : echo $varx'le'$vary're'
 solution by Erwin from Telenet : echo "$varx"le"$vary"re</screen>
-	<para>11. Activate <command>nounset</command> in your shell. Test that it shows an error message when using non-existing variables.</para>	
-	<screen>set -u
-OR
-set -o nounset</screen>
-	<para>Both these lines have the same effect.</para>	
-	<para>12. Deactivate nounset.</para>	
-	<screen>set +u
-OR
-set +o nounset</screen>
-	<para>13. Find the list of backslash escaped characters in the manual of bash. Add the time to your <command>PS1</command> prompt.</para>
+	<para>10. Find the list of backslash escaped characters in the manual of bash. Add the time to your <command>PS1</command> prompt.</para>
 	<screen>PS1='\t \u@\h \W$ '</screen>
-	<para>14. Execute <command>cd /var</command> and <command>ls</command> in an embedded shell.</para>
-	<screen>echo $(cd /var ; ls)</screen>
-	<para>The <command>echo</command> command is only needed to show the result of the <command>ls</command> command. Omitting will result in the shell trying to execute the first file as a command.</para>
-	<para>15. Create the variable embvar in an embedded shell and echo it. Does the variable exist in your current shell now ?</para>
-	<screen>$(embvar=emb;echo $embvar) ; echo $embvar (the last echo fails).</screen>
-	<screen>$embvar does not exist in your current shell</screen>
-	<para>16. Explain what "set -x" does. Can this be useful ?</para>
-	<screen>It displays shell expansion for troubleshooting your command.</screen>
-	<para>(optional)17. Given the following screenshot, add exactly four characters to that command line so that the total output is FirstMiddleLast.</para>
-	<screen>[paul@RHEL4b ~]$ echo  First; echo  Middle; echo  Last</screen>
-	<screen>echo -n First; echo -n Middle; echo Last</screen>
-	<para>18. Display a <command>long listing</command> (ls -l) of the <command>passwd</command> command using the <command>which</command> command inside back ticks.</para>
-	<screen>ls -l `which passwd`</screen>
 </section>
