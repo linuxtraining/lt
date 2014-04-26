@@ -1,0 +1,393 @@
+﻿<?hard-pagebreak?>
+<section><title>regex versions</title>
+	<para>There are three different versions of regular expression syntax:</para>
+	<screen>BRE: Basic Regular Expressions
+ERE: Extended Regular Expressions
+PRCE: Perl Regeular Expresseions</screen>
+	<para>Depending on the tool being used, one or more of these syntaxes can be used.</para>
+	<para>For example the <command>grep</command><indexterm><primary>grep</primary></indexterm> tool has the <command>-E</command> option to force a string to be read as ERE while <command>-G</command> forces BRE and <command>-P</command> forces PRCE.</para>
+	<para>Note that <command>grep</command> als has <command>-F</command> to force the string to be read literally.</para>
+	<para>The <command>sed</command> tool also has options to choose a regex syntax.</para>
+	<para><command>Read the manual of the tools you use!</command></para>
+</section>
+<?hard-pagebreak?>
+<section><title>grep</title>
+<section><title>print lines matching a pattern</title>
+	<para><command>grep</command><indexterm><primary>grep</primary></indexterm> is a popular Linux tool to search for lines that match a certain pattern. Below are some examples of the simplest <command>regular expressions</command>.</para>
+	<para>This is the contents of the test file. This file contains three lines (or three <command>newline</command> characters).</para>
+	<screen>paul@rhel65:~$ cat names
+Tania
+Laura
+Valentina</screen>
+	<para>When <command>grepping</command> for a single character, only the lines containing that character are returned.</para>
+<screen>paul@rhel65:~$ grep u names
+Laura
+paul@rhel65:~$ grep e names
+Valentina
+paul@rhel65:~$ grep i names
+Tania
+Valentina</screen>
+	<para>The pattern matching in this example should be very straightforward; if the given character occurs on a line, then <command>grep</command> will return that line.</para>
+</section>
+<section><title>concatenating characters</title>
+	<para>Two concatenated characters will have to be concatenated in the same way to have a match.</para>
+	<para>This example demonstrates that <command>ia</command> will match Tan<command>ia</command> but not V<command>a</command>lent<command>i</command>na and <command>in</command> will match Valent<command>in</command>a but not Ta<command>ni</command>a.</para>
+	<screen>paul@rhel65:~$ grep a names
+Tania
+Laura
+Valentina
+paul@rhel65:~$ grep ia names
+Tania
+paul@rhel65:~$ grep in names
+Valentina
+paul@rhel65:~$</screen>
+</section>
+<?hard-pagebreak?>
+<section><title>one or the other</title>
+	<para>PRCE and ERE both use the pipe symbol to signify OR. In this example we <command>grep</command> for lines containing the letter i or the letter a.</para>
+	<screen>paul@debian7:~$ cat list 
+Tania
+Laura
+paul@debian7:~$ grep -E 'i|a' list 
+Tania
+Laura</screen>
+	<para>Note that we use the <command>-E</command> switch of grep to force interpretion of our string as an ERE.</para>
+	<para>We need to <command>escape</command> the pipe symbol in a BRE to get the same logical OR.</para>
+	<screen>paul@debian7:~$ grep -G 'i|a' list 
+paul@debian7:~$ grep -G 'i\|a' list 
+Tania
+Laura</screen>
+</section>
+<section><title>one or more</title>
+	<para>The <command>*</command> signifies zero, one or more occurences of the previous and the <command>+</command> signifies one or more of the previous.</para>
+	<screen>paul@debian7:~$ cat list2
+ll
+lol
+lool
+loool
+paul@debian7:~$ grep -E 'o*' list2
+ll
+lol
+lool
+loool
+paul@debian7:~$ grep -E 'o+' list2
+lol
+lool
+loool
+paul@debian7:~$</screen>
+</section>
+<?hard-pagebreak?>
+<section><title>match the end of a string</title>
+	<para>For the following examples, we will use this file.</para>
+	<screen>paul@debian7:~$ cat names 
+Tania
+Laura
+Valentina
+Fleur
+Floor</screen>
+	<para>The two examples below show how to use the <command>dollar character</command> to match the end of a string.</para>
+	<screen>paul@debian7:~$ grep a$ names 
+Tania
+Laura
+Valentina
+paul@debian7:~$ grep r$ names 
+Fleur
+Floor
+</screen>
+</section>
+<section><title>match the start of a string</title>
+	<para>The <command>caret character (^)</command> will match a string at the start (or the beginning) of a line.</para>
+	<para>Given the same file as above, here are two examples.</para>
+	<screen>paul@debian7:~$ grep ^Val names 
+Valentina
+paul@debian7:~$ grep ^F names 
+Fleur
+Floor</screen>
+	<para>Both the dollar sign and the little hat are called <command>anchors</command> in a regex.</para>
+</section>
+<?hard-pagebreak?>
+<section><title>separating words</title>
+	<para>Regular expressions use a <command>\b</command> sequence to reference a word separator. Take for example this file:</para>
+	<screen>paul@debian7:~$ cat text
+The governer is governing.
+The winter is over.
+Can you get over there?</screen>
+	<para>Simply grepping for <command>over</command> will give too many results.</para>
+	<screen>paul@debian7:~$ grep over text
+The governer is governing.
+The winter is over.
+Can you get over there?</screen>
+	<para>Surrounding the searched word with spaces is not a good solution (because other characters can be word separators). This screenshwo below show how to use <command>\b</command> to find only the searched word:</para>
+	<screen>paul@debian7:~$ grep '\bover\b' text
+The winter is over.
+Can you get over there?
+paul@debian7:~$</screen>
+	<para>Note that <command>grep</command><indexterm><primary>grep</primary></indexterm> also has a <command>-w</command> option to grep for words.</para>
+	<screen>paul@debian7:~$ cat text 
+The governer is governing.
+The winter is over.
+Can you get over there?
+paul@debian7:~$ grep -w over text
+The winter is over.
+Can you get over there?
+paul@debian7:~$ </screen>
+</section>
+<?hard-pagebreak?>
+<section><title>grep features</title>
+	<para>Sometimes it is easier to combine a simple regex with <command>grep</command> options, than it is to write a more complex regex. These options where discussed before:</para>
+	<screen>grep -i
+grep -v
+grep -w
+grep -A5
+grep -B5
+grep -C5</screen>
+</section>
+<section><title>preventing shell expansion of a regex</title>
+	<para>The dollar sign is a special character, both for the regex and also for the shell (remember variables and embedded shells). Therefore it is advised to always quote the regex, this prevents shell expansion.</para>
+	<screen>paul@debian7:~$ grep 'r$' names 
+Fleur
+Floor</screen>
+</section>
+</section>
+<?hard-pagebreak?>
+<section><title>rename</title>
+<section><title>the rename command</title>
+	<para>On Debian Linux the <command>/usr/bin/rename</command><indexterm><primary>rename</primary></indexterm> command is a link to <command>/usr/bin/prename</command><indexterm><primary>prename</primary></indexterm> installed by the <command>perl</command><indexterm><primary>perl</primary></indexterm> package.</para>
+	<screen>paul@pi ~ $ dpkg -S $(readlink -f $(which rename))
+perl: /usr/bin/prename</screen>
+	<para>Red Hat derived systems do not install the same <command>rename</command> command, so this section does not describe <command>rename</command> on Red Hat (unless you copy the perl script manually).</para>
+	<para><command>There is often confusion on the internet about the rename command because solutions that work fine in Debian (and Ubuntu, xubuntu, Mint, ...) cannot be used in Red Hat (and CentOS, Fedora, ...).</command></para>
+</section>
+<section><title>perl</title>
+	<para>The <command>rename</command> command is actually a perl script that uses <command>perl regular expressions</command>. The complete manual for these can be found by typing <command>perldoc perlrequick</command><indexterm><primary>perldoc</primary></indexterm> (after installing <command>perldoc</command>).</para>
+	<screen>root@pi:~# <command>aptitude install perl-doc</command>
+The following NEW packages will be installed:
+  perl-doc
+0 packages upgraded, 1 newly installed, 0 to remove and 0 not upgraded.
+Need to get 8,170 kB of archives. After unpacking 13.2 MB will be used.
+Get: 1 http://mirrordirector.raspbian.org/raspbian/ wheezy/main perl-do...
+Fetched 8,170 kB in 19s (412 kB/s)
+Selecting previously unselected package perl-doc.
+(Reading database ... 67121 files and directories currently installed.)
+Unpacking perl-doc (from .../perl-doc_5.14.2-21+rpi2_all.deb) ...
+Adding 'diversion of /usr/bin/perldoc to /usr/bin/perldoc.stub by perl-doc'
+Processing triggers for man-db ...
+Setting up perl-doc (5.14.2-21+rpi2) ...
+
+root@pi:~# <command>perldoc perlrequick</command></screen>
+</section>
+<?hard-pagebreak?>
+<section><title>well known syntax</title>
+	<para>The most common use of the <command>rename</command><indexterm><primary>rename</primary></indexterm> is to search for filenames matching a certain <command>string</command> and replacing this string with an <command>other string</command>.</para>
+	<para>This is often presented as <command>s/string/other string/</command> as seen in this example:</para>
+	<screen>paul@pi ~ $ ls
+abc       allfiles.TXT  bllfiles.TXT  Scratch   tennis2.TXT
+abc.conf  backup        cllfiles.TXT  temp.TXT  tennis.TXT
+paul@pi ~ $ <command>rename 's/TXT/text/' *</command>
+paul@pi ~ $ ls
+abc       allfiles.text  bllfiles.text  Scratch    tennis2.text
+abc.conf  backup         cllfiles.text  temp.text  tennis.text</screen>
+	<para>And here is another example that uses <command>rename</command> with the well know syntax to change the extensions of the same files once more:</para>
+	<screen>paul@pi ~ $ ls
+abc       allfiles.text  bllfiles.text  Scratch    tennis2.text
+abc.conf  backup         cllfiles.text  temp.text  tennis.text
+paul@pi ~ $ <command>rename 's/text/txt/' *.text</command>
+paul@pi ~ $ ls
+abc       allfiles.txt  bllfiles.txt  Scratch   tennis2.txt
+abc.conf  backup        cllfiles.txt  temp.txt  tennis.txt
+paul@pi ~ $</screen>
+	<para>These two examples appear to work because the strings we used only exist at the end of the filename. Remember that file extensions have no meaning in the bash shell.</para>
+	<para>The next example shows what can go wrong with this syntax.</para>
+	<screen>paul@pi ~ $ touch atxt.txt
+paul@pi ~ $ <command>rename 's/txt/problem/' atxt.txt</command>
+paul@pi ~ $ ls
+abc       allfiles.txt  backup        cllfiles.txt  temp.txt     tennis.txt
+abc.conf  <command>aproblem.txt</command>  bllfiles.txt  Scratch       tennis2.txt
+paul@pi ~ $</screen>
+	<para>Only the first occurrence of the searched string is replaced.</para>
+</section>
+<?hard-pagebreak?>
+<section><title>a global replace</title>
+	<para>The syntax used in the previous example can be described as <command>s/regex/replacement/</command>. This is simple and straightforward, you enter a <command>regex</command> between the first two slashes and a <command>replacement string</command> between the last two.</para>
+	<para>This example expands this syntax only a little, by adding a <command>modifier</command>.</para>
+	<screen>paul@pi ~ $ rename -n 's/TXT/txt/g' aTXT.TXT
+aTXT.TXT renamed as atxt.txt
+paul@pi ~ $</screen>
+	<para>The syntax we use now can be described as <command>s/regex/replacement/g</command> where s signifies <command>switch</command> and g stands for <command>global</command>.</para>
+	<para>Note that this example used the <command>-n</command> switch to show what is being done (instead of actually renaming the file).</para>
+</section>
+<section><title>case insensitive replace</title>
+	<para>Another <command>modifier</command> that can be useful is <command>i</command>. this example shows how to replace a case insensitive string with another string.</para>
+	<screen>paul@debian7:~/files$ ls
+file1.text  file2.TEXT  file3.txt
+paul@debian7:~/files$ rename 's/.text/.txt/i' *
+paul@debian7:~/files$ ls
+file1.txt  file2.txt  file3.txt
+paul@debian7:~/files$ </screen>
+</section>
+<section><title>renaming extensions</title>
+	<para>Command line Linux has no knowledge of MS-DOS like extensions, but many end users and graphical application do use them.</para>
+	<para>Here is an example on how to use <command>rename</command><indexterm><primary>rename</primary></indexterm> to only rename the file extension. It uses the dollar sign to mark the ending of the filename.</para>
+	<screen>paul@pi ~ $ ls *.txt
+allfiles.txt  bllfiles.txt  cllfiles.txt  really.txt.txt  temp.txt  tennis.txt
+paul@pi ~ $ rename 's/.txt$/.TXT/' *.txt
+paul@pi ~ $ ls *.TXT
+allfiles.TXT  aTXT.TXT    bllfiles.TXT    cllfiles.TXT    really.txt.TXT
+temp.TXT      tennis.TXT
+paul@pi ~ $</screen>
+	<para>Note that the <command>dollar sign</command> in the regex means <command>at the end</command>. Without the dollar sign this command would fail on the really.txt.txt file.</para>
+</section>
+</section>
+<?hard-pagebreak?>
+<section><title>sed</title>
+<section><title>stream editor</title>
+	<para>The <command>stream editor</command> or short <command>sed</command><indexterm><primary>sed</primary></indexterm> uses <command>regex</command> for stream editing.</para>
+	<para>In this example <command>sed</command> is used to replace a string.</para>
+	<screen>echo Sunday | sed 's/Sun/Mon/'
+Monday</screen>
+	<para>The slashes can be replaced by a couple of other characters, which can be handy in some cases to improve readability.</para>
+	<screen>echo Sunday | sed 's:Sun:Mon:'
+Monday
+echo Sunday | sed 's_Sun_Mon_'
+Monday
+echo Sunday | sed 's|Sun|Mon|'
+Monday</screen>
+</section>
+<section><title>interactive editor</title>
+	<para>While <command>sed</command> is meant to be used in a stream, it can also be used interactively on a file.</para>
+	<screen>paul@debian7:~/files$ echo Sunday > today
+paul@debian7:~/files$ cat today 
+Sunday
+paul@debian7:~/files$ sed -i 's/Sun/Mon/' today
+paul@debian7:~/files$ cat today 
+Monday</screen>
+</section>
+<?hard-pagebreak?>
+<section><title>simple back referencing</title>
+	<para>The <command>ampersand</command> character can be used to reference the searched (and found) string.</para>
+	<para>In this example the <command>ampersand</command> is used to double the occurence of the found string.</para>
+	<screen>echo Sunday | sed 's/Sun/&#038;&#038;/'
+SunSunday
+echo Sunday | sed 's/day/&#038;&#038;/'
+Sundayday</screen>
+</section>
+<section><title>back referencing</title>
+	<para>Parentheses (often called round brackets) are used to group sections of the regex so they can leter be referenced.</para>
+	<para>Consider this simple example:</para>
+	<screen>paul@debian7:~$ echo Sunday | sed 's_\(Sun\)_\1ny_'
+Sunnyday
+paul@debian7:~$ echo Sunday | sed 's_\(Sun\)_\1ny \1_'
+Sunny Sunday</screen>
+</section>
+<section><title>a dot for any character</title>
+	<para>In a <command>regex</command><indexterm><primary>sed</primary></indexterm> a simple dot can signify any character.</para>
+	<screen>paul@debian7:~$ echo 2014-04-01 | sed 's/....-..-../YYYY-MM-DD/'
+YYYY-MM-DD
+paul@debian7:~$ echo abcd-ef-gh | sed 's/....-..-../YYYY-MM-DD/'
+YYYY-MM-DD</screen>
+</section>
+<section><title>multiple back referencing</title>
+	<para>When more than one pair of <command>parentheses</command> is used, each of them can be referenced separately by consecutive numbers.</para>
+	<screen>paul@debian7:~$ echo 2014-04-01 | sed 's/\(....\)-\(..\)-\(..\)/\1+\2+\3/'
+2014+04+01
+paul@debian7:~$ echo 2014-04-01 | sed 's/\(....\)-\(..\)-\(..\)/\3:\2:\1/'
+01:04:2014</screen>
+	<para>This feature is called <command>grouping</command>.</para>
+</section>
+<?hard-pagebreak?>
+<section><title>white space</title>
+	<para>The <command>\s</command> can refer to white space such as a space or a tab.</para>
+	<para>This example looks for white spaces (\s) globally and replaces them with 1 space.</para>
+	<screen>paul@debian7:~$ echo -e 'today\tis\twarm'
+today	is	warm
+paul@debian7:~$ echo -e 'today\tis\twarm' | sed 's_\s_ _g'
+today is warm</screen>
+</section>
+<section><title>optional occurrence</title>
+	<para>A question mark signifies an the previous is <command>optional</command>.</para>
+	<para>The example below searches for three consecutive letter o, but the third o is optional.</para>
+	<screen>paul@debian7:~$ cat list2
+ll
+lol
+lool
+loool
+paul@debian7:~$ grep -E 'ooo?' list2
+lool
+loool
+paul@debian7:~$ cat list2 | sed 's/ooo\?/A/'
+ll
+lol
+lAl
+lAl</screen>
+</section>
+<?hard-pagebreak?>
+<section><title>exactly n times</title>
+	<para>You can demand an exact number of times the oprevious has to occur.</para>
+	<para>This example wants exactly three o's.</para>
+	<screen>paul@debian7:~$ cat list2
+ll
+lol
+lool
+loool
+paul@debian7:~$ grep -E 'o{3}' list2
+loool
+paul@debian7:~$ cat list2 | sed 's/o\{3\}/A/'
+ll
+lol
+lool
+lAl
+paul@debian7:~$</screen>
+</section>
+<section><title>between n and m times</title>
+	<para>And here we demand exactly from minimum 2 to maximum 3 times.</para>
+	<screen>paul@debian7:~$ cat list2
+ll
+lol
+lool
+loool
+paul@debian7:~$ grep -E 'o{2,3}' list2
+lool
+loool
+paul@debian7:~$ grep 'o\{2,3\}' list2
+lool
+loool
+paul@debian7:~$ cat list2 | sed 's/o\{2,3\}/A/'
+ll
+lol
+lAl
+lAl
+paul@debian7:~$</screen>
+</section>
+</section>
+<?hard-pagebreak?>
+<section><title>bash history</title>
+	<para>The <command>bash shell</command><indexterm><primary>bash</primary></indexterm> can also interprete some regular expressions.</para>
+	<para>This example shows how to manipulate the exclamation mask history feature from the bash shell.</para>
+	<screen>paul@debian7:~$ mkdir hist
+paul@debian7:~$ cd hist/
+paul@debian7:~/hist$ touch file1 file2 file3
+paul@debian7:~/hist$ ls -l file1
+-rw-r--r-- 1 paul paul 0 Apr 15 22:07 file1
+paul@debian7:~/hist$ !l
+ls -l file1
+-rw-r--r-- 1 paul paul 0 Apr 15 22:07 file1
+paul@debian7:~/hist$ !l:s/1/3
+ls -l file3
+-rw-r--r-- 1 paul paul 0 Apr 15 22:07 file3
+paul@debian7:~/hist$</screen>
+	<para>This also works with the history numbers in bash.</para>
+	<screen>paul@debian7:~/hist$ history 6
+ 2089  mkdir hist
+ 2090  cd hist/
+ 2091  touch file1 file2 file3
+ 2092  ls -l file1
+ 2093  ls -l file3
+ 2094  history 6
+paul@debian7:~/hist$ !2092
+ls -l file1
+-rw-r--r-- 1 paul paul 0 Apr 15 22:07 file1
+paul@debian7:~/hist$ !2092:s/1/2
+ls -l file2
+-rw-r--r-- 1 paul paul 0 Apr 15 22:07 file2
+paul@debian7:~/hist$</screen>
+</section>

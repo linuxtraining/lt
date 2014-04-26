@@ -13,6 +13,7 @@ BOOKTITLE="shell expansion"
 add_mod chapter shell_arguments
 add_mod chapter shell_control_operators
 add_mod chapter shell_variables
+add_mod chapter shell_in_shell
 add_mod chapter shell_history
 add_mod chapter shell_globbing
 
