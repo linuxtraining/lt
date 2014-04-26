@@ -6,12 +6,17 @@
 	<screen>cat /etc/filesystems (not on all Linux distributions)</screen>
 	<para>2. Create an <command>ext2</command> filesystem on the 200MB partition.</para>
 	<screen>mke2fs /dev/sdc1 (replace sdc1 with the correct partition)</screen>
-	<para>3. Create an <command>ext3</command> filesystem on the 400MB partition and one of the 300MB logical drives.</para>
-	<screen>mke2fs -j /dev/sdb1 (replace sdb1 with the correct partition)</screen>
+	<para>3. Create an <command>ext3</command> filesystem on one of the 300MB logical drives.</para>
 	<screen>mke2fs -j /dev/sdb5 (replace sdb5 with the correct partition)</screen>
-	<para>4. Set the reserved space for root on the logical drive to 0 percent.</para>
+ 	<para>4. Create an <command>ext4</command> on the 400MB partition.</para>
+	<screen>mkfs.ext4 /dev/sdb1 (replace sdb1 with the correct partition)</screen>
+	<para>5. Set the reserved space for root on the ext3 filesystem to 0 percent.</para>
 	<screen>tune2fs -m 0 /dev/sdb5</screen>
-	<para>5. Verify your work with <command>fdisk</command> and <command>df</command>.</para>
+	<para>6. Verify your work with <command>fdisk</command> and <command>df</command>.</para>
 	<screen>mkfs (mke2fs) makes no difference in the output of these commands</screen>
 	<screen>The big change is in the next topic: mounting</screen>
+	<para>7. Perform a file system check on all the new file systems.</para>
+	<screen>fsck /dev/sdb1
+fsck /dev/sdc1
+fsck /dev/sdb5</screen>
 </section>
