@@ -8,7 +8,7 @@ BOOKTITLE="disk management"
 ##################
 
 # define book as directories in certain order
-add_mod chapter disk_devices
+add_mod chapter storage_devices
 add_mod chapter storage_partitions
 add_mod chapter storage_filesystems
 add_mod chapter storage_mounting
