@@ -19,6 +19,7 @@
  			<mediaobject><imageobject><imagedata fileref="images/wireshark_ping.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 		</para>
 	</section>
+<?hard-pagebreak?>
 	<section><title>looking inside packets</title>
 		<para>The middle can be expanded. When selecting a line in this panel, you can see the corresponding bytes in the frame in the bottom panel.</para>
 		<para>

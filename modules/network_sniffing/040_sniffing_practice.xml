@@ -5,4 +5,5 @@
 	<para>3. Start sniffing the network.</para>
 	<para>4. Display only the ping echo's in the top pane using a filter.</para>
 	<para>5. Now ping to a name (like www.linux-training.be) and try to sniff the DNS query and response. Which DNS server was used ? Was it a tcp or udp query and response ?</para>
+	<para>6. Find an amateur/hobby/club website that features a login prompt. Attempt to login with user 'paul' and password 'hunter2' while your sniffer is running. Now find this information in the sniffer.</para>
 </section>

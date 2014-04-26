@@ -25,4 +25,5 @@ rtt min/avg/max/mdev = 14.984/15.539/16.095/0.569 ms</screen>
 	<para>The wireshark screen should look something like this.</para>
 	<mediaobject><imageobject><imagedata fileref="images/wireshark_dns_sniff.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 	<para>The details in wireshark will say the DNS query was inside a udp packet.</para>
+	<para>6. Find an amateur/hobby/club website that features a login prompt. Attempt to login with user 'paul' and password 'hunter2' while your sniffer is running. Now find this information in the sniffer.</para>
 </section>
