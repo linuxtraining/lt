@@ -45,6 +45,7 @@ gateway 192.168.33.1</screen>
 		<para>The screenshot above also shows that you can provide more configuration than just the ip address. See <command>interfaces(5)</command> for help on setting a <command>gateway</command>, <command>netmask</command> or any of the other options.</para>
 	</section>
 </section>
+<?hard-pagebreak?>
 <section><title>/sbin/ifdown</title>
 	<para>It is adviced (but not mandatory) to down an interface before changing its configuration. This can be done with the <command>ifdown</command><indexterm><primary>ifdown(1)</primary></indexterm> command.</para>
 	<para>The command will not give any output when downing an interface with a fixed ip address. However <command>ifconfig</command> will no longer show the interface.</para>
