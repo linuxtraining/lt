@@ -1,6 +1,7 @@
 <?hard-pagebreak?>
 <section><title>solution: iSCSI devices</title>
 	<para>1. Set up a target (using an LVM and a SCSI device) and an initiator that connects to both.</para>
+	<para>This solution was done on <command>Debian/ubuntu/Mint</command>. For RHEL/CentOS check the theory.</para>
 	<para>Decide (with a partner) on a computer to be the Target and another computer to be the Initiator.</para>
 	<para><command>On the Target computer:</command></para>
 	<para>First install iscsitarget using the standard tools for installing software in your distribution. Then use your knowledge from the previous chapter to setup a logical volume (/dev/vg/lvol0) and use the RAID chapter to setup /dev/md0. Then perform the following step:</para>

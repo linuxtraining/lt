@@ -4,21 +4,185 @@
 	<para>The computer holding the physical storage hardware is called the <command>iSCSI Target</command>. Each individual addressable iSCSI device on the target server will get a <command>LUN number</command>.</para>
 	<para>The iSCSI client computer that is connecting to the Target server is called an <command>Initiator</command><indexterm><primary>initiator(iSCSI)</primary></indexterm>. An initiator will send SCSI commands over IP instead of directly to the hardware. The Initiator will connect to the Target.</para>
 </section>	
-<section><title>iSCSI target installation</title>
+
+<section><title>iSCSI Target in RHEL/CentOS</title>
+	<para>This section will describe iSCSI Target setup on RHEL6, RHEL7 and CentOS.</para>
+	<para>Start with installing the <command>iSCSI Target</command> package.</para>
+	<screen>yum install scsi-target-utils</screen>
+	<para>We configure three local disks in <command>/etc/tgt/targets.conf</command> to become three LUN's.</para>
+	<screen>&#060;target iqn.2008-09.com.example:server.target2&#062;
+    direct-store /dev/sdb
+    direct-store /dev/sdc
+    direct-store /dev/sdd
+    incominguser paul hunter2
+&#060;/target&#062;</screen>
+	<para>Restart the service.</para>
+	<screen>[root@centos65 ~]# service tgtd start
+Starting SCSI target daemon:                               [  OK  ]</screen>
+	<para>The standard local port for iSCSI Target is 3260, in case of doubt you can verify this with <command>netstat</command>.</para>
+	<screen>[root@server1 tgt]# netstat -ntpl | grep tgt
+tcp    0   0 0.0.0.0:3260       0.0.0.0:*          LISTEN      1670/tgtd
+tcp    0   0 :::3260            :::*               LISTEN      1670/tgtd</screen>
+<?hard-pagebreak?>
+	<para>The <command>tgt-admin -s</command> command should now give you a nice overview of the three LUN's (and also LUN 0 for the controller).</para>
+	<screen>[root@server1 tgt]# tgt-admin -s
+Target 1: iqn.2014-04.be.linux-training:server1.target1
+    System information:
+        Driver: iscsi
+        State: ready
+    I_T nexus information:
+    LUN information:
+        LUN: 0
+            Type: controller
+            SCSI ID: IET     00010000
+            SCSI SN: beaf10
+            Size: 0 MB, Block size: 1
+            Online: Yes
+            Removable media: No
+            Prevent removal: No
+            Readonly: No
+            Backing store type: null
+            Backing store path: None
+            Backing store flags: 
+        LUN: 1
+            Type: disk
+            SCSI ID: IET     00010001
+            SCSI SN: VB9f23197b-af6cfb60 
+            Size: 1074 MB, Block size: 512
+            Online: Yes
+            Removable media: No
+            Prevent removal: No
+            Readonly: No
+            Backing store type: rdwr
+            Backing store path: /dev/sdb
+            Backing store flags: 
+        LUN: 2
+            Type: disk
+            SCSI ID: IET     00010002
+            SCSI SN: VB8f554351-a1410828 
+            Size: 1074 MB, Block size: 512
+            Online: Yes
+            Removable media: No
+            Prevent removal: No
+            Readonly: No
+            Backing store type: rdwr
+            Backing store path: /dev/sdc
+            Backing store flags: 
+        LUN: 3
+            Type: disk
+            SCSI ID: IET     00010003
+            SCSI SN: VB1035d2f0-7ae90b49 
+            Size: 1074 MB, Block size: 512
+            Online: Yes
+            Removable media: No
+            Prevent removal: No
+            Readonly: No
+            Backing store type: rdwr
+            Backing store path: /dev/sdd
+            Backing store flags: 
+    Account information:
+    ACL information:
+        ALL</screen>
+</section>	
+<?hard-pagebreak?>
+
+<section><title>iSCSI Initiator in RHEL/CentOS</title>
+	<para>This section will describe iSCSI Initiator setup on RHEL6, RHEL7 and CentOS.</para>
+	<para>Start with installing the <command>iSCSI Initiator</command> package.</para>
+	<screen>[root@server2 ~]# yum install iscsi-initiator-utils</screen>
+	<para>Then ask the <command>iSCSI target server</command> to send you the target names.</para>
+	<screen>[root@server2 ~]# iscsiadm -m discovery -t sendtargets -p 192.168.1.95:3260
+Starting iscsid:                                           [  OK  ]
+192.168.1.95:3260,1 iqn.2014-04.be.linux-training:centos65.target1</screen>
+	<para>We received <command>iqn.2014-04.be.linux-training:centos65.target1</command>.</para>
+	<para>We use this iqn to configure the username and the password (paul and hunter2) that we set on the target server.</para>
+	<screen>[root@server2 iscsi]# iscsiadm -m node --targetname iqn.2014-04.be.linux-tra\
+ining:centos65.target1 --portal "192.168.1.95:3260" --op=update --name node.\
+session.auth.username --value=paul
+[root@server2 iscsi]# iscsiadm -m node --targetname iqn.2014-04.be.linux-tra\
+ining:centos65.target1 --portal "192.168.1.95:3260" --op=update --name node.\
+session.auth.password --value=hunter2
+[root@server2 iscsi]# iscsiadm -m node --targetname iqn.2014-04.be.linux-tra\
+ining:centos65.target1 --portal "192.168.1.95:3260" --op=update --name node.\
+session.auth.authmethod --value=CHAP</screen>
+	<para>RHEL and CentOS will store these in <command>/var/lib/iscsi/nodes/</command>.</para>
+<screen>[root@server2 iscsi]# grep auth /var/lib/iscsi/nodes/iqn.2014-04.be.linux-tr\
+aining\:centos65.target1/192.168.1.95\,3260\,1/default 
+node.session.auth.authmethod = CHAP
+node.session.auth.username = paul
+node.session.auth.password = hunter2
+node.conn[0].timeo.auth_timeout = 45
+[root@server2 iscsi]# </screen>
+<?hard-pagebreak?>
+	<para>A restart of the <command>iscsi</command> service will add three new devices to our system.</para>
+	<screen>[root@server2 iscsi]# fdisk -l | grep Disk
+Disk /dev/sda: 42.9 GB, 42949672960 bytes
+Disk identifier: 0x0004f229
+Disk /dev/sdb: 1073 MB, 1073741824 bytes
+Disk identifier: 0x00000000
+Disk /dev/sdc: 1073 MB, 1073741824 bytes
+Disk identifier: 0x00000000
+Disk /dev/sdd: 1073 MB, 1073741824 bytes
+Disk identifier: 0x00000000
+Disk /dev/sde: 2147 MB, 2147483648 bytes
+Disk identifier: 0x00000000
+Disk /dev/sdf: 2147 MB, 2147483648 bytes
+Disk identifier: 0x00000000
+Disk /dev/sdg: 2147 MB, 2147483648 bytes
+Disk identifier: 0x00000000
+Disk /dev/mapper/VolGroup-lv_root: 41.4 GB, 41448112128 bytes
+Disk identifier: 0x00000000
+Disk /dev/mapper/VolGroup-lv_swap: 973 MB, 973078528 bytes
+Disk identifier: 0x00000000
+[root@server2 iscsi]# service iscsi restart
+Stopping iscsi:                                            [  OK  ]
+Starting iscsi:                                            [  OK  ]
+[root@server2 iscsi]# fdisk -l | grep Disk
+Disk /dev/sda: 42.9 GB, 42949672960 bytes
+Disk identifier: 0x0004f229
+Disk /dev/sdb: 1073 MB, 1073741824 bytes
+Disk identifier: 0x00000000
+Disk /dev/sdc: 1073 MB, 1073741824 bytes
+Disk identifier: 0x00000000
+Disk /dev/sdd: 1073 MB, 1073741824 bytes
+Disk identifier: 0x00000000
+Disk /dev/sde: 2147 MB, 2147483648 bytes
+Disk identifier: 0x00000000
+Disk /dev/sdf: 2147 MB, 2147483648 bytes
+Disk identifier: 0x00000000
+Disk /dev/sdg: 2147 MB, 2147483648 bytes
+Disk identifier: 0x00000000
+Disk /dev/mapper/VolGroup-lv_root: 41.4 GB, 41448112128 bytes
+Disk identifier: 0x00000000
+Disk /dev/mapper/VolGroup-lv_swap: 973 MB, 973078528 bytes
+Disk identifier: 0x00000000
+Disk /dev/sdh: 1073 MB, 1073741824 bytes
+Disk identifier: 0x00000000
+Disk /dev/sdi: 1073 MB, 1073741824 bytes
+Disk identifier: 0x00000000
+Disk /dev/sdj: 1073 MB, 1073741824 bytes
+Disk identifier: 0x00000000</screen>
+	<para>You can verify iscsi status with:</para>
+	<screen>service iscsi status</screen>
+</section>	
+
+<?hard-pagebreak?>
+<section><title>iSCSI target on Debian</title>
 	<para>Installing the software for the target server requires <command>iscsitarget</command> on Ubuntu and Debian, and an extra <command>iscsitarget-dkms</command> for the kernel modules only on Debian.</para>
 	<screen>root@debby6:~# aptitude install iscsitarget
 The following NEW packages will be installed:
   iscsitarget 
 0 packages upgraded, 1 newly installed, 0 to remove and 0 not upgraded.
 Need to get 69.4 kB of archives. After unpacking 262 kB will be used.
-Get:1 http://ftp.belnet.be/debian/ squeeze/main iscsitarget i386 1.4.20.2-1 [69.4 kB]
+Get:1 http://ftp.belnet.be/debian/ squeeze/main iscsitarget i386 1.4.20.2-1\
+ [69.4 kB]
 Fetched 69.4 kB in 0s (415 kB/s)
 Selecting previously deselected package iscsitarget.
 (Reading database ... 36441 files and directories currently installed.)
 Unpacking iscsitarget (from .../iscsitarget_1.4.20.2-1_i386.deb) ...
 Processing triggers for man-db ...
 Setting up iscsitarget (1.4.20.2-1) ...
-iscsitarget not enabled in "/etc/default/iscsitarget", not starting... ... (warning).</screen>
+iscsitarget not enabled in "/etc/default/iscsitarget", not starting...(warning).</screen>
 	<para>On Debian 6 you will also need <command>aptitude install iscsitarget-dkms</command> for the kernel modules, on Debian 5 this is <command>aptitude install iscsitarget-modules-`uname -a`</command>. Ubuntu includes the kernel modules in the main package.</para>
 	<para>The iSCSI target server is disabled by default, so we enable it.</para>
 	<screen>root@debby6:~# cat /etc/default/iscsitarget 
@@ -28,7 +192,7 @@ root@debby6:~# cat /etc/default/iscsitarget
 ISCSITARGET_ENABLE=true</screen>
 </section>	
 <?hard-pagebreak?>
-<section><title>iSCSI target setup</title>
+<section><title>iSCSI target setup with dd files</title>
 	<para>You can use LVM volumes (/dev/md0/lvol0), physical partitions (/dev/sda) ,raid devices (/dev/md0) or just plain files for storage. In this demo, we use files created with <command>dd</command>.</para>
 	<para>This screenshot shows how to create three small files (100MB, 200MB and 300MB).</para>
 	<screen>root@debby6:~# mkdir /iscsi
@@ -74,6 +238,7 @@ root@debby6:/etc/iet# cat initiators.allow
 iqn.2010-02.be.linux-training:storage.lun1
 iqn.2010-02.be.linux-training:storage.lun2
 iqn.2010-02.be.linux-training:storage.lun3</screen>
+<?hard-pagebreak?>
 	<para>Time to start the server now: </para>
 	<screen>root@debby6:/etc/iet# /etc/init.d/iscsitarget start
 Starting iSCSI enterprise target service:.
@@ -96,13 +261,13 @@ tid:2 name:iqn.2010-02.be.linux-training:storage.lun2
 tid:1 name:iqn.2010-02.be.linux-training:storage.lun1</screen>
 </section>	
 <?hard-pagebreak?>
-<section><title>ISCSI client initiator setup</title>
+<section><title>ISCSI initiator on ubuntu</title>
 	<para>First we install the iSCSi client software (on another computer than the target).</para>
 	<screen>root@ubu1104:~# aptitude install open-iscsi
 Reading package lists... Done
-Building dependency tree       
+Building dependency tree
 Reading state information... Done
-Reading extended state information      
+Reading extended state information
 Initializing package states... Done
 The following NEW packages will be installed:
   open-iscsi open-iscsi-utils{a}</screen>
@@ -113,8 +278,8 @@ root@ubu1104:/etc/iscsi# grep ^node.startup iscsid.conf
 node.startup = automatic</screen>
 	<para>Or you could start it manually.</para>
 	<screen>root@ubu1104:/etc/iscsi/nodes# /etc/init.d/open-iscsi start
- * Starting iSCSI initiator service iscsid                                                                                                                                                                                            [ OK ] 
- * Setting up iSCSI targets                                                                                                                                                                                                           [ OK ] 
+ * Starting iSCSI initiator service iscsid                        [ OK ] 
+ * Setting up iSCSI targets                                       [ OK ] 
 root@ubu1104:/etc/iscsi/nodes#</screen>
 	<para>Now we can connect to the Target server and use <command>iscsiadm</command> to discover the devices it offers: </para>
 	<screen>root@ubu1104:/etc/iscsi# iscsiadm  -m discovery -t st -p 192.168.1.31
@@ -132,6 +297,7 @@ root@ubu1104:/etc/iscsi# iscsiadm -m node --targetname "iqn.2010-02.be.linu\
 x-training:storage.lun1" --portal "192.168.1.31:3260" --op=update --name no\
 de.session.auth.password --value=hunter2</screen>
 	<para>Repeat the above for the other two devices.</para>
+<?hard-pagebreak?>
 	<para>Restart the initiator service to log in to the target. </para>
 	<screen>root@ubu1104:/etc/iscsi/nodes# /etc/init.d/open-iscsi restart
  * Disconnecting iSCSI targets                                      [ OK ]
@@ -182,4 +348,4 @@ root@ubu1104:/etc/iscsi/nodes# mount | grep is
 /dev/sdb1 on /mnt/is1 type ext2 (rw)
 /dev/sdc1 on /mnt/is2 type ext3 (rw)
 /dev/sdd1 on /mnt/is3 type ext4 (rw)</screen>
-</section>	
+</section>
