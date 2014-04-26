@@ -78,12 +78,19 @@ paul@laika:~$ man /usr/share/man/man1/whois.1.gz
 No manual entry for woman</screen>
 	</section>
 	<section><title>mandb</title>
-		<para>Should you be convinced that a man page exists, but you can't access it, then try running <command>mandb</command><indexterm><primary>mandb(1)</primary></indexterm>.</para>
-		<screen>
-root@laika:~# mandb
+		<para>Should you be convinced that a man page exists, but you can't access it, then try running <command>mandb</command><indexterm><primary>mandb(1)</primary></indexterm> on Debian/Mint.</para>
+		<screen>root@laika:~# mandb
 0 man subdirectories contained newer manual pages.
 0 manual pages were added.
 0 stray cats were added.
-0 old database entries were purged.
-		</screen>
+0 old database entries were purged.</screen>
+	<para>Or run <command>makewhatis</command><indexterm><primary>makewhatis</primary></indexterm> on CentOS/Redhat.</para>
+		<screen>[root@centos65 ~]# apropos scsi
+scsi: nothing appropriate
+[root@server2 ~]# makewhatis 
+[root@server2 ~]# apropos scsi
+hpsa                 (4)  - HP Smart Array SCSI driver
+lsscsi               (8)  - list SCSI devices (or hosts) and their attributes
+sd                   (4)  - Driver for SCSI Disk Drives
+st                   (4)  - SCSI tape device</screen>
 	</section>
