@@ -1,15 +1,30 @@
-<section><title>about selinux</title>
-	<para>Security Enhanced Linux or <command>SELinux</command><indexterm><primary>SELinux</primary></indexterm> is a set of modifications developed by the United States National Security Agency (NSA) to provide a variety of security policies for Linux. SELinux was released as open source at the end of 2000. Since kernel version 2.6 it is an integrated part of Linux.</para>
-	<para>SELinux offers security! SELinux can control what kind of access users have to files and processes. Even when a file received <command>chmod 777</command>, SELinux can still prevent users from accessing it (unix file permissions are checked first!). SELinux does this by placing users in <command>roles</command> that represent a security context. Administrators have very strict control on access permissions granted to roles.</para>
-	<para>SELinux is present in the latest versions of Red Hat Enterprise Linux, Debian, Fedora, Ubuntu, Yellow Dog Linux and Hardened Gentoo. There is currently (2008) limited support in Suse and Slackware.</para>
-</section>
+<?hard-pagebreak?>
 <section><title>selinux modes</title>
 	<para><command>selinux</command> knows three modes: enforcing, permissive and disabled. The <command>enforcing</command> mode will enforce policies, and may deny access based on <command>selinux rules</command>. The <command>permissive</command> mode will not enforce policies, but can still log actions that would have been denied in <command>enforcing</command> mode. The <command>disabled</command> mode disables <command>selinux</command>.</para>
 </section>
+<section><title>logging</title>
+	<para>Verify that <command>syslog</command> is running and activated on boot to enable logging of deny messages in <command>/var/log/messages</command>.</para>
+	<screen>[root@rhel55 ~]# chkconfig --list syslog
+syslog         	0:off	1:off	2:on	3:on	4:on	5:on	6:off</screen>
+	<para>Verify that <command>auditd</command><indexterm><primary>auditd</primary></indexterm> is running and activated on boot to enable logging of easier to read messages in <command>/var/log/audit/audit.log</command><indexterm><primary>/var/log/audit/audit.log</primary></indexterm>.</para>
+	<screen>[root@rhel55 ~]# chkconfig --list auditd
+auditd         	0:off	1:off	2:on	3:on	4:on	5:on	6:off</screen>
+	<para>If not activated, then run <command>chkconfig --levels 2345 auditd on</command><indexterm><primary>chkconfig</primary></indexterm> and <command>service auditd start</command>.</para>
+	<screen>[root@rhel55 ~]# service auditd status
+auditd (pid  1660) is running...
+[root@rhel55 ~]# service syslog status
+syslogd (pid  1688) is running...
+klogd (pid  1691) is running...</screen>
+	<para>The <command>/var/log/messages</command> log file will tell you that <command>selinux</command> is disabled.</para>
+	<screen>root@deb503:~# grep -i selinux /var/log/messages
+Jun 25 15:59:34 deb503 kernel: [    0.084083] SELinux:  Disabled at boot.</screen>
+	<para>Or that it is enabled.</para>
+	<screen>root@deb503:~# grep SELinux /var/log/messages | grep -i Init
+Jun 25 15:09:52 deb503 kernel: [    0.084094] SELinux:  Initializing.</screen>
+</section>
 <section><title>activating selinux</title>
-	<para>On RHEL you can use the GUI tool to activate <command>selinux</command>, on Debian there is the <command>selinux-activate</command><indexterm><primary>selinux-activate</primary></indexterm> command.Activation requires a reboot.</para>
-	<screen>
-root@deb503:~# selinux-activate 
+	<para>On RHEL you can use the GUI tool to activate <command>selinux</command>, on Debian there is the <command>selinux-activate</command><indexterm><primary>selinux-activate</primary></indexterm> command. Activation requires a reboot.</para>
+	<screen>root@deb503:~# selinux-activate 
 Activating SE Linux
 Searching for GRUB installation directory ... found: /boot/grub
 Searching for default file ... found: /boot/grub/default
@@ -18,115 +33,53 @@ Searching for splash image ... none found, skipping ...
 Found kernel: /boot/vmlinuz-2.6.26-2-686
 Updating /boot/grub/menu.lst ... done
 
-SE Linux is activated.  You may need to reboot now.
-	</screen>
+SE Linux is activated.  You may need to reboot now.</screen>
 </section>
+<?hard-pagebreak?>
 <section><title>getenforce</title>
 	<para>Use <command>getenforce</command><indexterm><primary>getenforce</primary></indexterm> to verify whether selinux is <command>enforced</command>, <command>disabled</command> or <command>permissive</command>.</para>
-	<screen>
-[root@rhel55 ~]# getenforce 
-Permissive
-	</screen>
+	<screen>[root@rhel55 ~]# getenforce 
+Permissive</screen>
 	<para>The <command>/selinux/enforce</command> file contains 1 when enforcing, and 0 when permissive mode is ative.</para>
-	<screen>
-root@fedora13 ~# cat /selinux/enforce 
-1root@fedora13 ~# 
-	</screen>
+	<screen>root@fedora13 ~# cat /selinux/enforce 
+1root@fedora13 ~#</screen>
 </section>
 <section><title>setenforce</title>
 	<para>You can use <command>setenforce</command><indexterm><primary>setenforce</primary></indexterm> to switch between the <command>Permissive</command> or the <command>Enforcing</command> state once <command>selinux</command> is activated..</para>
-	<screen>
-[root@rhel55 ~]# setenforce Enforcing
+	<screen>[root@rhel55 ~]# setenforce Enforcing
 [root@rhel55 ~]# getenforce 
 Enforcing
 [root@rhel55 ~]# setenforce Permissive
 [root@rhel55 ~]# getenforce 
+Permissive</screen>
+	<para>Or you could just use 0 and 1 as argument.</para>
+	<screen>[root@centos65 ~]# setenforce 1
+[root@centos65 ~]# getenforce 
+Enforcing
+[root@centos65 ~]# setenforce 0
+[root@centos65 ~]# getenforce 
 Permissive
-	</screen>
+[root@centos65 ~]#</screen>
 </section>
+<?hard-pagebreak?>
 <section><title>sestatus</title>
 	<para>You can see the current <command>selinux</command><indexterm><primary>selinux</primary></indexterm> status and policy with the <command>sestatus</command><indexterm><primary>sestatus</primary></indexterm> command.</para>
-	<screen>
-[root@rhel55 ~]# sestatus 
+	<screen>[root@rhel55 ~]# sestatus 
 SELinux status:                 enabled
 SELinuxfs mount:                /selinux
 Current mode:                   permissive
 Mode from config file:          permissive
 Policy version:                 21
-Policy from config file:        targeted
-	</screen>
+Policy from config file:        targeted</screen>
 </section>
-<section><title>logging</title>
-	<para>Verify that <command>syslog</command> is running and activated on boot to enable logging of deny messages in <command>/var/log/messages</command>.</para>
-	<screen>
-[root@rhel55 ~]# chkconfig --list syslog
-syslog         	0:off	1:off	2:on	3:on	4:on	5:on	6:off
-	</screen>
-	<para>Verify that <command>auditd</command><indexterm><primary>auditd</primary></indexterm> is running and activated on boot to enable logging of easier to read messages in <command>/var/log/audit/audit.log</command><indexterm><primary>/var/log/audit/audit.log</primary></indexterm>.</para>
-	<screen>
-[root@rhel55 ~]# chkconfig --list auditd
-auditd         	0:off	1:off	2:on	3:on	4:on	5:on	6:off
-	</screen>
-	<para>If not activated, then run <command>chkconfig --levels 2345 auditd on</command><indexterm><primary>chkconfig</primary></indexterm> and <command>service auditd start</command>.</para>
-	<screen>
-[root@rhel55 ~]# service auditd status
-auditd (pid  1660) is running...
-[root@rhel55 ~]# service syslog status
-syslogd (pid  1688) is running...
-klogd (pid  1691) is running...
-	</screen>
-	<para>The <command>/var/log/messages</command> log file will tell you that <command>selinux</command> is disabled.</para>
-	<screen>
-root@deb503:~# grep -i selinux /var/log/messages
-Jun 25 15:59:34 deb503 kernel: [    0.084083] SELinux:  Disabled at boot.
-	</screen>
-	<para>Or that it is enabled.</para>
-	<screen>
-root@deb503:~# grep SELinux /var/log/messages | grep -i Init
-Jun 25 15:09:52 deb503 kernel: [    0.084094] SELinux:  Initializing.
-	</screen>
-</section>
-<section><title>DAC or MAC</title>
-	<para>Standard Unix permissions use <command>Discretionary Access Control</command> to set permissions on files. This means that a user that owns a file, can make it world readable by typing <command>chmod 777 $file</command><indexterm><primary>chmod</primary></indexterm>.</para>
-	<para>With <command>selinux</command> the kernel will enforce <command>Mandatory Access Control</command> which strictly controls what processes or threads can do with files (superseding DAC). Processes are confined by the kernel to the minimum access they require.</para>
-</section>
-<section><title>ls -Z</title>
-	<para>To see the DAC permissions on a file, use <command>ls -l</command> to display user and group <command>owner</command> and permissions (here <command>rw-r--r--</command>).</para>
-	<screen>
-root@deb503:~/selinux# touch test42.txt
-root@deb503:~/selinux# ls -l
-total 0
--rw-r--r-- 1 root root 0 2010-06-25 15:38 test42.txt
-	</screen>
-	<para>For MAC permissions there is new <command>-Z</command> option added to <command>ls</command><indexterm><primary>ls</primary></indexterm>. The output shows an <command>selinux</command> user named <command>unconfined_u</command>, a role named <command>object_r</command>, a type named <command>unconfined_home_t</command>, and a level <command>S0</command>.</para>
-	<screen>
-root@deb503:~/selinux# ls -Z
-unconfined_u:object_r:unconfined_home_t:s0 test42.txt
-	</screen>
-</section>
-<section><title>/selinux</title>
-	<para>When selinux is active, there is a new virtual file system named <command>/selinux</command>. (You can compare it to /proc and /dev.)</para>
-	<screen>
-[root@RHEL5 ~]# ls /selinux/
-access                context  mls
-avc                   create   null
-booleans              disable  policyvers
-checkreqprot          enforce  relabel
-commit_pending_bools  load     user
-compat_net            member
-	</screen>
-	<para>Although some files in <command>/selinux</command><indexterm><primary>/selinux</primary></indexterm> appear wih size 0, they often contain a boolean value. Check <command>/selinux/enforce</command><indexterm><primary>/selinux/enforce</primary></indexterm> to see if selinux is running in enforced mode.</para>
-	<screen>
-[root@RHEL5 ~]# ls -l /selinux/enforce 
--rw-r--r-- 1 root root 0 Apr 29 08:21 /selinux/enforce
-[root@RHEL5 ~]# echo `cat /selinux/enforce` 
-1
-	</screen>
+<section><title>policy</title>
+	<para>Most Red Hat server will have the <command>targeted</command> policy. Only NSA/FBI/CIA/DOD/HLS use the <command>mls</command> policy.</para>
+	<para>The targted policy will protect hundreds of processes, but lets other processes run 'unconfined' (= they can do anything).</para>
 </section>
 <section><title>/etc/selinux/config</title>
 	<para>The main configuration file for <command>selinux</command> is <command>/etc/selinux/config</command><indexterm><primary>/etc/selinux/config</primary></indexterm>. When in <command>permissive</command> mode, the file looks like this.</para>
-	<screen>
-[root@rhel55 ~]# more /etc/selinux/config
+	<para>The targeted policy is selected in <command>/etc/selinux/config</command>.</para>
+	<screen>[root@centos65 ~]# cat /etc/selinux/config 
 # This file controls the state of SELinux on the system.
 # SELINUX= can take one of these three values:
 #       enforcing - SELinux security policy is enforced.
@@ -136,77 +89,157 @@ SELINUX=permissive
 # SELINUXTYPE= type of policy in use. Possible values are:
 #       targeted - Only targeted network daemons are protected.
 #       strict - Full SELinux protection.
-SELINUXTYPE=targeted
-	</screen>
+SELINUXTYPE=targeted</screen> 
+</section>
+<?hard-pagebreak?>
+<section><title>DAC or MAC</title>
+	<para>Standard Unix permissions use <command>Discretionary Access Control</command> to set permissions on files. This means that a user that owns a file, can make it world readable by typing <command>chmod 777 $file</command><indexterm><primary>chmod</primary></indexterm>.</para>
+	<para>With <command>selinux</command> the kernel will enforce <command>Mandatory Access Control</command> which strictly controls what processes or threads can do with files (superseding DAC). Processes are confined by the kernel to the minimum access they require.</para>
+	<para>SELinux MAC is about labeling and type enforcing! Files, processes, etc are all labeled with an SELinux context. For files, these are extended attributes, for processes this is managed by the kernel.</para>
+	<para>The format of the labels is as follows:</para>
+	<screen>user:role:type:(level)</screen>
+	<para>We only use the <command>type</command> label in the targeted policy.</para>
+</section>
+<section><title>ls -Z</title>
+	<para>To see the DAC permissions on a file, use <command>ls -l</command> to display user and group <command>owner</command> and permissions.</para>
+	<para>For MAC permissions there is new <command>-Z</command> option added to <command>ls</command><indexterm><primary>ls</primary></indexterm>. The output shows that file in <command>/root</command> have a XXXtype of <command>admin_home_t</command>.</para>
+	<screen>[root@centos65 ~]# ls -Z
+-rw-------. root root system_u:object_r:admin_home_t:s0 anaconda-ks.cfg
+-rw-r--r--. root root system_u:object_r:admin_home_t:s0 install.log
+-rw-r--r--. root root system_u:object_r:admin_home_t:s0 install.log.syslog</screen>
+	<screen>[root@centos65 ~]# useradd -m -s /bin/bash pol
+[root@centos65 ~]# ls -Z /home/pol/.bashrc
+-rw-r--r--. pol pol unconfined_u:object_r:user_home_t:s0 /home/pol/.bashrc</screen>
+</section>
+<section><title>-Z</title>
+	<para>There are also some other tools with the -Z switch:</para>
+	<screen>mkdir -Z
+cp -Z
+ps -Z
+netstat -Z
+...</screen>
+</section>
+<?hard-pagebreak?>
+<section><title>/selinux</title>
+	<para>When selinux is active, there is a new virtual file system named <command>/selinux</command>. (You can compare it to /proc and /dev.)</para>
+	<screen>[root@centos65 ~]# ls -l /selinux/
+total 0
+-rw-rw-rw-.  1 root root    0 Apr 12 19:40 access
+dr-xr-xr-x.  2 root root    0 Apr 12 19:40 avc
+dr-xr-xr-x.  2 root root    0 Apr 12 19:40 booleans
+-rw-r--r--.  1 root root    0 Apr 12 19:40 checkreqprot
+dr-xr-xr-x. 83 root root    0 Apr 12 19:40 class
+--w-------.  1 root root    0 Apr 12 19:40 commit_pending_bools
+-rw-rw-rw-.  1 root root    0 Apr 12 19:40 context
+-rw-rw-rw-.  1 root root    0 Apr 12 19:40 create
+-r--r--r--.  1 root root    0 Apr 12 19:40 deny_unknown
+--w-------.  1 root root    0 Apr 12 19:40 disable
+-rw-r--r--.  1 root root    0 Apr 12 19:40 enforce
+dr-xr-xr-x.  2 root root    0 Apr 12 19:40 initial_contexts
+-rw-------.  1 root root    0 Apr 12 19:40 load
+-rw-rw-rw-.  1 root root    0 Apr 12 19:40 member
+-r--r--r--.  1 root root    0 Apr 12 19:40 mls
+crw-rw-rw-.  1 root root 1, 3 Apr 12 19:40 null
+-r--------.  1 root root    0 Apr 12 19:40 policy
+dr-xr-xr-x.  2 root root    0 Apr 12 19:40 policy_capabilities
+-r--r--r--.  1 root root    0 Apr 12 19:40 policyvers
+-r--r--r--.  1 root root    0 Apr 12 19:40 reject_unknown
+-rw-rw-rw-.  1 root root    0 Apr 12 19:40 relabel
+-r--r--r--.  1 root root    0 Apr 12 19:40 status
+-rw-rw-rw-.  1 root root    0 Apr 12 19:40 user</screen>
+	<para>Although some files in <command>/selinux</command><indexterm><primary>/selinux</primary></indexterm> appear wih size 0, they often contain a boolean value. Check <command>/selinux/enforce</command><indexterm><primary>/selinux/enforce</primary></indexterm> to see if selinux is running in enforced mode.</para>
+	<screen>[root@RHEL5 ~]# ls -l /selinux/enforce 
+-rw-r--r-- 1 root root 0 Apr 29 08:21 /selinux/enforce
+[root@RHEL5 ~]# echo $(cat /selinux/enforce) 
+1</screen>
 </section>
 <section><title>identity</title>
 	<para>The <command>SELinux Identity</command><indexterm><primary>identity(selinux)</primary></indexterm> of a user is distinct from the user ID. An identity is part of a security context, and (via domains) determines what you can do. The screenshot shows user <command>root</command> having identity <command>user_u</command>.</para>
-	<screen>
-[root@rhel55 ~]# id -Z
-user_u:system_r:unconfined_t
-	</screen>
-</section>
-<section><title>type (or domain)</title>
-	<para>The <command>selinux domain</command><indexterm><primary>domain(selinux)</primary></indexterm> is the security context of a process. An <command>selinux domain</command> determines what a process can do. The screenshot shows init running in domain <command>init_t</command> and the mingetty's running in domain <command>getty_t</command>.</para>
-	<screen>
-[root@RHEL5 ~]# ps fax -Z | grep init_t
-system_u:system_r:init_t        1 ?       Ss    0:01 init [3]         
-[root@RHEL5 ~]# ps fax -Z | grep getty_t
-system_u:system_r:getty_t    2941 tty1    Ss+   0:00 /sbin/mingetty tty1
-system_u:system_r:getty_t    2942 tty2    Ss+   0:00 /sbin/mingetty tty2
-	</screen>
-	<para>The <command>selinux type</command><indexterm><primary>type(selinux)</primary></indexterm> is similar to an <command>selinux domain</command>, but refers to directories and files instead of processes.</para>
+	<screen>[root@rhel55 ~]# id -Z
+user_u:system_r:unconfined_t</screen>
 </section>
 <section><title>role</title>
 	<para>The <command>selinux role</command><indexterm><primary>role(selinux)</primary></indexterm> defines the domains that can be used. A <command>role</command> is denied to enter a domain, unless the <command>role</command> is explicitely authorized to do so.</para>
-	<para></para>
 </section>
+<?hard-pagebreak?>
+<section><title>type (or domain)</title>
+	<para>The <command>selinux context</command><indexterm><primary>context type(selinux)</primary></indexterm> is the security context of a process. An <command>selinux type</command> determines what a process can do. The screenshot shows init running in type <command>init_t</command> and the mingetty's running in type <command>getty_t</command>.</para>
+	<screen>[root@centos65 ~]# ps fax -Z | grep /sbin/init
+system_u:system_r:init_t:s0         1 ?        Ss     0:00 /sbin/init
+[root@centos65 ~]# ps fax -Z | grep getty_t
+system_u:system_r:getty_t:s0   1307 tty1    Ss+   0:00 /sbin/mingetty /dev/tty1
+system_u:system_r:getty_t:s0   1309 tty2    Ss+   0:00 /sbin/mingetty /dev/tty2
+system_u:system_r:getty_t:s0   1311 tty3    Ss+   0:00 /sbin/mingetty /dev/tty3
+system_u:system_r:getty_t:s0   1313 tty4    Ss+   0:00 /sbin/mingetty /dev/tty4
+system_u:system_r:getty_t:s0   1320 tty5    Ss+   0:00 /sbin/mingetty /dev/tty5
+system_u:system_r:getty_t:s0   1322 tty6    Ss+   0:00 /sbin/mingetty /dev/tty6</screen>
+	<para>The <command>selinux type</command><indexterm><primary>type(selinux)</primary></indexterm> is similar to an <command>selinux domain</command>, but refers to directories and files instead of processes.</para>
+	<para>Hundreds of binaries also have a type:</para>
+	<screen>[root@centos65 sbin]# ls -lZ useradd usermod userdel httpd postcat postfix                                                                                                                                                          
+-rwxr-xr-x. root root system_u:object_r:httpd_exec_t:s0 httpd
+-rwxr-xr-x. root root system_u:object_r:postfix_master_exec_t:s0 postcat
+-rwxr-xr-x. root root system_u:object_r:postfix_master_exec_t:s0 postfix
+-rwxr-x---. root root system_u:object_r:useradd_exec_t:s0 useradd
+-rwxr-x---. root root system_u:object_r:useradd_exec_t:s0 userdel
+-rwxr-x---. root root system_u:object_r:useradd_exec_t:s0 usermod</screen>
+	<para>Ports also have a context.</para>
+	<screen>[root@centos65 sbin]# netstat -nptlZ | tr -s ' ' | cut -d' ' -f6-
+
+Foreign Address State PID/Program name Security Context 
+LISTEN 1096/rpcbind system_u:system_r:rpcbind_t:s0 
+LISTEN 1208/sshd system_u:system_r:sshd_t:s0-s0:c0.c1023 
+LISTEN 1284/master system_u:system_r:postfix_master_t:s0 
+LISTEN 1114/rpc.statd system_u:system_r:rpcd_t:s0 
+LISTEN 1096/rpcbind system_u:system_r:rpcbind_t:s0 
+LISTEN 1666/httpd unconfined_u:system_r:httpd_t:s0 
+LISTEN 1208/sshd system_u:system_r:sshd_t:s0-s0:c0.c1023 
+LISTEN 1114/rpc.statd system_u:system_r:rpcd_t:s0 
+LISTEN 1284/master system_u:system_r:postfix_master_t:s0 </screen>
+	<para>You can also get a list of ports that are managed by SELinux:</para>
+	<screen>[root@centos65 ~]# semanage port -l | tail
+xfs_port_t                     tcp      7100
+xserver_port_t                 tcp      6000-6150
+zabbix_agent_port_t            tcp      10050
+zabbix_port_t                  tcp      10051
+zarafa_port_t                  tcp      236, 237
+zebra_port_t                   tcp      2600-2604, 2606
+zebra_port_t                   udp      2600-2604, 2606
+zented_port_t                  tcp      1229
+zented_port_t                  udp      1229
+zope_port_t                    tcp      8021</screen>
+</section>
+<?hard-pagebreak?>
 <section><title>security context</title>
 	<para>The combination of identity, role and domain or type make up the <command>selinux security context</command>. The <command>id</command><indexterm><primary>id(1)</primary></indexterm> will show you your security context in the form identity:role:domain.</para>
-	<screen>
-[paul@RHEL5 ~]$ id | cut -d' ' -f4
-context=user_u:system_r:unconfined_t
-	</screen>
+	<screen>[paul@RHEL5 ~]$ id | cut -d' ' -f4
+context=user_u:system_r:unconfined_t</screen>
 	<para>The <command>ls -Z</command> command shows the security context for a file in the form identity:role:type.</para>
-	<screen>
-[paul@RHEL5 ~]$ ls -Z test
--rw-rw-r--  paul paul user_u:object_r:user_home_t      test
-	</screen>
+	<screen>[paul@RHEL5 ~]$ ls -Z test
+-rw-rw-r--  paul paul user_u:object_r:user_home_t      test</screen>
 	<para>The security context for processes visible in /proc defines both the type (of the file in /proc) and the domain (of the running process). Let's take a look at the init process and /proc/1/ .</para>
 	<para>The init process runs in domain <command>init_t</command>.</para>
-	<screen>
-[root@RHEL5 ~]# ps -ZC init
+	<screen>[root@RHEL5 ~]# ps -ZC init
 LABEL                             PID TTY          TIME CMD
-system_u:system_r:init_t            1 ?        00:00:01 init
-	</screen>
+system_u:system_r:init_t            1 ?        00:00:01 init</screen>
 	<para>The <command>/proc/1/</command> directory, which identifies the <command>init</command> process, has type <command>init_t</command>.</para>
-	<screen>
-[root@RHEL5 ~]# ls -Zd /proc/1/
-dr-xr-xr-x  root root system_u:system_r:init_t         /proc/1/
-	</screen>
+	<screen>[root@RHEL5 ~]# ls -Zd /proc/1/
+dr-xr-xr-x  root root system_u:system_r:init_t         /proc/1/</screen>
 	<para>It is not a coincidence that the domain of the <command>init</command> process and the type of <command>/proc/1/</command> are both <command>init_t</command>.</para>
 	<para>Don't try to use <command>chcon</command><indexterm><primary>chcon(1)</primary></indexterm> on /proc! It will not work.</para>
 </section>
 <section><title>transition</title>
 	<para>An <command>selinux transition</command><indexterm><primary>transition(selinux)</primary></indexterm> (aka an selinux labelling) determines the security context that will be assigned. A transition of process domains is used when you execute a process. A transition of file type happens when you create a file.</para>
 	<para>An example of file type transition.</para>
-	<screen>
-[paul@RHEL5 ~]$ touch test
-[paul@RHEL5 ~]$ touch /tmp/test
-[paul@RHEL5 ~]$ ls -Z test
--rw-rw-r--  paul paul user_u:object_r:user_home_t      test
-[paul@RHEL5 ~]$ ls -Z /tmp/test
--rw-rw-r--  paul paul user_u:object_r:tmp_t            /tmp/test
-[paul@RHEL5 ~]$ 
-	</screen>
+	<screen>[pol@centos65 ~]$ touch test /tmp/test
+[pol@centos65 ~]$ ls -Z test 
+-rw-rw-r--. pol pol unconfined_u:object_r:user_home_t:s0 test
+[pol@centos65 ~]$ ls -Z /tmp/test
+-rw-rw-r--. pol pol unconfined_u:object_r:user_tmp_t:s0 /tmp/test</screen>
 </section>
-<section><title>policy</title>
-	<para>Everything comes together in an <command>selinux policy</command><indexterm><primary>policy(SELinux)</primary></indexterm>. Policies define user access to roles, role access to domains and domain access to types. </para>
-</section>
+<?hard-pagebreak?>
 <section><title>extended attributes</title>
-	<para>Extended attributes are use by <command>selinux</command> to store security contexts. These attributes can be viewed with <command>ls</command><indexterm><primary>ls(1)</primary></indexterm> when <command>selinux</command> is running.</para>
-	<screen>
-[root@RHEL5 home]# ls --context 
+	<para>Extended attributes are used by <command>selinux</command> to store security contexts. These attributes can be viewed with <command>ls</command><indexterm><primary>ls(1)</primary></indexterm> when <command>selinux</command> is running.</para>
+	<screen>[root@RHEL5 home]# ls --context 
 drwx------  paul paul system_u:object_r:user_home_dir_t paul
 drwxr-xr-x  root root user_u:object_r:user_home_dir_t  project42
 drwxr-xr-x  root root user_u:object_r:user_home_dir_t  project55
@@ -214,101 +247,176 @@ drwxr-xr-x  root root user_u:object_r:user_home_dir_t  project55
 drwx------  paul paul system_u:object_r:user_home_dir_t paul
 drwxr-xr-x  root root user_u:object_r:user_home_dir_t  project42
 drwxr-xr-x  root root user_u:object_r:user_home_dir_t  project55
-[root@RHEL5 home]# 
-	</screen>
+[root@RHEL5 home]#</screen>
 	<para>When selinux is not running, then <command>getfattr</command><indexterm><primary>getfattr(1)</primary></indexterm> is the tool to use.</para>
-	<screen>
-[root@RHEL5 etc]# getfattr -m . -d hosts
+	<screen>[root@RHEL5 etc]# getfattr -m . -d hosts
 # file: hosts
-security.selinux="system_u:object_r:etc_t:s0\000"
-	</screen>
+security.selinux="system_u:object_r:etc_t:s0\000"</screen>
 </section>
 <section><title>process security context</title>
-	<para>A new option is added to <command>ps</command><indexterm><primary>ps(1)</primary></indexterm> to see the selinux security context of processes. </para>
-	<screen>
-[root@RHEL5 etc]# ps -ZC mingetty
+	<para>A new option is added to <command>ps</command><indexterm><primary>ps(1)</primary></indexterm> to see the selinux security context of processes.</para>
+	<screen>[root@RHEL5 etc]# ps -ZC mingetty
 LABEL                             PID TTY          TIME CMD
 system_u:system_r:getty_t        2941 tty1     00:00:00 mingetty
-system_u:system_r:getty_t        2942 tty2     00:00:00 mingetty
-	</screen>
+system_u:system_r:getty_t        2942 tty2     00:00:00 mingetty</screen>
 </section>
 <section><title>chcon</title>
 	<para>Use <command>chcon</command><indexterm><primary>chcon(1)</primary></indexterm> to change the selinux security context.</para>
 	<para>This example shows how to use <command>chcon</command> to change the <command>type</command> of a file.</para>
-	<screen>
-[root@rhel55 ~]# ls -Z /var/www/html/test42.txt 
--rw-r--r--  root root user_u:object_r:httpd_sys_content_t /var/www/html/test42.txt
+	<screen>[root@rhel55 ~]# ls -Z /var/www/html/test42.txt 
+-rw-r--r--  root root user_u:object_r:httpd_sys_content_t /var/www/html/test4\
+2.txt
 [root@rhel55 ~]# chcon -t samba_share_t /var/www/html/test42.txt 
 [root@rhel55 ~]# ls -Z /var/www/html/test42.txt 
--rw-r--r--  root root user_u:object_r:samba_share_t    /var/www/html/test42.txt
-	</screen>
+-rw-r--r--  root root user_u:object_r:samba_share_t    /var/www/html/test42.txt</screen>
+	<para>Be sure to read <command>man chcon</command>.</para>
 </section>
-<section><title>a practical example</title>
-	<para>Tha <command>apache webserver</command> is by default targeted with <command>selinux</command>. The next screenshot shows that any file created in <command>/var/www/html</command> will by default get the <command>http_sys_content_t</command> type.</para>
-	<screen>
-[root@rhel55 ~]# touch /var/www/html/test42.txt
-[root@rhel55 ~]# ls -Z /var/www/html/test42.txt 
--rw-r--r--  root root user_u:object_r:httpd_sys_content_t /var/www/html/test42.txt
-	</screen>
+<?hard-pagebreak?>
+<section><title>an example</title>
+	<para>The <command>Apache2 webserver</command> is by default targeted with <command>SELinux</command>. The next screenshot shows that any file created in <command>/var/www/html</command> will by default get the <command>httpd_sys_content_t</command> type.</para>
+	<screen>[root@centos65 ~]# touch /var/www/html/test42.txt
+[root@centos65 ~]# ls -Z /var/www/html/test42.txt
+-rw-r--r--. root root unconfined_u:object_r:httpd_sys_content_t:s0 /var/www/h\
+tml/test42.txt</screen>
 	<para>Files created elsewhere do not get this type.</para>
-	<screen>
-[root@rhel55 ~]# touch /root/test42.txt
-[root@rhel55 ~]# ls -Z /root/test42.txt
--rw-r--r--  root root user_u:object_r:user_home_t      /root/test42.txt
-	</screen>
-	<para>Make sure <command>apache</command> runs.</para>
-	<screen>
-[root@rhel55 ~]# service httpd start
-                                                           [  OK  ]
-	</screen>
+	<screen>[root@centos65 ~]# touch /root/test42.txt
+[root@centos65 ~]# ls -Z /root/test42.txt 
+-rw-r--r--. root root unconfined_u:object_r:admin_home_t:s0 /root/test42.txt</screen>
+	<para>Make sure <command>Apache2</command> runs.</para>
+	<screen>[root@centos65 ~]# service httpd restart 
+Stopping httpd:                                            [  OK  ]
+Starting httpd:                                            [  OK  ]</screen>
 	<para>Will this work ? Yes it does.</para>
-	<screen>
-[root@rhel55 ~]# wget http://localhost/test42.txt
---2010-06-26 15:40:28--  http://localhost/test42.txt
-Resolving localhost... 127.0.0.1
-Connecting to localhost|127.0.0.1|:80... connected.
+	<screen>[root@centos65 ~]# wget http://localhost/test42.txt
+--2014-04-12 20:56:47--  http://localhost/test42.txt
+Resolving localhost... ::1, 127.0.0.1
+Connecting to localhost|::1|:80... connected.
 HTTP request sent, awaiting response... 200 OK
-....
-	</screen>
-	<para>Why does this work ? Because apache runs in the <command>httpd_t</command> domain.</para>
-	<screen>
-[root@rhel55 ~]# ps -ZC httpd
+Length: 0 [text/plain]
+Saving to: “test42.txt”
+...</screen>
+	<para>Why does this work ? Because Apache2 runs in the <command>httpd_t</command> domain and the files in <command>/var/www/html</command> have the <command>httpd_sys_content_t</command> type.</para>
+	<screen>[root@centos65 ~]# ps -ZC httpd | head -4
 LABEL                             PID TTY          TIME CMD
-user_u:system_r:httpd_t          2979 ?        00:00:07 httpd
-user_u:system_r:httpd_t          2981 ?        00:00:00 httpd
-user_u:system_r:httpd_t          2982 ?        00:00:00 httpd
-user_u:system_r:httpd_t          2983 ?        00:00:00 httpd
-user_u:system_r:httpd_t          2984 ?        00:00:00 httpd
-user_u:system_r:httpd_t          2985 ?        00:00:00 httpd
-user_u:system_r:httpd_t          2986 ?        00:00:00 httpd
-user_u:system_r:httpd_t          2987 ?        00:00:00 httpd
-user_u:system_r:httpd_t          2988 ?        00:00:00 httpd
-	</screen>
-	<para>So let's try to change the <command>selinux type</command> of this file.</para>
-	<screen>
-[root@rhel55 ~]# chcon -t samba_share_t /var/www/html/test42.txt 
-[root@rhel55 ~]# ls -Z /var/www/html/test42.txt 
--rw-r--r--  root root user_u:object_r:samba_share_t    /var/www/html/test42.txt
-	</screen>
+unconfined_u:system_r:httpd_t:s0 1666 ?        00:00:00 httpd
+unconfined_u:system_r:httpd_t:s0 1668 ?        00:00:00 httpd
+unconfined_u:system_r:httpd_t:s0 1669 ?        00:00:00 httpd</screen>
+<?hard-pagebreak?>
+	<para>So let's set SELinux to <command>enforcing</command> and change the <command>type</command> of this file.</para>
+	<screen>[root@centos65 ~]# chcon -t samba_share_t /var/www/html/test42.txt 
+[root@centos65 ~]# ls -Z /var/www/html/test42.txt 
+-rw-r--r--. root root unconfined_u:object_r:samba_share_t:s0 /var/www/html/t\
+est42.txt
+[root@centos65 ~]# setenforce 1
+[root@centos65 ~]# getenforce 
+Enforcing</screen>
 	<para>There are two possibilities now: either it works, or it fails. It works when <command>selinux</command> is in <command>permissive mode</command>, it fails when in <command>enforcing mode</command>.</para>
-	<screen>
-[root@rhel55 ~]# wget http://localhost/test42.txt
---2010-06-26 15:41:33--  http://localhost/test42.txt
-Resolving localhost... 127.0.0.1
-Connecting to localhost|127.0.0.1|:80... connected.
-HTTP request sent, awaiting response... 200 OK
-...
-	</screen>
-	<para>The log file clearly shows that it would have failed in <command>enforcing mode</command>.</para>
-	<screen>
-[root@rhel55 ~]# grep test42 /var/log/audit/audit.log 
-type=AVC msg=audit(1277559693.656:105): avc:  denied  { getattr } for  \
-pid=2982 comm="httpd" path="/var/www/html/test42.txt" dev=dm-0 ino=1974\
-99 scontext=user_u:system_r:httpd_t:s0 tcontext=user_u:object_r:samba_s\
-hare_t:s0 tclass=file
-type=AVC msg=audit(1277559693.658:106): avc:  denied  { read } for  pid\
-=2982 comm="httpd" name="test42.txt" dev=dm-0 ino=197499 scontext=user_\
-u:system_r:httpd_t:s0 tcontext=user_u:object_r:samba_share_t:s0 tclass=\
-file
-	</screen>
+	<screen>[root@centos65 ~]# wget http://localhost/test42.txt                                                                        
+--2014-04-12 21:05:02--  http://localhost/test42.txt
+Resolving localhost... ::1, 127.0.0.1
+Connecting to localhost|::1|:80... connected.
+HTTP request sent, awaiting response... 403 Forbidden
+2014-04-12 21:05:02 ERROR 403: Forbidden.</screen>
+	<para>The log file gives you a cryptic message...</para>
+	<screen>[root@centos65 ~]# tail -3 /var/log/audit/audit.log 
+type=SYSCALL msg=audit(1398200702.803:64): arch=c000003e syscall=4 succ\
+ess=no exit=-13 a0=7f5fbc334d70 a1=7fff553b4f10 a2=7fff553b4f10 a3=0 it\
+ems=0 ppid=1666 pid=1673 auid=500 uid=48 gid=48 euid=48 suid=48 fsuid=4\
+8 egid=48 sgid=48 fsgid=48 tty=(none) ses=1 comm="httpd" exe="/usr/sbin\
+/httpd" subj=unconfined_u:system_r:httpd_t:s0 key=(null)
+type=AVC msg=audit(1398200702.804:65): avc:  denied  { getattr } for  p\
+id=1673 comm="httpd" path="/var/www/html/test42.txt" dev=dm-0 ino=26324\
+1 scontext=unconfined_u:system_r:httpd_t:s0 tcontext=unconfined_u:objec\
+t_r:samba_share_t:s0 tclass=file
+type=SYSCALL msg=audit(1398200702.804:65): arch=c000003e syscall=6 succ\
+ess=no exit=-13 a0=7f5fbc334e40 a1=7fff553b4f10 a2=7fff553b4f10 a3=1 it\
+ems=0 ppid=1666 pid=1673 auid=500 uid=48 gid=48 euid=48 suid=48 fsuid=4\
+8 egid=48 sgid=48 fsgid=48 tty=(none) ses=1 comm="httpd" exe="/usr/sbin\
+/httpd" subj=unconfined_u:system_r:httpd_t:s0 key=(null)</screen>
+	<para>And <command>/var/log/messages</command> mentions nothing of the failed download.</para>
+</section>
+<?hard-pagebreak?>
+<section><title>setroubleshoot</title>
+	<para>The log file above was not very helpful, but these two packages can make your life much easier.</para>
+	<screen>[root@centos65 ~]# yum -y install setroubleshoot setroubleshoot-server</screen>
+	<para>You need to <command>reboot</command> for this to work...</para>
+	<para>So we reboot, restart the httpd server, reactive SELinux Enforce, and do the wget again... and it fails (because of SELinux).</para>
+	<screen>[root@centos65 ~]# service httpd restart
+Stopping httpd:                                         [FAILED]
+Starting httpd:                                         [  OK  ]
+[root@centos65 ~]# getenforce 
+Permissive
+[root@centos65 ~]# setenforce  1
+[root@centos65 ~]# getenforce 
+Enforcing
+[root@centos65 ~]# wget http://localhost/test42.txt
+--2014-04-12 21:44:13--  http://localhost/test42.txt
+Resolving localhost... ::1, 127.0.0.1
+Connecting to localhost|::1|:80... connected.
+HTTP request sent, awaiting response... 403 Forbidden
+2014-04-12 21:44:13 ERROR 403: Forbidden.</screen>
+	<para>The <command>/var/log/audit/</command> is still not out best friend, but take a look at <command>/var/log/messages</command>.</para>
+	<screen>[root@centos65 ~]# tail -2 /var/log/messages
+Apr 12 21:44:16  centos65  setroubleshoot: SELinux is preventing /usr/sbin/h\
+ttpd from getattr access on the file /var/www/html/test42.txt. For complete \
+SELinux messages. run <command>sealert -l b2a84386-54c1-4344-96fb-dcf969776696</command>
+Apr 12 21:44:16  centos65  setroubleshoot: SELinux is preventing /usr/sbin/h\
+ttpd from getattr access on the file /var/www/html/test42.txt. For complete \
+SELinux messages. run <command>sealert -l b2a84386-54c1-4344-96fb-dcf969776696</command></screen>
+	<para>So we run the command it suggests...</para>
+	<screen>[root@centos65 ~]# sealert -l b2a84386-54c1-4344-96fb-dcf969776696
+SELinux is preventing /usr/sbin/httpd from getattr access on the file /va\
+r/www/html/test42.txt.
+
+*****  Plugin restorecon (92.2 confidence) suggests  *********************
+
+If you want to fix the label. 
+/var/www/html/test42.txt default label should be httpd_sys_content_t.
+Then you can run restorecon.
+Do
+# /sbin/restorecon -v /var/www/html/test42.txt
+...</screen>
+<?hard-pagebreak?>
+	<para>We follow the friendly advice and try again to download our file:</para>
+	<screen>[root@centos65 ~]# <command>/sbin/restorecon -v /var/www/html/test42.txt</command>
+/sbin/restorecon reset /var/www/html/test42.txt context unconfined_u:objec\
+t_r:samba_share_t:s0->unconfined_u:object_r:httpd_sys_content_t:s0
+[root@centos65 ~]# wget http://localhost/test42.txt
+--2014-04-12 21:54:03--  http://localhost/test42.txt
+Resolving localhost... ::1, 127.0.0.1
+Connecting to localhost|::1|:80... connected.
+HTTP request sent, awaiting response... 200 OK</screen>
+	<para>It works!</para>
+</section>
+<?hard-pagebreak?>
+<section><title>booleans</title>
+	<para>Booleans are on/off switches</para>
+	<screen>[root@centos65 ~]# getsebool -a | head
+abrt_anon_write --> off
+abrt_handle_event --> off
+allow_console_login --> on
+allow_cvs_read_shadow --> off
+allow_daemons_dump_core --> on
+allow_daemons_use_tcp_wrapper --> off
+allow_daemons_use_tty --> on
+allow_domain_fd_use --> on
+allow_execheap --> off
+allow_execmem --> on</screen>
+	<para>You can set and read individual booleans.</para>
+	<screen>[root@centos65 ~]# setsebool httpd_read_user_content=1
+[root@centos65 ~]# getsebool httpd_read_user_content
+httpd_read_user_content --> on
+[root@centos65 ~]# setsebool httpd_enable_homedirs=1
+[root@centos65 ~]# getsebool httpd_enable_homedirs
+httpd_enable_homedirs --> on</screen>
+	<para>You can set these booleans permanent.</para>
+	<screen>[root@centos65 ~]# setsebool -P httpd_enable_homedirs=1
+[root@centos65 ~]# setsebool -P httpd_read_user_content=1</screen>
+	<para>The above commands regenerate the complete /etc/selinux/targeted directory!</para>
+<screen>[root@centos65 ~]# cat /etc/selinux/targeted/modules/active/booleans.local 
+# This file is auto-generated by libsemanage
+<command># Do not edit directly.</command>
+
+httpd_enable_homedirs=1
+httpd_read_user_content=1</screen>
 </section>
