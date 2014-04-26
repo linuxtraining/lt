@@ -96,7 +96,7 @@ eth0      Link encap:Ethernet  HWaddr 08:00:27:DD:0D:5C
 eth1      Link encap:Ethernet  HWaddr 08:00:27:DA:C1:49  
 eth2      Link encap:Ethernet  HWaddr 08:00:27:40:03:3B</screen>
 	<para>In this demo we decide to bond <command>eth1</command> and <command>eth2</command>.</para>
-	<para>We will name are bond <command>bond0</command> and add this entry to <command>modprobe</command> so the kernel can load the <command>bonding module</command> when we bring the interface up.</para>
+	<para>We will name our bond <command>bond0</command> and add this entry to <command>modprobe</command> so the kernel can load the <command>bonding module</command> when we bring the interface up.</para>
 	<screen>[root@rhel6 network-scripts]# cat /etc/modprobe.d/bonding.conf 
 alias bond0 bonding</screen>
 	<para>Then we create <command>/etc/sysconfig/network-scripts/ifcfg-bond0</command><indexterm><primary>/etc/sysconfig/network-scripts/ifcfg-bond0</primary></indexterm> to configure our <command>bond0</command> interface.</para>
