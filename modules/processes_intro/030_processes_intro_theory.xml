@@ -58,6 +58,7 @@ exit
 [paul@RHEL4b ~]$
 		</screen>
 	</section>
+<?hard-pagebreak?>
 	<section><title>fork and exec</title>
 		<para>A process starts another process in two phases. First the process creates a <command>fork</command><indexterm><primary>fork</primary></indexterm> of itself, an identical copy. Then the forked process executes an <command>exec</command><indexterm><primary>exec</primary></indexterm> to replace the forked process with the target child process.</para>
 		<screen>
@@ -86,6 +87,7 @@ exit
 4224
 		</screen>
 	</section>
+<?hard-pagebreak?>
 	<section><title>ps</title>
 		<para>One of the most common tools on Linux to look at processes is <command>ps</command><indexterm><primary>ps</primary></indexterm>. The following screenshot shows the parent child relationship between three bash processes.</para>
 		<screen>
@@ -135,6 +137,7 @@ PID TTY      STAT   TIME COMMAND
 5077 pts/1    R+     0:00              \_ ps fax
 		</screen>
 	</section>
+<?hard-pagebreak?>
 	<section><title>pgrep</title>
 		<para>Similar to the <command>ps -C</command>, you can also use <command>pgrep</command><indexterm><primary>pgrep(1)</primary></indexterm> to search for a process by its command name.</para>
 		<screen>
@@ -212,15 +215,12 @@ paul@ubuntu910:~$ kill -15 1942
 root@rhel53 ~# kill -9 3342
 		</screen>
 	</section>
-	<section><title>killall</title>
-		<para>The <command>killall</command><indexterm><primary>killall(1)</primary></indexterm> command will also default to sending a <command>signal 15</command><indexterm><primary>SIGTERM</primary></indexterm> to the processes.</para>
-		<para>This command and its SysV counterpart <command>killall5</command> can by used when shutting down the system. This screenshot shows how Red Hat Enterprise Linux 5.3 uses <command>killall5</command> when halting the system.</para>
-		<screen>
-root@rhel53 ~# grep killall /etc/init.d/halt
-action $"Sending all processes the TERM signal..." /sbin/killall5 -15
-action $"Sending all processes the KILL signal..."  /sbin/killall5 -9
-		</screen>
+	<section><title>SIGSTOP and SIGCONT</title>
+		<para>A running process can be <command>suspended</command> when it receives a <command>SIGSTOP</command> signal. This is the same as <command>kill -19</command> on Linux, but might have a different number in other Unix systems.</para>
+		<para>A <command>suspended</command> process does not use any <command>cpu cycles</command>, but it stays in memory and can be re-animated with a <command>SIGCONT</command> signal (<command>kill -18</command> on Linux).</para>
+		<para>Both signals will be used in the section about <command>background</command> processes.</para>
 	</section>
+<?hard-pagebreak?>
 	<section><title>pkill</title>
 		<para>You can use the <command>pkill</command><indexterm><primary>pkill(1)</primary></indexterm> command to kill a process by its command name.</para>
 		<screen>
@@ -231,17 +231,31 @@ action $"Sending all processes the KILL signal..."  /sbin/killall5 -9
 [paul@RHEL5 ~]$ 
 		</screen>
 	</section>
+	<section><title>killall</title>
+		<para>The <command>killall</command><indexterm><primary>killall(1)</primary></indexterm> command will send a <command>signal 15</command><indexterm><primary>SIGTERM</primary></indexterm> to all processes with a certain name.</para>
+		<screen>paul@rhel65:~$ sleep 8472 &#038;
+[1] 18780
+paul@rhel65:~$ sleep 1201 &#038;
+[2] 18781
+paul@rhel65:~$ jobs
+[1]-  Running                 sleep 8472 &#038;
+[2]+  Running                 sleep 1201 &#038;
+paul@rhel65:~$ killall sleep
+[1]-  Terminated              sleep 8472
+[2]+  Terminated              sleep 1201
+paul@rhel65:~$ jobs
+paul@rhel65:~$</screen>
+	</section>
+	<section><title>killall5</title>
+		<para>Its SysV counterpart <command>killall5</command> can by used when shutting down the system. This screenshot shows how Red Hat Enterprise Linux 5.3 uses <command>killall5</command> when halting the system.</para>
+		<screen>root@rhel53 ~# grep killall /etc/init.d/halt
+action $"Sending all processes the TERM signal..." /sbin/killall5 -15
+action $"Sending all processes the KILL signal..."  /sbin/killall5 -9</screen>
+	</section>
 	<section><title>top</title>
 		<para>Inside <command>top</command><indexterm><primary>top</primary></indexterm> the <command>k</command> key allows you to select a <command>signal</command> and <command>pid</command> to kill. Below is a partial screenshot of the line just below the summary in <command>top</command> after pressing <command>k</command>.</para>
-		<screen>
-PID to kill: 1932
+		<screen>PID to kill: 1932
 
-Kill PID 1932 with signal [15]: 9
-		</screen>
-	</section>
-	<section><title>SIGSTOP and SIGCONT</title>
-		<para>A running process can be <command>suspended</command> when it receives a <command>SIGSTOP</command> signal. This is the same as <command>kill -19</command> on Linux, but might have a different number in other Unix systems.</para>
-		<para>A <command>suspended</command> process does not use any <command>cpu cycles</command>, but it stays in memory and can be re-animated with a <command>SIGCONT</command> signal (<command>kill -18</command> on Linux).</para>
-		<para>Both signals will be used in the section about <command>background</command> processes.</para>
+Kill PID 1932 with signal [15]: 9</screen>
 	</section>
 </section>

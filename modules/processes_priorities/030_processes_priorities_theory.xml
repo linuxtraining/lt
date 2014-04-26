@@ -36,6 +36,7 @@ paul@ubuntu910:~/procs$ ./proj42 &#060;pipe42b &#062;pipe42a &#038;
 		</screen>
 		<para>The commands you see above will create two <command>proj33</command> processes that use <command>cat</command> to bounce the x character between <command>pipe33a</command> and <command>pipe33b</command>. And ditto for the z character and <command>proj42</command>.</para>
 	</section>
+<?hard-pagebreak?>
 	<section><title>top</title>
 		<para>Just running <command>top</command> without options or arguments will display all processes and an overview of innformation. The top of the <command>top</command> screen might look something like this.</para>
 		<screen>
@@ -71,6 +72,7 @@ paul@ubuntu910:~$ renice +8 1671
 		</screen>
 		<para>Normal users can attribute a <command>nice value</command> from zero to 20 to processes they own. Only the <command>root</command> user can use negative nice values. Be very careful with negative nice values, since they can make it impossible to use the keyboard or ssh to a system.</para>
 	</section>
+<?hard-pagebreak?>
 	<section><title>impact of nice values</title>
 		<para>The impact of a nice value on running processes can vary. The screenshot below shows the result of our <command>renice +8</command> command. Look at the <command>%CPU</command> values.</para>
 		<screen>
