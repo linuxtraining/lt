@@ -6,7 +6,7 @@
 	<para>4. Make both mounts permanent, test that it works.</para>
 	<para>5. What happens when you mount a file system on a directory that contains some files ?</para>
 	<para>6. What happens when you mount two file systems on the same mount point ?</para>
-	<para>7. (optional) Describe the difference between these file searching commands: find, locate, updatedb, whereis, apropos and which.</para>
+	<para>7. (optional) Describe the difference between these commands: find, locate, updatedb, makewhatis, whereis, apropos, which and type.</para>
 	<para>8. (optional) Perform a file system check on the partition mounted at /srv/nfs/salesnumbers.</para>
 </section>
 

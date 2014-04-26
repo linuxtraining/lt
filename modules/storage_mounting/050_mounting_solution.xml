@@ -28,10 +28,13 @@ grep project22 /proc/mounts</screen>
 	<screen>The files are hidden until <command>umount</command>.</screen>
 	<para>6. What happens when you mount two file systems on the same mount point ?</para>
 	<screen>Only the last mounted fs is visible.</screen>
-	<para>7. (optional) Describe the difference between these file searching commands: find, locate, updatedb, whereis, apropos and which.</para>
-	<screen>man is your friend</screen>
+<?hard-pagebreak?>
+	<para>7. (optional) Describe the difference between these commands: find, locate, updatedb, makewhatis, whereis, apropos, which and type.</para>
+	<screen>man find
+man locate
+...</screen>
 	<para>8. (optional) Perform a file system check on the partition mounted at /srv/nfs/salesnumbers.</para>
-	<screen>better to unmount first before
+	<screen># umount /srv/nfs/salesnumbers (optional but recommended)
 # fsck /dev/sdb1</screen>
 </section>
 
