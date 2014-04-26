@@ -59,6 +59,7 @@ root@RHELv4u4:~# free -om
 Mem:        249      245       4        0        125        54
 Swap:      1535        0    1535</screen>
 	</section>
+<?hard-pagebreak?>
 	<section><title>creating a swap file</title>
 		<para>Here is one more example showing you how to create a <command>swap file</command>. On Solaris you can use <command>mkfile</command><indexterm><primary>mkfile(1)</primary></indexterm> instead of <command>dd</command><indexterm><primary>dd(1)</primary></indexterm>.</para>
 		<screen>root@RHELv4u4:~# dd if=/dev/zero of=/smallswapfile bs=1024 count=4096
