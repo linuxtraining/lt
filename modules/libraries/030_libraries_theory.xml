@@ -1,3 +1,4 @@
+<?hard-pagebreak?>
 <section><title>introduction</title>
 	<para>With <command>libraries</command><indexterm><primary>libraries</primary></indexterm> we are talking about dynamically linked libraries (aka shared objects). These are binaries that contain functions and are not started themselves as programs, but are called by other binaries.</para>
 	<para>Several programs can use the same library. The name of the library file usually starts with <command>lib</command>, followed by the actual name of the library, then the chracters <command>.so</command> and finally a version number.</para>
@@ -21,6 +22,7 @@ lrwxrwxrwx 1 root root   16 Feb 18 16:36 /lib/libext2fs.so.2 -> libext2fs.so.2.4
 	libaudit.so.0 => /lib/libaudit.so.0 (0x0049f000)
 	/lib/ld-linux.so.2 (0x4769c000)</screen>
 </section>
+<?hard-pagebreak?>
 <section><title>ltrace</title>
 	<para>The <command>ltrace</command><indexterm><primary>ltrace</primary></indexterm> program allows to see all the calls made to library functions by a program. The example below uses the -c option to get only a summary count (there can be many calls), and the -l option to only show calls in one library file. All this to see what calls are made when executing <command>su - serena</command> as root.</para>
 	<screen>root@deb503:~# ltrace -c -l /lib/libpam.so.0 su - serena
@@ -63,6 +65,7 @@ The following packages will be REINSTALLED:
   e2fslibs 
 ...</screen>
 </section>
+<?hard-pagebreak?>
 <section><title>rpm -qf and rpm -V</title>
 	<para>Find out on Red Hat/Fedora to which package a library <indexterm><primary>rpm -qf</primary></indexterm>belongs.</para>
 	<screen>paul@RHEL5 ~$ rpm -qf /lib/libext2fs.so.2.4 
@@ -85,6 +88,7 @@ Resolving Dependencies
 	<screen>root@rhel53 lib# rpm -V e2fsprogs-libs
 root@rhel53 lib#</screen>
 </section>
+<?hard-pagebreak?>
 <section><title>tracing with strace</title>
 	<para>More detailed tracing of all function calls can be done with <command>strace</command><indexterm><primary>strace</primary></indexterm>. We start by creating a read only file.</para>
 <screen>root@deb503:~# echo hello > 42.txt
