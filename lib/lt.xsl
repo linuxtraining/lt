@@ -29,10 +29,22 @@
  </xsl:template>
 
 <!-- screen tags in cyan -->
-<xsl:param name="shade.verbatim" select="1"/> 
+<xsl:param name="shade.verbatim" select="1"/>
 <xsl:attribute-set condition="fo" name="shade.verbatim.style">
   <xsl:attribute name="background-color">#E0FFFF</xsl:attribute>
 </xsl:attribute-set>
 <!-- screen tags in cyan -->
+
+<xsl:template match="para">
+  <fo:block font-size="12pt">
+    <xsl:apply-imports/>
+  </fo:block>
+</xsl:template>
+
+<xsl:template match="screen">
+  <fo:block font-size="9pt">
+    <xsl:apply-imports/>
+  </fo:block>
+</xsl:template>
 
 </xsl:stylesheet>
