@@ -11,5 +11,6 @@ BOOKTITLE="system management"
 add_mod chapter scheduling  ## scheduling maybe belongs in process_management ?
 add_mod chapter logging
 add_mod chapter memory
+add_mod chapter monitoring
 add_mod chapter package_management
 
