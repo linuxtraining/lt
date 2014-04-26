@@ -1,11 +1,10 @@
 <?hard-pagebreak?>
 <section><title>nfs protocol versions</title>
-	<para>The older <command>nfs</command><indexterm><primary>nfs</primary></indexterm> versions 2 and 3 are stateless (<command>udp</command><indexterm><primary>udp</primary></indexterm>) by default (but they can use <command>tcp</command><indexterm><primary>tcp</primary></indexterm>).</para>
-	<para>The more recent <command>nfs version 4</command> brings a stateful protocol with better performance and stronger security.</para>
+	<para>The older <command>nfs</command><indexterm><primary>nfs</primary></indexterm> versions 2 and 3 are stateless (<command>udp</command><indexterm><primary>udp</primary></indexterm>) by default (but they can use <command>tcp</command><indexterm><primary>tcp</primary></indexterm>). The more recent <command>nfs version 4</command> brings a stateful protocol with better performance and stronger security.</para>
 	<para>NFS version 4 was defined in <command>rfc 3010</command><indexterm><primary>rfc 3010</primary></indexterm> in 2000 and <command>rfc 3530</command><indexterm><primary>rfc 3530</primary></indexterm> in 2003 and requires tcp (port 2049). It also supports <command>Kerberos</command><indexterm><primary>Kerberos</primary></indexterm> user authentication as an option when mounting a share. NFS versions 2 and 3 authenticate only the host.</para>
 </section>			
 <section><title>rpcinfo</title>
-	<para>Clients connect to the server using <command>rpc</command><indexterm><primary>rpc</primary></indexterm> (on Linux this can be managed by the <command>portmap</command><indexterm><primary>portmap</primary></indexterm> daemon. Look at <command>rpcinfo</command><indexterm><primary>rpcinfo(1)</primary></indexterm> to verify that <command>nfs</command> and its related services are running.</para>
+	<para>Clients connect to the server using <command>rpc</command><indexterm><primary>rpc</primary></indexterm> (on Linux this can be managed by the <command>portmap</command><indexterm><primary>portmap</primary></indexterm> daemon). Look at <command>rpcinfo</command><indexterm><primary>rpcinfo(1)</primary></indexterm> to verify that <command>nfs</command> and its related services are running.</para>
 		<screen>root@RHELv4u2:~# /etc/init.d/portmap status
 portmap (pid 1920) is running...
 root@RHELv4u2:~# rpcinfo -p
@@ -47,8 +46,7 @@ program vers proto   port
 100005    2   udp   1004  mountd
 100005    2   tcp   1007  mountd
 100005    3   udp   1004  mountd
-100005    3   tcp   1007  mountd
-root@RHELv4u2:~#</screen>
+100005    3   tcp   1007  mountd</screen>
 </section>			
 <section><title>server configuration</title>
 	<para><command>nfs</command> is configured in <command>/etc/exports</command><indexterm><primary>/etc/exports</primary></indexterm>. You might want some way (<command>ldap</command><indexterm><primary>ldap</primary></indexterm>?) to synchronize userid's across computers when using <command>nfs</command> a lot.</para>
@@ -91,6 +89,7 @@ exporting pasha:/var/www
 exporting barry:/var/www
 exporting *:/srv/iso</screen>
 </section>	
+<?hard-pagebreak?>
 	<section><title>client configuration</title>
 		<para>We have seen the <command>mount</command><indexterm><primary>mount(1)</primary></indexterm> command and the <command>/etc/fstab</command><indexterm><primary>/etc/fstab</primary></indexterm> file before.</para>
 		<screen>root@RHELv4u2:~# mount -t nfs barry:/mnt/data/iso /home/project55/
