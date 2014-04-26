@@ -1,0 +1,364 @@
+<?hard-pagebreak?>
+	<section><title>terminology</title>
+		<section><title>platter, head, track, cylinder, sector</title>
+			<para>Data is commonly stored on magnetic or optical <command>disk platters</command><indexterm><primary>disk platters</primary></indexterm>. The platters are rotated (at high speeds). Data is read by <command>heads</command><indexterm><primary>head (hard disk device)</primary></indexterm>, which are very close to the surface of the platter, without touching it! The heads are mounted on an arm (sometimes called a comb or a fork).</para>
+			<para>Data is written in concentric circles called <command>tracks</command><indexterm><primary>track</primary></indexterm>. Track zero is (usually) on the outside. The time it takes to position the head over a certain track is called the <command>seek time</command><indexterm><primary>seek time</primary></indexterm>. Often the platters are stacked on top of each other, hence the set of tracks accessible at a certain position of the comb forms a <command>cylinder</command><indexterm><primary>cylinder</primary></indexterm>. Tracks are divided into 512 byte <command>sectors</command><indexterm><primary>sector</primary></indexterm>, with more unused space (<command>gap</command>) between the sectors on the outside of the platter. </para>
+			<para>When you break down the advertised <command>access time</command><indexterm><primary>access time</primary></indexterm> of a hard drive, you will notice that most of that time is taken by movement of the heads (about 65%) and <command>rotational latency</command><indexterm><primary>rotational latency</primary></indexterm> (about 30%). </para>
+		</section>	
+		<section><title>ide or scsi</title>
+			<para>Actually, the title should be <command>ata</command><indexterm><primary>ata</primary></indexterm> or <command>scsi</command><indexterm><primary>scsi</primary></indexterm>, since ide is an ata compatible device. Most desktops use <command>ata devices</command>, most servers use <command>scsi</command>.</para>
+		</section>	
+		<section><title>ata</title>
+			<para>An <command>ata controller</command> allows two devices per bus, one <command>master</command><indexterm><primary>master (hard disk device)</primary></indexterm> and one <command>slave</command><indexterm><primary>slave (hard disk device)</primary></indexterm>. Unless your controller and devices support <command>cable select</command><indexterm><primary>cable select</primary></indexterm>, you have to set this manually with jumpers.</para>
+			<para>With the introduction of <command>sata</command><indexterm><primary>sata</primary></indexterm> (serial ata), the original ata was renamed to <command>parallel ata</command><indexterm><primary>Parallel ATA</primary></indexterm>. Optical drives often use <command>atapi</command><indexterm><primary>atapi</primary></indexterm>, which is an ATA interface using the SCSI communication protocol.</para>
+		</section>	
+		<section><title>scsi</title>
+			<para>A <command>scsi controller</command> allows more than two devices. When using <command>SCSI (small computer system interface)</command>, each device gets a unique <command>scsi id</command><indexterm><primary>scsi id</primary></indexterm>. The <command>scsi controller</command> also needs a <command>scsi id</command>, do not use this id for a scsi-attached device.</para>
+			<para>Older 8-bit SCSI is now called <command>narrow</command>, whereas 16-bit is <command>wide</command>. When the bus speeds was doubled to 10Mhz, this was known as <command>fast SCSI</command>. Doubling to 20Mhz made it <command>ultra SCSI</command>. Take a look at http://en.wikipedia.org/wiki/SCSI for more SCSI standards. </para>
+		</section>
+<?hard-pagebreak?>
+		<section><title>block device</title>
+			<para>Random access hard disk devices have an abstraction layer called <command>block device</command><indexterm><primary>block device</primary></indexterm> to enable formatting in fixed-size (usually 512 bytes) blocks. Blocks can be accessed independent of access to other blocks.</para>
+	<screen>[root@centos65 ~]# lsblk
+NAME                        MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+sda                           8:0    0   40G  0 disk 
+--sda1                        8:1    0  500M  0 part /boot
+--sda2                        8:2    0 39.5G  0 part 
+  --VolGroup-lv_root (dm-0) 253:0    0 38.6G  0 lvm  /
+  --VolGroup-lv_swap (dm-1) 253:1    0  928M  0 lvm  [SWAP]
+sdb                           8:16   0   72G  0 disk 
+sdc                           8:32   0  144G  0 disk</screen>
+	<para>A block device has the letter b to denote the file type in the output of <command>ls -l</command>. </para>
+			<screen>[root@centos65 ~]# ls -l /dev/sd*
+brw-rw----. 1 root disk 8,  0 Apr 19 10:12 /dev/sda
+brw-rw----. 1 root disk 8,  1 Apr 19 10:12 /dev/sda1
+brw-rw----. 1 root disk 8,  2 Apr 19 10:12 /dev/sda2
+brw-rw----. 1 root disk 8, 16 Apr 19 10:12 /dev/sdb
+brw-rw----. 1 root disk 8, 32 Apr 19 10:12 /dev/sdc</screen>
+			<para>Note that a <command>character device</command><indexterm><primary>character device</primary></indexterm> is a constant stream of characters, being denoted by a c in <command>ls -l</command>.</para>
+			<para>Note also that the <command>ISO 9660</command> standard for cdrom uses a <command>2048 byte</command> block size.</para>
+			<para>Old hard disks (and floppy disks) use <command>cylinder-head-sector</command><indexterm><primary>CHS</primary></indexterm> addressing to access a sector on the disk. Most current disks use <command>LBA (Logical Block Addressing)</command><indexterm><primary>LBA</primary></indexterm>.</para>
+		</section>	
+		<section><title>solid state drive</title>
+			<para>A <command>solid state drive</command><indexterm><primary>solid state drive</primary></indexterm> or <command>ssd</command><indexterm><primary>ssd</primary></indexterm> is a block device without moving parts. It is comparable to <command>flash memory</command>. An <command>ssd</command> is more expensive than a hard disk, but it typically has a much faster access time.</para>
+		</section>	
+	</section>
+<?hard-pagebreak?>
+	<section><title>device naming</title>
+		<section><title>ata (ide) device naming</title>
+			<para>All <command>ata</command> drives on your system will start with <command>/dev/hd</command><indexterm><primary>/dev/hdX</primary></indexterm> followed by a unit letter. The master hdd on the first <command>ata controller</command> is /dev/hda, the slave is /dev/hdb. For the second controller, the names of the devices are /dev/hdc and /dev/hdd.</para>
+<table frame='all'><title>ide device naming</title>
+<?dbfo table-width="70%" ?>
+<tgroup cols='3' align='left' colsep='1' rowsep='1'>
+<colspec colname='controller' align="center"/>
+<colspec colname='connection' align="center"/>
+<colspec colname='device name' align="center"/>
+<thead>
+<row>
+  <entry>controller</entry>
+  <entry>connection</entry>
+  <entry>device name</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry morerows='1' valign='middle'>ide0</entry>
+  <entry>master</entry>
+  <entry>/dev/hda</entry>
+</row>
+<row>
+  <entry>slave</entry>
+  <entry>/dev/hdb</entry>
+</row>
+<row>
+  <entry morerows='1' valign='middle'>ide1</entry>
+  <entry>master</entry>
+  <entry>/dev/hdc</entry>
+</row>
+<row>
+  <entry>slave</entry>
+  <entry>/dev/hdd</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+			<para>It is possible to have only <command>/dev/hda</command> and <command>/dev/hdd</command>. The first one is a single ata hard disk, the second one is the cdrom (by default configured as slave).</para>
+		</section>
+		<section><title>scsi device naming</title>
+			<para><command>scsi</command> drives follow a similar scheme, but all start with <command>/dev/sd</command><indexterm><primary>/dev/sdX</primary></indexterm>. When you run out of letters (after /dev/sdz), you can continue with /dev/sdaa and /dev/sdab and so on. (We will see later on that <command>lvm</command> volumes are commonly seen as /dev/md0, /dev/md1 etc.)</para>
+			<para>Below a <command>sample</command> of how scsi devices on a linux can be named. Adding a scsi disk or raid controller with a lower scsi address will change the naming scheme (shifting the higher scsi addresses one letter further in the alphabet).</para>
+<table frame='all'><title>scsi device naming</title>
+<?dbfo table-width="80%" ?>
+<tgroup cols='3' align='left' colsep='1' rowsep='1'>
+<colspec colname='device' colwidth="2.5*" align="center"/>
+<colspec colname='SCSI address' colwidth="1.5*" align="center"/>
+<colspec colname='linux device name' colwidth="2*" align="center"/>
+<thead>
+<row>
+  <entry>device</entry>
+  <entry>scsi id</entry>
+  <entry>device name</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>disk 0</entry>
+  <entry>0</entry>
+  <entry>/dev/sda</entry>
+</row>
+<row>
+  <entry>disk 1</entry>
+  <entry>1</entry>
+  <entry>/dev/sdb</entry>
+</row>
+<row>
+  <entry>raid controller 0</entry>
+  <entry>5</entry>
+  <entry>/dev/sdc</entry>
+</row>
+<row>
+  <entry>raid controller 1</entry>
+  <entry>6</entry>
+  <entry>/dev/sdd</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+	<para>A modern Linux system will use <command>/dev/sd*</command> for scsi and sata devices, and also for sd-cards, usb-sticks, (legacy) ATA/IDE devices and solid state drives.</para>
+		</section>
+	</section>
+<?hard-pagebreak?>
+	<section><title>discovering disk devices</title>
+		<section><title>fdisk</title>
+			<para>You can start by using <command>/sbin/fdisk</command><indexterm><primary>fdisk(8)</primary></indexterm> to find out what kind of disks are seen by the kernel. Below the result on old Debian desktop, with two <command>ata-ide disks</command> present.</para>
+			<screen>root@barry:~# fdisk -l | grep Disk
+Disk /dev/hda: 60.0 GB, 60022480896 bytes
+Disk /dev/hdb: 81.9 GB, 81964302336 bytes</screen>
+			<para>And here an example of <command>sata and scsi disks</command> on a server with CentOS. Remember that <command>sata</command> disks are also presented to you with the <command>scsi</command> /dev/sd* notation.</para>
+			<screen>[root@centos65 ~]# fdisk -l | grep 'Disk /dev/sd'
+Disk /dev/sda: 42.9 GB, 42949672960 bytes
+Disk /dev/sdb: 77.3 GB, 77309411328 bytes
+Disk /dev/sdc: 154.6 GB, 154618822656 bytes
+Disk /dev/sdd: 154.6 GB, 154618822656 bytes
+</screen>
+			<para>Here is an overview of disks on a RHEL4u3 server with two real 72GB <command>scsi disks</command>. This server is attached to a <command>NAS</command> with four <command>NAS disks</command> of half a terabyte. On the NAS disks, four LVM (/dev/mdx) software RAID devices are configured.</para>
+			<screen>[root@tsvtl1 ~]# fdisk -l | grep Disk
+Disk /dev/sda: 73.4 GB, 73407488000 bytes
+Disk /dev/sdb: 73.4 GB, 73407488000 bytes
+Disk /dev/sdc: 499.0 GB, 499036192768 bytes
+Disk /dev/sdd: 499.0 GB, 499036192768 bytes
+Disk /dev/sde: 499.0 GB, 499036192768 bytes
+Disk /dev/sdf: 499.0 GB, 499036192768 bytes
+Disk /dev/md0: 271 MB, 271319040 bytes
+Disk /dev/md2: 21.4 GB, 21476081664 bytes
+Disk /dev/md3: 21.4 GB, 21467889664 bytes
+Disk /dev/md1: 21.4 GB, 21476081664 bytes</screen>
+			<para>You can also use <command>fdisk</command> to obtain information about one specific hard disk device.</para>
+			<screen>[root@centos65 ~]# fdisk -l /dev/sdc
+
+Disk /dev/sdc: 154.6 GB, 154618822656 bytes
+255 heads, 63 sectors/track, 18798 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x00000000</screen>
+			<para>Later we will use fdisk to do dangerous stuff like creating and deleting partitions.</para>
+		</section>
+<?hard-pagebreak?>
+		<section><title>dmesg</title>
+			<para>Kernel boot messages can be seen after boot with <command>dmesg</command><indexterm><primary>dmesg(1)</primary></indexterm>. Since hard disk devices are detected by the kernel during boot, you can also use dmesg to find information about disk devices.</para>
+			<screen>[root@centos65 ~]# dmesg | grep 'sd[a-z]' | head
+sd 0:0:0:0: [sda] 83886080 512-byte logical blocks: (42.9 GB/40.0 GiB)
+sd 0:0:0:0: [sda] Write Protect is off
+sd 0:0:0:0: [sda] Mode Sense: 00 3a 00 00
+sd 0:0:0:0: [sda] Write cache: enabled, read cache: enabled, doesn't support \
+DPO or FUA
+sda: sda1 sda2
+sd 0:0:0:0: [sda] Attached SCSI disk
+sd 3:0:0:0: [sdb] 150994944 512-byte logical blocks: (77.3 GB/72.0 GiB)
+sd 3:0:0:0: [sdb] Write Protect is off
+sd 3:0:0:0: [sdb] Mode Sense: 00 3a 00 00
+sd 3:0:0:0: [sdb] Write cache: enabled, read cache: enabled, doesn't support \
+DPO or FUA</screen>
+			<para>Here is another example of <command>dmesg</command><indexterm><primary>/bin/dmesg</primary></indexterm> on a computer with a 200GB ata disk.</para>
+			<screen>paul@barry:~$ dmesg | grep -i "ata disk"
+[    2.624149] hda: ST360021A, ATA DISK drive
+[    2.904150] hdb: Maxtor 6Y080L0, ATA DISK drive
+[    3.472148] hdd: WDC WD2000BB-98DWA0, ATA DISK drive</screen>
+			<para>Third and last example of <command>dmesg</command> running on RHEL5.3.</para>
+			<screen>root@rhel53 ~# dmesg | grep -i "scsi disk"
+sd 0:0:2:0: Attached scsi disk sda
+sd 0:0:3:0: Attached scsi disk sdb
+sd 0:0:6:0: Attached scsi disk sdc</screen>
+		</section>
+<?hard-pagebreak?>
+		<section><title>/sbin/lshw</title>
+			<para>The <command>lshw</command> tool will <command>list hardware</command>. With the right options <command>lshw</command> can show a lot of information about disks (and partitions).</para>
+			<para>Below a truncated screenshot on Debian 6:</para>
+			<screen>root@debian6~# lshw -class volume | grep -A1 -B2 scsi
+       description: Linux raid autodetect partition
+       physical id: 1
+       bus info: scsi@1:0.0.0,1
+       logical name: /dev/sdb1
+--
+       description: Linux raid autodetect partition
+       physical id: 1
+       bus info: scsi@2:0.0.0,1
+       logical name: /dev/sdc1
+--
+       description: Linux raid autodetect partition
+       physical id: 1
+       bus info: scsi@3:0.0.0,1
+       logical name: /dev/sdd1
+--
+       description: Linux raid autodetect partition
+       physical id: 1
+       bus info: scsi@4:0.0.0,1
+       logical name: /dev/sde1
+--
+       vendor: Linux
+       physical id: 1
+       bus info: scsi@0:0.0.0,1
+       logical name: /dev/sda1
+--
+       vendor: Linux
+       physical id: 2
+       bus info: scsi@0:0.0.0,2
+       logical name: /dev/sda2
+--
+       description: Extended partition
+       physical id: 3
+       bus info: scsi@0:0.0.0,3
+       logical name: /dev/sda3</screen>
+	<para>Redhat and CentOS do not have this tool (unless you add a repository).</para>
+	</section>
+<?hard-pagebreak?>
+		<section><title>/sbin/lsscsi</title>
+			<para>The <command>lsscsi</command><indexterm><primary>lsscsi(1)</primary></indexterm> command provides a nice readable output of all scsi (and scsi emulated devices). This first screenshot shows <command>lsscsi</command> on a SPARC system.</para>
+			<screen>root@shaka:~# lsscsi 
+[0:0:0:0]    disk    Adaptec  RAID5            V1.0  /dev/sda
+[1:0:0:0]    disk    SEAGATE  ST336605FSUN36G  0438  /dev/sdb
+root@shaka:~#</screen>
+			<para>Below a screenshot of <command>lsscsi</command> on a QNAP NAS (which has four 750GB disks and boots from a usb stick).</para>
+			<screen>lroot@debian6~# lsscsi 
+[0:0:0:0]    disk    SanDisk  Cruzer Edge      1.19  /dev/sda
+[1:0:0:0]    disk    ATA      ST3750330AS      SD04  /dev/sdb
+[2:0:0:0]    disk    ATA      ST3750330AS      SD04  /dev/sdc
+[3:0:0:0]    disk    ATA      ST3750330AS      SD04  /dev/sdd
+[4:0:0:0]    disk    ATA      ST3750330AS      SD04  /dev/sde</screen>
+			<para>This screenshot shows the classic output of <command>lsscsi</command>.</para>
+		<screen>root@debian6~# lsscsi -c
+Attached devices: 
+Host: scsi0 Channel: 00 Target: 00 Lun: 00
+  Vendor: SanDisk  Model: Cruzer Edge      Rev: 1.19
+  Type:   Direct-Access                    ANSI SCSI revision: 02
+Host: scsi1 Channel: 00 Target: 00 Lun: 00
+  Vendor: ATA      Model: ST3750330AS      Rev: SD04
+  Type:   Direct-Access                    ANSI SCSI revision: 05
+Host: scsi2 Channel: 00 Target: 00 Lun: 00
+  Vendor: ATA      Model: ST3750330AS      Rev: SD04
+  Type:   Direct-Access                    ANSI SCSI revision: 05
+Host: scsi3 Channel: 00 Target: 00 Lun: 00
+  Vendor: ATA      Model: ST3750330AS      Rev: SD04
+  Type:   Direct-Access                    ANSI SCSI revision: 05
+Host: scsi4 Channel: 00 Target: 00 Lun: 00
+  Vendor: ATA      Model: ST3750330AS      Rev: SD04
+  Type:   Direct-Access                    ANSI SCSI revision: 05</screen>
+		</section>
+<?hard-pagebreak?>
+		<section><title>/proc/scsi/scsi</title>
+			<para>Another way to locate <command>scsi</command> (or sd) devices is via <command>/proc/scsi/scsi</command><indexterm><primary>/proc/scsi/scsi</primary></indexterm>.</para>
+			<para>This screenshot is from a <command>sparc</command> computer with adaptec RAID5.</para>
+			<screen>root@shaka:~# cat /proc/scsi/scsi 
+Attached devices:
+Host: scsi0 Channel: 00 Id: 00 Lun: 00
+  Vendor: Adaptec  Model: RAID5            Rev: V1.0
+  Type:   Direct-Access                    ANSI SCSI revision: 02
+Host: scsi1 Channel: 00 Id: 00 Lun: 00
+  Vendor: SEAGATE  Model: ST336605FSUN36G  Rev: 0438
+  Type:   Direct-Access                    ANSI SCSI revision: 03
+root@shaka:~#</screen>
+			<para>Here we run <command>cat /proc/scsi/scsi</command> on the QNAP from above (with Debian Linux).</para>
+			<screen>root@debian6~# cat /proc/scsi/scsi 
+Attached devices:
+Host: scsi0 Channel: 00 Id: 00 Lun: 00
+  Vendor: SanDisk  Model: Cruzer Edge      Rev: 1.19
+  Type:   Direct-Access                    ANSI  SCSI revision: 02
+Host: scsi1 Channel: 00 Id: 00 Lun: 00
+  Vendor: ATA      Model: ST3750330AS      Rev: SD04
+  Type:   Direct-Access                    ANSI  SCSI revision: 05
+Host: scsi2 Channel: 00 Id: 00 Lun: 00
+  Vendor: ATA      Model: ST3750330AS      Rev: SD04
+  Type:   Direct-Access                    ANSI  SCSI revision: 05
+Host: scsi3 Channel: 00 Id: 00 Lun: 00
+  Vendor: ATA      Model: ST3750330AS      Rev: SD04
+  Type:   Direct-Access                    ANSI  SCSI revision: 05
+Host: scsi4 Channel: 00 Id: 00 Lun: 00
+  Vendor: ATA      Model: ST3750330AS      Rev: SD04
+  Type:   Direct-Access                    ANSI  SCSI revision: 05</screen>
+			<para>Redhat and CentOS also have this command (after a <command>yum install lsscsi</command>).</para>
+	<screen>[root@centos65 ~]# cat /proc/scsi/scsi 
+Attached devices:
+Host: scsi0 Channel: 00 Id: 00 Lun: 00
+  Vendor: ATA      Model: VBOX HARDDISK    Rev: 1.0 
+  Type:   Direct-Access                    ANSI  SCSI revision: 05
+Host: scsi3 Channel: 00 Id: 00 Lun: 00
+  Vendor: ATA      Model: VBOX HARDDISK    Rev: 1.0 
+  Type:   Direct-Access                    ANSI  SCSI revision: 05
+Host: scsi4 Channel: 00 Id: 00 Lun: 00
+  Vendor: ATA      Model: VBOX HARDDISK    Rev: 1.0 
+  Type:   Direct-Access                    ANSI  SCSI revision: 05</screen>
+		</section>
+	</section>
+<?hard-pagebreak?>
+	<section><title>erasing a hard disk</title>
+		<para>Before selling your old hard disk on the internet, it may be a good idea to erase it. By simply repartitioning, or by using the Microsoft Windows format utility, or even after an <command>mkfs</command> command, some people will still be able to read most of the data on the disk.</para>
+		<screen>root@debian6~# aptitude search foremost autopsy sleuthkit | tr -s ' '
+p autopsy - graphical interface to SleuthKit 
+p foremost - Forensics application to recover data 
+p sleuthkit - collection of tools for forensics analysis</screen>
+		<para>Although technically the <command>/sbin/badblocks</command><indexterm><primary>badblocks(8)</primary></indexterm> tool is meant to look for bad blocks, you can use it to completely erase all data from a disk. Since this is really writing to every sector of the disk, it can take a long time!</para>
+		<screen>root@RHELv4u2:~# badblocks -ws /dev/sdb
+Testing with pattern 0xaa: done
+Reading and comparing: done
+Testing with pattern 0x55: done
+Reading and comparing: done
+Testing with pattern 0xff: done
+Reading and comparing: done
+Testing with pattern 0x00: done
+Reading and comparing: done</screen>
+		<para>The previous screenshot overwrites every sector of the disk <command>four times</command>. Erasing <command>once</command> with a tool like <command>dd</command> is enough to destroy all data.</para>
+		<para>Warning, this screenshot shows how to permanently destroy all data on a block device.</para>
+		<screen>[root@rhel65 ~]# dd if=/dev/zero of=/dev/sdb</screen>
+	</section>
+<?hard-pagebreak?>
+	<section><title>advanced hard disk settings</title>
+		<para>Tweaking of hard disk settings (dma, gap, ...) are not covered in this course. Several tools exists, <command>hdparm</command> and <command>sdparm</command> are two of them.</para>
+		<para><command>hdparm</command><indexterm><primary>hdparm(8)</primary></indexterm> can be used to display or set information and parameters about an ATA (or SATA) hard disk device. The -i and -I options will give you even more information about the physical properties of the device.</para>
+		<screen>root@laika:~# hdparm /dev/sdb
+
+/dev/sdb:
+ IO_support   =  0 (default 16-bit)
+ readonly     =  0 (off)
+ readahead    = 256 (on)
+ geometry     = 12161/255/63, sectors = 195371568, start = 0</screen>
+		<para>Below <command>hdparm</command> info about a 200GB IDE disk.</para>
+		<screen>root@barry:~# hdparm /dev/hdd
+
+/dev/hdd:
+ multcount     =  0 (off)
+ IO_support    =  0 (default) 
+ unmaskirq     =  0 (off)
+ using_dma     =  1 (on)
+ keepsettings  =  0 (off)
+ readonly      =  0 (off)
+ readahead     = 256 (on)
+ geometry      = 24321/255/63, sectors = 390721968, start = 0</screen>
+		<para>Here a screenshot of <command>sdparm</command> on Ubuntu 10.10.</para>
+		<screen>root@ubu1010:~# aptitude install sdparm
+...
+root@ubu1010:~# sdparm /dev/sda | head -1
+    /dev/sda: ATA       FUJITSU MJA2160B  0081
+root@ubu1010:~# man sdparm</screen>
+		<para>Use <command>hdparm</command> and <command>sdparm</command> with care.</para>
+	</section>
