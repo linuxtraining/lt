@@ -1,2 +1,0 @@
-<para>One of the powers of the Unix command line is the use of <command>redirection</command> and <command>pipes</command>.</para>
-<para>This chapter first explains <command>redirection</command> of input, output and error streams. It then introduces <command>pipes</command> that consist of several <command>commands</command>.</para>

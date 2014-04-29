@@ -1,0 +1,172 @@
+<?hard-pagebreak?>
+<section><title>stdin, stdout, and stderr</title>
+	<para>The bash shell has three basic streams; it takes input from <command>stdin</command> (stream <command>0</command>)<indexterm><primary>stdin</primary></indexterm>, it sends output to <command>stdout</command> (stream <command>1</command>) <indexterm><primary>stdout</primary></indexterm> and it sends error messages to <command>stderr</command> (stream <command>2</command>) <indexterm><primary>stderr</primary></indexterm>.</para>
+	<para>The drawing below has a graphical interpretation of these three streams.</para>
+	<para><mediaobject><imageobject><imagedata fileref="newimages/bash_stdin_stdout_stderr.png" format="PNG" align="center"></imagedata></imageobject></mediaobject></para>
+	<para>The keyboard often serves as <command>stdin</command>, whereas <command>stdout</command> and <command>stderr</command> both go to the display. This can be confusing to new Linux users because there is no obvious way to recognize <command>stdout</command> from <command>stderr</command>. Experienced users know that separating output from errors can be very useful.</para>
+	<para><mediaobject><imageobject><imagedata fileref="newimages/bash_ioredirection_keyboard_display.png" format="PNG" align="center"></imagedata></imageobject></mediaobject></para>
+	<para>The next sections will explain how to redirect these streams.</para>
+</section>
+<?hard-pagebreak?>
+<section><title>output redirection</title>
+	<section><title>&#062; stdout</title>
+		<para><command>stdout</command> can be redirected with a <command>greater than</command> sign. While scanning the line, the shell will see the <command>&#062;</command><indexterm><primary>&#062;</primary></indexterm> sign and will clear the file.</para>
+		<para><mediaobject><imageobject><imagedata fileref="newimages/bash_output_redirection.png" format="PNG" align="center"></imagedata></imageobject></mediaobject></para>
+		<para>The <command>&#062;</command> notation is in fact the abbreviation of <command>1&#062;</command> (<command>stdout</command> being referred to as stream <command>1</command>).</para>
+		<screen>[paul@RHELv4u3 ~]$ echo It is cold today!
+It is cold today!
+[paul@RHELv4u3 ~]$ echo It is cold today! &#062; winter.txt
+[paul@RHELv4u3 ~]$ cat winter.txt 
+It is cold today!
+[paul@RHELv4u3 ~]$</screen>
+		<para>Note that the bash shell effectively <command>removes</command> the redirection from the command line before argument 0 is executed. This means that in the case of this command:</para>
+		<screen>echo hello > greetings.txt</screen>
+		<para>the shell only counts two arguments (echo = argument 0, hello = argument 1). The redirection is removed before the argument counting takes place.</para>
+	</section>
+	<section><title>output file is erased</title>
+		<para>While scanning the line, the shell will see the &#062; sign and <command>will clear the file</command>! Since this happens before resolving <command>argument 0</command>, this means that even when the command fails, the file will have been cleared!</para>
+		<screen>[paul@RHELv4u3 ~]$ cat winter.txt 
+It is cold today!
+[paul@RHELv4u3 ~]$ zcho It is cold today! &#062; winter.txt
+-bash: zcho: command not found
+[paul@RHELv4u3 ~]$ cat winter.txt 
+[paul@RHELv4u3 ~]$</screen>
+	</section>
+<?hard-pagebreak?>
+	<section><title>noclobber</title>
+		<para>Erasing a file while using &#062; can be prevented by setting the <command>noclobber</command><indexterm><primary>noclobber</primary></indexterm> option.</para>
+		<screen>[paul@RHELv4u3 ~]$ cat winter.txt 
+It is cold today!
+[paul@RHELv4u3 ~]$ set -o noclobber
+[paul@RHELv4u3 ~]$ echo It is cold today! &#062; winter.txt
+-bash: winter.txt: cannot overwrite existing file
+[paul@RHELv4u3 ~]$ set +o noclobber
+[paul@RHELv4u3 ~]$</screen>
+	</section>
+	<section><title>overruling noclobber</title>
+		<para>The <command>noclobber</command> can be overruled with <command>&#062;|</command><indexterm><primary>&#062;|</primary></indexterm>.</para>
+		<screen>[paul@RHELv4u3 ~]$ set -o noclobber
+[paul@RHELv4u3 ~]$ echo It is cold today! &#062; winter.txt
+-bash: winter.txt: cannot overwrite existing file
+[paul@RHELv4u3 ~]$ echo It is very cold today! &#062;| winter.txt
+[paul@RHELv4u3 ~]$ cat winter.txt 
+It is very cold today!
+[paul@RHELv4u3 ~]$</screen>
+	</section>
+	<section><title>&#062;&#062; append</title>
+		<para>Use <command>&#062;&#062;</command><indexterm><primary>&#062;&#062;</primary></indexterm> to <command>append</command> output to a file.</para>
+		<screen>[paul@RHELv4u3 ~]$ echo It is cold today! &#062; winter.txt
+[paul@RHELv4u3 ~]$ cat winter.txt 
+It is cold today!
+[paul@RHELv4u3 ~]$ echo Where is the summer ? &#062;&#062; winter.txt
+[paul@RHELv4u3 ~]$ cat winter.txt 
+It is cold today!
+Where is the summer ?
+[paul@RHELv4u3 ~]$</screen>
+	</section>
+</section>
+<?hard-pagebreak?>
+<section><title>error redirection</title>
+	<section><title>2&#062; stderr</title>
+		<para>Redirecting <command>stderr</command> is done with <command>2&#062;</command><indexterm><primary>2&#062;</primary></indexterm>. This can be very useful to prevent error messages from cluttering your screen.</para>
+		<para><mediaobject><imageobject><imagedata fileref="newimages/bash_error_redirection.png" format="PNG" align="center"></imagedata></imageobject></mediaobject></para>
+		<para>The screenshot below shows redirection of <command>stdout</command> to a file, and <command>stderr</command> to <command>/dev/null</command><indexterm><primary>/dev/null</primary></indexterm>. Writing <command>1&#062;</command><indexterm><primary>1&#062;</primary></indexterm> is the same as &#062;.</para>
+		<screen>[paul@RHELv4u3 ~]$ find / &#062; allfiles.txt 2&#062; /dev/null
+[paul@RHELv4u3 ~]$</screen>
+	</section>
+	<section><title>2&#062;&#038;1</title>
+		<para>To redirect both <command>stdout</command> and <command>stderr</command> to the same file, use <command>2>&#038;1</command><indexterm><primary>2>&#038;1</primary></indexterm>.</para>
+		<screen>[paul@RHELv4u3 ~]$ find / &#062; allfiles_and_errors.txt 2&#062;&#038;1
+[paul@RHELv4u3 ~]$</screen>
+		<para>Note that the order of redirections is significant. For example, the command</para>
+		<screen>ls > dirlist 2>&amp;1</screen>
+		<para>directs both standard output (file descriptor 1) and standard error (file descriptor 2) to the file dirlist, while the command</para>
+		<screen>ls 2>&amp;1 > dirlist</screen>
+		<para>directs only the standard output to file dirlist, because the standard error made a copy of the standard output before the standard output was redirected to dirlist. </para>
+	</section>
+</section>
+<?hard-pagebreak?>
+<section><title>output redirection and pipes</title>
+	<para>By default you cannot grep inside <command>stderr</command> when using pipes on the command line, because only <command>stdout</command> is passed.</para>
+	<screen>paul@debian7:~$ rm file42 file33 file1201 | grep file42
+rm: cannot remove ‘file42’: No such file or directory
+rm: cannot remove ‘file33’: No such file or directory
+rm: cannot remove ‘file1201’: No such file or directory</screen>
+	<para>With <command>2&#062;&#038;1</command> you can force <command>stderr</command> to go to <command>stdout</command>. This enables the next command in the pipe to act on both streams.</para>
+	<screen>paul@debian7:~$ rm file42 file33 file1201 2>&#038;1 | grep file42
+rm: cannot remove ‘file42’: No such file or directory</screen>
+	<para>You cannot use both <command>1&#062;&#038;2</command> and <command>2&#062;&#038;1</command> to switch <command>stdout</command> and <command>stderr</command>.</para>
+	<screen>paul@debian7:~$ rm file42 file33 file1201 2>&#038;1 1>&#038;2 | grep file42
+rm: cannot remove ‘file42’: No such file or directory
+paul@debian7:~$ echo file42 2>&#038;1 1>&#038;2 | sed 's/file42/FILE42/' 
+FILE42</screen>
+	<para>You need a third stream to switch stdout and stderr after a pipe symbol.</para>
+	<screen>paul@debian7:~$ echo file42 3>&#038;1 1>&#038;2 2>&#038;3 | sed 's/file42/FILE42/' 
+file42
+paul@debian7:~$ rm file42 3>&#038;1 1>&#038;2 2>&#038;3 | sed 's/file42/FILE42/' 
+rm: cannot remove ‘FILE42’: No such file or directory</screen>
+</section>
+<section><title>joining stdout and stderr</title>
+	<para>The <command>&#038;></command> construction will put both <command>stdout</command> and <command>stderr</command> in one stream (to a file).</para>
+<screen>paul@debian7:~$ rm file42 &#038;> out_and_err
+paul@debian7:~$ cat out_and_err 
+rm: cannot remove ‘file42’: No such file or directory
+paul@debian7:~$ echo file42 &#038;> out_and_err
+paul@debian7:~$ cat out_and_err 
+file42
+paul@debian7:~$ </screen>
+</section>
+<?hard-pagebreak?>
+<section><title>input redirection</title>
+	<section><title>&#060; stdin</title>
+		<para>Redirecting <command>stdin</command> is done with &#060; (short for 0&#060;).</para>
+		<screen>[paul@RHEL4b ~]$ cat &#060; text.txt
+one
+two
+[paul@RHEL4b ~]$ tr 'onetw' 'ONEZZ' &#060; text.txt
+ONE
+ZZO
+[paul@RHEL4b ~]$</screen>
+	</section>
+	<section><title>&#060;&#060; here document</title>
+		<para>The <command>here document</command><indexterm><primary>here document</primary></indexterm> (sometimes called here-is-document) is a way to append input until a certain sequence (usually EOF) is encountered. The <command>EOF</command><indexterm><primary>EOF</primary></indexterm> marker can be typed literally or can be called with Ctrl-D.</para>
+		<screen>
+[paul@RHEL4b ~]$ cat &#060;&#060;EOF &#062; text.txt
+> one
+> two
+> EOF
+[paul@RHEL4b ~]$ cat text.txt 
+one
+two
+[paul@RHEL4b ~]$ cat &#060;&#060;brol &#062; text.txt
+> brel
+> brol
+[paul@RHEL4b ~]$ cat text.txt 
+brel
+[paul@RHEL4b ~]$
+		</screen>
+	</section>
+	<section><title>&#060;&#060;&#060; here string</title>
+		<para>The <command>here string</command><indexterm><primary>here string</primary></indexterm> can be used to directly pass strings to a command. The result is the same as using <command>echo string | command</command> (but you have one less process running).</para>
+		<screen>paul@ubu1110~$ base64 &#060;&#060;&#060; linux-training.be
+bGludXgtdHJhaW5pbmcuYmUK
+paul@ubu1110~$ base64 -d &#060;&#060;&#060; bGludXgtdHJhaW5pbmcuYmUK
+linux-training.be</screen>
+		<para>See rfc 3548 for more information about <command>base64</command><indexterm><primary>base64</primary></indexterm>.</para>
+	</section>
+</section>
+<?hard-pagebreak?>
+<section><title>confusing redirection</title>
+	<para>The shell will scan the whole line before applying redirection. The following command line is very readable and is correct.</para>
+	<screen>cat winter.txt &#062; snow.txt 2&#062; errors.txt</screen>
+	<para>But this one is also correct, but less readable.</para>
+	<screen>2&#062; errors.txt cat winter.txt &#062; snow.txt</screen>
+	<para>Even this will be understood perfectly by the shell.</para>
+	<screen>&#060; winter.txt &#062; snow.txt 2&#062; errors.txt cat</screen>
+</section>
+<section><title>quick file clear</title>
+	<para>So what is the quickest way to clear a file ?</para>
+	<screen>&#062;foo</screen>
+	<para>And what is the quickest way to clear a file when the <command>noclobber</command> option is set ?</para>
+	<screen>&#062;|bar</screen>
+</section>

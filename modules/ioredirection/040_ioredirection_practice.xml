@@ -1,0 +1,9 @@
+<?hard-pagebreak?>
+<section><title>practice: input/output redirection</title>
+	<para>1. Activate the <command>noclobber</command> shell option.</para>
+	<para>2. Verify that <command>noclobber</command> is active by repeating an <command>ls</command> on <command>/etc/</command> with redirected output to a file.</para>
+	<para>3. When listing all shell options, which character represents the <command>noclobber</command> option ?</para>
+	<para>4. Deactivate the <command>noclobber</command> option.</para>
+	<para>5. Make sure you have two shells open on the same computer. Create an empty <command>tailing.txt</command> file. Then type <command>tail -f tailing.txt</command>. Use the second shell to <command>append</command> a line of text to that file. Verify that the first shell displays this line.</para>
+	<para>6. Create a file that contains the names of five people. Use <command>cat</command> and output redirection to create the file and use a <command>here document</command> to end the input.</para>
+</section>
