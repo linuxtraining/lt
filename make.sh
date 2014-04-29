@@ -20,6 +20,8 @@ BUILDDIR="."
 LIBDIR="$BUILDDIR/lib"
 export FOP_OPTS="-Xms512m -Xmx512m"
 export BOOKSDIR=./books
+HTMLXSL="$LIBDIR/html.xsl"
+HTMLCSS="$LIBDIR/html.css"
 
 ### script configuration ###
 
@@ -378,7 +380,7 @@ build_html() {
 
     # Run xmlto in $HTMLDIR to generate the html
     echo "Converting xml to html ..."
-    ( cd $HTMLDIR && xmlto html *.xml 2>&1 | grep -v "Writing" ) || ( echor  Error generating the html $HTMLDIR ; exit 1 )
+    ( cd $HTMLDIR && xmlto html *.xml --skip-validation -m ../../$HTMLXSL 2>&1 | grep -v "Writing" ) || ( echor  Error generating the html $HTMLDIR ; exit 1 )
 
     # don't need the xml anymore in the $HTMLDIR
     rm $HTMLDIR/*.xml
