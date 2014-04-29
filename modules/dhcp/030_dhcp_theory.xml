@@ -153,7 +153,7 @@ key "rndc-key" {
 <?hard-pagebreak?>
 <section><title>advanced dhcp</title>
 <section><title>80/20 rule</title>
-	<para>DHCP servers should not be a single point of failure. Let us discuss redundant dhcp server setups (todo later).</para>
+	<para>DHCP servers should not be a single point of failure. Let us discuss redundant dhcp server setups.</para>
 </section>
 <section><title>relay agent</title>
 	<para>To avoid having to place a dhcp server on every segment, we can use <command>dhcp relay agents</command>.</para>
