@@ -8,6 +8,7 @@
 		<para>Below an attempt to put OSI and DoD layers next to some protocols and devices.</para>
  		<mediaobject><imageobject><imagedata fileref="images/networklayers.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 	</section>
+<?hard-pagebreak?>
 	<section><title>short introduction to the physical layer</title>
 		<para>The physical layer, or <command>layer 1</command>, is all about voltage, electrical signals and mechanical connections. Some networks might still use <command>coax</command> cables, but most will have migrated to <command>utp</command> (cat 5 or better) with <command>rj45</command> connectors.</para>
 		<para>Devices like <command>repeaters</command> and <command>hubs</command> are part of this layer. You cannot use software to 'see' a <command>repeater</command> or <command>hub</command> on the network. The only thing these devices are doing is amplifying electrical signals on cables. <command>Passive hubs</command> are multiport amplifiers that amplify an incoming electrical signal on all other connections. <command>Active hubs</command> do this by reading and retransmitting bits, without interpreting any meaning in those bits.</para>
@@ -30,6 +31,7 @@
 	<section><title>layers 5, 6 and 7 </title>
 		<para>The tcp/ip application layer includes layers 5, 6 and 7. Details on the difference between these layers are out of scope of this course.</para>
 	</section>
+<?hard-pagebreak?>
 	<section><title>network layers in this book</title>
 		<para>Stacking of layers in this book is based on the <command>Protocols in Frame</command> explanation in the <command>wireshark</command> sniffer. When sniffing a dhcp packet, we notice the following in the sniffer.</para>
 		<screen>[Protocols in Frame: eth:ip:udp:bootp]</screen>
@@ -74,6 +76,10 @@
 		<para>A <command>lan</command> can contain multiple smaller <command>lan</command>'s. The picture below shows three <command>lan</command>'s that together make up one <command>lan</command>.</para>
 	<mediaobject><imageobject><imagedata fileref="images/LAN_en.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 	</section>
+	<section><title>man</title>
+		<para>A <command>man</command><indexterm><primary>MAN</primary></indexterm> (Metropolitan Area Network) is something inbetween a <command>lan</command> and a <command>wan</command>, often comprising several buildings on the same campus or in the same city. A <command>man</command> can use <command>fddi</command> or <command>ethernet</command> or other protocols for connectivity.</para>
+	</section>
+<?hard-pagebreak?>
 	<section><title>wan</title>
 		<para>A <command>wan</command><indexterm><primary>WAN</primary></indexterm> (Wide Area Network) is a network with a lot of distance between the computers (or hosts). These hosts are often connected by <command>leased lines</command>. A <command>wan</command> does not use <command>ethernet</command>, but protocols like <command>fddi</command><indexterm><primary>fddi</primary></indexterm>, <command>frame relay</command><indexterm><primary>frame relay</primary></indexterm>, <command>ATM</command><indexterm><primary>atm</primary></indexterm> or <command>X.25</command><indexterm><primary>X.25</primary></indexterm> to connect computers (and networks).</para>
 		<para>The picture below shows a branch office that is connected through <command>Frame Relay</command> with headquarters.</para>
@@ -81,13 +87,11 @@
 		<para>The acronym <command>wan</command> is also used for large surface area networks like the <command>internet</command>.</para>
 		<para><command>Cisco</command><indexterm><primary>Cisco</primary></indexterm> is known for their <command>wan</command> technology. They make <command>routers</command><indexterm><primary>router</primary></indexterm> that connect many <command>lan</command> networks using <command>wan</command> protocols.</para>
 	</section>
-	<section><title>man</title>
-		<para>A <command>man</command><indexterm><primary>MAN</primary></indexterm> (Metropolitan Area Network) is something inbetween a <command>lan</command> and a <command>wan</command>, often comprising several buildings on the same campus or in the same city. A <command>man</command> can use <command>fddi</command> or <command>ethernet</command> or other protocols for connectivity.</para>
-	</section>
 	<section><title>pan-wpan</title>
 		<para>Your home network is called a <command>pan</command><indexterm><primary>PAN</primary></indexterm> (Personal Area Network). A wireless <command>pan</command> is a <command>wpan</command><indexterm><primary>WPAN</primary></indexterm>.</para>
 	</section>
 </section>
+<?hard-pagebreak?>
 <section><title>internet - intranet - extranet</title>
 	<para>The <command>internet</command> is a global network. It connects many networks using the <command>tcp/ip</command> protocol stack.</para>
 	<para>The origin of the <command>internet</command> is the <command>arpanet</command>. The <command>arpanet</command> was created in 1969, that year only four computers were connected in the network. In 1971 the first <command>e-mail</command> was sent over the <command>arpanet</command>. <command>E-mail</command> took 75 percent of all <command>arpanet</command> traffic in 1973. 1973 was also the year <command>ftp</command> was introduced, and saw the connection of the first European countries (Norway and UK). In 2009 the internet was available to 25 percent of the world population. In 2011 it is estimated that only a quarter of internet webpages are in English.</para>
