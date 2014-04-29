@@ -9,7 +9,7 @@ BOOKTITLE="pipes and commands"
 
 # define book as directories in certain order
 
-add_mod chapter redirection_and_pipes
+add_mod chapter ioredirection
 add_mod chapter filters
 add_mod chapter basic_tools
 add_mod chapter regular_expressions
