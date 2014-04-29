@@ -92,6 +92,7 @@ Su Mo Tu We Th Fr Sa
 		<screen>paul@rhel55 ~$ sleep 5
 paul@rhel55 ~$</screen>
 	</section>
+<?hard-pagebreak?>
 	<section><title>time</title>
 		<para>The <command>time</command><indexterm><primary>time</primary></indexterm> command can display how long it takes to execute a command. The <command>date</command> command takes only a little time.</para>
 		<screen>paul@rhel55 ~$ time date
@@ -106,7 +107,6 @@ sys     0m0.006s</screen>
 real    0m5.018s
 user    0m0.005s
 sys     0m0.011s</screen>
-<?hard-pagebreak?>
 		<para>This <command>bzip2</command><indexterm><primary>bzip2</primary></indexterm> command compresses a file and uses a lot of <command>cpu time</command>.</para>
 		<screen>paul@rhel55 ~$ time bzip2 text.txt 
 
@@ -115,6 +115,7 @@ user    0m0.847s
 sys     0m0.539s
 </screen>
 	</section>
+<?hard-pagebreak?>
 	<section><title>gzip - gunzip</title>
 		<para>Users never have enough disk space, so compression comes in handy. The <command>gzip</command><indexterm><primary>gzip(1)</primary></indexterm> command can make files take up less space.</para>
 		<screen>paul@rhel55 ~$ ls -lh text.txt 
