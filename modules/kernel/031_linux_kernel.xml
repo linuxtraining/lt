@@ -1,3 +1,4 @@
+<?hard-pagebreak?>
 <section><title>about the Linux kernel</title>
 	<section><title>kernel versions</title>
 		<para>In 1991 Linux Torvalds wrote (the first version of) the Linux kernel. He put it online, and other people started contributing code. Over 4000 individuals contributed source code to the latest kernel release (version 2.6.27 in November 2008).</para>
@@ -6,23 +7,18 @@
 	<section><title>uname -r</title>
 		<para>To see your current Linux kernel version, issue the <command>uname -r</command><indexterm><primary>uname(1)</primary></indexterm> command as shown below.</para>
 		<para>This first example shows Linux major version <command>2.6</command> and minor version <command>24</command>. The rest <command>-22-generic</command> is specific to the distribution (Ubuntu in this case).</para>
-		<screen>
-paul@laika:~$ uname -r
-2.6.24-22-generic
-		</screen>
+		<screen>paul@laika:~$ uname -r
+2.6.24-22-generic</screen>
 		<para>The same command on Red Hat Enterprise Linux shows an older kernel (2.6.18) with <command>-92.1.17.el5</command> being specific to the distribution.</para>
-		<screen>
-[paul@RHEL52 ~]$ uname -r
-2.6.18-92.1.17.el5
-		</screen>
+		<screen>[paul@RHEL52 ~]$ uname -r
+2.6.18-92.1.17.el5</screen>
 	</section>
 	<section><title>/proc/cmdline</title>
 		<para>The parameters that were passed to the kernel at boot time are in <command>/proc/cmdline</command><indexterm><primary>/proc/cmdline</primary></indexterm>.</para>
-		<screen>
-paul@RHELv4u4:~$ cat /proc/cmdline 
-ro root=/dev/VolGroup00/LogVol00 rhgb quiet
-		</screen>
+		<screen>paul@RHELv4u4:~$ cat /proc/cmdline 
+ro root=/dev/VolGroup00/LogVol00 rhgb quiet</screen>
 	</section>
+<?hard-pagebreak?>
 	<section><title>single user mode</title>
 		<para>When booting the kernel with the <command>single</command> parameter, it starts in <command>single user mode</command><indexterm><primary>single user mode</primary></indexterm>. Linux can start in a bash shell with the <command>root</command> user logged on (without password).</para>
 		<para>Some distributions prevent the use of this feature (at kernel compile time).</para>
@@ -32,8 +28,7 @@ ro root=/dev/VolGroup00/LogVol00 rhgb quiet
 	</section>
 	<section><title>/var/log/messages</title>
 		<para>The kernel reports during boot to <command>syslog</command><indexterm><primary>syslog</primary></indexterm> which writes a lot of kernel actions in <command>/var/log/messages</command><indexterm><primary>/var/log/messages</primary></indexterm>. Looking at this file reveals when the kernel was started, including all the devices that were detected at boot time.</para>
-		<screen>
-[root@RHEL53 ~]# grep -A16 "syslogd 1.4.1:" /var/log/messages|cut -b24-
+		<screen>[root@RHEL53 ~]# grep -A16 "syslogd 1.4.1:" /var/log/messages|cut -b24-
 syslogd 1.4.1: restart.
 kernel: klogd 1.4.1, log source = /proc/kmsg started.
 kernel: Linux version 2.6.18-128.el5 (mockbuild@hs20-bc1-5.build.red...
@@ -50,11 +45,9 @@ kernel:  BIOS-e820: 00000000fec00000 - 00000000fec10000 (reserved)
 kernel:  BIOS-e820: 00000000fee00000 - 00000000fee01000 (reserved)
 kernel:  BIOS-e820: 00000000fffe0000 - 0000000100000000 (reserved)
 kernel: 0MB HIGHMEM available.
-kernel: 512MB LOWMEM available.
-		</screen>
+kernel: 512MB LOWMEM available.</screen>
 		<para>This example shows how to use <command>/var/log/messages</command> to see kernel information about <command>/dev/sda</command>.</para>
-		<screen>
-[root@RHEL53 ~]# grep sda /var/log/messages | cut -b24-
+		<screen>[root@RHEL53 ~]# grep sda /var/log/messages | cut -b24-
 kernel: SCSI device sda: 41943040 512-byte hdwr sectors (21475 MB)
 kernel: sda: Write Protect is off
 kernel: sda: cache data unavailable
@@ -65,13 +58,12 @@ kernel: sda: cache data unavailable
 kernel: sda: assuming drive cache: write through
 kernel:  sda: sda1 sda2
 kernel: sd 0:0:0:0: Attached scsi disk sda
-kernel: EXT3 FS on sda1, internal journal
-		</screen>
+kernel: EXT3 FS on sda1, internal journal</screen>
 	</section>
+<?hard-pagebreak?>
 	<section><title>dmesg</title>
 		<para>The <command>dmesg</command> command prints out all the kernel bootup messages (from the last boot).</para>
-		<screen>
-[root@RHEL53 ~]# dmesg | head
+		<screen>[root@RHEL53 ~]# dmesg | head
 Linux version 2.6.18-128.el5 (mockbuild@hs20-bc1-5.build.redhat.com)
 BIOS-provided physical RAM map:
  BIOS-e820: 0000000000000000 - 000000000009f800 (usable)
@@ -81,11 +73,9 @@ BIOS-provided physical RAM map:
  BIOS-e820: 0000000000100000 - 000000001fef0000 (usable)
  BIOS-e820: 000000001fef0000 - 000000001feff000 (ACPI data)
  BIOS-e820: 000000001feff000 - 000000001ff00000 (ACPI NVS)
- BIOS-e820: 000000001ff00000 - 0000000020000000 (usable)
-		</screen>
+ BIOS-e820: 000000001ff00000 - 0000000020000000 (usable)</screen>
 		<para>Thus to find information about /dev/sda, using <command>dmesg</command><indexterm><primary>dmesg(8)</primary></indexterm> will yield only kernel messages from the last boot.</para>
-		<screen>
-[root@RHEL53 ~]# dmesg | grep sda
+		<screen>[root@RHEL53 ~]# dmesg | grep sda
 SCSI device sda: 41943040 512-byte hdwr sectors (21475 MB)
 sda: Write Protect is off
 sda: Mode Sense: 5d 00 00 00
@@ -98,7 +88,6 @@ sda: cache data unavailable
 sda: assuming drive cache: write through
  sda: sda1 sda2
 sd 0:0:0:0: Attached scsi disk sda
-EXT3 FS on sda1, internal journal
-		</screen>
+EXT3 FS on sda1, internal journal</screen>
 	</section>
 </section>
