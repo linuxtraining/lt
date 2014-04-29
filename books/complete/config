@@ -26,13 +26,13 @@ add_mod minibook minibook_kernel
 add_mod minibook minibook_backup
 
 # servers
+add_mod minibook minibook_webserver  # seperate squid?
 add_mod minibook minibook_database
-add_mod minibook minibook_selinux
-add_mod minibook minibook_samba
 add_mod minibook minibook_dns
 add_mod minibook minibook_dhcp 
 add_mod minibook minibook_firewall
-add_mod minibook minibook_webserver  # seperate squid?
+add_mod minibook minibook_selinux
+add_mod minibook minibook_samba
 add_mod minibook minibook_git
 add_mod minibook minibook_ipv6
 

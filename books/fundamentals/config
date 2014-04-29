@@ -4,11 +4,6 @@
 BOOKTITLE="Linux Fundamentals"
 TEACHER=""
 
-###########################
-## OBSOLETE chapter definitions
-###########################
-# . $BOOKSDIR/chapters
-	
 ##################
 # define book
 ##################

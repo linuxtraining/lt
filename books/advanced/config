@@ -3,23 +3,23 @@
 
 BOOKTITLE="Linux Servers"
 TEACHER=""
-MAJOR=1
-MINOR=5
+MAJOR=2
+MINOR=0
 
 ##################
 # define book
 ##################
 
 # advanced servers
-add_mod minibook minibook_samba
+add_mod minibook minibook_webserver  # seperate squid?
+add_mod minibook minibook_database
 add_mod minibook minibook_dns
 add_mod minibook minibook_dhcp
-add_mod minibook minibook_router
 add_mod minibook minibook_firewall
-add_mod minibook minibook_webserver  # seperate squid?
-add_mod minibook minibook_ipv6
-add_mod minibook minibook_database
+add_mod minibook minibook_samba
 add_mod minibook minibook_selinux
+add_mod minibook minibook_git
+add_mod minibook minibook_ipv6
 
 add_mod appendix cloning
 # license
