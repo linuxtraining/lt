@@ -1,16 +1,15 @@
 <?hard-pagebreak?>
-<section><title>solution: package management</title>
-	<para>1. Find the Graphical application on all computers to add and remove applications.</para>
-	<screen></screen>
-	<para>2. Verify on both systems whether gcc is installed.</para>
-	<screen>dpkg -l | grep gcc</screen>
+<section><title>solution: RPM package management</title>
+	<para>1. Verify whether gcc, sudo and wesnoth are installed.</para>
 	<screen>rpm -qa | grep gcc</screen>
-	<para>3. Use aptitude or yum to search for and install the 'dict', 'samba' and 'wesnoth' applications. Did you find all them all ?</para>
-	<screen>aptitude search wesnoth (Debian, Ubuntu and family)</screen>
-	<screen>yum search wesnoth (Red Hat and family)</screen>
-	<para>4. Search the internet for 'webmin' and install it.</para>
+	<screen>rpm -qa | grep sudo</screen>
+	<screen>rpm -qa | grep wesnoth</screen>
+	<para>2. Use yum to search for and install the scp, tmux, and man-pages packages. Did you find them all ?</para>
+	<screen>yum search scp
+yum search tmux
+yum search man-pages</screen>
+	<para>3. Search the internet for 'webmin' and figure out how to install it.</para>
 	<screen>Google should point you to webmin.com.</screen>
 	<screen>There are several formats available there choose .rpm, .deb or .tgz .</screen>
-	<para>5. If time permits, uninstall Samba from the ubuntu machine, download the latest version from samba.org and install it.</para>
-	<screen></screen>
+	<para>4. If time permits, search for and install samba including the samba docs pdf files (thousands of pages in two pdf's).</para>
 </section>
