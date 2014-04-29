@@ -31,7 +31,7 @@ without
 the
 sun
 	</screen>
-	<para>8. Write a spell checker on the command line. (There might be a dictionary in <command>/usr/share/dict/</command> .)</para>
+	<para>8. Write a spell checker on the command line. (There may be a dictionary in <command>/usr/share/dict/</command> .)</para>
 	<screen>
 paul@rhel ~$ echo "The zun is shining today" > text
 

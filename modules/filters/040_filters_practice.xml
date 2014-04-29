@@ -7,5 +7,5 @@
 	<para>5. Look at the output of <command>/sbin/ifconfig</command>. Write a line that displays only ip address and the subnet mask.</para>
 	<para>6. Write a line that removes all non-letters from a stream.</para>
 	<para>7. Write a line that receives a text file, and outputs all words on a separate line.</para>
-	<para>8. Write a spell checker on the command line. (There might be a dictionary in <command>/usr/share/dict/</command> .)</para>
+	<para>8. Write a spell checker on the command line. (There may be a dictionary in <command>/usr/share/dict/</command> .)</para>
 </section>

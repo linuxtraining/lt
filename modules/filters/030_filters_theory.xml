@@ -10,7 +10,7 @@ one
 [paul@RHEL4b pipes]$</screen>
 </section>
 <section><title>tee</title>
-	<para>Writing long <command>pipes</command> in Unix is fun, but sometimes you might want intermediate results. This is were <command>tee</command><indexterm><primary>tee(1)</primary></indexterm> comes in handy. The <command>tee</command> filter puts <command>stdin</command><indexterm><primary>stdin</primary></indexterm> on <command>stdout</command><indexterm><primary>stdout</primary></indexterm> and also into a file. So <command>tee</command> is almost the same as <command>cat</command>, except that it has two identical outputs.</para>
+	<para>Writing long <command>pipes</command> in Unix is fun, but sometimes you may want intermediate results. This is were <command>tee</command><indexterm><primary>tee(1)</primary></indexterm> comes in handy. The <command>tee</command> filter puts <command>stdin</command><indexterm><primary>stdin</primary></indexterm> on <command>stdout</command><indexterm><primary>stdout</primary></indexterm> and also into a file. So <command>tee</command> is almost the same as <command>cat</command>, except that it has two identical outputs.</para>
 	<screen>[paul@RHEL4b pipes]$ tac count.txt | tee temp.txt | tac
 one
 two
@@ -229,6 +229,7 @@ Queen</screen>
       1 Brel
       2 Queen</screen>
 	</section>
+<?hard-pagebreak?>
 	<section><title>comm</title>
 		<para>Comparing streams (or files) can be done with the <command>comm</command><indexterm><primary>comm(1)</primary></indexterm>. By default <command>comm</command> will output three columns. In this example, Abba, Cure and Queen are in both lists, Bowie and Sweet are only in the first file, Turner is only in the second.</para>
 		<screen>paul@debian5:~/pipes$ cat &#062; list1.txt
@@ -249,7 +250,6 @@ Bowie
                 Queen
 Sweet
         Turner</screen>
-<?hard-pagebreak?>
 		<para>The output of <command>comm</command> can be easier to read when outputting only a single column. The digits point out which output columns should not be displayed.</para>
 		<screen>
 paul@debian5:~/pipes$ comm -12 list1.txt list2.txt 
@@ -263,6 +263,7 @@ Bowie
 Sweet
 </screen>
 	</section>
+<?hard-pagebreak?>
 	<section><title>od</title>
 		<para>European humans like to work with ascii characters, but computers store files in bytes. The example below creates a simple file, and then uses <command>od</command><indexterm><primary>od(1)</primary></indexterm> to show the contents of the file in hexadecimal bytes</para>
 	<screen>
