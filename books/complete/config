@@ -15,8 +15,6 @@ add_mod minibook minibook_scripts
 add_mod minibook minibook_users
 add_mod minibook minibook_files
 
-add_mod appendix keys
-add_mod appendix hardware
 
 # sysadmin
 add_mod minibook minibook_process_management
@@ -26,23 +24,25 @@ add_mod minibook minibook_system_management
 add_mod minibook minibook_networking
 add_mod minibook minibook_kernel
 add_mod minibook minibook_backup
-# add_mod chapter monitoring // add these tools to relevant chapter ?
-add_mod appendix installing_linux
-add_mod appendix quotas
-add_mod appendix vnc
 
 # servers
 add_mod minibook minibook_database
 add_mod minibook minibook_selinux
 add_mod minibook minibook_samba
 add_mod minibook minibook_dns
-#add_mod minibook minibook_dhcp # dhcp is in dns ??
-add_mod minibook minibook_router
+add_mod minibook minibook_dhcp 
 add_mod minibook minibook_firewall
 add_mod minibook minibook_webserver  # seperate squid?
 add_mod minibook minibook_git
 add_mod minibook minibook_ipv6
 
+add_mod appendix certifications
+add_mod appendix keys
+add_mod appendix hardware
+add_mod appendix installing_linux
+add_mod appendix quotas
+add_mod appendix vnc
 add_mod appendix cloning
+
 # license
 add_mod appendix license
