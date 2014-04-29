@@ -378,6 +378,8 @@ build_html() {
          cp $V "$IMAGESDIR/$img" $HTMLIMGDIR/ || echor Error copying $img 
     done
 
+    # Copy css file to html directory
+    cp $HTMLCSS $HTMLDIR
     # Run xmlto in $HTMLDIR to generate the html
     echo "Converting xml to html ..."
     ( cd $HTMLDIR && xmlto html *.xml --skip-validation -m ../../$HTMLXSL 2>&1 | grep -v "Writing" ) || ( echor  Error generating the html $HTMLDIR ; exit 1 )
