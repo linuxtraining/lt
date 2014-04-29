@@ -9,6 +9,7 @@
 		<para>During the <command>bios</command> you can see a message on the screen telling you which key (often <command>Del</command> or <command>F2</command>) to press to enter the <command>bios</command> setup.</para>
 		<mediaobject><imageobject><imagedata fileref="images/bios.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 	</section>
+<?hard-pagebreak?>
 	<section><title>openboot</title>
 		<para>Sun <command>sparc</command><indexterm><primary>SPARC</primary></indexterm> systems start with <command>openboot</command><indexterm><primary>OpenBoot(Sun)</primary></indexterm> to test the hardware and to boot the operating system. <command>Bill Callkins</command><indexterm><primary>Bill Callkins</primary></indexterm> explains <command>openboot</command> in his Solaris System Administration books. The details of <command>openboot</command> are not the focus of this course.</para>
 	</section>
@@ -19,21 +20,18 @@
 		<para>The <command>bios</command> will look for a <command>boot device</command> in the order configured in the bios setup. Usually an operating system on a production server boots of a hard disk.</para>
 		<mediaobject><imageobject><imagedata fileref="images/bootdevice.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 	</section>
+<?hard-pagebreak?>
 	<section><title>master boot record</title>
 		<para>The <command>master boot record</command><indexterm><primary>master boot record</primary></indexterm> or <command>mbr</command><indexterm><primary>mbr</primary></indexterm> is the first sector of a hard disk. The partitioning of a disk in <command>primary</command><indexterm><primary>primary partition</primary></indexterm> partitions, and the active partition are defined in the <command>mbr</command>.</para>
 		<para>The <command>mbr</command> is 512 bytes long and can be copied with <command>dd</command><indexterm><primary>dd(1)</primary></indexterm>.</para>
-		<screen>
-dd if=/dev/sda of=bootsect.mbr count=1 bs=512
-		</screen>
+		<screen>dd if=/dev/sda of=bootsect.mbr count=1 bs=512</screen>
 	</section>
 	<section><title>bootloader</title>
 		<para>The <command>mbr</command> is executed by the <command>bios</command> and contains either (a small) <command>bootloader</command><indexterm><primary>bootloader</primary></indexterm> or code to load a <command>bootloader</command>.</para>
 		<para>Looking at the <command>mbr</command> with <command>od</command><indexterm><primary>od(1)</primary></indexterm> can reveal information about the <command>bootloader</command>.</para>
-		<screen>
-paul@laika:~$ sudo dd if=/dev/sda count=1 bs=16 skip=24 2>/dev/null|od -c
+		<screen>paul@laika:~$ sudo dd if=/dev/sda count=1 bs=16 skip=24 2>/dev/null|od -c
 0000000 376   G   R   U   B      \0   G   e   o   m  \0   H   a   r   d
-0000020
-		</screen>
+0000020</screen>
         	<para>There are a variety of bootloaders available, most common on <command>Intel</command> architecture is <command>grub</command><indexterm><primary>grub</primary></indexterm>, which is replacing <command>lilo</command><indexterm><primary>lilo</primary></indexterm> in many places. When installing <command>Linux</command> on <command>sparc</command> architecture, you can choose <command>silo</command><indexterm><primary>silo</primary></indexterm>, <command>Itanium</command> systems can use <command>elilo</command><indexterm><primary>elilo</primary></indexterm>, <command>IBM S/390</command> and <command>zSeries</command> use <command>z/IPL</command><indexterm><primary>z/IPL</primary></indexterm>, <command>Alpha</command> uses <command>milo</command> and <command>PowerPC</command> architectures use <command>yaboot</command><indexterm><primary>yaboot</primary></indexterm> (yet another boot loader).</para>
 		<para>Bootable cd's and dvd's often use <command>syslinux</command>.</para>
 	</section>
@@ -42,7 +40,7 @@ paul@laika:~$ sudo dd if=/dev/sda count=1 bs=16 skip=24 2>/dev/null|od -c
 		<para> Once the Linux kernel is loaded, the bootloader turns control over to it. From that moment on, the kernel is in control of the system. After discussing bootloaders, we continue with the init system that starts all the daemons.</para>
 	</section>
 </section>
-
+<?hard-pagebreak?>
 <section><title>grub</title>
 <section><title>about grub</title>
 	<para>The most common bootloader on linux systems today is <command>grub</command><indexterm><primary>grub</primary></indexterm>. On almost all Intel based systems grub is replacing <command>lilo</command><indexterm><primary>lilo</primary></indexterm> (the <command>Li</command>nux <command>lo</command>ader). Even <command>Solaris</command> switched to <command>grub</command> on <command>x86</command> architecture.</para>
@@ -50,106 +48,75 @@ paul@laika:~$ sudo dd if=/dev/sda count=1 bs=16 skip=24 2>/dev/null|od -c
 </section>
 <section><title>/boot/grub/menu.lst</title>
 	<para><command>grub</command>'s configuration file is called <command>menu.lst</command><indexterm><primary>/boot/grub/menu.lst</primary></indexterm> and is located in <command>/boot/grub</command><indexterm><primary>/boot/grub/</primary></indexterm>. The screenshot below show the location and size of <command>menu.lst</command> on Debian.</para>
-	<screen>
-root@barry:~# ls -l /boot/grub/menu.lst
--rw-r--r-- 1 root root 5155 2009-03-31 18:20 /boot/grub/menu.lst
-	</screen>
+	<screen>root@barry:~# ls -l /boot/grub/menu.lst
+-rw-r--r-- 1 root root 5155 2009-03-31 18:20 /boot/grub/menu.lst</screen>
 </section>
 <section><title>/boot/grub/grub.conf</title>
 	<para>Some distributions like Red Hat Enterprise Linux 5 use <command>grub.conf</command> and provide a symbolic link to <command>menu.lst</command>. This is the same file, only the name changed from <command>grub.conf</command><indexterm><primary>/boot/grub/grub.conf</primary></indexterm> to <command>menu.lst</command>. Notice also in this screenshot that this file is a lot smaller on Red Hat.</para>
-	<screen>
-[root@RHEL52 grub]# ls -l grub.conf menu.lst 
+	<screen>[root@RHEL52 grub]# ls -l grub.conf menu.lst 
 -rw------- 1 root root 1346 Jan 21 04:20 grub.conf
-lrwxrwxrwx 1 root root   11 Oct 11  2008 menu.lst -> ./grub.conf
-	</screen>
+lrwxrwxrwx 1 root root   11 Oct 11  2008 menu.lst -> ./grub.conf</screen>
 </section>
 <section><title>menu commands</title>
 	<para>The <command>menu commands</command> always have to be at the top of <command>grub</command>'s configuration file.</para>
 	<section><title>default</title>
 		<para>The <command>default</command><indexterm><primary>default(grub)</primary></indexterm> command sets a default <command>entry</command> to start. The first <command>entry</command> has number 0.</para>
-		<screen>
-default 0
-		</screen>
+		<screen>default 0</screen>
 	</section>
 	<section><title>fallback</title>
 		<para>In case the <command>default</command> does not boot, use the <command>fallback</command><indexterm><primary>fallback(grub)</primary></indexterm> entry instead.</para>
-		<screen>
-fallback 1
-		</screen>
+		<screen>fallback 1</screen>
 	</section>
 	<section><title>timeout</title>
 		<para>The <command>timeout</command><indexterm><primary>timeout(grub)</primary></indexterm> will wait a number of seconds before booting the <command>default</command> entry.</para>
-		<screen>
-timeout 5
-		</screen>
+		<screen>timeout 5</screen>
 	</section>
 	<section><title>hiddenmenu</title>
 		<para>The <command>hiddenmenu</command><indexterm><primary>hiddenmenu(grub)</primary></indexterm> will hide the <command>grub</command> menu unless the user presses <command>Esc</command> before the <command>timeout</command> expires.</para>
-		<screen>
-hiddenmenu
-		</screen>
+		<screen>hiddenmenu</screen>
 	</section>
 	<section><title>title</title>
 		<para>With <command>title</command><indexterm><primary>title(grub)</primary></indexterm> we can start a new <command>entry</command> or <command>stanza</command>.</para>
-		<screen>
-title Debian Lenny
-		</screen>
+		<screen>title Debian Lenny</screen>
 	</section>
 	<section><title>password</title>
 		<para>You can add a <command>password</command><indexterm><primary>password(grub)</primary></indexterm> to prevent interactive selection of a boot environment while <command>grub</command> is running.</para>
-		<screen>
-password --md5 $1$Ec.id/$T2C2ahI/EG3WRRsmmu/HN/
-		</screen>
+		<screen>password --md5 $1$Ec.id/$T2C2ahI/EG3WRRsmmu/HN/</screen>
 		<para>Use the <command>grub</command> interactive shell to create the password hash.</para>
-		<screen>
-grub> md5crypt
+		<screen>grub> md5crypt
 
 Password: ********
-Encrypted: $1$Ec.id/$T2C2ahI/EG3WRRsmmu/HN/
-		</screen>
+Encrypted: $1$Ec.id/$T2C2ahI/EG3WRRsmmu/HN/</screen>
 	</section>
 </section>
 <section><title>stanza commands</title>
 	<para>Every <command>operating system</command> or <command>kernel</command> that you want to boot with <command>grub</command> will have a <command>stanza</command><indexterm><primary>stanza(grub)</primary></indexterm> aka an <command>entry</command> of a couple of lines. Listed here are some of the common <command>stanza</command> commands.</para>
 	<section><title>boot</title>
 		<para>Technically the <command>boot</command><indexterm><primary>boot(grub)</primary></indexterm> command is only mandatory when running the <command>grub command line</command>. This command does not have any parameters and can only be set as the last command of a stanza.</para>
-		<screen>
-boot
-		</screen>
+		<screen>boot</screen>
 	</section>
 	<section><title>kernel</title>
 		<para>The <command>kernel</command><indexterm><primary>kernel(grub)</primary></indexterm> command points to the location of the kernel. To boot Linux this means booting a <command>gzip</command><indexterm><primary>gzip(1)</primary></indexterm> compressed <command>zImage</command><indexterm><primary>zImage</primary></indexterm> or <command>bzip2</command><indexterm><primary>bzip2(1)</primary></indexterm> compressed <command>bzImage</command><indexterm><primary>bzImage</primary></indexterm>.</para>
 		<para>This screenshot shows a typical <command>kernel</command> command used to load a Debian kernel.</para>
-		<screen>
-kernel  /boot/vmlinuz-2.6.17-2-686 root=/dev/hda1 ro
-		</screen>
+		<screen>kernel  /boot/vmlinuz-2.6.17-2-686 root=/dev/hda1 ro</screen>
 		<para>And this is how Red Hat uses the <command>kernel</command> command.</para>
-		<screen>
-kernel /vmlinuz-2.6.18-128.el5 ro root=/dev/VolGroup00/LogVol00 rhgb quiet
-		</screen>
+		<screen>kernel /vmlinuz-2.6.18-128.el5 ro root=/dev/VolGroup00/LogVol00 rhgb quiet</screen>
 	</section>
 	<section><title>initrd</title>
 		<para>Many <command>Linux</command> installations will need an <command>initial ramdisk</command> at boot time. This can be set in <command>grub</command> with the <command>initrd</command><indexterm><primary>initrd(grub)</primary></indexterm> command.</para>
 		<para>Here a screenshot of Debian 4.0</para>
-		<screen>
-initrd /boot/initrd.img-2.6.17-2-686
-		</screen>
+		<screen>initrd /boot/initrd.img-2.6.17-2-686</screen>
 		<para>And the same for Red Hat Enterprise Linux 5.3</para>
-		<screen>
-initrd /initrd-2.6.18-128.el5.img
-		</screen>
+		<screen>initrd /initrd-2.6.18-128.el5.img</screen>
 	</section>
 	<section><title>root</title>
 		<para>The <command>root</command><indexterm><primary>root(grub)</primary></indexterm> command accepts the root device as a parameter.</para>
 		<para>The <command>root</command> command will point to the hard disk and partition to use, with <command>hd0</command> as the first hard disk device and <command>hd1</command> as the second hard disk device. The same numbering is used for partitions, so <command>hd0,0</command> is the first partition on the first disk and <command>hd0,1</command> is the second partition on that disk.</para>
-		<screen>
-root  (hd0,0)
-		</screen>
+		<screen>root  (hd0,0)</screen>
 	</section>
 	<section><title>savedefault</title>
 		<para>The <command>savedefault</command><indexterm><primary>savedefault(grub)</primary></indexterm> command can be used together with <command>default saved</command><indexterm><primary>default(grub)</primary></indexterm> as a menu command. This combination will set the currently booted stanza as the next default stanza to boot.</para>
-		<screen>
-default saved
+		<screen>default saved
 timeout 10
 
 title Linux
@@ -161,61 +128,47 @@ title DOS
 root (hd0,1)
 makeactive
 chainloader +1
-savedefault
-		</screen>
+savedefault</screen>
 	</section>
 </section>
 <section><title>chainloading</title>
 	<para>With <command>grub</command> booting, there are two choices: loading an operating system or <command>chainloading</command><indexterm><primary>chainloading</primary></indexterm> another bootloader. The <command>chainloading</command> feature of grub loads the bootsector of a partition (that contains an operating system).</para>
 	<para>Some older operating systems require a <command>primary partition</command><indexterm><primary>primary partition</primary></indexterm> that is set as <command>active</command><indexterm><primary>active partition</primary></indexterm>. Only one partition can be set <command>active</command> so <command>grub</command><indexterm><primary>grub</primary></indexterm> can do this on the fly just before <command>chainloading</command>.</para>
 	<para>This screenshot shows how to set the first primary partition <command>active</command> with <command>grub</command>.</para>
-	<screen>
-root  (hd0,0)
-makeactive
-	</screen>
+	<screen>root  (hd0,0)
+makeactive</screen>
 	<para>Chainloading refers to grub loading another operating system's bootloader. The <command>chainloader</command><indexterm><primary>chainloader</primary></indexterm> switch receives one option: the number of sectors to read and boot. For <command>DOS</command><indexterm><primary>DOS</primary></indexterm> and <command>OS/2</command><indexterm><primary>OS/2</primary></indexterm> one sector is enough. Note that <command>DOS</command> requires the boot/root partition to be active!</para>
 	<para>Here is a complete example to <command>chainload</command> an old operating system.</para>
-	<screen>
-title MS-DOS 6.22
+	<screen>title MS-DOS 6.22
 root  (hd0,1)
 makeactive
-chainloader +1
-	</screen>
+chainloader +1</screen>
 </section>
 <section><title>stanza examples</title>
 	<para>This is a screenshot of a typical <command>Debian 4.0</command> stanza.</para>
-	<screen>
-title   Debian GNU/Linux, kernel 2.6.17-2-686
+	<screen>title   Debian GNU/Linux, kernel 2.6.17-2-686
 root    (hd0,0)
 kernel  /boot/vmlinuz-2.6.17-2-686 root=/dev/hda1 ro 
-initrd  /boot/initrd.img-2.6.17-2-686
-	</screen>
+initrd  /boot/initrd.img-2.6.17-2-686</screen>
 	<para>Here a screenshot of a typical <command>Red Hat Enterprise Linux</command> stanza.</para>
-	<screen>
-title Red Hat Enterprise Linux Server (2.6.18-128.el5)
+	<screen>title Red Hat Enterprise Linux Server (2.6.18-128.el5)
  root (hd0,0)
  kernel /vmlinuz-2.6.18-98.el5 ro root=/dev/VolGroup00/LogVol00 rhgb quiet
- initrd /initrd-2.6.18-98.el5.img
-	</screen>
+ initrd /initrd-2.6.18-98.el5.img</screen>
 </section>
 <section><title>editing grub at boot time</title>
 	<para>At boot time, when the <command>grub</command> menu is displayed, you can type <command>e</command> to edit the current stanza. This enables you to add parameters to the kernel.</para>
 	<para>One such parameter, useful when you lost the root password, is <command>single</command>. This will boot the kernel in single user mode (although some distributions will still require you to type the root password.</para>
-	<screen>
-kernel  /boot/vmlinuz-2.6.17-2-686 root=/dev/hda1 ro single
-	</screen>
+	<screen>kernel  /boot/vmlinuz-2.6.17-2-686 root=/dev/hda1 ro single</screen>
 	<para>Another option to reset a root password is to use an <command>init=/bin/bash</command> parameter.</para>
-	<screen>
-kernel  /boot/vmlinuz-2.6.17-2-686 root=/dev/hda1 ro init=/bin/bash
-	</screen>
+	<screen>kernel  /boot/vmlinuz-2.6.17-2-686 root=/dev/hda1 ro init=/bin/bash</screen>
 </section>
 <section><title>installing grub</title>
 	<para>Run the <command>grub-install</command><indexterm><primary>grub-install</primary></indexterm> command to install <command>grub</command>. The command requires a destination for overwriting the <command>boot sector</command> or <command>mbr</command>.</para>
-	<screen>
-# grub-install /dev/hda
-	</screen>
+	<screen># grub-install /dev/hda</screen>
 </section>
 </section>
+<?hard-pagebreak?>
 <section><title>lilo</title>
 	<section><title>Linux loader</title>
 		<para><command>lilo</command><indexterm><primary>lilo</primary></indexterm> used to be the most used Linux bootloader, but is steadily being replaced in <command>x86</command> with <command>grub</command>.</para>
