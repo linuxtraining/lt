@@ -2,16 +2,16 @@
 <section><title>stdin, stdout, and stderr</title>
 	<para>The bash shell has three basic streams; it takes input from <command>stdin</command> (stream <command>0</command>)<indexterm><primary>stdin</primary></indexterm>, it sends output to <command>stdout</command> (stream <command>1</command>) <indexterm><primary>stdout</primary></indexterm> and it sends error messages to <command>stderr</command> (stream <command>2</command>) <indexterm><primary>stderr</primary></indexterm>.</para>
 	<para>The drawing below has a graphical interpretation of these three streams.</para>
-	<para><mediaobject><imageobject><imagedata fileref="newimages/bash_stdin_stdout_stderr.png" format="PNG" align="center"></imagedata></imageobject></mediaobject></para>
+	<para><mediaobject><imageobject><imagedata fileref="images/bash_stdin_stdout_stderr.png" format="PNG" align="center"></imagedata></imageobject></mediaobject></para>
 	<para>The keyboard often serves as <command>stdin</command>, whereas <command>stdout</command> and <command>stderr</command> both go to the display. This can be confusing to new Linux users because there is no obvious way to recognize <command>stdout</command> from <command>stderr</command>. Experienced users know that separating output from errors can be very useful.</para>
-	<para><mediaobject><imageobject><imagedata fileref="newimages/bash_ioredirection_keyboard_display.png" format="PNG" align="center"></imagedata></imageobject></mediaobject></para>
+	<para><mediaobject><imageobject><imagedata fileref="images/bash_ioredirection_keyboard_display.png" format="PNG" align="center"></imagedata></imageobject></mediaobject></para>
 	<para>The next sections will explain how to redirect these streams.</para>
 </section>
 <?hard-pagebreak?>
 <section><title>output redirection</title>
 	<section><title>&#062; stdout</title>
 		<para><command>stdout</command> can be redirected with a <command>greater than</command> sign. While scanning the line, the shell will see the <command>&#062;</command><indexterm><primary>&#062;</primary></indexterm> sign and will clear the file.</para>
-		<para><mediaobject><imageobject><imagedata fileref="newimages/bash_output_redirection.png" format="PNG" align="center"></imagedata></imageobject></mediaobject></para>
+		<para><mediaobject><imageobject><imagedata fileref="images/bash_output_redirection.png" format="PNG" align="center"></imagedata></imageobject></mediaobject></para>
 		<para>The <command>&#062;</command> notation is in fact the abbreviation of <command>1&#062;</command> (<command>stdout</command> being referred to as stream <command>1</command>).</para>
 		<screen>[paul@RHELv4u3 ~]$ echo It is cold today!
 It is cold today!
@@ -69,7 +69,7 @@ Where is the summer ?
 <section><title>error redirection</title>
 	<section><title>2&#062; stderr</title>
 		<para>Redirecting <command>stderr</command> is done with <command>2&#062;</command><indexterm><primary>2&#062;</primary></indexterm>. This can be very useful to prevent error messages from cluttering your screen.</para>
-		<para><mediaobject><imageobject><imagedata fileref="newimages/bash_error_redirection.png" format="PNG" align="center"></imagedata></imageobject></mediaobject></para>
+		<para><mediaobject><imageobject><imagedata fileref="images/bash_error_redirection.png" format="PNG" align="center"></imagedata></imageobject></mediaobject></para>
 		<para>The screenshot below shows redirection of <command>stdout</command> to a file, and <command>stderr</command> to <command>/dev/null</command><indexterm><primary>/dev/null</primary></indexterm>. Writing <command>1&#062;</command><indexterm><primary>1&#062;</primary></indexterm> is the same as &#062;.</para>
 		<screen>[paul@RHELv4u3 ~]$ find / &#062; allfiles.txt 2&#062; /dev/null
 [paul@RHELv4u3 ~]$</screen>
