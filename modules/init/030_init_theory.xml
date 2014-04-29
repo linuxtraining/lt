@@ -1,9 +1,4 @@
 <?hard-pagebreak?>
-<section><title>about sysv init</title>
-	<para>Many Linux distributions use <command>init</command> scripts to start daemons in the same way that <command>Unix System V</command><indexterm><primary>System V</primary></indexterm> did. This chapter will explain in detail how that works.</para>
-	<para>Init starts daemons by using scripts, where each script starts one daemon, and where each script waits for the previous script to finish. This serial process of starting daemons is slow, and although slow booting is not a problem on servers where uptime is measured in years, the recent uptake of Linux on the desktop results in user complaints.</para>
-	<para>To improve Linux startup speed, <command>Canonical</command><indexterm><primary>Canonical</primary></indexterm> has developed <command>upstart</command><indexterm><primary>upstart</primary></indexterm>, which was first used in Ubuntu. Solaris also used init up to Solaris 9, for Solaris 10 <command>Sun</command><indexterm><primary>Sun</primary></indexterm> has developed <command>Service Management Facility</command><indexterm><primary>SMF</primary></indexterm>. Both systems start daemons in parallel and can replace the SysV init scripts. There is also an ongoing effort to create <command>initng</command><indexterm><primary>initng</primary></indexterm> (init next generation).</para>
-</section>
 <section><title>system init(ialization)</title>
 	<section><title>process id 1</title>
 		<para>The kernel receives system control from the bootloader. After a while the kernel starts the <command>init daemon</command><indexterm><primary>init</primary></indexterm>. The <command>init</command> daemon (<command>/sbin/init</command>) is the first daemon that is started and receives <command>process id 1</command> (PID 1). <command>Init</command> never dies.</para>
@@ -11,34 +6,28 @@
 	</section>
 	<section><title>configuration in /etc/inittab</title>
 		<para>When <command>/sbin/init</command><indexterm><primary>/sbin/init</primary></indexterm> is started, it will first read its configuration file <command>/etc/inittab</command><indexterm><primary>/etc/inittab</primary></indexterm>. In that file, it will look for the value of initdefault (3 in the screenshot below).</para>
-		<screen>
-[paul@rhel4 ~]$ grep &#094;id /etc/inittab 
-id:3:initdefault:
-		</screen>
+		<screen>[paul@rhel4 ~]$ grep &#094;id /etc/inittab 
+id:3:initdefault:</screen>
 	</section>	
 	<section><title>initdefault</title>
 		<para>The value found in <command>initdefault</command> indicates the default <command>runlevel</command><indexterm><primary>runlevel</primary></indexterm>. Some Linux distributions have a brief description of runlevels in /etc/inittab, like here on Red Hat Enterprise Linux 4.</para>
-		<screen>
-# Default runlevel. The runlevels used by RHS are:
+		<screen># Default runlevel. The runlevels used by RHS are:
 #   0 - halt (Do NOT set initdefault to this)
 #   1 - Single user mode
 #   2 - Multiuser, without NFS (The same as 3, if you don't have network)
 #   3 - Full multiuser mode
 #   4 - unused
 #   5 - X11
-#   6 - reboot (Do NOT set initdefault to this)
-		</screen>
+#   6 - reboot (Do NOT set initdefault to this)</screen>
 		<para><command>Runlevel 0</command> means the system is shutting down. <command>Runlevel 1</command> is used for troubleshooting, only the root user can log on, and only at the console. <command>Runlevel 3</command> is typical for servers, whereas <command>runlevel 5</command> is typical for desktops (graphical logon). Besides runlevels 0, 1 and 6, the use may vary depending on the distribution. Debian and derived Linux systems have full network and GUI logon on runlevels 2 to 5. So always verify the proper meaning of runlevels on your system.</para>
 	</section>
+<?hard-pagebreak?>
 	<section><title>sysinit script</title>
 		<section><title>/etc/rc.d/rc.sysinit</title>
 			<para>The next line in <command>/etc/inittab</command> in Red Hat and derivatives is the following.</para>
-			<screen>
-si::sysinit:/etc/rc.d/rc.sysinit
-			</screen>
+			<screen>si::sysinit:/etc/rc.d/rc.sysinit</screen>
 			<para>This means that independent of the selected runlevel, <command>init</command> will run the <command>/etc/rc.d/rc.sysinit</command><indexterm><primary>/etc/rc.d/rc.sysinit</primary></indexterm> script. This script initializes hardware, sets some basic environment, populates <command>/etc/mtab</command><indexterm><primary>/etc/mtab</primary></indexterm> while mounting file systems, starts swap and more.</para>
-			<screen>
-[paul@rhel ~]$ egrep -e"^# Ini" -e"^# Sta" -e"^# Che" /etc/rc.d/rc.sysinit
+			<screen>[paul@rhel ~]$ egrep -e"^# Ini" -e"^# Sta" -e"^# Che" /etc/rc.d/rc.sysinit
 # Check SELinux status
 # Initialize hardware
 # Start the graphical boot, if necessary; /usr may not be mounted yet...
@@ -48,21 +37,15 @@ si::sysinit:/etc/rc.d/rc.sysinit
 # Check to see if SELinux requires a relabel
 # Initialize pseudo-random number generator
 # Start up swapping.
-# Initialize the serial ports.
-			</screen>
+# Initialize the serial ports.</screen>
 			<para><emphasis>That <command>egrep</command><indexterm><primary>egrep</primary></indexterm> command could also have been written with <command>grep</command><indexterm><primary>grep</primary></indexterm> like this :</emphasis></para>
-			<screen>
- grep "^# \(Ini\|Sta\|Che\)".
-			</screen>
+			<screen>grep "^# \(Ini\|Sta\|Che\)".</screen>
 		</section>
 		<section><title>/etc/init.d/rcS</title>
 			<para>Debian has the following line after <command>initdefault</command>.</para>
-			<screen>
-si::sysinit:/etc/init.d/rcS
-			</screen>
+			<screen>si::sysinit:/etc/init.d/rcS</screen>
 			<para>The <command>/etc/init.d/rcS</command><indexterm><primary>/etc/init.d/rcS</primary></indexterm> script will always run on Debian (independent of the selected runlevel). The script is actually running all scripts in the <command>/etc/rcS.d/</command><indexterm><primary>/etc/rcS.d/</primary></indexterm> directory in alphabetical order.</para>
-			<screen>
-root@barry:~# cat /etc/init.d/rcS 
+			<screen>root@barry:~# cat /etc/init.d/rcS 
 #! /bin/sh
 #
 # rcS
@@ -70,58 +53,51 @@ root@barry:~# cat /etc/init.d/rcS
 # Call all S??* scripts in /etc/rcS.d/ in numerical/alphabetical order
 #
 
-exec /etc/init.d/rc S
-			</screen>
+exec /etc/init.d/rc S</screen>
 		</section>
 	</section>
+<?hard-pagebreak?>
 	<section><title>rc scripts</title>
 		<para>Init will continue to read <command>/etc/inittab</command> and meets this section on Debian Linux.</para>
-		<screen>
-l0:0:wait:/etc/init.d/rc 0
+		<screen>l0:0:wait:/etc/init.d/rc 0
 l1:1:wait:/etc/init.d/rc 1
 l2:2:wait:/etc/init.d/rc 2
 l3:3:wait:/etc/init.d/rc 3
 l4:4:wait:/etc/init.d/rc 4
 l5:5:wait:/etc/init.d/rc 5
-l6:6:wait:/etc/init.d/rc 6
-		</screen>
+l6:6:wait:/etc/init.d/rc 6</screen>
 		<para>On Red Hat Enterprise Linux it is identical except <command>init.d</command> is <command>rc.d</command>.</para>
-		<screen>
-l0:0:wait:/etc/rc.d/rc 0
+		<screen>l0:0:wait:/etc/rc.d/rc 0
 l1:1:wait:/etc/rc.d/rc 1
 l2:2:wait:/etc/rc.d/rc 2
 l3:3:wait:/etc/rc.d/rc 3
 l4:4:wait:/etc/rc.d/rc 4
 l5:5:wait:/etc/rc.d/rc 5
-l6:6:wait:/etc/rc.d/rc 6
-		</screen>
+l6:6:wait:/etc/rc.d/rc 6</screen>
 		<para>In both cases, this means that <command>init</command> will start the rc script with the runlevel as the only parameter. Actually <command>/etc/inittab</command><indexterm><primary>/etc/inittab</primary></indexterm> has fields seperated by colons. The second field determines the runlevel in which this line should be executed. So in both cases, only one line of the seven will be executed, depending on the runlevel set by <command>initdefault</command>.</para>
 	</section>
 	<section><title>rc directories</title>
 		<para>When you take a look any of the <command>/etc/rcX.d/</command><indexterm><primary>/etc/rcX.d/</primary></indexterm> directories, then you will see a lot of (links to) scripts who's name start with either uppercase K or uppercase S.</para>
-		<screen>
-[root@RHEL52 rc3.d]# ls -l | tail -4
+		<screen>[root@RHEL52 rc3.d]# ls -l | tail -4
 lrwxrwxrwx 1 root root 19 Oct 11  2008 S98haldaemon -> ../init.d/haldaemon
 lrwxrwxrwx 1 root root 19 Oct 11  2008 S99firstboot -> ../init.d/firstboot
 lrwxrwxrwx 1 root root 11 Jan 21 04:16 S99local -> ../rc.local
-lrwxrwxrwx 1 root root 16 Jan 21 04:17 S99smartd -> ../init.d/smartd
-		</screen>
+lrwxrwxrwx 1 root root 16 Jan 21 04:17 S99smartd -> ../init.d/smartd</screen>
 		<para>The <command>/etc/rcX.d/</command> directories only contain links to scripts in <command>/etc/init.d/</command>. Links allow for the script to have a different name. When entering a runlevel, all scripts that start with uppercase K or uppercase S will be started in alphabetical order. Those that start with K will be started first, with <command>stop</command> as the only parameter. The remaining scripts with S will be started with <command>start</command> as the only parameter.</para>
 		<para>All this is done by the <command>/etc/rc.d/rc</command><indexterm><primary>/etc/rc.d/rc</primary></indexterm> script on Red Hat and by the <command>/etc/init.d/rc</command><indexterm><primary>/etc/init.d/rc</primary></indexterm> script on Debian.</para>
 	</section>
+<?hard-pagebreak?>
 	<section><title>mingetty</title>
 		<section><title>mingetty in /etc/inittab</title>
 			<para>Almost at the end of <command>/etc/inittab</command><indexterm><primary>/etc/inittab</primary></indexterm> there is a section to start and <command>respawn</command><indexterm><primary>respawn(init)</primary></indexterm> several <command>mingetty</command><indexterm><primary>mingetty</primary></indexterm> daemons.</para>
-			<screen>
-[root@RHEL4b ~]# grep getty /etc/inittab 
+			<screen>[root@RHEL4b ~]# grep getty /etc/inittab 
 # Run gettys in standard runlevels
 1:2345:respawn:/sbin/mingetty tty1
 2:2345:respawn:/sbin/mingetty tty2
 3:2345:respawn:/sbin/mingetty tty3
 4:2345:respawn:/sbin/mingetty tty4
 5:2345:respawn:/sbin/mingetty tty5
-6:2345:respawn:/sbin/mingetty tty6
-			</screen>
+6:2345:respawn:/sbin/mingetty tty6</screen>
 		</section>
 		<section><title>mingetty and /bin/login</title>
 			<para>This <command>/sbin/mingetty</command><indexterm><primary>/sbin/mingetty</primary></indexterm> will display a message on a virtual console and allow you to type a userid. Then it executes the <command>/bin/login</command><indexterm><primary>/bin/login</primary></indexterm> command with that userid. The <command>/bin/login</command> program will verify whether that user exists in <command>/etc/passwd</command><indexterm><primary>/etc/passwd</primary></indexterm> and prompt for (and verify) a password. If the password is correct, <command>/bin/login</command> passes control to the shell listed in <command>/etc/passwd</command>.</para>
@@ -168,6 +144,7 @@ lrwxrwxrwx 1 root root 16 Jan 21 04:17 S99smartd -> ../init.d/smartd
 		</section>
 	</section>
 </section>
+<?hard-pagebreak?>
 <section><title>daemon or demon ?</title>
 	<para>A <command>daemon</command><indexterm><primary>daemon</primary></indexterm> is a process that runs in background, without a link to a GUI or terminal. Daemons are usually started at system boot, and stay alive until the system shuts down. In more recent technical writings, daemons are often refered to as <command>services</command>.</para>
 	<para>Unix <command>daemons</command> are not to be confused with demons. <command>Evi Nemeth</command><indexterm><primary>Evi Nemeth</primary></indexterm>, co-author of the UNIX System Administration Handbook has the following to say about daemons:</para>
@@ -176,103 +153,85 @@ lrwxrwxrwx 1 root root 16 Jan 21 04:17 S99smartd -> ../init.d/smartd
 <section><title>starting and stopping daemons</title>
 	<para>The K and S scripts are links to the real scripts in <command>/etc/init.d/</command><indexterm><primary>/etc/init.d/</primary></indexterm>. These can also be used when the system is running to start and stop daemons (or services). Most of them accept the following parameters: start, stop, restart, status.</para>
 	<para>For example in this screenshot we restart the samba daemon.</para>
-	<screen>
-root@laika:~# /etc/init.d/samba restart
+	<screen>root@laika:~# /etc/init.d/samba restart
  * Stopping Samba daemons...                               [ OK ] 
- * Starting Samba daemons...                               [ OK ] 
-	</screen>
+ * Starting Samba daemons...                               [ OK ]</screen>
 	<para>You can achieve the same result on RHEL/Fedora with the <command>service</command><indexterm><primary>service(1)</primary></indexterm> command.</para>
-	<screen>
-[root@RHEL4b ~]# service smb restart
+	<screen>[root@RHEL4b ~]# service smb restart
 Shutting down SMB services:                                [  OK  ]
 Shutting down NMB services:                                [  OK  ]
 Starting SMB services:                                     [  OK  ]
-Starting NMB services:                                     [  OK  ]
-	</screen>
+Starting NMB services:                                     [  OK  ]</screen>
 	<para>You might also want to take a look at <command>chkconfig</command><indexterm><primary>chkconfig</primary></indexterm>, <command>update-rc.d</command><indexterm><primary>update-rc.d</primary></indexterm>.</para>
 </section>
+<?hard-pagebreak?>
 <section><title>chkconfig</title>
 	<para>The purpose of <command>chkconfig</command><indexterm><primary>chkconfig(8)</primary></indexterm> is to relieve system administrators of manually managing all the links and scripts in <command>/etc/init.d</command> and <command>/etc/rcX.d/</command>.</para>
 	<section><title>chkconfig --list</title>
 		<para>Here we use <command>chkconfig</command> to list the status of a service in the different runlevels. You can see that the <command>crond</command> daemon (or service) is only activated in runlevels 2 to 5.</para>
-		<screen>
-[root@RHEL52 ~]# chkconfig --list crond
-crond          	0:off	1:off	2:on	3:on	4:on	5:on	6:off
-		</screen>
+		<screen>[root@RHEL52 ~]# chkconfig --list crond
+crond          	0:off	1:off	2:on	3:on	4:on	5:on	6:off</screen>
 		<para>When you compare the screenshot above with the one below, you can see that <command>off</command> equals to a K link to the script, whereas <command>on</command> equals to an S link.</para>
-		<screen>
-[root@RHEL52 etc]# find ./rc?.d/ -name \*crond -exec ls -l {} \;|cut -b40-
+		<screen>[root@RHEL52 etc]# find ./rc?.d/ -name \*crond -exec ls -l {} \;|cut -b40-
 ./rc0.d/K60crond -> ../init.d/crond
 ./rc1.d/K60crond -> ../init.d/crond
 ./rc2.d/S90crond -> ../init.d/crond
 ./rc3.d/S90crond -> ../init.d/crond
 ./rc4.d/S90crond -> ../init.d/crond
 ./rc5.d/S90crond -> ../init.d/crond
-./rc6.d/K60crond -> ../init.d/crond
-		</screen>
+./rc6.d/K60crond -> ../init.d/crond</screen>
 	</section>
 	<section><title>runlevel configuration</title>
 		<para>Here you see how to use chkconfig to disable (or enable) a service in a certain runlevel.</para>
 		<para>This screenshot shows how to disable <command>crond</command> in runlevel 3.</para>
-		<screen>
-[root@RHEL52 ~]# chkconfig --level 3 crond off
+		<screen>[root@RHEL52 ~]# chkconfig --level 3 crond off
 [root@RHEL52 ~]# chkconfig --list crond
-crond          	0:off	1:off	2:on	3:off	4:on	5:on	6:off
-		</screen>
+crond          	0:off	1:off	2:on	3:off	4:on	5:on	6:off</screen>
 		<para>This screenshot shows how to enable <command>crond</command> in runlevels 3 and 4.</para>
-		<screen>
-[root@RHEL52 ~]# chkconfig --level 34 crond on
+		<screen>[root@RHEL52 ~]# chkconfig --level 34 crond on
 [root@RHEL52 ~]# chkconfig --list crond
-crond          	0:off	1:off	2:on	3:on	4:on	5:on	6:off
-		</screen>
+crond          	0:off	1:off	2:on	3:on	4:on	5:on	6:off</screen>
 	</section>
+<?hard-pagebreak?>
 	<section><title>chkconfig configuration</title>
 		<para>Every script in <command>/etc/init.d/</command><indexterm><primary>/etc/init.d/</primary></indexterm> can have (comment) lines to tell chkconfig what to do with the service. The line with <command># chkconfig:</command> contains the runlevels in which the service should be started (2345), followed by the priority for start (90) and stop (60).</para>
-		<screen>
-[root@RHEL52 ~]# head -9 /etc/init.d/crond | tail -5
+		<screen>[root@RHEL52 ~]# head -9 /etc/init.d/crond | tail -5
 # chkconfig: 2345 90 60
 # description: cron is a standard UNIX program that runs user-specified
 #              programs at periodic scheduled times. vixie cron adds a
 #              number of features to the basic UNIX cron, including better
-#              security and more powerful configuration options.
-		</screen>
+#              security and more powerful configuration options.</screen>
 	</section>
 	<section><title>enable and disable services</title>
 		<para>Services can be enabled or disabled in all runlevels with one command. Runlevels 0, 1 and 6 are always stopping services (or calling the scripts with <command>stop</command>) even when their name starts with uppercase S.</para>
-		<screen>
-[root@RHEL52 ~]# chkconfig crond off
+		<screen>[root@RHEL52 ~]# chkconfig crond off
 [root@RHEL52 ~]# chkconfig --list crond
 crond           0:off   1:off   2:off   3:off   4:off   5:off   6:off
 [root@RHEL52 ~]# chkconfig crond on
 [root@RHEL52 ~]# chkconfig --list crond 
-crond           0:off   1:off   2:on    3:on    4:on    5:on    6:off
-		</screen>
+crond           0:off   1:off   2:on    3:on    4:on    5:on    6:off</screen>
 	</section>
 </section>
+<?hard-pagebreak?>
 <section><title>update-rc.d</title>
 	<section><title>about update-rc.d</title>
 		<para>The Debian equivalent of <command>chkconfig</command> is called <command>update-rc.d</command><indexterm><primary>update-rc.d(8)</primary></indexterm>. This tool is designed for use in scripts, if you prefer a graphical tool then look at <command>bum</command>.</para>
 		<para>When there are existing links in <command>/etc/rcX.d/</command> then <command>update-rc.d</command> does not do anything. This is to avoid that post installation scripts using <command>update-rc.d</command> are overwriting changes made by a system administrator.</para>
-		<screen>
-root@barry:~# update-rc.d cron remove
-update-rc.d: /etc/init.d/cron exists during rc.d purge (use -f to force)
-		</screen>
+		<screen>root@barry:~# update-rc.d cron remove
+update-rc.d: /etc/init.d/cron exists during rc.d purge (use -f to force)</screen>
 		<para>As you can see in the next screenshot, nothing changed for the cron daemon.</para>
-		<screen>
-root@barry:~# find /etc/rc?.d/ -name '*cron' -exec ls -l {} \;|cut -b44-
+		<screen>root@barry:~# find /etc/rc?.d/ -name '*cron' -exec ls -l {} \;|cut -b44-
 /etc/rc0.d/K11cron -> ../init.d/cron
 /etc/rc1.d/K11cron -> ../init.d/cron
 /etc/rc2.d/S89cron -> ../init.d/cron
 /etc/rc3.d/S89cron -> ../init.d/cron
 /etc/rc4.d/S89cron -> ../init.d/cron
 /etc/rc5.d/S89cron -> ../init.d/cron
-/etc/rc6.d/K11cron -> ../init.d/cron
-		</screen>
+/etc/rc6.d/K11cron -> ../init.d/cron</screen>
 	</section>
 	<section><title>removing a service</title>
 		<para>Here we remove <command>cron</command> from all runlevels. Remember that the proper way to disable a service is to put K scripts oin all runlevels!</para>
-		<screen>
-root@barry:~# update-rc.d -f cron remove
+		<screen>root@barry:~# update-rc.d -f cron remove
  Removing any system startup links for /etc/init.d/cron ...
    /etc/rc0.d/K11cron
    /etc/rc1.d/K11cron
@@ -282,13 +241,11 @@ root@barry:~# update-rc.d -f cron remove
    /etc/rc5.d/S89cron
    /etc/rc6.d/K11cron
 root@barry:~# find /etc/rc?.d/ -name '*cron' -exec ls -l {} \;|cut -b44-
-root@barry:~#
-		</screen>
+root@barry:~#</screen>
 	</section>
 	<section><title>enable a service</title>
 		<para>This screenshot shows how to use <command>update-rc.d</command> to enable a service in runlevels 2, 3, 4 and 5 and disable the service in runlevels 0, 1 and 6.</para>
-		<screen>
-root@barry:~# update-rc.d cron defaults
+		<screen>root@barry:~# update-rc.d cron defaults
  Adding system startup for /etc/init.d/cron ...
    /etc/rc0.d/K20cron -> ../init.d/cron
    /etc/rc1.d/K20cron -> ../init.d/cron
@@ -296,13 +253,11 @@ root@barry:~# update-rc.d cron defaults
    /etc/rc2.d/S20cron -> ../init.d/cron
    /etc/rc3.d/S20cron -> ../init.d/cron
    /etc/rc4.d/S20cron -> ../init.d/cron
-   /etc/rc5.d/S20cron -> ../init.d/cron
-		</screen>
+   /etc/rc5.d/S20cron -> ../init.d/cron</screen>
 	</section>
 	<section><title>customize a service</title>
 		<para>And here is an example on how to set your custom configuration for the cron daemon.</para>
-		<screen>
-root@barry:~# update-rc.d -n cron start 11 2 3 4 5 . stop 89 0 1 6 .
+		<screen>root@barry:~# update-rc.d -n cron start 11 2 3 4 5 . stop 89 0 1 6 .
  Adding system startup for /etc/init.d/cron ...
    /etc/rc0.d/K89cron -> ../init.d/cron
    /etc/rc1.d/K89cron -> ../init.d/cron
@@ -310,47 +265,39 @@ root@barry:~# update-rc.d -n cron start 11 2 3 4 5 . stop 89 0 1 6 .
    /etc/rc2.d/S11cron -> ../init.d/cron
    /etc/rc3.d/S11cron -> ../init.d/cron
    /etc/rc4.d/S11cron -> ../init.d/cron
-   /etc/rc5.d/S11cron -> ../init.d/cron
-		</screen>
+   /etc/rc5.d/S11cron -> ../init.d/cron</screen>
 	</section>
 </section>
 <section><title>bum</title>
 	<para>This screenshot shows <command>bum</command><indexterm><primary>bum(8)</primary></indexterm> in advanced mode.</para>
 	<mediaobject><imageobject><imagedata fileref="images/bum.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 </section>
+<?hard-pagebreak?>
 <section><title>runlevels</title>
 	<section><title>display the runlevel</title>
 		<para>You can see your current runlevel with the <command>runlevel</command><indexterm><primary>runlevel(1)</primary></indexterm> or <command>who -r</command><indexterm><primary>who(1)</primary></indexterm> commands.</para>
 		<para>The runlevel command is typical Linux and will output the previous and the current runlevel. If there was no previous runlevel, then it will mark it with the letter N.</para>
-		<screen>
-[root@RHEL4b ~]# runlevel 
-N 3
-		</screen>
+		<screen>[root@RHEL4b ~]# runlevel 
+N 3</screen>
 		<para>The history of <command>who -r</command> dates back to Seventies Unix, it still works on Linux.</para>
-		<screen>
-[root@RHEL4b ~]# who -r
-         run-level 3  Jul 28 09:15                   last=S
-		</screen>
+		<screen>[root@RHEL4b ~]# who -r
+         run-level 3  Jul 28 09:15                   last=S</screen>
 	</section>
 	<section><title>changing the runlevel</title>
 		<para>You can switch to another runlevel with the <command>telinit</command><indexterm><primary>telinit(8)</primary></indexterm> command. On Linux <command>/sbin/telinit</command><indexterm><primary>/sbin/telinit</primary></indexterm> is usually a (hard) link to <command>/sbin/init</command>.</para>
 		<para>This screenshot shows how to switch from runlevel 2 to runlevel 3 without reboot.</para>
-		<screen>
-root@barry:~# runlevel 
+		<screen>root@barry:~# runlevel 
 N 2
 root@barry:~# init 3
 root@barry:~# runlevel 
-2 3
-		</screen>
+2 3</screen>
 	</section>
 	<section><title>/sbin/shutdown</title>
 		<para>The <command>shutdown</command><indexterm><primary>shutdown(8)</primary></indexterm> command is used to properly shut down a system.</para>
 		<para>Common switches used with <command>shutdown</command> are <command>-a</command>, <command>-t</command>, <command>-h</command> and <command>-r</command>.</para>
 		<para>The <command>-a</command> switch forces <command>/sbin/shutdown</command> to use <command>/etc/shutdown.allow</command>. The <command>-t</command> switch is used to define the number of seconds between the sending of the <command>TERM</command><indexterm><primary>SIGTERM</primary></indexterm> signal and the <command>KILL</command><indexterm><primary>SIGKILL</primary></indexterm> signal. The <command>-h</command> switch halts the system instead of changing to runlevel 1. The <command>-r</command> switch tells <command>/sbin/shutdown</command> to reboot after shutting down.</para>
 		<para>This screenshot shows how to use <command>shutdown</command> with five seconds between TERM and KILL signals.</para>
-		<screen>
-root@barry:~# shutdown -t5 -h now 
-		</screen>
+		<screen>root@barry:~# shutdown -t5 -h now</screen>
 		<para>The <command>now</command> is the time argument. This can be <command>+m</command> for the number of minutes to wait before shutting down (with <command>now</command> as an alias for <command>+0</command>. The command will also accept hh:mm instead of <command>+m</command>.</para>
 	</section>
 	<section><title>halt, reboot and poweroff</title>
@@ -360,42 +307,74 @@ root@barry:~# shutdown -t5 -h now
 	</section>
 	<section><title>/var/log/wtmp</title>
 		<para><command>halt</command>, <command>reboot</command> and <command>poweroff</command> all write to <command>/var/log/wtmp</command><indexterm><primary>/var/log/wtmp</primary></indexterm>. To look at <command>/var/log/wtmp</command>, we need to use th <command>last</command><indexterm><primary>last(1)</primary></indexterm>. </para>
-		<screen>
-[root@RHEL52 ~]# last | grep reboot
+		<screen>[root@RHEL52 ~]# last | grep reboot
 reboot   system boot  2.6.18-128.el5   Fri May 29 11:44   (192+05:01)
 reboot   system boot  2.6.18-128.el5   Wed May 27 12:10    (06:49)
 reboot   system boot  2.6.18-128.el5   Mon May 25 19:34   (1+15:59)
-reboot   system boot  2.6.18-128.el5   Mon Feb  9 13:20   (106+21:13)
-		</screen>
+reboot   system boot  2.6.18-128.el5   Mon Feb  9 13:20   (106+21:13)</screen>
 	</section>
 	<section><title>Ctrl-Alt-Del</title>
 		<para>When <command>rc</command> is finished starting all those scripts, <command>init</command><indexterm><primary>init</primary></indexterm> will continue to read /etc/inittab. The next line is about what to do when the user hits <command>Ctrl-Alt-Delete</command><indexterm><primary>Ctrl-Alt-Delete</primary></indexterm> on the keyboard.</para>
 		<para>Here is what Debian 4.0 does.</para>
-		<screen>
-root@barry:~# grep -i ctrl /etc/inittab 
+		<screen>root@barry:~# grep -i ctrl /etc/inittab 
 # What to do when CTRL-ALT-DEL is pressed.
-ca:12345:ctrlaltdel:/sbin/shutdown -t1 -a -r now
-		</screen>
+ca:12345:ctrlaltdel:/sbin/shutdown -t1 -a -r now</screen>
 		<para>Which is very similar to the default Red Hat Enterprise Linux 5.2 action.</para>
-		<screen>
-[root@RHEL52 ~]# grep -i ctrl /etc/inittab 
+		<screen>[root@RHEL52 ~]# grep -i ctrl /etc/inittab 
 # Trap CTRL-ALT-DELETE
-ca::ctrlaltdel:/sbin/shutdown -t3 -r now
-		</screen>
+ca::ctrlaltdel:/sbin/shutdown -t3 -r now</screen>
 		<para>One noticable difference is that Debian forces shutdown to use <command>/etc/shutdown.allow</command><indexterm><primary>/etc/shutdown.allow</primary></indexterm>, where Red Hat allows everyone to invoke <command>shutdown</command> pressing <command>Ctrl-Alt-Delete</command>. </para>
 	</section>
 	<section><title>UPS and loss of power</title>
-		<screen>
-[root@RHEL52 ~]# grep ^p /etc/inittab 
+		<screen>[root@RHEL52 ~]# grep ^p /etc/inittab 
 pf::powerfail:/sbin/shutdown -f -h +2 "Power Failure; System Shutting Down"
-pr:12345:powerokwait:/sbin/shutdown -c "Power Restored; Shutdown Cancelled"
-		</screen>
+pr:12345:powerokwait:/sbin/shutdown -c "Power Restored; Shutdown Cancelled"</screen>
 		<para>It will read commands on what to execute in case of <command>powerfailure</command>, <command>powerok</command> and <command>Ctrl-Alt-Delete</command><indexterm><primary>Ctrl-Alt-Delete</primary></indexterm>. The init process never stops keeping an eye on power failures and that triple key combo.</para>
-		<screen>
-root@barry:~# grep ^p /etc/inittab 
+		<screen>root@barry:~# grep ^p /etc/inittab 
 pf::powerwait:/etc/init.d/powerfail start
 pn::powerfailnow:/etc/init.d/powerfail now
-po::powerokwait:/etc/init.d/powerfail stop
-		</screen>
+po::powerokwait:/etc/init.d/powerfail stop</screen>
 	</section>
+</section>
+<?hard-pagebreak?>
+<section><title>systemd</title>
+	<para>In the future, <command>systemd</command> could replace all the standard init/runlevel/rc functionality. The first command to learn is <command>systemctl list-units --type=target</command>. It will show you the different targets on the system.</para>
+	<para><command>systemd</command> is reliable, deterministic, and easy.</para>
+	<screen>systemctl list-units --type=target</screen>
+	<para>Targets are the replacement of runlevels and define specific points to reach when booting the system. For example the <command>graphical.target</command> is reached when you get a graphical interface, and the <command>nfs.target</command> requires a running nfs server.</para>
+	<para>Dependencies are no longer defined by alfabetical order of running scripts, but by configuration in <command>/etc/systemd/system/</command>. For example here are the required services for the <command>multi-user.target</command></para>
+<screen>root@debian8:~# ls /etc/systemd/system/multi-user.target.wants/ 
+anacron.service       binfmt-support.service  pppd-dns.service	ssh.service
+atd.service	      fancontrol.service      remote-fs.target
+avahi-daemon.service  lm-sensors.service      rsyslog.service</screen>
+	<para>To switch to this target, we now use <command>systemctl isolate</command> instead of <command>init 3</command>.</para>
+<screen>systemctl isolate multi-user.target</screen>
+	<para>To change the default runlevel, we again use <command>systemctl</command></para>
+<screen>systemctl enable multi-user.target --force</screen>
+	<para>This command will remove the file <command>/etc/systemd/system/default.target</command> and replace it with a symbolic link to the <command>multi-user-.target</command> target.</para>
+	<para>To see all services, use ... <command>systemctl</command>.</para>
+<screen>systemctl list-units -t service --all</screen>
+	<para>And here an example on how to see the status of the sshd service.</para>
+<screen>systemctl status sshd.service</screen>
+	<para>Even the <command>chkconfig</command> and <command>service</command> can be replaced with systemctl:</para>
+<screen>systemctl start sshd.service
+systemctl enable sshd.service
+systemctl stop sshd.service
+systemctl disable sshd.service</screen>
+	<para>You can also use it to <command>kill</command> problematic services.</para>
+<screen>systemctl kill -s SIGKILL sshd.service</screen>
+</section>
+<section><title>other systemd tools</title>
+	<para>There are other tools...</para>
+<screen>root@debian8:~# systemd
+systemd                         systemd-inhibit
+systemd-analyze                 systemd-machine-id-setup
+systemd-ask-password            systemd-notify
+systemd-cat                     systemd-nspawn
+systemd-cgls                    systemd-stdio-bridge
+systemd-cgtop                   systemd-tmpfiles
+systemd-delta                   systemd-tty-ask-password-agent
+systemd-detect-virt</screen>
+	<para>For example <command>systemd-analyze blame</command> will give you an overview of the time it took for each service to boot.</para>
+<screen>root@debian8:~# systemd-analyze blame</screen>
 </section>
