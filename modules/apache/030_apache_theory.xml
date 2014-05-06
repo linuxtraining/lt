@@ -1,6 +1,6 @@
 <?hard-pagebreak?>
-<section><title>installing apache</title>
-	<section><title>Debian</title>
+<section><title>introduction to apache</title>
+	<section><title>installing on Debian</title>
 		<para>This screenshot shows that there is no <command>apache</command> server installed, nor does the <command>/var/www</command> directory exist.</para>
 		<screen>root@debian7:~# <command>ls -l /var/www</command>
 ls: cannot access /var/www: No such file or directory
@@ -27,7 +27,7 @@ ii apache2.2-bin 2.2.22-13+deb7u1 amd64 Apache HTTP Server common binary files
 ii apache2.2-common 2.2.22-13+deb7u1 amd64 Apache HTTP Server common files</screen>
 	</section>
 <?hard-pagebreak?>
-	<section><title>Redhat/CentOS</title>
+	<section><title>installing on RHEL/CentOS</title>
 		<para>Note that Red Hat derived distributions use <command>httpd</command> as package and process name instead of <command>apache</command>.</para>
 		<para>To verify whether <command>apache</command> is installed in CentOS/RHEL:</para>
 		<screen>[root@centos65 ~]# <command>rpm -q httpd</command>
@@ -47,7 +47,6 @@ drwxr-xr-x. 2 root root 4096 Apr  3 23:57 html
 drwxr-xr-x. 3 root root 4096 May  6 13:08 icons
 [root@centos65 ~]#</screen>
 	</section>
-</section>
 <?hard-pagebreak?>
 	<section><title>running apache on Debian</title>
 		<para>This is how you start <command>apache2</command><indexterm><primary>apache2</primary></indexterm> on Debian.</para>
@@ -121,7 +120,9 @@ httpd (pid  2410) is running...
 Stopping httpd:                                            [  OK  ]
 Starting httpd:                                            [  OK  ]
 [root@centos65 ~]#</screen>
+</section>
 <?hard-pagebreak?>
+<section><title>index file on CentOS</title>
 	<para>CentOS does not provide a standard index.html or index.php file. A simple <command>wget</command> gives an error.</para>
 	<screen>[root@centos65 ~]# <command>wget 127.0.0.1</command>
 --2014-05-06 15:10:22--  http://127.0.0.1/
@@ -161,21 +162,33 @@ Welcome to my website</screen>
 </section>
 <?hard-pagebreak?>
 	<section><title>apache configuration</title>
-		<para>Configuring Apache changed a bit the past couple of years. But it still takes place in <command>/etc/httpd</command><indexterm><primary>/etc/httpd</primary></indexterm> or <command>/etc/apache</command><indexterm><primary>/etc/apache</primary></indexterm>.</para>
-		<screen>
-[root@RHELv4u3 ~]# cd /etc/httpd/
-[root@RHELv4u3 httpd]# ll
-total 32
-lrwxrwxrwx  1 root root   25 Jan 24 09:28 build -> ../../usr/lib/httpd/build
-drwxr-xr-x  7 root root 4096 Jan 24 08:48 conf
-drwxr-xr-x  2 root root 4096 Jan 24 09:29 conf.d
-lrwxrwxrwx  1 root root   19 Jan 24 08:48 logs -> ../../var/log/httpd
-lrwxrwxrwx  1 root root   27 Jan 24 08:48 modules -> ../../usr/lib/httpd/modules
-lrwxrwxrwx  1 root root   13 Jan 24 08:48 run -> ../../var/run
-[root@RHELv4u3 httpd]#
-		</screen>
-		<para>The main configuration file for the Apache server on RHEL is <command>/etc/httpd/conf/httpd.conf</command><indexterm><primary>/etc/httpd/conf/httpd.conf</primary></indexterm>, on Ubuntu it is <command>/etc/apache2/apache2.conf</command><indexterm><primary>/etc/apache2/apache2.conf</primary></indexterm>. The file explains itself, and contains examples for how to set up virtual hosts or configure access.</para>
+		<para>There are many similarities, but also a couple of differences when configuring <command>apache</command> on Debian or on CentOS. Both Linux families will get their own chapters with examples.</para>
+		<para>All configuration on RHEL/CentOS is done in <command>/etc/httpd</command><indexterm><primary>/etc/httpd</primary></indexterm>.</para>
+		<screen>[root@centos65 ~]# ls -l /etc/httpd/
+total 8
+drwxr-xr-x. 2 root root 4096 May  6 13:08 conf
+drwxr-xr-x. 2 root root 4096 May  6 13:08 conf.d
+lrwxrwxrwx. 1 root root   19 May  6 13:08 logs -> ../../var/log/httpd
+lrwxrwxrwx. 1 root root   29 May  6 13:08 modules -> ../../usr/lib64/httpd/modu\
+les
+lrwxrwxrwx. 1 root root   19 May  6 13:08 run -> ../../var/run/httpd
+[root@centos65 ~]#</screen>
+		<para>Debian (and ubuntu/mint/...) use <command>/etc/apache2</command><indexterm><primary>/etc/apache2</primary></indexterm>.</para>
+		<screen>root@debian7:~# ls -l /etc/apache2/
+total 72
+-rw-r--r-- 1 root root  9659 May  6 14:23 apache2.conf
+drwxr-xr-x 2 root root  4096 May  6 13:19 conf.d
+-rw-r--r-- 1 root root  1465 Jan 31 18:35 envvars
+-rw-r--r-- 1 root root 31063 Jul 20  2013 magic
+drwxr-xr-x 2 root root  4096 May  6 13:19 mods-available
+drwxr-xr-x 2 root root  4096 May  6 13:19 mods-enabled
+-rw-r--r-- 1 root root   750 Jan 26 12:13 ports.conf
+drwxr-xr-x 2 root root  4096 May  6 13:19 sites-available
+drwxr-xr-x 2 root root  4096 May  6 13:19 sites-enabled
+root@debian7:~#</screen>
 	</section>
+</section>
+<?hard-pagebreak?>
 	<section><title>virtual hosts</title>
 		<para>Virtual hosts can be defined by ip-address, by port or by name (host record). (The new way of defining virtual hosts is through seperate config files in the conf.d directory.) Below is a very simple virtual host definition.</para>
 		<screen>
