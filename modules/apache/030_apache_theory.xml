@@ -161,6 +161,30 @@ Saving to: “index.html”
 Welcome to my website</screen>
 </section>
 <?hard-pagebreak?>
+<section><title>default website</title>
+	<para>Changing the default website of a freshly installed apache web server is easy. All you need to do is create (or change) an index.html file in the DocumentRoot directory.</para>
+	<para>To locate the DocumentRoot directory on Debian:</para>
+	<screen>root@debian7:~# <command>grep DocumentRoot /etc/apache2/sites-available/default</command>
+        DocumentRoot /var/www</screen>
+	<para>This means that <command>/var/www/index.html</command> is the default web site.</para>
+	<screen>root@debian7:~# <command>cat /var/www/index.html</command>
+&#060;html>&#060;body>&#060;h1>It works!&#060;/h1>
+&#060;p>This is the default web page for this server.&#060;/p>
+&#060;p>The web server software is running but no content has been added, yet.&#060;/p>
+&#060;/body>&#060;/html>
+root@debian7:~#</screen>
+	<para>This screenshot shows how to locate the <command>DocumentRoot</command> directory on RHEL/CentOS.</para>
+	<screen>[root@centos65 ~]# <command>grep ^DocumentRoot /etc/httpd/conf/httpd.conf</command>
+DocumentRoot "/var/www/html"</screen>
+	<para>RHEL/CentOS have no default web page (only the noindex.html error page mentioned before). But an <command>index.html</command> file created in <command>/var/www/html/</command> will automatically be used as default page.</para>
+<screen>[root@centos65 ~]# <command>echo '&#060;html>&#060;head>&#060;title>Default website&#060;/title>&#060;/head>&#060;body\
+>&#060;p>A new web page&#060;/p>&#060;/body>&#060;/html>' > /var/www/html/index.html</command>
+[root@centos65 ~]# <command>cat /var/www/html/index.html</command>
+&#060;html>&#060;head>&#060;title>Default website&#060;/title>&#060;/head>&#060;body>&#060;p>A new web page&#060;/p>&#060;/b\
+ody>&#060;/html>
+[root@centos65 ~]#</screen>
+</section>
+<?hard-pagebreak?>
 	<section><title>apache configuration</title>
 		<para>There are many similarities, but also a couple of differences when configuring <command>apache</command> on Debian or on CentOS. Both Linux families will get their own chapters with examples.</para>
 		<para>All configuration on RHEL/CentOS is done in <command>/etc/httpd</command><indexterm><primary>/etc/httpd</primary></indexterm>.</para>
