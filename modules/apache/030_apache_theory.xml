@@ -2,11 +2,11 @@
 <section><title>installing apache</title>
 	<section><title>Debian</title>
 		<para>This screenshot shows that there is no <command>apache</command> server installed, nor does the <command>/var/www</command> directory exist.</para>
-		<screen>root@debian7:~# ls -l /var/www
+		<screen>root@debian7:~# <command>ls -l /var/www</command>
 ls: cannot access /var/www: No such file or directory
-root@debian7:~# dpkg -l | grep apache</screen>
+root@debian7:~# <command>dpkg -l | grep apache</command></screen>
 		<para>To install <command>apache</command> on Debian:</para>
-		<screen>root@debian7:~# aptitude install apache2
+		<screen>root@debian7:~# <command>aptitude install apache2</command>
 The following NEW packages will be installed:
   apache2 apache2-mpm-worker{a} apache2-utils{a} apache2.2-bin{a} apache2.2-com\
 mon{a} libapr1{a} libaprutil1{a} libaprutil1-dbd-sqlite3{a} libaprutil1-ldap{a}\
@@ -15,10 +15,10 @@ mon{a} libapr1{a} libaprutil1{a} libaprutil1-dbd-sqlite3{a} libaprutil1-ldap{a}\
 Need to get 1,487 kB of archives. After unpacking 5,673 kB will be used.
 Do you want to continue? [Y/n/?]</screen>
 		<para>After installation, the same two commands as above will yield a different result:</para>
-		<screen>root@debian7:~# ls -l /var/www
+		<screen>root@debian7:~# <command>ls -l /var/www</command>
 total 4
 -rw-r--r-- 1 root root 177 Apr 29 11:55 index.html
-root@debian7:~# dpkg -l | grep apache | tr -s ' '
+root@debian7:~# <command>dpkg -l | grep apache | tr -s ' '</command>
 ii apache2 2.2.22-13+deb7u1 amd64 Apache HTTP Server metapackage
 ii apache2-mpm-worker 2.2.22-13+deb7u1 amd64 Apache HTTP Server - high speed th\
 readed model
@@ -30,16 +30,16 @@ ii apache2.2-common 2.2.22-13+deb7u1 amd64 Apache HTTP Server common files</scre
 	<section><title>Redhat/CentOS</title>
 		<para>Note that Red Hat derived distributions use <command>httpd</command> as package and process name instead of <command>apache</command>.</para>
 		<para>To verify whether <command>apache</command> is installed in CentOS/RHEL:</para>
-		<screen>[root@centos65 ~]# rpm -q httpd
+		<screen>[root@centos65 ~]# <command>rpm -q httpd</command>
 package httpd is not installed
-[root@centos65 ~]# ls -l /var/www
+[root@centos65 ~]# <command>ls -l /var/www</command>
 ls: cannot access /var/www: No such file or directory</screen>
 		<para>To install apache on CentOS:</para>
-		<screen>[root@centos65 ~]# yum install httpd</screen>
+		<screen>[root@centos65 ~]# <command>yum install httpd</command></screen>
 		<para>After running the <command>yum install httpd</command> command, the Centos 6.5 server has apache installed and the <command>/var/www</command> directory exists.</para>
-		<screen>[root@centos65 ~]# rpm -q httpd
+		<screen>[root@centos65 ~]# <command>rpm -q httpd</command>
 httpd-2.2.15-30.el6.centos.x86_64
-[root@centos65 ~]# ls -l /var/www
+[root@centos65 ~]# <command>ls -l /var/www</command>
 total 16
 drwxr-xr-x. 2 root root 4096 Apr  3 23:57 cgi-bin
 drwxr-xr-x. 3 root root 4096 May  6 13:08 error
@@ -51,17 +51,17 @@ drwxr-xr-x. 3 root root 4096 May  6 13:08 icons
 <?hard-pagebreak?>
 	<section><title>running apache on Debian</title>
 		<para>This is how you start <command>apache2</command><indexterm><primary>apache2</primary></indexterm> on Debian.</para>
-		<screen>root@debian7:~# service apache2 status
+		<screen>root@debian7:~# <command>service apache2 status</command>
 Apache2 is NOT running.
-root@debian7:~# service apache2 start
+root@debian7:~# <command>service apache2 start</command>
 Starting web server: apache2apache2: Could not reliably determine the server's \
 fully qualified domain name, using 127.0.1.1 for ServerName
 .
 </screen>
 		<para>To verify, run the <command>service apache2 status</command> command again or use <command>ps</command>.</para>
-		<screen>root@debian7:~# service apache2 status
+		<screen>root@debian7:~# <command>service apache2 status</command>
 Apache2 is running (pid 3680).
-root@debian7:~# ps -C apache2
+root@debian7:~# <command>ps -C apache2</command>
   PID TTY          TIME CMD
  3680 ?        00:00:00 apache2
  3683 ?        00:00:00 apache2
@@ -69,7 +69,7 @@ root@debian7:~# ps -C apache2
  3685 ?        00:00:00 apache2
 root@debian7:~#</screen>
 		<para>Or use <command>wget</command> and <command>file</command> to verify that your web server serves an html document.</para>
-		<screen>root@debian7:~# wget 127.0.0.1
+		<screen>root@debian7:~# <command>wget 127.0.0.1</command>
 --2014-05-06 13:27:02--  http://127.0.0.1/
 Connecting to 127.0.0.1:80... connected.
 HTTP request sent, awaiting response... 200 OK
@@ -80,30 +80,30 @@ Saving to: `index.html'
 
 2014-05-06 13:27:02 (15.8 MB/s) - `index.html' saved [177/177]
 
-root@debian7:~# file index.html
+root@debian7:~# <command>file index.html</command>
 index.html: HTML document, ASCII text
 root@debian7:~#</screen>
 		<para>Or verify that apache is running by opening a web browser, and browse to the ip-address of your server. An Apache test page should be shown.</para>
 		<para>You can do the following to quickly avoid the 'could not reliably determine the fqdn' message when restarting apache.</para>
-		<screen>root@debian7:~# echo ServerName Debian7 >> /etc/apache2/apache2.conf
-root@debian7:~# service apache2 restart
+		<screen>root@debian7:~# <command>echo ServerName Debian7 >> /etc/apache2/apache2.conf</command>
+root@debian7:~# <command>service apache2 restart</command>
 Restarting web server: apache2 ... waiting .
 root@debian7:~#</screen>
 </section>
 <?hard-pagebreak?>
 <section><title>running apache on CentOS</title>
 	<para>Starting the <command>httpd</command><indexterm><primary>httpd</primary></indexterm> on RHEL/CentOS is done with the <command>service</command> command.</para>
-	<screen>[root@centos65 ~]# service httpd status
+	<screen>[root@centos65 ~]# <command>service httpd status</command>
 httpd is stopped
-[root@centos65 ~]# service httpd start
+[root@centos65 ~]# <command>service httpd start</command>
 Starting httpd: httpd: Could not reliably determine the server's fully qualifie\
 d domain name, using 127.0.0.1 for ServerName
                                                            [  OK  ]
 [root@centos65 ~]#</screen>
 	<para>To verify that <command>apache</command> is running, use <command>ps</command> or issue the <command>service httpd status</command> command again.</para>
-	<screen>[root@centos65 ~]# service httpd status
+	<screen>[root@centos65 ~]# <command>service httpd status</command>
 httpd (pid  2410) is running...
-[root@centos65 ~]# ps -C httpd
+[root@centos65 ~]# <command>ps -C httpd</command>
   PID TTY          TIME CMD
  2410 ?        00:00:00 httpd
  2412 ?        00:00:00 httpd
@@ -116,14 +116,14 @@ httpd (pid  2410) is running...
  2419 ?        00:00:00 httpd
 [root@centos65 ~]#</screen>
 	<para>To prevent the 'Could not reliably determine the fqdn' message, issue the following command.</para>
-	<screen>[root@centos65 ~]# echo ServerName Centos65 >> /etc/httpd/conf/httpd.conf
-[root@centos65 ~]# service httpd restart
+	<screen>[root@centos65 ~]# <command>echo ServerName Centos65 >> /etc/httpd/conf/httpd.conf</command>
+[root@centos65 ~]# <command>service httpd restart</command>
 Stopping httpd:                                            [  OK  ]
 Starting httpd:                                            [  OK  ]
 [root@centos65 ~]#</screen>
 <?hard-pagebreak?>
 	<para>CentOS does not provide a standard index.html or index.php file. A simple <command>wget</command> gives an error.</para>
-	<screen>[root@centos65 ~]# wget 127.0.0.1
+	<screen>[root@centos65 ~]# <command>wget 127.0.0.1</command>
 --2014-05-06 15:10:22--  http://127.0.0.1/
 Connecting to 127.0.0.1:80... connected.
 HTTP request sent, awaiting response... 403 Forbidden
@@ -144,8 +144,8 @@ Saving to: “noindex.html”
 noindex.html: HTML document text
 [root@centos65 ~]#</screen>
 	<para>Any custom <command>index.html</command> file in <command>/var/www/html</command> will immediately serve as an index for this web server.</para>
-	<screen>[root@centos65 ~]# echo 'Welcome to my website' > /var/www/html/index.html
-[root@centos65 ~]# wget http://127.0.0.1
+	<screen>[root@centos65 ~]# <command>echo 'Welcome to my website' > /var/www/html/index.html</command>
+[root@centos65 ~]# <command>wget http://127.0.0.1</command>
 --2014-05-06 15:19:16--  http://127.0.0.1/
 Connecting to 127.0.0.1:80... connected.
 HTTP request sent, awaiting response... 200 OK
@@ -156,7 +156,7 @@ Saving to: “index.html”
 
 2014-05-06 15:19:16 (1.95 MB/s) - “index.html” saved [22/22]
 
-[root@centos65 ~]# cat index.html
+[root@centos65 ~]# <command>cat index.html</command>
 Welcome to my website</screen>
 </section>
 <?hard-pagebreak?>
