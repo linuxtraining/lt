@@ -213,7 +213,7 @@ root@debian7:~#</screen>
 	</section>
 </section>
 <?hard-pagebreak?>
-<section><title>virtual hosts on Debian</title>
+<section><title>port virtual hosts on Debian</title>
 <section><title>default virtual host</title>
 	<para>Debian has a virtualhost configuration file for its default website in <command>/etc/apache2/sites-available/default</command>.</para>
 	<screen>root@debian7:~# <command>head -2 /etc/apache2/sites-available/default</command>
@@ -296,7 +296,7 @@ root@debian7:/etc/apache2#</screen>
 <?hard-pagebreak?>
 <section><title>testing the three websites</title>
 	<para>Testing the model train club named <command>Choo Choo</command> on port 7000.</para>
-	<screen>root@debian7:/etc/apache2# wget 127.0.0.1:7000
+	<screen>root@debian7:/etc/apache2# <command>wget 127.0.0.1:7000</command> 
 --2014-05-06 21:16:03--  http://127.0.0.1:7000/
 Connecting to 127.0.0.1:7000... connected.
 HTTP request sent, awaiting response... 200 OK
@@ -307,10 +307,10 @@ Saving to: `index.html'
 
 2014-05-06 21:16:03 (2.92 MB/s) - `index.html' saved [32/32]
 
-root@debian7:/etc/apache2# cat index.html
+root@debian7:/etc/apache2# <command>cat index.html</command> 
 Choo Choo model train Choo Choo</screen>
 	<para>Testing the chess club named <command>Chess Club 42</command> on port 8000.</para>
-	<screen>root@debian7:/etc/apache2# wget 127.0.0.1:8000
+	<screen>root@debian7:/etc/apache2# <command>wget 127.0.0.1:8000</command> 
 --2014-05-06 21:16:20--  http://127.0.0.1:8000/
 Connecting to 127.0.0.1:8000... connected.
 HTTP request sent, awaiting response... 200 OK
@@ -321,10 +321,10 @@ Saving to: `index.html.1'
 
 2014-05-06 21:16:20 (2.16 MB/s) - `index.html.1' saved [25/25]
 
-root@debian7:/etc/apache2# cat index.html.1
+root@debian7:/etc/apache2# <command>cat index.html.1</command> 
 Welcome to chess club 42</screen>
 	<para>Testing the hacker club named <command>hunter2</command> on port 9000.</para>
-	<screen>root@debian7:/etc/apache2# wget 127.0.0.1:9000
+	<screen>root@debian7:/etc/apache2# <command>wget 127.0.0.1:9000</command> 
 --2014-05-06 21:16:30--  http://127.0.0.1:9000/
 Connecting to 127.0.0.1:9000... connected.
 HTTP request sent, awaiting response... 200 OK
@@ -335,11 +335,87 @@ Saving to: `index.html.2'
 
 2014-05-06 21:16:30 (2.01 MB/s) - `index.html.2' saved [26/26]
 
-root@debian7:/etc/apache2# cat index.html.2
+root@debian7:/etc/apache2# <command>cat index.html.2</command> 
 HaCkInG iS fUn At HuNtEr2</screen>
 	<para>Cleaning up the temporary files.</para>
-	<screen>root@debian7:/etc/apache2# rm index.html index.html.1 index.html.2</screen>
+	<screen>root@debian7:/etc/apache2# <command>rm index.html index.html.1 index.html.2</command> </screen>
 	<para>Try testing from another computer using the ip-address of your server.</para>
+</section>
+</section>
+<?hard-pagebreak?>
+<section><title>named virtual hosts on Debian</title>
+<section><title>named virtual hosts</title>
+	<para>The chess club and the model train club find the port numbers too hard to remember. They would prefere to have their website accessible by name.</para>
+	<para>We continue work on the same server that has three websites on three ports. We need to make sure those websites are accesible using the names <command>choochoo.local</command>, <command>chessclub42.local</command> and <command>hunter2.local</command>.</para>
+	<para>We start by creating three new virtualhosts.</para>
+	<screen>root@debian7:/etc/apache2/sites-available# <command>vi choochoo.local</command> 
+root@debian7:/etc/apache2/sites-available# <command>vi chessclub42.local</command> 
+root@debian7:/etc/apache2/sites-available# <command>vi hunter2.local</command> 
+root@debian7:/etc/apache2/sites-available# <command>cat choochoo.local</command> 
+&#060;VirtualHost *:80>
+        ServerAdmin webmaster@localhost
+        ServerName choochoo.local
+        DocumentRoot /var/www/choochoo
+&#060;/VirtualHost>
+root@debian7:/etc/apache2/sites-available# <command>cat chessclub42.local</command> 
+&#060;VirtualHost *:80>
+        ServerAdmin webmaster@localhost
+        ServerName chessclub42.local
+        DocumentRoot /var/www/chessclub42
+&#060;/VirtualHost>
+root@debian7:/etc/apache2/sites-available# <command>cat hunter2.local</command> 
+&#060;VirtualHost *:80>
+        ServerAdmin webmaster@localhost
+        ServerName hunter2.local
+        DocumentRoot /var/www/hunter2
+&#060;/VirtualHost>
+root@debian7:/etc/apache2/sites-available#</screen>
+	<para>Notice that they all listen on <command>port 80</command> and have an extra <command>ServerName</command> directive.</para>
+</section>
+<section><title>name resolution</title>
+	<para>We need some way to resolve names. This can be done with DNS, which is discussed in another chapter. For this demo it is also possible to quickly add the three names to the <command>/etc/hosts</command> file.</para>
+	<screen>root@debian7:/etc/apache2/sites-available# <command>grep ^192 /etc/hosts</command> 
+192.168.42.50 choochoo.local
+192.168.42.50 chessclub42.local
+192.168.42.50 hunter2.local</screen>
+	<para>Note that you may have another ip address...</para>
+</section>
+<?hard-pagebreak?>
+<section><title>enabling virtual hosts</title>
+	<para>Next we enable them with <command>a2ensite</command>.</para>
+	<screen>root@debian7:/etc/apache2/sites-available# <command>a2ensite choochoo.local</command> 
+Enabling site choochoo.local.
+To activate the new configuration, you need to run:
+  service apache2 reload
+root@debian7:/etc/apache2/sites-available# <command>a2ensite chessclub42.local</command> 
+Enabling site chessclub42.local.
+To activate the new configuration, you need to run:
+  service apache2 reload
+root@debian7:/etc/apache2/sites-available# <command>a2ensite hunter2.local</command> 
+Enabling site hunter2.local.
+To activate the new configuration, you need to run:
+  service apache2 reload</screen>
+</section>
+<section><title>reload and verify</title>
+	<para>After a <command>service apache2 reload</command> the websites should be available by name.</para>
+	<screen>root@debian7:/etc/apache2/sites-available# <command>!se</command> 
+service apache2 reload
+Reloading web server config: apache2.
+root@debian7:/etc/apache2/sites-available# <command>wget chessclub42.local</command> 
+--2014-05-06 21:37:13--  http://chessclub42.local/
+Resolving chessclub42.local (chessclub42.local)... 192.168.42.50
+Connecting to chessclub42.local (chessclub42.local)|192.168.42.50|:80... connec\
+ted.
+HTTP request sent, awaiting response... 200 OK
+Length: 25 [text/html]
+Saving to: `index.html'
+
+100%[=============================================>] 25          --.-K/s   in 0s
+
+2014-05-06 21:37:13 (2.06 MB/s) - `index.html' saved [25/25]
+
+root@debian7:/etc/apache2/sites-available# <command>cat index.html</command> 
+Welcome to chess club 42</screen>
 </section>
 </section>
 <?hard-pagebreak?>
