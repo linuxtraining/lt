@@ -419,7 +419,43 @@ Welcome to chess club 42</screen>
 </section>
 </section>
 <?hard-pagebreak?>
-	<section><title>virtual hosts</title>
+<section><title>password protected website on Debian</title>
+	<para>You can secure files and directories in your website with a <command>.htaccess</command> file that refers to a <command>.htpasswd</command> file. The <command>htpasswd</command><indexterm><primary>htpasswd(1)</primary></indexterm> command can create a <command>.htpasswd</command><indexterm><primary>.htpasswd</primary></indexterm> file that contains a userid and an (encrypted) password.</para>
+	<para>This screenshot creates a user and password for the hacker named <command>cliff</command> and uses the <command>-c</command> flag to create the <command>.htpasswd</command> file.</para>
+	<screen>root@debian7:~# <command>htpasswd -c /var/www/.htpasswd cliff</command> 
+New password:
+Re-type new password:
+Adding password for user cliff
+root@debian7:~# <command>cat /var/www/.htpasswd</command>
+cliff:$apr1$vujll0KL$./SZ4w9q0swhX93pQ0PVp.</screen>
+	<para>Hacker <command>rob</command> also wants access, this screenshot shows how to add a second user and password to <command>.htpasswd</command>.</para>
+	<screen>root@debian7:~# <command>htpasswd /var/www/.htpasswd rob</command> 
+New password:
+Re-type new password:
+Adding password for user rob
+root@debian7:~# <command>cat /var/www/.htpasswd</command> 
+cliff:$apr1$vujll0KL$./SZ4w9q0swhX93pQ0PVp.
+rob:$apr1$HNln1FFt$nRlpF0H.IW11/1DRq4lQo0</screen>
+	<para>Both Cliff and Rob chose the same password (hunter2), but that is not visible in the <command>.htpasswd</command> file because of the different salts.</para>
+	<para>Next we need to create a <command>.htaccess</command> file in the <command>DocumentRoot</command> of the website we want to protect. this screenshot shows an example.</para>
+	<screen>root@debian7:~# <command>cd /var/www/hunter2/</command> 
+root@debian7:/var/www/hunter2# <command>cat .htaccess</command> 
+AuthUserFile /var/www/.htpasswd
+AuthName "Members only!"
+AuthType Basic
+require valid-user</screen>
+	<para>Note that we are protecting the website on <command>port 9000</command> that we created earlier.</para>
+	<para>And because we put the website for the Hackerspace named hunter2 in a subdirectory of the default website, we will need to adjust the <command>AllowOvveride</command> parameter in <command>/etc/apache2/sites-available/default</command> as this screenshot shows (with line numbers on Debian7, your may vary).</para>
+	<screen>9         &#060;Directory /var/www/>
+10                 Options Indexes FollowSymLinks MultiViews
+11                 <command>AllowOverride Authconfig</command>
+12                 Order allow,deny
+13                 allow from all
+14         &#060;/Directory</screen> 
+	<para>Now restart the apache2 server and test that it works!</para>
+</section>
+<?hard-pagebreak?>
+	<section><title>virtual hosts example</title>
 		<para>Below is a sample virtual host configuration. This virtual hosts overrules the default Apache <command>ErrorDocument</command> directive.</para>
 		<screen>
 &#060;VirtualHost 83.217.76.245:80&#062;
