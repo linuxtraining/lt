@@ -479,53 +479,6 @@ ErrorDocument 404 http://www.cobbaut.be/cobbaut.php
 		<para>Similarly, content can be redirected to another website or web server.</para>
 		<screen>Redirect permanent /foo http://www.foo.com/bar</screen>
 	</section>
-	<section><title>securing directories with htpasswd and .htaccess</title>
-		<para>You can secure files and directories in your website with a userid/password. First, enter your website, and use the <command>htpasswd</command><indexterm><primary>htpasswd(1)</primary></indexterm> command to create a <command>.htpasswd file</command><indexterm><primary>.htpasswd</primary></indexterm> that contains a userid and an (encrypted) password.</para>
-		<screen>
-		[root@rhel4 testsite]# htpasswd -c .htpasswd pol
-		New password: 
-		Re-type new password: 
-		Adding password for user pol
-		[root@rhel4 testsite]# cat .htpasswd 
-		pol:x5vZlyw1V6KXE
-		[root@rhel4 testsite]# 
-		</screen>
-		<para>You can add users to this file, just don't use the -c switch again.</para>
-		<screen>
-		[root@rhel4 testsite]# htpasswd .htpasswd kim
-		New password: 
-		Re-type new password: 
-		Adding password for user kim
-		[root@rhel4 testsite]# cat .htpasswd 
-		pol:x5vZlyw1V6KXE
-		kim:6/RbvugwsgOI6
-		[root@rhel4 testsite]# 
-		</screen>
-		<para>You have now defined two users. Next create a subsdirectory that you want to protect with these two accounts. And put the following .htaccess file in that subdirectory.</para>
-		<screen>
-		[root@rhel4 kimonly]# pwd
-		/var/www/html/testsite/kimonly
-		[root@rhel4 kimonly]# cat .htaccess 
-		AuthUserFile /var/www/html/testsite/.htpasswd
-		AuthGroupFile /dev/null
-		AuthName "test access title"
-		AuthType Basic
-		
-		&#060;Limit GET POST&#062;
-		require valid-user
-		&#060;/Limit&#062;
-		[root@rhel4 kimonly]# 
-		</screen>
-		<para>Finally, don't forget to verify that AllowOverride is set to All in the general Apache configuration file.</para>
-		<screen>
-		# AllowOverride controls what directives may be placed in .htaccess files.
-		# It can be "All", "None", or any combination of the keywords:
-		#   Options FileInfo AuthConfig Limit
-		#
-		AllowOverride All
-		</screen>
-		<para>From now on, when a user accesses a file in that subdirectory, that user will have to provide a userid/password combo that is defined in your .htpasswd.</para>
-	</section>
 	<section><title>more on .htaccess</title>
 		<para>You can do much more with <command>.htaccess</command><indexterm><primary>.htaccess</primary></indexterm>. One example is to use .htaccess to prevent people from certain domains to access your website. Like in this case, where a number of referer spammers are blocked from the website.</para>
 		<screen>
