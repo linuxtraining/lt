@@ -455,6 +455,36 @@ require valid-user</screen>
 	<para>Now restart the apache2 server and test that it works!</para>
 </section>
 <?hard-pagebreak?>
+	<section><title>troubleshooting apache on Debian</title>
+	<para>When apache restarts, it will verify the syntax of files in <command>/etc/apache2</command> and it will tell you the name of the faulty file, the line number and an explanation of the error.</para>
+	<screen>root@debian7:~# <command>service apache2 restart</command>
+apache2: Syntax error on line 268 of /etc/apache2/apache2.conf: Syntax error o\
+n line 1 of /etc/apache2/sites-enabled/chessclub42: /etc/apache2/sites-enabled\
+/chessclub42:4: &#060;VirtualHost> was not closed.\n/etc/apache2/sites-enabled/ches\
+sclub42:1: &#060;VirtualHost> was not closed.
+Action 'configtest' failed.
+The Apache error log may have more information.
+ failed!</screen>
+	<para>Below you see the problem... a missing / before on line 4.</para>
+	<screen>root@debian7:~# <command>cat /etc/apache2/sites-available/chessclub42</command>
+&#060;VirtualHost *:8000>
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/chessclub42
+&#060;VirtualHost></screen>
+	<para>Let us force another error by renaming the directory of one of our websites:</para>
+	<screen>root@debian7:~# <command>mv /var/www/choochoo/ /var/www/chooshoo</command>
+root@debian7:~# <command>!ser</command>
+service apache2 restart
+Restarting web server: apache2Warning: DocumentRoot [/var/www/choochoo] does no\
+t exist
+Warning: DocumentRoot [/var/www/choochoo] does not exist
+ ... waiting Warning: DocumentRoot [/var/www/choochoo] does not exist
+Warning: DocumentRoot [/var/www/choochoo] does not exist
+.</screen>
+	<para>As you can see, apache will tell you exactly what is wrong.</para>
+	<para>You can also troubleshoot by connecting to the website via a browser and then checking the apache log files in <command>/var/log/apache</command>.</para>
+</section>
+<?hard-pagebreak?>
 	<section><title>virtual hosts example</title>
 		<para>Below is a sample virtual host configuration. This virtual hosts overrules the default Apache <command>ErrorDocument</command> directive.</para>
 		<screen>
