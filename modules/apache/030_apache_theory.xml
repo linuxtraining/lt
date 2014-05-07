@@ -437,7 +437,7 @@ root@debian7:~# <command>cat /var/www/.htpasswd</command>
 cliff:$apr1$vujll0KL$./SZ4w9q0swhX93pQ0PVp.
 rob:$apr1$HNln1FFt$nRlpF0H.IW11/1DRq4lQo0</screen>
 	<para>Both Cliff and Rob chose the same password (hunter2), but that is not visible in the <command>.htpasswd</command> file because of the different salts.</para>
-	<para>Next we need to create a <command>.htaccess</command> file in the <command>DocumentRoot</command> of the website we want to protect. this screenshot shows an example.</para>
+	<para>Next we need to create a <command>.htaccess</command> file in the <command>DocumentRoot</command> of the website we want to protect. This screenshot shows an example.</para>
 	<screen>root@debian7:~# <command>cd /var/www/hunter2/</command> 
 root@debian7:/var/www/hunter2# <command>cat .htaccess</command> 
 AuthUserFile /var/www/.htpasswd
