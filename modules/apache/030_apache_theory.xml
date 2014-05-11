@@ -343,6 +343,139 @@ HaCkInG iS fUn At HuNtEr2</screen>
 </section>
 </section>
 <?hard-pagebreak?>
+<section><title>port virtual hosts on CentOS</title>
+<section><title>default virtual host</title>
+	<para>Unlike Debian, CentOS has no virtualHost configuration file for its default website. Instead the default configuration will throw
+	a standard error page when no index file can be found in the default location (/var/www/html).</para>
+</section>
+<section><title>three extra virtual hosts</title>
+	<para>In this scenario we create three additional websites for three customers that share a clubhouse and want to jointly hire you. They are a model train club named <command>Choo Choo</command>, a chess club named <command>Chess Club 42</command> and a hackerspace named <command>hunter2</command>.</para>
+
+	<para>One way to put three websites on one web server, is to put each website on a different port. This screenshot shows three newly created <command>virtual hosts</command>, one for each customer.</para>
+	<screen>[root@CentOS65 ~]# <command>vi /etc/httpd/conf.d/choochoo.conf</command>
+[root@CentOS65 ~]# <command>cat /etc/httpd/conf.d/choochoo.conf</command>
+&#060;VirtualHost *:7000>
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/html/choochoo
+&#060;/VirtualHost>
+[root@CentOS65 ~]# <command>vi /etc/httpd/conf.d/chessclub42.conf</command>
+[root@CentOS65 ~]# <command>cat /etc/httpd/conf.d/chessclub42.conf</command>
+&#060;VirtualHost *:8000>
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/html/chessclub42
+&#060;/VirtualHost>
+[root@CentOS65 ~]# <command>vi /etc/httpd/conf.d/hunter2.conf</command>
+[root@CentOS65 ~]# <command>cat /etc/httpd/conf.d/hunter2.conf</command>
+&#060;VirtualHost *:9000>
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/html/hunter2
+&#060;/VirtualHost></screen>
+	<para>Notice the different port numbers 7000, 8000 and 9000. Notice also that we specified a unique <command>DocumentRoot</command> for each website.</para>
+</section>
+<section><title>three extra ports</title>
+	<para>We need to enable these three ports on apache in the <command>httpd.conf</command> file.</para>
+	<screen>[root@CentOS65 ~]# <command>vi /etc/httpd/conf/httpd.conf</command>
+root@debian7:~# <command>grep ^Listen /etc/httpd/conf/httpd.conf</command>
+Listen 80
+Listen 7000
+Listen 8000
+Listen 9000</screen>
+	<para>If we try to restart our server, we will notice the following error:</para>
+	<screen>[root@CentOS65 ~]# <command>service httpd restart</command>
+Stopping httpd:                                            [  OK  ]
+Starting httpd: 
+         (13)Permission denied: make_sock: could not bind to address 0.0.0.0:7000
+no listening sockets available, shutting down
+                                                           [FAILED]</screen>
+	<para>This is due to SELinux reserving ports 7000 and 8000 for other uses. We need to tell SELinux we want to use these ports for http traffic</para>
+	<screen>[root@CentOS65 ~]# <command>semanage port -m -t http_port_t -p tcp 7000</command>
+[root@CentOS65 ~]# <command>semanage port -m -t http_port_t -p tcp 8000</command>
+[root@CentOS65 ~]# <command>service httpd restart</command>
+Stopping httpd:                                            [  OK  ]
+Starting httpd:                                            [  OK  ]</screen>
+</section>
+<section><title>three extra websites</title>
+	<para>Next we need to create three <command>DocumentRoot</command> directories.</para>
+	<screen>[root@CentOS65 ~]# mkdir /var/www/html/choochoo
+[root@CentOS65 ~]# mkdir /var/www/html/chessclub42
+[root@CentOS65 ~]# mkdir /var/www/html/hunter2</screen>
+	<para>And we have to put some really simple website in those directories.</para>
+	<screen>[root@CentOS65 ~]#:~# echo 'Choo Choo model train Choo Choo' > /var/www/html/cho\
+ochoo/index.html
+[root@CentOS65 ~]# echo 'Welcome to chess club 42' > /var/www/html/chessclub42/i\
+ndex.html
+root@debian7:~# echo 'HaCkInG iS fUn At HuNtEr2' > /var/www/html/hunter2/index.h\
+tml</screen>
+</section>
+<section><title>enabling extra websites</title>
+	<para>The only way to enable or disable configurations in RHEL/CentOS is by renaming or moving the configuration files. Any file in
+	/etc/httpd/conf.d ending on .conf will be loaded by Apache. To disable a site we can either rename the file or move it to another directory.</para>
+
+	<para>The files are created, so we can tell <command>apache</command>.</para>
+	<screen>[root@CentOS65 ~]# <command>ls /etc/httpd/conf.d/</command>
+chessclub42.conf  choochoo.conf  hunter2.conf  README  welcome.conf
+[root@CentOS65 ~]# <command>service httpd reload</command>
+Reloading httpd: </screen>
+</section>
+<?hard-pagebreak?>
+<section><title>testing the three websites</title>
+	<para>Testing the model train club named <command>Choo Choo</command> on port 7000.</para>
+	<screen>[root@CentOS65 ~]# <command>wget 127.0.0.1:7000</command>
+--2014-05-11 11:59:36--  http://127.0.0.1:7000/
+Connecting to 127.0.0.1:7000... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 32 [text/html]
+Saving to: `index.html'
+
+100%[===========================================>] 32          --.-K/s   in 0s      
+
+2014-05-11 11:59:36 (4.47 MB/s) - `index.html' saved [32/32]
+
+[root@CentOS65 ~]# cat <command>index.html</command> 
+Choo Choo model train Choo Choo</screen>
+	<para>Testing the chess club named <command>Chess Club 42</command> on port 8000.</para>
+	<screen>[root@CentOS65 ~]# <command>wget 127.0.0.1:8000</command>
+--2014-05-11 12:01:30--  http://127.0.0.1:8000/
+Connecting to 127.0.0.1:8000... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 25 [text/html]
+Saving to: `index.html.1'
+
+100%[===========================================>] 25          --.-K/s   in 0s
+
+2014-05-11 12:01:30 (4.25 MB/s) - `index.html.1' saved [25/25]
+
+root@debian7:/etc/apache2# <command>cat index.html.1</command> 
+Welcome to chess club 42</screen>
+	<para>Testing the hacker club named <command>hunter2</command> on port 9000.</para>
+	<screen>[root@CentOS65 ~]# <command>wget 127.0.0.1:9000</command> 
+--2014-05-11 12:02:37--  http://127.0.0.1:9000/
+Connecting to 127.0.0.1:9000... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 26 [text/html]
+Saving to: `index.html.2'
+
+100%[===========================================>] 26          --.-K/s   in 0s
+
+2014-05-11 12:02:37 (4.49 MB/s) - `index.html.2' saved [26/26]
+
+root@debian7:/etc/apache2# <command>cat index.html.2</command> 
+HaCkInG iS fUn At HuNtEr2</screen>
+	<para>Cleaning up the temporary files.</para>
+	<screen>[root@CentOS65 ~]# <command>rm index.html index.html.1 index.html.2</command> </screen>
+	<para>If we attempt to access the site from another machine however, we will not be able to view the website yet. The firewall is 
+	blocking incoming connections. We need to open these incoming ports first</para>
+	<screen>[root@CentOS65 ~]# iptables -I INPUT -p tcp --dport 80 -j ACCEPT
+[root@CentOS65 ~]# iptables -I INPUT -p tcp --dport 7000 -j ACCEPT
+[root@CentOS65 ~]# iptables -I INPUT -p tcp --dport 8000 -j ACCEPT
+[root@CentOS65 ~]# iptables -I INPUT -p tcp --dport 9000 -j ACCEPT
+</screen>
+	<para>And if we want these rules to remain active after a reboot, we need to save them</para>
+	<screen>[root@CentOS65 ~]# service iptables save
+iptables: Saving firewall rules to /etc/sysconfig/iptables:[  OK  ]</screen>
+</section>
+</section>
+<?hard-pagebreak?>
 <section><title>named virtual hosts on Debian</title>
 <section><title>named virtual hosts</title>
 	<para>The chess club and the model train club find the port numbers too hard to remember. They would prefere to have their website accessible by name.</para>
