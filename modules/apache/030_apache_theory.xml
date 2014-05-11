@@ -345,12 +345,10 @@ HaCkInG iS fUn At HuNtEr2</screen>
 <?hard-pagebreak?>
 <section><title>port virtual hosts on CentOS</title>
 <section><title>default virtual host</title>
-	<para>Unlike Debian, CentOS has no virtualHost configuration file for its default website. Instead the default configuration will throw
-	a standard error page when no index file can be found in the default location (/var/www/html).</para>
+	<para>Unlike Debian, CentOS has no virtualHost configuration file for its default website. Instead the default configuration will throw a standard error page when no index file can be found in the default location (/var/www/html).</para>
 </section>
 <section><title>three extra virtual hosts</title>
 	<para>In this scenario we create three additional websites for three customers that share a clubhouse and want to jointly hire you. They are a model train club named <command>Choo Choo</command>, a chess club named <command>Chess Club 42</command> and a hackerspace named <command>hunter2</command>.</para>
-
 	<para>One way to put three websites on one web server, is to put each website on a different port. This screenshot shows three newly created <command>virtual hosts</command>, one for each customer.</para>
 	<screen>[root@CentOS65 ~]# <command>vi /etc/httpd/conf.d/choochoo.conf</command>
 [root@CentOS65 ~]# <command>cat /etc/httpd/conf.d/choochoo.conf</command>
@@ -380,11 +378,14 @@ Listen 80
 Listen 7000
 Listen 8000
 Listen 9000</screen>
+</section>
+<?hard-pagebreak?>
+<section><title>SELinux guards our ports</title>
 	<para>If we try to restart our server, we will notice the following error:</para>
 	<screen>[root@CentOS65 ~]# <command>service httpd restart</command>
 Stopping httpd:                                            [  OK  ]
 Starting httpd: 
-         (13)Permission denied: make_sock: could not bind to address 0.0.0.0:7000
+       (13)Permission denied: make_sock: could not bind to address 0.0.0.0:7000
 no listening sockets available, shutting down
                                                            [FAILED]</screen>
 	<para>This is due to SELinux reserving ports 7000 and 8000 for other uses. We need to tell SELinux we want to use these ports for http traffic</para>
@@ -400,12 +401,12 @@ Starting httpd:                                            [  OK  ]</screen>
 [root@CentOS65 ~]# mkdir /var/www/html/chessclub42
 [root@CentOS65 ~]# mkdir /var/www/html/hunter2</screen>
 	<para>And we have to put some really simple website in those directories.</para>
-	<screen>[root@CentOS65 ~]#:~# echo 'Choo Choo model train Choo Choo' > /var/www/html/cho\
-ochoo/index.html
-[root@CentOS65 ~]# echo 'Welcome to chess club 42' > /var/www/html/chessclub42/i\
-ndex.html
-root@debian7:~# echo 'HaCkInG iS fUn At HuNtEr2' > /var/www/html/hunter2/index.h\
-tml</screen>
+	<screen>[root@CentOS65 ~]# echo 'Choo Choo model train Choo Choo' > /var/www/html/chooc\
+hoo/index.html
+[root@CentOS65 ~]# echo 'Welcome to chess club 42' > /var/www/html/chessclub42/\
+index.html
+[root@CentOS65 ~]# echo 'HaCkInG iS fUn At HuNtEr2' > /var/www/html/hunter2/ind\
+ex.html</screen>
 </section>
 <section><title>enabling extra websites</title>
 	<para>The only way to enable or disable configurations in RHEL/CentOS is by renaming or moving the configuration files. Any file in
@@ -427,7 +428,7 @@ HTTP request sent, awaiting response... 200 OK
 Length: 32 [text/html]
 Saving to: `index.html'
 
-100%[===========================================>] 32          --.-K/s   in 0s      
+100%[===========================================>] 32          --.-K/s   in 0s
 
 2014-05-11 11:59:36 (4.47 MB/s) - `index.html' saved [32/32]
 
@@ -463,8 +464,10 @@ root@debian7:/etc/apache2# <command>cat index.html.2</command>
 HaCkInG iS fUn At HuNtEr2</screen>
 	<para>Cleaning up the temporary files.</para>
 	<screen>[root@CentOS65 ~]# <command>rm index.html index.html.1 index.html.2</command> </screen>
-	<para>If we attempt to access the site from another machine however, we will not be able to view the website yet. The firewall is 
-	blocking incoming connections. We need to open these incoming ports first</para>
+</section>
+<?hard-pagebreak?>
+<section><title>firewall rules</title>
+	<para>If we attempt to access the site from another machine however, we will not be able to view the website yet. The firewall is blocking incoming connections. We need to open these incoming ports first</para>
 	<screen>[root@CentOS65 ~]# iptables -I INPUT -p tcp --dport 80 -j ACCEPT
 [root@CentOS65 ~]# iptables -I INPUT -p tcp --dport 7000 -j ACCEPT
 [root@CentOS65 ~]# iptables -I INPUT -p tcp --dport 8000 -j ACCEPT
@@ -537,13 +540,13 @@ Reloading web server config: apache2.
 root@debian7:/etc/apache2/sites-available# <command>wget chessclub42.local</command> 
 --2014-05-06 21:37:13--  http://chessclub42.local/
 Resolving chessclub42.local (chessclub42.local)... 192.168.42.50
-Connecting to chessclub42.local (chessclub42.local)|192.168.42.50|:80... connec\
-ted.
+Connecting to chessclub42.local (chessclub42.local)|192.168.42.50|:80... conne\
+cted.
 HTTP request sent, awaiting response... 200 OK
 Length: 25 [text/html]
 Saving to: `index.html'
 
-100%[=============================================>] 25          --.-K/s   in 0s
+100%[=============================================>] 25         --.-K/s   in 0s
 
 2014-05-06 21:37:13 (2.06 MB/s) - `index.html' saved [25/25]
 
@@ -608,8 +611,8 @@ The Apache error log may have more information.
 	<screen>root@debian7:~# <command>mv /var/www/choochoo/ /var/www/chooshoo</command>
 root@debian7:~# <command>!ser</command>
 service apache2 restart
-Restarting web server: apache2Warning: DocumentRoot [/var/www/choochoo] does no\
-t exist
+Restarting web server: apache2Warning: DocumentRoot [/var/www/choochoo] does n\
+ot exist
 Warning: DocumentRoot [/var/www/choochoo] does not exist
  ... waiting Warning: DocumentRoot [/var/www/choochoo] does not exist
 Warning: DocumentRoot [/var/www/choochoo] does not exist
@@ -644,19 +647,17 @@ ErrorDocument 404 http://www.cobbaut.be/cobbaut.php
 	</section>
 	<section><title>more on .htaccess</title>
 		<para>You can do much more with <command>.htaccess</command><indexterm><primary>.htaccess</primary></indexterm>. One example is to use .htaccess to prevent people from certain domains to access your website. Like in this case, where a number of referer spammers are blocked from the website.</para>
-		<screen>
-		paul@lounge:~/cobbaut.be$ cat .htaccess 
-		# Options +FollowSymlinks
-		RewriteEngine On
-		RewriteCond &#037;{HTTP_REFERER} ^http://(www\.)?buy-adipex.fw.nu.*$ [OR]
-		RewriteCond &#037;{HTTP_REFERER} ^http://(www\.)?buy-levitra.asso.ws.*$ [NC,OR]
-		RewriteCond &#037;{HTTP_REFERER} ^http://(www\.)?buy-tramadol.fw.nu.*$ [NC,OR]
-		RewriteCond &#037;{HTTP_REFERER} ^http://(www\.)?buy-viagra.lookin.at.*$ [NC,OR]
-		...
-		RewriteCond &#037;{HTTP_REFERER} ^http://(www\.)?www.healthinsurancehelp.net.*$ [NC]
-		RewriteRule .* - [F,L]
-		paul@lounge:~/cobbaut.be$ 
-	</screen>
+		<screen>paul@lounge:~/cobbaut.be$ cat .htaccess 
+# Options +FollowSymlinks
+RewriteEngine On
+RewriteCond &#037;{HTTP_REFERER} ^http://(www\.)?buy-adipex.fw.nu.*$ [OR]
+RewriteCond &#037;{HTTP_REFERER} ^http://(www\.)?buy-levitra.asso.ws.*$ [NC,OR]
+RewriteCond &#037;{HTTP_REFERER} ^http://(www\.)?buy-tramadol.fw.nu.*$ [NC,OR]
+RewriteCond &#037;{HTTP_REFERER} ^http://(www\.)?buy-viagra.lookin.at.*$ [NC,OR]
+...
+RewriteCond &#037;{HTTP_REFERER} ^http://(www\.)?www.healthinsurancehelp.net.*$ [NC]
+RewriteRule .* - [F,L]
+paul@lounge:~/cobbaut.be$</screen>
 	</section>
 	<section><title>traffic</title>
 		<para>Apache keeps a log of all visitors. The <command>webalizer</command><indexterm><primary>webalizer</primary></indexterm> is often used to parse this log into nice html statistics.</para>
