@@ -49,7 +49,7 @@
 root@debian7:~#</screen>
 </section>
 <section><title>/boot/grub/grub.conf</title>
-	<para>Distributions like Red Hat Enterprise Linux 6 use <command>grub.conf</command><indexterm><primary>/boot/grub/grub.conf</primary></indexterm> and provide a symbolic link from <command>menu.lst</command><indexterm><primary>/boot/grub/menu.lst</primary></indexterm> to this file.</para>
+	<para>Distributions like Red Hat Enterprise Linux 6 use <command>grub.conf</command><indexterm><primary>/boot/grub/grub.conf</primary></indexterm> and provide a symbolic link from <command>/boot/grub/menu.lst</command><indexterm><primary>/boot/grub/menu.lst</primary></indexterm> and from <command>/etc/grub.conf</command><indexterm><primary>/etc/grub.conf</primary></indexterm> to this file.</para>
 	<screen>[root@centos65 ~]# ls -l /boot/grub/menu.lst
 lrwxrwxrwx. 1 root root 11 Mar  7 11:53 /boot/grub/menu.lst -> ./grub.conf
 [root@centos65 ~]# ls -l /boot/grub/grub.conf
@@ -88,18 +88,19 @@ PE=pc KEYTABLE=us rd_NO_DM rhgb quiet
 </section>
 <?hard-pagebreak?>
 <section><title>menu commands</title>
-	<para>The <command>menu commands</command> always have to be at the top of <command>grub</command>'s configuration file.</para>
+	<para>The <command>menu commands</command> must be at the top of <command>grub</command>'s configuration file.</para>
 	<section><title>default</title>
 		<para>The <command>default</command><indexterm><primary>default(grub)</primary></indexterm> command sets a default <command>entry</command> to start. The first <command>entry</command> has number 0.</para>
-		<screen>default 0</screen>
+		<screen>default=0</screen>
+		<para>Each entry or <command>stanza</command> starts with a <command>title</command> directive.</para>
 	</section>
 	<section><title>fallback</title>
 		<para>In case the <command>default</command> does not boot, use the <command>fallback</command><indexterm><primary>fallback(grub)</primary></indexterm> entry instead.</para>
-		<screen>fallback 1</screen>
+		<screen>fallback=1</screen>
 	</section>
 	<section><title>timeout</title>
 		<para>The <command>timeout</command><indexterm><primary>timeout(grub)</primary></indexterm> will wait a number of seconds before booting the <command>default</command> entry.</para>
-		<screen>timeout 5</screen>
+		<screen>timeout=5</screen>
 	</section>
 	<section><title>hiddenmenu</title>
 		<para>The <command>hiddenmenu</command><indexterm><primary>hiddenmenu(grub)</primary></indexterm> will hide the <command>grub</command> menu unless the user presses <command>Esc</command> before the <command>timeout</command> expires.</para>
@@ -107,7 +108,7 @@ PE=pc KEYTABLE=us rd_NO_DM rhgb quiet
 	</section>
 	<section><title>title</title>
 		<para>With <command>title</command><indexterm><primary>title(grub)</primary></indexterm> we can start a new <command>entry</command> or <command>stanza</command>.</para>
-		<screen>title Debian Lenny</screen>
+		<screen>title CentOS (2.6.32-431.11.2.el6.x86_64)</screen>
 	</section>
 	<section><title>password</title>
 		<para>You can add a <command>password</command><indexterm><primary>password(grub)</primary></indexterm> to prevent interactive selection of a boot environment while <command>grub</command> is running.</para>
@@ -119,6 +120,7 @@ Password: ********
 Encrypted: $1$Ec.id/$T2C2ahI/EG3WRRsmmu/HN/</screen>
 	</section>
 </section>
+<?hard-pagebreak?>
 <section><title>stanza commands</title>
 	<para>Every <command>operating system</command> or <command>kernel</command> that you want to boot with <command>grub</command> will have a <command>stanza</command><indexterm><primary>stanza(grub)</primary></indexterm> aka an <command>entry</command> of a couple of lines. Listed here are some of the common <command>stanza</command> commands.</para>
 	<section><title>boot</title>
@@ -126,24 +128,26 @@ Encrypted: $1$Ec.id/$T2C2ahI/EG3WRRsmmu/HN/</screen>
 		<screen>boot</screen>
 	</section>
 	<section><title>kernel</title>
-		<para>The <command>kernel</command><indexterm><primary>kernel(grub)</primary></indexterm> command points to the location of the kernel. To boot Linux this means booting a <command>gzip</command><indexterm><primary>gzip(1)</primary></indexterm> compressed <command>zImage</command><indexterm><primary>zImage</primary></indexterm> or <command>bzip2</command><indexterm><primary>bzip2(1)</primary></indexterm> compressed <command>bzImage</command><indexterm><primary>bzImage</primary></indexterm>.</para>
-		<para>This screenshot shows a typical <command>kernel</command> command used to load a Debian kernel.</para>
+		<para>The <command>kernel</command><indexterm><primary>kernel(grub)</primary></indexterm> command points to the location of the kernel. To boot Linux this means booting a <command>gzip</command><indexterm><primary>gzip(1)</primary></indexterm> compressed <command>zImage</command><indexterm><primary>zImage</primary></indexterm> or <command>bzip2</command><indexterm><primary>bzip2</primary></indexterm> compressed <command>bzImage</command><indexterm><primary>bzImage</primary></indexterm>.</para>
+		<para>This screenshot shows a <command>kernel</command> command used to load a Debian kernel.</para>
 		<screen>kernel  /boot/vmlinuz-2.6.17-2-686 root=/dev/hda1 ro</screen>
-		<para>And this is how Red Hat uses the <command>kernel</command> command.</para>
+		<para>And this is how RHEL 5 uses the <command>kernel</command> command.</para>
 		<screen>kernel /vmlinuz-2.6.18-128.el5 ro root=/dev/VolGroup00/LogVol00 rhgb quiet</screen>
+		<para>All parameters in the kernel line can be read by the kernel itself or by any other program (which are started later) by reading <command>/proc/cmdline</command><indexterm><primary>/proc/cmdline</primary></indexterm></para>
 	</section>
 	<section><title>initrd</title>
 		<para>Many <command>Linux</command> installations will need an <command>initial ramdisk</command> at boot time. This can be set in <command>grub</command> with the <command>initrd</command><indexterm><primary>initrd(grub)</primary></indexterm> command.</para>
 		<para>Here a screenshot of Debian 4.0</para>
 		<screen>initrd /boot/initrd.img-2.6.17-2-686</screen>
-		<para>And the same for Red Hat Enterprise Linux 5.3</para>
+		<para>And the same for Red Hat Enterprise Linux 5</para>
 		<screen>initrd /initrd-2.6.18-128.el5.img</screen>
 	</section>
 	<section><title>root</title>
 		<para>The <command>root</command><indexterm><primary>root(grub)</primary></indexterm> command accepts the root device as a parameter.</para>
 		<para>The <command>root</command> command will point to the hard disk and partition to use, with <command>hd0</command> as the first hard disk device and <command>hd1</command> as the second hard disk device. The same numbering is used for partitions, so <command>hd0,0</command> is the first partition on the first disk and <command>hd0,1</command> is the second partition on that disk.</para>
-		<screen>root  (hd0,0)</screen>
+		<screen>root (hd0,0)</screen>
 	</section>
+<?hard-pagebreak?>
 	<section><title>savedefault</title>
 		<para>The <command>savedefault</command><indexterm><primary>savedefault(grub)</primary></indexterm> command can be used together with <command>default saved</command><indexterm><primary>default(grub)</primary></indexterm> as a menu command. This combination will set the currently booted stanza as the next default stanza to boot.</para>
 		<screen>default saved
@@ -174,13 +178,14 @@ root  (hd0,1)
 makeactive
 chainloader +1</screen>
 </section>
-<section><title>stanza examples</title>
-	<para>This is a screenshot of a typical <command>Debian 4.0</command> stanza.</para>
+<?hard-pagebreak?>
+<section><title>simple stanza examples</title>
+	<para>This is a screenshot of a <command>Debian 4</command> stanza.</para>
 	<screen>title   Debian GNU/Linux, kernel 2.6.17-2-686
 root    (hd0,0)
 kernel  /boot/vmlinuz-2.6.17-2-686 root=/dev/hda1 ro 
 initrd  /boot/initrd.img-2.6.17-2-686</screen>
-	<para>Here a screenshot of a typical <command>Red Hat Enterprise Linux</command> stanza.</para>
+	<para>Here a screenshot of a <command>Red Hat Enterprise Linux 5</command> stanza.</para>
 	<screen>title Red Hat Enterprise Linux Server (2.6.18-128.el5)
  root (hd0,0)
  kernel /vmlinuz-2.6.18-98.el5 ro root=/dev/VolGroup00/LogVol00 rhgb quiet
@@ -192,10 +197,12 @@ initrd  /boot/initrd.img-2.6.17-2-686</screen>
 	<screen>kernel  /boot/vmlinuz-2.6.17-2-686 root=/dev/hda1 ro single</screen>
 	<para>Another option to reset a root password is to use an <command>init=/bin/bash</command> parameter.</para>
 	<screen>kernel  /boot/vmlinuz-2.6.17-2-686 root=/dev/hda1 ro init=/bin/bash</screen>
+	<para>Note that some distributions will disable this option at kernel compile time.</para>
 </section>
 <section><title>installing grub</title>
 	<para>Run the <command>grub-install</command><indexterm><primary>grub-install</primary></indexterm> command to install <command>grub</command>. The command requires a destination for overwriting the <command>boot sector</command> or <command>mbr</command>.</para>
 	<screen># grub-install /dev/hda</screen>
+	<para>You will rarely have to do this manually, since grub is installed when installing the operating system and does not need any re-install when changing configuration (as is the case for <command>lilo</command>).</para>
 </section>
 </section>
 <?hard-pagebreak?>
