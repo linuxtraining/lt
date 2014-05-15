@@ -1,2 +1,5 @@
-<para>This chapter briefly discusses the boot sequence of an (x86 or x64) Linux computer.</para>
-<para>Systems booting with <command>lilo</command> are rare nowadays, and <command>grub</command> is slowly being replaced with <command>grub2</command>.</para>
+<para>This chapter briefly discusses the boot sequence of an (Intel 32-bit or 64-bit) Linux computer.</para>
+<para>Systems booting with <command>lilo</command> are rare nowadays, so this section is brief.</para>
+<para>The most common bootloader on Linux systems today is <command>grub</command><indexterm><primary>grub</primary></indexterm>, yet this is not a Linux project. Distributions like <command>FreeBSD</command> and <command>Solaris</command> also use <command>grub</command>.</para>
+<para>Likewise, <command>grub</command> is not limited to Intel architecture. It can also load kernels on PowerPC.</para>
+<para>Note that <command>grub</command>, while still the default in Debian, is slowly being replaced in most distributions with <command>grub2</command>.</para>
