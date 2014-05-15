@@ -1,0 +1,91 @@
+<?hard-pagebreak?>
+<section><title>lsof</title>
+	<para>List open files with <command>lsof</command><indexterm><primary>lsof</primary></indexterm>.</para>
+	<para>When invoked without options, <command>lsof</command> will list all open files. You can see the command (init in this case), its PID (1) and the user (root) has openend the root directory and <command>/sbin/init</command>. The FD (file descriptor) columns shows that / is both the root directory (rtd) and current working directory (cwd) for the /sbin/init command. The FD column displays <command>rtd</command> for root directory, <command>cwd</command> for current directory and <command>txt</command> for text (both including data and code).</para> 
+	<screen>root@debian7:~# lsof | head -4
+COMMAND PID  TID   USER   FD    TYPE     DEVICE SIZE/OFF      NODE NAME
+init      1        root  cwd     DIR      254,0     4096         2 /
+init      1        root  rtd     DIR      254,0     4096         2 /
+init      1        root  txt     REG      254,0    36992    130856 /sbin/init</screen>
+	<para>Other options in the FD column besides w for writing, are r for reading and u for both reading and writing. You can look at open files for a process id by typing <command>lsof -p PID</command>. For <command>init</command> this would look like this:</para>
+	<screen>lsof -p 1</screen>
+	<para>The screenshot below shows basic use of <command>lsof</command> to prove that <command>vi</command> keeps a <command>.swp</command> file open (even when stopped in background) on our freshly mounted file system.</para>
+	<screen>[root@RHEL65 ~]# df -h | grep sdb
+/dev/sdb1                     541M   17M  497M   4% /srv/project33
+[root@RHEL65 ~]# vi /srv/project33/busyfile.txt
+[1]+  Stopped                 vi /srv/project33/busyfile.txt
+[root@RHEL65 ~]# lsof /srv/*
+COMMAND  PID USER  FD  TYPE DEVICE SIZE/OFF NODE NAME
+vi      3243 root   3u  REG   8,17   4096   12 /srv/project33/.busyfile.txt.swp</screen>
+	<para>Here we see that <command>rsyslog</command> has a couple of log files open for writing (the FD column).</para>
+	<screen>root@debian7:~# lsof /var/log/*
+COMMAND   PID USER   FD   TYPE DEVICE SIZE/OFF    NODE NAME
+rsyslogd 2013 root    1w   REG  254,0   454297 1308187 /var/log/syslog
+rsyslogd 2013 root    2w   REG  254,0   419328 1308189 /var/log/kern.log
+rsyslogd 2013 root    5w   REG  254,0   116725 1308200 /var/log/debug
+rsyslogd 2013 root    6w   REG  254,0   309847 1308201 /var/log/messages
+rsyslogd 2013 root    7w   REG  254,0    17591 1308188 /var/log/daemon.log
+rsyslogd 2013 root    8w   REG  254,0   101768 1308186 /var/log/auth.log</screen>
+	<para>You can specify a specific user with <command>lsof -u</command>. This example shows the current working directory for a couple of command line programs.</para>
+	<screen>[paul@RHEL65 ~]$ lsof -u paul | grep home
+bash    3302 paul  cwd    DIR  253,0     4096  788024 /home/paul
+lsof    3329 paul  cwd    DIR  253,0     4096  788024 /home/paul
+grep    3330 paul  cwd    DIR  253,0     4096  788024 /home/paul
+lsof    3331 paul  cwd    DIR  253,0     4096  788024 /home/paul</screen>
+	<para>The -u switch of <command>lsof</command> also supports the ^ character meaning 'not'. To see all open files, but not those open by root:</para>
+	<screen>lsof -u^root</screen>
+</section>
+<?hard-pagebreak?>
+<section><title>fuser</title>
+	<para>The <command>fuser</command> command will display the 'user' of a file system.</para>
+	<para>In this example we still have a vi process in background and we use <command>fuser</command><indexterm><primary>fuser</primary></indexterm> to find the process id of the process using this file system.</para>
+	<screen>[root@RHEL65 ~]# jobs
+[1]+  Stopped                 vi /srv/project33/busyfile.txt
+[root@RHEL65 ~]# fuser -m /srv/project33/
+/srv/project33/:      3243</screen>
+	<para>Adding the -u switch will also display the user name.</para>
+	<screen>[root@RHEL65 ~]# fuser -m -u /srv/project33/
+/srv/project33/:      3243(root)</screen>
+	<para>You can quickly kill all processes that are using a specific file (or directory) with the -k switch.</para>
+	<screen>[root@RHEL65 ~]# fuser -m -k -u /srv/project33/
+/srv/project33/:      3243(root)
+[1]+  Killed                  vi /srv/project33/busyfile.txt
+[root@RHEL65 ~]# fuser -m -u /srv/project33/
+[root@RHEL65 ~]#</screen>
+	<para>This example shows all processes that are using the current directory (bash and vi in this case).</para>
+	<screen>root@debian7:~/test42# vi file42
+
+[1]+  Stopped                 vi file42
+root@debian7:~/test42# fuser -v .
+                     USER        PID ACCESS COMMAND
+/root/test42:        root       2909 ..c.. bash
+                     root       3113 ..c.. vi</screen>
+	<para>This example shows that the <command>vi</command> command actually accesses <command>/usr/bin/vim.basic</command> as an <command>executable</command> file.</para>
+	<screen>root@debian7:~/test42# fuser -v $(which vi)
+                     USER        PID ACCESS COMMAND
+/usr/bin/vim.basic:  root       3113 ...e. vi</screen>
+	<para>The last example shows how to find the process that is accessing a specific file.</para>
+	<screen>[root@RHEL65 ~]# vi /srv/project33/busyfile.txt
+
+[1]+  Stopped                 vi /srv/project33/busyfile.txt
+[root@RHEL65 ~]# fuser -v -m /srv/project33/busyfile.txt
+                     USER        PID ACCESS COMMAND
+/srv/project33/busyfile.txt:
+                     root      13938 F.... vi
+[root@RHEL65 ~]# ps -fp 13938
+UID        PID  PPID  C STIME TTY          TIME CMD
+root     13938  3110  0 15:47 pts/0    00:00:00 vi /srv/project33/busyfile.txt</screen>
+</section>
+<?hard-pagebreak?>
+<section><title>iotop</title>
+	<para>todo...</para>
+	<para></para>
+	<screen>
+</screen>
+	<para></para>
+	<para></para>
+	<indexterm><primary>iotop</primary></indexterm>
+	<screen>
+</screen>
+</section>
+</section>
