@@ -1,0 +1,2 @@
+<para>This chapter briefly discusses the boot sequence of an (x86 or x64) Linux computer.</para>
+<para>Systems booting with <command>lilo</command> are rare nowadays, and <command>grub</command> is slowly being replaced with <command>grub2</command>.</para>
