@@ -1,8 +1,0 @@
-<section><title>about topic 102.2</title>
-	<para>On the LPI website we read: "Candidates should be able to select, install and configure a boot manager.". With the following detailed objectives.</para>
-	<screen>
-* Providing alternative boot locations and backup boot options.
-* Install and configure a boot loader such as GRUB.
-* Interact with the boot loader.
-	</screen>
-</section>
