@@ -1,9 +1,9 @@
 <section><title>about</title>
-	<para>The past couple of years the installation of linux has become a lot easier then before, at least for end users installing a distro like Ubuntu, Fedora, Debian or Mandrake on their home computer. Servers usually come pre-installed, and if not pre-installed, then setup of a linux server today is very easy.</para>
+	<para>The past couple of years the installation of Linux has become a lot easier then before, at least for end users installing a distro like Ubuntu, Fedora, Debian or Mandrake on their home computer. Servers usually come pre-installed, and if not pre-installed, then setup of a Linux server today is very easy.</para>
 	<para>Linux can be installed in many different ways. End users most commonly use cdrom's or dvd's for installation, most of the time with a working internet connection te receive updates. Administrators might prefer network installations using protocols like <command>tftp</command><indexterm><primary>tftp</primary></indexterm>, <command>bootp</command><indexterm><primary>bootp</primary></indexterm>, <command>rarp</command><indexterm><primary>rarp</primary></indexterm> and/or <command>nfs</command><indexterm><primary>nfs</primary></indexterm> or response file solutions like <command>Red Hat Kickstart</command><indexterm><primary>kickstart</primary></indexterm> or <command>Solaris Jumpstart</command><indexterm><primary>Jumpstart</primary></indexterm>.</para>
 </section>
 <section><title>installation by cdrom</title>
-	<para>Installation of linux from cdrom is easy! Most distributions ask very few questions during install (keyboard type, language, username) and detect all the hardware themselves. There is usually no need to retrieve third-party drivers from the internet. The GUI installation gives options like Desktop (for end users), Workstation (for developers), Server or minimal (usually without graphical interface).</para>
+	<para>Installation of Linux from cdrom is easy! Most distributions ask very few questions during install (keyboard type, language, username) and detect all the hardware themselves. There is usually no need to retrieve third-party drivers from the internet. The GUI installation gives options like Desktop (for end users), Workstation (for developers), Server or minimal (usually without graphical interface).</para>
 </section>
 <section><title>installation with rarp and tftp</title>
 	<para>Installing over the network involves powering on the machine, have it find a rarpd server to get an ip-address, then let it find an tftps server to get an installation image copied to the machine. This image can then boot. The procedure below demonstrates how to setup three Sun SPARC servers with Ubuntu Linux, using a Debian Linux machine to host the tftp, bootp and nfs daemons.</para>
@@ -24,7 +24,7 @@ root@laika:~# aptitude install tftpd
 root@laika:~# cat /etc/inetd.conf | tail -1
 tftp dgram udp wait nobody /usr/sbin/tcpd /usr/sbin/in.tftpd /srv/tftp
 	</screen>
-	<para>And finally the linux install image must be present in the tftp served directory. The filename of the image must be the hex ip-address, this is accomplished with symbolic links.</para>
+	<para>And finally the Linux install image must be present in the tftp served directory. The filename of the image must be the hex ip-address, this is accomplished with symbolic links.</para>
 	<screen>
 root@laika:~# ll /srv/tftp/
 total 7.5M
@@ -33,7 +33,7 @@ lrwxrwxrwx 1 root root   13 2007-03-03 14:13 C0A80148 -> ubuntu610.img
 lrwxrwxrwx 1 root root   13 2007-03-02 21:49 C0A80149 -> ubuntu610.img
 -rw-r--r-- 1 paul paul 7.5M 2007-03-02 21:42 ubuntu610.img
 	</screen>
-	<para>Time to enter <command>boot net</command> now in the openboot prompt. Twenty minutes later the three servers where humming with linux.</para>
+	<para>Time to enter <command>boot net</command> now in the openboot prompt. Twenty minutes later the three servers where humming with Linux.</para>
 </section>
 <section><title>about Red Hat kickstart</title>
 	<para>Automating Linux installations with response files can be done with <command>Red Hat kickstart</command><indexterm><primary>kickstart</primary></indexterm>. One way to set it up is by using the graphical tool <command>/usr/sbin/system-config-kickstart</command><indexterm><primary>/usr/sbin/system-config-kickstart</primary></indexterm>. If you prefer to set it up manually, read on.</para>

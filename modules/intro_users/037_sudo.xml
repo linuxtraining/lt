@@ -24,7 +24,7 @@ paul@laika:~$
 		<para></para>
 	</section>
 	<section><title>sudo su</title>
-		<para>On some linux systems like Ubuntu and Kubuntu, the <command>root</command><indexterm><primary>root</primary></indexterm> user does not have a password set. This means that it is not possible to login as <command>root</command> (extra security). To perform tasks as <command>root</command>, the first user is given all <command>sudo rights</command><indexterm><primary>sudo(1)</primary></indexterm> via the <command>/etc/sudoers</command><indexterm><primary>/etc/sudoers</primary></indexterm>. In fact all users that are members of the admin group can use sudo to run all commands as root.</para>
+		<para>On some Linux systems like Ubuntu and Kubuntu, the <command>root</command><indexterm><primary>root</primary></indexterm> user does not have a password set. This means that it is not possible to login as <command>root</command> (extra security). To perform tasks as <command>root</command>, the first user is given all <command>sudo rights</command><indexterm><primary>sudo(1)</primary></indexterm> via the <command>/etc/sudoers</command><indexterm><primary>/etc/sudoers</primary></indexterm>. In fact all users that are members of the admin group can use sudo to run all commands as root.</para>
 	<screen>
 root@laika:~# grep admin /etc/sudoers 
 # Members of the admin group may gain root privileges

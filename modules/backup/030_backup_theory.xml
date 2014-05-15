@@ -1,5 +1,5 @@
 <section><title>About tape devices</title>
-	<para>Don't forget that the name of a device strictly speaking has no meaning since the kernel will use the major and minor number to find the hardware! See the man page of <command>mknod</command><indexterm><primary>mknod(1)</primary></indexterm> and the devices.txt file in the linux kernel source for more info.</para>
+	<para>Don't forget that the name of a device strictly speaking has no meaning since the kernel will use the major and minor number to find the hardware! See the man page of <command>mknod</command><indexterm><primary>mknod(1)</primary></indexterm> and the devices.txt file in the Linux kernel source for more info.</para>
 	<section><title>SCSI tapes</title>
 		<para>On the official Linux device list (http://www.lanana.org/docs/device-list/) we find the names for SCSI tapes (major 9 char). SCSI tape devices are located underneath <command>/dev/st</command><indexterm><primary>/dev/st</primary></indexterm> and are numbered starting with 0 for the first tape device.</para>
 		<screen>
@@ -13,7 +13,7 @@
 /dev/nst1   Second no rewind tape device
 /dev/nst2   Third no rewind tape device
 		</screen>
-		<para>By default, SCSI tapes on linux will use the highest hardware compression that is supported by the tape device. To lower the compression level, append one of the letters l (low), m (medium) or a (auto) to the tape name.</para>
+		<para>By default, SCSI tapes on Linux will use the highest hardware compression that is supported by the tape device. To lower the compression level, append one of the letters l (low), m (medium) or a (auto) to the tape name.</para>
 		<screen>
 /dev/st0l   First low compression tape device
 /dev/st0m   First medium compression tape device
@@ -41,7 +41,7 @@
 	</section>
 </section>
 <section><title>Compression</title>
-	<para>It can be beneficial to compress files before backup. The two most popular tools for compression of regular files on linux are <command>gzip/gunzip</command><indexterm><primary>gzip(1)</primary></indexterm> and <command>bzip2/bunzip2</command><indexterm><primary>bzip2(1)</primary></indexterm>. Below you can see gzip in action, notice that it adds the <command>.gz</command> extension to the file.</para>
+	<para>It can be beneficial to compress files before backup. The two most popular tools for compression of regular files on Linux are <command>gzip/gunzip</command><indexterm><primary>gzip(1)</primary></indexterm> and <command>bzip2/bunzip2</command><indexterm><primary>bzip2(1)</primary></indexterm>. Below you can see gzip in action, notice that it adds the <command>.gz</command> extension to the file.</para>
 	<screen>
 paul@RHELv4u4:~/test$ ls -l allfiles.tx*
 -rw-rw-r--  1 paul paul 8813553 Feb 27 05:38 allfiles.txt

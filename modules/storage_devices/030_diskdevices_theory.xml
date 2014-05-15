@@ -86,13 +86,13 @@ brw-rw----. 1 root disk 8, 32 Apr 19 10:12 /dev/sdc</screen>
 		</section>
 		<section><title>scsi device naming</title>
 			<para><command>scsi</command> drives follow a similar scheme, but all start with <command>/dev/sd</command><indexterm><primary>/dev/sdX</primary></indexterm>. When you run out of letters (after /dev/sdz), you can continue with /dev/sdaa and /dev/sdab and so on. (We will see later on that <command>lvm</command> volumes are commonly seen as /dev/md0, /dev/md1 etc.)</para>
-			<para>Below a <command>sample</command> of how scsi devices on a linux can be named. Adding a scsi disk or raid controller with a lower scsi address will change the naming scheme (shifting the higher scsi addresses one letter further in the alphabet).</para>
+			<para>Below a <command>sample</command> of how scsi devices on a Linux can be named. Adding a scsi disk or raid controller with a lower scsi address will change the naming scheme (shifting the higher scsi addresses one letter further in the alphabet).</para>
 <table frame='all'><title>scsi device naming</title>
 <?dbfo table-width="80%" ?>
 <tgroup cols='3' align='left' colsep='1' rowsep='1'>
 <colspec colname='device' colwidth="2.5*" align="center"/>
 <colspec colname='SCSI address' colwidth="1.5*" align="center"/>
-<colspec colname='linux device name' colwidth="2*" align="center"/>
+<colspec colname='Linux device name' colwidth="2*" align="center"/>
 <thead>
 <row>
   <entry>device</entry>
