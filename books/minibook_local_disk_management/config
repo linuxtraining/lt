@@ -12,6 +12,7 @@ add_mod chapter storage_devices
 add_mod chapter storage_partitions
 add_mod chapter storage_filesystems
 add_mod chapter storage_mounting
+add_mod chapter storage_tools
 add_mod chapter uuid
 add_mod chapter storage_raid
 add_mod chapter storage_lvm
