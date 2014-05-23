@@ -1,5 +1,7 @@
 <?hard-pagebreak?>
 <section><title>practice: troubleshooting tools</title>
-	<para>lsof fuser iostat</para>
+	<para>1. Read the theory on <command>fuser</command>. Use this command to find files that you open yourself.</para>
+	<para>2. Read the theory on <command>lsof</command>. Use this command to find files that you open yourself.</para>
+	<para>3. Boot a live image on an existing computer (virtual or real) and <command>chroot</command> into to it.</para>
 </section>
 

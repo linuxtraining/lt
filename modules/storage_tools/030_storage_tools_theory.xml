@@ -17,7 +17,7 @@ init      1        root  txt     REG      254,0    36992    130856 /sbin/init</s
 [root@RHEL65 ~]# lsof /srv/*
 COMMAND  PID USER  FD  TYPE DEVICE SIZE/OFF NODE NAME
 vi      3243 root   3u  REG   8,17   4096   12 /srv/project33/.busyfile.txt.swp</screen>
-	<para>Here we see that <command>rsyslog</command> has a couple of log files open for writing (the FD column).</para>
+	<para>Here we see that <command>rsyslog</command><indexterm><primary>rsyslog</primary></indexterm> has a couple of log files open for writing (the FD column).</para>
 	<screen>root@debian7:~# lsof /var/log/*
 COMMAND   PID USER   FD   TYPE DEVICE SIZE/OFF    NODE NAME
 rsyslogd 2013 root    1w   REG  254,0   454297 1308187 /var/log/syslog
@@ -37,13 +37,13 @@ lsof    3331 paul  cwd    DIR  253,0     4096  788024 /home/paul</screen>
 </section>
 <?hard-pagebreak?>
 <section><title>fuser</title>
-	<para>The <command>fuser</command> command will display the 'user' of a file system.</para>
+	<para>The <command>fuser</command><indexterm><primary>fuser</primary></indexterm> command will display the 'user' of a file system.</para>
 	<para>In this example we still have a vi process in background and we use <command>fuser</command><indexterm><primary>fuser</primary></indexterm> to find the process id of the process using this file system.</para>
 	<screen>[root@RHEL65 ~]# jobs
 [1]+  Stopped                 vi /srv/project33/busyfile.txt
 [root@RHEL65 ~]# fuser -m /srv/project33/
 /srv/project33/:      3243</screen>
-	<para>Adding the -u switch will also display the user name.</para>
+	<para>Adding the <command>-u</command> switch will also display the user name.</para>
 	<screen>[root@RHEL65 ~]# fuser -m -u /srv/project33/
 /srv/project33/:      3243(root)</screen>
 	<para>You can quickly kill all processes that are using a specific file (or directory) with the -k switch.</para>
@@ -77,6 +77,50 @@ UID        PID  PPID  C STIME TTY          TIME CMD
 root     13938  3110  0 15:47 pts/0    00:00:00 vi /srv/project33/busyfile.txt</screen>
 </section>
 <?hard-pagebreak?>
+<section><title>chroot</title>
+	<para>The <command>chroot</command><indexterm><primary>chroot</primary></indexterm> command creates a shell with an alternate root directory. It effective hides anything outside of this directory.</para>
+	<para>In the example below we assume that our system refuses to start (maybe because there is a problem with <command>/etc/fstab</command> or the mounting of the root file system).</para>
+	<para>We start a live system (booted from cd/dvd/usb) to troubleshoot our server. The live system will not use our main hard disk as root device</para>
+	<screen>root@livecd:~# <command>df -h | grep root</command>
+rootfs          186M   11M  175M   6% /
+/dev/loop0      807M  807M     0 100% /lib/live/mount/rootfs/filesystem.squashfs
+root@livecd:~# <command>mount | grep root</command>
+/dev/loop0 on /lib/live/mount/rootfs/filesystem.squashfs type squashfs (ro)</screen>
+	<para>We create some test file on the current rootfs.</para>
+	<screen>root@livecd:~# <command>touch /file42</command>
+root@livecd:~# <command>mkdir /dir42</command>
+root@livecd:~# <command>ls /</command>
+bin   dir42   home        lib64  opt   run      srv  usr
+boot  etc     initrd.img  media  proc  sbin     sys  var
+dev   file42  lib         mnt    root  selinux  tmp  vmlinuz</screen>
+	<para>First we mount the root file system from the disk (which is on <command>lvm</command><indexterm><primary>lvm</primary></indexterm> so we use <command>/dev/mapper</command> instead of <command>/dev/sda5</command>).</para>
+	<screen>root@livecd:~# <command>mount /dev/mapper/packer--debian--7-root /mnt</command></screen>
+	<para>We are now ready to <command>chroot</command> into the rootfs on disk.</para>
+	<screen>root@livecd:~# <command>cd /mnt</command>
+root@livecd:/mnt# <command>chroot /mnt</command>
+root@livecd:/# <command>ls /</command>
+bin   dev   initrd.img  lost+found  opt   run      srv  usr      vmlinuz
+boot  etc   lib         media       proc  sbin     sys  vagrant
+data  home  lib64       mnt         root  selinux  tmp  var</screen>
+	<para>Our test files (file42 and dir42) are not visible because they are out of the <command>chrooted</command> environment.</para>
+	<para>Note that the <command>hostname</command> of the chrooted environment is identical to the existing hostname.</para>
+	<para>To exit the <command>chrooted</command> file system:</para>
+	<screen>root@livecd:/# <command>exit</command>
+exit
+root@livecd:~# <command>ls /</command>
+bin   dir42   home        lib64  opt   run      srv  usr
+boot  etc     initrd.img  media  proc  sbin     sys  var
+dev   file42  lib         mnt    root  selinux  tmp  vmlinuz</screen>
+</section>
+<?hard-pagebreak?>
+
+<section><title>iostat</title>
+	<para>todo...</para>
+	<para></para>
+	<screen>
+</screen>
+	<indexterm><primary>iostat</primary></indexterm>
+</section>
 <section><title>iotop</title>
 	<para>todo...</para>
 	<para></para>
@@ -85,6 +129,4 @@ root     13938  3110  0 15:47 pts/0    00:00:00 vi /srv/project33/busyfile.txt</
 	<para></para>
 	<para></para>
 	<indexterm><primary>iotop</primary></indexterm>
-	<screen>
-</screen>
 </section>
