@@ -78,7 +78,7 @@ root     13938  3110  0 15:47 pts/0    00:00:00 vi /srv/project33/busyfile.txt</
 </section>
 <?hard-pagebreak?>
 <section><title>chroot</title>
-	<para>The <command>chroot</command><indexterm><primary>chroot</primary></indexterm> command creates a shell with an alternate root directory. It effective hides anything outside of this directory.</para>
+	<para>The <command>chroot</command><indexterm><primary>chroot</primary></indexterm> command creates a shell with an alternate root directory. It effectively hides anything outside of this directory.</para>
 	<para>In the example below we assume that our system refuses to start (maybe because there is a problem with <command>/etc/fstab</command> or the mounting of the root file system).</para>
 	<para>We start a live system (booted from cd/dvd/usb) to troubleshoot our server. The live system will not use our main hard disk as root device</para>
 	<screen>root@livecd:~# <command>df -h | grep root</command>
