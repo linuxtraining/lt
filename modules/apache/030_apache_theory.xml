@@ -681,8 +681,7 @@ AuthName "Members only!"
 AuthType Basic
 require valid-user</screen>
 	<para>Note that we are protecting the website on <command>port 9000</command> that we created earlier.</para>
-	<para>And because we put the website for the Hackerspace named hunter2 in a subdirectory of the default website, we will need to adjust the <command>AllowOvveride</command> parameter in <command>/etc/httpd/conf/httpd.conf</command> under the <command>&#060;Directory "/var/www/html">
-</command> directive as this screenshot shows.</para>
+	<para>And because we put the website for the Hackerspace named hunter2 in a subdirectory of the default website, we will need to adjust the <command>AllowOvveride</command> parameter in <command>/etc/httpd/conf/httpd.conf</command> under the <command>&#060;Directory "/var/www/html"></command> directive as this screenshot shows.</para>
 <?hard-pagebreak?>
 	<screen>[root@CentOS65 ~]# vi /etc/httpd/conf/httpd.conf</screen>
 	<screen>&#060;Directory "/var/www/html">
