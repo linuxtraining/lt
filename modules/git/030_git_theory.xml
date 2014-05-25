@@ -1,0 +1,225 @@
+<?hard-pagebreak?>
+<section><title>git</title>
+	<para>Linus Torvalds created <command>git</command><indexterm><primary>git</primary></indexterm> back in 2005 when Bitkeeper changed its license and the Linux kernel developers where no longer able to use it for free.</para>
+	<para><command>git</command> quickly became popular and is now the most widely used <command>distributed version control</command> system in the world.</para>
+	<para>Geek and Poke demonstrates why we need version control (image property of Geek and Poke CCA 3.0).</para>
+ 	<para><mediaobject><imageobject><imagedata fileref="images/version_control.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+	<para>Besides <command>source code</command> for software, you can also find German and Icelandic <command>law</command> on github (and probably much more by the time you are reading this).</para>
+</section>
+<?hard-pagebreak?>
+<section><title>installing git</title>
+	<para>We install <command>git</command> with <command>aptitude install git</command><indexterm><primary>aptitude</primary></indexterm> as seen in this screenshot on Debian 6.</para>
+	<screen>root@debian6:~# aptitude install git
+The following NEW packages will be installed:
+  git libcurl3-gnutls{a} liberror-perl{a}
+0 packages upgraded, 3 newly installed, 0 to remove and 0 not upgraded.
+...
+Processing triggers for man-db ...
+Setting up libcurl3-gnutls (7.21.0-2.1+squeeze2) ...
+Setting up liberror-perl (0.17-1) ...
+Setting up git (1:1.7.2.5-3) ...</screen>
+</section>
+<section><title>starting a project</title>
+	<para>First we create a project directory, with a simple file in it.</para>
+	<screen>paul@debian6~$ mkdir project42
+paul@debian6~$ cd project42/
+paul@debian6~/project42$ echo "echo The answer is 42." &#062;&#062; question.sh</screen>
+<section><title>git init</title>
+	<para>Then we tell <command>git</command> to create an empty git repository in this directory.</para>
+	<screen>paul@debian6~/project42$ ls -la
+total 12
+drwxrwxr-x  2 paul paul 4096 Dec  8 16:41 .
+drwxr-xr-x 46 paul paul 4096 Dec  8 16:41 ..
+-rw-rw-r--  1 paul paul   23 Dec  8 16:41 question.sh
+paul@debian6~/project42$ git init
+Initialized empty Git repository in /home/paul/project42/.git/
+paul@debian6~/project42$ ls -la
+total 16
+drwxrwxr-x  3 paul paul 4096 Dec  8 16:44 .
+drwxr-xr-x 46 paul paul 4096 Dec  8 16:41 ..
+drwxrwxr-x  7 paul paul 4096 Dec  8 16:44 .git
+-rw-rw-r--  1 paul paul   23 Dec  8 16:41 question.sh</screen>
+</section>
+<section><title>git config</title>
+	<para>Next we use <command>git config</command> to set some global options.</para>
+	<screen>paul@debian6$ git config --global user.name Paul
+paul@debian6$ git config --global user.email "paul.cobbaut@gmail.com"
+paul@debian6$ git config --global core.editor vi</screen>
+	<para>We can verify this config in <command>~/.gitconfig</command>:</para>
+	<screen>paul@debian6~/project42$ cat ~/.gitconfig
+[user]
+	name = Paul
+	email = paul.cobbaut@gmail.com
+[core]
+	editor = vi</screen>
+</section>
+<section><title>git add</title>
+	<para>Time now to add file to our project with <command>git add</command>, and verify that it is added with <command>git status</command>.</para>
+	<screen>paul@debian6~/project42$ git add question.sh
+paul@debian6~/project42$ git status
+# On branch master
+#
+# Initial commit
+#
+# Changes to be committed:
+#   (use "git rm --cached &#060;file&#062;..." to unstage)
+#
+#	new file:   question.sh
+#</screen>
+	<para>The <command>git status</command> tells us there is a new file ready to be committed.</para>
+</section>
+<section><title>git commit</title>
+	<para>With <command>git commit</command> you force git to record all added files (and all changes to those files) permanently.</para>
+	<screen>paul@debian6~/project42$ git commit -m "starting a project"
+[master (root-commit) 5c10768] starting a project
+ 1 file changed, 1 insertion(+)
+ create mode 100644 question.sh
+paul@debian6~/project42$ git status
+# On branch master
+nothing to commit (working directory clean)</screen>
+</section>
+<section><title>changing a committed file</title>
+	<para>The screenshots below show several steps. First we change a file:</para>
+	<screen>paul@debian6~/project42$ git status
+# On branch master
+nothing to commit (working directory clean)
+paul@debian6~/project42$ vi question.sh </screen>
+	<para>Then we verify the status and see that it is modified:</para>
+	<screen>paul@debian6~/project42$ git status
+# On branch master
+# Changes not staged for commit:
+#   (use "git add &#060;file&#062;..." to update what will be committed)
+#   (use "git checkout -- &#060;file&#062;..." to discard changes in working directory)
+#
+#	modified:   question.sh
+#
+no changes added to commit (use "git add" and/or "git commit -a")</screen>
+	<para>Next we add it to the git repository.</para>
+	<screen>paul@debian6~/project42$ git add question.sh
+paul@debian6~/project42$ git commit -m "adding a she-bang to the main script"
+[master 86b8347] adding a she-bang to the main script
+ 1 file changed, 1 insertion(+)
+paul@debian6~/project42$ git status
+# On branch master
+nothing to commit (working directory clean)</screen>
+</section>
+<section><title>git log</title>
+	<para>We can see all our commits again using <command>git log</command>.</para>
+	<screen>paul@debian6~/project42$ git log
+commit 86b8347192ea025815df7a8e628d99474b41fb6c
+Author: Paul &#060;paul.cobbaut@gmail.com&#062;
+Date:   Sat Dec 8 17:12:24 2012 +0100
+
+    adding a she-bang to the main script
+
+commit 5c10768f29aecc16161fb197765e0f14383f7bca
+Author: Paul &#060;paul.cobbaut@gmail.com&#062;
+Date:   Sat Dec 8 17:09:29 2012 +0100
+
+    starting a project</screen>
+	<para>The log format can be changed.</para>
+	<screen>paul@debian6~/project42$ git log --pretty=oneline
+86b8347192ea025815df7a8e628d99474b41fb6c adding a she-bang to the main script
+5c10768f29aecc16161fb197765e0f14383f7bca starting a project</screen>
+	<para>The log format can be customized a lot.</para>
+	<screen>paul@debian6~/project42$ git log --pretty=format:"%an: %ar :%s"
+Paul: 8 minutes ago :adding a she-bang to the main script
+Paul: 11 minutes ago :starting a project</screen>
+</section>
+<section><title>git mv</title>
+	<para>Renaming a file can be done with <command>mv</command> followed by a <command>git remove</command> and a <command>git add</command> of the new filename. But it can be done easier and in one command using <command>git mv</command>.</para>
+	<screen>paul@debian6~/project42$ git mv question.sh thequestion.sh
+paul@debian6~/project42$ git status
+# On branch master
+# Changes to be committed:
+#   (use "git reset HEAD &#060;file&#062;..." to unstage)
+#
+#	renamed:    question.sh -> thequestion.sh
+#
+paul@debian6~/project42$ git commit -m "improved naming scheme"
+[master 69b2c8b] improved naming scheme
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ rename question.sh => thequestion.sh (100%)</screen>
+</section>
+</section>
+<?hard-pagebreak?>
+<section><title>git branches</title>
+	<para>Working on the project can be done in one or more <command>git branches</command>. Here we create a new branch that will make changes to the script. We will <command>merge</command> this branch with the <command>master branch</command> when we are sure the script works. (It can be useful to add <command>git status</command> commands when practicing).</para>
+	<screen>paul@debian6~/project42$ git branch
+* master
+paul@debian6~/project42$ git checkout -b newheader
+Switched to a new branch 'newheader'
+paul@debian6~/project42$ vi thequestion.sh 
+paul@debian6~/project42$ git add thequestion.sh
+paul@debian6~/project42$ source thequestion.sh 
+The answer is 42.</screen>
+	<para>It seems to work, so we commit in this branch.</para>
+	<screen>paul@debian6~/project42$ git commit -m "adding a new company header"
+[newheader 730a22b] adding a new company header
+ 1 file changed, 4 insertions(+)
+paul@debian6~/project42$ git branch
+  master
+* newheader
+paul@debian6~/project42$ cat thequestion.sh 
+#!/bin/bash
+#
+# copyright linux-training.be
+#
+
+echo The answer is 42.</screen>
+	<para>Let us go back to the master branch and see what happened there.</para>
+	<screen>paul@debian6~/project42$ git checkout master
+Switched to branch 'master'
+paul@debian6~/project42$ cat thequestion.sh 
+#!/bin/bash
+echo The answer is 42.</screen>
+	<para>Nothing happened in the master branch, because we worked in another branch.</para>
+	<para>When we are sure the branch is ready for production, then we merge it into the master branch.</para>
+	<screen>paul@debian6~/project42$ cat thequestion.sh 
+#!/bin/bash
+echo The answer is 42.
+paul@debian6~/project42$ git merge newheader
+Updating 69b2c8b..730a22b
+Fast-forward
+ thequestion.sh |    4 ++++
+ 1 file changed, 4 insertions(+)
+paul@debian6~/project42$ cat thequestion.sh 
+#!/bin/bash
+#
+# copyright linux-training.be
+#
+
+echo The answer is 42.</screen>
+	<para>The newheader branch can now be deleted.</para>
+	<screen>paul@debian6~/project42$ git branch
+* master
+  newheader
+paul@debian6~/project42$ git branch -d newheader
+Deleted branch newheader (was 730a22b).
+paul@debian6~/project42$ git branch
+* master</screen>
+</section>
+<section><title>to be continued...</title>
+	<para>The <command>git</command> story is not finished.</para>
+	<para>There are many excellent online tutorials for <command>git</command>. This list can save you one Google query:</para>
+	<screen>http://gitimmersion.com/
+http://git-scm.com/book</screen>
+</section>
+
+
+
+
+<?hard-pagebreak?>
+<section><title>github.com</title>
+	<para>Create an account on <command>github.com</command><indexterm><primary>github</primary></indexterm>. This website is a frontend for an immense git server with over two and a half million users and almost five million projects (including Fedora, Linux kernel, Android, Ruby on Rails, Wine, X.org, VLC...)</para>
+	<screen>https://github.com/signup/free</screen>
+	<para>This account is free of charge, we will use it in the examples below.</para>
+</section>
+<section><title>add your public key to github</title>
+	<para>I prefer to use github with a <command>public key</command><indexterm><primary>public key</primary></indexterm>, so it probably is a good idea that you also upload your public key to github.com.</para>
+	<para><mediaobject><imageobject><imagedata fileref="images/github_pubkey.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+	<para>You can upload your own key via the web interface:</para>
+	<screen>https://github.com/settings/ssh</screen>
+	<para>Please do not forget to protect your <command>private key</command>!</para>
+</section>
+
