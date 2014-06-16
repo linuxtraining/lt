@@ -113,20 +113,132 @@ boot  etc     initrd.img  media  proc  sbin     sys  var
 dev   file42  lib         mnt    root  selinux  tmp  vmlinuz</screen>
 </section>
 <?hard-pagebreak?>
-
 <section><title>iostat</title>
-	<para>todo...</para>
-	<para></para>
-	<screen>
-</screen>
-	<indexterm><primary>iostat</primary></indexterm>
+	<para><command>iostat</command><indexterm><primary>iostat</primary></indexterm> reports IO statitics every given period of time. It also includes a small cpu usage summary. This example shows <command>iostat</command> running every ten seconds with <command>/dev/sdc</command> and <command>/dev/sde</command> showing a lot of write activity.</para>
+	<screen>[root@RHEL65 ~]# iostat 10 3
+Linux 2.6.32-431.el6.x86_64 (RHEL65)  06/16/2014    _x86_64_    (1 CPU)
+
+avg-cpu:  %user   %nice %system %iowait  %steal   %idle
+           5.81    0.00    3.15    0.18    0.00   90.85
+
+Device:            tps   Blk_read/s   Blk_wrtn/s   Blk_read   Blk_wrtn
+sda              42.08      1204.10      1634.88    1743708    2367530
+sdb               1.20         7.69        45.78      11134      66292
+sdc               0.92         5.30        45.82       7672      66348
+sdd               0.91         5.29        45.78       7656      66292
+sde               1.04         6.28        91.49       9100     132496
+sdf               0.70         3.40        91.46       4918     132440
+sdg               0.69         3.40        91.46       4918     132440
+dm-0            191.68      1045.78      1362.30    1514434    1972808
+dm-1             49.26       150.54       243.55     218000     352696
+
+avg-cpu:  %user   %nice %system %iowait  %steal   %idle
+          56.11    0.00   16.83    0.10    0.00   26.95
+
+Device:            tps   Blk_read/s   Blk_wrtn/s   Blk_read   Blk_wrtn
+sda             257.01     10185.97        76.95     101656        768
+sdb               0.00         0.00         0.00          0          0
+sdc               3.81         1.60      2953.11         16      29472
+sdd               0.00         0.00         0.00          0          0
+sde               4.91         1.60      4813.63         16      48040
+sdf               0.00         0.00         0.00          0          0
+sdg               0.00         0.00         0.00          0          0
+dm-0            283.77     10185.97        76.95     101656        768
+dm-1              0.00         0.00         0.00          0          0
+
+avg-cpu:  %user   %nice %system %iowait  %steal   %idle
+          67.65    0.00   31.11    0.11    0.00    1.13
+
+Device:            tps   Blk_read/s   Blk_wrtn/s   Blk_read   Blk_wrtn
+sda             466.86     26961.09       178.28     238336       1576
+sdb               0.00         0.00         0.00          0          0
+sdc              31.45         0.90     24997.29          8     220976
+sdd               0.00         0.00         0.00          0          0
+sde               0.34         0.00         5.43          0         48
+sdf               0.00         0.00         0.00          0          0
+sdg               0.00         0.00         0.00          0          0
+dm-0            503.62     26938.46       178.28     238136       1576
+dm-1              2.83        22.62         0.00        200          0
+
+[root@RHEL65 ~]#</screen>
+	<para>Other options are to specify the disks you want to monitor (every 5 seconds here):</para>
+	<screen>iostat sdd sde sdf 5</screen>
+	<para>Or to show statistics per partition:</para>
+	<screen>iostat -p sde -p sdf 5</screen>
 </section>
+<?hard-pagebreak?>
 <section><title>iotop</title>
-	<para>todo...</para>
-	<para></para>
-	<screen>
+	<para><command>iotop</command><indexterm><primary>iotop</primary></indexterm> works like the <command>top</command> command but orders processes by input/output instead of by CPU.</para>
+	<para>By default <command>iotop</command> will show all processes. This example uses <command>iotop -o</command> to only display processes with actual I/O.</para>
+	<screen>[root@RHEL65 ~]# iotop -o
+
+Total DISK READ: 8.63 M/s | Total DISK WRITE: 0.00 B/s
+  TID  PRIO  USER  DISK READ  DISK WRITE  SWAPIN     IO>    COMMAND
+15000 be/4 root     2.43 M/s    0.00 B/s  0.00 % 14.60 % tar cjf /srv/di...
+25000 be/4 root     6.20 M/s    0.00 B/s  0.00 %  6.15 % tar czf /srv/di...
+24988 be/4 root     0.00 B/s    7.21 M/s  0.00 %  0.00 % gzip
+25003 be/4 root     0.00 B/s 1591.19 K/s  0.00 %  0.00 % gzip
+25004 be/4 root     0.00 B/s  193.51 K/s  0.00 %  0.00 % bzip2
 </screen>
-	<para></para>
-	<para></para>
-	<indexterm><primary>iotop</primary></indexterm>
+	<para>Use the <command>-b</command> switch to create a log of <command>iotop</command> output (instead of the default interactive view).</para>
+	<screen>[root@RHEL65 ~]# iotop -bod 10
+Total DISK READ: 12.82 M/s | Total DISK WRITE: 5.69 M/s
+  TID  PRIO  USER  DISK READ  DISK WRITE  SWAPIN      IO    COMMAND
+25153 be/4 root     2.05 M/s    0.00 B/s  0.00 %  7.81 % tar cjf /srv/di...
+25152 be/4 root    10.77 M/s    0.00 B/s  0.00 %  2.94 % tar czf /srv/di...
+25144 be/4 root   408.54 B/s    0.00 B/s  0.00 %  0.05 % python /usr/sbi...
+12516 be/3 root     0.00 B/s 1491.33 K/s  0.00 %  0.04 % [jbd2/sdc1-8]
+12522 be/3 root     0.00 B/s   45.48 K/s  0.00 %  0.01 % [jbd2/sde1-8]
+25158 be/4 root     0.00 B/s    0.00 B/s  0.00 %  0.00 % [flush-8:64]
+25155 be/4 root     0.00 B/s  493.12 K/s  0.00 %  0.00 % bzip2
+25156 be/4 root     0.00 B/s    2.81 M/s  0.00 %  0.00 % gzip
+25159 be/4 root     0.00 B/s  528.63 K/s  0.00 %  0.00 % [flush-8:32]</screen>
+	<para>This is an example of <command>iotop</command> to track disk I/O every ten seconds for one user named <command>vagrant</command> (and only one process of this user, but this can be omitted). The <command>-a</command> switch accumulates I/O over time.</para>
+	<screen>[root@RHEL65 ~]# iotop -q -a -u vagrant -b -p 5216 -d 10 -n 10
+Total DISK READ: 0.00 B/s | Total DISK WRITE: 0.00 B/s
+  TID  PRIO  USER     DISK READ  DISK WRITE  SWAPIN      IO    COMMAND
+ 5216 be/4 vagrant       0.00 B      0.00 B  0.00 %  0.00 % gzip
+Total DISK READ: 818.22 B/s | Total DISK WRITE: 20.78 M/s
+ 5216 be/4 vagrant       0.00 B    213.89 M  0.00 %  0.00 % gzip
+Total DISK READ: 2045.95 B/s | Total DISK WRITE: 23.16 M/s
+ 5216 be/4 vagrant       0.00 B    430.70 M  0.00 %  0.00 % gzip
+Total DISK READ: 1227.50 B/s | Total DISK WRITE: 22.37 M/s
+ 5216 be/4 vagrant       0.00 B    642.02 M  0.00 %  0.00 % gzip
+Total DISK READ: 818.35 B/s | Total DISK WRITE: 16.44 M/s
+ 5216 be/4 vagrant       0.00 B    834.09 M  0.00 %  0.00 % gzip
+Total DISK READ: 6.95 M/s | Total DISK WRITE: 8.74 M/s
+ 5216 be/4 vagrant       0.00 B    920.69 M  0.00 %  0.00 % gzip
+Total DISK READ: 21.71 M/s | Total DISK WRITE: 11.99 M/s</screen>
+</section>
+<?hard-pagebreak?>
+<section><title>vmstat</title>
+	<para>While <command>vmstat</command><indexterm><primary>vmstat</primary></indexterm> is mainly a memory monitoring tool, it is worth mentioning here for its reporting on summary I/O data for block devices and swap space.</para>
+	<para>This example shows some disk activity (underneath the <command>-----io----</command> column), without swapping. </para>
+	<screen>[root@RHEL65 ~]# vmstat 5 10
+procs ----------memory---------- ---swap-- -----io---- --system-- -----cpu-----
+ r  b  swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st
+ 0  0  5420   9092  14020 340876    7   12   235   252   77  100  2  1 98  0  0
+ 2  0  5420   6104  13840 338176    0    0  7401  7812  747 1887 38 12 50  0  0
+ 2  0  5420  10136  13696 336012    0    0 11334    14 1725 4036 76 24  0  0  0
+ 0  0  5420  14160  13404 341552    0    0 10161  9914 1174 1924 67 15 18  0  0
+ 0  0  5420  14300  13420 341564    0    0     0    16   28   18  0  0 100  0  0
+ 0  0  5420  14300  13420 341564    0    0     0     0   22   16  0  0 100  0  0
+...
+[root@RHEL65 ~]#</screen>
+	<para>You can benefit from <command>vmstat</command>'s ability to display memory in kilobytes, megabytes or even kibibytes and mebibytes using -S (followed by k K m or M).</para>
+	<screen>[root@RHEL65 ~]# vmstat -SM 5 10
+procs ----------memory---------- ---swap-- -----io---- --system-- -----cpu-----
+ r  b  swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st
+ 0  0     5     14     11    334    0    0   259   255   79  107  2  1 97  0  0
+ 0  0     5     14     11    334    0    0     0     2   21   18  0  0 100  0  0
+ 0  0     5     15     11    334    0    0     6     0   35   31  0  0 100  0  0
+ 2  0     5      6     11    336    0    0 17100  7814 1378 2945 48 21 31  0  0
+ 2  0     5      6     11    336    0    0 13193    14 1662 3343 78 22  0  0  0
+ 2  0     5     13     11    330    0    0 11656  9781 1419 2642 82 18  0  0  0
+ 2  0     5      9     11    334    0    0 10705  2716 1504 2657 81 19  0  0  0
+ 1  0     5     14     11    336    0    0  6467  3788  765 1384 43  9 48  0  0
+ 0  0     5     14     11    336    0    0     0    13   28   24  0  0 100  0  0
+ 0  0     5     14     11    336    0    0     0     0   20   15  0  0 100  0  0
+[root@RHEL65 ~]#</screen>
+	<para><command>vmstat</command> is also discussed in other chapters.</para>
 </section>
