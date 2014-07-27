@@ -1,0 +1,133 @@
+<?hard-pagebreak?>
+<section><title>buying the hardware</title>
+	<para>The <command>Raspberry Pi</command> is advertised as a '30 euro computer'. This is not a lie, but many people will end up spending around 50 euro for each fully working and connected <command>Raspberry Pi</command>.</para>
+	<para>Besides the obvious <command>Raspberry Pi board</command> you will also need an <command>sd card</command>, a utp ethernet cable and a micro usb cable connected to a power adapter.</para>
+	<para><mediaobject><imageobject><imagedata fileref="images/raspberrypi.png" format="PNG" align="center"></imagedata></imageobject></mediaobject></para>
+</section>
+<?hard-pagebreak?>
+<section><title>downloading the images</title>
+	<para>Form raspberrypi.org/downloads</para>
+	<para></para>
+	<para><mediaobject><imageobject><imagedata fileref="images/raspberrypi_downloads.png" format="PNG" align="center"></imagedata></imageobject></mediaobject></para>
+	<para><mediaobject><imageobject><imagedata fileref="images/raspberrypi_downloading.png" format="PNG" align="center"></imagedata></imageobject></mediaobject></para>
+</section>
+	<para>After the download, you will have two zipfiles in <command>/tmp</command>.</para>
+<screen>paul@debian7:~$ ls -lh /tmp/*.zip
+-rw-r--r-- 1 paul paul 788M Jul 26 20:53 /tmp/2014-06-20-wheezy-raspbian.zip
+-rw-r--r-- 1 paul paul 549M Jul 26 20:51 /tmp/Pidora-2014-R2-1.zip
+paul@debian7:~$</screen>
+<?hard-pagebreak?>
+<section><title>Writing the SD cards</title>
+	<para>Find out the devicename of your SD card.</para>
+	<screen>root@debian7:~# dmesg | tail -2 | cut -c9-
+30238] sd 1:0:0:0: [sdb] 15644672 512-byte logical blocks: (8.01 GB/7.45 GiB)
+33843]  sdb: sdb1
+root@debian7:~#</screen>
+	<para>Be very careful not to overwrite the wrong device! In my case it says <command>sdb</command>. This can be different for you!</para>
+	<para>I choose to <command>unzip</command> the downloaded file with the <command>-p</command> switch to send the unzipped data to <command>stdout</command> so it can be captured bu <command>dd</command> and written to the SD card device (without creating the intermediate unzipped file).</para>
+	<screen>root@debian7:~# unzip -p /tmp/2014-06-20-wheezy-raspbian.zip | dd of=/dev/sdb</screen>
+	<para>This command will take a couple of minutes. Here is the output from <command>top -b</command> with relation to the unzipping and writing to the device (taken on a 2013 Macbook Pro Retina).</para>
+	<screen> PID USER    PR  NI   VIRT    RES   SHR S  %CPU %MEM    TIME+ COMMAND
+ 123 root    20   0      0      0     0 D   6.6  0.0  0:16.40 usb-storage
+8877 root    20   0   8992   1644   572 S   6.6  0.0  0:33.09 unzip
+8878 root    20   0   5816    648   556 D   0.0  0.0  0:17.85 dd</screen>
+	<para>This is the output from <command>dd</command>.</para>
+	<screen>root@debian7:~# unzip -p /tmp/2014-06-20-wheezy-raspbian.zip | dd of=/dev/sdb
+5785600+0 records in
+5785600+0 records out
+2962227200 bytes (3.0 GB) copied, 615.552 s, 4.8 MB/s</screen>
+	<para>Using <command>fdisk -l /dev/sdb</command> gives a quick check whether the image was written to the SD card.</para>
+	<screen>root@debian7:~# fdisk -l /dev/sdb
+
+Disk /dev/sdb: 8010 MB, 8010072064 bytes
+247 heads, 62 sectors/track, 1021 cylinders, total 15644672 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x000b5098
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdb1            8192      122879       57344    c  W95 FAT32 (LBA)
+/dev/sdb2          122880     5785599     2831360   83  Linux</screen>
+</section>
+<?hard-pagebreak?>
+<section><title>adjusting network settings</title>
+	<para>We will configure the network before inserting the <command>sd card</command> in the <command>Raspberry Pi</command>. To do this we will mount the Linux partition and edit <command>/etc/network/interfaces</command>.</para>
+	<screen>root@debian7:~# mount /dev/sdb2 /mnt
+root@debian7:~# vi /mnt/etc/network/interfaces</screen>
+	<para>Check the chapters in Debian network configuration if you don't know what to do with this file. I added four lines (in bold below) to give this <command>Pi</command> a unique address in my ghost network (when connected via ethernet cable).</para>
+</section>
+	<screen>root@debian7:~# cat /mnt/etc/network/interfaces
+auto lo
+
+iface lo inet loopback
+iface eth0 inet dhcp
+
+<command>auto eth0:0
+iface eth0:0 inet static
+address 192.168.42.54
+netmask 255.255.255.0</command>
+
+allow-hotplug wlan0
+iface wlan0 inet manual
+wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf
+iface default inet dhcp</screen>
+<?hard-pagebreak?>
+<section><title>connecting the hardware</title>
+	<para>Besides a <command>Raspberry Pi</command>, we also use a network utp cable, the sd card labeled <command>raspbian</command> and a usb power source (I use the adapter and usb cable from my old HTC Hero phone).</para>
+	<para>Connect the usb power last. The end result will look something like this picture.</para>
+	<para><mediaobject><imageobject><imagedata fileref="images/raspberrypi.png" format="PNG" align="center"></imagedata></imageobject></mediaobject></para>
+</section>
+<?hard-pagebreak?>
+<section><title>connecting with ssh</title>
+	<para>First we try to ping the device. I use my ghost network address. The <command>Pi</command> also received an address from the DHCP server, so if you have access to the DHCP leases you can also use that address.</para>
+	<screen>paul@debian7:~$ ping 192.168.42.54
+PING 192.168.42.54 (192.168.42.54) 56(84) bytes of data.
+64 bytes from 192.168.42.54: icmp_seq=1 ttl=64 time=0.577 ms
+64 bytes from 192.168.42.54: icmp_seq=2 ttl=64 time=0.627 ms
+^C
+--- 192.168.42.54 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 999ms
+rtt min/avg/max/mdev = 0.577/0.602/0.627/0.025 ms</screen>
+	<para>Success, the <command>Pi</command> replies to the ping request.</para>
+	<para>Now we login with the user <command>raspberry</command> and the password <command>pi</command>.</para>
+	<screen>paul@debian7:~$ ssh pi@192.168.42.54
+The authenticity of host '192.168.42.54 (192.168.42.54)' can't be established.
+ECDSA key fingerprint is a7:9b:bf:7f:00:12:b0:f0:93:f8:09:ad:32:1d:29:57.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added '192.168.42.54' (ECDSA) to the list of known hosts.
+pi@192.168.42.54's password:
+Linux raspberrypi 3.12.22+ #691 PREEMPT Wed Jun 18 18:29:58 BST 2014 armv6l
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Sun Jul 27 15:47:20 2014 from 192.168.1.35
+
+NOTICE: the software on this Raspberry Pi has not been fully configured. Plea\
+se run 'sudo raspi-config'
+
+pi@raspberrypi ~ $</screen>
+	<para></para>
+	<para><mediaobject><imageobject><imagedata fileref="images/raspberrypi.png" format="PNG" align="center"></imagedata></imageobject></mediaobject></para>
+</section>
+<?hard-pagebreak?>
+<section><title>Building a stack of pi's</title>
+	<para>Here are some pictures of a raspberry pi stack held together by Lego Technic.</para>
+	<para></para>
+	<para><mediaobject><imageobject><imagedata fileref="images/raspberrypi.png" format="PNG" align="center"></imagedata></imageobject></mediaobject></para>
+</section>
+<section><title></title>
+	<para></para>
+	<para></para>
+	<para><mediaobject><imageobject><imagedata fileref="images/raspberrypi.png" format="PNG" align="center"></imagedata></imageobject></mediaobject></para>
+</section>
+<?hard-pagebreak?>
+<section><title></title>
+	<para></para>
+	<para></para>
+	<para><mediaobject><imageobject><imagedata fileref="images/raspberrypi.png" format="PNG" align="center"></imagedata></imageobject></mediaobject></para>
+</section>
