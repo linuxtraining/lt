@@ -343,69 +343,6 @@ HaCkInG iS fUn At HuNtEr2</screen>
 	<para>Try testing from another computer using the ip-address of your server.</para>
 </section>
 </section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <?hard-pagebreak?>
 <section><title>named virtual hosts on Debian</title>
 <section><title>named virtual hosts</title>
@@ -482,9 +419,6 @@ root@debian7:/etc/apache2/sites-available# <command>cat index.html</command>
 Welcome to chess club 42</screen>
 </section>
 </section>
-
-
-
 <?hard-pagebreak?>
 <section><title>password protected website on Debian</title>
 	<para>You can secure files and directories in your website with a <command>.htaccess</command> file that refers to a <command>.htpasswd</command> file. The <command>htpasswd</command><indexterm><primary>htpasswd(1)</primary></indexterm> command can create a <command>.htpasswd</command><indexterm><primary>.htpasswd</primary></indexterm> file that contains a userid and an (encrypted) password.</para>
@@ -521,9 +455,6 @@ require valid-user</screen>
 14         &#060;/Directory</screen> 
 	<para>Now restart the apache2 server and test that it works!</para>
 </section>
-
-
-
 <?hard-pagebreak?>
 <section><title>port virtual hosts on CentOS</title>
 <section><title>default virtual host</title>
@@ -660,9 +591,6 @@ HaCkInG iS fUn At HuNtEr2</screen>
 iptables: Saving firewall rules to /etc/sysconfig/iptables:[  OK  ]</screen>
 </section>
 </section>
-
-
-
 <?hard-pagebreak?>
 <section><title>named virtual hosts on CentOS</title>
 <section><title>named virtual hosts</title>
@@ -727,16 +655,6 @@ Saving to: âindex.htmlâ
 Welcome to chess club 42</screen>
 </section>
 </section>
-
-
-
-
-
-
-
-
-
-
 <?hard-pagebreak?>
 <section><title>password protected website on CentOS</title>
 	<para>You can secure files and directories in your website with a <command>.htaccess</command> file that refers to a <command>.htpasswd</command> file. The <command>htpasswd</command><indexterm><primary>htpasswd(1)</primary></indexterm> command can create a <command>.htpasswd</command><indexterm><primary>.htpasswd</primary></indexterm> file that contains a userid and an (encrypted) password.</para>
