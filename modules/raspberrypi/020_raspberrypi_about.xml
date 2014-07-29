@@ -1,0 +1,2 @@
+<para>This module will introduce you to using Linux on the <command>Raspberry Pi</command>. We will start with two <command>Pi</command>'s and two empty <command>SD cards</command> and put <command>Raspbian</command> on one and <command>Pidora</command> on the other.</para>
+<para>After this module you will have a networked <command>Raspberry Pi</command> with <command>Debian</command> (Raspbian) and one with <command>Red Hat</command> (Pidora).</para>

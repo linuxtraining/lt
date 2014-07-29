@@ -1,23 +1,29 @@
 <?hard-pagebreak?>
 <section><title>buying the hardware</title>
+	<para>This picture shows four <command>Raspberry Pi's</command>. The two on the left are made in UK, those on the right are made in China. I noticed no difference in using them.</para>
+	<para><mediaobject><imageobject><imagedata fileref="images/raspberrypi_fourpis.jpg" format="PNG" align="center"></imagedata></imageobject></mediaobject></para>
 	<para>The <command>Raspberry Pi</command> is advertised as a '30 euro computer'. This is not a lie, but many people will end up spending around 50 euro for each fully working and connected <command>Raspberry Pi</command>.</para>
-	<para>Besides the obvious <command>Raspberry Pi board</command> you will also need an <command>sd card</command>, a utp ethernet cable and a micro usb cable connected to a power adapter.</para>
-	<para><mediaobject><imageobject><imagedata fileref="images/raspberrypi.png" format="PNG" align="center"></imagedata></imageobject></mediaobject></para>
+	<para>Besides the obvious <command>Raspberry Pi board</command> you will also need an <command>sd card</command>, a <command>utp ethernet cable</command> and a <command>micro usb cable</command> connected to a <command>power adapter</command> or powered usb port.</para>
+	<para>I recommend buying <command>class 10 sd cards</command> because they are faster than cheap sd cards. Below a picture that shows four class 10 cards; one micro sd (left) and three regular ones.</para>
+	<para><mediaobject><imageobject><imagedata fileref="images/raspberrypi_sd_cards.jpg" format="PNG" align="center"></imagedata></imageobject></mediaobject></para>
+	<para>For this project I will demonstrate two <command>Linux distributions</command> so I chose to label the cards.</para>
+	<para><mediaobject><imageobject><imagedata fileref="images/raspberrypi_sd_cards_labeled.jpg" format="PNG" align="center"></imagedata></imageobject></mediaobject></para>
+	<para>I will use the usb cable and power adapter from my old HTC Hero smartphone to power the <command>Raspberry Pi</command>.</para>
 </section>
 <?hard-pagebreak?>
 <section><title>downloading the images</title>
-	<para>Form raspberrypi.org/downloads</para>
-	<para></para>
+	<para>Download two images from <command>http://raspberrypi.org/downloads</command>. In this module I continue with the <command>raspbian</command> and the <command>pidora</command> images.</para>
 	<para><mediaobject><imageobject><imagedata fileref="images/raspberrypi_downloads.png" format="PNG" align="center"></imagedata></imageobject></mediaobject></para>
+	<para>This download may take a couple minutes to complete...</para>
 	<para><mediaobject><imageobject><imagedata fileref="images/raspberrypi_downloading.png" format="PNG" align="center"></imagedata></imageobject></mediaobject></para>
-</section>
 	<para>After the download, you will have two zipfiles in <command>/tmp</command>.</para>
 <screen>paul@debian7:~$ ls -lh /tmp/*.zip
 -rw-r--r-- 1 paul paul 788M Jul 26 20:53 /tmp/2014-06-20-wheezy-raspbian.zip
 -rw-r--r-- 1 paul paul 549M Jul 26 20:51 /tmp/Pidora-2014-R2-1.zip
 paul@debian7:~$</screen>
+</section>
 <?hard-pagebreak?>
-<section><title>Writing the SD cards</title>
+<section><title>writing the SD cards</title>
 	<para>Find out the devicename of your SD card.</para>
 	<screen>root@debian7:~# dmesg | tail -2 | cut -c9-
 30238] sd 1:0:0:0: [sdb] 15644672 512-byte logical blocks: (8.01 GB/7.45 GiB)
@@ -115,9 +121,9 @@ pi@raspberrypi ~ $</screen>
 	<para><mediaobject><imageobject><imagedata fileref="images/raspberrypi.png" format="PNG" align="center"></imagedata></imageobject></mediaobject></para>
 </section>
 <?hard-pagebreak?>
-<section><title>Building a stack of pi's</title>
-	<para>Here are some pictures of a raspberry pi stack held together by Lego Technic.</para>
-	<para></para>
+<section><title>building a stack of pi's</title>
+	<para>Here are some pictures of a <command>Raspberry Pi</command> stack held together by Lego Technic.</para>
+	<para><mediaobject><imageobject><imagedata fileref="images/raspberrypi_legostack.jpg" format="PNG" align="center"></imagedata></imageobject></mediaobject></para>
 	<para><mediaobject><imageobject><imagedata fileref="images/raspberrypi.png" format="PNG" align="center"></imagedata></imageobject></mediaobject></para>
 </section>
 <section><title></title>
