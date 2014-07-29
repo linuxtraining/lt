@@ -242,6 +242,7 @@ root@debian7:~# <command>cat /etc/apache2/sites-available/hunter2</command>
         DocumentRoot /var/www/hunter2
 &#060;/VirtualHost></screen>
 	<para>Notice the different port numbers 7000, 8000 and 9000. Notice also that we specified a unique <command>DocumentRoot</command> for each website.</para>
+	<para>Are you using <command>Ubuntu</command> or <command>Mint</command>, then these configfiles need to end in <command>.conf</command>.</para>
 </section>
 <section><title>three extra ports</title>
 	<para>We need to enable these three ports on apache in the <command>ports.conf</command> file.</para>
