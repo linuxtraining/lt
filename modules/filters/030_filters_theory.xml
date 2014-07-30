@@ -1,6 +1,6 @@
 <?hard-pagebreak?>
 <section><title>cat</title>
-	<para>When between two <command>pipes</command>, the <command>cat</command><indexterm><primary>cat</primary></indexterm> command does nothing (except putting <command>stdin</command> on <command>stdout</command>.</para>
+	<para>When between two <command>pipes</command>, the <command>cat</command><indexterm><primary>cat</primary></indexterm> command does nothing (except putting <command>stdin</command> on <command>stdout</command>).</para>
 	<screen>[paul@RHEL4b pipes]$ tac count.txt | cat | cat | cat | cat | cat
 five
 four
