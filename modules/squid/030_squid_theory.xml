@@ -1,8 +1,58 @@
-<section><title>squid proxy server</title>
-<section><title>/etc/squid/squid.conf</title>
-	<para>Squid's main configuration file is <command>/etc/squid/squid.conf</command><indexterm><primary>/etc/squid/squid.conf</primary></indexterm>. The file explains every parameter in great detail. It can be a good idea to start by creating a backup of this file.</para>
-	<para></para>
-	<screen>[root@RHEL4 /etc/squid/]# cp squid.conf squid.conf.original</screen>
+<?hard-pagebreak?>
+<section><title>installing squid</title>
+<para>This screenshot shows how to install squid on Debian with <command>aptitude</command>. Use <command>yum</command> if you are on Red Hat/CentOS.</para>
+<screen>root@debian7:~# <command>aptitude install squid</command>
+The following NEW packages will be installed:
+  squid squid-common{a} squid-langpack{a}
+0 packages upgraded, 3 newly installed, 0 to remove and 0 not upgraded.
+Need to get 1,513 kB of archives. After unpacking 4,540 kB will be used.
+Do you want to continue? [Y/n/?]
+...output truncated...
+Setting up squid-langpack (20120616-1) ...
+Setting up squid-common (2.7.STABLE9-4.1) ...
+Setting up squid (2.7.STABLE9-4.1) ...
+Creating squid spool directory structure
+2014/08/01 15:19:31| Creating Swap Directories
+Restarting Squid HTTP proxy: squid.</screen>
+	<para><command>squid</command>'s main configuration file is <command>/etc/squid/squid.conf</command><indexterm><primary>/etc/squid/squid.conf</primary></indexterm>. The file explains every parameter in great detail.</para>
+	<screen>root@debian7:~# <command>wc -l /etc/squid/squid.conf</command>
+4948 /etc/squid/squid.conf</screen>
+</section>
+<section><title>port 3128</title>
+<para>By default the <command>squid proxy server</command> will lsiten to <command>port 3128</command>.</para>
+<screen>root@debian7:~# <command>grep ^http_port /etc/squid/squid.conf</command>
+http_port 3128
+root@debian7:~#</screen>
+</section>
+<section><title>starting and stopping</title>
+<para>You can manage <command>squid</command> with the standard <command>service</command> command as shown in this screenshot.</para>
+<screen>root@debian7:~# <command>service squid start</command>
+Starting Squid HTTP proxy: squid.
+root@debian7:~# <command>service squid restart</command>
+Restarting Squid HTTP proxy: squid.
+root@debian7:~# <command>service squid status</command>
+squid is running.
+root@debian7:~# <command>service squid stop</command>
+Stopping Squid HTTP proxy: squid.
+root@debian7:~#</screen>
+</section>
+<?hard-pagebreak?>
+<section><title>client proxy settings</title>
+<para>To enable a proxy server in <command>Firefox</command> or <command>Iceweasel</command> go to <command>Edit Preferences</command> and configure as shown in this screenshot (replace 192.168.1.60 with the ip address of your proxy server).</para>
+	<para><mediaobject><imageobject><imagedata fileref="images/proxy_firefoxsettings.png" format="PNG" align="center"></imagedata></imageobject></mediaobject></para>
+	<para>Test that your internet works with the proxy enabled. Also test that after a <command>service squid stop</command> command on your proxy server that you get a message similar to this schreenshot.</para>
+	<para><mediaobject><imageobject><imagedata fileref="images/firefox_noproxy.png" format="PNG" align="center"></imagedata></imageobject></mediaobject></para>
+<?hard-pagebreak?>
+<para>To enable a proxy server with Google Chrome (or Debian Chromium) start the program from the command line like this:</para>
+<screen>paul@debian7:~$ chromium --proxy-server='192.168.1.60:3128'</screen>
+<para>Disabling the proxy with <command>service squid stop</command> should result in an error message similar to this screenshot.</para>
+	<para><mediaobject><imageobject><imagedata fileref="images/chromium_noproxy.png" format="PNG" align="center"></imagedata></imageobject></mediaobject></para>
+</section>
+<section><title>squid</title>
+<para></para>
+</section>
+<section><title>squid</title>
+<para></para>
 </section>
 <section><title>/var/spool/squid</title>
 	<para>The <command>squid</command><indexterm><primary>squid</primary></indexterm> proxy server stores its cache by default in <command>/var/spool/squid</command>. This setting is configurable in /etc/squid/squid.conf.</para>
@@ -103,5 +153,4 @@ Saving to: `index.html.1'
 
 [paul@RHEL5 ~]$ 
 	</screen>
-</section>
 </section>
