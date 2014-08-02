@@ -1,13 +1,23 @@
 <?hard-pagebreak?>
-<section><title>solution: RPM package management</title>
+<section><title>solution: package management</title>
 	<para>1. Verify whether gcc, sudo and wesnoth are installed.</para>
-	<screen>rpm -qa | grep gcc</screen>
-	<screen>rpm -qa | grep sudo</screen>
-	<screen>rpm -qa | grep wesnoth</screen>
-	<para>2. Use yum to search for and install the scp, tmux, and man-pages packages. Did you find them all ?</para>
-	<screen>yum search scp
+	<screen>On Red Hat/CentOS:
+rpm -qa | grep gcc
+rpm -qa | grep sudo
+rpm -qa | grep wesnoth</screen>
+	<screen>On Debian/Ubuntu:
+dpkg -l | grep gcc
+dpkg -l | grep sudo
+dpkg -l | grep wesnoth</screen>
+	<para>2. Use yum or aptitude to search for and install the scp, tmux, and man-pages packages. Did you find them all ?</para>
+	<screen>On Red Hat/CentOS:
+yum search scp
 yum search tmux
 yum search man-pages</screen>
+	<screen>On Debian/Ubuntu:
+aptitude search scp
+aptitude search tmux
+aptitude search man-pages</screen>
 	<para>3. Search the internet for 'webmin' and figure out how to install it.</para>
 	<screen>Google should point you to webmin.com.</screen>
 	<screen>There are several formats available there choose .rpm, .deb or .tgz .</screen>
