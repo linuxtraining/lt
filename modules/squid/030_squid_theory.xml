@@ -48,95 +48,94 @@ root@debian7:~#</screen>
 <para>Disabling the proxy with <command>service squid stop</command> should result in an error message similar to this screenshot.</para>
 	<para><mediaobject><imageobject><imagedata fileref="images/chromium_noproxy.png" format="PNG" align="center"></imagedata></imageobject></mediaobject></para>
 </section>
-<section><title>squid</title>
-<para></para>
+<?hard-pagebreak?>
+<section><title>upside down images</title>
+<para>A proxy server sits inbetween your browser and the internet. So besides caching of internet data (the original function of a proxy server) and besides firewall like restrictions based on www content, a proxy server is in the perfect position to alter the webpages that you visit.</para>
+<para>You could for instance change the advertising on a webpage (or remove certain advertisers), or like we do in this example; change all images so they are upside down.</para>
+<para>The server needs command line tools to manipulate images and a perl script that uses these tools (and <command>wget</command> to download the images locally and serve them with <command>apache2</command>). In this example we use <command>imagemagick</command> (which provides tools like <command>convert</command> and <command>mogrify</command>).</para>
+<screen>root@debian7:~# <command>aptitude install imagemagick wget perl apache2</command>
+...output truncated...
+root@debian7:~# <command>dpkg -S $(readlink -f $(which mogrify))</command>
+imagemagick: /usr/bin/mogrify.im6
+root@debian7:~#</screen>
+<para>The perl script that is shown in the screenshot below can be found on several websites, yet I have not found the original author. It is however a very simple script that uses <command>wget</command> and <command>mogrify</command> to download images (.jpg .gif and .png), flip them and store them in <command>/var/www/images</command>.</para>
+<screen>root@debian7:~# cat /usr/local/bin/flip.pl
+#!/usr/bin/perl
+$|=1;
+$count = 0;
+$pid = $$;
+while (&#060;&#062;) {
+ chomp $_;
+ if ($_ =~ /(.*\.jpg)/i) {
+  $url = $1;
+  system("/usr/bin/wget", "-q", "-O","/var/www/images/$pid-$count.jpg", "$url");
+  system("/usr/bin/mogrify", "-flip","/var/www/images/$pid-$count.jpg");
+  print "http://127.0.0.1/images/$pid-$count.jpg\n";
+ }
+ elsif ($_ =~ /(.*\.gif)/i) {
+  $url = $1;
+  system("/usr/bin/wget", "-q", "-O","/var/www/images/$pid-$count.gif", "$url");
+  system("/usr/bin/mogrify", "-flip","/var/www/images/$pid-$count.gif");
+  print "http://127.0.0.1/images/$pid-$count.gif\n";
+ }
+ elsif ($_ =~ /(.*\.png)/i) {
+  $url = $1;
+  system("/usr/bin/wget", "-q", "-O","/var/www/images/$pid-$count.png", "$url");
+  system("/usr/bin/mogrify", "-flip","/var/www/images/$pid-$count.png");
+  print "http://127.0.0.1/images/$pid-$count.png\n";
+ }
+ else {
+         print "$_\n";;
+ }
+ $count++;
+}</screen>
+<para>Change (or enable) also the following line in <command>/etc/squid/suiqd.conf</command>.</para>
+<screen>http_access allow localnet
+http_port 3128 transparent
+url_rwwrite_program /usr/local/bin/flip.pl</screen>
+<para>The directory this script uses is <command>/var/www/images</command> and should be accessible by both the <command>squid server</command> (which uses the user named <command>proxy</command> and by the <command>apache2</command> webserver (which uses the user <command>www-data</command>. The screenshot below shows how to create this directory, set the permissions and make the users a member of the other groups.</para>
+<screen>root@debian7:~# mkdir /var/www/images
+root@debian7:~# chown www-data:www-data /var/www/images
+root@debian7:~# chmod 755 /var/www/images
+root@debian7:~# usermod -aG www-data proxy
+root@debian7:~# usermod -aG proxy www-data</screen>
+<para>Test that it works after restarting <command>squid</command> and <command>apache2</command>.</para>
+	<para><mediaobject><imageobject><imagedata fileref="images/proxy_upsidedown_xkcd.png" format="PNG" align="center"></imagedata></imageobject></mediaobject></para>
 </section>
-<section><title>squid</title>
-<para></para>
-</section>
-<section><title>/var/spool/squid</title>
-	<para>The <command>squid</command><indexterm><primary>squid</primary></indexterm> proxy server stores its cache by default in <command>/var/spool/squid</command>. This setting is configurable in /etc/squid/squid.conf.</para>
-	<screen>
-[root@RHEL4 ~]# grep "^# cache_dir" /etc/squid/squid.conf
-# cache_dir ufs /var/spool/squid 100 16 256
-	</screen>
-	<para>It is possible that in a default setup where squid has never run, that the /var/spool/squid directories do not exist.</para>
-	<screen>
-[root@RHEL4 ~]# ls -al /var/spool/squid
-ls: /var/spool/squid: No such file or directory
-	</screen>
-	<para>Running <command>squid -z</command> will create the necessary squid directories.</para>
-	<screen>
-[root@RHEL4 ~]# squid -z
-2008/09/22 14:07:47| Creating Swap Directories
-[root@RHEL4 ~]# ls -al /var/spool/squid
-total 80
-drwxr-x---   18 squid squid 4096 Sep 22 14:07 .
-drwxr-xr-x   26 root  root  4096 May 30  2007 ..
-drwxr-xr-x  258 squid squid 4096 Sep 22 14:07 00
-drwxr-xr-x  258 squid squid 4096 Sep 22 14:07 01
-drwxr-xr-x  258 squid squid 4096 Sep 22 14:07 02
-...
-	</screen>
-	</section>
-<section><title>port 3128 or port 8080</title>
-	<para>By default the squid proxy server will bind to port 3128 to listen to incoming requests.</para>
-	<screen>
-[root@RHEL4 ~]# grep "default port" /etc/squid/squid.conf
-#       The default port number is 3128.
-	</screen>
-	<para>Many organizations use port 8080 instead.</para>
-	<screen>
-[root@RHEL4 ~]# grep 8080 /etc/squid/squid.conf
-http_port 8080
-	</screen>
-</section>
+<?hard-pagebreak?>
 <section><title>/var/log/squid</title>
 	<para>The standard log file location for squid is <command>/var/log/squid</command><indexterm><primary>/var/log/squid</primary></indexterm>.</para>
-	<screen>
-[root@RHEL4 ~]# grep "/var/log" /etc/squid/squid.conf
+	<screen>[root@RHEL4 ~]# grep "/var/log" /etc/squid/squid.conf
 # cache_access_log /var/log/squid/access.log
 # cache_log /var/log/squid/cache.log
-# cache_store_log /var/log/squid/store.log
-	</screen>
-	<screen></screen>
+# cache_store_log /var/log/squid/store.log</screen>
 </section>
 <section><title>access control</title>
 	<para>The default squid setup only allows localhost access. To enable access for a private network range, look for the "INSERT YOUR OWN RULE(S) HERE..." sentence in squid.conf and add two lines similar to the screenshot below.</para>
-	<screen>
-# INSERT YOUR OWN RULE(S) HERE TO ALLOW ACCESS FROM YOUR CLIENTS
+	<screen># INSERT YOUR OWN RULE(S) HERE TO ALLOW ACCESS FROM YOUR CLIENTS
 
 acl company_network src 192.168.1.0/24
-http_access allow company_network
-</screen>
-	<para>Restart the squid server, and now the local private network can use the proxy cache.</para>
+http_access allow company_network</screen>
 </section>
 <section><title>testing squid</title>
 	<para>First, make sure that the server running squid has access to the internet.</para>
-	<screen>
-[root@RHEL4 ~]# wget -q http://linux-training.be/index.html
+	<screen>[root@RHEL4 ~]# wget -q http://linux-training.be/index.html
 [root@RHEL4 ~]# ls -l index.html 
 -rw-r--r--  1 root root 2269 Sep 18 13:18 index.html
-[root@RHEL4 ~]#
-	</screen>
-	<para>Then configure a browser on a client to use the proxy server. OR you could set the HTTP_PROXY (sometimes http_proxy) variable to point command line programs to the proxy.</para>
-	<screen>
-[root@fedora ~]# export HTTP_PROXY=http://192.168.1.39:8080
-[root@ubuntu ~]# export http_proxy=http://192.168.1.39:8080
-	</screen>
+[root@RHEL4 ~]#</screen>
+	<para>Then configure a browser on a client to use the proxy server, or you could set the HTTP_PROXY (sometimes http_proxy) variable to point command line programs to the proxy.</para>
+	<screen>[root@fedora ~]# export HTTP_PROXY=http://192.168.1.39:8080
+[root@ubuntu ~]# export http_proxy=http://192.168.1.39:8080</screen>
 	<para>Testing a client machine can then be done with wget (wget -q is used to simplify the screenshot).</para>
-	<screen>
-[root@RHEL5 ~]# > /etc/resolv.conf
+	<screen>[root@RHEL5 ~]# > /etc/resolv.conf
 [root@RHEL5 ~]# wget -q http://www.linux-training.be/index.html
 [root@RHEL5 ~]# ls -l index.html 
 -rw-r--r-- 1 root root 2269 Sep 18  2008 index.html
-[root@RHEL5 ~]#
-	</screen>
+[root@RHEL5 ~]#</screen>
 </section>
 <section><title>name resolution</title>
-	<para>You need name resolution working on the squid server, but you don't need name resolution on the clients.</para>
-	<screen>
-[paul@RHEL5 ~]$ wget http://grep.be
+	<para>You need name resolution working on the <command>squid</command> server, but you don't need name resolution on the clients.</para>
+	<screen>[paul@RHEL5 ~]$ wget http://grep.be
 --14:35:44--  http://grep.be
 Resolving grep.be... failed: Temporary failure in name resolution.
 [paul@RHEL5 ~]$ export http_proxy=http://192.168.1.39:8080
@@ -151,6 +150,5 @@ Saving to: `index.html.1'
 
 14:38:29 (54.8 KB/s) - `index.html' saved [5390/5390]
 
-[paul@RHEL5 ~]$ 
-	</screen>
+[paul@RHEL5 ~]$</screen>
 </section>
