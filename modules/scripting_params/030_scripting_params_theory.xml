@@ -118,7 +118,7 @@ There are 5 quines
 	</section>
 <?hard-pagebreak?>
 	<section><title>get script options with getopts</title>
-		<para>The <command>getopts</command><indexterm><primary>getopts</primary></indexterm> function allows you to parse options given to a command. The following script allows for any compination of the options a, f and z.</para>
+		<para>The <command>getopts</command><indexterm><primary>getopts</primary></indexterm> function allows you to parse options given to a command. The following script allows for any combination of the options a, f and z.</para>
 		<screen>
 kahlan@solexp11$ cat options.ksh 
 #!/bin/ksh
