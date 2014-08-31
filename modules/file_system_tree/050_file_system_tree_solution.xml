@@ -32,7 +32,7 @@
 	<para>9. Display <command>/proc/interrupts</command>. What is the size of this file ? Where is this file stored ?</para>
 	<para>The size is zero, yet the file contains data. It is not stored anywhere because /proc is a virtual file system that allows you to talk with the kernel. (If you answered "stored in RAM-memory, that is also correct...).</para>
 	<para>10. Can you enter the <command>/root</command> directory ? Are there (hidden) files ?</para>
-	<screen>Try "cd /root". Yes there are (hidden) files there.</screen>
+	<screen>Try "cd /root". The <command>/root</command> directory is not accessible for normal users on most modern Linux systems.</screen>
 	<para>11. Are ifconfig, fdisk, parted, shutdown and grub-install present in <command>/sbin</command> ? Why are these binaries in <command>/sbin</command> and not in /bin ?</para>
 	<screen>Because those files are only meant for system administrators.</screen>
 	<para>12. Is <command>/var/log</command> a file or a directory ? What about <command>/var/spool</command> ?</para>
