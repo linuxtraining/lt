@@ -1,7 +1,7 @@
 <?hard-pagebreak?>
-<section><title>practice: RPM package management</title>
+<section><title>practice: package management</title>
 	<para>1. Verify whether gcc, sudo and wesnoth are installed.</para>
-	<para>2. Use yum to search for and install the scp, tmux, and man-pages packages. Did you find them all ?</para>
+	<para>2. Use yum or aptitude to search for and install the scp, tmux, and man-pages packages. Did you find them all ?</para>
 	<para>3. Search the internet for 'webmin' and figure out how to install it.</para>
 	<para>4. If time permits, search for and install samba including the samba docs pdf files (thousands of pages in two pdf's).</para>
 </section>

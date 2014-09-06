@@ -9,11 +9,6 @@
 	<para>You can find lists of open proxy servers on the internet that enable you to surf anonymously. This works when the proxy server connects on your behalf to a website, without logging your ip-address. But be careful, these (listed) open proxy servers could be created in order to eavesdrop upon their users.</para>
 </section>
 <section><title>squid</title>
-	<para>This chapter is an introduction to the <command>squid</command><indexterm><primary>squid</primary></indexterm> proxy server (http://www.squid-cache.org). The version used is 2.5.</para>
-	<screen>
-[root@RHEL4 ~]# rpm -qa | grep squid
-squid-2.5.STABLE6-3.4E.12
-[root@RHEL4 ~]#
-	</screen>
+	<para>This module is an introduction to the <command>squid</command><indexterm><primary>squid</primary></indexterm> proxy server (http://www.squid-cache.org). We will first configure squid as a normal proxy server.</para>
 </section>
 </section>
