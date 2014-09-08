@@ -117,7 +117,7 @@ Can you get over there?</screen>
 The governer is governing.
 The winter is over.
 Can you get over there?</screen>
-	<para>Surrounding the searched word with spaces is not a good solution (because other characters can be word separators). This screenshwo below show how to use <command>\b</command> to find only the searched word:</para>
+	<para>Surrounding the searched word with spaces is not a good solution (because other characters can be word separators). This screenshot below show how to use <command>\b</command> to find only the searched word:</para>
 	<screen>paul@debian7:~$ grep '\bover\b' text
 The winter is over.
 Can you get over there?
