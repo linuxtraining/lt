@@ -304,7 +304,7 @@ paul@debian7:~$ echo -e 'today\tis\twarm' | sed 's_\s_ _g'
 today is warm</screen>
 </section>
 <section><title>optional occurrence</title>
-	<para>A question mark signifies an the previous is <command>optional</command>.</para>
+	<para>A question mark signifies that the previous is <command>optional</command>.</para>
 	<para>The example below searches for three consecutive letter o, but the third o is optional.</para>
 	<screen>paul@debian7:~$ cat list2
 ll
