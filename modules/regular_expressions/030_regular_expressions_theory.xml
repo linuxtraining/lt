@@ -3,7 +3,7 @@
 	<para>There are three different versions of regular expression syntax:</para>
 	<screen>BRE: Basic Regular Expressions
 ERE: Extended Regular Expressions
-PRCE: Perl Regeular Expresseions</screen>
+PRCE: Perl Regular Expressions</screen>
 	<para>Depending on the tool being used, one or more of these syntaxes can be used.</para>
 	<para>For example the <command>grep</command><indexterm><primary>grep</primary></indexterm> tool has the <command>-E</command> option to force a string to be read as ERE while <command>-G</command> forces BRE and <command>-P</command> forces PRCE.</para>
 	<para>Note that <command>grep</command> als has <command>-F</command> to force the string to be read literally.</para>
