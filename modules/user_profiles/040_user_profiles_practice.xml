@@ -1,0 +1,9 @@
+<?hard-pagebreak?>
+<section><title>practice: user profiles</title>
+	<para>1. Make a list of all the profile files on your system.</para>
+	<para>2. Read the contents of each of these, often they <command>source</command> extra scripts.</para>
+	<para>3. Put a unique variable, alias and function in each of those files.</para>
+	<para>4. Try several different ways to obtain a shell (su, su -, ssh, tmux, gnome-terminal, Ctrl-alt-F1, ...) and verify which of your custom variables, aliases and function are present in your environment.</para>
+	<para>5. Do you also know the order in which they are executed?</para>
+	<para>6. When an application depends on a setting in $HOME/.profile, does it matter whether $HOME/.bash_profile exists or not ?</para>
+</section>
