@@ -299,7 +299,7 @@ paul@debian7:~$ echo 2014-04-01 | sed 's/\(....\)-\(..\)-\(..\)/\3:\2:\1/'
 	<para>The <command>\s</command> can refer to white space such as a space or a tab.</para>
 	<para>This example looks for white spaces (\s) globally and replaces them with 1 space.</para>
 	<screen>paul@debian7:~$ echo -e 'today\tis\twarm'
-today	is	warm
+today   is      warm
 paul@debian7:~$ echo -e 'today\tis\twarm' | sed 's_\s_ _g'
 today is warm</screen>
 </section>
