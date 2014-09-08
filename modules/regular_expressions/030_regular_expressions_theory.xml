@@ -232,7 +232,7 @@ paul@debian7:~/files$ </screen>
 allfiles.txt  bllfiles.txt  cllfiles.txt  really.txt.txt  temp.txt  tennis.txt
 paul@pi ~ $ rename 's/.txt$/.TXT/' *.txt
 paul@pi ~ $ ls *.TXT
-allfiles.TXT  aTXT.TXT    bllfiles.TXT    cllfiles.TXT    really.txt.TXT
+allfiles.TXT  bllfiles.TXT    cllfiles.TXT    really.txt.TXT
 temp.TXT      tennis.TXT
 paul@pi ~ $</screen>
 	<para>Note that the <command>dollar sign</command> in the regex means <command>at the end</command>. Without the dollar sign this command would fail on the really.txt.txt file.</para>
