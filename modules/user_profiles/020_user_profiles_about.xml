@@ -1,0 +1,1 @@
+<para>It is nice to have these preset and custom aliases, variables, and functions, but where do they all come from ? The <command>shell</command><indexterm><primary>shell</primary></indexterm> uses a number of startup files that are checked (and executed or rather <command>sourced</command>) whenever the shell is invoked. What follows is an overview of startup scripts.</para>

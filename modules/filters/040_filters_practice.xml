@@ -2,8 +2,8 @@
 <section><title>practice: filters</title>
 	<para>1. Put a sorted list of all bash users in bashusers.txt.</para>
 	<para>2. Put a sorted list of all logged on users in onlineusers.txt.</para>
-	<para>3. Make a list of all filenames in <command>/etc</command> that contain the string samba.</para>
-	<para>4. Make a sorted list of all files in <command>/etc</command> that contain the case insensitive string samba.</para>
+	<para>3. Make a list of all filenames in <command>/etc</command> that contain the string <command>conf</command> in their filename.</para>
+	<para>4. Make a sorted list of all files in <command>/etc</command> that contain the case insensitive string <command>conf</command> in their filename.</para>
 	<para>5. Look at the output of <command>/sbin/ifconfig</command>. Write a line that displays only ip address and the subnet mask.</para>
 	<para>6. Write a line that removes all non-letters from a stream.</para>
 	<para>7. Write a line that receives a text file, and outputs all words on a separate line.</para>
