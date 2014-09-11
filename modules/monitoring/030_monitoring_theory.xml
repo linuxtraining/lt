@@ -1,6 +1,15 @@
 <?hard-pagebreak?>
+<section><title>four basic resources</title>
+	<para>The four basic resources to monitor are:</para>
+<itemizedlist spacing='compact'>
+<listitem>cpu</listitem>
+<listitem>network</listitem>
+<listitem>ram memory</listitem>
+<listitem>storage</listitem>
+</itemizedlist>
+</section>
 	<section><title>top</title>
-		<para>To start monitoring, you can use <command>top</command><indexterm><primary>top(1)</primary></indexterm>. This tool will monitor Memory, CPU and running processes. Top will automatically refresh. Inside top you can use many commands, like <command>k</command> to kill processes, or <command>t</command> and <command>m</command> to toggle displaying task and memory information, or the number <command>1</command> to have one line per cpu, or one summary line for all cpu's.</para>
+		<para>To start monitoring, you can use <command>top</command><indexterm><primary>top(1)</primary></indexterm>. This tool will monitor ram memory, cpu and swap. Top will automatically refresh. Inside <command>top</command> you can use many commands, like <command>k</command> to kill processes, or <command>t</command> and <command>m</command> to toggle displaying task and memory information, or the number <command>1</command> to have one line per cpu, or one summary line for all cpu's.</para>
 		<screen>top - 12:23:16 up 2 days,  4:01, 2 users, load average: 0.00, 0.00, 0.00
 Tasks:  61 total,   1 running,  60 sleeping,   0 stopped,   0 zombie
 Cpu(s):  0.3% us,  0.5% sy, 0.0% ni, 98.9% id, 0.2% wa, 0.0% hi, 0.0% si
@@ -20,7 +29,7 @@ PID USER      PR  NI  VIRT  RES  SHR S %CPU %MEM    TIME+  COMMAND
 		<screen>[paul@RHELv4u3 ~]$ top p 3456 p 8732 p 9654</screen>
 	</section>
 	<section><title>free</title>
-		<para>The <command>free</command><indexterm><primary>free(1)</primary></indexterm> command is common on Linux to monitor free memory. You can use free to display information every x seconds, but the output is not ideal.</para>
+		<para>The <command>free</command><indexterm><primary>free</primary></indexterm> command is common on Linux to monitor free memory. You can use free to display information every x seconds, but the output is not ideal.</para>
 		<screen>[paul@RHELv4u3 gen]$ free -om -s 10
 total       used       free     shared    buffers     cached
 Mem:        249        222         27          0         50        109
@@ -34,7 +43,7 @@ Swap:       511          0        511
 	</section>
 <?hard-pagebreak?>
 	<section><title>watch</title>
-		<para>It might be more interesting to combine free with the <command>watch</command><indexterm><primary>watch(1)</primary></indexterm> program. This program can also run commands with a delay, and can highlight changes (with the -d switch).</para>
+		<para>It might be more interesting to combine free with the <command>watch</command><indexterm><primary>watch(1)</primary></indexterm> program. This program can run commands with a delay, and can highlight changes (with the -d switch).</para>
 		<screen>[paul@RHELv4u3 ~]$ watch -d -n 3 free -om
 ...
 Every 3.0s: free -om                             Sat Jan 27 12:13:03 2007
@@ -44,7 +53,7 @@ Mem:           249        230         19          0         56        109
 Swap:          511          0        511</screen>
 	</section>
 	<section><title>vmstat</title>
-		<para>To monitor CPU, disk and memory statistics in one line there is <command>vmstat</command><indexterm><primary>vmstat(1)</primary></indexterm>. The screenshot below shows vmstat running every two seconds 100 times (or until the Ctrl-C). Below the r, you see the number of processes waiting for the CPU, sleeping processes go below b. Swap usage (swpd) stayed constant at 144 kilobytes, free memory dropped from 16.7MB to 12.9MB. See man vmstat for the rest</para>
+		<para>To monitor CPU, disk and memory statistics in one line there is <command>vmstat</command><indexterm><primary>vmstat(1)</primary></indexterm>. The screenshot below shows vmstat running every two seconds 100 times (or until the Ctrl-C). Below the r, you see the number of processes waiting for the CPU, sleeping processes go below b. Swap usage (swpd) stayed constant at 144 kilobytes, free memory dropped from 16.7MB to 12.9MB. See man vmstat for the rest.</para>
 		<screen>[paul@RHELv4u3 ~]$ vmstat 2 100
 procs ----------memory--------- --swap-- ---io--- --system-- ---cpu----
 r  b  swpd   free   buff  cache  si  so  bi   bo   in    cs us sy id wa
@@ -172,4 +181,4 @@ laika.local        =&#062; ik-in-f83.google.com          0b      0b     39b
 	<section><title>htop</title>
 	<para>You can use <command>htop</command> instead of top.</para>
 	<para><mediaobject><imageobject><imagedata fileref="images/htop.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
-</section>
+	</section>
