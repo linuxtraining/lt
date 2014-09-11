@@ -175,7 +175,7 @@ system_u:system_r:getty_t:s0   1320 tty5    Ss+   0:00 /sbin/mingetty /dev/tty5
 system_u:system_r:getty_t:s0   1322 tty6    Ss+   0:00 /sbin/mingetty /dev/tty6</screen>
 	<para>The <command>selinux type</command><indexterm><primary>type(selinux)</primary></indexterm> is similar to an <command>selinux domain</command>, but refers to directories and files instead of processes.</para>
 	<para>Hundreds of binaries also have a type:</para>
-	<screen>[root@centos65 sbin]# ls -lZ useradd usermod userdel httpd postcat postfix                                                                                                                                                          
+	<screen>[root@centos65 sbin]# ls -lZ useradd usermod userdel httpd postcat postfix
 -rwxr-xr-x. root root system_u:object_r:httpd_exec_t:s0 httpd
 -rwxr-xr-x. root root system_u:object_r:postfix_master_exec_t:s0 postcat
 -rwxr-xr-x. root root system_u:object_r:postfix_master_exec_t:s0 postfix
@@ -311,7 +311,7 @@ est42.txt
 [root@centos65 ~]# getenforce 
 Enforcing</screen>
 	<para>There are two possibilities now: either it works, or it fails. It works when <command>selinux</command> is in <command>permissive mode</command>, it fails when in <command>enforcing mode</command>.</para>
-	<screen>[root@centos65 ~]# wget http://localhost/test42.txt                                                                        
+	<screen>[root@centos65 ~]# wget http://localhost/test42.txt
 --2014-04-12 21:05:02--  http://localhost/test42.txt
 Resolving localhost... ::1, 127.0.0.1
 Connecting to localhost|::1|:80... connected.
