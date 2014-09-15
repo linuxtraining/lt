@@ -1,6 +1,6 @@
 <?hard-pagebreak?>
 <section><title>solution: troubleshooting tools</title>
-	<para>0. It is imperative that you practice these tools <command>before</command> trouble arises. It will help you get familiar with the tools and allow you to create a base line of normla behaviour for your systems.</para>
+	<para>0. It is imperative that you practice these tools <command>before</command> trouble arises. It will help you get familiar with the tools and allow you to create a base line of normal behaviour for your systems.</para>
 	<para>1. Read the theory on <command>fuser</command> and explore its man page. Use this command to find files that you open yourself.</para>
 	<para>2. Read the theory on <command>lsof</command> and explore its man page. Use this command to find files that you open yourself.</para>
 	<para>3. Boot a live image on an existing computer (virtual or real) and <command>chroot</command> into to it.</para>
