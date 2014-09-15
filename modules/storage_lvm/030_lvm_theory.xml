@@ -52,7 +52,7 @@ Volume group "vg" successfully created</screen>
 	<screen>root@RHEL4:~# lvcreate --size 500m vg
 Logical volume "lvol0" created</screen>
 <?hard-pagebreak?>
-	<para>The logical volume /dev/vg/lvol0 can now be formatted with ext2, and mounted for normal use.</para>
+	<para>The logical volume /dev/vg/lvol0 can now be formatted with ext3, and mounted for normal use.</para>
 	<screen>root@RHELv4u2:~# mke2fs -m0 -j /dev/vg/lvol0 
 mke2fs 1.35 (28-Feb-2004)
 Filesystem label=

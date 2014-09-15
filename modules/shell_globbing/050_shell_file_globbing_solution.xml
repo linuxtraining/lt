@@ -2,7 +2,21 @@
 <section><title>solution: shell globbing</title>
 	<para>1. Create a test directory and enter it.</para>
 	<screen>mkdir testdir; cd testdir</screen>
-	<para>2. Create files file1 file10 file11 file2 File2 File3 file33 fileAB filea fileA fileAAA file( file 2 (the last one has 6 characters including a space)</para>
+	<para>2. Create the following files :</para>
+	<screen>file1
+file10
+file11
+file2
+File2
+File3
+file33
+fileAB
+filea
+fileA
+fileAAA
+file(
+file 2</screen>
+	<para>(the last one has 6 characters including a space)</para>
 	<screen>touch file1 file10 file11 file2 File2 File3
 touch file33 fileAB filea fileA fileAAA
 touch "file("
