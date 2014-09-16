@@ -862,4 +862,81 @@ root@debian7:/var/www/choochoos# service apache2 restart
 Restarting web server: apache2 ... waiting .</screen>
 <para>Chances are your browser will warn you about the self signed certificate.</para>
 	<para><mediaobject><imageobject><imagedata fileref="images/apache_selfsigned.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+	</section>
+<?hard-pagebreak?>
+<section><title>self signed cert on RHEL/CentOS</title>
+<para>Below is a quick way to create a self signed cert for https on RHEL/CentOS. You may need these packages:</para>
+<screen>[root@paulserver ~]# yum install httpd openssl mod_ssl
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+ * base: ftp.belnet.be
+ * extras: ftp.belnet.be
+ * updates: mirrors.vooservers.com
+base                                                         | 3.7 kB     00:00
+Setting up Install Process
+Package httpd-2.2.15-31.el6.centos.x86_64 already installed and latest version
+Package openssl-1.0.1e-16.el6_5.15.x86_64 already installed and latest version
+Package 1:mod_ssl-2.2.15-31.el6.centos.x86_64 already ins... and latest version
+Nothing to do</screen>
+<para>We use <command>openssl</command> to create the certificate.</para>
+<screen>[root@paulserver ~]# mkdir certs
+[root@paulserver ~]# cd certs
+[root@paulserver certs]# openssl genrsa -out ca.key 2048
+Generating RSA private key, 2048 bit long modulus
+.........+++
+.........................................................+++
+e is 65537 (0x10001)
+[root@paulserver certs]# openssl req -new -key ca.key -out ca.csr
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter '.', the field will be left blank.
+-----
+Country Name (2 letter code) [XX]:BE
+State or Province Name (full name) []:antwerp
+Locality Name (eg, city) [Default City]:antwerp
+Organization Name (eg, company) [Default Company Ltd]:antwerp
+Organizational Unit Name (eg, section) []:
+Common Name (eg, your name or your server's hostname) []:paulserver
+Email Address []:
+
+Please enter the following 'extra' attributes
+to be sent with your certificate request
+A challenge password []:
+An optional company name []:
+[root@paulserver certs]# openssl x509 -req -days 365 -in ca.csr -signkey ca.ke\
+y -out ca.crt
+Signature ok
+subject=/C=BE/ST=antwerp/L=antwerp/O=antwerp/CN=paulserver
+Getting Private key</screen>
+<para>We copy the keys to the right location (You may be missing SELinux info here).</para>
+<screen>[root@paulserver certs]# cp ca.crt /etc/pki/tls/certs/
+[root@paulserver certs]# cp ca.key ca.csr /etc/pki/tls/private/</screen>
+<para>We add the location of our keys to this file, and also add the <command>NameVirtualHost *:443</command> directive.</para>
+<screen>[root@paulserver certs]# vi /etc/httpd/conf.d/ssl.conf
+[root@paulserver certs]# grep ^SSLCerti /etc/httpd/conf.d/ssl.conf
+SSLCertificateFile /etc/pki/tls/certs/ca.crt
+SSLCertificateKeyFile /etc/pki/tls/private/ca.key</screen>
+<para>Create a website configuration.</para>
+<screen>[root@paulserver certs]# vi /etc/httpd/conf.d/choochoos.conf
+[root@paulserver certs]# cat /etc/httpd/conf.d/choochoos.conf
+&#060;VirtualHost *:443>
+        SSLEngine on
+        SSLCertificateFile /etc/pki/tls/certs/ca.crt
+        SSLCertificateKeyFile /etc/pki/tls/private/ca.key
+        DocumentRoot /var/www/choochoos
+        ServerName paulserver
+&#060;/VirtualHost>
+[root@paulserver certs]#</screen>
+<para>Create a simple website and restart apache.</para>
+<screen>[root@paulserver certs]# mkdir /var/www/choochoos
+[root@paulserver certs]# echo HTTPS model train choochoos > /var/www/choochoos/\
+index.html
+[root@paulserver httpd]# service httpd restart
+Stopping httpd:                                            [  OK  ]
+Starting httpd:                                            [  OK  ]</screen>
+<para>And your browser will probably warn you that this certificate is self signed.</para>
+	<para><mediaobject><imageobject><imagedata fileref="images/apache_selfsigned_centos.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 </section>
