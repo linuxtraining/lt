@@ -789,3 +789,77 @@ paul@lounge:~/cobbaut.be$</screen>
 	<section><title>traffic</title>
 		<para>Apache keeps a log of all visitors. The <command>webalizer</command><indexterm><primary>webalizer</primary></indexterm> is often used to parse this log into nice html statistics.</para>
 	</section>
+<?hard-pagebreak?>
+<section><title>self signed cert on Debian</title>
+<para>Below is a very quick guide on setting up Apache2 on Debian 7 with a self-signed certificate.</para>
+<para>Chances are these packages are already installed.</para>
+<screen>root@debian7:~# aptitude install apache2 openssl
+No packages will be installed, upgraded, or removed.
+0 packages upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+Need to get 0 B of archives. After unpacking 0 B will be used.</screen>
+<para>Create a directory to store the certs, and use <command>openssl</command> to create a self signed cert that is valid for 999 days.</para>
+<screen>root@debian7:~# mkdir /etc/ssl/localcerts
+root@debian7:~# openssl req -new -x509 -days 999 -nodes -out /etc/ssl/local\
+certs/apache.pem -keyout /etc/ssl/localcerts/apache.key
+Generating a 2048 bit RSA private key
+...
+...
+writing new private key to '/etc/ssl/localcerts/apache.key'
+-----
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter '.', the field will be left blank.
+-----
+Country Name (2 letter code) [AU]:BE
+State or Province Name (full name) [Some-State]:Antwerp
+Locality Name (eg, city) []:Antwerp
+Organization Name (eg, company) [Internet Widgits Pty Ltd]:linux-training.be
+Organizational Unit Name (eg, section) []:
+Common Name (e.g. server FQDN or YOUR name) []:Paul
+Email Address []:</screen>
+
+<para>A little security never hurt anyone.</para>
+<screen>root@debian7:~# ls -l /etc/ssl/localcerts/
+total 8
+-rw-r--r-- 1 root root 1704 Sep 16 18:24 apache.key
+-rw-r--r-- 1 root root 1302 Sep 16 18:24 apache.pem
+root@debian7:~# chmod 600 /etc/ssl/localcerts/*
+root@debian7:~# ls -l /etc/ssl/localcerts/
+total 8
+-rw------- 1 root root 1704 Sep 16 18:24 apache.key
+-rw------- 1 root root 1302 Sep 16 18:24 apache.pem</screen>
+<para>Enable the <command>apache ssl mod</command>.</para>
+<screen>root@debian7:~# a2enmod ssl
+Enabling module ssl.
+See /usr/share/doc/apache2.2-common/README.Debian.gz on how to configure SSL\
+ and create self-signed certificates.
+To activate the new configuration, you need to run:
+  service apache2 restart</screen>
+<para>Create the website configuration.</para>
+<screen>root@debian7:~# vi /etc/apache2/sites-available/choochoos
+root@debian7:~# cat /etc/apache2/sites-available/choochoos
+&#060;VirtualHost *:7000>
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/choochoos
+        SSLEngine On
+        SSLCertificateFile /etc/ssl/localcerts/apache.pem
+        SSLCertificateKeyFile /etc/ssl/localcerts/apache.key
+&#060;/VirtualHost>
+root@debian7:~#</screen>
+<para>Ans create the website itself.</para>
+<screen>root@debian7:/var/www/choochoos# vi index.html
+root@debian7:/var/www/choochoos# cat index.html
+Choo Choo HTTPS secured model train Choo Choo</screen>
+<para>Enable the website and restart (or reload) apache2.</para>
+<screen>root@debian7:/var/www/choochoos# a2ensite choochoos
+Enabling site choochoos.
+To activate the new configuration, you need to run:
+  service apache2 reload
+root@debian7:/var/www/choochoos# service apache2 restart
+Restarting web server: apache2 ... waiting .</screen>
+<para>Chances are your browser will warn you about the self signed certificate.</para>
+	<para><mediaobject><imageobject><imagedata fileref="images/apache_selfsigned.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+</section>
