@@ -1,3 +1,2 @@
-<para>To explore the Linux <command>file tree</command>, you will need some basic tools.</para>
-<para>This chapter is small overview of the most common commands to work with directories : <command>pwd, cd, ls, mkdir, rmdir</command>. These commands are available on any Linux (or Unix) system.</para>
-<para>This chapter also discusses <command>absolute</command> and <command>relative paths</command> and <command>path completion</command> in the <command>bash</command> shell.</para>
+<para>This module is a brief overview of the most common commands to work with directories: <command>pwd</command>, <command>cd</command>, <command>ls</command>, <command>mkdir</command> and <command>rmdir</command>. These commands are available on any Linux (or Unix) system.</para>
+<para>This module also discusses <command>absolute</command> and <command>relative paths</command> and <command>path completion</command> in the <command>bash</command> shell.</para>
