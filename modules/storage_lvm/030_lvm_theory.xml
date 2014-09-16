@@ -110,7 +110,7 @@ Disk /dev/sdc: 429 MB, 429496320 bytes</screen>
 --
   PV Name               /dev/sdc
   VG Name               vg2</screen>
-	<para>And you are familiar both with the <command>lvcreate</command><indexterm><primary>lvcreate(1)</primary></indexterm> command to create a small logical volume and the <command>mke2fs</command><indexterm><primary>mke2fs(1)</primary></indexterm> command to put ext2 on it.</para>
+	<para>And you are familiar both with the <command>lvcreate</command><indexterm><primary>lvcreate(1)</primary></indexterm> command to create a small logical volume and the <command>mke2fs</command><indexterm><primary>mke2fs(1)</primary></indexterm> command to put ext3 on it.</para>
 	<screen>[root@RHEL5 ~]# lvcreate --size 200m vg2
   Logical volume "lvol0" created
 [root@RHEL5 ~]# mke2fs -m20 -j /dev/vg2/lvol0 
@@ -155,7 +155,7 @@ The filesystem on /dev/vg2/lvol0 is now 307200 blocks long. </screen>
 [root@RHEL5 ~]# pvs | grep sde1
   /dev/sde1             lvm2 --    99.98M  99.98M
 [root@RHEL5 ~]#</screen>
-	<para>The next step is ti use fdisk to enlarge the partition (actually deleting it and then recreating /dev/sde1 with more cylinders).</para>
+	<para>The next step is to use fdisk to enlarge the partition (actually deleting it and then recreating /dev/sde1 with more cylinders).</para>
 	<screen>[root@RHEL5 ~]# fdisk /dev/sde
 
 Command (m for help): p
