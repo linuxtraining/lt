@@ -5,9 +5,9 @@
 	<para>2. Put a sorted list of all logged on users in onlineusers.txt.</para>
 	<screen>who | cut -d' ' -f1 | sort &#062; onlineusers.txt</screen>
 	<para>3. Make a list of all filenames in <command>/etc</command> that contain the string <command>conf</command> in their filename.</para>
-	<screen>ls /etc | grep samba</screen>
+	<screen>ls /etc | grep conf</screen>
 	<para>4. Make a sorted list of all files in <command>/etc</command> that contain the case insensitive string <command>conf</command> in their filename.</para>
-	<screen>ls /etc | grep -i samba | sort</screen>
+	<screen>ls /etc | grep -i conf | sort</screen>
 	<para>5. Look at the output of <command>/sbin/ifconfig</command>. Write a line that displays only ip address and the subnet mask.</para>
 	<screen>/sbin/ifconfig | head -2 | grep 'inet ' | tr -s ' ' | cut -d' ' -f3,5</screen>
 	<para>6. Write a line that removes all non-letters from a stream.</para>
