@@ -121,6 +121,18 @@ pi@raspberrypi ~ $</screen>
 	<para><mediaobject><imageobject><imagedata fileref="images/raspberrypi.png" format="PNG" align="center"></imagedata></imageobject></mediaobject></para>
 </section>
 <?hard-pagebreak?>
+<section><title>camera module</title>
+	<para>There is a cheap HD camera module for the raspberry pi. In this picture the module is connected.</para>
+	<para></para>
+	<para><mediaobject><imageobject><imagedata fileref="images/raspberrypi_camera_connect.jpg" format="PNG" align="center"></imagedata></imageobject></mediaobject></para>
+</section>
+<?hard-pagebreak?>
+<section><title></title>
+	<para></para>
+	<para></para>
+	<para><mediaobject><imageobject><imagedata fileref="images/raspberrypi.png" format="PNG" align="center"></imagedata></imageobject></mediaobject></para>
+</section>
+<?hard-pagebreak?>
 <section><title>building a stack of pi's</title>
 	<para>Here are some pictures of a <command>Raspberry Pi</command> stack held together by Lego Technic.</para>
 	<para><mediaobject><imageobject><imagedata fileref="images/raspberrypi_legostack.jpg" format="PNG" align="center"></imagedata></imageobject></mediaobject></para>
