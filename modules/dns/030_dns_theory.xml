@@ -1,41 +1,58 @@
 <?hard-pagebreak?>
 <section><title>about dns</title>
-	<section><title>name to ip-address resolution</title>
-		<para>The <command>domain name system</command><indexterm><primary>domain name system</primary></indexterm> or <command>dns</command><indexterm><primary>dns</primary></indexterm> is a service on a tcp/ip network that enables clients to translate names into ip-addresses. It is much more than that, but let's keep it simple for now.</para>
-		<para>When you use a browser to go to a website, then you type the name of that website in the url bar. But for your computer to actually communicate with the web server hosting said website, your computer needs the ip-address of that web server. That is where <command>dns</command> comes in.</para>
+	<section><title>name to ip address resolution</title>
+		<para>The <command>domain name system</command><indexterm><primary>domain name system</primary></indexterm> or <command>dns</command><indexterm><primary>dns</primary></indexterm> is a service on a tcp/ip network that enables clients to translate names into ip addresses. Actually <command>dns</command> is much more than that, but let's keep it simple for now.</para>
+		<para>When you use a browser to go to a website, then you type the name of that website in the url bar. But for your computer to actually communicate with the web server hosting said website, your computer needs the ip address of that web server. That is where <command>dns</command> comes in.</para>
 		<mediaobject><imageobject><imagedata fileref="images/dns_01_what_is_dns.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 		<para>In wireshark you can use the <command>dns</command> filter to see this traffic.</para>
 		<mediaobject><imageobject><imagedata fileref="images/dns_01_what_is_dns.ws.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 	</section>
 	<section><title>history</title>
-		<para>In the Seventies, only a few hundred computers were connected to the internet. To resolve names, computers had a flat file that contained a table to resolve hostnames to ip-addresses. This local file was downloaded from <command>hosts.txt</command><indexterm><primary>hosts.txt</primary></indexterm> on an ftp server in Stanford.</para>
+		<para>In the Seventies, only a few hundred computers were connected to the internet. To resolve names, computers had a flat file that contained a table to resolve hostnames to ip addresses. This local file was downloaded from <command>hosts.txt</command><indexterm><primary>hosts.txt</primary></indexterm> on an ftp server in Stanford.</para>
 		<para>In 1984 <command>Paul Mockapetris</command><indexterm><primary>Paul Mockapetris</primary></indexterm> created <command>dns</command>, a distributed treelike hierarchical database that will be explained in detail in these chapters.</para>
 		<para>Today, <command>dns</command><indexterm><primary>dns</primary></indexterm> or <command>domain name system</command><indexterm><primary>domain name system</primary></indexterm> is a worldwide distributed hierarchical database controlled by <command>ICANN</command>. Its primary function is to resolve names to ip addresses, and to point to internet servers providing <command>smtp</command> or <command>ldap</command> services.</para>
-		<para>The old <command>hosts.txt</command> file is still active today on most computer systems under the name <command>/etc/hosts</command>. We will discuss this file later, as it can influence name resolution.</para>
+		<para>The old <command>hosts.txt</command> file is still active today on most computer systems under the name <command>/etc/hosts</command> (or C:/Windows/System32/Drivers/etc/hosts). We will discuss this file later, as it can influence name resolution.</para>
 	</section>
 <?hard-pagebreak?>
 	<section><title>forward and reverse lookup queries</title>
-		<para>The question a client asks a dns server is called a <command>query</command><indexterm><primary>query (dns)</primary></indexterm>. When a client queries for an ip-address, this is called a <command>forward lookup query</command><indexterm><primary>forward lookup query</primary></indexterm> (as seen in the previous drawing).</para>
+		<para>The question a client asks a dns server is called a <command>query</command><indexterm><primary>query (dns)</primary></indexterm>. When a client queries for an ip address, this is called a <command>forward lookup query</command><indexterm><primary>forward lookup query</primary></indexterm> (as seen in the previous drawing).</para>
 		<para>The reverse, a query for the name of a host, is called a <command>reverse lookup query</command><indexterm><primary>reverse lookup query</primary></indexterm>.</para>
 		<para>Below a picture of a <command>reverse lookup query</command>.</para>
 		<mediaobject><imageobject><imagedata fileref="images/dns_02_reverse.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 		<para>Here is a screenshot of a <command>reverse lookup query</command> in <command>nslookup</command><indexterm><primary>nslookup</primary></indexterm>.</para>
-		<screen>paul@ubu1010:~$ nslookup 
+		<screen>root@debian7:~# <command>nslookup</command>
 > set type=PTR
-> 178.63.30.100
-Server:		212.71.8.10
-Address:	212.71.8.10#53
+> 188.93.155.87
+Server:         192.168.1.42
+Address:        192.168.1.42#53
 
 Non-authoritative answer:
-100.30.63.178.in-addr.arpa	name = antares.ginsys.net.</screen>
-		<para>This is what a reverse lookup looks like when sniffing with wireshark.</para>
+87.155.93.188.in-addr.arpa      name = antares.ginsys.net.</screen>
+		<para>This is what a reverse lookup looks like when sniffing with <command>tcpdump</command><indexterm><primary>tcpdump</primary></indexterm>.</para>
+		<screen>root@debian7:~# <command>tcpdump udp port 53</command>
+tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
+listening on eth0, link-type EN10MB (Ethernet), capture size 65535 bytes
+11:01:29.357685 IP 192.168.1.103.42041 > 192.168.1.42.domain: 14763+ PT\
+R? 87.155.93.188.in-addr.arpa. (44)
+11:01:29.640093 IP 192.168.1.42.domain > 192.168.1.103.42041: 14763 1/0\
+/0 PTR antares.ginsys.net. (76)</screen>
+		<para>And here is what it looks like in <command>wireshark</command> (note this is an older screenshot).</para>
 		<mediaobject><imageobject><imagedata fileref="images/dns_02_reverse.ws.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 	</section>
+<?hard-pagebreak?>
 	<section><title>/etc/resolv.conf</title>
-		<para>A client computer needs to know the ip-address of the <command>dns server</command><indexterm><primary>dns server</primary></indexterm> to be able to send queries to it. This is either provided by a <command>dhcp server</command><indexterm><primary>dhcp server</primary></indexterm> or manually entered.</para>
+		<para>A client computer needs to know the ip address of the <command>dns server</command><indexterm><primary>dns server</primary></indexterm> to be able to send queries to it. This is either provided by a <command>dhcp server</command><indexterm><primary>dhcp server</primary></indexterm> or manually entered.</para>
 		<para>Linux clients keep this information in the <command>/etc/resolv.conf</command><indexterm><primary>/etc/resolv.conf</primary></indexterm> file.</para>
-		<screen>paul@ubu1010:~$ cat /etc/resolv.conf 
-nameserver 212.71.8.10</screen>
+		<screen>root@debian7:~# <command>cat /etc/resolv.conf</command>
+domain linux-training.be
+search linux-training.be
+nameserver 192.168.1.42
+root@debian7:~#</screen>
+		<para>You can manually change the ip address in this file to use another <command>dns</command> server. For example Google provides a public name server at 8.8.8.8 and 8.8.4.4.</para>
+		<screen>root@debian7:~# <command>cat /etc/resolv.conf</command>
+nameserver 8.8.8.8
+root@debian7:~#</screen>
+	<para>Please note that on <command>dhcp clients</command> this value can be overwritten when the <command>dhcp lease</command> is renewed.</para>
 	</section>
 </section>
 <?hard-pagebreak?>
@@ -56,11 +73,12 @@ http://en.wikipedia.org/wiki/Root_nameserver.</screen>
 <?hard-pagebreak?>
 	<section><title>root hints</title>
 		<para>Every <command>dns server software</command> will come with a list of <command>root hints</command><indexterm><primary>root hints</primary></indexterm> to locate the <command>root servers</command>.</para>
-		<screen>root@gwen:~# grep ' A ' /etc/bind/db.root 
+		<para>This screenshot shows a small portion of the root hints file that comes with <command>bind 9.8.4</command><indexterm><primary>bind</primary></indexterm>.</para>
+		<screen>root@debian7:~# <command>grep -w 'A ' /etc/bind/db.root</command>
 A.ROOT-SERVERS.NET.      3600000      A     198.41.0.4
 B.ROOT-SERVERS.NET.      3600000      A     192.228.79.201
 C.ROOT-SERVERS.NET.      3600000      A     192.33.4.12
-D.ROOT-SERVERS.NET.      3600000      A     128.8.10.90
+D.ROOT-SERVERS.NET.      3600000      A     199.7.91.13
 E.ROOT-SERVERS.NET.      3600000      A     192.203.230.10
 F.ROOT-SERVERS.NET.      3600000      A     192.5.5.241
 G.ROOT-SERVERS.NET.      3600000      A     192.112.36.4
@@ -69,7 +87,8 @@ I.ROOT-SERVERS.NET.      3600000      A     192.36.148.17
 J.ROOT-SERVERS.NET.      3600000      A     192.58.128.30
 K.ROOT-SERVERS.NET.      3600000      A     193.0.14.129
 L.ROOT-SERVERS.NET.      3600000      A     199.7.83.42
-M.ROOT-SERVERS.NET.      3600000      A     202.12.27.33</screen>
+M.ROOT-SERVERS.NET.      3600000      A     202.12.27.33
+root@debian7:~#</screen>
 	</section>
 	<section><title>domains</title>
 		<para>One level below the <command>top level domains</command> are the <command>domains</command><indexterm><primary>domain (dns)</primary></indexterm>. Domains can have subdomains (also called child domains).</para>
@@ -192,18 +211,21 @@ M.ROOT-SERVERS.NET.      3600000      A     202.12.27.33</screen>
 </tgroup>
 </table>
 		<para>Many people were surprised by the choices, claiming not much use for them and wanting a separate <command>.xxx</command> domain (introduced in 2011) for adult content, and <command>.kidz</command> a save haven for children. In the meantime more useless <command>tld</command>'s were create like <command>.travel</command> (for travel agents) and <command>.tel</command> (for internet communications) and <command>.jobs</command> (for jobs sites).</para>
+	<para>In 2012 <command>ICANN</command> released a list of 2000 new <command>tld</command>'s that would gradually become available.</para>
 	</section>
 <?hard-pagebreak?>
 	<section><title>fully qualified domain name</title>
 		<para>The <command>fully qualified domain name</command><indexterm><primary>fully qualified domain name</primary></indexterm> or <command>fqdn</command><indexterm><primary>fqdn</primary></indexterm> is the combination of the <command>hostname</command> of a machine appended with its <command>domain name</command>.</para>
 		<para>If for example a system is called <command>gwen</command> and it is in the domain <command>linux-training.be</command>, then the fqdn of this system is <command>gwen.linux-training.be</command>.</para>
-		<para>On Linux systems you can use the <command>hostname</command><indexterm><primary>hostname</primary></indexterm> and <command>domainname</command><indexterm><primary>domainname</primary></indexterm> commands to verify this information.</para>
-		<screen>root@gwen:~# hostname 
+		<para>On Linux systems you can use the <command>hostname</command><indexterm><primary>hostname</primary></indexterm> and <command>dnsdomainname</command><indexterm><primary>dnsdomainname</primary></indexterm> commands to verify this information.</para>
+		<screen>root@gwen:~# <command>hostname</command>
 gwen
-root@gwen:~# domainname
+root@gwen:~# <command>dnsdomainname</command>
 linux-training.be
-root@gwen:~# hostname --fqdn
-gwen.linux-training.be</screen>
+root@gwen:~# <command>hostname --fqdn</command>
+gwen.linux-training.be
+root@gwen:~# <command>cat /etc/debian_version</command>
+6.0.10</screen>
 	</section>
 	<section><title>dns zones</title>
 		<para>A <command>zone</command><indexterm><primary>zone (dns)</primary></indexterm> (aka a <command>zone of authority</command>) is a portion of the DNS tree that covers one domain name or child domain name. The picture below represents zones as blue ovals. Some zones will contain delegate authority over a child domain to another zone.</para>
@@ -214,10 +236,10 @@ gwen.linux-training.be</screen>
 <?hard-pagebreak?>
 	<section><title>dns records</title>
 		<section><title>A record</title>
-			<para>The <command>A record</command><indexterm><primary>A (DNS record)</primary></indexterm>, which is also called a <command>host record</command><indexterm><primary>host (DNS record)</primary></indexterm> contains the ipv4-address of a computer. When a DNS client queries a DNS server for an A record, then the DNS server will resolve the hostname in the query to an ip-address. An <command>AAAA record</command><indexterm><primary>AAAA (DNS record)</primary></indexterm> is similar but contains an ipv6 address instead of ipv4.</para>
+			<para>The <command>A record</command><indexterm><primary>A (DNS record)</primary></indexterm>, which is also called a <command>host record</command><indexterm><primary>host (DNS record)</primary></indexterm> contains the ipv4-address of a computer. When a DNS client queries a DNS server for an A record, then the DNS server will resolve the hostname in the query to an ip address. An <command>AAAA record</command><indexterm><primary>AAAA (DNS record)</primary></indexterm> is similar but contains an ipv6 address instead of ipv4.</para>
 		</section>
 		<section><title>PTR record</title>
-			<para>A <command>PTR record</command><indexterm><primary>PTR (DNS record)</primary></indexterm> is the reverse of an A record. It contains the name of a computer and can be used to resolve an ip-address to a hostname.</para>
+			<para>A <command>PTR record</command><indexterm><primary>PTR (DNS record)</primary></indexterm> is the reverse of an A record. It contains the name of a computer and can be used to resolve an ip address to a hostname.</para>
 		</section>
 		<section><title>NS record</title>
 			<para>A <command>NS record</command><indexterm><primary>NS (DNS record)</primary></indexterm> or <command>nameserver record</command> is a record that points to a DNS name server (in this zone). You can list all your name servers for your DNS zone in distinct NS records.</para>
@@ -240,6 +262,24 @@ gwen.linux-training.be</screen>
 	<section><title>caching only servers</title>
 		<para>A <command>dns server</command> that is set up without <command>authority</command> over a <command>zone</command>, but that is connected to other name servers and caches the queries is called a <command>caching only name server</command><indexterm><primary>cahing only name server</primary></indexterm>. Caching only name servers do not have a <command>zone database</command> with resource records. Instead they connect to other name servers and cache that information.</para>
 		<para>There are two kinds of caching only name servers. Those with a <command>forwarder</command>, and those that use the <command>root servers</command>.</para>
+<?hard-pagebreak?>
+	<section><title>caching only server without forwarder</title>
+		<para>A caching only server without forwarder will have to get information elsewhere. When it receives a query from a client, then it will consult one of the <command>root servers</command>. The <command>root server</command><indexterm><primary>root server (dns)</primary></indexterm> will refer it to a <command>tld</command> server, which will refer it to another <command>dns</command> server. That last server might know the answer to the query, or may refer to yet another server. In the end, our hard working <command>dns</command> server will find an answer and report this back to the client. </para>
+		<para>In the picture below, the clients asks for the ip address of linux-training.be. Our caching only server will contact the root server, and be refered to the .be server. It will then contact the .be server and be refered to one of the name servers of Openminds. One of these name servers (in this cas ns1.openminds.be) will answer the query with the ip address of linux-training.be. When our caching only server reports this to the client, then the client can connect to this website.</para>
+		<mediaobject><imageobject><imagedata fileref="images/dns_06_caching_only.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+		<para>Sniffing with <command>tcpdump</command> will give you this (the first 20 characters of each line are cut).</para>
+		<screen>192.168.1.103.41251 > M.ROOT-SERVERS.NET.domain: 37279% [1au] A? linux-tr\
+aining.be. (46)
+M.ROOT-SERVERS.NET.domain > 192.168.1.103.41251: 37279- 0/11/13 (740)
+192.168.1.103.65268 > d.ns.dns.be.domain: 38555% [1au] A? linux-training.\
+be. (46)
+d.ns.dns.be.domain > 192.168.1.103.65268: 38555- 0/7/5 (737)
+192.168.1.103.7514 > ns2.openminds.be.domain: 60888% [1au] A? linux-train\
+ing.be. (46)
+ns2.openminds.be.domain > 192.168.1.103.7514: 60888*- 1/0/1 A 188.93.155.\
+87 (62)</screen>
+	</section>
+<?hard-pagebreak?>
 	<section><title>caching only server with forwarder</title>
 		<para>A <command>caching only server</command> with a <command>forwarder</command><indexterm><primary>forwarder (dns)</primary></indexterm> is a DNS server that will get all its information from the <command>forwarder</command>. The <command>forwarder</command> must be a <command>dns server</command> for example the <command>dns server</command> of an <command>internet service provider</command>.</para>
 		<para><mediaobject><imageobject><imagedata fileref="images/dns_05_forwarder.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
@@ -247,12 +287,12 @@ gwen.linux-training.be</screen>
 <screen>forwarders {
  	212.71.8.10;
  };</screen>
-	</section>
-<?hard-pagebreak?>
-	<section><title>caching only server without forwarder</title>
-		<para>A caching only server without forwarder will have to get information elsewhere. When it receives a query from a client, then it will consult one of the <command>root servers</command>. The <command>root server</command><indexterm><primary>root server (dns)</primary></indexterm> will refer it to a <command>tld</command> server, which will refer it to another <command>dns</command> server. That last server might know the answer to the query, or may refer to yet another server. In the end, our hard working <command>dns</command> server will find an answer and report this back to the client. </para>
-		<para>In the picture below, the clients asks for the ip address of linux-training.be. Our caching only server will contact the root server, and be refered to the .be server. It will then contact the .be server and be refered to one of the name servers of Openminds. One of these name servers (in this cas ns1.openminds.be) will answer the query with the ip-address of linux-training.be. When our caching only server reports this to the client, then the client can connect to this website.</para>
-		<mediaobject><imageobject><imagedata fileref="images/dns_06_caching_only.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>You can also configure your <command>dns server</command> to work with <command>conditional forwarder(s)</command>. The definition of a conditional forwarder looks like this.</para>
+	<screen>zone "someotherdomain.local" {
+       type forward;
+       forward only;
+       forwarders { 10.104.42.1; };
+};</screen>
 	</section>
 	<section><title>iterative or recursive query</title>
 		<para>A <command>recursive query</command><indexterm><primary>recursive query</primary></indexterm> is a DNS query where the client that is submitting the query expects a complete answer (Like the fat red arrow above going from the Macbook to the DNS server). An <command>iterative query</command><indexterm><primary>iterative query</primary></indexterm> is a DNS query where the client does not expect a complete answer (the three black arrows originating from the DNS server in the picture above). Iterative queries usually take place between name servers. The root name servers do not respond to recursive queries.</para>
@@ -280,10 +320,10 @@ gwen.linux-training.be</screen>
 <section><title>SOA record</title>
 		<para>The <command>soa record</command> contains a <command>refresh</command> value. If this is set to 30 minutes, then the slave server will request a copy of the zone file every 30 minutes. There is also a <command>retry</command> value. The retry value is used when the master server did not reply to the last zone transfer request. The value for <command>expiry time</command> says how long the slave server will answer to queries, without receiving a zone update.</para>
 		<para>Below an example of how to use nslookup to query the <command>soa record</command> of a zone (linux-training.be).</para>
-		<screen>root@debian6:~# nslookup 
-> set type=SOA
-> server ns1.openminds.be
-> linux-training.be
+		<screen>root@debian6:~# <command>nslookup</command> 
+> <command>set type=SOA</command>
+> <command>server ns1.openminds.be</command>
+> <command>linux-training.be</command>
 Server:         ns1.openminds.be
 Address:        195.47.215.14#53
 
@@ -309,42 +349,367 @@ linux-training.be
 		<para>For example, a client queries for the A record on www.linux-training.be to its local server. This is the first query ever received by this local server. The local server checks that it is not authoritative for the linux-training.be domain, nor for the <command>.be tld</command>, and it is also not a root server. So the local server will use the root hints to send an <command>iterative</command> query to a root server.</para>
 		<para>The root server will reply with a reference to the server that is authoritative for the .be domain (root DNS servers do not resolve fqdn's, and root servers do not respond to recursive queries).</para>
 		<para>The local server will then sent an iterative query to the authoritative server for the <command>.be tld</command>. This server will respond with a reference to the name server that is authoritative for the linux-training.be domain.</para>
-		<para>The local server will then sent the query for www.linux-training.be to the authoritative server (or one of its slave servers) for the linux-training.be domain. When the local server receives the ip-address for www.linux-training.be, then it will provide this information to the client that submitted this query.</para>
+		<para>The local server will then sent the query for www.linux-training.be to the authoritative server (or one of its slave servers) for the linux-training.be domain. When the local server receives the ip address for www.linux-training.be, then it will provide this information to the client that submitted this query.</para>
 		<para>Besides caching the A record for www.linux-training.be, the local server will also cache the NS and A record for the linux-training.be name server and the .be name server.</para>
 	</section>
 <?hard-pagebreak?>
 <section><title>forward lookup zone example</title>
-	<para>The way to set up zones in <command>/etc/named.conf</command><indexterm><primary>/etc/named.conf</primary></indexterm> is to create a zone entry with a reference to another file located in /var/named.</para>
-	<para>Here is an example of such an entry in <command>/etc/named.conf</command>:</para>
-	<screen>zone "classdemo.local" IN {
-	type master;
-	file "classdemo.local.zone";
-	allow-update { none; };
-};</screen>
+	<para>The way to set up zones in <command>/etc/named.conf.local</command><indexterm><primary>/etc/named.conf.local</primary></indexterm> is to create a zone entry with a reference to another file (this other file contains the <command>zone database</command>).</para>
+	<para>Here is an example of such an entry in <command>/etc/named.conf.local</command>:</para>
+	<screen>root@debian7:~# <command>cat /etc/bind/named.conf.local</command>
+//
+// Do any local configuration here
+//
+
+// Consider adding the 1918 zones here, if they are not used in your
+// organization
+//include "/etc/bind/zones.rfc1918";
+
+zone "paul.local" IN {
+        type master;
+        file "/etc/bind/db.paul.local";
+        allow-update { none; };
+};
+root@debian7:~#</screen>
 	<para>To create the zone file, the easy method is to copy an existing zone file (this is easier than writing from scratch).</para>
-	<screen>[root@RHEL4b named]# cd /var/named/
-[root@RHEL4b named]# pwd
-/var/named
-[root@RHEL4b named]# cp localhost.zone classdemo.local.zone
-[root@RHEL4b named]#</screen>
+	<screen>root@debian7:/etc/bind# <command>cp db.empty db.paul.local</command>
+root@debian7:/etc/bind# <command>vi db.paul.local</command></screen>
 	<para>Here is an example of a zone file.</para>
-	<screen>[root@RHEL4b named]# cat classdemo.local.zone 
+	<screen>root@debian7:/etc/bind# <command>cat db.paul.local</command>
+; zone for classroom teaching
 $TTL    86400
-$ORIGIN classdemo.local.
-@       IN SOA  rhel4b.classdemo.local.   admin.classdemo.local. (
-                          2007083100      ; serial
-                          3H              ; refresh
-                          900             ; retry
-                          1W              ; expiry
-                          1D )            ; minimum
+@       IN      SOA     debianpaul.paul.local. root.paul.local (
+                        2014100100      ; Serial
+                        1h              ; Refresh
+                        1h              ; Retry
+                        2h              ; Expire
+                        86400 )         ; Negative Cache TTL
+;
+; name servers
+;
+        IN      NS      ns1
+        IN      NS      debianpaul
+        IN      NS      debian7
+;
+; servers
+;
+debianpaul      IN      A       10.104.33.30
+debian7         IN      A       10.104.33.30
+ns1             IN      A       10.104.33.30
+;www            IN      A       10.104.33.30</screen>
+</section>
+<?hard-pagebreak?>
+<section><title>example: caching only DNS server</title>
+	<para>1. installing DNS software on Debian</para>
+	<screen>root@debian7:~# <command>aptitude update &#038;&#038; aptitude upgrade</command>
+...
+root@debian7:~# <command>aptitude install bind9</command>
+...
+root@debian7:~# <command>dpkg -l | grep bind9 | tr -s ' '</command>
+ii bind9 1:9.8.4.dfsg.P1-6+nmu2+deb7u2 amd64 Internet Domain Name Server
+ii bind9-host 1:9.8.4.dfsg.P1-6+nmu2+deb7u2 amd64 Version of 'host' bundled...
+ii bind9utils 1:9.8.4.dfsg.P1-6+nmu2+deb7u2 amd64 Utilities for BIND
+ii libbind9-80 1:9.8.4.dfsg.P1-6+nmu2+deb7u2 amd64 BIND9 Shared Library use...
+root@debian7:~#</screen>
+	<para>2. Discover the default configuration files. Can you define the purpose of each file ?</para>
+	<screen>root@debian7:~# <command>ls -l /etc/bind</command>
+total 52
+-rw-r--r-- 1 root root 2389 Sep  5 20:25 bind.keys
+-rw-r--r-- 1 root root  237 Sep  5 20:25 db.0
+-rw-r--r-- 1 root root  271 Sep  5 20:25 db.127
+-rw-r--r-- 1 root root  237 Sep  5 20:25 db.255
+-rw-r--r-- 1 root root  353 Sep  5 20:25 db.empty
+-rw-r--r-- 1 root root  270 Sep  5 20:25 db.local
+-rw-r--r-- 1 root root 3048 Sep  5 20:25 db.root
+-rw-r--r-- 1 root bind  463 Sep  5 20:25 named.conf
+-rw-r--r-- 1 root bind  490 Sep  5 20:25 named.conf.default-zones
+-rw-r--r-- 1 root bind  374 Oct  1 20:01 named.conf.local
+-rw-r--r-- 1 root bind  913 Oct  1 13:24 named.conf.options
+-rw-r----- 1 bind bind   77 Oct  1 11:14 rndc.key
+-rw-r--r-- 1 root root 1317 Sep  5 20:25 zones.rfc191</screen>
+	<para>3. Setup caching only dns server. This is normally the default setup. A caching-only name server will look up names for you and cache them. Many tutorials will tell you to add a <command>forwarder</command>, but we first try without this!</para>
+	<para>Hey this seems to work without a <command>forwarder</command>. Using a sniffer you can find out what really happens. Your freshly install dns server is not using a cache, and it is not using your local dns server (from /etc/resolv.conf). So where is this information coming from ? And what can you learn from sniffing this dns traffic ?</para>
+<?hard-pagebreak?>
+	<para>4. Explain in detail what happens when you enable a caching only dns server without forwarder. This wireshark screenshot can help, but you learn more by sniffing the traffic yourself.</para>
+	<mediaobject><imageobject><imagedata fileref="images/wireshark_org_server.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>You should see traffic to a <command>root name server</command> whenever you try a new <command>tld</command> for the first time. Remember that <command>dns</command> is a caching protocol, which means that repeating a query will generate a lot less traffic since your <command>dns server</command> will still have the answer in its memory.</para>
+</section>
+<?hard-pagebreak?>
+<section><title>example: caching only with forwarder</title>
+	<para>5. Add the public Google <command>dns server</command> as a <command>forwarder</command>. The ip address of this server is 8.8.8.8 .</para>
+	<para>Before the change:</para>
+	<screen>root@debian7:~# <command>grep -A2 'forwarders {' /etc/bind/named.conf.options</command>
+        // forwarders {
+        //      0.0.0.0;
+        // };</screen>
+	<para>changing:</para>
+<screen>root@debian7:~# <command>vi /etc/bind/named.conf.options</command></screen>
+<para>After the change:</para>
+<screen>root@debian7:~# <command>grep -A2 'forwarders {' /etc/bind/named.conf.options</command>
+         forwarders {
+                8.8.8.8;
+         };</screen>
+<para>Restart the server:</para>
+<screen>root@debian7:~# <command>service bind9 restart</command>
+Stopping domain name service...: bind9.
+Starting domain name service...: bind9.</screen>
+	<para>6. Explain the purpose of adding the <command>forwarder</command>. What is our <command>dns server</command> doing when it receives a query ?</para>
+	<screen>root@debian7:~# <command>nslookup</command>
+> server
+Default server: 10.104.33.30
+Address: 10.104.33.30#53
+> linux-training.be
+Server:         10.104.33.30
+Address:        10.104.33.30#53
 
-                IN NS           rhel4b.classdemo.local.
-                IN MX     10    mail.classdemo.local.
-                IN A            192.168.1.191
+Non-authoritative answer:
+Name:   linux-training.be
+Address: 188.93.155.87
+></screen>
+	<para>This is the output of <command>tcpdump udp port 53</command> while executing the above query for <command>linux-training.be</command> in <command>nslookup</command>.</para>
+	<screen>root@debian7:~# <command>tcpdump udp port 53</command>
+tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
+listening on eth0, link-type EN10MB (Ethernet), capture size 65535 bytes</screen>
+<para>You should find the following two lines in the output of <command>tcpdump</command>:</para>
+<screen>10.104.33.30.19381 > google-public-dns-a.google.com.domain: 18237+% [1au] A? \
+linux-training.be. (46)
+google-public-dns-a.google.com.domain > 10.104.33.30.19381: 18237 1/0/1 A 188\
+.93.155.87 (62)</screen>
+<?hard-pagebreak?>
+ 	<para>Below is an (old) wireshark screenshot that can help, you should see something similar (but with different ip addresses).</para>
+	<mediaobject><imageobject><imagedata fileref="images/dns_forwarder.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
+	<para>7. What happens when you query for the same domain name more than once ?</para>
+	<para>8. Why does it say "non-authoritative answer" ? When is a dns server authoritative ?</para>
+	<para>9. You can also use <command>dig</command> instead of <command>nslookup</command>.</para>
+	<screen>root@debian7:~# <command>dig @10.104.33.30 linux-training.be +short</command>
+188.93.155.87
+root@debian7:~#</screen>
+	<para>10. How can we avoid having to set the server in dig or nslookup ?</para>
+	<para>Change this:</para>
+	<screen>root@debian7:~# <command>cat /etc/resolv.conf</command>
+nameserver 10.46.101.1
+root@debian7:~#</screen>
+	<para>into this:</para>
+	<screen>root@debian7:~# <command>cat /etc/resolv.conf</command>
+nameserver 10.104.33.30
+root@debian7:~#</screen>
+	<para>11. When you use <command>dig</command> for the first time for a domain, where is the answer coming from ? And the second time ? How can you tell ?</para>
+</section>
+<?hard-pagebreak?>
+<section><title>example: primary authoritative server</title>
+	<para>1. Instead of only cachng the information from other servers, we will now make our server authoritative for our own domain.</para>
+	<para>2. I choose the top level domain <command>.local</command> and the domain <command>paul.local</command> and put the information in <command>/etc/bind/named.conf.local</command>.</para>
+	<screen>root@debian7:~# <command>cat /etc/bind/named.conf.local</command>
+//
+// Do any local configuration here
+//
 
-rhel4b          IN      A       192.168.1.191
-mail            IN      A       192.168.1.191
-www             IN      A       192.168.1.191
-ftp             IN      A       192.168.1.191
-server2         IN      A       192.168.1.1</screen>
+// Consider adding the 1918 zones here, if they are not used in your
+// organization
+//include "/etc/bind/zones.rfc1918";
+
+zone "paul.local" IN {
+        type master;
+        file "/etc/bind/db.paul.local";
+        allow-update { none; };
+};</screen>
+	<para>3. Also add a <command>zone database file</command>, similar to this one (add some A records for testing). Set the <command>Refresh</command> and <command>Retry</command> values not too high so you can sniff this traffic (this example makes the slave server contact the master every hour).</para>
+	<screen>root@debian7:~# <command>cat /etc/bind/db.paul.local</command>
+; zone for classroom teaching
+$TTL    86400
+@       IN      SOA     debianpaul.paul.local. root.paul.local (
+                        2014100101      ; Serial
+                        1h              ; Refresh
+                        1h              ; Retry
+                        2h              ; Expire
+                        900 )           ; Negative Cache TTL
+;
+; name servers
+;
+        IN      NS      ns1
+        IN      NS      debianpaul
+        IN      NS      debian7
+;
+; servers
+;
+debianpaul      IN      A       10.104.33.30
+debian7         IN      A       10.104.33.30
+ns1             IN      A       10.104.33.30
+;www            IN      A       10.104.33.30
+root@debian7:~#</screen>
+	<para>Note that the <command>www</command> record is commented out, so it will not resolve.</para>
+<?hard-pagebreak?>
+<section><title>using your own DNS server</title>
+<para>If you are confident that your <command>dns server</command> works, then set it as default and only dns server in <command>/etc/resolv.conf</command>.</para>
+	<screen>root@debian7:~# <command>cat /etc/resolv.conf</command>
+nameserver 10.104.33.30
+root@debian7:~#</screen>
+	<para>In case you also use <command>dhclient</command>, you will need to add your dns server to <command>/etc/dhcp/dhclient.conf</command>.</para>
+<screen>root@debian7:~# <command>diff /etc/dhcp/dhclient.conf /etc/dhcp/dhclient.conf.original</command>
+21c21
+&#060; prepend domain-name-servers 10.104.33.30;
+---
+> #prepend domain-name-servers 127.0.0.1;
+23,24c23
+&#060; #     domain-name, domain-name-servers, domain-search, host-name,
+&#060;       domain-name, domain-search, host-name,
+---
+>       domain-name, domain-name-servers, domain-search, host-name,
+root@debian7:~#</screen>
+	<para>The above screenshot shows that 10.104.33.30 is now a default option that the <command>dhcp client</command> should no longer request from the <command>dhcp server</command>.</para>
+	<para>Adjust <command>/etc/hosts</command> to reflect your <command>domain name</command> and verify with <command>hostname</command> and <command>dnsdomainname</command>.</para>
+	<screen>root@debian7:~# <command>grep debian7 /etc/hosts</command>
+127.0.1.1 debian7.paul.local debian7
+root@debian7:~# <command>hostname</command>
+debian7
+root@debian7:~# <command>hostname --fqdn</command>
+debian7.paul.local
+root@debian7:~# <command>dnsdomainname</command>
+paul.local</screen>
+</section>
+<?hard-pagebreak?>
+<section><title>using your own domain</title>
+	<para>Consider the following screenshot:</para>
+	<screen>root@debian7b:~# <command>cat /etc/resolv.conf</command>
+nameserver 10.104.33.30
+root@debian7b:~# <command>ping -c1 www</command>
+ping: unknown host www
+root@debian7b:~# <command>vi /etc/resolv.conf</command>
+root@debian7b:~# <command>cat /etc/resolv.conf</command>
+nameserver 10.104.33.30
+domain paul.local
+root@debian7b:~# <command>ping -c1 www</command>
+PING www.paul.local (10.104.33.31) 56(84) bytes of data.
+64 bytes from 10.104.33.31: icmp_req=1 ttl=64 time=0.021 ms
+
+--- www.paul.local ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 0.021/0.021/0.021/0.000 ms
+root@debian7b:~#</screen>
+	<para>Adding the <command>domain paul.local</command> directive to <command>/etc/resolv.conf</command> allows omitting the domain when using hostnames.</para>
+	<para>You can accomplish this feature automatically by adjusting <command>dhclient.conf</command>.</para>
+	<screen>root@debian7:~# <command>grep paul.local /etc/dhcp/dhclient.conf</command>
+prepend domain-name "paul.local";
+prepend domain-search "paul.local";
+root@debian7:~#</screen>
+</section>
+<?hard-pagebreak?>
+	<para>4. Restart the DNS server and check your zone in the error log.</para>
+	<screen>root@debian7:~# <command>service bind9 restart</command>
+Stopping domain name service...: bind9.
+Starting domain name service...: bind9.
+root@debian7:~# <command>grep paul.local /var/log/syslog</command>
+Oct  6 09:22:18 pauldebian named[2707]: zone paul.local/IN: loaded seria\
+l 2014100101
+Oct  6 09:22:18 pauldebian named[2707]: zone paul.local/IN: sending noti\
+fies (serial 2014100101)</screen>
+	<para>5. Use <command>dig</command> or <command>nslookup</command> (or even <command>ping</command>) to test your A records.</para>
+	<screen>root@debian7:~# <command>ping -c1 ns1.paul.local</command>
+PING ns1.paul.local (10.104.33.30) 56(84) bytes of data.
+64 bytes from 10.104.33.30: icmp_req=1 ttl=64 time=0.006 ms
+
+--- ns1.paul.local ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 0.006/0.006/0.006/0.000 ms
+root@debian7:~# <command>ping -c1 www.paul.local</command>
+ping: unknown host www.paul.local</screen>
+	<para>Note that the <command>www</command> record was commented out, so it should fail.</para>
+	<screen>root@debian7:~# <command>dig debian7.paul.local</command>
+
+; &#060;&#060;>> DiG 9.8.4-rpz2+rl005.12-P1 &#060;&#060;>> debian7.paul.local
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER&#060;&#060;- opcode: QUERY, status: NOERROR, id: 50491
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 3, ADDITIONAL: 2
+
+;; QUESTION SECTION:
+;debian7.paul.local.            IN      A
+
+;; ANSWER SECTION:
+debian7.paul.local.     86400   IN      A       10.104.33.30
+
+;; AUTHORITY SECTION:
+paul.local.             86400   IN      NS      ns1.paul.local.
+paul.local.             86400   IN      NS      debian7.paul.local.
+paul.local.             86400   IN      NS      debianpaul.paul.local.
+
+;; ADDITIONAL SECTION:
+ns1.paul.local.         86400   IN      A       10.104.33.30
+debianpaul.paul.local.  86400   IN      A       10.104.33.30
+
+;; Query time: 4 msec
+;; SERVER: 10.104.33.30#53(10.104.33.30)
+;; WHEN: Mon Oct  6 09:35:25 2014
+;; MSG SIZE  rcvd: 141
+
+root@debian7:~#</screen>
+	<para>6. Our primary server appears to be up and running. Note the information here:</para>
+	<screen>server os  : Debian 7
+ip address : 10.104.33.30
+domain name: paul.local
+server name: ns1.paul.local</screen>
+	<screen></screen>
+</section>
+<?hard-pagebreak?>
+<section><title>example: a DNS slave server</title>
+	<para>1. A slave server transfers zone information over the network from a master server (a slave can also be a master). A primary server maintains zone records in its local file system. As an exercise, and to verify the work of all students, set up a slave server of all the master servers in the classroom.</para>
+	<para>2. Before configuring the slave server, we may have to allow transfers from our zone to this server. Remember that this is not very secure since transfers are in clear text and limited to an ip address. This example follows our demo from above.</para>
+	<para>Imagine a student named <command>Jesse</command> having completed the setup as shown before, with the domain name <command>jesse.local</command> and the ip address 10.104.15.20. The goal is to have a slave server of paul.local on Jesse's computer and a slave zone of jesse.local on my computer.</para>
+	<para>Below is an example of an <command>allow-transfer</command> statement. Careful, maybe the default allows transfer to any.</para>
+	<screen>root@debian7:/etc/bind# <command>cat named.conf.local</command>
+//
+// Do any local configuration here
+//
+
+// Consider adding the 1918 zones here, if they are not used in your
+// organization
+//include "/etc/bind/zones.rfc1918";
+
+zone "paul.local" IN {
+        type master;
+        file "/etc/bind/db.paul.local";
+        allow-update { none; };
+        allow-transfer { 10.104.15.20; };
+};</screen>
+<?hard-pagebreak?>
+	<para>3. With the configuration below I can make my server a slave for the <command>jesse.local</command> zone.</para>
+	<screen>root@debian7:/etc/bind# <command>tail -6 named.conf.local</command>
+zone "jesse.local" IN {
+        type slave;
+        file "/var/cache/named/db.jesse.local";
+        masters { 10.104.15.20; };
+};
+
+root@debian7:/etc/bind# <command>mkdir /var/cache/named/</command>
+root@debian7:/etc/bind# <command>chown bind:bind /var/cache/named/</command>
+root@debian7:/etc/bind# <command>ls -ld /var/cache/named/</command>
+drwxr-xr-x 2 bind bind 4096 Oct  1 20:01 /var/cache/named/</screen>
+	<para>Note that we put the <command>slave zones</command> in <command>/var/cache/named</command> and not in <command>/etc/bind</command>.</para>
+	<para>4. Restarting bind on the slave server should transfer the zone database file. Verify this in <command>/var/log/syslog</command>. (time and date are truncated from the screenshot, and Jesse did not use the current date in the serial number...)</para>
+	<screen>root@debian7:/etc/bind# <command>grep jesse /var/log/syslog</command>
+named[2731]: zone jesse.local/IN: Transfer started.
+named[2731]: transfer of 'jesse.local/IN' from 10.104.15.20#53: connected u\
+sing 10.104.33.30#44719
+named[2731]: zone jesse.local/IN: transferred serial 20110516
+named[2731]: transfer of 'jesse.local/IN' from 10.104.15.20#53: Transfer co\
+mpleted: 1 messages, 8 records, 239 bytes, 0.001 secs (239000 bytes/sec)</screen>
+	<para>And the contents of the <command>slave zone</command>:</para>
+	<screen>root@debian7:/etc/bind# <command>cat /var/cache/named/db.jesse.local</command>
+$ORIGIN .
+$TTL 604800     ; 1 week
+jesse.local             IN SOA  ns.jesse.local. root.jesse.local.jesse.local. (
+                                20110516   ; serial
+                                300        ; refresh (5 minutes)
+                                200        ; retry (3 minutes 20 seconds)
+                                2419200    ; expire (4 weeks)
+                                604800     ; minimum (1 week)
+                                )
+                        NS      ns.jesse.local.
+$ORIGIN jesse.local.
+anya                    A       10.104.15.1
+mac                     A       10.104.15.30
+ns                      A       10.104.15.20
+ubu1010srv              A       10.104.15.20
+www                     A       10.104.15.25
+root@debian7:/etc/bind#</screen>
 </section>

@@ -1,9 +1,16 @@
 <?hard-pagebreak?>
-<section><title>practice: dns</title>
+<section><title>solution: dns</title>
 	<para>1. Install <command>bind9</command> and verify with a sniffer how it works.</para>
+	<screen>You should see queries to the root name servers with <command>tcpdump</command> or <command>wireshark</command>.</screen>
 	<para>2. Add a <command>forwarder</command> and verify that it works.</para>
+	<screen>The forwarder van be added in named.conf.options as seen in the theory.</screen>
 	<para>3. Create a <command>primary forward lookup zone</command> named yourname.local with at least two NS records and four A records.</para>
+	<screen>This is literally explained in the theory.</screen>
 	<para>4. Use <command>dig</command> and <command>nslookup</command> to verify your NS and A records.</para>
+	<screen>This is literally explained in the theory.</screen>
 	<para>5. Create a <command>slave</command> of your primary zone (on another server) and verify the <command>zone transfer</command>.</para>
+	<screen>This is literally explained in the theory.</screen>
 	<para>6. Set up two primary zones on two servers and implement a <command>conditional forwarder</command> (you can use the two servers from before).</para>
+	<screen>A conditional forwarder is set in named.conf.local as a zone.
+(see the theory on forwarder)</screen>
 </section>
