@@ -1,0 +1,2 @@
+<para>This chapter expands your DNS server with topics like <command>round robin dns</command> for load balancing servers, <command>dns delegation</command> to delegate child domains to another team and <command>split horizon dns</command> so you can provide local service locations to clients.</para>
+<para>There is more to <command>dns</command>, content will be added <command>rsn</command>.</para>

@@ -435,7 +435,7 @@ sshd.service - OpenSSH server daemon
    Active: active (running) since Wed 2014-09-10 13:42:21 CEST; 55min ago
  Main PID: 1400 (sshd)
    CGroup: /system.slice/sshd.service
-           └─1400 /usr/sbin/sshd -D
+           --1400 /usr/sbin/sshd -D
 
 Sep 10 13:42:21 rhel7 systemd[1]: Started OpenSSH server daemon.
 Sep 10 13:42:21 rhel7 sshd[1400]: Server listening on 0.0.0.0 port 22.
@@ -482,7 +482,7 @@ UnitFileState=enabled
 [root@rhel7 ~]#</screen>
 </section>
 <?hard-pagebreak?>
-<section><title>there is more systemd</title>
+<section><title>systemd signalling</title>
 	<para>You can also use <command>systemd</command> to <command>kill</command> problematic services.</para>
 <screen>[root@rhel7 ~]# systemctl show crond.service | grep State
 LoadState=loaded
@@ -496,6 +496,61 @@ ActiveState=failed
 SubState=failed
 UnitFileState=enabled
 [root@rhel7 ~]#</screen>
+</section>
+<section><title>systemd shutdown</title>
+	<para>The <command>poweroff</command>, <command>halt</command> and <command>reboot</command> commands are considered legacy now and are handeld by <command>systemctl</command>. The table below shows the legacy commands on the left and their new <command>systemd</command> equivalent on the right.</para>
+<table frame='all'><title>systemd power management</title>
+<?dbfo table-width="80%" ?>
+<tgroup cols='2' align='center' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="2*" align="left"/>
+<colspec colname='c2' colwidth="3*" align="left"/>
+<thead>
+<row>
+  <entry>legacy command</entry>
+  <entry>systemd command</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>poweroff</entry>
+  <entry>systemctl poweroff</entry>
+</row>
+<row>
+  <entry>reboot</entry>
+  <entry>systemctl reboot</entry>
+</row>
+<row>
+  <entry>halt</entry>
+  <entry>systemctl halt</entry>
+</row>
+<row>
+  <entry>pm-suspend</entry>
+  <entry>systemctl suspend</entry>
+</row>
+<row>
+  <entry>pm-hibernate</entry>
+  <entry>systemctl hibernate</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</section>
+<section><title>remote systemd</title>
+	<para>The <command>systemctl</command> utility has a buil-in remote control providing there is an <command>ssh daemon</command> running on the remote system.</para>
+	<para>This screenshot shows how to use <command>systemctl</command> to verify a service on an other RHEL server.</para>
+	<screen>[root@rhel7 ~]# <command>systemctl -H root@192.168.1.65 status sshd</command>
+root@192.168.1.65's password:
+sshd.service - OpenSSH server daemon
+   Loaded: loaded (/usr/lib/systemd/system/sshd.service; enabled)
+   Active: active (running) since Thu 2014-09-11 13:04:10 CEST; 16min ago
+  Process: 1328 ExecStartPre=/usr/sbin/sshd-keygen (code=exited, status=0/SUCCE\
+SS)
+ Main PID: 1363 (sshd)
+   CGroup: /system.slice/sshd.service
+[root@rhel7 ~]#</screen>
+</section>
+<?hard-pagebreak?>
+<section><title>there is more systemd</title>
 	<para>There are other tools...</para>
 <screen>systemd-analyze                 systemd-loginctl
 systemd-ask-password            systemd-machine-id-setup
