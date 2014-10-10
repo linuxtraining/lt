@@ -1,77 +1,196 @@
 <?hard-pagebreak?>
-<section><title>DNS round robin</title>
-	<para>When you create multiple A records for the same name, then <command>bind</command><indexterm><primary>bind(DNS)</primary></indexterm> will do a round robin of the order in which the records are returned. This allows the use of DNS as a load balancer between hosts, since clients will usually take the first ip-address offered.</para>
-	<para>This is what it looks like in the <command>zone configuration file</command>.</para>
-	<screen>faith		IN	A	192.168.1.20
-faith		IN	A	192.168.1.22</screen>
-	<para>Below a screenshot of nslookup querying a load balanced A record. Notice the order of ip-addresses returned.</para>
-		<screen>> server 192.168.1.35
-Default server: 192.168.1.35
-Address: 192.168.1.35#53
-> faith.cobbaut.paul
-Server:		192.168.1.35
-Address:	192.168.1.35#53
+<section><title>example: DNS round robin</title>
+	<para>When you create multiple A records for the same name, then <command>bind</command><indexterm><primary>bind(DNS)</primary></indexterm> will do a <command>round robin</command> of the order in which the records are returned. This allows the use of DNS as a load balancer between hosts, since clients will usually take the first ip-address offered.</para>
+	<para>Consider this example from the <command>/etc/bind/db.paul.local</command> zone configuration file. There are two A records for <command>www</command> pointing to two distinct ip addresses.</para>
+	<screen>root@debian7:~# <command>grep www /etc/bind/db.paul.local</command>
+www             IN      A       10.104.33.30
+www             IN      A       10.104.33.31</screen>
+	<para>Below a screenshot of <command>nslookup</command> querying a load balanced A record. Notice the order of ip addresses returned.</para>
+		<screen>root@debian7:~# <command>nslookup www.paul.local 10.104.33.30</command>
+Server:         10.104.33.30
+Address:        10.104.33.30#53
 
-Name:	faith.cobbaut.paul
-Address: 192.168.1.20
-Name:	faith.cobbaut.paul
-Address: 192.168.1.22
-> faith.cobbaut.paul
-Server:		192.168.1.35
-Address:	192.168.1.35#53
+Name:   www.paul.local
+Address: 10.104.33.31
+Name:   www.paul.local
+Address: 10.104.33.30
 
-Name:	faith.cobbaut.paul
-Address: 192.168.1.22
-Name:	faith.cobbaut.paul
-Address: 192.168.1.20
-> faith.cobbaut.paul
-Server:		192.168.1.35
-Address:	192.168.1.35#53
+root@debian7:~# <command>nslookup www.paul.local 10.104.33.30</command>
+Server:         10.104.33.30
+Address:        10.104.33.30#53
 
-Name:	faith.cobbaut.paul
-Address: 192.168.1.20
-Name:	faith.cobbaut.paul
-Address: 192.168.1.22</screen>
+Name:   www.paul.local
+Address: 10.104.33.30
+Name:   www.paul.local
+Address: 10.104.33.31</screen>
+	<para>Try to set up a website on two web servers (with a small difference so you can distinguish the websites) and test the <command>round robin</command>.</para>
 </section>
 <?hard-pagebreak?>
 <section><title>DNS delegation</title>
 	<para>You can <command>delegate</command> a child domain to another DNS server. The child domain then becomes a new zone, with authority at the new dns server.</para>
 	<mediaobject><imageobject><imagedata fileref="images/dns_08_delegation.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-	<para>This is a screenshot of the zone database file with delegation.</para>
-	<screen>root@ubu1010srv:/etc/bind# cat db.linux-training.be 
-$TTL 3d ; default ttl set to three days
-$ORIGIN linux-training.be.
-@       IN  SOA  ns1.linux-training.be. paul.linux-training.be. (
-	20110524
-	300
-	300
-	10000
-	20000
-	)
-	IN	NS	ns1.linux-training.be.
-	IN	NS	ns2.linux-training.be.
-	IN	NS	ns3.linux-training.be.
-	IN	MX	10	smtp.openminds.be.
-ns1	IN	A	192.168.1.35
-ns2	IN	A	192.168.1.36
-ns3	IN	A	192.168.1.37
-www	IN	A	192.168.1.35
-mac	IN	A	192.168.1.30
-
-$ORIGIN office.linux-training.be.
-@	IN	NS	ns4.office.linux-training.be.
-; or replace those two lines with:
-; office.linux-training.com  IN  NS  ns4.office.linux-training.be
-
-	IN	NS	ns1.linux-training.be.	; in case this is a slave
-ns4	IN	A	192.168.1.33		; the glue record
-; ns4.office.linux-training.be	A	192.168.1.33 ; also ok!</screen>
+	<para>When <command>delegation</command> is properly set up, then clients that query your parent zone will also be able to resolve the delegated child zones.</para>
 </section>
-<section><title>DNS load balancing</title>
+<?hard-pagebreak?>
+<section><title>example: DNS delegation</title>
+	<para>We have another <command>Linux server</command> named <command>debian7b</command> and we want to make it responsible for the child domain <command>test42.paul.local</command>.</para>
+	<para><emphasis>Note the name of the servers in the screenshots are either <command>debian7</command> (hosting the parent domain) or <command>debian7b</command> (hosting the child domain).</emphasis></para>
+	<para>We start by adjusting the <command>/etc/bind/named.comf.local</command> file (on the server hosting the parent domain) to make sure that no forwarder will be used when resolving authoritative names.</para>
+	<screen>root@debian7:~# <command>grep -A4 paul.local /etc/bind/named.conf.local</command>
+zone "paul.local" IN {
+        type master;
+        file "/etc/bind/db.paul.local";
+        allow-update { none; };
+        allow-transfer { 10.104.15.20; };
+        forwarders { };
+};
+root@debian7:~#</screen>
+	<para>Technically, you could also set <command>allow-transfer</command> to <command>{ any; };</command> while troubleshooting and then refine it later, but this is not needed for delegation.</para>
+	<para>Then we add the delegation to our zone database:</para>
+	<screen>root@debian7:~# <command>tail -3 /etc/bind/db.paul.local</command>
+$ORIGIN test42.paul.local.
+@       IN      NS      ns2.test42.paul.local.
+ns2     IN      A       10.104.33.31    ; the glue record
+root@debian7:~#</screen>
+	<para>Don't forget to restart <command>bind</command> and verify <command>/var/log/syslog</command>.</para>
+	<screen>root@debian7:~# <command>service bind9 restart</command>
+Stopping domain name service...: bind9.
+Starting domain name service...: bind9.
+root@debian7:~# <command>grep paul.local /var/log/syslog | cut -c28- | tail -2</command>
+named[3202]: zone paul.local/IN: loaded serial 2014100801
+named[3202]: zone paul.local/IN: sending notifies (serial 2014100801)
+root@debian7:~#</screen>
+	<para><emphasis>Note that on your terminal you can type <command>tail -40 /var/log/syslog</command> because the only reason I use <command>grep</command>, <command>cut</command> and <command>tail -2</command> is to limit the size of the screenshots in this book.</emphasis></para>
+<?hard-pagebreak?>
+	<para>Next we create a zone database file on the second server, as seen in this screenshot:</para>
+	<screen>root@debian7b:~# <command>cat /etc/bind/db.test42.paul.local</command>
+; child zone for classroom teaching
+$TTL    86400
+$ORIGIN test42.paul.local.
+@       IN      SOA     ns2.test42.paul.local. root.test42.paul.local. (
+                        2014100802      ; Serial
+                        1h              ; Refresh
+                        1h              ; Retry
+                        2h              ; Expire
+                        900 )           ; Negative Cache TTL
+;
+; name servers
+;
+        IN      NS      ns2.test42.paul.local.
+        IN      NS      debian7b.test42.paul.local.
+;
+; servers
+;
+ns2             IN      A       10.104.33.31
+debian7b        IN      A       10.104.33.31
+testsrv         IN      A       10.104.33.31
+root@debian7b:~#</screen>
+	<para>The second server also needs a zone definition in <command>named.conf.local</command>, followed by a restart of <command>bind</command>.</para>
+	<screen>root@debian7b:~# <command>cat /etc/bind/named.conf.local</command>
+//
+// Do any local configuration here
+//
+
+// Consider adding the 1918 zones here, if they are not used in your
+// organization
+//include "/etc/bind/zones.rfc1918";
+
+zone "test42.paul.local" IN {
+        type master;
+        file "/etc/bind/db.test42.paul.local";
+        allow-update { none; };
+        allow-transfer { any; };
+};
+root@debian7b:~#</screen>
+	<para>Testing on the parent server:</para>
+	<screen>root@debian7:~# <command>dig ns1.paul.local +short</command>
+10.104.33.30
+root@debian7:~# <command>dig ns2.test42.paul.local +short</command>
+10.104.33.31
+root@debian7:~# <command>dig debian7b.test42.paul.local +short</command>
+10.104.33.31</screen>
+</section>
+<?hard-pagebreak?>
+<section><title>example: split-horizon dns</title>
+	<para>Suppose you want to answer dns queries depending on who is asking. For example when someone from the 10.104.15.0/24 network (managed by Jesse) asks for the A record www.paul.local, then dns answers with 10.104.33.30. But when someone from the 10.104.42.0/24 network (managed by Keith) asks for the same A record of www.paul.local, he will get 10.104.33.31 as an answer.</para>
+	<para>A <command>split-horizon</command> setup can be used to redirect people to <command>local</command> copies of certain services.</para>
+	<para>In this example we want to decide on specific answers for two networks (Jesse's and Keith's) and prevent them from using our dns server for <command>recursion</command>, while maintaining the capability to resolve the internet and our paul.local zone from our own network.</para>
+	<para>We start by creating three <command>view</command> clauses in <command>named.conf.local</command>.</para>
+	<screen>root@debian7:/etc/bind# <command>cat named.conf.local</command>
+view "paul" {
+match-clients { 10.104.33.0; localhost; };
+include "/etc/bind/named.conf.default-zones";
+zone "paul.local" IN {
+        type master;
+        file "/etc/bind/db.paul.local";
+        allow-update { none; };
+        };
+};      // end view internal
+
+view "jesse" {
+match-clients { 10.104.15/24; };
+zone "paul.local" IN {
+        type master;
+        file "/etc/bind/db.paul.local.jesse";
+        allow-update { none; };
+        };
+};      // end view jesse
+
+view "keith" {
+match-clients { 10.104.42/24; };
+zone "paul.local" IN {
+        type master;
+        file "/etc/bind/db.paul.local.keith";
+        allow-update { none; };
+        };
+};      // end view keith</screen>
+	<para>Note that we included the <command>default-zones</command> in the internal zone. It is mandatory to put all zones inside views when using a view.</para>
+	<para>The zone files are identical copies, except for the <command>www</command> record. You can see that the <command>round robin</command> is still active for internal users, computers from 10.104.15.0/24 (Jesse) will always receive 10.104.33.30 while computers from 10.104.42.0/24 (Keith) will receive 10.104.33.31.</para>
+	<screen>root@debian7:/etc/bind# <command>grep www db.paul.local db.paul.local.[jk]*</command>
+db.paul.local:www               IN      A       10.104.33.30
+db.paul.local:www               IN      A       10.104.33.31
+db.paul.local.jesse:www         IN      A       10.104.33.30
+db.paul.local.keith:www         IN      A       10.104.33.31</screen>
+</section>
+<?hard-pagebreak?>
+<section><title>old dns topics</title>
+<para>All the dns things below this paragraph are old and in urgent need of review.</para>
+<section><title>old example: reverse DNS</title>
+	<para>1. We can add ip to name resolution to our dns-server using a reverse dns zone.</para>
+	<para>2. Start by adding a .arpa zone to /etc/bind/named.conf.local like this (we set notify to no to avoid sending of notify messages to other name servers):</para>
+	<screen>root@ubu1010srv:/etc/bind# grep -A4 arpa named.conf.local 
+zone "1.168.192.in-addr.arpa" {
+	type master;
+	notify no;
+	file "/etc/bind/db.192";
+};</screen>
+	<para>3. Also create a zone database file for this reverse lookup zone.</para>
+	<screen>root@ubu1010srv:/etc/bind# cat db.192 
+;
+; BIND reverse data file for 192.168.1.0/24 network
+;
+$TTL	604800
+@	IN	SOA	ns.cobbaut.paul root.cobbaut.paul. (
+			20110516	; Serial
+			 604800		; Refresh
+			  86400		; Retry
+			2419200		; Expire
+			 604800 )	; Negative Cache TTL
+;
+@	IN	NS	ns.
+37	IN	PTR	ns.cobbaut.paul.
+1	IN	PTR	anya.cobbaut.paul.
+30	IN	PTR	mac.cobbaut.paul.
+root@ubu1010srv:/etc/bind# </screen>
+	<para>4. Test with nslookup or dig:</para>
+	<screen>root@ubu1010srv:/etc/bind# dig 1.168.192.in-addr.arpa AXFR</screen>
+</section>
+<?hard-pagebreak?>
+<section><title>old DNS load balancing</title>
 	<para>Not as above. When you have more than one DNS server authoritative for a zone, you can spread queries amongst all server. One way to do this is by creating NS records for all servers that participate in the load balancing of external queries.</para>
 	<para>You could also configure different name servers on internal clients.</para>
 </section>
-<section><title>DNS notify</title>
+<section><title>old DNS notify</title>
 	<para>The original design of DNS in rfc 1034 and rfc 1035 implemented a <command>refresh</command> time in the <command>SOA</command> record to configure a time loop for slaves to query their master server. This can result in a lot of useless pull requests, or in a significant lag between updates.</para>
 	<para>For this reason <command>dns notify (rfc 1996)</command> was designed. The server will now notify slaves whenever there is an update. By default this feature is activated in <command>bind</command>.</para>
 	<para>Notify can be disabled as in this screenshot.</para>
@@ -81,7 +200,7 @@ ns4	IN	A	192.168.1.33		; the glue record
         file "/etc/bind/db.192";
 };</screen>
 </section>
-<section><title>testing IXFR and AXFR</title>
+<section><title>old testing IXFR and AXFR</title>
 	<para>Full zone transfers (AXFR) are initiated when you restart the bind server, or when you manually update the zone database file directly. With <command>nsupdate</command> you can update a zone database and initiate an incremental zone transfer.</para>
 	<para>You need DDNS allowed for <command>nsupdate</command> to work.</para>
 	<screen>root@ubu1010srv:/etc/bind# nsupdate
@@ -90,43 +209,25 @@ ns4	IN	A	192.168.1.33		; the glue record
 > send
 update failed: REFUSED</screen>
 </section>
-<section><title>DDNS integration with DHCP</title>
+<section><title>old DDNS integration with DHCP</title>
 	<para>Some organizations like to have all their client computers in DNS. This can be cumbersome to maintain. Luckily <command>rfc 2136</command> describes integration of DHCP servers with a DNS server. Whenever DHCP acknowledges a client ip configuration, it can notify DNS with this clients ip-address and name. This is called <command>dynamic updates</command> or DDNS.</para>
 </section>
-<section><title>reverse is forward in-addr.arpa</title>
+<section><title>old reverse is forward in-addr.arpa</title>
 	<para>Reverse lookup is actually iomplemented as a forward lookup in the <command>in-addr.arpa</command> domain. This domain has 256 child domains (from 0.in-addr.arpa to 255.in-addr.arpa), with each child domain having again 256 child domains. And this twice more to a structure of over four billion (2 to the power 32) domains.</para>
 </section>
-<section><title>ipv6</title>
+<section><title>old ipv6</title>
 	<para>With rfc 3596 came ipv6 extensions for DNS. There is the AAAA record for ipv6 hosts on the network, and there is the <command>ip6.int</command> domain for reverse lookup (having 16 child domains from 0.ip6.int to f.ip6.int, each of those having again 16 child domains...and this 16 times.</para>
 </section>
-<section><title>split-horizon dns</title>
-	<para>You can use the <command>view clause</command> in <command>bind</command> to give different results to different clients.</para>
-	<screen>view "antwerp" {
-match-clients { 172.16.42/24; }; // the network in Antwerp
-zone "cobbaut.paul" {
-        type master;
-        file "/etc/bind/db.cobbaut.paul.antwerp"; // www=172.16.42.9
-        };
-};
-
-view "brussels" {
-match-clients { 172.16.33/24; }; // the Brussels network
-zone "cobbaut.paul" {
-        type master;
-        file "/etc/bind/db.cobbaut.paul.brussels"; // www=172.16.33.4
-  };
-};</screen>
-</section>
-<section><title>DNS security : file corruption</title>
+<section><title>old DNS security: file corruption</title>
 	<para>To mitigate file corruption on the <command>zone files</command> and the <command>bind configuration</command> files protect them with Unix permissions and take regular backups.</para>
 </section>
-<section><title>DNS security : zone transfers</title>
+<section><title>old DNS security: zone transfers</title>
 	<para>Limit zone transfers to certain ip addresses instead of to <command>any</command>. Nevermind that ip-addresses can be spoofed, still use this.</para>
 </section>
-<section><title>DNS security : zone transfers, ip spoofing</title>
+<section><title>old DNS security: zone transfers, ip spoofing</title>
 	<para>You could setup DNSSEC (which is not the easiest to maintain) and with rfc 2845(tsig?) and with rfc 2930(tkey, but this is open to brute force), or you could disable all zone transfers and use a script with ssh to copy them manually.</para>
 </section>
-<section><title>DNS security : queries</title>
+<section><title>old DNS security: queries</title>
 	<para>Allow recursion only from the local network, and iterative queries from outside only when necessary. This can be configured on master and slave servers.</para>
 	<screen>view "internal" {
 match-clients { 192.168.42/24; };
@@ -154,12 +255,13 @@ zone "cobbaut.paul" {
         allow-recursion { 192.168.42.0/24; localhost; };
 };</screen>
 </section>
-<section><title>DNS security : chrooted bind</title>
+<section><title>old DNS security: chrooted bind</title>
 	<para>Most Linux distributions allow an easy setup of bind in a <command>chrooted</command> environment.</para>
 </section>
-<section><title>DNS security : DNSSEC</title>
+<section><title>old DNS security: DNSSEC</title>
 	<para>DNSSEC uses public/private keys to secure communications, this is described in rfc's 4033, 4034 and 4035.</para>
 </section>
-<section><title>DNS security : root</title>
+<section><title>old DNS security: root</title>
 	<para>Do not run bind as root. Do not run any application daemon as root.</para>
+</section>
 </section>
