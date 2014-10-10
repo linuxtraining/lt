@@ -9,8 +9,9 @@ BOOKTITLE="local user management"
 
 # define book as directories in certain order
 
-add_mod chapter intro_users
+#add_mod chapter intro_users
 add_mod chapter users
+add_mod chapter user_management
 add_mod chapter user_passwords
 add_mod chapter user_profiles
 add_mod chapter intro_groups
