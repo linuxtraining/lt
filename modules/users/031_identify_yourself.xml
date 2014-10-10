@@ -1,0 +1,40 @@
+<?hard-pagebreak?>
+<section><title>identify yourself</title>
+	<section><title>whoami</title>
+		<para>The <command>whoami</command><indexterm><primary>whoami(1)</primary></indexterm> command tells you your username.</para>
+		<screen>[root@RHEL5 ~]# whoami
+root
+[root@RHEL5 ~]# su - paul
+[paul@RHEL5 ~]$ whoami
+paul</screen>
+	</section>
+	<section><title>who</title>
+		<para>The <command>who</command><indexterm><primary>who(1)</primary></indexterm> command will give you information about who is logged on the system.</para>
+		<screen>[paul@RHEL5 ~]$ who
+root     tty1         2008-06-24 13:24
+sandra   pts/0        2008-06-24 14:05 (192.168.1.34)
+paul     pts/1        2008-06-24 16:23 (192.168.1.37)</screen>
+	</section>
+	<section><title>who am i</title>
+		<para>With <command>who am i</command><indexterm><primary>who am i</primary></indexterm> the who command will display only the line pointing to your current session.</para>
+		<screen>[paul@RHEL5 ~]$ who am i
+paul     pts/1        2008-06-24 16:23 (192.168.1.34)</screen>
+	</section>
+	<section><title>w</title>
+		<para>The <command>w</command><indexterm><primary>w(1)</primary></indexterm> command shows you who is logged on and what they are doing.</para>
+		<screen>$ w
+ 05:13:36 up 3 min,  4 users,  load average: 0.48, 0.72, 0.33
+USER   TTY    FROM          LOGIN@   IDLE  JCPU  PCPU WHAT
+root   tty1   -             05:11    2.00s 0.32s 0.27s find / -name shad
+inge   pts/0  192.168.1.33  05:12    0.00s 0.02s 0.02s -ksh
+paul   pts/2  192.168.1.34  05:13   25.00s 0.07s 0.04s top</screen>
+	</section>
+	<section><title>id</title>
+		<para>The <command>id</command><indexterm><primary>id(1)</primary></indexterm> command will give you your user id, primary group id, and a list of the groups that you belong to.</para> 
+		<screen>root@laika:~# id
+uid=0(root) gid=0(root) groups=0(root)
+root@laika:~# su - brel
+brel@laika:~$ id
+uid=1001(brel) gid=1001(brel) groups=1001(brel),1008(chanson),11578(wolf)</screen>
+	</section>
+</section>
