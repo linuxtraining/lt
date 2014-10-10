@@ -59,3 +59,66 @@ harry:x:516:520:harry potter:/home/harry:/bin/bash
 harry:x:516:520:wizard:/home/harry:/bin/bash</screen>
 	</section>
 </section>
+<?hard-pagebreak?>
+<section><title>home directories</title>
+	<section><title>creating home directories</title>
+		<para>The easiest way to create a home directory is to supply the <command>-m</command> option with <command>useradd</command><indexterm><primary>useradd(1)</primary></indexterm> (it is likely set as a default option on Linux).</para>
+		<para>A less easy way is to create a home directory manually with <command>mkdir</command><indexterm><primary>mkdir</primary></indexterm> which also requires setting the owner and the permissions on the directory with <command>chmod</command><indexterm><primary>chmod</primary></indexterm> and <command>chown</command><indexterm><primary>chown</primary></indexterm> (both commands are discussed in detail in another chapter).</para>
+		<screen>[root@RHEL5 ~]# mkdir /home/laura
+[root@RHEL5 ~]# chown laura:laura /home/laura
+[root@RHEL5 ~]# chmod 700 /home/laura
+[root@RHEL5 ~]# ls -ld /home/laura/
+drwx------ 2 laura laura 4096 Jun 24 15:17 /home/laura/</screen>
+	</section>
+	<section><title>/etc/skel/</title>
+		<para>When using <command>useradd</command> the <command>-m</command> option, the <command>/etc/skel/</command><indexterm><primary>/etc/skel</primary></indexterm> directory is copied to the newly created home directory. The <command>/etc/skel/</command> directory contains some (usually hidden) files that contain profile settings and default values for applications. In this way <command>/etc/skel/</command> serves as a default home directory and as a default user profile.</para>
+		<screen>[root@RHEL5 ~]# ls -la /etc/skel/
+total 48
+drwxr-xr-x  2 root root  4096 Apr  1 00:11 .
+drwxr-xr-x 97 root root 12288 Jun 24 15:36 ..
+-rw-r--r--  1 root root    24 Jul 12  2006 .bash_logout
+-rw-r--r--  1 root root   176 Jul 12  2006 .bash_profile
+-rw-r--r--  1 root root   124 Jul 12  2006 .bashrc</screen>
+	</section>
+	<section><title>deleting home directories</title>
+		<para>The -r option of <command>userdel</command><indexterm><primary>useradd</primary></indexterm> will make sure that the home directory is deleted together with the user account.</para>
+		<screen>[root@RHEL5 ~]# ls -ld /home/wim/
+drwx------ 2 wim wim 4096 Jun 24 15:19 /home/wim/
+[root@RHEL5 ~]# userdel -r wim
+[root@RHEL5 ~]# ls -ld /home/wim/
+ls: /home/wim/: No such file or directory</screen>
+	</section>
+</section>
+<?hard-pagebreak?>
+<section><title>user shell</title>
+	<section><title>login shell</title>
+		<para>The <command>/etc/passwd</command><indexterm><primary>/etc/passwd</primary></indexterm> file specifies the <command>login shell</command> for the user. In the screenshot below you can see that user annelies will log in with the <command>/bin/bash</command> shell, and user laura with the <command>/bin/ksh</command> shell.</para>
+		<screen>[root@RHEL5 ~]# tail -2 /etc/passwd
+annelies:x:527:533:sword fighter:/home/annelies:/bin/bash
+laura:x:528:534:art dealer:/home/laura:/bin/ksh</screen>
+		<para>You can use the usermod command to change the shell for a user.</para>
+		<screen>[root@RHEL5 ~]# usermod -s /bin/bash laura
+[root@RHEL5 ~]# tail -1 /etc/passwd
+laura:x:528:534:art dealer:/home/laura:/bin/bash</screen>
+	</section>
+	<section><title>chsh</title>
+		<para>Users can change their login shell with the <command>chsh</command><indexterm><primary>chsh(1)</primary></indexterm> command. First, user harry obtains a list of available shells (he could also have done a <command>cat /etc/shells</command><indexterm><primary>/etc/shells</primary></indexterm>) and then changes his login shell to the <command>Korn shell</command><indexterm><primary>Korn Shell</primary></indexterm> (/bin/ksh). At the next login, harry will default into ksh instead of bash. </para>
+		<screen>[harry@RHEL4 ~]$ chsh -l
+/bin/sh
+/bin/bash
+/sbin/nologin
+/bin/ash
+/bin/bsh
+/bin/ksh
+/usr/bin/ksh
+/usr/bin/pdksh
+/bin/tcsh
+/bin/csh
+/bin/zsh
+[harry@RHEL4 ~]$ chsh -s /bin/ksh
+Changing shell for harry.
+Password: 
+Shell changed.
+[harry@RHEL4 ~]$</screen>
+	</section>
+</section>

@@ -1,0 +1,3 @@
+<para>This little chapter will teach you how to identify your user account on a Unix computer using commands like <command>who am i</command>, <command>id</command>, and more.</para>
+<para>In a second part you will learn how to become another user with the <command>su</command> command.</para>
+<para>And you will learn how to run a program as another user with <command>sudo</command>.</para>
