@@ -6,7 +6,7 @@
 </section>
 <section><title>/etc/passwd</title>
 	<para>The local user database on Linux (and on most Unixes) is <command>/etc/passwd</command><indexterm><primary>/etc/passwd</primary></indexterm>.</para>
-	<screen>[root@RHEL5 ~]# tail /etc/passwd
+	<screen>[root@RHEL5 ~]# <command>tail /etc/passwd</command>
 inge:x:518:524:art dealer:/home/inge:/bin/ksh
 ann:x:519:525:flute player:/home/ann:/bin/bash
 frederik:x:520:526:rubius poet:/home/frederik:/bin/bash
@@ -19,25 +19,25 @@ annelies:x:527:533:sword fighter:/home/annelies:/bin/bash
 laura:x:528:534:art dealer:/home/laura:/bin/ksh</screen>
 	<para>As you can see, this file contains seven columns separated by a colon. The columns contain the username, an x, the user id, the primary group id, a description, the name of the home directory, and the login shell.</para>
 	<para>More information can be found by typing <command>man 5 passwd</command>.</para>
-	<screen>[root@RHEL5 ~]# man 5 passwd</screen>
+	<screen>[root@RHEL5 ~]# <command>man 5 passwd</command></screen>
 </section>
 <section><title>root</title>
 	<para>The <command>root</command><indexterm><primary>root</primary></indexterm> user also called the <command>superuser</command><indexterm><primary>superuser</primary></indexterm> is the most powerful account on your Linux system. This user can do almost anything, including the creation of other users. The root user always has userid 0 (regardless of the name of the account).</para>
-	<screen>[root@RHEL5 ~]# head -1 /etc/passwd
+	<screen>[root@RHEL5 ~]# <command>head -1 /etc/passwd</command>
 root:x:0:0:root:/root:/bin/bash</screen>	
 </section>
 <?hard-pagebreak?>
 <section><title>useradd</title>	
 	<para>You can add users with the <command>useradd</command><indexterm><primary>useradd</primary></indexterm> command. 
 The example below shows how to add a user named yanina (last parameter) and at the same time forcing the creation of the home directory (-m), setting the name of the home directory (-d), and setting a description (-c). </para>
-	<screen>[root@RHEL5 ~]# useradd -m -d /home/yanina -c "yanina wickmayer" yanina
-[root@RHEL5 ~]# tail -1 /etc/passwd
+	<screen>[root@RHEL5 ~]# <command>useradd -m -d /home/yanina -c "yanina wickmayer" yanina</command>
+[root@RHEL5 ~]# <command>tail -1 /etc/passwd</command>
 yanina:x:529:529:yanina wickmayer:/home/yanina:/bin/bash</screen>
 	<para>The user named yanina received userid 529 and <command>primary group</command><indexterm><primary>primary group</primary></indexterm> id 529.</para>
 </section>
 <section><title>/etc/default/useradd</title>	
 	<para>Both Red Hat Enterprise Linux and Debian/Ubuntu have a file called <command>/etc/default/useradd</command><indexterm><primary>/etc/default/useradd</primary></indexterm> that contains some default user options. Besides using cat to display this file, you can also use <command>useradd -D</command><indexterm><primary>useradd -D</primary></indexterm>.</para>
-	<screen>[root@RHEL4 ~]# useradd -D
+	<screen>[root@RHEL4 ~]# <command>useradd -D</command>
 GROUP=100
 HOME=/home
 INACTIVE=-1
@@ -47,29 +47,29 @@ SKEL=/etc/skel</screen>
 </section>
 <section><title>userdel</title>	
 	<para>You can delete the user yanina with <command>userdel</command><indexterm><primary>userdel(1)</primary></indexterm>. The -r option of userdel will also remove the home directory.</para>
-	<screen>[root@RHEL5 ~]# userdel -r yanina</screen>
+	<screen>[root@RHEL5 ~]# <command>userdel -r yanina</command></screen>
 </section>
 <section><title>usermod</title>
 	<para>You can modify the properties of a user with the <command>usermod</command><indexterm><primary>usermod(1)</primary></indexterm> command. This example uses <command>usermod</command> to change the description of the user harry.</para>
-	<screen>[root@RHEL4 ~]# tail -1 /etc/passwd
+	<screen>[root@RHEL4 ~]# <command>tail -1 /etc/passwd</command>
 harry:x:516:520:harry potter:/home/harry:/bin/bash
-[root@RHEL4 ~]# usermod -c 'wizard' harry
-[root@RHEL4 ~]# tail -1 /etc/passwd
+[root@RHEL4 ~]# <command>usermod -c 'wizard' harry</command>
+[root@RHEL4 ~]# <command>tail -1 /etc/passwd</command>
 harry:x:516:520:wizard:/home/harry:/bin/bash</screen>
 </section>
 <?hard-pagebreak?>
 <section><title>creating home directories</title>
 	<para>The easiest way to create a home directory is to supply the <command>-m</command> option with <command>useradd</command><indexterm><primary>useradd(1)</primary></indexterm> (it is likely set as a default option on Linux).</para>
 	<para>A less easy way is to create a home directory manually with <command>mkdir</command><indexterm><primary>mkdir</primary></indexterm> which also requires setting the owner and the permissions on the directory with <command>chmod</command><indexterm><primary>chmod</primary></indexterm> and <command>chown</command><indexterm><primary>chown</primary></indexterm> (both commands are discussed in detail in another chapter).</para>
-	<screen>[root@RHEL5 ~]# mkdir /home/laura
-[root@RHEL5 ~]# chown laura:laura /home/laura
-[root@RHEL5 ~]# chmod 700 /home/laura
-[root@RHEL5 ~]# ls -ld /home/laura/
+	<screen>[root@RHEL5 ~]# <command>mkdir /home/laura</command>
+[root@RHEL5 ~]# <command>chown laura:laura /home/laura</command>
+[root@RHEL5 ~]# <command>chmod 700 /home/laura</command>
+[root@RHEL5 ~]# <command>ls -ld /home/laura/</command>
 drwx------ 2 laura laura 4096 Jun 24 15:17 /home/laura/</screen>
 </section>
 <section><title>/etc/skel/</title>
 	<para>When using <command>useradd</command> the <command>-m</command> option, the <command>/etc/skel/</command><indexterm><primary>/etc/skel</primary></indexterm> directory is copied to the newly created home directory. The <command>/etc/skel/</command> directory contains some (usually hidden) files that contain profile settings and default values for applications. In this way <command>/etc/skel/</command> serves as a default home directory and as a default user profile.</para>
-	<screen>[root@RHEL5 ~]# ls -la /etc/skel/
+	<screen>[root@RHEL5 ~]# <command>ls -la /etc/skel/</command>
 total 48
 drwxr-xr-x  2 root root  4096 Apr  1 00:11 .
 drwxr-xr-x 97 root root 12288 Jun 24 15:36 ..
@@ -79,40 +79,40 @@ drwxr-xr-x 97 root root 12288 Jun 24 15:36 ..
 </section>
 <section><title>deleting home directories</title>
 	<para>The -r option of <command>userdel</command><indexterm><primary>useradd</primary></indexterm> will make sure that the home directory is deleted together with the user account.</para>
-	<screen>[root@RHEL5 ~]# ls -ld /home/wim/
+	<screen>[root@RHEL5 ~]# <command>ls -ld /home/wim/</command>
 drwx------ 2 wim wim 4096 Jun 24 15:19 /home/wim/
-[root@RHEL5 ~]# userdel -r wim
-[root@RHEL5 ~]# ls -ld /home/wim/
+[root@RHEL5 ~]# <command>userdel -r wim</command>
+[root@RHEL5 ~]# <command>ls -ld /home/wim/</command>
 ls: /home/wim/: No such file or directory</screen>
 </section>
 <?hard-pagebreak?>
 <section><title>login shell</title>
 	<para>The <command>/etc/passwd</command><indexterm><primary>/etc/passwd</primary></indexterm> file specifies the <command>login shell</command> for the user. In the screenshot below you can see that user annelies will log in with the <command>/bin/bash</command> shell, and user laura with the <command>/bin/ksh</command> shell.</para>
-	<screen>[root@RHEL5 ~]# tail -2 /etc/passwd
+	<screen>[root@RHEL5 ~]# <command>tail -2 /etc/passwd</command>
 annelies:x:527:533:sword fighter:/home/annelies:/bin/bash
 laura:x:528:534:art dealer:/home/laura:/bin/ksh</screen>
 	<para>You can use the usermod command to change the shell for a user.</para>
-	<screen>[root@RHEL5 ~]# usermod -s /bin/bash laura
-[root@RHEL5 ~]# tail -1 /etc/passwd
+	<screen>[root@RHEL5 ~]# <command>usermod -s /bin/bash laura</command>
+[root@RHEL5 ~]# <command>tail -1 /etc/passwd</command>
 laura:x:528:534:art dealer:/home/laura:/bin/bash</screen>
 </section>
 <section><title>chsh</title>
 	<para>Users can change their login shell with the <command>chsh</command><indexterm><primary>chsh(1)</primary></indexterm> command. First, user harry obtains a list of available shells (he could also have done a <command>cat /etc/shells</command><indexterm><primary>/etc/shells</primary></indexterm>) and then changes his login shell to the <command>Korn shell</command><indexterm><primary>Korn Shell</primary></indexterm> (/bin/ksh). At the next login, harry will default into ksh instead of bash. </para>
-	<screen>[harry@RHEL4 ~]$ chsh -l
+	<screen>[laura@centos7 ~]$ <command>chsh -l</command>
 /bin/sh
 /bin/bash
 /sbin/nologin
-/bin/ash
-/bin/bsh
+/usr/bin/sh
+/usr/bin/bash
+/usr/sbin/nologin
 /bin/ksh
-/usr/bin/ksh
-/usr/bin/pdksh
 /bin/tcsh
 /bin/csh
-/bin/zsh
-[harry@RHEL4 ~]$ chsh -s /bin/ksh
-Changing shell for harry.
+[laura@centos7 ~]$</screen>
+	<para>Note that the <command>-l</command> option does not exist on Debian and that the above screenshot assumes that <command>ksh</command> and <command>csh</command> shells are installed.</para>
+	<para>The screenshot below shows how <command>laura</command> can change her default shell (active on next login).</para>
+ 	<screen>[laura@centos7 ~]$ <command>chsh -s /bin/ksh</command>
+Changing shell for laura.
 Password: 
-Shell changed.
-[harry@RHEL4 ~]$</screen>
+Shell changed.</screen>
 </section>
