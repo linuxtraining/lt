@@ -65,3 +65,9 @@ paul@laika:~$ find /usr/bin -type f -perm -04000
 		</screen>
 		<para>In most cases, setting the <command>setuid</command> bit on executables is sufficient. Setting the <command>setgid</command> bit will result in these programs to run with the credentials of their group owner.</para>
 	</section>
+	<section><title>setuid on sudo</title>
+		<para>The <command>sudo</command> binary has the <command>setuid</command><indexterm><primary>setuid</primary></indexterm> bit set, so any user can run it with the effective userid of root.</para>
+		<screen>paul@rhel65:~$ ls -l $(which sudo)
+---s--x--x. 1 root root 123832 Oct  7  2013 /usr/bin/sudo
+paul@rhel65:~$</screen>
+	</section>

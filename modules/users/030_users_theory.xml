@@ -1,5 +1,4 @@
 <?hard-pagebreak?>
-<section><title>identify yourself</title>
 	<section><title>whoami</title>
 		<para>The <command>whoami</command><indexterm><primary>whoami</primary></indexterm> command tells you your username.</para>
 		<screen>[paul@centos7 ~]$ <command>whoami</command>
@@ -39,11 +38,9 @@ uid=1000(paul) gid=1000(paul) groups=1000(paul)</screen>
 uid=0(root) gid=0(root) groups=0(root) context=unconfined_u:unconfined_r\
 :unconfined_t:s0-s0:c0.c1023</screen>
 	</section>
-</section>
 <?hard-pagebreak?>
-<section><title>switch users with su</title>
 	<section><title>su to another user</title>
-		<para>The <command>su</command><indexterm><primary>su(1)</primary></indexterm> command allows a user to run a shell as another user.</para>
+		<para>The <command>su</command><indexterm><primary>su</primary></indexterm> command allows a user to run a shell as another user.</para>
 		<screen>[paul@RHEL4b ~]$ su harry
 Password: 
 [harry@RHEL4b paul]$ </screen>
@@ -55,12 +52,12 @@ Password:
 [root@RHEL4b paul]# </screen>
 	</section>
 	<section><title>su as root</title>
-		<para>Unless you are logged in as <command>root</command>, running a shell as another user requires that you know the password of that user. The <command>root</command> user can become any user without knowing the user's password.</para>
+		<para>Unless you are logged in as <command>root</command>, running a shell as another user requires that you know the password of that user. The <command>root</command> user can become any user without knowing that user's password.</para>
 		<screen>[root@RHEL4b paul]# su serena
 [serena@RHEL4b paul]$ </screen>
 	</section>
 	<section><title>su - $username</title>
-		<para>By default, the <command>su</command> command maintains the same shell environment. To become another user and also get the target user's environment, issue the <command>su -</command><indexterm><primary>su(1)</primary></indexterm> command followed by the target username. </para>
+		<para>By default, the <command>su</command> command maintains the same shell environment. To become another user and also get the target user's environment, issue the <command>su -</command><indexterm><primary>su</primary></indexterm> command followed by the target username. </para>
 		<screen>[paul@RHEL4b ~]$ su - harry
 Password: 
 [harry@RHEL4b ~]$ </screen>
@@ -71,10 +68,8 @@ Password:
 Password: 
 [root@RHEL4b ~]# </screen>
 	</section>
-</section>
 <?hard-pagebreak?>
 <section><title>run a program as another user</title>
-	<section><title>about sudo</title>
 		<para>The sudo program allows a user to start a program with the credentials of another user. Before this works, the system administrator has to set up the <command>/etc/sudoers</command><indexterm><primary>/etc/sudoers</primary></indexterm> file. This can be useful to delegate administrative tasks to another user (without giving the root password).</para>
 		<para>The screenshot below shows the usage of <command>sudo</command><indexterm><primary>sudo</primary></indexterm>. User <command>paul</command> received the right to run <command>useradd</command> with the credentials of <command>root</command><indexterm><primary>root</primary></indexterm>. This allows <command>paul</command> to create new users on the system without becoming <command>root</command> and without knowing the <command>root password</command>.</para>
 		<screen>paul@laika:~$ useradd -m inge
@@ -83,21 +78,15 @@ paul@laika:~$ sudo useradd -m inge
 [sudo] password for paul: 
 paul@laika:~$</screen>
         </section>
-	<section><title>setuid on sudo</title>
-		<para>The <command>sudo</command> binary has the <command>setuid</command><indexterm><primary>setuid</primary></indexterm> bit set, so any user can run it with the effective userid of root.</para>
-		<screen>paul@rhel65:~$ ls -l $(which sudo)
----s--x--x. 1 root root 123832 Oct  7  2013 /usr/bin/sudo
-paul@rhel65:~$</screen>
-	</section>
 	<section><title>visudo</title>
-		<para>Check the man page of <command>visudo</command><indexterm><primary>visudo(1)</primary></indexterm> before playing with the /etc/sudoers file.</para>
+		<para>Check the man page of <command>visudo</command><indexterm><primary>visudo</primary></indexterm> before playing with the /etc/sudoers file.</para>
 	<screen>paul@rhel65:~$ apropos visudo
 visudo               (8)  - edit the sudoers file
 paul@rhel65:~$</screen>
 	</section>
 <?hard-pagebreak?>
 	<section><title>sudo su -</title>
-		<para>On some Linux systems like Ubuntu and Xubuntu, the <command>root</command><indexterm><primary>root</primary></indexterm> user does not have a password set. This means that it is not possible to login as <command>root</command> (extra security). To perform tasks as <command>root</command>, the first user is given all <command>sudo rights</command><indexterm><primary>sudo(1)</primary></indexterm> via the <command>/etc/sudoers</command><indexterm><primary>/etc/sudoers</primary></indexterm>. In fact all users that are members of the admin group can use sudo to run all commands as root.</para>
+		<para>On some Linux systems like Ubuntu and Xubuntu, the <command>root</command><indexterm><primary>root</primary></indexterm> user does not have a password set. This means that it is not possible to login as <command>root</command> (extra security). To perform tasks as <command>root</command>, the first user is given all <command>sudo rights</command><indexterm><primary>sudo</primary></indexterm> via the <command>/etc/sudoers</command><indexterm><primary>/etc/sudoers</primary></indexterm>. In fact all users that are members of the admin group can use sudo to run all commands as root.</para>
 	<screen>root@laika:~# grep admin /etc/sudoers 
 # Members of the admin group may gain root privileges
 %admin ALL=(ALL) ALL</screen>
@@ -125,5 +114,4 @@ paul@rhel65:~$</screen>
 Apr 13 16:03:42 rhel65 sudo: paul : user NOT in sudoers ; TTY=pts/0 ; PWD=\
 /home/paul ; USER=root ; COMMAND=/bin/su -
 root@rhel65:~#</screen>
-	</section>
 </section>
