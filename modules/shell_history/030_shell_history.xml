@@ -62,7 +62,7 @@ paul@debian5:~$ <command>echo $HISTSIZE</command>
 15000</screen>
 </section>
 <?hard-pagebreak?>
-<section><title>prevent a command from being recorded</title>
+<section><title>prevent recording a command</title>
 	<para>You can prevent a command from being recorded in <command>history</command> using a space prefix.</para>
 	<screen>paul@debian8:~/github$ <command>echo abc</command>
 abc
@@ -77,7 +77,7 @@ paul@debian8:~/github$ <command>history 3</command>
 </section>
 <section><title>(optional)regular expressions</title>
 	<para>It is possible to use <command>regular expressions</command><indexterm><primary>regular expressions</primary></indexterm> when using the <command>bang</command> to repeat commands. The screenshot below switches 1 into 2.</para>
-	<screen>paul@deianb5:~/test$ <command>cat file1</command>
+	<screen>paul@debian5:~/test$ <command>cat file1</command>
 paul@debian5:~/test$ !c:s/1/2
 cat file2
 hello
