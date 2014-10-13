@@ -599,9 +599,9 @@ root@debian7:~#</screen>
 Stopping domain name service...: bind9.
 Starting domain name service...: bind9.
 root@debian7:~# <command>grep paul.local /var/log/syslog</command>
-Oct  6 09:22:18 pauldebian named[2707]: zone paul.local/IN: loaded seria\
+Oct  6 09:22:18 debian7 named[2707]: zone paul.local/IN: loaded seria\
 l 2014100101
-Oct  6 09:22:18 pauldebian named[2707]: zone paul.local/IN: sending noti\
+Oct  6 09:22:18 debian7 named[2707]: zone paul.local/IN: sending noti\
 fies (serial 2014100101)</screen>
 	<para>5. Use <command>dig</command> or <command>nslookup</command> (or even <command>ping</command>) to test your A records.</para>
 	<screen>root@debian7:~# <command>ping -c1 ns1.paul.local</command>
