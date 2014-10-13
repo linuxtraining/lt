@@ -96,8 +96,8 @@ paul@debian5:~/test$</screen>
 	<screen>$ <command>r e</command>
 echo world
 world
-$ cd /etc
-$ r
+$ <command>cd /etc</command>
+$ <command>r</command>
 cd /etc
 $</screen>
 </section>	
