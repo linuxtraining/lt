@@ -41,63 +41,71 @@ uid=0(root) gid=0(root) groups=0(root) context=unconfined_u:unconfined_r\
 <?hard-pagebreak?>
 	<section><title>su to another user</title>
 		<para>The <command>su</command><indexterm><primary>su</primary></indexterm> command allows a user to run a shell as another user.</para>
-		<screen>[paul@RHEL4b ~]$ su harry
-Password: 
-[harry@RHEL4b paul]$ </screen>
+		<screen>laura@debian7:~$ <command>su tania</command>
+Password:
+tania@debian7:/home/laura$</screen>
 	</section>
 	<section><title>su to root</title>
 		<para>Yes you can alsu <command>su</command> to become <command>root</command><indexterm><primary>root</primary></indexterm>, when you know the <command>root password</command>.</para>
-		<screen>[harry@RHEL4b paul]$ su root
-Password: 
-[root@RHEL4b paul]# </screen>
+		<screen>laura@debian7:~$ <command>su root</command>
+Password:
+root@debian7:/home/laura#</screen>
 	</section>
 	<section><title>su as root</title>
-		<para>Unless you are logged in as <command>root</command>, running a shell as another user requires that you know the password of that user. The <command>root</command> user can become any user without knowing that user's password.</para>
-		<screen>[root@RHEL4b paul]# su serena
-[serena@RHEL4b paul]$ </screen>
+		<para>You need to know the password of the user you want to substitute to, unless your are logged in as <command>root</command>. The <command>root</command> user can become any existing user without knowing that user's password.</para>
+		<screen>root@debian7:~# <command>id</command>
+uid=0(root) gid=0(root) groups=0(root)
+root@debian7:~# <command>su - valentina</command>
+valentina@debian7:~$</screen>
 	</section>
 	<section><title>su - $username</title>
 		<para>By default, the <command>su</command> command maintains the same shell environment. To become another user and also get the target user's environment, issue the <command>su -</command><indexterm><primary>su</primary></indexterm> command followed by the target username. </para>
-		<screen>[paul@RHEL4b ~]$ su - harry
-Password: 
-[harry@RHEL4b ~]$ </screen>
+		<screen>root@debian7:~# <command>su laura</command>
+laura@debian7:/root$ <command>exit</command>
+exit
+root@debian7:~# <command>su - laura</command>
+laura@debian7:~$ <command>pwd</command>
+/home/laura</screen>
 	</section>
 	<section><title>su -</title>
 		<para>When no username is provided to <command>su</command> or <command>su -</command>, the command will assume <command>root</command> is the target.</para>
-		<screen>[harry@RHEL4b ~]$ su -
-Password: 
-[root@RHEL4b ~]# </screen>
+		<screen>tania@debian7:~$ <command>su -</command>
+Password:
+root@debian7:~#</screen>
 	</section>
 <?hard-pagebreak?>
 <section><title>run a program as another user</title>
 		<para>The sudo program allows a user to start a program with the credentials of another user. Before this works, the system administrator has to set up the <command>/etc/sudoers</command><indexterm><primary>/etc/sudoers</primary></indexterm> file. This can be useful to delegate administrative tasks to another user (without giving the root password).</para>
 		<para>The screenshot below shows the usage of <command>sudo</command><indexterm><primary>sudo</primary></indexterm>. User <command>paul</command> received the right to run <command>useradd</command> with the credentials of <command>root</command><indexterm><primary>root</primary></indexterm>. This allows <command>paul</command> to create new users on the system without becoming <command>root</command> and without knowing the <command>root password</command>.</para>
-		<screen>paul@laika:~$ useradd -m inge
-useradd: unable to lock password file
-paul@laika:~$ sudo useradd -m inge
-[sudo] password for paul: 
-paul@laika:~$</screen>
+		<para>First the command fails for <command>paul</command>.</para>
+		<screen>paul@debian7:~$ <command>/usr/sbin/useradd -m valentina</command>
+useradd: Permission denied.
+useradd: cannot lock /etc/passwd; try again later.</screen>
+	<para>But with <command>sudo</command> it works.</para>
+	<screen>paul@debian7:~$ <command>sudo /usr/sbin/useradd -m valentina</command>
+[sudo] password for paul:
+paul@debian7:~$</screen>
         </section>
 	<section><title>visudo</title>
-		<para>Check the man page of <command>visudo</command><indexterm><primary>visudo</primary></indexterm> before playing with the /etc/sudoers file.</para>
-	<screen>paul@rhel65:~$ apropos visudo
+		<para>Check the man page of <command>visudo</command><indexterm><primary>visudo</primary></indexterm> before playing with the <command>/etc/sudoers</command> file. Editing the <command>sudoers</command> is out of scope for this fundamentals book.</para>
+	<screen>paul@rhel65:~$ <command>apropos visudo</command>
 visudo               (8)  - edit the sudoers file
 paul@rhel65:~$</screen>
 	</section>
 <?hard-pagebreak?>
 	<section><title>sudo su -</title>
 		<para>On some Linux systems like Ubuntu and Xubuntu, the <command>root</command><indexterm><primary>root</primary></indexterm> user does not have a password set. This means that it is not possible to login as <command>root</command> (extra security). To perform tasks as <command>root</command>, the first user is given all <command>sudo rights</command><indexterm><primary>sudo</primary></indexterm> via the <command>/etc/sudoers</command><indexterm><primary>/etc/sudoers</primary></indexterm>. In fact all users that are members of the admin group can use sudo to run all commands as root.</para>
-	<screen>root@laika:~# grep admin /etc/sudoers 
+	<screen>root@laika:~# <command>grep admin /etc/sudoers</command> 
 # Members of the admin group may gain root privileges
 %admin ALL=(ALL) ALL</screen>
 	 <para>The end result of this is that the user can type <command>sudo su -</command><indexterm><primary>sudo su -</primary></indexterm> and become root without having to enter the root password. The sudo command does require you to enter your own password. Thus the password prompt in the screenshot below is for sudo, not for su. </para>
-		<screen>paul@laika:~$ sudo su -
+		<screen>paul@laika:~$ <command>sudo su -</command>
 Password:
 root@laika:~#</screen>
 	</section>
 	<section><title>sudo logging</title>
 		<para>Using <command>sudo</command> without authorization will result in a severe warning:</para>
-		<screen>paul@rhel65:~$ sudo su -
+		<screen>paul@rhel65:~$ <command>sudo su -</command>
 
 We trust you have received the usual lecture from the local System
 Administrator. It usually boils down to these three things:
@@ -110,7 +118,7 @@ Administrator. It usually boils down to these three things:
 paul is not in the sudoers file.  This incident will be reported.
 paul@rhel65:~$</screen>
 		<para>The root user can see this in the <command>/var/log/secure</command> on Red Hat (and <command>/var/log/auth.log</command> on Debian.</para>
-		<screen>root@rhel65:~# tail /var/log/secure | grep sudo | tr -s ' '
+		<screen>root@rhel65:~# <command>tail /var/log/secure | grep sudo | tr -s ' '</command>
 Apr 13 16:03:42 rhel65 sudo: paul : user NOT in sudoers ; TTY=pts/0 ; PWD=\
 /home/paul ; USER=root ; COMMAND=/bin/su -
 root@rhel65:~#</screen>
