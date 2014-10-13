@@ -78,7 +78,7 @@ paul@debian8:~/github$ <command>history 3</command>
 <section><title>(optional)regular expressions</title>
 	<para>It is possible to use <command>regular expressions</command><indexterm><primary>regular expressions</primary></indexterm> when using the <command>bang</command> to repeat commands. The screenshot below switches 1 into 2.</para>
 	<screen>paul@debian5:~/test$ <command>cat file1</command>
-paul@debian5:~/test$ !c:s/1/2
+paul@debian5:~/test$ <command>!c:s/1/2</command>
 cat file2
 hello
 paul@debian5:~/test$</screen>
