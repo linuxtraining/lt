@@ -244,16 +244,17 @@ root@debian7:~# <command>cat /etc/apache2/sites-available/hunter2</command>
 	<para>Notice the different port numbers 7000, 8000 and 9000. Notice also that we specified a unique <command>DocumentRoot</command> for each website.</para>
 	<para>Are you using <command>Ubuntu</command> or <command>Mint</command>, then these configfiles need to end in <command>.conf</command>.</para>
 </section>
+<?hard-pagebreak?>
 <section><title>three extra ports</title>
-	<para>We need to enable these three ports on apache in the <command>ports.conf</command> file.</para>
-	<screen>root@debian7:~# <command>vi /etc/apache2/ports.conf</command>
-root@debian7:~# <command>grep ^Listen /etc/apache2/ports.conf</command>
+	<para>We need to enable these three ports on apache in the <command>ports.conf</command> file. Open this file with <command>vi</command> and add three lines to <command>listen</command> on three extra ports.</para>
+	<screen>root@debian7:~# <command>vi /etc/apache2/ports.conf</command></screen>
+	<para>Verify with <command>grep</command> that the <command>Listen</command> directives are added correctly.</para>
+<screen>root@debian7:~# <command>grep ^Listen /etc/apache2/ports.conf</command>
 Listen 80
 Listen 7000
 Listen 8000
 Listen 9000</screen>
 </section>
-<?hard-pagebreak?>
 <section><title>three extra websites</title>
 	<para>Next we need to create three <command>DocumentRoot</command> directories.</para>
 	<screen>root@debian7:~# mkdir /var/www/choochoo
@@ -266,6 +267,7 @@ root@debian7:~# echo 'Welcome to chess club 42' > /var/www/chessclub42/index.ht\
 ml
 root@debian7:~# echo 'HaCkInG iS fUn At HuNtEr2' > /var/www/hunter2/index.html</screen>
 </section>
+<?hard-pagebreak?>
 <section><title>enabling extra websites</title>
 	<para>The last step is to enable the websites with the <command>a2ensite</command> command. This command will create links in <command>sites-enabled</command>.</para>
 	<para>The links are not there yet...</para>

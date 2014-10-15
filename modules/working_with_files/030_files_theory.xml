@@ -1,180 +1,214 @@
 <?hard-pagebreak?>
 <section><title>all files are case sensitive</title>
-	<para>Linux is <command>case sensitive</command><indexterm><primary>case sensitive</primary></indexterm>, this means that <command>FILE1</command> is different from <command>file1</command>, and <command>/etc/hosts</command> is different from <command>/etc/Hosts</command> (the latter one does not exist on a typical Linux computer).</para>
+	<para>Files on Linux (or any Unix) are <command>case sensitive</command><indexterm><primary>case sensitive</primary></indexterm>. This means that <command>FILE1</command> is different from <command>file1</command>, and <command>/etc/hosts</command> is different from <command>/etc/Hosts</command> (the latter one does not exist on a typical Linux computer).</para>
 	<para>This screenshot shows the difference between two files, one with upper case <command>W</command>, the other with lower case <command>w</command>.</para>
-	<screen>paul@laika:~/Linux$ ls
+	<screen>paul@laika:~/Linux$ <command>ls</command>
 winter.txt  Winter.txt
-paul@laika:~/Linux$ cat winter.txt 
+paul@laika:~/Linux$ <command>cat winter.txt</command>
 It is cold.
-paul@laika:~/Linux$ cat Winter.txt 
+paul@laika:~/Linux$ <command>cat Winter.txt</command>
 It is very cold!</screen>
 </section>
 <section><title>everything is a file</title>
-	<para>A <command>directory</command> is a special kind of <command>file</command>, but it is still a (case sensitive!) <command>file</command>. Even a terminal window (<command>/dev/pts/4</command>) or a hard disk (<command>/dev/sdb</command>) is represented somewhere in the <command>file system</command> as a <command>file</command>. It will become clear throughout this course that everything on Linux is a <command>file</command>.</para>
+	<para>A <command>directory</command> is a special kind of <command>file</command>, but it is still a (case sensitive!) <command>file</command>. Each terminal window (for example <command>/dev/pts/4</command>), any hard disk or partition (for example <command>/dev/sdb1</command>) and any process are all represented somewhere in the <command>file system</command> as a <command>file</command>. It will become clear throughout this course that everything on Linux is a <command>file</command>.</para>
 </section>
 <section><title>file</title>
-	<para>The <command>file</command><indexterm><primary>file(1)</primary></indexterm> utility determines the file type. Linux does not use extensions to determine the file type. Your editor does not care whether a file ends in .TXT or .DOC. As a system administrator, you should use the <command>file</command> command to determine the file type. Here are some examples on a typical Linux system.</para>
-	<screen>paul@laika:~$ file pic33.png 
+	<para>The <command>file</command><indexterm><primary>file</primary></indexterm> utility determines the file type. Linux does not use extensions to determine the file type. The command line does not care whether a file ends in .txt or .pdf. As a system administrator, you should use the <command>file</command> command to determine the file type. Here are some examples on a typical Linux system.</para>
+	<screen>paul@laika:~$ <command>file pic33.png</command>
 pic33.png: PNG image data, 3840 x 1200, 8-bit/color RGBA, non-interlaced
-paul@laika:~$ file /etc/passwd
+paul@laika:~$ <command>file /etc/passwd</command>
 /etc/passwd: ASCII text
-paul@laika:~$ file HelloWorld.c 
+paul@laika:~$ <command>file HelloWorld.c</command>
 HelloWorld.c: ASCII C program text</screen>
-	<para>The file command uses a magic file that contains patterns to recognise file types. The magic file is located in <command>/usr/share/file/magic</command><indexterm><primary>magic(5)</primary></indexterm>. Type <command>man 5 magic</command> for more information.</para>
+	<para>The file command uses a magic file that contains patterns to recognise file types. The magic file is located in <command>/usr/share/file/magic</command><indexterm><primary>magic</primary></indexterm>. Type <command>man 5 magic</command> for more information.</para>
 	<para>It is interesting to point out <command>file -s</command> for special files like those in <command>/dev</command><indexterm><primary>/dev</primary></indexterm> and <command>/proc</command><indexterm><primary>/proc</primary></indexterm>.</para>
-	<screen>root@debian6~# file /dev/sda
+	<screen>root@debian6~# <command>file /dev/sda</command>
 /dev/sda: block special
-root@debian6~# file -s /dev/sda
+root@debian6~# <command>file -s /dev/sda</command>
 /dev/sda: x86 boot sector; partition 1: ID=0x83, active, starthead...
-root@debian6~# file /proc/cpuinfo 
+root@debian6~# <command>file /proc/cpuinfo</command> 
 /proc/cpuinfo: empty
-root@debian6~# file -s /proc/cpuinfo 
+root@debian6~# <command>file -s /proc/cpuinfo</command>
 /proc/cpuinfo: ASCII C++ program text</screen>
 </section>
+<?hard-pagebreak?>
 <section><title>touch</title>
-	<para>One easy way to create a file is with <command>touch</command><indexterm><primary>touch(1)</primary></indexterm>. (We will see many other ways for creating files later in this book.)</para>
-	<screen>paul@laika:~/test$ touch file1
-paul@laika:~/test$ touch file2
-paul@laika:~/test$ touch file555
-paul@laika:~/test$ ls -l
+	<section><title>create an empty file</title>
+	<para>One easy way to create an empty file is with <command>touch</command><indexterm><primary>touch(1)</primary></indexterm>. (We will see many other ways for creating files later in this book.)</para>
+	<para>This screenshot starts with an empty directory, creates two files with <command>touch</command> and the lists those files.</para>
+	<screen>paul@debian7:~$ <command>ls -l</command>
 total 0
--rw-r--r-- 1 paul paul 0 2007-01-10 21:40 file1
--rw-r--r-- 1 paul paul 0 2007-01-10 21:40 file2
--rw-r--r-- 1 paul paul 0 2007-01-10 21:40 file555</screen>
+paul@debian7:~$ <command>touch file42</command>
+paul@debian7:~$ <command>touch file33</command>
+paul@debian7:~$ <command>ls -l</command>
+total 0
+-rw-r--r-- 1 paul paul 0 Oct 15 08:57 file33
+-rw-r--r-- 1 paul paul 0 Oct 15 08:56 file42
+paul@debian7:~$</screen>
+	</section>
 	<section><title>touch -t</title>
-		<para>Of course, touch can do more than just create files. Can you determine what by looking at the next screenshot? If not, check the manual for touch.</para>
-		<screen>paul@laika:~/test$ touch -t 200505050000 SinkoDeMayo
-paul@laika:~/test$ touch -t 130207111630 BigBattle
-paul@laika:~/test$ ls -l
+		<para>The <command>touch</command> command can set some properties while creating empty files. Can you determine what is set by looking at the next screenshot? If not, check the manual for <command>touch</command>.</para>
+		<screen>paul@debian7:~$ <command>touch -t 200505050000 SinkoDeMayo</command>
+paul@debian7:~$ <command>touch -t 130207111630 BigBattle.txt</command>
+paul@debian7:~$ <command>ls -l</command>
 total 0
--rw-r--r-- 1 paul paul 0 1302-07-11 16:30 BigBattle
--rw-r--r-- 1 paul paul 0 2005-05-05 00:00 SinkoDeMayo</screen>
+-rw-r--r-- 1 paul paul 0 Jul 11  1302 BigBattle.txt
+-rw-r--r-- 1 paul paul 0 Oct 15 08:57 file33
+-rw-r--r-- 1 paul paul 0 Oct 15 08:56 file42
+-rw-r--r-- 1 paul paul 0 May  5  2005 SinkoDeMayo
+paul@debian7:~$</screen>
 	</section>
 </section>
+<?hard-pagebreak?>
 <section><title>rm</title>
-	<para>When you no longer need a file, use <command>rm</command><indexterm><primary>rm(1)</primary></indexterm> to remove it. Unlike some graphical user interfaces, the command line in general does not have a <emphasis>waste bin</emphasis> or <emphasis>trash can</emphasis> to recover files. When you use rm to remove a file, the file is gone. Therefore, be careful when removing files! </para>
-	<screen>paul@laika:~/test$ ls
-BigBattle  SinkoDeMayo
-paul@laika:~/test$ rm BigBattle 
-paul@laika:~/test$ ls
-SinkoDeMayo</screen>
+	<section><title>remove forever</title>
+	<para>When you no longer need a file, use <command>rm</command><indexterm><primary>rm</primary></indexterm> to remove it. Unlike some graphical user interfaces, the command line in general does not have a <command>waste bin</command> or <command>trash can</command> to recover files. When you use <command>rm</command> to remove a file, the file is gone. Therefore, be careful when removing files!</para>
+	<screen>paul@debian7:~$ <command>ls</command>
+BigBattle.txt  file33  file42  SinkoDeMayo
+paul@debian7:~$ <command>rm BigBattle.txt</command>
+paul@debian7:~$ <command>ls</command>
+file33  file42  SinkoDeMayo
+paul@debian7:~$</screen>
+	</section>
 	<section><title>rm -i</title>
 		<para>To prevent yourself from accidentally removing a file, you can type <command>rm -i</command>.</para>
-		<screen>paul@laika:~/Linux$ touch brel.txt
-paul@laika:~/Linux$ rm -i brel.txt 
-rm: remove regular empty file `brel.txt'? y
-paul@laika:~/Linux$</screen>
+		<screen>paul@debian7:~$ <command>ls</command>
+file33  file42  SinkoDeMayo
+paul@debian7:~$ <command>rm -i file33</command>
+rm: remove regular empty file `file33'? yes
+paul@debian7:~$ <command>rm -i SinkoDeMayo</command>
+rm: remove regular empty file `SinkoDeMayo'? n
+paul@debian7:~$ <command>ls</command>
+file42  SinkoDeMayo
+paul@debian7:~$</screen>
 	</section>
-<?hard-pagebreak?>
 	<section><title>rm -rf</title>
 		<para>By default, <command>rm -r</command> will not remove non-empty directories. However <command>rm</command> accepts several options that will allow you to remove any directory. The <command>rm -rf</command><indexterm><primary>rm -rf</primary></indexterm> statement is famous because it will erase anything (providing that you have the permissions to do so). When you are logged on as root, be very careful with <command>rm -rf</command> (the <command>f</command> means <command>force</command> and the <command>r</command> means <command>recursive</command>) since being root implies that permissions don't apply to you. You can literally erase your entire file system by accident.</para>
-		<screen>paul@laika:~$ ls test
-SinkoDeMayo
-paul@laika:~$ rm test
+		<screen>paul@debian7:~$ <command>mkdir test</command>
+paul@debian7:~$ <command>rm test</command>
 rm: cannot remove `test': Is a directory
-paul@laika:~$ rm -rf test
-paul@laika:~$ ls test
-ls: test: No such file or directory</screen>
+paul@debian7:~$ <command>rm -rf test</command>
+paul@debian7:~$ <command>ls test</command>
+ls: cannot access test: No such file or directory
+paul@debian7:~$</screen>
 	</section>
 </section>
+<?hard-pagebreak?>
 <section><title>cp</title>
-	<para>To copy a file, use <command>cp</command><indexterm><primary>cp(1)</primary></indexterm> with a source and a target argument. If the target is a directory, then the source files are copied to that target directory.</para>
-	<screen>paul@laika:~/test$ touch FileA
-paul@laika:~/test$ ls
-FileA
-paul@laika:~/test$ cp FileA FileB
-paul@laika:~/test$ ls
-FileA  FileB
-paul@laika:~/test$ mkdir MyDir
-paul@laika:~/test$ ls
-FileA  FileB  MyDir
-paul@laika:~/test$ cp FileA MyDir/
-paul@laika:~/test$ ls MyDir/
-FileA</screen>
+	<section><title>copy one file</title>
+	<para>To copy a file, use <command>cp</command><indexterm><primary>cp</primary></indexterm> with a source and a target argument.</para>
+	<screen>paul@debian7:~$ <command>ls</command>
+file42  SinkoDeMayo
+paul@debian7:~$ <command>cp file42 file42.copy</command>
+paul@debian7:~$ <command>ls</command>
+file42  file42.copy  SinkoDeMayo</screen>
+	</section>
+	<section><title>copy to another directory</title>
+	<para>If the target is a directory, then the source files are copied to that target directory.</para>
+	<screen>paul@debian7:~$ <command>mkdir dir42</command>
+paul@debian7:~$ <command>cp SinkoDeMayo dir42</command>
+paul@debian7:~$ <command>ls dir42/</command>
+SinkoDeMayo</screen>
+	</section>
 	<section><title>cp -r</title>
 		<para>To copy complete directories, use <command>cp -r</command><indexterm><primary>cp(1)</primary></indexterm> (the <command>-r</command> option forces <command>recursive</command> copying of all files in all subdirectories).</para>
-		<screen>
-paul@laika:~/test$ ls
-FileA  FileB  MyDir
-paul@laika:~/test$ ls MyDir/
-FileA
-paul@laika:~/test$ cp -r MyDir MyDirB
-paul@laika:~/test$ ls
-FileA  FileB  MyDir  MyDirB
-paul@laika:~/test$ ls MyDirB
-FileA
-		</screen>
+		<screen>paul@debian7:~$ <command>ls</command>
+dir42  file42  file42.copy  SinkoDeMayo
+paul@debian7:~$ <command>cp -r dir42/ dir33</command>
+paul@debian7:~$ <command>ls</command>
+dir33  dir42  file42  file42.copy  SinkoDeMayo
+paul@debian7:~$ <command>ls dir33/</command>
+SinkoDeMayo</screen>
 	</section>
-	<section><title>cp multiple files to directory</title>
+	<section><title>copy multiple files to directory</title>
 		<para>You can also use cp to copy multiple files into a directory. In this case, the last argument (a.k.a. the target) must be a directory.</para>
-		<screen>cp file1 file2 dir1/file3 dir1/file55 dir2</screen>
+		<screen>paul@debian7:~$ <command>cp file42 file42.copy SinkoDeMayo dir42/</command>
+paul@debian7:~$ <command>ls dir42/</command>
+file42  file42.copy  SinkoDeMayo</screen>
 	</section>
 	<section><title>cp -i</title>
-		<para>To prevent cp from overwriting existing files, use the -i (for interactive) option.</para>
-		<screen>
-paul@laika:~/test$ cp fire water
-paul@laika:~/test$ cp -i fire water
-cp: overwrite `water'? no
-paul@laika:~/test$
-		</screen>
-	</section>
-	<section><title>cp -p</title>
-		<para>To preserve permissions and time stamps from source files, use <command>cp -p</command>.</para>
-		<screen>
-paul@laika:~/perms$ cp file* cp
-paul@laika:~/perms$ cp -p file* cpp
-paul@laika:~/perms$ ll *
--rwx------ 1 paul paul    0 2008-08-25 13:26 file33
--rwxr-x--- 1 paul paul    0 2008-08-25 13:26 file42
-
-cp:
-total 0
--rwx------ 1 paul paul 0 2008-08-25 13:34 file33
--rwxr-x--- 1 paul paul 0 2008-08-25 13:34 file42
-
-cpp:
-total 0
--rwx------ 1 paul paul 0 2008-08-25 13:26 file33
--rwxr-x--- 1 paul paul 0 2008-08-25 13:26 file42
-		</screen>
+		<para>To prevent <command>cp</command> from overwriting existing files, use the <command>-i</command> (for interactive) option.</para>
+		<screen>paul@debian7:~$ <command>cp SinkoDeMayo file42</command>
+paul@debian7:~$ <command>cp SinkoDeMayo file42</command>
+paul@debian7:~$ <command>cp -i SinkoDeMayo file42</command>
+cp: overwrite `file42'? <command>n</command>
+paul@debian7:~$</screen>
 	</section>
 </section>
+<?hard-pagebreak?>
 <section><title>mv</title>
-	<para>Use <command>mv</command><indexterm><primary>mv(1)</primary></indexterm> to rename a file or to move the file to another directory.</para>
-	<screen>
-paul@laika:~/test$ touch file100
-paul@laika:~/test$ ls
-file100
-paul@laika:~/test$ mv file100 ABC.txt
-paul@laika:~/test$ ls
-ABC.txt
-paul@laika:~/test$
-	</screen>
+<section><title>rename files with mv</title>
+	<para>Use <command>mv</command><indexterm><primary>mv</primary></indexterm> to rename a file or to move the file to another directory.</para>
+	<screen>paul@debian7:~$ <command>ls</command>
+dir33  dir42  file42  file42.copy  SinkoDeMayo
+paul@debian7:~$ <command>mv file42 file33</command>
+paul@debian7:~$ <command>ls</command>
+dir33  dir42  file33  file42.copy  SinkoDeMayo
+paul@debian7:~$</screen>
 	<para>When you need to rename only one file then <command>mv</command> is the preferred command to use.</para>
 </section>
+<section><title>rename directories with mv</title>
+	<para>The same <command>mv</command> command can be used to rename directories.</para>
+	<screen>paul@debian7:~$ <command>ls -l</command>
+total 8
+drwxr-xr-x 2 paul paul 4096 Oct 15 09:36 dir33
+drwxr-xr-x 2 paul paul 4096 Oct 15 09:36 dir42
+-rw-r--r-- 1 paul paul    0 Oct 15 09:38 file33
+-rw-r--r-- 1 paul paul    0 Oct 15 09:16 file42.copy
+-rw-r--r-- 1 paul paul    0 May  5  2005 SinkoDeMayo
+paul@debian7:~$ <command>mv dir33 backup</command>
+paul@debian7:~$ <command>ls -l</command>
+total 8
+drwxr-xr-x 2 paul paul 4096 Oct 15 09:36 backup
+drwxr-xr-x 2 paul paul 4096 Oct 15 09:36 dir42
+-rw-r--r-- 1 paul paul    0 Oct 15 09:38 file33
+-rw-r--r-- 1 paul paul    0 Oct 15 09:16 file42.copy
+-rw-r--r-- 1 paul paul    0 May  5  2005 SinkoDeMayo
+paul@debian7:~$</screen>
+</section>
+<section><title>mv -i</title>
+	<para>The <command>mv</command> also has a <command>-i</command> switch similar to <command>cp</command> and <command>rm</command>.</para>
+	<para>this screenshot shows that <command>mv -i</command> will ask permission to overwrite an existing file.</para>
+<screen>paul@debian7:~$ <command>mv -i file33 SinkoDeMayo</command>
+mv: overwrite `SinkoDeMayo'? <command>no</command>
+paul@debian7:~$</screen>
+</section>
+</section>
+<?hard-pagebreak?>
 <section><title>rename</title>
-	<para>The <command>rename</command><indexterm><primary>rename(1)</primary></indexterm> command can also be used but it has a more complex syntax to enable renaming of many files at once. Below are two examples, the first switches all occurrences of txt to png for all file names ending in .txt. The second example switches all occurrences of upper case ABC in lower case abc for all file names ending in .png . The following syntax will work on debian and ubuntu (prior to Ubuntu 7.10).</para>
-	<screen>
-paul@laika:~/test$ ls
-123.txt  ABC.txt
-paul@laika:~/test$ rename 's/txt/png/' *.txt
-paul@laika:~/test$ ls
-123.png  ABC.png
-paul@laika:~/test$ rename 's/ABC/abc/' *.png
-paul@laika:~/test$ ls
-123.png  abc.png
-paul@laika:~/test$ 
-	</screen>
-	<para>On Red Hat Enterprise Linux (and many other Linux distributions like Ubuntu 8.04), the syntax of rename is a bit different. The first example below renames all *.conf files replacing any occurrence of conf with bak. The second example renames all (*) files replacing one with ONE.</para>
-	<screen>
-[paul@RHEL4a test]$ ls
-one.conf  two.conf
-[paul@RHEL4a test]$ rename conf bak *.conf
-[paul@RHEL4a test]$ ls
-one.bak  two.bak
-[paul@RHEL4a test]$ rename one ONE *
-[paul@RHEL4a test]$ ls
-ONE.bak  two.bak
-[paul@RHEL4a test]$ 
-	</screen>
+	<section><title>about rename</title>
+		<para>The <command>rename</command> command is one of the rare occasions where the Linux Fundamentals book has to make a distinction between Linux distributions. Almost every command in the <command>Fundamentals</command> part of this book works on almost every Linux computer. But <command>rename</command> is different.</para>
+		<para>Try to use <command>mv</command> whenever you need to rename only a couple of files.</para>
+	</section>
+	<section><title>rename on Debian/Ubuntu</title>
+		<para>The <command>rename</command><indexterm><primary>rename</primary></indexterm> command on Debian has a complex syntax (it uses regular expressions) to rename many files at once.</para>
+		<para>Below a <command>rename</command> example that switches all occurrences of txt to png for all file names ending in .txt.</para>
+	<screen>paul@debian7:~/test42$ <command>ls</command>
+abc.txt  file33.txt  file42.txt
+paul@debian7:~/test42$ <command>rename 's/\.txt/\.png/' *.txt</command>
+paul@debian7:~/test42$ <command>ls</command>
+abc.png  file33.png  file42.png</screen>
+		<para>This second example switches all (first) occurrences of <command>file</command> into <command>document</command> for all file names ending in .png.</para>
+		<screen>paul@debian7:~/test42$ <command>ls</command>
+abc.png  file33.png  file42.png
+paul@debian7:~/test42$ <command>rename 's/file/document/' *.png</command>
+paul@debian7:~/test42$ <command>ls</command>
+abc.png  document33.png  document42.png
+paul@debian7:~/test42$</screen>
+	</section>
+	<section><title>rename on CentOS/RHEL/Fedora</title>
+		<para>On Red Hat Enterprise Linux, the syntax of <command>rename</command> is a bit different. The first example below renames all *.conf files replacing any occurrence of .conf with .backup.</para>
+	<screen>[paul@centos7 ~]$ <command>touch one.conf two.conf three.conf</command>
+[paul@centos7 ~]$ <command>rename .conf .backup *.conf</command>
+[paul@centos7 ~]$ <command>ls</command>
+one.backup  three.backup  two.backup
+[paul@centos7 ~]$</screen>
+	<para>The second example renames all (*) files replacing one with ONE.</para>
+	<screen>[paul@centos7 ~]$ <command>ls</command>
+one.backup  three.backup  two.backup
+[paul@centos7 ~]$ <command>rename one ONE *</command>
+[paul@centos7 ~]$ <command>ls</command>
+ONE.backup  three.backup  two.backup
+[paul@centos7 ~]$</screen>
+	</section>
 </section>

@@ -1,0 +1,109 @@
+<?hard-pagebreak?>
+<section><title>groupadd</title>
+	<para>Groups can be created with the <command>groupadd</command><indexterm><primary>groupadd(1)</primary></indexterm> command. The example below shows the creation of five (empty) groups.</para>
+	<screen>root@laika:~# groupadd tennis
+root@laika:~# groupadd football
+root@laika:~# groupadd snooker
+root@laika:~# groupadd formula1
+root@laika:~# groupadd salsa</screen>
+</section>
+<section><title>group file</title>
+	<para>Users can be a member of several groups. Group membership is defined by the <command>/etc/group</command><indexterm><primary>/etc/group</primary></indexterm> file. </para>
+<screen>root@laika:~# tail -5 /etc/group
+tennis:x:1006:
+football:x:1007:
+snooker:x:1008:
+formula1:x:1009:
+salsa:x:1010:
+root@laika:~#</screen>
+	<para>The first field is the group's name. The second field is the group's (encrypted) password (can be empty). The third field is the group identification or <command>GID</command><indexterm><primary>GID</primary></indexterm>. The fourth field is the list of members, these groups have no members.</para>
+</section>
+<section><title>groups</title>
+	<para>A user can type the <command>groups</command><indexterm><primary>groups(1)</primary></indexterm> command to see a list of groups where the user belongs to.</para>
+	<screen>[harry@RHEL4b ~]$ groups
+harry sports
+[harry@RHEL4b ~]$</screen>
+</section>
+<?hard-pagebreak?>
+<section><title>usermod</title>
+	<para>Group membership can be modified with the useradd or <command>usermod</command><indexterm><primary>usermod</primary></indexterm> command.</para>
+	<screen>root@laika:~# usermod -a -G tennis inge
+root@laika:~# usermod -a -G tennis katrien
+root@laika:~# usermod -a -G salsa katrien
+root@laika:~# usermod -a -G snooker sandra
+root@laika:~# usermod -a -G formula1 annelies
+root@laika:~# tail -5 /etc/group
+tennis:x:1006:inge,katrien
+football:x:1007:
+snooker:x:1008:sandra
+formula1:x:1009:annelies
+salsa:x:1010:katrien
+root@laika:~#</screen>
+	<para>Be careful when using <command>usermod</command> to add users to groups. By default, the <command>usermod</command> command will <command>remove</command> the user from every group of which he is a member if the group is not listed in the command! Using the <command>-a</command> (append) switch prevents this behaviour.</para>
+</section>
+<section><title>groupmod</title>
+	  <para>You can change the group name with the <command>groupmod</command><indexterm><primary>groupmod(1)</primary></indexterm> command.</para>
+	<screen>root@laika:~# groupmod -n darts snooker 
+root@laika:~# tail -5 /etc/group
+tennis:x:1006:inge,katrien
+football:x:1007:
+formula1:x:1009:annelies
+salsa:x:1010:katrien
+darts:x:1008:sandra</screen>
+</section>
+<section><title>groupdel</title>
+	  <para>You can permanently remove a group with the <command>groupdel</command><indexterm><primary>groupdel(1)</primary></indexterm> command.</para>
+	<screen>root@laika:~# groupdel tennis
+root@laika:~#</screen>
+</section>
+<?hard-pagebreak?>
+<section><title>gpasswd</title>
+	<para>You can delegate control of group membership to another user with the <command>gpasswd</command><indexterm><primary>gpasswd</primary></indexterm> command. In the example below we delegate permissions to add and remove group members to serena for the sports group. Then we <command>su</command><indexterm><primary>su</primary></indexterm> to serena and add harry to the sports group.</para>
+	<screen>[root@RHEL4b ~]# gpasswd -A serena sports
+[root@RHEL4b ~]# su - serena
+[serena@RHEL4b ~]$ id harry
+uid=516(harry) gid=520(harry) groups=520(harry)
+[serena@RHEL4b ~]$ gpasswd -a harry sports
+Adding user harry to group sports
+[serena@RHEL4b ~]$ id harry
+uid=516(harry) gid=520(harry) groups=520(harry),522(sports)
+[serena@RHEL4b ~]$ tail -1 /etc/group
+sports:x:522:serena,venus,harry
+[serena@RHEL4b ~]$ </screen>
+	<para>Group administrators do not have to be a member of the group. They can remove themselves from a group, but this does not influence their ability to add or remove members.</para>
+	<screen>[serena@RHEL4b ~]$ gpasswd -d serena sports
+Removing user serena from group sports
+[serena@RHEL4b ~]$ exit</screen>
+	<para>Information about group administrators is kept in the <command>/etc/gshadow</command><indexterm><primary>/etc/gshadow</primary></indexterm> file.</para>
+	<screen>[root@RHEL4b ~]# tail -1 /etc/gshadow
+sports:!:serena:venus,harry
+[root@RHEL4b ~]#</screen>
+	<para>To remove all group administrators from a group, use the <command>gpasswd</command> command to set an empty administrators list.</para>
+	<screen>[root@RHEL4b ~]# gpasswd -A "" sports</screen>
+</section>
+<?hard-pagebreak?>
+<section><title>newgrp</title>
+	<para>You can start a <command>child shell</command> with a new temporary <command>primary group</command> using the <command>newgrp</command> command.</para>
+	<screen>root@rhel65:~# mkdir prigroup
+root@rhel65:~# cd prigroup/
+root@rhel65:~/prigroup# touch standard.txt
+root@rhel65:~/prigroup# ls -l
+total 0
+-rw-r--r--. 1 root root 0 Apr 13 17:49 standard.txt
+root@rhel65:~/prigroup# echo $SHLVL
+1
+root@rhel65:~/prigroup# newgrp tennis
+root@rhel65:~/prigroup# echo $SHLVL
+2
+root@rhel65:~/prigroup# touch newgrp.txt
+root@rhel65:~/prigroup# ls -l
+total 0
+-rw-r--r--. 1 root tennis 0 Apr 13 17:49 newgrp.txt
+-rw-r--r--. 1 root root   0 Apr 13 17:49 standard.txt
+root@rhel65:~/prigroup# exit
+exit
+root@rhel65:~/prigroup#</screen>
+</section>
+<section><title>vigr</title>
+	<para>Similar to vipw, the <command>vigr</command><indexterm><primary>vigr(1)</primary></indexterm> command can be used to manually edit the <command>/etc/group</command> file, since it will do proper locking of the file. Only experienced senior administrators should use <command>vi</command><indexterm><primary>vi</primary></indexterm> or <command>vigr</command> to manage groups.</para>
+</section>

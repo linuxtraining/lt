@@ -343,4 +343,22 @@ paul@debian5~$ ls -dl MyDir/ Public/
 drwx------ 2 paul paul 4096 2011-10-16 19:16 MyDir/
 drwxrwxrwx 2 paul paul 4096 2011-10-16 19:16 Public/</screen>
 	</section>
+	<section><title>cp -p</title>
+		<para>To preserve permissions and time stamps from source files, use <command>cp -p</command>.</para>
+		<screen>paul@laika:~/perms$ cp file* cp
+paul@laika:~/perms$ cp -p file* cpp
+paul@laika:~/perms$ ll *
+-rwx------ 1 paul paul    0 2008-08-25 13:26 file33
+-rwxr-x--- 1 paul paul    0 2008-08-25 13:26 file42
+
+cp:
+total 0
+-rwx------ 1 paul paul 0 2008-08-25 13:34 file33
+-rwxr-x--- 1 paul paul 0 2008-08-25 13:34 file42
+
+cpp:
+total 0
+-rwx------ 1 paul paul 0 2008-08-25 13:26 file33
+-rwxr-x--- 1 paul paul 0 2008-08-25 13:26 file42</screen>
+	</section>
 </section>

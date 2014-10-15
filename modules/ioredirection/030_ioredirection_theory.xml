@@ -2,7 +2,7 @@
 <section><title>stdin, stdout, and stderr</title>
 	<para>The bash shell has three basic streams; it takes input from <command>stdin</command> (stream <command>0</command>)<indexterm><primary>stdin</primary></indexterm>, it sends output to <command>stdout</command> (stream <command>1</command>) <indexterm><primary>stdout</primary></indexterm> and it sends error messages to <command>stderr</command> (stream <command>2</command>) <indexterm><primary>stderr</primary></indexterm>.</para>
 	<para>The drawing below has a graphical interpretation of these three streams.</para>
-	<para><mediaobject><imageobject><imagedata fileref="images/bash_stdin_stdout_stderr.png" format="PNG" align="center"></imagedata></imageobject></mediaobject></para>
+	<para><mediaobject><imageobject><imagedata fileref="images/bash_stdin_stdout_stderr.svg" format="SVG" align="center" width="14cm"></imagedata></imageobject></mediaobject></para>
 	<para>The keyboard often serves as <command>stdin</command>, whereas <command>stdout</command> and <command>stderr</command> both go to the display. This can be confusing to new Linux users because there is no obvious way to recognize <command>stdout</command> from <command>stderr</command>. Experienced users know that separating output from errors can be very useful.</para>
 	<para><mediaobject><imageobject><imagedata fileref="images/bash_ioredirection_keyboard_display.png" format="PNG" align="center"></imagedata></imageobject></mediaobject></para>
 	<para>The next sections will explain how to redirect these streams.</para>

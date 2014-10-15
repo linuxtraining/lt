@@ -35,19 +35,18 @@
 	<para>17. Remove the directory testdir.</para>
 	<screen>rmdir testdir</screen>	
 	<para>18. If time permits (or if you are waiting for other students to finish this practice), use and understand <command>pushd</command> and <command>popd</command>. Use the man page of <command>bash</command> to find information about these commands.</para>
-	<screen>man bash</screen>	
+	<screen>man bash           # opens the manual
+/pushd             # searches for pushd
+n                  # next (do this two/three times)</screen>
+
 	<para>The Bash shell has two built-in commands called <command>pushd</command><indexterm><primary>pushd</primary></indexterm> and <command>popd</command><indexterm><primary>popd</primary></indexterm>. Both commands work with a common stack of previous directories. Pushd adds a directory to the stack and changes to a new current directory, popd removes a directory from the stack and sets the current directory.</para>
-	<screen>paul@laika:/etc$ cd /bin
-paul@laika:/bin$ pushd /lib
+	<screen>paul@debian7:/etc$ <command>cd /bin</command>
+paul@debian7:/bin$ <command>pushd /lib</command>
 /lib /bin
-paul@laika:/lib$ pushd /proc
+paul@debian7:/lib$ <command>pushd /proc</command>
 /proc /lib /bin
-paul@laika:/proc$ 
-paul@laika:/proc$ popd 
+paul@debian7:/proc$ <command>popd</command>
 /lib /bin
-paul@laika:/lib$ 
-paul@laika:/lib$ 
-paul@laika:/lib$ popd
-/bin
-paul@laika:/bin$</screen>
+paul@debian7:/lib$ <command>popd</command>
+/bin</screen>
 </section>

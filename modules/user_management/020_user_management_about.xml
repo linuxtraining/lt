@@ -1,0 +1,2 @@
+<para>This chapter will teach you how to use <command>useradd</command>, <command>usermod</command> and <command>userdel</command> to create, modify and remove user accounts.</para>
+<para>You will need <command>root</command> access on a Linux computer to complete this chapter.</para>
