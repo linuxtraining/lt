@@ -1,42 +1,53 @@
 <?hard-pagebreak?>
 <section><title>system profile</title>
-	<para>Both the <command>bash</command><indexterm><primary>/bin/bash</primary></indexterm> and the <command>ksh</command><indexterm><primary>/bin/ksh</primary></indexterm> shell will verify the existence of <command>/etc/profile</command><indexterm><primary>/etc/profile</primary></indexterm> and execute it if it exists.</para>
-	<para>When reading this script, you might notice (at least on Debian and on Red Hat Enterprise Linux) that it builds the PATH environment variable (among others). The script might also change the PS1 variable, set the HOSTNAME and execute even more scripts like <command>/etc/inputrc</command><indexterm><primary>/etc/inputrc</primary></indexterm></para>
-	<screen>paul@rhel65:~$ grep ^export /etc/profile
-export PATH USER LOGNAME MAIL HOSTNAME HISTSIZE HISTCONTROL</screen>
+	<para>Both the <command>bash</command><indexterm><primary>/bin/bash</primary></indexterm> and the <command>ksh</command><indexterm><primary>/bin/ksh</primary></indexterm> shell will verify the existence of <command>/etc/profile</command><indexterm><primary>/etc/profile</primary></indexterm> and <command>source</command> it if it exists.</para>
+	<para>When reading this script, you will notice (both on Debian and on Red Hat Enterprise Linux) that it builds the PATH environment variable (among others). The script might also change the PS1 variable, set the HOSTNAME and execute even more scripts like <command>/etc/inputrc</command><indexterm><primary>/etc/inputrc</primary></indexterm></para>
+	<para>This screenshot uses grep to show PATH manipulation in <command>/etc/profile</command> on Debian.</para>
+	<screen>root@debian7:~# <command>grep PATH /etc/profile</command>
+  PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+  PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games"
+export PATH
+root@debian7:~#</screen>
+	<para>This screenshot uses grep to show PATH manipulation in <command>/etc/profile</command> on RHEL7/CentOS7.</para>
+	<screen>[root@centos7 ~]# <command>grep PATH /etc/profile</command>
+    case ":${PATH}:" in
+                PATH=$PATH:$1
+                PATH=$1:$PATH
+export PATH USER LOGNAME MAIL HOSTNAME HISTSIZE HISTCONTROL
+[root@centos7 ~]#</screen>
 	<para>The <command>root user</command> can use this script to set aliases, functions, and variables for every user on the system.</para>
-	</section>
-	<section><title>~/.bash_profile</title>
-		<para>When this file exists in the users home directory, then <command>bash</command> will execute it. On Debian Linux it does not exist by default.</para>
-		<para>RHEL uses a small <command>~/.bash_profile</command><indexterm><primary>.bash_profile</primary></indexterm> where it checks for the existence of <command>~/.bashrc</command><indexterm><primary>.bashrc</primary></indexterm> and then executes it. It also adds $HOME/bin to the $PATH variable.</para>
-		<screen>[serena@rhel53 ~]$ cat .bash_profile 
+</section>
+<section><title>~/.bash_profile</title>
+	<para>When this file exists in the home directory, then <command>bash</command> will source it. On Debian Linux 5/6/7 this file does not exist by default.</para>
+	<para>RHEL7/CentOS7 uses a small <command>~/.bash_profile</command><indexterm><primary>.bash_profile</primary></indexterm> where it checks for the existence of <command>~/.bashrc</command><indexterm><primary>.bashrc</primary></indexterm> and then sources it. It also adds $HOME/bin to the $PATH variable.</para>
+		<screen>[root@rhel7 ~]# <command>cat /home/paul/.bash_profile</command>
 # .bash_profile
 
 # Get the aliases and functions
 if [ -f ~/.bashrc ]; then
-	. ~/.bashrc
+        . ~/.bashrc
 fi
 
 # User specific environment and startup programs
 
-PATH=$PATH:$HOME/bin
+PATH=$PATH:$HOME/.local/bin:$HOME/bin
 
-export PATH</screen>
-	</section>
-	<section><title>~/.bash_login</title>
-		<para>When <command>.bash_profile</command> does not exist, then <command>bash</command> will check for <command>~/.bash_login</command><indexterm><primary>.bash_login</primary></indexterm> and execute it.</para>
-		<para>Neither Debian nor Red Hat have this file by default.</para>
+export PATH
+[root@rhel7 ~]#</screen>
 	</section>
 <?hard-pagebreak?>
+	<section><title>~/.bash_login</title>
+		<para>When <command>.bash_profile</command> does not exist, then <command>bash</command> will check for <command>~/.bash_login</command><indexterm><primary>.bash_login</primary></indexterm> and source it.</para>
+		<para>Neither Debian nor Red Hat have this file by default.</para>
+	</section>
 	<section><title>~/.profile</title>
 		<para>When neither <command>~/.bash_profile</command> and <command>~/.bash_login</command> exist, then bash will verify the existence of <command>~/.profile</command> and execute it. This file does not exist by default on Red Hat.</para>
 		<para>On Debian this script can execute <command>~/.bashrc</command><indexterm><primary>.bashrc</primary></indexterm> and will add $HOME/bin to the $PATH variable.</para>
-		<screen>serena@deb503:~$ tail -12 .profile 
-# if running bash
+		<screen>root@debian7:~# <command>tail -11 /home/paul/.profile</command>
 if [ -n "$BASH_VERSION" ]; then
     # include .bashrc if it exists
     if [ -f "$HOME/.bashrc" ]; then
-	. "$HOME/.bashrc"
+        . "$HOME/.bashrc"
     fi
 fi
 
@@ -44,29 +55,32 @@ fi
 if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi</screen>
-		<para>RHEL does not have this file by default.</para>
+		<para>RHEL/CentOS does not have this file by default.</para>
 	</section>
 	<section><title>~/.bashrc</title>
-		<para>As seen in the previous points, the <command>~/.bashrc</command> script might be executed by other scripts. Let us take a look at what it does by default.</para>
-		<para>Red Hat uses a very simple <command>~/.bashrc</command>, checking for <command>/etc/bashrc</command><indexterm><primary>/etc/bashrc</primary></indexterm> and executing it. It also leaves room for custom aliases and functions.</para>
-		<screen>[serena@rhel53 ~]$ more .bashrc 
+		<para>The <command>~/.bashrc</command> script is often sourced by other scripts. Let us take a look at what it does by default.</para>
+		<para>Red Hat uses a very simple <command>~/.bashrc</command>, checking for <command>/etc/bashrc</command><indexterm><primary>/etc/bashrc</primary></indexterm> and sourcing it. It also leaves room for custom aliases and functions.</para>
+		<screen>[root@rhel7 ~]# <command>cat /home/paul/.bashrc</command>
 # .bashrc
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then
-	. /etc/bashrc
+        . /etc/bashrc
 fi
+
+# Uncomment the following line if you don't like systemctl's auto-paging feature:
+# export SYSTEMD_PAGER=
 
 # User specific aliases and functions</screen>
 		<para>On Debian this script is quite a bit longer and configures $PS1, some history variables and a number af active and inactive aliases.</para>
-		<screen>serena@deb503:~$ ls -l .bashrc 
--rw-r--r-- 1 serena serena 3116 2008-05-12 21:02 .bashrc</screen>
+		<screen>root@debian7:~# wc -l /home/paul/.bashrc
+110 /home/paul/.bashrc</screen>
 	</section>
 <?hard-pagebreak?>
 	<section><title>~/.bash_logout</title>
 		<para>When exiting <command>bash</command>, it can execute <command>~/.bash_logout</command><indexterm><primary>.bash_logout</primary></indexterm>.</para>
 		<para> Debian use this opportunity to clear the console screen.</para>
-		<screen>serena@deb503:~$ cat .bash_logout 
+		<screen>serena@deb503:~$ <command>cat .bash_logout</command>
 # ~/.bash_logout: executed by bash(1) when login shell exits.
 
 # when leaving the console clear the screen to increase privacy
@@ -79,11 +93,9 @@ fi</screen>
 # ~/.bash_logout
 
 /usr/bin/clear</screen>
-	<para>Red Hat Enterprise Linux 6 creatis this file, but leaves it empty (except for a comment).</para>
-	<screen>paul@rhel65:~$ cat .bash_logout
-# ~/.bash_logout
-
-paul@rhel65:~$</screen>
+	<para>Red Hat Enterprise Linux 6 and 7 create this file, but leave it empty (except for a comment).</para>
+	<screen>paul@rhel65:~$ <command>cat .bash_logout</command>
+# ~/.bash_logout</screen>
 	</section>
 <?hard-pagebreak?>
 	<section><title>Debian overview</title>
