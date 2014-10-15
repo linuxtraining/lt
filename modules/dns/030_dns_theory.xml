@@ -354,8 +354,8 @@ linux-training.be
 	</section>
 <?hard-pagebreak?>
 <section><title>forward lookup zone example</title>
-	<para>The way to set up zones in <command>/etc/named.conf.local</command><indexterm><primary>/etc/named.conf.local</primary></indexterm> is to create a zone entry with a reference to another file (this other file contains the <command>zone database</command>).</para>
-	<para>Here is an example of such an entry in <command>/etc/named.conf.local</command>:</para>
+	<para>The way to set up zones in <command>/etc/bind/named.conf.local</command><indexterm><primary>/etc/bind/named.conf.local</primary></indexterm> is to create a zone entry with a reference to another file (this other file contains the <command>zone database</command>).</para>
+	<para>Here is an example of such an entry in <command>/etc/bind/named.conf.local</command>:</para>
 	<screen>root@debian7:~# <command>cat /etc/bind/named.conf.local</command>
 //
 // Do any local configuration here
