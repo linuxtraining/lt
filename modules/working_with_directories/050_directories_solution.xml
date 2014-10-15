@@ -36,7 +36,7 @@
 	<screen>rmdir testdir</screen>	
 	<para>18. If time permits (or if you are waiting for other students to finish this practice), use and understand <command>pushd</command> and <command>popd</command>. Use the man page of <command>bash</command> to find information about these commands.</para>
 	<screen>man bash           # opens the manual
-/pushd             # searhces for pushd
+/pushd             # searches for pushd
 n                  # next (do this two/three times)</screen>
 
 	<para>The Bash shell has two built-in commands called <command>pushd</command><indexterm><primary>pushd</primary></indexterm> and <command>popd</command><indexterm><primary>popd</primary></indexterm>. Both commands work with a common stack of previous directories. Pushd adds a directory to the stack and changes to a new current directory, popd removes a directory from the stack and sets the current directory.</para>
