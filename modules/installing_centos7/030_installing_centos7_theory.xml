@@ -75,7 +75,7 @@
 <para>Time to reboot the computer and start <command>CentOS 7</command> for the first time.</para>
 <para><mediaobject><imageobject><imagedata fileref="images/k_install_done.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <?hard-pagebreak?>
-<para>This screen will appear breifly when the virtual machines starts. You don't have to do anything.</para>
+<para>This screen will appear briefly when the virtual machines starts. You don't have to do anything.</para>
 <para><mediaobject><imageobject><imagedata fileref="images/l_install_reboot.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <para>After a couple of seconds, you should see a logon screen. This is called a <command>tty</command> or a <command>getty</command>. Here you can type <command>root</command> as username. The <command>login process</command> will then ask your password (nothin will appear on screen when you type your password).</para>
 <para><mediaobject><imageobject><imagedata fileref="images/m_install_getty.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
