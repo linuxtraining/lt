@@ -83,6 +83,88 @@
 <para>And this is what it looks like after logon. You are logged on to your own Linux machine, very good.</para>
 <para><mediaobject><imageobject><imagedata fileref="images/n_install_gettylogon.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <para>All subsequent screenshots will be text only, no images anymore.</para>
+<para>For example this screenshot shows three commands being typed on my new CentOS 7 install.</para>
+<screen>[root@localhost ~]# <command>who am i</command>
+root     pts/0        2014-11-01 22:14
+[root@localhost ~]# <command>hostname</command>
+localhost.localdomain
+[root@localhost ~]# <command>date</command>
+Sat Nov  1 22:14:37 CET 2014</screen>
+<para>When using <command>ssh</command> the same commands will give this screenshot:</para>
+<screen>[root@localhost ~]# <command>who am i</command>
+root     pts/0        2014-11-01 21:00 (192.168.1.35)
+[root@localhost ~]# <command>hostname</command>
+localhost.localdomain
+[root@localhost ~]# <command>date</command>
+Sat Nov  1 22:10:04 CET 2014
+[root@localhost ~]#</screen>
+<para>If the last part is a bit too fast, take a look at the next topic <command>CentOS 7 first logon</command>.</para>
+</section>
+<?hard-pagebreak?>
+<section><title>CentOS 7 first logon</title>
+<para>All you have to log on, after finishing the installation, is this screen in Virtualbox.</para>
+<para><mediaobject><imageobject><imagedata fileref="images/m_install_getty.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para>This is workable to learn Linux, and you will be able to practice a lot. But there are more ways to access your virtual machine, the next chapters discuss some of these and will also introduce some basic system configuration.</para>
+<section><title>setting the hostname</title>
+<para>Setting the hostname is a simple as changing the <command>/etc/hostname</command> file. As you can see here, it is set to <command>localhost.localdomain</command> by default.</para>
+<screen>[root@localhost ~]# <command>cat /etc/hostname</command>
+localhost.localdomain</screen>
+<para>You could do <command>echo server33.netsec.local > /etc/hostname</command> followed by a <command>reboot</command>. But there is also the new <command>CentOS 7</command> way of setting a new hostname.</para>
+<screen>[root@localhost ~]# <command>nmtui</command></screen>
+<para>The above command will give you a menu to choose from with a <command>set system hostname</command> option. Using this <command>nmtui</command> option will edit the <command>/etc/hostname</command> file for you.</para>
+<screen>[root@localhost ~]# <command>cat /etc/hostname</command>
+server33.netsec.local
+[root@localhost ~]# <command>hostname</command>
+server33.netsec.local
+[root@localhost ~]# <command>dnsdomainname</command>
+netsec.local</screen>
+<para>For some reason the documentation on the <command>centos.org</command> and <command>docs.redhat.com</command> websites tell you to also execute this command:</para>
+<screen>[root@localhost ~]# <command>systemctl restart systemd-hostnamed</command></screen>
+</section>
+<?hard-pagebreak?>
+<section><title>configuring the network</title>
+<para></para>
+<para></para>
+<screen></screen>
+<screen></screen>
+</section>
+<section><title>package management</title>
+<para></para>
+<para></para>
+<screen></screen>
+<screen></screen>
+</section>
+<section><title>CentOS 7</title>
+<para></para>
+<para></para>
+<screen></screen>
+<screen></screen>
+</section>
+</section>
+<?hard-pagebreak?>
+<section><title>CentOS 7</title>
+<para></para>
+<para></para>
+<screen></screen>
+<screen></screen>
+</section>
+<section><title>CentOS 7</title>
+<para></para>
+<para></para>
+<screen></screen>
+<screen></screen>
+</section>
+<section><title>CentOS 7</title>
+<para></para>
+<para></para>
+<screen></screen>
+<screen></screen>
+</section>
+<section><title>CentOS 7</title>
+<para></para>
+<para></para>
+<screen></screen>
+<screen></screen>
 </section>
 <section><title>CentOS 7</title>
 <para></para>
