@@ -37,7 +37,7 @@
 <para>You should now be back to the start screen of <command>Virtualbox</command>. If all went well, then you should see the machine you just created in the list.</para>
 <para><mediaobject><imageobject><imagedata fileref="images/centos7_vmok.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <?hard-pagebreak?>
-<para>After finishing the setup, we go into the <command>Settings</command> of our virtual machine an d attach the <command>.iso</command> file we downloaded before. Below is the default screenshot.</para>
+<para>After finishing the setup, we go into the <command>Settings</command> of our virtual machine and attach the <command>.iso</command> file we downloaded before. Below is the default screenshot.</para>
 <para><mediaobject><imageobject><imagedata fileref="images/centos7_nocd.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <para>This is a screenshot with the <command>.iso</command> file properly attached.</para>
 <para><mediaobject><imageobject><imagedata fileref="images/centos7_cdiso.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
