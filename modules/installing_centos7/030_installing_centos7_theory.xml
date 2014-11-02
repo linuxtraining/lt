@@ -77,7 +77,7 @@
 <?hard-pagebreak?>
 <para>This screen will appear briefly when the virtual machines starts. You don't have to do anything.</para>
 <para><mediaobject><imageobject><imagedata fileref="images/l_install_reboot.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
-<para>After a couple of seconds, you should see a logon screen. This is called a <command>tty</command> or a <command>getty</command>. Here you can type <command>root</command> as username. The <command>login process</command> will then ask your password (nothin will appear on screen when you type your password).</para>
+<para>After a couple of seconds, you should see a logon screen. This is called a <command>tty</command> or a <command>getty</command>. Here you can type <command>root</command> as username. The <command>login process</command> will then ask your password (nothing will appear on screen when you type your password).</para>
 <para><mediaobject><imageobject><imagedata fileref="images/m_install_getty.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <?hard-pagebreak?>
 <para>And this is what it looks like after logon. You are logged on to your own Linux machine, very good.</para>
@@ -122,40 +122,113 @@ netsec.local</screen>
 <screen>[root@localhost ~]# <command>systemctl restart systemd-hostnamed</command></screen>
 </section>
 <?hard-pagebreak?>
+<section><title>Virtualbox network interface</title>
+<para>By default <command>Virtualbox</command> will connect your virtual machine over a <command>nat</command> interface. This will show up as a 10.0.2.15 (or similar).</para>
+<screen>[root@server33 ~]# <command>ip a</command>
+1: lo: &#060;LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host
+       valid_lft forever preferred_lft forever
+2: enp0s3: &#060;BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast s\
+tate UP qlen 1000
+    link/ether 08:00:27:1c:f5:ab brd ff:ff:ff:ff:ff:ff
+    inet 10.0.2.15/24 brd 10.0.2.255 scope global dynamic enp0s3
+       valid_lft 86399sec preferred_lft 86399sec
+    inet6 fe80::a00:27ff:fe1c:f5ab/64 scope link
+       valid_lft forever preferred_lft forever</screen>
+<para>You can change this to <command>bridge</command> (over your wi-fi or over the ethernet cable) and thus make it appear as if your virtual machine is directly on your local network (receiving an ip address from your real dhcp server).</para>
+<para><mediaobject><imageobject><imagedata fileref="images/o_install_natbridge.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para>You can make this change while the vm is running, provided that you execute this command:</para>
+<screen>[root@server33 ~]# <command>systemctl restart network</command>
+[root@server33 ~]# <command>ip a s dev enp0s3</command>
+2: enp0s3: &#060;BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast s\
+tate UP qlen 1000
+    link/ether 08:00:27:1c:f5:ab brd ff:ff:ff:ff:ff:ff
+    inet 192.168.1.110/24 brd 192.168.1.255 scope global dynamic enp0s3
+       valid_lft 7199sec preferred_lft 7199sec
+    inet6 fe80::a00:27ff:fe1c:f5ab/64 scope link
+       valid_lft forever preferred_lft forever
+[root@server33 ~]#</screen>
+</section>
+<?hard-pagebreak?>
 <section><title>configuring the network</title>
-<para></para>
-<para></para>
-<screen></screen>
-<screen></screen>
+<para>The new way of changing network configuration is through the <command>nmtui</command> tool. If you want to manually play with the files in <command>/etc/sysconfig/network-scripts</command> then you will first need to verify (and disable) <command>NetworkManager</command> on that interface.</para>
+<para>Verify whether an interface is controlled by <command>NetworkManager</command> using the <command>nmcli</command> command (connected means managed bu NM).</para>
+<screen>[root@server33 ~]# <command>nmcli dev status</command>
+DEVICE  TYPE      STATE      CONNECTION
+enp0s3  ethernet  connected  enp0s3
+lo      loopback  unmanaged  --</screen>
+<para>Disable <command>NetworkManager</command> on an interface (enp0s3 in this case):</para>
+<screen>echo 'NM_CONTROLLED=no' >> /etc/sysconfig/network-scripts/ifcfg-enp0s3</screen>
+<para>You can restart the network without a reboot like this:</para>
+<screen>[root@server33 ~]# <command>systemctl restart network</command></screen>
+<para>Also, forget <command>ifconfig</command> and instead use <command>ip a</command>.</para>
+<screen>[root@server33 ~]# <command>ip a s dev enp0s3 | grep inet</command>
+    inet 192.168.1.110/24 brd 192.168.1.255 scope global dynamic enp0s3
+    inet6 fe80::a00:27ff:fe1c:f5ab/64 scope link
+[root@server33 ~]#</screen>
 </section>
+<section><title>adding one static ip address</title>
+<para>This example shows how to add one static ip address to your computer.</para>
+<screen>[root@server33 ~]# <command>nmtui edit enp0s3</command></screen>
+<para>In this interface leave the IPv4 configuration to automatic, and add an ip address just below.</para>
+<screen>          IPv4 CONFIGURATION &#060;Automatic>                         &#060;Hide>
+          Addresses <command>10.104.33.32/16</command>__________ &#060;Remove></screen>
+<para>Execute this command after exiting <command>nmtui</command>.</para>
+<screen>[root@server33 ~]# <command>systemctl restart network</command></screen>
+<para>And verify with <command>ip</command> (not with <command>ifconfig</command>):</para>
+<screen>[root@server33 ~]# <command>ip a s dev enp0s3 | grep inet</command>
+    inet 192.168.1.110/24 brd 192.168.1.255 scope global dynamic enp0s3
+    inet 10.104.33.32/16 brd 10.104.255.255 scope global enp0s3
+    inet6 fe80::a00:27ff:fe1c:f5ab/64 scope link
+[root@server33 ~]#</screen>
+</section>
+<?hard-pagebreak?>
 <section><title>package management</title>
-<para></para>
-<para></para>
-<screen></screen>
-<screen></screen>
-</section>
-<section><title>CentOS 7</title>
-<para></para>
-<para></para>
-<screen></screen>
-<screen></screen>
+<para>Even with a network install, <command>CentOS 7</command> did not install the latest version of some packages. Luckily there is only one command to run (as root). This can take a while.</para>
+<screen>[root@server33 ~]# <command>yum update</command>
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+ * base: centos.weepeetelecom.be
+ * extras: centos.weepeetelecom.be
+ * updates: centos.weepeetelecom.be
+Resolving Dependencies
+--> Running transaction check
+---> Package NetworkManager.x86_64 1:0.9.9.1-13.git20140326.4dba720.el7 \
+will be updated
+... (output truncated)</screen>
+<para>You can also use <command>yum</command> to install one or more packages. Do not forget to run <command>yum update</command> from time to time.</para>
+<screen>[root@server33 ~]# <command>yum update -y &#038;&#038; yum install vim -y</command>
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+ * base: centos.weepeetelecom.be
+... (output truncated)</screen>
 </section>
 </section>
 <?hard-pagebreak?>
-<section><title>CentOS 7</title>
-<para></para>
-<para></para>
-<screen></screen>
-<screen></screen>
+<section><title>Remote logon from Linux and MacOSX</title>
+<para>You can now use <command>ssh</command> to log on to your virtual machine.</para>
+<screen>paul@debian8:~$ <command>ssh root@192.168.1.110</command>
+root@192.168.1.110's password:
+Last login: Sun Nov  2 11:53:57 2014
+[root@server33 ~]# <command>hostname</command>
+server33.netsec.local
+[root@server33 ~]#</screen>
 </section>
-<section><title>CentOS 7</title>
-<para></para>
-<para></para>
-<screen></screen>
-<screen></screen>
+<section><title>Remote logon from MS Windows</title>
+<para>There is no <command>ssh</command> installed on MS Windows, but you can download <command>putty.exe</command> from <command>http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html</command> (just Google it).</para>
+<para>Use <command>putty</command> as shown in this screenshot (I saved the ip address by giving it a name 'server33' and presing the 'save' button).</para>
+<para><mediaobject><imageobject><imagedata fileref="images/putty1.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<?hard-pagebreak?>
+<para>The first time you will get a message about keys, accept this (this is explained in the ssh chapter).</para>
+<para><mediaobject><imageobject><imagedata fileref="images/putty2_key.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para>Enter your userid (or root) and the correct password (nothing will appear on the screen when typing a password).</para>
+<para><mediaobject><imageobject><imagedata fileref="images/putty3_ok.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 </section>
+<?hard-pagebreak?>
 <section><title>CentOS 7</title>
-<para></para>
 <para></para>
 <screen></screen>
 <screen></screen>
