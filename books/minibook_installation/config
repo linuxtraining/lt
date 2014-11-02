@@ -9,8 +9,9 @@ BOOKTITLE="installing Linux"
 
 # define book as directories in certain order
 
+#add_mod chapter installing_debian8
 add_mod chapter installing_centos7
-#add_mod chapter installing_linux
-#add_mod chapter virtualbox
+add_mod chapter installing_linux
+add_mod chapter virtualbox
 
 #add_mod appendix certifications # appendices only in books, not in miniboooks...

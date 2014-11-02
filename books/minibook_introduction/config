@@ -12,6 +12,6 @@ BOOKTITLE="introduction to Linux"
 add_mod chapter linux_history
 add_mod chapter linux_distributions
 add_mod chapter licensing
-add_mod chapter virtualbox
+#add_mod chapter virtualbox
 
 #add_mod appendix certifications # appendices only in books, not in miniboooks...

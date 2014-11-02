@@ -11,6 +11,7 @@ TEACHER=""
 # define book as collection of minibooks in certain order
 
 add_mod minibook minibook_introduction
+add_mod minibook minibook_installation
 add_mod minibook minibook_first_steps
 add_mod minibook minibook_shell
 add_mod minibook minibook_pipes_and_commands
