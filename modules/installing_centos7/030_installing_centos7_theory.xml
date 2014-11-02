@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>Downloading a CentOS 7 image</title>
+<section><title>download a CentOS 7 image</title>
 <para>This demonstration uses a laptop computer with <command>Virtualbox</command> to install <command>CentOS 7</command> as a virtual machine. The first task is to download an <command>.iso</command> image of <command>CentOS 7</command>.</para>
 <para>The <command>CentOS 7</command> website looks like this today (November 2014). They change the look regularly, so it may look different when you visit it.</para>
 <para><mediaobject><imageobject><imagedata fileref="images/centos7_downloadpage.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
@@ -121,6 +121,7 @@ netsec.local</screen>
 <para>For some reason the documentation on the <command>centos.org</command> and <command>docs.redhat.com</command> websites tell you to also execute this command:</para>
 <screen>[root@localhost ~]# <command>systemctl restart systemd-hostnamed</command></screen>
 </section>
+</section>
 <?hard-pagebreak?>
 <section><title>Virtualbox network interface</title>
 <para>By default <command>Virtualbox</command> will connect your virtual machine over a <command>nat</command> interface. This will show up as a 10.0.2.15 (or similar).</para>
@@ -205,11 +206,11 @@ Loaded plugins: fastestmirror
 Loading mirror speeds from cached hostfile
  * base: centos.weepeetelecom.be
 ... (output truncated)</screen>
-</section>
+<para>Refer to the package management chapter for more information on installing and removing packages.</para>
 </section>
 <?hard-pagebreak?>
-<section><title>Remote logon from Linux and MacOSX</title>
-<para>You can now use <command>ssh</command> to log on to your virtual machine.</para>
+<section><title>logon from Linux and MacOSX</title>
+<para>You can now open a terminal on Linux or MacOSX and use <command>ssh</command> to log on to your virtual machine.</para>
 <screen>paul@debian8:~$ <command>ssh root@192.168.1.110</command>
 root@192.168.1.110's password:
 Last login: Sun Nov  2 11:53:57 2014
@@ -217,37 +218,13 @@ Last login: Sun Nov  2 11:53:57 2014
 server33.netsec.local
 [root@server33 ~]#</screen>
 </section>
-<section><title>Remote logon from MS Windows</title>
+<section><title>logon from MS Windows</title>
 <para>There is no <command>ssh</command> installed on MS Windows, but you can download <command>putty.exe</command> from <command>http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html</command> (just Google it).</para>
-<para>Use <command>putty</command> as shown in this screenshot (I saved the ip address by giving it a name 'server33' and presing the 'save' button).</para>
+<para>Use <command>putty.exe</command> as shown in this screenshot (I saved the ip address by giving it a name 'server33' and presing the 'save' button).</para>
 <para><mediaobject><imageobject><imagedata fileref="images/putty1.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <?hard-pagebreak?>
 <para>The first time you will get a message about keys, accept this (this is explained in the ssh chapter).</para>
 <para><mediaobject><imageobject><imagedata fileref="images/putty2_key.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <para>Enter your userid (or root) and the correct password (nothing will appear on the screen when typing a password).</para>
 <para><mediaobject><imageobject><imagedata fileref="images/putty3_ok.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
-</section>
-<?hard-pagebreak?>
-<section><title>CentOS 7</title>
-<para></para>
-<screen></screen>
-<screen></screen>
-</section>
-<section><title>CentOS 7</title>
-<para></para>
-<para></para>
-<screen></screen>
-<screen></screen>
-</section>
-<section><title>CentOS 7</title>
-<para></para>
-<para></para>
-<screen></screen>
-<screen></screen>
-</section>
-<section><title>CentOS 7</title>
-<para></para>
-<para></para>
-<screen></screen>
-<screen></screen>
 </section>
