@@ -1,23 +1,71 @@
 <?hard-pagebreak?>
 <section><title>wireshark</title>
 	<section><title>installing wireshark</title>
-		<para>This example shows how to install <command>wireshark</command> on <command>.deb</command> based distributions like Ubuntu and Debian.</para>
-		<screen>aptitude install wireshark</screen>
-		<para>On <command>.rpm</command> based distributions you can use <command>yum</command> to install wireshark.</para>
-		<screen>yum install wireshark</screen>
+		<para>This example shows how to install <command>wireshark</command> on <command>.deb</command> based distributions (including Debian, Mint, Xubuntu, and others).</para>
+		<screen>root@debian8:~# <command>apt-get install wireshark</command>
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+... (output truncated)</screen>
+		<para>On <command>.rpm</command> based distributions like CentOS, RHEL and Fedora you can use <command>yum</command> to install <command>wireshark</command>.</para>
+		<screen>[root@centos7 ~]# <command>yum install wireshark</command>
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+... (output truncated)</screen>
 	</section>
 	<section><title>selecting interface</title>
-		<para>When you first fire up wireshark, you will need to select an interface to sniff. You will see a dialog box that looks similar to this. Choose the interface that you want to sniff.</para>
-		<para>
-	 		<mediaobject><imageobject><imagedata fileref="images/wireshark_capture_interfaces.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-		</para>
-		<para>On some distributions only root is allowed to sniff the network. You might need to use <command>sudo wireshark</command>.</para>
+		<para>When you start <command>wireshark</command> for the first time, you will need to select an interface. You will see a dialog box that looks similar to this one.</para>
+		<para><mediaobject><imageobject><imagedata fileref="images/wireshark_capture_interfaces.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+		<para>It is possible that there are no interfaces available because some distributions only allow root to sniff the network. You may need to use <command>sudo wireshark</command>.</para>
+		<para>Or you can follow the general advice to sniff using <command>tcpdump</command> or any other tool, and save the capture to a file. Any saved capture can be analyzed using <command>wireshark</command> at a later time.</para>
 	</section>
-	<section><title>start sniffing</title>
-		<para>In this example here, we sniffed a ping between two computers. The top pane shows that wireshark recognizes the icmp protocol, and captured all the ping packets between the two computers.</para>
-		<para>
- 			<mediaobject><imageobject><imagedata fileref="images/wireshark_ping.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-		</para>
+<?hard-pagebreak?>
+	<section><title>minimize traffic</title>
+		<para>Sniffing a network can generate many thousands of packets in a very short time. This can be overwhelming. Try to mitigate by isolating your sniffer on the network. Preferably sniff an isolated virtual network interface over which you control all traffic.</para>
+		<para>If you are at home to learn sniffing, then it could help to close all network programs on your computer, and disconnect other computers and devices like smartphones and tablets to minimize the traffic.</para>
+		<para>Even more important than this is the use of <command>filters</command> which will be discussed in this chapter.</para>
+	</section>
+	<section><title>sniffing ping</title>
+		<para>I started the sniffer and captured all packets while doing these three <command>ping</command> commands (there is no need for root to do this):</para>
+		<screen>root@debian7:~# <command>ping -c2 ns1.paul.local</command>
+PING ns1.paul.local (10.104.33.30) 56(84) bytes of data.
+64 bytes from 10.104.33.30: icmp_req=1 ttl=64 time=0.010 ms
+64 bytes from 10.104.33.30: icmp_req=2 ttl=64 time=0.023 ms
+
+--- ns1.paul.local ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1001ms
+rtt min/avg/max/mdev = 0.010/0.016/0.023/0.007 ms
+root@debian7:~# <command>ping -c3 linux-training.be</command>
+PING linux-training.be (188.93.155.87) 56(84) bytes of data.
+64 bytes from antares.ginsys.net (188.93.155.87): icmp_req=1 ttl=56 time=15.6 ms
+64 bytes from antares.ginsys.net (188.93.155.87): icmp_req=2 ttl=56 time=17.8 ms
+64 bytes from antares.ginsys.net (188.93.155.87): icmp_req=3 ttl=56 time=14.7 ms
+
+--- linux-training.be ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2003ms
+rtt min/avg/max/mdev = 14.756/16.110/17.881/1.309 ms
+root@debian7:~# <command>ping -c1 centos7.paul.local</command>
+PING centos7.paul.local (10.104.33.31) 56(84) bytes of data.
+64 bytes from 10.104.33.31: icmp_req=1 ttl=64 time=0.590 ms
+
+--- centos7.paul.local ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 0.590/0.590/0.590/0.000 ms</screen>
+		<para>In total more than 200 packets were sniffed from the network. Things become clearer when you enter <command>icmp</command> in the filter field and press the <command>apply</command> button.</para>
+		<para><mediaobject><imageobject><imagedata fileref="images/wireshark_ping.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+	</section>
+<?hard-pagebreak?>
+	<section><title>sniffing ping and dns</title>
+		<para>Using the same capture as before, but now with a different <command>filter</command>. We want to see both <command>dns</command> and <command>icmp</command> traffic, so we enter both in the filter field.</para>
+		<para>We put <command>dns or icmp</command> in the filter to achieve this. Putting <command>dns and icmp</command> would render nothing because there is no packet that matches both protocols.</para>
+		<para><mediaobject><imageobject><imagedata fileref="images/wireshark_icmpordns.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+		<para>In the screenshot above you can see that packets 25 and 26 both have 10.104.33.30 as <command>source</command> and <command>destination</command> ip address. That is because the dns client is the same computer as the dns server.</para>
+		<para>The same is true for packets 31 and 32, since the machine is actually pinging itself.</para>
+	</section>
+	<section><title>specific ip address</title>
+		<para>This is a screenshot that filters for <command>dns</command> packets that contain a certain <command>ip address</command>. The filter in use is <command>ip.addr==10.104.33.30 and dns</command>. The <command>and</command> directive forces each displayed packet to match both conditions.</para>
+		<para><mediaobject><imageobject><imagedata fileref="images/wireshark_ipanddns.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+		<para>Packet 93 is the <command>dns query</command> for the A record of linux-training.be. Packet 98 is the response from the <command>dns server</command>. What do you think happened in the packets between 93 and 98 ? Try to answer this before reading on (it always helps to try to predict what you will see, and then checking your prediction).</para>
 	</section>
 <?hard-pagebreak?>
 	<section><title>looking inside packets</title>
