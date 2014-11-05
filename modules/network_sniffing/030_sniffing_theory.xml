@@ -88,7 +88,7 @@ rtt min/avg/max/mdev = 0.590/0.590/0.590/0.000 ms</screen>
 </section>
 <?hard-pagebreak?>
 <section><title>tcpdump</title>
-	<para>Sniffing on the command line can be done with <command>tcpdump</command><indexterm<primary>tcpdump</primary></indexterm>. Here are some examples.</para>
+	<para>Sniffing on the command line can be done with <command>tcpdump</command><indexterm><primary>tcpdump</primary></indexterm>. Here are some examples.</para>
 	<para>Using the <command>tcpdump host $ip</command> command displays all traffic with one host (192.168.1.38 in this example).</para>
 	<screen>root@ubuntu910:~# tcpdump host 192.168.1.38
 tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
