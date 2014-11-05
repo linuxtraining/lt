@@ -67,6 +67,10 @@ rtt min/avg/max/mdev = 0.590/0.590/0.590/0.000 ms</screen>
 		<para><mediaobject><imageobject><imagedata fileref="images/wireshark_ipanddns.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 		<para>Packet 93 is the <command>dns query</command> for the A record of linux-training.be. Packet 98 is the response from the <command>dns server</command>. What do you think happened in the packets between 93 and 98 ? Try to answer this before reading on (it always helps to try to predict what you will see, and then checking your prediction).</para>
 	</section>
+	<section><title>filtering by frame</title>
+		<para>The correct technical term for a <command>packet</command> as sniffed is a <command>frame</command> (because we sniff on layer two). So to display packets with certain numbers, we use <command>frame.number</command> in the filter.</para>
+		<para><mediaobject><imageobject><imagedata fileref="images/wireshark_framenumber.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+	</section>
 <?hard-pagebreak?>
 	<section><title>looking inside packets</title>
 		<para>The middle can be expanded. When selecting a line in this panel, you can see the corresponding bytes in the frame in the bottom panel.</para>
