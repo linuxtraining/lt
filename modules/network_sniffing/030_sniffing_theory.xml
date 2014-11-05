@@ -73,26 +73,22 @@ rtt min/avg/max/mdev = 0.590/0.590/0.590/0.000 ms</screen>
 	</section>
 <?hard-pagebreak?>
 	<section><title>looking inside packets</title>
-		<para>The middle can be expanded. When selecting a line in this panel, you can see the corresponding bytes in the frame in the bottom panel.</para>
-		<para>
- 			<mediaobject><imageobject><imagedata fileref="images/wireshark_source_mac.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-		</para>
+		<para>The middle pane can be expanded. When selecting a line in this pane, you can see the corresponding bytes in the frame in the bottom panel.</para>
+		<para>This screenshot shows the middle pane with the source address of my laptop selected.</para>
+		<para><mediaobject><imageobject><imagedata fileref="images/wireshark_source_mac.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+		<para>Note that the above works fine when sniffing one interface. When sniffing with for example <command>tcpdump -i any</command> you will end up with <command>Linux cooked</command> at this level.</para>
+		<para><mediaobject><imageobject><imagedata fileref="images/wireshark_cooked.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 	</section>
-	<section><title>use filters</title>
-		<para>You might get lost in too many packets. A quick solution to see only the packets that are of interest to you is to apply filters. When you type <command>arp</command><indexterm><primary>arp(protocol)</primary></indexterm> and click apply, you will only see <command>arp</command> packets displayed.</para>
+	<section><title>other filter examples</title>
 		<para>You can combine two protocols with a logical <command>or</command> between them. The example below shows how to filter only <command>arp</command> and <command>bootp</command><indexterm><primary>bootp</primary></indexterm> (or <command>dhcp</command><indexterm><primary>dhcp</primary></indexterm>) packets.</para>
-		<para>
- 			<mediaobject><imageobject><imagedata fileref="images/wireshark_arp_bootp.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-		</para>
+		<para><mediaobject><imageobject><imagedata fileref="images/wireshark_arp_bootp.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 		<para>This example shows how to filter for <command>dns</command><indexterm><primary>dns</primary></indexterm> traffic containing a certain <command>ip address</command>.</para>
-		<para>
- 			<mediaobject><imageobject><imagedata fileref="images/wireshark_dns_ipaddress.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
-		</para>
+		<para><mediaobject><imageobject><imagedata fileref="images/wireshark_dns_ipaddress.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 	</section>
 </section>
 <?hard-pagebreak?>
 <section><title>tcpdump</title>
-	<para>Sniffing on the command line can be done with <command>tcpdump</command>. Here are some examples.</para>
+	<para>Sniffing on the command line can be done with <command>tcpdump</command><indexterm<primary>tcpdump</primary></indexterm>. Here are some examples.</para>
 	<para>Using the <command>tcpdump host $ip</command> command displays all traffic with one host (192.168.1.38 in this example).</para>
 	<screen>root@ubuntu910:~# tcpdump host 192.168.1.38
 tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
