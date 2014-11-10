@@ -1,54 +1,181 @@
 <?hard-pagebreak?>
+<section><title>Debian</title>
+<para>Debian is one of the oldest Linux distributions. I use Debian myself on almost every computer that I own (including <command>raspbian</command> on the <command>Raspberry Pi</command>).</para>
+<para>Debian comes in <command>releases</command> named after characters in the movie <command>Toy Story</command>. The <command>Jessie</command> release contains about 36000 packages.</para>
+<table frame='all'><title>Debian releases</title>
+<?dbfo table-width="50%" ?>
+<tgroup cols='3' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="2*" align="center"/>
+<colspec colname='c2' colwidth="2*" align="center"/>
+<colspec colname='c3' colwidth="2*" align="center"/>
+<thead>
+<row>
+  <entry>name</entry>
+  <entry>number</entry>
+  <entry>year</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>Woody</entry>
+  <entry>3.0</entry>
+  <entry>2002</entry>
+</row>
+<row>
+  <entry>Sarge</entry>
+  <entry>3.1</entry>
+  <entry>2005</entry>
+</row>
+<row>
+  <entry>Etch</entry>
+  <entry>4.0</entry>
+  <entry>2007</entry>
+</row>
+<row>
+  <entry>Lenny</entry>
+  <entry>5.0</entry>
+  <entry>2009</entry>
+</row>
+<row>
+  <entry>Squeeze</entry>
+  <entry>6.0</entry>
+  <entry>2011</entry>
+</row>
+<row>
+  <entry>Wheezy</entry>
+  <entry>7</entry>
+  <entry>2013</entry>
+</row>
+<row>
+  <entry>Jessie</entry>
+  <entry>8</entry>
+  <entry>2015</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<para>There is never a fixed date for the next <command>Debian</command> release. The next version is released when it is ready.</para>
+</section>
 <section><title>Downloading</title>
+<para>All these screenshots were made in November 2014, which means <command>Debian 8</command> was still in 'testing' (but in 'freeze', so there will be no major changes when it is released).</para>
+<para>Download Debian here:</para>
+<para><mediaobject><imageobject><imagedata fileref="images/debian8.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para>After a couple of clicks on that website, I ended up downloading <command>Debian 8</command> (testing) here. It should be only one click once <command>Debian 8</command> is released (somewhere in 2015).</para>
+<para><mediaobject><imageobject><imagedata fileref="images/debian8_ftp.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para>You have many other options to download and install <command>Debian</command>. We will discuss them much later.</para>
+<para>This small screenshot shows the downloading of a <command>netinst</command> .iso file. Most of the software will be downloaded during the installation. This also means that you will have the most recent version of all packages when the install is finished.</para>
+<para><mediaobject><imageobject><imagedata fileref="images/debian8_isodown.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para>I already have Debian 8 installed on my laptop (hence the <command>paul@debian8</command> prompt). Anyway, this is the downloaded file just before starting the installation.</para>
+<screen>paul@debian8:~$ <command>ls -hl debian-testing-amd64-netinst.iso</command>
+-rw-r--r-- 1 paul paul 231M Nov 10 17:59 debian-testing-amd64-netinst.iso</screen>
+<?hard-pagebreak?>
+<para>Create a new virtualbox machine (I already have five, you might have zero for now). Click the <command>New</command> button to start a wizard that will help you create a virtual machine.</para>
+<para><mediaobject><imageobject><imagedata fileref="images/debian8_vb.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para>The machine needs a name, this screenshot shows that I named it <command>server42</command>.</para>
+<para><mediaobject><imageobject><imagedata fileref="images/debian8_vb2.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<?hard-pagebreak?>
+<para>Most of the defaults in Virtualbox are ok.</para>
+<para>512MB of RAM is enough to practice all the topics in this book.</para>
+<para><mediaobject><imageobject><imagedata fileref="images/centos7_mem.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para>We do not care about the virtual disk format.</para>
+<para><mediaobject><imageobject><imagedata fileref="images/centos7_vdi.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<?hard-pagebreak?>
+<para>Choosing <command>dynamically allocated</command> will save you some disk space (for a small performance hit).</para>
+<para><mediaobject><imageobject><imagedata fileref="images/centos7_dynamic.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para>8GB should be plenty for learning about Linux servers.</para>
+<para><mediaobject><imageobject><imagedata fileref="images/debian8_disksize.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para>This finishes the wizard. You virtual machine is almost ready to begin the installation.</para>
+<?hard-pagebreak?>
+<para>First, make sure that you attach the downloaded .iso image to the virtual CD drive. (by opening <command>Settings</command>, <command>Storage</command> followed by a mouse click on the round CD icon)</para>
+<para><mediaobject><imageobject><imagedata fileref="images/debian8_iso.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para>Personally I also disable sound and usb, because I never use these features. I also remove the floppy disk and use a PS/2 mouse pointer. This is probably not very important, but I like the idea that it saves some resources.</para>
+<?hard-pagebreak?>
+<para>time to boot the machine and begin the actual installation.</para>
+<para>start install</para>
+<para><mediaobject><imageobject><imagedata fileref="images/debian8_inst1.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para>Choose your country</para>
+<para><mediaobject><imageobject><imagedata fileref="images/debian8_inst2_country.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para>choose the correct keyboard</para>
+<para><mediaobject><imageobject><imagedata fileref="images/debian8_inst3_keyb.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para>enter a hostname</para>
+<para><mediaobject><imageobject><imagedata fileref="images/debian8_inst4_hostname.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<?hard-pagebreak?>
+<para>give the root user a password like hunter2</para>
+<para><mediaobject><imageobject><imagedata fileref="images/debian8_inst5_rootpw.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para>It is adviced to also create a normal user account. I never bother to give it my full name, Debian is happy with an identical username and full name <command>paul</command>.</para>
+<para><mediaobject><imageobject><imagedata fileref="images/debian8_inst5_newuser.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<?hard-pagebreak?>
+<para>Choose the disk.</para>
+<para><mediaobject><imageobject><imagedata fileref="images/debian8_inst6_disk.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para>partition</para>
+<para><mediaobject><imageobject><imagedata fileref="images/debian8_inst7_partition.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<?hard-pagebreak?>
+<para>The default partition layout should be okay (only change this if you really know what you are doing).</para>
+<para><mediaobject><imageobject><imagedata fileref="images/debian8_inst8_ponr.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para>This is the point of no return, the magical moment where pressing <command>yes</command> will forever erase data on the (virtual) computer.</para>
+<para><mediaobject><imageobject><imagedata fileref="images/debian8_inst8_ponr2.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<?hard-pagebreak?>
+<para>Software is downloaded from a mirror repository, preferably choose one that is close by (as in the same country).</para>
+<para><mediaobject><imageobject><imagedata fileref="images/debian8_inst9_mirror.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para>this setup was done in Belgium</para>
+<para><mediaobject><imageobject><imagedata fileref="images/debian8_inst9_mirror2.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<?hard-pagebreak?>
+<para>Leave the proxy field empty (unless you are sure that you are behind a proxy server).</para>
+<para><mediaobject><imageobject><imagedata fileref="images/debian8_insta_proxy.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para>Choose whether you want to send anonymous statistics to the Debian project (it gathers data about installed packages).</para>
+<para><mediaobject><imageobject><imagedata fileref="images/debian8_instb_stats.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<?hard-pagebreak?>
+<para>Choose what software to install, we do not need any graphical stuff for this training.</para>
+<para><mediaobject><imageobject><imagedata fileref="images/debian8_instc_soft.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para>The latest versions are being downloaded.</para>
+<para><mediaobject><imageobject><imagedata fileref="images/debian8_instd_retr.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<?hard-pagebreak?>
+<para>Say yes to install the bootloader on the virtual machine.</para>
+<para><mediaobject><imageobject><imagedata fileref="images/debian8_inste_grub.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para>Booting for the first time shows the grub screen</para>
+<para><mediaobject><imageobject><imagedata fileref="images/debian8_grubboot.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<?hard-pagebreak?>
+<para>the getty window</para>
+<para><mediaobject><imageobject><imagedata fileref="images/debian8_getty.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para>the first logon.</para>
+<para><mediaobject><imageobject><imagedata fileref="images/debian8_firstlogon.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<?hard-pagebreak?>
+<para>bridge</para>
+<para><mediaobject><imageobject><imagedata fileref="images/debian8_bridge.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para></para>
+
+<para></para>
+<screen>root@server42:~# <command>who am i</command>
+root     tty1         2014-11-10 18:21
+root@server42:~# <command>hostname</command>
+server42
+root@server42:~# <command>date</command>
+Mon Nov 10 18:21:56 CET 2014
+root@server42:~# </screen>
 <para></para>
 <screen></screen>
-<para><mediaobject><imageobject><imagedata fileref="images/debian8.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<screen></screen>
+<para><mediaobject><imageobject><imagedata fileref="images/debian8_bridge.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para></para>
+<screen>paul@debian8:~$ <command>ssh paul@192.168.1.111</command>
+paul@192.168.1.111's password:
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+paul@server42:~$
+paul@server42:~$ <command>su -</command>
+Password:
+root@server42:~#</screen>
 <para></para>
 <screen></screen>
-<para><mediaobject><imageobject><imagedata fileref="images/debian8.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <para></para>
 <screen></screen>
-<para><mediaobject><imageobject><imagedata fileref="images/debian8.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <para></para>
 <screen></screen>
-<para><mediaobject><imageobject><imagedata fileref="images/debian8.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <para></para>
 <screen></screen>
-<para><mediaobject><imageobject><imagedata fileref="images/debian8.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
-<para></para>
-<screen></screen>
-<para><mediaobject><imageobject><imagedata fileref="images/debian8.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
-<para></para>
-<screen></screen>
-<para><mediaobject><imageobject><imagedata fileref="images/debian8.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
-<para></para>
-<screen></screen>
-<para><mediaobject><imageobject><imagedata fileref="images/debian8.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
-<para></para>
-<screen></screen>
-<para><mediaobject><imageobject><imagedata fileref="images/debian8.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
-<para></para>
-<screen></screen>
-<para><mediaobject><imageobject><imagedata fileref="images/debian8.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
-<para></para>
-<screen></screen>
-<para><mediaobject><imageobject><imagedata fileref="images/debian8.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
-<para></para>
-<screen></screen>
-<para><mediaobject><imageobject><imagedata fileref="images/debian8.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
-<para></para>
-<screen></screen>
-<para><mediaobject><imageobject><imagedata fileref="images/debian8.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
-<para></para>
-<screen></screen>
-<para><mediaobject><imageobject><imagedata fileref="images/debian8.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
-<para></para>
-<screen></screen>
-<para><mediaobject><imageobject><imagedata fileref="images/debian8.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
-<para></para>
-<screen></screen>
-<para><mediaobject><imageobject><imagedata fileref="images/debian8.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
-<para></para>
-<screen></screen>
-<para><mediaobject><imageobject><imagedata fileref="images/debian8.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 </section>
