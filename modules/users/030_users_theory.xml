@@ -117,7 +117,7 @@ Administrator. It usually boils down to these three things:
 [sudo] password for paul:
 paul is not in the sudoers file.  This incident will be reported.
 paul@rhel65:~$</screen>
-		<para>The root user can see this in the <command>/var/log/secure</command> on Red Hat and in <command>/var/log/auth.log</command> on Debian.</para>
+		<para>The root user can see this in the <command>/var/log/secure</command> on Red Hat and in <command>/var/log/auth.log</command> on Debian).</para>
 		<screen>root@rhel65:~# <command>tail /var/log/secure | grep sudo | tr -s ' '</command>
 Apr 13 16:03:42 rhel65 sudo: paul : user NOT in sudoers ; TTY=pts/0 ; PWD=\
 /home/paul ; USER=root ; COMMAND=/bin/su -

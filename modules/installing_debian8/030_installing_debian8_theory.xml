@@ -89,40 +89,42 @@
 <para>First, make sure that you attach the downloaded .iso image to the virtual CD drive. (by opening <command>Settings</command>, <command>Storage</command> followed by a mouse click on the round CD icon)</para>
 <para><mediaobject><imageobject><imagedata fileref="images/debian8_iso.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <para>Personally I also disable sound and usb, because I never use these features. I also remove the floppy disk and use a PS/2 mouse pointer. This is probably not very important, but I like the idea that it saves some resources.</para>
+<para>Now boot the virtual machine and begin the actual installation. After a couple of seconds you should see a screen similar to this. Choose <command>Install</command> to begin the installation of Debian.</para>
+<para><mediaobject><imageobject><imagedata fileref="images/debian8_start_install.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <?hard-pagebreak?>
-<para>time to boot the machine and begin the actual installation.</para>
-<para>start install</para>
+<para>First select the language you want to use.</para>
 <para><mediaobject><imageobject><imagedata fileref="images/debian8_inst1.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
-<para>Choose your country</para>
+<para>Choose your country. This information will be used to suggest a download mirror.</para>
 <para><mediaobject><imageobject><imagedata fileref="images/debian8_inst2_country.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
-<para>choose the correct keyboard</para>
+<?hard-pagebreak?>
+<para>Choose the correct keyboard. On servers this is of no importance since most servers are remotely managed via <command>ssh</command>.</para>
 <para><mediaobject><imageobject><imagedata fileref="images/debian8_inst3_keyb.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
-<para>enter a hostname</para>
+<para>Enter a <command>hostname</command> (with <command>fqdn</command> to set a <command>dnsdomainname</command>).</para>
 <para><mediaobject><imageobject><imagedata fileref="images/debian8_inst4_hostname.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <?hard-pagebreak?>
-<para>give the root user a password like hunter2</para>
+<para>Give the <command>root</command> user a password. Remember this password (or use <command>hunter2</command>).</para>
 <para><mediaobject><imageobject><imagedata fileref="images/debian8_inst5_rootpw.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
-<para>It is adviced to also create a normal user account. I never bother to give it my full name, Debian is happy with an identical username and full name <command>paul</command>.</para>
+<para>It is adviced to also create a normal user account. I don't give my full name, Debian 8 accepts an identical username and full name <command>paul</command>.</para>
 <para><mediaobject><imageobject><imagedata fileref="images/debian8_inst5_newuser.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <?hard-pagebreak?>
-<para>Choose the disk.</para>
+<para>The <command>use entire disk</command> refers to the <command>virtual disk</command> that you created before in <command>Virtualbox</command>..</para>
 <para><mediaobject><imageobject><imagedata fileref="images/debian8_inst6_disk.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
-<para>partition</para>
+<para>Again the default is probably what you want. Only change partitioning if you really know what you are doing.</para>
 <para><mediaobject><imageobject><imagedata fileref="images/debian8_inst7_partition.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <?hard-pagebreak?>
-<para>The default partition layout should be okay (only change this if you really know what you are doing).</para>
+<para>Accept the partition layout (again only change if you really know what you are doing).</para>
 <para><mediaobject><imageobject><imagedata fileref="images/debian8_inst8_ponr.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <para>This is the point of no return, the magical moment where pressing <command>yes</command> will forever erase data on the (virtual) computer.</para>
 <para><mediaobject><imageobject><imagedata fileref="images/debian8_inst8_ponr2.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <?hard-pagebreak?>
 <para>Software is downloaded from a mirror repository, preferably choose one that is close by (as in the same country).</para>
 <para><mediaobject><imageobject><imagedata fileref="images/debian8_inst9_mirror.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
-<para>this setup was done in Belgium</para>
+<para>This setup was done in Belgium.</para>
 <para><mediaobject><imageobject><imagedata fileref="images/debian8_inst9_mirror2.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <?hard-pagebreak?>
 <para>Leave the proxy field empty (unless you are sure that you are behind a proxy server).</para>
 <para><mediaobject><imageobject><imagedata fileref="images/debian8_insta_proxy.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
-<para>Choose whether you want to send anonymous statistics to the Debian project (it gathers data about installed packages).</para>
+<para>Choose whether you want to send anonymous statistics to the Debian project (it gathers data about installed packages). You can view the statistics here <command>http://popcon.debian.org/</command>.</para>
 <para><mediaobject><imageobject><imagedata fileref="images/debian8_instb_stats.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <?hard-pagebreak?>
 <para>Choose what software to install, we do not need any graphical stuff for this training.</para>
@@ -135,28 +137,81 @@
 <para>Booting for the first time shows the grub screen</para>
 <para><mediaobject><imageobject><imagedata fileref="images/debian8_grubboot.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <?hard-pagebreak?>
-<para>the getty window</para>
+<para>A couple seconds later you should see a lot of text scrolling of the screen (<command>dmesg</command>). After which you are presented with this <command>getty</command> and are allowed your first logon.</para>
 <para><mediaobject><imageobject><imagedata fileref="images/debian8_getty.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
-<para>the first logon.</para>
+<para>You should now be able to log on to your virtual machine with the <command>root</command> account. Do you remember the password ? Was it <command>hunter2</command> ?</para>
 <para><mediaobject><imageobject><imagedata fileref="images/debian8_firstlogon.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
-<?hard-pagebreak?>
-<para>bridge</para>
-<para><mediaobject><imageobject><imagedata fileref="images/debian8_bridge.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
-<para></para>
-
-<para></para>
+<para>The screenshots in this book will look like this from now on. You can just type those commands in the terminal (after you logged on).</para>
 <screen>root@server42:~# <command>who am i</command>
 root     tty1         2014-11-10 18:21
 root@server42:~# <command>hostname</command>
 server42
 root@server42:~# <command>date</command>
-Mon Nov 10 18:21:56 CET 2014
-root@server42:~# </screen>
-<para></para>
-<screen></screen>
-<screen></screen>
+Mon Nov 10 18:21:56 CET 2014</screen>
+</section>
+<?hard-pagebreak?>
+<section><title>virtualbox networking</title>
+<para>You can also log on from remote (or from your Windows/Mac/Linux host computer) using <command>ssh</command> or <command>putty</command>. Change the <command>network</command> settings in the virtual machine to <command>bridge</command>. This will enable your virtual machine to receive an ip address from your local dhcp server.</para>
+<para>The default virtualbox networking is to attach virtual network cards to <command>nat</command>. This screenshiot shows the ip address <command>10.0.2.15</command> when on <command>nat</command>:</para>
+<screen>root@server42:~# <command>ifconfig</command>
+eth0      Link encap:Ethernet  HWaddr 08:00:27:f5:74:cf
+          inet addr:10.0.2.15  Bcast:10.0.2.255  Mask:255.255.255.0
+          inet6 addr: fe80::a00:27ff:fef5:74cf/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:11 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:19 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:2352 (2.2 KiB)  TX bytes:1988 (1.9 KiB)
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope:Host
+          UP LOOPBACK RUNNING  MTU:65536  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)</screen>
 <para><mediaobject><imageobject><imagedata fileref="images/debian8_bridge.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
-<para></para>
+<para>By shutting down the network interface and enabling it again, we force Debian to renew an ip address from the bridged netwrok.</para>
+<screen>root@server42:~# <command># do not run ifdown while connected over ssh!</command>
+root@server42:~# <command>ifdown eth0</command>
+Killed old client process
+Internet Systems Consortium DHCP Client 4.3.1
+Copyright 2004-2014 Internet Systems Consortium.
+All rights reserved.
+For info, please visit https://www.isc.org/software/dhcp/
+
+Listening on LPF/eth0/08:00:27:f5:74:cf
+Sending on   LPF/eth0/08:00:27:f5:74:cf
+Sending on   Socket/fallback
+DHCPRELEASE on eth0 to 10.0.2.2 port 67
+root@server42:~# <command># now enable bridge in virtualbox settings</command>
+root@server42:~# <command>ifup eth0</command>
+Internet Systems Consortium DHCP Client 4.3.1
+Copyright 2004-2014 Internet Systems Consortium.
+All rights reserved.
+For info, please visit https://www.isc.org/software/dhcp/
+
+Listening on LPF/eth0/08:00:27:f5:74:cf
+Sending on   LPF/eth0/08:00:27:f5:74:cf
+Sending on   Socket/fallback
+DHCPDISCOVER on eth0 to 255.255.255.255 port 67 interval 8
+DHCPDISCOVER on eth0 to 255.255.255.255 port 67 interval 8
+DHCPREQUEST on eth0 to 255.255.255.255 port 67
+DHCPOFFER from 192.168.1.42
+DHCPACK from 192.168.1.42
+bound to 192.168.1.111 -- renewal in 2938 seconds.
+root@server42:~# <command>ifconfig eth0</command>
+eth0      Link encap:Ethernet  HWaddr 08:00:27:f5:74:cf
+          inet addr:192.168.1.111  Bcast:192.168.1.255  Mask:255.255.255.0
+          inet6 addr: fe80::a00:27ff:fef5:74cf/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:15 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:31 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:3156 (3.0 KiB)  TX bytes:3722 (3.6 KiB)
+root@server42:~#</screen>
+<para>Here is an example of <command>ssh</command> to this freshly installed computer. Note that <command>Debian 8</command> has disabled remote root access, so i need to use the normal user account.</para>
 <screen>paul@debian8:~$ <command>ssh paul@192.168.1.111</command>
 paul@192.168.1.111's password:
 
@@ -170,12 +225,89 @@ paul@server42:~$
 paul@server42:~$ <command>su -</command>
 Password:
 root@server42:~#</screen>
-<para></para>
-<screen></screen>
-<para></para>
-<screen></screen>
-<para></para>
-<screen></screen>
-<para></para>
-<screen></screen>
+<para>TODO: putty screenshot here...</para>
+</section>
+<?hard-pagebreak?>
+<section><title>setting the hostname</title>
+<para>The hostname of the server is asked during installation, so there is no need to configure this manually.</para>
+<screen>root@server42:~# <command>hostname</command>
+server42
+root@server42:~# <command>cat /etc/hostname</command>
+server42
+root@server42:~# <command>dnsdomainname</command>
+paul.local
+root@server42:~# <command>grep server42 /etc/hosts</command>
+127.0.1.1       server42.paul.local     server42
+root@server42:~#</screen>
+</section>
+<section><title>adding a static ip address</title>
+<para>This example shows how to add a static ip address to your server.</para>
+<para>You can use <command>ifconfig</command> to set a static address that is active until the next <command>reboot</command> (or until the next <command>ifdown</command>).</para>a
+<screen>root@server42:~# <command>ifconfig eth0:0 10.104.33.39</command></screen>
+<para>Adding a couple of lines to the <command>/etc/network/interfaces</command> file to enable an extra ip address forever. </para>
+<screen>root@server42:~# <command>vi /etc/network/interfaces</command>
+root@server42:~# <command>tail -4 /etc/network/interfaces</command>
+auto eth0:0
+iface eth0:0 inet static
+address 10.104.33.39
+netmask 255.255.0.0
+root@server42:~# <command>ifconfig</command>
+eth0      Link encap:Ethernet  HWaddr 08:00:27:f5:74:cf
+          inet addr:192.168.1.111  Bcast:192.168.1.255  Mask:255.255.255.0
+          inet6 addr: fe80::a00:27ff:fef5:74cf/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:528 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:333 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:45429 (44.3 KiB)  TX bytes:48763 (47.6 KiB)
+
+eth0:0    Link encap:Ethernet  HWaddr 08:00:27:f5:74:cf
+          inet addr:10.104.33.39  Bcast:10.255.255.255  Mask:255.0.0.0
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope:Host
+          UP LOOPBACK RUNNING  MTU:65536  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+
+root@server42:~#</screen>
+</section>
+<?hard-pagebreak?>
+<section><title>Debian package management</title>
+<para>To get all information about the newest packages form the online repository:</para>
+<screen>root@server42:~# <command>aptitude update</command>
+Get: 1 http://ftp.be.debian.org jessie InRelease [191 kB]
+Get: 2 http://security.debian.org jessie/updates InRelease [84.1 kB]
+Get: 3 http://ftp.be.debian.org jessie-updates InRelease [117 kB]
+Get: 4 http://ftp.be.debian.org jessie-backports InRelease [118 kB]
+Get: 5 http://security.debian.org jessie/updates/main Sources [14 B]
+Get: 6 http://ftp.be.debian.org jessie/main Sources/DiffIndex [7,876 B]
+... (output truncated)</screen>
+<para>To download and apply all updates for all installed packages:</para>
+<screen>root@server42:~# <command>aptitude upgrade</command>
+Resolving dependencies...
+The following NEW packages will be installed:
+  firmware-linux-free{a} irqbalance{a} libnuma1{a} linux-image-3.16.0-4-amd64{a}
+The following packages will be upgraded:
+  busybox file libc-bin libc6 libexpat1 libmagic1 libpaper-utils libpaper1 libsqlite3-0
+  linux-image-amd64 locales multiarch-support
+12 packages upgraded, 4 newly installed, 0 to remove and 0 not upgraded.
+Need to get 44.9 MB of archives. After unpacking 161 MB will be used.
+Do you want to continue? [Y/n/?]
+... (output truncated)</screen>
+<para>To install new software (<command>vim</command> and <command>tmux</command> in this example):</para>
+<screen>root@server42:~# aptitude install vim tmux
+The following NEW packages will be installed:
+  tmux vim vim-runtime{a}
+0 packages upgraded, 3 newly installed, 0 to remove and 0 not upgraded.
+Need to get 6,243 kB of archives. After unpacking 29.0 MB will be used.
+Do you want to continue? [Y/n/?]
+Get: 1 http://ftp.be.debian.org/debian/ jessie/main tmux amd64 1.9-6 [245 kB]
+Get: 2 http://ftp.be.debian.org/debian/ jessie/main vim-runtime all 2:7.4.488-1 [5,046 kB]
+Get: 3 http://ftp.be.debian.org/debian/ jessie/main vim amd64 2:7.4.488-1 [952 kB]</screen>
+<para>Refer to the <command>package management</command> chapter in LinuxAdm.pdf for more information.</para>
 </section>
