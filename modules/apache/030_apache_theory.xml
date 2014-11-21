@@ -401,8 +401,7 @@ To activate the new configuration, you need to run:
 </section>
 <section><title>reload and verify</title>
 	<para>After a <command>service apache2 reload</command> the websites should be available by name.</para>
-	<screen>root@debian7:/etc/apache2/sites-available# <command>!se</command> 
-service apache2 reload
+	<screen>root@debian7:/etc/apache2/sites-available# <command>service apache2 reload</command>
 Reloading web server config: apache2.
 root@debian7:/etc/apache2/sites-available# <command>wget chessclub42.local</command> 
 --2014-05-06 21:37:13--  http://chessclub42.local/
