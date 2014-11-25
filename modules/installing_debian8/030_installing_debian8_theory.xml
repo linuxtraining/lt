@@ -172,7 +172,7 @@ lo        Link encap:Local Loopback
           collisions:0 txqueuelen:0
           RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)</screen>
 <para><mediaobject><imageobject><imagedata fileref="images/debian8_bridge.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
-<para>By shutting down the network interface and enabling it again, we force Debian to renew an ip address from the bridged netwrok.</para>
+<para>By shutting down the network interface and enabling it again, we force Debian to renew an ip address from the bridged network.</para>
 <screen>root@server42:~# <command># do not run ifdown while connected over ssh!</command>
 root@server42:~# <command>ifdown eth0</command>
 Killed old client process
