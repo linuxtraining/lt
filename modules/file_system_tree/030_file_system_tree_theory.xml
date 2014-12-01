@@ -348,7 +348,7 @@ paul@laika:~$</screen>
 </section>
 <?hard-pagebreak?>
 <section><title>/usr Unix System Resources</title>
-	<para>Although <command>/usr</command><indexterm><primary>/usr</primary></indexterm> is pronounced like user, remember that it stands for <command>Unix System Resources</command>. The <command>/usr</command> hierarchy should contain <command>shareable, read only</command> data. Some people choose to mount <command>/usr</command> as read only. This can be done from its own partition or from a read only NFS share.</para>
+	<para>Although <command>/usr</command><indexterm><primary>/usr</primary></indexterm> is pronounced like user, remember that it stands for <command>Unix System Resources</command>. The <command>/usr</command> hierarchy should contain <command>shareable, read only</command> data. Some people choose to mount <command>/usr</command> as read only. This can be done from its own partition or from a read only NFS share (NFS is discussed later).</para>
 	<section><title>/usr/bin</title>
 		<para>The <command>/usr/bin</command><indexterm><primary>/usr/bin</primary></indexterm> directory contains a lot of commands.</para>
 		<screen>paul@deb508:~$ ls /usr/bin | wc -l

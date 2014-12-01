@@ -6,7 +6,7 @@ ERE: Extended Regular Expressions
 PRCE: Perl Regular Expressions</screen>
 	<para>Depending on the tool being used, one or more of these syntaxes can be used.</para>
 	<para>For example the <command>grep</command><indexterm><primary>grep</primary></indexterm> tool has the <command>-E</command> option to force a string to be read as ERE while <command>-G</command> forces BRE and <command>-P</command> forces PRCE.</para>
-	<para>Note that <command>grep</command> als has <command>-F</command> to force the string to be read literally.</para>
+	<para>Note that <command>grep</command> also has <command>-F</command> to force the string to be read literally.</para>
 	<para>The <command>sed</command> tool also has options to choose a regex syntax.</para>
 	<para><command>Read the manual of the tools you use!</command></para>
 </section>
@@ -362,7 +362,7 @@ paul@debian7:~$</screen>
 <?hard-pagebreak?>
 <section><title>bash history</title>
 	<para>The <command>bash shell</command><indexterm><primary>bash</primary></indexterm> can also interprete some regular expressions.</para>
-	<para>This example shows how to manipulate the exclamation mask history feature from the bash shell.</para>
+	<para>This example shows how to manipulate the exclamation mask history feature of the bash shell.</para>
 	<screen>paul@debian7:~$ mkdir hist
 paul@debian7:~$ cd hist/
 paul@debian7:~/hist$ touch file1 file2 file3

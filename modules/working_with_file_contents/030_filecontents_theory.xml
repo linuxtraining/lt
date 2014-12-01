@@ -92,7 +92,7 @@ paul@laika:~/test$</screen>
 	</section>
 </section>
 <section><title>tac</title>
-	<para>Just one example will show you the purpose of <command>tac</command><indexterm><primary>tac(1)</primary></indexterm> (as the opposite of cat).</para>
+	<para>Just one example will show you the purpose of <command>tac</command><indexterm><primary>tac(1)</primary></indexterm> (cat backwards).</para>
 	<screen>paul@laika:~/test$ cat count 
 one
 two

@@ -98,7 +98,7 @@ myAppPath=/var/myApp
 # Enter the number of quines here
 quines=5
 </screen>
-		<para>And her an application that uses this file.</para>
+		<para>And here an application that uses this file.</para>
 <screen>
 [paul@RHEL4a scripts]$ cat myApp.bash 
 #!/bin/bash
