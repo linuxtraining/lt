@@ -38,6 +38,7 @@ add_mod minibook minibook_git
 add_mod minibook minibook_ipv6
 
 add_mod appendix certifications
+add_mod appendix raspberrypi
 add_mod appendix keys
 add_mod appendix hardware
 add_mod appendix installing_linux
