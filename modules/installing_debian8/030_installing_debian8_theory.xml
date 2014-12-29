@@ -300,7 +300,7 @@ Need to get 44.9 MB of archives. After unpacking 161 MB will be used.
 Do you want to continue? [Y/n/?]
 ... (output truncated)</screen>
 <para>To install new software (<command>vim</command> and <command>tmux</command> in this example):</para>
-<screen>root@server42:~# aptitude install vim tmux
+<screen>root@server42:~# <command>aptitude install vim tmux</command>
 The following NEW packages will be installed:
   tmux vim vim-runtime{a}
 0 packages upgraded, 3 newly installed, 0 to remove and 0 not upgraded.
