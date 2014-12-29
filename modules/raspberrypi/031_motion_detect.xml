@@ -1,0 +1,15 @@
+<section><title>raspi camera</title>
+<para>We start with a raspbian image (september 2014)</para>
+<screen>dd if=2014-09-09-wheezy-raspbian.img of=/dev/sdb</screen>
+<para></para>
+<screen></screen>
+<para></para>
+<screen></screen>
+<para></para>
+<screen></screen>
+<para></para>
+<screen></screen>
+<para></para>
+<screen></screen>
+<para></para>
+</section>
