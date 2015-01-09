@@ -17,8 +17,8 @@ Five (followed by Ctrl-d)</screen>
 	<screen>cat count.txt &#062; catcnt.txt</screen>
 	<para>6. Display <command>catcnt.txt</command>, but with all lines in reverse order (the last line first).</para>
 	<screen>tac catcnt.txt</screen>
-	<para>7. Use more to display <command>/var/log/messages</command>.</para>
-	<screen>more /var/log/messages</screen>
+	<para>7. Use more to display <command>/etc/services</command>.</para>
+	<screen>more /etc/services</screen>
 	<para>8. Display the readable character strings from the <command>/usr/bin/passwd</command> command.</para>
 	<screen>strings /usr/bin/passwd</screen>
 	<para>9. Use <command>ls</command> to find the biggest file in <command>/etc</command>.</para>

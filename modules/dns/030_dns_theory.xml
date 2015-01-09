@@ -310,6 +310,17 @@ ns2.openminds.be.domain > 192.168.1.103.7514: 60888*- 1/0/1 A 188.93.155.\
 <section><title>zone transfers</title>
 		<para>The slave server receives a copy of the zone database from the master server using a <command>zone transfer</command><indexterm><primary>zone transfer (dns)</primary></indexterm>. Zone transfers are requested by the slave servers at regular intervals. Those intervals are defined in the <command>soa record</command><indexterm><primary>soa (dns record)</primary></indexterm>.</para>
 	<para><mediaobject><imageobject><imagedata fileref="images/dns_zone_transfer_pic.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+	<para>You can force a refresh from a zone with <command>rndc</command>. The example below force a transfer of the <command>fred.local</command> zone, and shows the log from <command>/var/log/syslog</command>.</para>
+	<screen>root@debian7:/etc/bind# <command>rndc refresh fred.local</command>
+root@debian7:/etc/bind# <command>grep fred /var/log/syslog | tail -7 | cut -c38-</command>
+zone fred.local/IN: sending notifies (serial 1)
+received control channel command 'refresh fred.local'
+zone fred.local/IN: Transfer started.
+transfer of 'fred.local/IN' from 10.104.109.1#53: connected using 10.104.33.30#57367
+zone fred.local/IN: transferred serial 2
+transfer of 'fred.local/IN' from 10.104.109.1#53: Transfer completed: 1 messages, 10 records, 264 bytes, 0.001 secs (264000 bytes/sec)
+zone fred.local/IN: sending notifies (serial 2)
+root@debian7:/etc/bind#</screen>
 </section>
 <?hard-pagebreak?>
 <section><title>master and slave</title>

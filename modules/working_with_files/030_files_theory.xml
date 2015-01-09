@@ -181,7 +181,7 @@ paul@debian7:~$</screen>
 		<para>Try to use <command>mv</command> whenever you need to rename only a couple of files.</para>
 	</section>
 	<section><title>rename on Debian/Ubuntu</title>
-		<para>The <command>rename</command><indexterm><primary>rename</primary></indexterm> command on Debian has a complex syntax (it uses regular expressions) to rename many files at once.</para>
+		<para>The <command>rename</command><indexterm><primary>rename</primary></indexterm> command on Debian uses regular expressions (regular expression or shor regex are explained in a later chapter) to rename many files at once.</para>
 		<para>Below a <command>rename</command> example that switches all occurrences of txt to png for all file names ending in .txt.</para>
 	<screen>paul@debian7:~/test42$ <command>ls</command>
 abc.txt  file33.txt  file42.txt

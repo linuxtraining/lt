@@ -1,0 +1,17 @@
+#!/bin/sh
+#
+
+BOOKTITLE="installing Linux"
+
+##################
+# define minibook
+##################
+
+# define book as directories in certain order
+
+add_mod chapter installing_debian8
+add_mod chapter installing_centos7
+#add_mod chapter installing_linux this is legacy content
+add_mod chapter virtualbox
+
+#add_mod appendix certifications # appendices only in books, not in miniboooks...

@@ -208,7 +208,7 @@ initrd  /boot/initrd.img-2.6.17-2-686</screen>
 <?hard-pagebreak?>
 <section><title>grub2</title>
 <section><title>grub 2.0 ?</title>
-	<para>The main configuration file is now <command>/boot/grub/grub.cfg</command>. Ans while this file may look familiar, one should never edit this file directly (because it is generated!).</para>
+	<para>The main configuration file is now <command>/boot/grub/grub.cfg</command>. And while this file may look familiar, one should never edit this file directly (because it is generated!).</para>
 	<screen>root@debian7:~# ls -l /boot/grub/grub.cfg
 -r--r--r-- 1 root root 2453 May 13 17:22 /boot/grub/grub.cfg
 root@debian7:~# head -3 /boot/grub/grub.cfg

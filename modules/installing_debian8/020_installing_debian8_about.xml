@@ -1,0 +1,4 @@
+<para>This module is a step by step demonstration of an actual installation of <command>Debian 8</command> (also known as <command>Jessie</command>).</para>
+<para>We start by downloading an image from the internet and install <command>Debian 8</command> as a virtual machine in <command>Virtualbox</command>. We will also do some basic configuration of this new machine like setting an <command>ip address</command> and fixing a <command>hostname</command>.</para>
+<para>This procedure should be very similar for other versions of <command>Debian</command>, and also for distributions like <command>Linux Mint</command>, <command>xubuntu/ubuntu/kubuntu</command> or <command>Mepis</command>. This procedure can also be helpful if you are using another virtualization solution.</para>
+<para>Go to the next chapter if you want to install <command>CentOS, Fedora, Red Hat Enterprise Linux, ...</command>.</para>

@@ -9,3 +9,4 @@ BOOKTITLE="backup management"
 
 # define book as directories in certain order
 add_mod chapter backup
+#add_mod chapter backup_examples #local copy only for one client

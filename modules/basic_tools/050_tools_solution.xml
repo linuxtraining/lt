@@ -24,7 +24,7 @@ find . -type f -name "*.odf" -newer marker_start ! -newer marker_end</screen>
 	<para>5. Count the number of *.conf files in /etc and all its subdirs.</para>
 	<screen>find /etc -type f -name '*.conf' | wc -l</screen>
 	
-	<para>6. Two commands that do the same thing: copy *.odf files to /backup/ . What would be a reason to replace the first command with the second ? Again, this is an important question.</para>
+	<para>6. Here are two commands that do the same thing: copy *.odf files to /backup/ . What would be a reason to replace the first command with the second ? Again, this is an important question.</para>
 	<screen>cp -r /data/*.odf /backup/</screen>
 	<screen>find /data -name "*.odf" -exec cp {} /backup/ \;</screen>
 	<para>The first might fail when there are too many files to fit on one command line.</para>

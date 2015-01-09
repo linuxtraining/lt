@@ -6,16 +6,67 @@
 <para>Canonical started sending out free compact discs with <command>Ubuntu</command><indexterm><primary>Ubuntu</primary></indexterm> Linux in 2004 and quickly became popular for home users (many switching from Microsoft Windows). Canonical wants Ubuntu to be an easy to use graphical Linux desktop without need to ever see a command line. Of course they also want to make a profit by selling support for Ubuntu.</para>
 </section>
 <section><title>Debian</title>
-<para>There is no company behind <command>Debian</command><indexterm><primary>Debian</primary></indexterm>. Instead there are thousands of well organised developers that elect a Debian Project Leader every two years. Debian is seen as one of the most stable Linux distributions. It is also the basis of every release of Ubuntu. Debian comes in three versions: stable, testing and unstable. Every Debian release is named after a character in the movie Toy Story.</para>
+<para>There is no company behind <command>Debian</command><indexterm><primary>Debian</primary></indexterm>. Instead there are thousands of well organised developers that elect a <command>Debian Project Leader</command> every two years. Debian is seen as one of the most stable Linux distributions. It is also the basis of every release of Ubuntu. Debian comes in three versions: stable, testing and unstable. Every Debian release is named after a character in the movie Toy Story.</para>
 </section>
 <section><title>Other</title>
-<para>Distributions like CentOS<indexterm><primary>CentOS</primary></indexterm>, Oracle Enterprise Linux<indexterm><primary>OEL</primary></indexterm> <indexterm><primary>Oracle Enterprise Linux</primary></indexterm>and Scientific Linux<indexterm><primary>Scientific</primary></indexterm> are based on Red Hat Enterprise Linux and share many of the same principles, directories and system administration techniques. Linux Mint<indexterm><primary>Linux Mint</primary></indexterm>, Edubuntu<indexterm><primary>Edubuntu</primary></indexterm> and many other *buntu named distributions are based on Ubuntu and thus share a lot with Debian. There are hundreds of other Linux distributions.</para>
+<para>Distributions like CentOS<indexterm><primary>CentOS</primary></indexterm>, Oracle Enterprise Linux<indexterm><primary>OEL</primary></indexterm> <indexterm><primary>Oracle Enterprise Linux</primary></indexterm>and Scientific Linux<indexterm><primary>Scientific</primary></indexterm> are based on Red Hat Enterprise Linux and share many of the same principles, directories and system administration techniques. <command>Linux Mint</command><indexterm><primary>Linux Mint</primary></indexterm>, Edubuntu<indexterm><primary>Edubuntu</primary></indexterm> and many other *buntu named distributions are based on Ubuntu and thus share a lot with Debian. There are hundreds of other Linux distributions.</para>
 </section>
+<?hard-pagebreak?>
 <section><title>Which to choose ?</title>
-<para>When you are new to Linux in 2012, go for the latest Ubuntu or Fedora. If you only want to practice the Linux command line then install one Ubuntu server and/or one CentOS server (without graphical interface).</para>
-<screen>redhat.com
-ubuntu.com
-debian.org
+<para>Below are some very personal opinions on some of the most popular Linux Distributions. Keep in mind that any of the below Linux distributions can be a stable server and a nice graphical desktop client.</para>
+<table frame='all'><title>choosing a Linux distro</title>
+<?dbfo table-width="99%" ?>
+<tgroup cols='2' align='center' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="2*" align="center"/>
+<colspec colname='c2' colwidth="5*" align="left"/>
+<thead>
+<row>
+  <entry>distribution name</entry>
+  <entry>reason(s) for using</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>Red Hat Enterprise (RHEL)</entry>
+  <entry>You are a manager and you want a good support contract.</entry>
+</row>
+<row>
+  <entry>CentOS</entry>
+  <entry>You want Red Hat without the support contract from Red Hat.</entry>
+</row>
+<row>
+  <entry>Fedora</entry>
+  <entry>You want Red Hat on your laptop/desktop.</entry>
+</row>
+<row>
+  <entry>Linux Mint</entry>
+  <entry>You want a personal graphical desktop to play movies, music and games.</entry>
+</row>
+<row>
+  <entry>Debian</entry>
+  <entry>My personal favorite for servers, laptops, and any other device.</entry>
+</row>
+<row>
+  <entry>Ubuntu</entry>
+  <entry>Very popular, based on Debian, not my favorite.</entry>
+</row>
+<row>
+  <entry>Kali</entry>
+  <entry>You want a pointy-clicky hacking interface.</entry>
+</row>
+<row>
+  <entry>others</entry>
+  <entry>Advanced users may prefer Arch, Gentoo, OpenSUSE, Scientific, ...</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<para>When you are new to Linux in 2015, go for the latest Mint or Fedora. If you only want to practice the Linux command line then install one Debian server and/or one CentOS server (without graphical interface).</para>
+<para>Here are some links to help you choose:</para>
+<screen>distrowatch.com
+redhat.com
 centos.org
-distrowatch.com</screen>
+debian.org
+www.linuxmint.com
+ubuntu.com</screen>
 </section>

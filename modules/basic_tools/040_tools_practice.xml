@@ -9,7 +9,7 @@
 	<para>3. Write a find command that finds all files created after January 30th 2010.</para>	
 	<para>4. Write a find command that finds all *.odf files created in September 2009.</para>
 	<para>5. Count the number of *.conf files in /etc and all its subdirs.</para>
-	<para>6. Two commands that do the same thing: copy *.odf files to /backup/ . What would be a reason to replace the first command with the second ? Again, this is an important question.</para>
+	<para>6. Here are two commands that do the same thing: copy *.odf files to /backup/ . What would be a reason to replace the first command with the second ? Again, this is an important question.</para>
 	<screen>cp -r /data/*.odf /backup/</screen>
 	<screen>find /data -name "*.odf" -exec cp {} /backup/ \;</screen>
 	<para>7. Create a file called <command>loctest.txt</command>. Can you find this file with <command>locate</command> ? Why not ? How do you make locate find this file ?</para>

@@ -13,4 +13,5 @@ add_mod chapter logging
 add_mod chapter memory
 add_mod chapter monitoring
 add_mod chapter package_management
-
+#add_mod chapter packages_deb permanently removed
+#add_mod chapter packages_rpm verbatim part of pm, only for RHEL customers

@@ -1,0 +1,230 @@
+<?hard-pagebreak?>
+<section><title>download a CentOS 7 image</title>
+<para>This demonstration uses a laptop computer with <command>Virtualbox</command> to install <command>CentOS 7</command> as a virtual machine. The first task is to download an <command>.iso</command> image of <command>CentOS 7</command>.</para>
+<para>The <command>CentOS 7</command> website looks like this today (November 2014). They change the look regularly, so it may look different when you visit it.</para>
+<para><mediaobject><imageobject><imagedata fileref="images/centos7_downloadpage.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para>You can download a full DVD, which allows for an off line installation of a graphical <command>CentOS 7</command> desktop. You can select this because it should be easy and complete, and should get you started with a working <command>CentOS 7</command> virtual machine.</para>
+<?hard-pagebreak?>
+<para>But I clicked instead on 'alternative downloads', selected <command>CentOS 7</command> and <command>x86_64</command> and ended up on a <command>mirror list</command>. Each mirror is a server that contains copies of <command>CentOS 7</command> media. I selected a Belgian mirror because I currently am in Belgium.</para>
+<para><mediaobject><imageobject><imagedata fileref="images/centos7_mirror.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para>There is again the option for full DVD's and more. This demonstration will use the <command>minimal</command> .iso file, because it is much smaller in size. The download takes a couple of minutes.</para>
+<para><mediaobject><imageobject><imagedata fileref="images/centos7_downloading.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para>Verify the size of the file after download to make sure it is complete. Probably a right click on the file and selecting 'properties' (if you use Windows or Mac OSX).</para>
+<para>I use Linux on the laptop already:</para>
+<screen>paul@debian8:~$ <command>ls -lh CentOS-7.0-1406-x86_64-Minimal.iso</command>
+-rw-r--r-- 1 paul paul 566M Nov  1 14:45 CentOS-7.0-1406-x86_64-Minimal.iso</screen>
+<para>Do not worry if you do no understand the above command. Just try to make sure that the size of this file is the same as the size that is mentioned on the <command>CentOS 7</command> website.</para>
+</section>
+<?hard-pagebreak?>
+<section><title>Virtualbox</title>
+<para>This screenshot shows up when I start Virtualbox. I already have four virtual machines, you might have none.</para>
+<para><mediaobject><imageobject><imagedata fileref="images/centos7_novm.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para>Below are the steps for creating a new virtual machine. Start by clicking <command>New</command> and give your machine a name (I chose <command>server33</command>). Click <command>Next</command>.</para>
+<para><mediaobject><imageobject><imagedata fileref="images/centos7_name.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<?hard-pagebreak?>
+<para>A Linux computer without graphical interface will run fine on <command>half a gigabyte</command> of RAM.</para>
+<para><mediaobject><imageobject><imagedata fileref="images/centos7_mem.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para>A Linux virtual machine will need a <command>virtual hard drive</command>.</para>
+<para><mediaobject><imageobject><imagedata fileref="images/centos7_createdisk.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<?hard-pagebreak?>
+<para>Any format will do for our purpose, so I left the default <command>vdi</command>.</para>
+<para><mediaobject><imageobject><imagedata fileref="images/centos7_vdi.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para>The default <command>dynamically allocated</command> type will save disk space (until we fill the virtual disk up to 100 percent). It makes the virtual machine a bit slower than <command>fixed size</command>, but the <command>fixed size</command> speed improvement is not worth it for our purpose.</para>
+<para><mediaobject><imageobject><imagedata fileref="images/centos7_dynamic.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<?hard-pagebreak?>
+<para>The name of the virtual disk file on the host computer will be <command>server33.vdi</command> in my case (I left it default and it uses the vm name). Also 16 GB should be enough to practice Linux. The file will stay much smaller than 16GB, unless you copy a lot of files to the virtual machine.</para>
+<para><mediaobject><imageobject><imagedata fileref="images/centos7_disksize.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para>You should now be back to the start screen of <command>Virtualbox</command>. If all went well, then you should see the machine you just created in the list.</para>
+<para><mediaobject><imageobject><imagedata fileref="images/centos7_vmok.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<?hard-pagebreak?>
+<para>After finishing the setup, we go into the <command>Settings</command> of our virtual machine and attach the <command>.iso</command> file we downloaded before. Below is the default screenshot.</para>
+<para><mediaobject><imageobject><imagedata fileref="images/centos7_nocd.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para>This is a screenshot with the <command>.iso</command> file properly attached.</para>
+<para><mediaobject><imageobject><imagedata fileref="images/centos7_cdiso.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+</section>
+<?hard-pagebreak?>
+<section><title>CentOS 7 installing</title>
+<para>The screenshots below will show every step from starting the virtual machine for the first time (with the .iso file attached) until the first logon.</para>
+<para>You should see this when booting, otherwise verify the attachment of the .iso file form the previous steps. Select <command>Test this media and install CentOS 7</command>.</para>
+<para><mediaobject><imageobject><imagedata fileref="images/a_install.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<?hard-pagebreak?>
+<para>Carefully select the language in which you want your <command>CentOS</command>. I always install operating systems in English, even though my native language is not English.</para>
+<para>Also select the right keyboard, mine is a US qwerty, but yours may be different.</para>
+<para><mediaobject><imageobject><imagedata fileref="images/b_install_language.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para>You should arrive at a summary page (with one or more warnings).</para>
+<para><mediaobject><imageobject><imagedata fileref="images/c_install_summary.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<?hard-pagebreak?>
+<para>Start by configuring the network. During this demonstration I had a DHCP server running at 192.168.1.42, yours is probably different. Ask someone (a network administator ?) for help if this step fails.</para>
+<para><mediaobject><imageobject><imagedata fileref="images/d_install_network.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para>Select your time zone, and activate <command>ntp</command>.</para>
+<para><mediaobject><imageobject><imagedata fileref="images/e_install_time.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<?hard-pagebreak?>
+<para>Choose a mirror that is close to you. If you can't find a local mirror, then you can copy the one from this screenshot (it is a general <command>CentOS</command> mirror).</para>
+<para><mediaobject><imageobject><imagedata fileref="images/f_install_mirror.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para>It can take a couple of seconds before the mirror is verified.</para>
+<para><mediaobject><imageobject><imagedata fileref="images/g_install_mirrorok.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<?hard-pagebreak?>
+<para>I did not select any software here (because I want to show it all in this training).</para>
+<para><mediaobject><imageobject><imagedata fileref="images/h_install_nosoftsel.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para>After configuring network, location, software and all, you should be back on this page. Make sure there are no warnings anymore (and that you made the correct choice everywhere).</para>
+<para><mediaobject><imageobject><imagedata fileref="images/i_install_go.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<?hard-pagebreak?>
+<para>You can enter a <command>root password</command> and create a <command>user account</command> while the installation is downloading from the internet. This is the longest step, it can take several minutes (or up to an hour if you have a slow internet connection).</para>
+<para><mediaobject><imageobject><imagedata fileref="images/j_install_users.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para>If you see this, then the installation was successful.</para>
+<para>Time to reboot the computer and start <command>CentOS 7</command> for the first time.</para>
+<para><mediaobject><imageobject><imagedata fileref="images/k_install_done.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<?hard-pagebreak?>
+<para>This screen will appear briefly when the virtual machines starts. You don't have to do anything.</para>
+<para><mediaobject><imageobject><imagedata fileref="images/l_install_reboot.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para>After a couple of seconds, you should see a logon screen. This is called a <command>tty</command> or a <command>getty</command>. Here you can type <command>root</command> as username. The <command>login process</command> will then ask your password (nothing will appear on screen when you type your password).</para>
+<para><mediaobject><imageobject><imagedata fileref="images/m_install_getty.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<?hard-pagebreak?>
+<para>And this is what it looks like after logon. You are logged on to your own Linux machine, very good.</para>
+<para><mediaobject><imageobject><imagedata fileref="images/n_install_gettylogon.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para>All subsequent screenshots will be text only, no images anymore.</para>
+<para>For example this screenshot shows three commands being typed on my new CentOS 7 install.</para>
+<screen>[root@localhost ~]# <command>who am i</command>
+root     pts/0        2014-11-01 22:14
+[root@localhost ~]# <command>hostname</command>
+localhost.localdomain
+[root@localhost ~]# <command>date</command>
+Sat Nov  1 22:14:37 CET 2014</screen>
+<para>When using <command>ssh</command> the same commands will give this screenshot:</para>
+<screen>[root@localhost ~]# <command>who am i</command>
+root     pts/0        2014-11-01 21:00 (192.168.1.35)
+[root@localhost ~]# <command>hostname</command>
+localhost.localdomain
+[root@localhost ~]# <command>date</command>
+Sat Nov  1 22:10:04 CET 2014
+[root@localhost ~]#</screen>
+<para>If the last part is a bit too fast, take a look at the next topic <command>CentOS 7 first logon</command>.</para>
+</section>
+<?hard-pagebreak?>
+<section><title>CentOS 7 first logon</title>
+<para>All you have to log on, after finishing the installation, is this screen in Virtualbox.</para>
+<para><mediaobject><imageobject><imagedata fileref="images/m_install_getty.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para>This is workable to learn Linux, and you will be able to practice a lot. But there are more ways to access your virtual machine, the next chapters discuss some of these and will also introduce some basic system configuration.</para>
+<section><title>setting the hostname</title>
+<para>Setting the hostname is a simple as changing the <command>/etc/hostname</command> file. As you can see here, it is set to <command>localhost.localdomain</command> by default.</para>
+<screen>[root@localhost ~]# <command>cat /etc/hostname</command>
+localhost.localdomain</screen>
+<para>You could do <command>echo server33.netsec.local > /etc/hostname</command> followed by a <command>reboot</command>. But there is also the new <command>CentOS 7</command> way of setting a new hostname.</para>
+<screen>[root@localhost ~]# <command>nmtui</command></screen>
+<para>The above command will give you a menu to choose from with a <command>set system hostname</command> option. Using this <command>nmtui</command> option will edit the <command>/etc/hostname</command> file for you.</para>
+<screen>[root@localhost ~]# <command>cat /etc/hostname</command>
+server33.netsec.local
+[root@localhost ~]# <command>hostname</command>
+server33.netsec.local
+[root@localhost ~]# <command>dnsdomainname</command>
+netsec.local</screen>
+<para>For some reason the documentation on the <command>centos.org</command> and <command>docs.redhat.com</command> websites tell you to also execute this command:</para>
+<screen>[root@localhost ~]# <command>systemctl restart systemd-hostnamed</command></screen>
+</section>
+</section>
+<?hard-pagebreak?>
+<section><title>Virtualbox network interface</title>
+<para>By default <command>Virtualbox</command> will connect your virtual machine over a <command>nat</command> interface. This will show up as a 10.0.2.15 (or similar).</para>
+<screen>[root@server33 ~]# <command>ip a</command>
+1: lo: &#060;LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host
+       valid_lft forever preferred_lft forever
+2: enp0s3: &#060;BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast s\
+tate UP qlen 1000
+    link/ether 08:00:27:1c:f5:ab brd ff:ff:ff:ff:ff:ff
+    inet 10.0.2.15/24 brd 10.0.2.255 scope global dynamic enp0s3
+       valid_lft 86399sec preferred_lft 86399sec
+    inet6 fe80::a00:27ff:fe1c:f5ab/64 scope link
+       valid_lft forever preferred_lft forever</screen>
+<para>You can change this to <command>bridge</command> (over your wi-fi or over the ethernet cable) and thus make it appear as if your virtual machine is directly on your local network (receiving an ip address from your real dhcp server).</para>
+<para><mediaobject><imageobject><imagedata fileref="images/o_install_natbridge.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para>You can make this change while the vm is running, provided that you execute this command:</para>
+<screen>[root@server33 ~]# <command>systemctl restart network</command>
+[root@server33 ~]# <command>ip a s dev enp0s3</command>
+2: enp0s3: &#060;BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast s\
+tate UP qlen 1000
+    link/ether 08:00:27:1c:f5:ab brd ff:ff:ff:ff:ff:ff
+    inet 192.168.1.110/24 brd 192.168.1.255 scope global dynamic enp0s3
+       valid_lft 7199sec preferred_lft 7199sec
+    inet6 fe80::a00:27ff:fe1c:f5ab/64 scope link
+       valid_lft forever preferred_lft forever
+[root@server33 ~]#</screen>
+</section>
+<?hard-pagebreak?>
+<section><title>configuring the network</title>
+<para>The new way of changing network configuration is through the <command>nmtui</command> tool. If you want to manually play with the files in <command>/etc/sysconfig/network-scripts</command> then you will first need to verify (and disable) <command>NetworkManager</command> on that interface.</para>
+<para>Verify whether an interface is controlled by <command>NetworkManager</command> using the <command>nmcli</command> command (connected means managed bu NM).</para>
+<screen>[root@server33 ~]# <command>nmcli dev status</command>
+DEVICE  TYPE      STATE      CONNECTION
+enp0s3  ethernet  connected  enp0s3
+lo      loopback  unmanaged  --</screen>
+<para>Disable <command>NetworkManager</command> on an interface (enp0s3 in this case):</para>
+<screen>echo 'NM_CONTROLLED=no' >> /etc/sysconfig/network-scripts/ifcfg-enp0s3</screen>
+<para>You can restart the network without a reboot like this:</para>
+<screen>[root@server33 ~]# <command>systemctl restart network</command></screen>
+<para>Also, forget <command>ifconfig</command> and instead use <command>ip a</command>.</para>
+<screen>[root@server33 ~]# <command>ip a s dev enp0s3 | grep inet</command>
+    inet 192.168.1.110/24 brd 192.168.1.255 scope global dynamic enp0s3
+    inet6 fe80::a00:27ff:fe1c:f5ab/64 scope link
+[root@server33 ~]#</screen>
+</section>
+<section><title>adding one static ip address</title>
+<para>This example shows how to add one static ip address to your computer.</para>
+<screen>[root@server33 ~]# <command>nmtui edit enp0s3</command></screen>
+<para>In this interface leave the IPv4 configuration to automatic, and add an ip address just below.</para>
+<screen>          IPv4 CONFIGURATION &#060;Automatic>                         &#060;Hide>
+          Addresses <command>10.104.33.32/16</command>__________ &#060;Remove></screen>
+<para>Execute this command after exiting <command>nmtui</command>.</para>
+<screen>[root@server33 ~]# <command>systemctl restart network</command></screen>
+<para>And verify with <command>ip</command> (not with <command>ifconfig</command>):</para>
+<screen>[root@server33 ~]# <command>ip a s dev enp0s3 | grep inet</command>
+    inet 192.168.1.110/24 brd 192.168.1.255 scope global dynamic enp0s3
+    inet 10.104.33.32/16 brd 10.104.255.255 scope global enp0s3
+    inet6 fe80::a00:27ff:fe1c:f5ab/64 scope link
+[root@server33 ~]#</screen>
+</section>
+<?hard-pagebreak?>
+<section><title>package management</title>
+<para>Even with a network install, <command>CentOS 7</command> did not install the latest version of some packages. Luckily there is only one command to run (as root). This can take a while.</para>
+<screen>[root@server33 ~]# <command>yum update</command>
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+ * base: centos.weepeetelecom.be
+ * extras: centos.weepeetelecom.be
+ * updates: centos.weepeetelecom.be
+Resolving Dependencies
+--> Running transaction check
+---> Package NetworkManager.x86_64 1:0.9.9.1-13.git20140326.4dba720.el7 \
+will be updated
+... (output truncated)</screen>
+<para>You can also use <command>yum</command> to install one or more packages. Do not forget to run <command>yum update</command> from time to time.</para>
+<screen>[root@server33 ~]# <command>yum update -y &#038;&#038; yum install vim -y</command>
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+ * base: centos.weepeetelecom.be
+... (output truncated)</screen>
+<para>Refer to the package management chapter for more information on installing and removing packages.</para>
+</section>
+<?hard-pagebreak?>
+<section><title>logon from Linux and MacOSX</title>
+<para>You can now open a terminal on Linux or MacOSX and use <command>ssh</command> to log on to your virtual machine.</para>
+<screen>paul@debian8:~$ <command>ssh root@192.168.1.110</command>
+root@192.168.1.110's password:
+Last login: Sun Nov  2 11:53:57 2014
+[root@server33 ~]# <command>hostname</command>
+server33.netsec.local
+[root@server33 ~]#</screen>
+</section>
+<section><title>logon from MS Windows</title>
+<para>There is no <command>ssh</command> installed on MS Windows, but you can download <command>putty.exe</command> from <command>http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html</command> (just Google it).</para>
+<para>Use <command>putty.exe</command> as shown in this screenshot (I saved the ip address by giving it a name 'server33' and presing the 'save' button).</para>
+<para><mediaobject><imageobject><imagedata fileref="images/putty1.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<?hard-pagebreak?>
+<para>The first time you will get a message about keys, accept this (this is explained in the ssh chapter).</para>
+<para><mediaobject><imageobject><imagedata fileref="images/putty2_key.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para>Enter your userid (or root) and the correct password (nothing will appear on the screen when typing a password).</para>
+<para><mediaobject><imageobject><imagedata fileref="images/putty3_ok.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+</section>

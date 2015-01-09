@@ -46,7 +46,7 @@ Password:
 tania@debian7:/home/laura$</screen>
 	</section>
 	<section><title>su to root</title>
-		<para>Yes you can alsu <command>su</command> to become <command>root</command><indexterm><primary>root</primary></indexterm>, when you know the <command>root password</command>.</para>
+		<para>Yes you can also <command>su</command> to become <command>root</command><indexterm><primary>root</primary></indexterm>, when you know the <command>root password</command>.</para>
 		<screen>laura@debian7:~$ <command>su root</command>
 Password:
 root@debian7:/home/laura#</screen>
@@ -117,7 +117,7 @@ Administrator. It usually boils down to these three things:
 [sudo] password for paul:
 paul is not in the sudoers file.  This incident will be reported.
 paul@rhel65:~$</screen>
-		<para>The root user can see this in the <command>/var/log/secure</command> on Red Hat (and <command>/var/log/auth.log</command> on Debian.</para>
+		<para>The root user can see this in the <command>/var/log/secure</command> on Red Hat and in <command>/var/log/auth.log</command> on Debian).</para>
 		<screen>root@rhel65:~# <command>tail /var/log/secure | grep sudo | tr -s ' '</command>
 Apr 13 16:03:42 rhel65 sudo: paul : user NOT in sudoers ; TTY=pts/0 ; PWD=\
 /home/paul ; USER=root ; COMMAND=/bin/su -
