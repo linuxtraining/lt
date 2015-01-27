@@ -203,7 +203,7 @@ paul      2876  2853  0 17:58 pts/0    S      0:00 /home/project42/sleep 500
 <?hard-pagebreak?>
 <section><title>mounting remote file systems</title>
 	<section><title>smb/cifs</title>
-	<para>The Samba team (samba.org) has a Unix/Linux service that is compatible with the SMB/CIFS protocol. This protocol is user mainly by Microsoft computers.</para>
+	<para>The Samba team (samba.org) has a Unix/Linux service that is compatible with the SMB/CIFS protocol. This protocol is mainly used by networked Microsoft Windows computers.</para>
 	<para>Connecting to a Samba server (or to a Microsoft computer) is also done with the mount command.</para>
 	<para>This example shows how to connect to the <command>10.0.0.42</command> server, to a share named <command>data2</command>.</para>
 	<screen>[root@centos65 ~]# mount -t cifs -o user=paul //10.0.0.42/data2 /home/data2
