@@ -296,7 +296,9 @@ Host: scsi3 Channel: 00 Id: 00 Lun: 00
 Host: scsi4 Channel: 00 Id: 00 Lun: 00
   Vendor: ATA      Model: ST3750330AS      Rev: SD04
   Type:   Direct-Access                    ANSI  SCSI revision: 05</screen>
-			<para>Redhat and CentOS also have this command (after a <command>yum install lsscsi</command>).</para>
+	<para>Note that some recent versions of Debian have this disabled in the kernel. You can enable it (after a kernel compile) using this entry:</para>
+	<screen># CONFIG_SCSI_PROC_FS is not set</screen>
+	<para>Redhat and CentOS have this by default (if there are scsi devices present).</para>
 	<screen>[root@centos65 ~]# cat /proc/scsi/scsi 
 Attached devices:
 Host: scsi0 Channel: 00 Id: 00 Lun: 00
