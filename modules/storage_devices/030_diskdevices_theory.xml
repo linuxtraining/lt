@@ -35,12 +35,13 @@ brw-rw----. 1 root disk 8,  1 Apr 19 10:12 /dev/sda1
 brw-rw----. 1 root disk 8,  2 Apr 19 10:12 /dev/sda2
 brw-rw----. 1 root disk 8, 16 Apr 19 10:12 /dev/sdb
 brw-rw----. 1 root disk 8, 32 Apr 19 10:12 /dev/sdc</screen>
-			<para>Note that a <command>character device</command><indexterm><primary>character device</primary></indexterm> is a constant stream of characters, being denoted by a c in <command>ls -l</command>.</para>
-			<para>Note also that the <command>ISO 9660</command> standard for cdrom uses a <command>2048 byte</command> block size.</para>
+			<para>Note that a <command>character device</command><indexterm><primary>character device</primary></indexterm> is a constant stream of characters, being denoted by a c in <command>ls -l</command>. Note also that the <command>ISO 9660</command> standard for cdrom uses a <command>2048 byte</command> block size.</para>
 			<para>Old hard disks (and floppy disks) use <command>cylinder-head-sector</command><indexterm><primary>CHS</primary></indexterm> addressing to access a sector on the disk. Most current disks use <command>LBA (Logical Block Addressing)</command><indexterm><primary>LBA</primary></indexterm>.</para>
 		</section>	
 		<section><title>solid state drive</title>
 			<para>A <command>solid state drive</command><indexterm><primary>solid state drive</primary></indexterm> or <command>ssd</command><indexterm><primary>ssd</primary></indexterm> is a block device without moving parts. It is comparable to <command>flash memory</command>. An <command>ssd</command> is more expensive than a hard disk, but it typically has a much faster access time.</para>
+			<para>In this book we will use the following pictograms for <command>spindle disks</command> (in brown) and <command>solid state disks</command> (in blue).</para>
+	<mediaobject><imageobject><imagedata fileref="images/storage_disk_devices_template.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 		</section>	
 	</section>
 <?hard-pagebreak?>
