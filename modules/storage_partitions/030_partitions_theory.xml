@@ -64,6 +64,8 @@
 </tbody>
 </tgroup>
 </table>
+	<para>The picture below shows two (spindle) disks with partitions. Note that an extended partition is a container holding logical drives.</para>
+	<mediaobject><imageobject><imagedata fileref="images/storage_disk_partitions.png" format="EPS" align="center"></imagedata></imageobject></mediaobject>
 	</section>
 </section>
 <?hard-pagebreak?>
