@@ -82,7 +82,7 @@ paul@ubuntu910:~$ renice +8 1671
  1671 paul      28   8  2972  616  524 S  5.7  0.1   0:29.65 proj33
  1670 paul      28   8  2972  616  524 R  4.7  0.1   0:29.82 proj33
 		</screen>
-		<para>Important to remember is to always make less important processes nice to more important processes. Using <command>negative nice values</command> can have a serere impact on a system's usability.</para>
+		<para>Important to remember is to always make less important processes nice to more important processes. Using <command>negative nice values</command> can have a severe impact on a system's usability.</para>
 	</section>
 	<section><title>nice</title>
 		<para>The <command>nice</command><indexterm><primary>nice</primary></indexterm> works identical to the <command>renice</command> but it is used when starting a command.</para>
