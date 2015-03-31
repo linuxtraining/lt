@@ -10,7 +10,9 @@
 	<screen>set</screen>
 	<screen>set|more on Ubuntu/Debian</screen>
 	<para>5. List all exported shell variables.</para>
-	<screen>env</screen>
+	<screen>env
+export
+declare -x</screen>
 	<para>6. Do the <command>env</command> and <command>set</command> commands display your variable ?</para>
 	<screen>env | more
 set | more</screen>
