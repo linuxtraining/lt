@@ -223,6 +223,7 @@ Device Boot      Start         End      Blocks   Id  System
 root@RHELv4u2:~#</screen>
 	</section>
 </section>
+<?hard-pagebreak?>
 <section><title>about the partition table</title>
 	<section><title>master boot record</title>
 		<para>The <command>partition table</command><indexterm><primary>partition table</primary></indexterm> information (primary and extended partitions) is written in the <command>master boot record</command><indexterm><primary>master boot record</primary></indexterm> or <command>mbr</command><indexterm><primary>mbr</primary></indexterm>. You can use <command>dd</command><indexterm><primary>dd(1)</primary></indexterm> to copy the mbr to a file.</para>
@@ -245,4 +246,71 @@ root@RHELv4u2:~#</screen>
 		<para>The following example copies the <command>mbr</command> and all <command>logical drive</command> info from /dev/sda to /dev/sdb.</para>
 		<screen>sfdisk -d /dev/sda | sfdisk /dev/sdb</screen>
 	</section>
+</section>
+<?hard-pagebreak?>
+<section><title>GUID partition table</title>
+	<para><command>gpt</command> was developed because of the limitations of the 1980s <command>mbr</command> partitioning scheme (for example only four partitions can be defined, and they have a  maximum size two terabytes).</para>
+	<para>Since 2010 <command>gpt</command> is a part of the <command>uefi</command><indexterm><primary>uefi</primary></indexterm> specification, but it is also used on <command>bios</command> systems.</para>
+	<para>Newer versions of <command>fdisk</command> work fine with <command>gpt</command>, but most production servers today (mid 2015) still have an older <command>fdisk.</command>. You can use <command>parted</command> instead.</para>
+</section>
+<section><title>labeling with parted</title>
+<para><command>parted</command> is an interactive tool, just like <command>fdisk</command><indexterm><primary>fdisk limitations</primary></indexterm>. Type <command>help</command> in <command>parted</command> for a list of commands and options.</para>
+<para>This screenshot shows how to start <command>parted</command><indexterm><primary>parted</primary></indexterm> to manage partitions on <command>/dev/sdb</command>.</para>
+<screen>[root@rhel71 ~]# <command>parted /dev/sdb</command>
+GNU Parted 3.1
+Using /dev/sdb
+Welcome to GNU Parted! Type 'help' to view a list of commands.
+(parted)</screen>
+<para>Each command also has built-in help. For example <command>help mklabel</command> will list all supported labels. Note that we only discussed <command>mbr</command>(msdos) and <command>gpt</command><indexterm><primary>gpt</primary></indexterm> in this book.</para>
+<screen>(parted) <command>help mklabel</command>
+ mklabel,mktable LABEL-TYPE             create a new disklabel (partition table)
+
+    LABEL-TYPE is one of: aix, amiga, bsd, dvh, gpt, mac, msdos, pc98, sun, loop
+(parted)</screen>
+<para>We create an <command>mbr</command><indexterm><primary>mbr</primary></indexterm> label.</para>
+<screen>(parted) <command>mklabel msdos</command>>
+Warning: The existing disk label on /dev/sdb will be destroyed and all data on
+this disk will be lost. Do you want to continue?
+Yes/No? yes
+(parted) <command>mklabel gpt</command>
+Warning: The existing disk label on /dev/sdb will be destroyed and all data on
+this disk will be lost. Do you want to continue?
+Yes/No? Y
+(parted)</screen>
+<?hard-pagebreak?>
+<section><title>partitioning with parted</title>
+<para>Once labeled it is easy to create partitions with <command>parted</command><indexterm><primary>parted</primary></indexterm>. This screenshot starts with an unpartitioned (but <command>gpt</command> labeled) disk.</para>
+<screen>(parted) <command>print</command>
+Model: ATA VBOX HARDDISK (scsi)
+Disk /dev/sdb: 8590MB
+Sector size (logical/physical): 512B/512B
+Partition Table: gpt
+Disk Flags:
+
+Number  Start  End  Size  File system  Name  Flags
+
+(parted)</screen>
+<para>This example shows how to create two primary partitions of equal size.</para>
+<screen>(parted) <command>mkpart primary 0 50%</command>
+Warning: The resulting partition is not properly aligned for best performance.
+Ignore/Cancel? I
+(parted) <command>mkpart primary 50% 100%</command>
+(parted)</screen>
+<para>Verify with <command>print</command> and exit with <command>quit</command>. Since <command>parted</command> works directly on the disk, there is no need to <command>w(rite)</command> like in <command>fdisk</command>.</para>
+<screen>(parted) <command>print</command>
+Model: ATA VBOX HARDDISK (scsi)
+Disk /dev/sdb: 8590MB
+Sector size (logical/physical): 512B/512B
+Partition Table: gpt
+Disk Flags:
+
+Number  Start   End     Size    File system  Name     Flags
+ 1      17.4kB  4295MB  4295MB               primary
+ 2      4295MB  8589MB  4294MB               primary
+
+(parted) <command>quit</command>
+Information: You may need to update /etc/fstab.
+
+[root@rhel71 ~]#</screen>
+</section>
 </section>
