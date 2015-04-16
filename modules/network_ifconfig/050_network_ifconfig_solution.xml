@@ -57,7 +57,6 @@ nntp       119/udp         readnews untp   # USENET News Transfer Protocol
 root@rhel6 ~# grep ^'ftp ' /etc/services 
 ftp        21/tcp
 ftp        21/udp          fsp fspd</screen>
-	<para>Note that <command>sctp</command> was ommitted from the screenshot.</para>
 	<para>10. Explain why e-mail and websites are sent over <command>tcp</command> and not <command>udp</command>.</para>
 	<screen>Because tcp is reliable and udp is not.</screen>
 	<para>11. Display the <command>hostname</command> of your computer.</para>

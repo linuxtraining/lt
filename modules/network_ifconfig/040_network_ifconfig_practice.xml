@@ -9,7 +9,6 @@
 	<para>7. Verify that you can connect to the gateway, that it is alive.</para>
 	<para>8. Change the last two digits of your <command>mac address</command>.</para>
 	<para>9. Which ports are used by http, pop3, ssh, telnet, nntp and ftp ?</para>
-	<para>Note that <command>sctp</command> was ommitted from the screenshot.</para>
 	<para>10. Explain why e-mail and websites are sent over <command>tcp</command> and not <command>udp</command>.</para>
 	<para>11. Display the <command>hostname</command> of your computer.</para>
 	<para>12. Which ip-addresses did your computer recently have contact with ?</para>
