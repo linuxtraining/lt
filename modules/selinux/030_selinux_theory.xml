@@ -40,7 +40,7 @@ SE Linux is activated.  You may need to reboot now.</screen>
 	<para>Use <command>getenforce</command><indexterm><primary>getenforce</primary></indexterm> to verify whether selinux is <command>enforced</command>, <command>disabled</command> or <command>permissive</command>.</para>
 	<screen>[root@rhel55 ~]# getenforce 
 Permissive</screen>
-	<para>The <command>/selinux/enforce</command> file contains 1 when enforcing, and 0 when permissive mode is ative.</para>
+	<para>The <command>/selinux/enforce</command> file contains 1 when enforcing, and 0 when permissive mode is active.</para>
 	<screen>root@fedora13 ~# cat /selinux/enforce 
 1root@fedora13 ~#</screen>
 </section>
