@@ -37,7 +37,7 @@
 </section>
 <section><title>security based on ip-address</title>
 	<section><title>hosts allow</title>
-		<para>The <command>hosts allow</command><indexterm><primary>hosts allow (Samba)</primary></indexterm> or <command>allow hosts</command><indexterm><primary>allow hosts (Samba)</primary></indexterm> parameter is one of the key advantages of Samba. It allows access control of shares on the ip-address level. To allow only specific hosts to access a share, list the hosts, seperated by comma's.</para>
+		<para>The <command>hosts allow</command><indexterm><primary>hosts allow (Samba)</primary></indexterm> or <command>allow hosts</command><indexterm><primary>allow hosts (Samba)</primary></indexterm> parameter is one of the key advantages of Samba. It allows access control of shares on the ip-address level. To allow only specific hosts to access a share, list the hosts, separated by comma's.</para>
 		<screen>allow hosts = 192.168.1.5, 192.168.1.40</screen>
 		<para>Allowing entire subnets is done by ending the range with a dot.</para>
 		<screen>allow hosts = 192.168.1.</screen>

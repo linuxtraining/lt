@@ -74,7 +74,7 @@ l3:3:wait:/etc/rc.d/rc 3
 l4:4:wait:/etc/rc.d/rc 4
 l5:5:wait:/etc/rc.d/rc 5
 l6:6:wait:/etc/rc.d/rc 6</screen>
-		<para>In both cases, this means that <command>init</command> will start the rc script with the runlevel as the only parameter. Actually <command>/etc/inittab</command><indexterm><primary>/etc/inittab</primary></indexterm> has fields seperated by colons. The second field determines the runlevel in which this line should be executed. So in both cases, only one line of the seven will be executed, depending on the runlevel set by <command>initdefault</command>.</para>
+		<para>In both cases, this means that <command>init</command> will start the rc script with the runlevel as the only parameter. Actually <command>/etc/inittab</command><indexterm><primary>/etc/inittab</primary></indexterm> has fields separated by colons. The second field determines the runlevel in which this line should be executed. So in both cases, only one line of the seven will be executed, depending on the runlevel set by <command>initdefault</command>.</para>
 	</section>
 	<section><title>rc directories</title>
 		<para>When you take a look any of the <command>/etc/rcX.d/</command><indexterm><primary>/etc/rcX.d/</primary></indexterm> directories, then you will see a lot of (links to) scripts who's name start with either uppercase K or uppercase S.</para>
