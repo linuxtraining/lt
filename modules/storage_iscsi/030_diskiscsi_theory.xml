@@ -349,3 +349,178 @@ root@ubu1104:/etc/iscsi/nodes# mount | grep is
 /dev/sdc1 on /mnt/is2 type ext3 (rw)
 /dev/sdd1 on /mnt/is3 type ext4 (rw)</screen>
 </section>
+<?hard-pagebreak?>
+<section><title>iSCSI Target RHEL7/CentOS7</title>
+<para>The prefered tool to setup an iSCSI Target on RHEL is <command>targetcli</command>.</para>
+<screen>[root@centos7 ~]# <command>yum install targetcli</command>
+Loaded plugins: fastestmirror
+...
+...
+Installed:
+  targetcli.noarch 0:2.1.fb37-3.el7
+
+Complete!
+[root@centos7 ~]#</screen>
+<para>The <command>targetcli</command> tool is interactive and represents the configuration fo the <command>target</command> in a structure that resembles a directory tree with several files. Although this is explorable inside <command>targetcli</command> with <command>ls</command>, <command>cd</command> and <command>pwd</command>, this are not files on the file system.</para>
+<para>This tool also has tab-completion, which is very handy for the <command>iqn</command> names.</para>
+<screen>[root@centos7 ~]# <command>targetcli</command>
+targetcli shell version 2.1.fb37
+Copyright 2011-2013 by Datera, Inc and others.
+For help on commands, type 'help'.
+
+/> <command>cd backstores/</command>
+/backstores> <command>ls</command>
+o- backstores ............................................................ [...]
+  o- block ................................................ [Storage Objects: 0]
+  o- fileio ............................................... [Storage Objects: 0]
+  o- pscsi ................................................ [Storage Objects: 0]
+  o- ramdisk .............................................. [Storage Objects: 0]
+/backstores> <command>cd block</command>
+/backstores/block> <command>ls</command>
+o- block .................................................. [Storage Objects: 0]
+/backstores/block> <command>create server1.disk1 /dev/sdb</command>
+Created block storage object server1.disk1 using /dev/sdb.
+/backstores/block> <command>ls</command>
+o- block .................................................. [Storage Objects: 1]
+  o- server1.disk1 .................. [/dev/sdb (2.0GiB) write-thru deactivated]
+/backstores/block> <command>cd /iscsi</command>
+/iscsi> <command>create iqn.2015-04.be.linux:iscsi1</command>
+Created target iqn.2015-04.be.linux:iscsi1.
+Created TPG 1.
+Global pref auto_add_default_portal=true
+Created default portal listening on all IPs (0.0.0.0), port 3260.
+/iscsi> <command>cd /iscsi/iqn.2015-04.be.linux:iscsi1/tpg1/acls</command>
+/iscsi/iqn.20...si1/tpg1/acls> <command>create iqn.2015-04.be.linux:server2</command>
+Created Node ACL for iqn.2015-04.be.linux:server2
+/iscsi/iqn.20...si1/tpg1/acls> <command>cd iqn.2015-04.be.linux:server2</command>
+/iscsi/iqn.20...linux:server2> <command>set auth userid=paul</command>
+Parameter userid is now 'paul'.
+/iscsi/iqn.20...linux:server2> <command>set auth password=hunter2</command>
+Parameter password is now 'hunter2'.
+/iscsi/iqn.20...linux:server2> <command>cd /iscsi/iqn.2015-04.be.linux:iscsi1/tpg1/luns</command>
+/iscsi/iqn.20...si1/tpg1/luns> <command>create /backstores/block/server1.disk1</command>
+Created LUN 0.
+Created LUN 0->0 mapping in node ACL iqn.2015-04.be.linux:server2
+s/scsi/iqn.20...si1/tpg1/luns> <command>cd /iscsi/iqn.2015-04.be.linux:iscsi1/tpg1/portals</command>
+/iscsi/iqn.20.../tpg1/portals> <command>create 192.168.1.128</command>
+Using default IP port 3260
+Could not create NetworkPortal in configFS.
+/iscsi/iqn.20.../tpg1/portals> <command>cd /</command>
+/> <command>ls</command>
+o- / ..................................................................... [...]
+  o- backstores .......................................................... [...]
+  | o- block .............................................. [Storage Objects: 1]
+  | | o- server1.disk1 ................ [/dev/sdb (2.0GiB) write-thru activated]
+  | o- fileio ............................................. [Storage Objects: 0]
+  | o- pscsi .............................................. [Storage Objects: 0]
+  | o- ramdisk ............................................ [Storage Objects: 0]
+  o- iscsi ........................................................ [Targets: 1]
+  | o- iqn.2015-04.be.linux:iscsi1 ................................... [TPGs: 1]
+  |   o- tpg1 ........................................... [no-gen-acls, no-auth]
+  |     o- acls ...................................................... [ACLs: 1]
+  |     | o- iqn.2015-04.be.linux:server2 ..................... [Mapped LUNs: 1]
+  |     |   o- mapped_lun0 ..................... [lun0 block/server1.disk1 (rw)]
+  |     o- luns ...................................................... [LUNs: 1]
+  |     | o- lun0 ............................. [block/server1.disk1 (/dev/sdb)]
+  |     o- portals ................................................ [Portals: 1]
+  |       o- 0.0.0.0:3260 ................................................. [OK]
+  o- loopback ..................................................... [Targets: 0]
+/> <command>saveconfig</command>
+Last 10 configs saved in /etc/target/backup.
+Configuration saved to /etc/target/saveconfig.json
+/> <command>exit</command>
+Global pref auto_save_on_exit=true
+Last 10 configs saved in /etc/target/backup.
+Configuration saved to /etc/target/saveconfig.json
+[root@centos7 ~]#</screen>
+<para>Use the <command>systemd</command> tools to manage the service:</para>
+<screen>[root@centos7 ~]# <command>systemctl enable target</command>
+ln -s '/usr/lib/systemd/system/target.service' '/etc/systemd/system/multi-user.target.wants/target.service'
+[root@centos7 ~]# <command>systemctl start target</command>
+[root@centos7 ~]#</screen>
+<para>Depending on your organisations policy, you may need to configure firewall and SELinux. The screenshot belows adds a firewall rule to allow all traffic over port 3260, and disables SELinux.</para>
+<screen>[root@centos7 ~]# <command>firewall-cmd --permanent --add-port=3260/tcp</command>
+[root@centos7 ~]# <command>firewall-cmd --reload</command>
+[root@centos7 ~]# <command>setenforce 0</command></screen>
+<para>The total configuration is visible using <command>ls</command> from the root.</para>
+<screen>[root@centos7 ~]# <command>targetcli</command>
+targetcli shell version 2.1.fb37
+Copyright 2011-2013 by Datera, Inc and others.
+For help on commands, type 'help'.
+
+/> <command>ls</command>
+o- / ..................................................................... [...]
+  o- backstores .......................................................... [...]
+  | o- block .............................................. [Storage Objects: 1]
+  | | o- server1.disk1 ................ [/dev/sdb (2.0GiB) write-thru activated]
+  | o- fileio ............................................. [Storage Objects: 0]
+  | o- pscsi .............................................. [Storage Objects: 0]
+  | o- ramdisk ............................................ [Storage Objects: 0]
+  o- iscsi ........................................................ [Targets: 1]
+  | o- iqn.2015-04.be.linux:iscsi1 ................................... [TPGs: 1]
+  |   o- tpg1 ........................................... [no-gen-acls, no-auth]
+  |     o- acls ...................................................... [ACLs: 1]
+  |     | o- iqn.2015-04.be.linux:server2 ..................... [Mapped LUNs: 1]
+  |     |   o- mapped_lun0 ..................... [lun0 block/server1.disk1 (rw)]
+  |     o- luns ...................................................... [LUNs: 1]
+  |     | o- lun0 ............................. [block/server1.disk1 (/dev/sdb)]
+  |     o- portals ................................................ [Portals: 1]
+  |       o- 0.0.0.0:3260 ................................................. [OK]
+  o- loopback ..................................................... [Targets: 0]
+/>
+/> <command>exit</command>
+Global pref auto_save_on_exit=true
+Last 10 configs saved in /etc/target/backup.
+Configuration saved to /etc/target/saveconfig.json
+[root@centos7 ~]#</screen>
+<para>The iSCSI Target is now ready.</para>
+</section>
+<section><title>iSCSI Initiator RHEL7/CentOS7</title>
+<para>This is identical to the RHEL6/CentOS6 procedure:</para>
+<screen>[root@centos7 ~]# <command>yum install iscsi-initiator-utils</command>
+Loaded plugins: fastestmirror
+...
+...
+Installed:
+  iscsi-initiator-utils.x86_64 0:6.2.0.873-29.el7
+
+Dependency Installed:
+  iscsi-initiator-utils-iscsiuio.x86_64 0:6.2.0.873-29.el7
+
+Complete!</screen>
+<para>Map your initiator name to the <command>targetcli</command> acl.</para>
+<screen>[root@centos7 ~]# <command>cat /etc/iscsi/initiatorname.iscsi</command>
+InitiatorName=iqn.2015-04.be.linux:server2
+[root@centos7 ~]#</screen> 
+<para>Enter the CHAP authentication in <command>/etc/iscsi/iscsid.conf</command>.</para>
+<screen>[root@centos7 ~]# <command>vi /etc/iscsi/iscsid.conf</command>
+...
+[root@centos7 ~]# <command>grep ^node.session.auth /etc/iscsi/iscsid.conf</command>
+node.session.auth.authmethod = CHAP
+node.session.auth.username = paul
+node.session.auth.password = hunter2
+[root@centos7 ~]#</screen>
+<para>There are no extra devices yet...</para>
+<screen>[root@centos7 ~]# <command>fdisk -l | grep sd</command>
+Disk /dev/sda: 22.0 GB, 22038806528 bytes, 43044544 sectors
+/dev/sda1   *        2048     1026047      512000   83  Linux
+/dev/sda2         1026048    43042815    21008384   8e  Linux LVM
+Disk /dev/sdb: 2147 MB, 2147483648 bytes, 4194304 sectors</screen>
+<para>Enable the service and discover the target.</para>
+<screen>[root@centos7 ~]# <command>systemctl enable iscsid</command>
+ln -s '/usr/lib/systemd/system/iscsid.service' '/etc/systemd/system/multi-user.target.wants/iscsid.service'
+[root@centos7 ~]# <command>iscsiadm -m discovery -t st -p 192.168.1.128</command>
+192.168.1.128:3260,1 iqn.2015-04.be.linux:iscsi1</screen>
+<para>Log into the target and see /dev/sdc appear.</para>
+<screen>[root@centos7 ~]# <command>iscsiadm -m node -T iqn.2015-04.be.linux:iscsi1 -p 192.168.1.128 -l</command>
+Logging in to [iface: default, target: iqn.2015-04.be.linux:iscsi1, portal: 192.168.1.128,3260] (multiple)
+Login to [iface: default, target: iqn.2015-04.be.linux:iscsi1, portal: 192.168.1.128,3260] successful.
+[root@centos7 ~]#
+[root@centos7 ~]# <command>fdisk -l | grep sd</command>
+Disk /dev/sda: 22.0 GB, 22038806528 bytes, 43044544 sectors
+/dev/sda1   *        2048     1026047      512000   83  Linux
+/dev/sda2         1026048    43042815    21008384   8e  Linux LVM
+Disk /dev/sdb: 2147 MB, 2147483648 bytes, 4194304 sectors
+Disk /dev/sdc: 2147 MB, 2147483648 bytes, 4194304 sectors
+[root@centos7 ~]# </screen>
+</section>
