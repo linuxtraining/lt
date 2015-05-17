@@ -18,7 +18,7 @@
 </section>
 <?hard-pagebreak?>
 <section><title>installing a dhcp server</title>
-	<para>On Debian/Ubuntu</para>
+	<para>dhcp server for Debian/Mint</para>
 	<screen>debian5:~# aptitude install dhcp3-server
 Reading package lists... Done
 Building dependency tree       
@@ -32,28 +32,72 @@ The following NEW packages will be installed:
 	<screen>debian5:~# ls -l /etc/dhcp3/dhcpd.conf 
 -rw-r--r-- 1 root root 3551 2011-04-10 21:23 /etc/dhcp3/dhcpd.conf</screen>
 </section>
-<section><title>dhcp server on Red Hat</title>
-	<para>After installing we get a <command>/etc/dhcpd.conf</command> that points us to an example file named <command>dhcpd.conf.sample</command>.</para>
-	<screen>[root@localhost ~]# cat /etc/dhcpd.conf 
+<section><title>dhcp server for RHEL/CentOS</title>
+	<para>Installing is easy with <command>yum</command>.</para>
+	<screen>[root@rhel71 ~]# <command>yum install dhcp</command>
+Loaded plugins: product-id, subscription-manager
+Resolving Dependencies
+--> Running transaction check
+---> Package dhcp.x86_64 12:4.2.5-36.el7 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+================================================================================
+ Package    Arch         Version                 Repository                Size
+================================================================================
+Installing:
+ dhcp       x86_64       12:4.2.5-36.el7         rhel-7-server-rpms       510 k
+
+Transaction Summary
+================================================================================
+Install  1 Package
+
+Total download size: 510 k
+Installed size: 1.4 M
+Is this ok [y/d/N]: y
+Downloading packages:
+dhcp-4.2.5-36.el7.x86_64.rpm                               | 510 kB   00:01
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : 12:dhcp-4.2.5-36.el7.x86_64                                  1/1
+  Verifying  : 12:dhcp-4.2.5-36.el7.x86_64                                  1/1
+
+Installed:
+  dhcp.x86_64 12:4.2.5-36.el7
+
+Complete!
+[root@rhel71 ~]#</screen>
+	<para>After installing we get a <command>/etc/dhcp/dhcpd.conf</command> that points us to an example file named <command>dhcpd.conf.sample</command>.</para>
+	<screen>[root@rhel71 ~]# <command>cat /etc/dhcp/dhcpd.conf</command>
 #
 # DHCP Server Configuration file.
-#   see /usr/share/doc/dhcp*/dhcpd.conf.sample</screen>
-	<para>So we copy the sample and adjust it for our real situation. We name the copy <command>/etc/dhcpd.conf</command>.</para>
-	<screen>subnet 192.168.1.0 netmask 255.255.255.0 {
-	range 192.168.1.140 192.168.1.159
-	option routers               192.168.1.1;
-	option subnet-mask           255.255.255.0;
-	option domain-name           "classdemo.local";
-	option domain-name-servers   192.168.1.1;
-	default-lease-time           21600;
-}</screen>
-</section>
-<section><title>dhcp options</title>
-	<para>Options can be set on the global, scope, client-reservation level.</para>
-	<screen>option subnet-mask 255.255.255.0;
+#   see /usr/share/doc/dhcp*/dhcpd.conf.example
+#   see dhcpd.conf(5) man page
+#
+[root@rhel71 ~]#</screen>
+	<para>So we copy the sample and adjust it for our real situation. We name the copy <command>/etc/dhcp/dhcpd.conf</command>.</para>
+	<screen>[root@rhel71 ~]# <command>cp /usr/share/doc/dhcp-4.2.5/dhcpd.conf.example /etc/dhcp/dhcp\
+d.conf</command>
+[root@rhel71 ~]# <command>vi /etc/dhcp/dhcpd.conf</command>
+[root@rhel71 ~]# <command>cat /etc/dhcp/dhcpd.conf</command>
 option domain-name "linux-training.be";
-option domain-name-servers "ns1.openminds.be";
-option routers 192.168.42.1;</screen>
+option domain-name-servers 10.42.42.42;
+default-lease-time 600;
+max-lease-time 7200;
+log-facility local7;
+
+subnet 10.42.0.0 netmask 255.255.0.0 {
+  range 10.42.200.11 10.42.200.120;
+  option routers 10.42.200.1;
+}
+[root@rhel71 ~]#</screen>
+	<para>The 'routers' option is valid for the subnet alone, whereas the 'domain-name' option is global (for all subnets).</para>
+	<para>Time to start the server. Remember to use <command>systemctl start dhcpd</command> on RHEL7/CentOS7 and <command>service dhcpd start</command> on previous versions of RHEL/CentOS.</para>
+	<screen>[root@rhel71 ~]# <command>systemctl start dhcpd</command>
+[root@rhel71 ~]#</screen>
 </section>
 <section><title>client reservations</title>
 	<para>You can reserve an ip configuration for a client using the mac address.</para>
