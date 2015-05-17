@@ -1,4 +1,56 @@
 <?hard-pagebreak?>
 <section><title>practice: iSCSI devices</title>
 	<para>1. Set up a target (using an LVM and a SCSI device) and an initiator that connects to both.</para>
+	<para>2. Set up an iSCSI Target and Initiator on two CentOS7/RHEL7 computers with the following information:</para>
+<table frame='all'><title>iSCSI Target and Initiator practice</title>
+<?dbfo table-width="80%" ?>
+<tgroup cols='2' align='center' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="1*" align="left"/>
+<colspec colname='c2' colwidth="1*" align="left"/>
+<thead>
+<row>
+  <entry>variable</entry>
+  <entry>value</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>Target Server IP</entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>shared devices on target</entry>
+  <entry>/dev/sd  /dev/sd  /dev/sd </entry>
+</row>
+<row>
+  <entry>shared device name sd  </entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>shared device name sd  </entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>shared device name sd  </entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>target iqn</entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>initiator iqn</entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>username</entry>
+  <entry></entry>
+</row>
+<row>
+  <entry>password</entry>
+  <entry></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
 </section>
