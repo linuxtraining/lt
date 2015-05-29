@@ -1,0 +1,15 @@
+#!/bin/sh
+#
+
+BOOKTITLE="Linux Networking"
+
+add_mod minibook minibook_networking
+add_mod minibook minibook_webserver  # seperate squid?
+add_mod minibook minibook_dns
+add_mod minibook minibook_dhcp 
+add_mod minibook minibook_firewall
+add_mod minibook minibook_samba
+add_mod minibook minibook_ipv6
+
+# license
+add_mod appendix license
