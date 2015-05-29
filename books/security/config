@@ -1,0 +1,12 @@
+#!/bin/sh
+#
+
+BOOKTITLE="Linux Security"
+
+add_mod minibook minibook_users
+add_mod minibook minibook_files
+add_mod minibook minibook_firewall
+add_mod minibook minibook_selinux
+
+# license
+add_mod appendix license
