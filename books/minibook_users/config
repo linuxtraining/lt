@@ -14,6 +14,5 @@ add_mod chapter users
 add_mod chapter user_management
 add_mod chapter user_passwords
 add_mod chapter user_profiles
-#add_mod chapter intro_groups
 add_mod chapter groups
 # separate su - sudo chapter ??

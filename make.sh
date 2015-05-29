@@ -36,7 +36,7 @@ CHAPTERS=""
 APPENDICES=""
 
 DATECODE=$(date +%y%m%d | sed s/^0//)
-PUBDATE=$(date +%c)
+PUBDATE=$(date +'%Y-%m-%d')
 YEAR=$(date +%Y)
 
 ### functions ###
@@ -165,7 +165,6 @@ build_header() {
 		"$BOOKSDIR/$book/reviewers" \
 		"$PUBDATE" \
 		"$YEAR" \
-		"$VERSIONSTRING" \
 		"$TEACHER"			                            		>> $headerfile	 
         echo "</bookinfo>"                                      >> $headerfile
 	}

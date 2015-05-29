@@ -1,0 +1,13 @@
+#!/bin/sh
+#
+
+BOOKTITLE="Linux Storage"
+
+add_mod minibook minibook_files
+add_mod minibook minibook_local_disk_management
+add_mod minibook minibook_backup
+add_mod minibook minibook_database
+add_mod minibook minibook_samba
+
+# license
+add_mod appendix license
