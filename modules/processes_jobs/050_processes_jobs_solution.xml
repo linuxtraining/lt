@@ -48,7 +48,7 @@
 [paul@RHEL4b ~]$ echo $$ $PPID
 4224 4223
 	</screen>
-	<para>The variables are now double quoted, but the current bash shell will replace $$ and $PPID while scanning the line, and before executing the bach -c command.</para>
+	<para>The variables are now double quoted, but the current bash shell will replace $$ and $PPID while scanning the line, and before executing the <command>bash -c</command> command.</para>
 	<screen>
 [paul@RHEL4b ~]$ bash -c "echo $$ $PPID"
 4224 4223
