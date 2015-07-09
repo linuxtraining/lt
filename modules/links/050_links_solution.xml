@@ -20,6 +20,6 @@
 	<screen>ls -l /etc/rc3.d</screen>
 	<para>9. Look in /lib with ls -l...</para>
 	<screen>ls -l /lib</screen>
-	<para>10. Use <command>find</command> to look in your home directory for regular files that do not(!) have one hard link.</para>
+	<para>10. Use <command>find</command> to look in your home directory for regular files that have more than one hard link (hint: this is identical to all regular files that do not have exactly one hard link).</para>
 	<screen>find ~ ! -links 1 -type f</screen>
 </section>

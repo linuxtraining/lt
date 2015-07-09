@@ -9,5 +9,5 @@
 	<para>7. Find all files with inode number 2. What does this information tell you ?</para>
 	<para>8. Look at the directories /etc/init.d/ /etc/rc2.d/ /etc/rc3.d/ ... do you see the links ?</para>
 	<para>9. Look in /lib with ls -l...</para>
-	<para>10. Use <command>find</command> to look in your home directory for regular files that do not(!) have one hard link.</para>
+	<para>10. Use <command>find</command> to look in your home directory for regular files that have more than one hard link (hint: this is identical to all regular files that do not have exactly one hard link).</para>
 </section>
