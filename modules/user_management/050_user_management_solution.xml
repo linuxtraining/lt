@@ -23,22 +23,22 @@ root@debian7:~#</screen>
 	<screen>root@debian7:~# <command>useradd -s /bin/date einstime</command></screen>
 <para>Or even better:</para>
 	<screen>root@debian7:~# <command>useradd -s $(which date) einstime</command></screen>
-	<para>7. What happens when you log on with the <command>einstime</command> user ? Can you think of a useful real world example for changing a user's login shell to an application ?</para>
+	<para>6. What happens when you log on with the <command>einstime</command> user ? Can you think of a useful real world example for changing a user's login shell to an application ?</para>
 	<screen>root@debian7:~# <command>su - einstime</command>
 Wed Oct 15 11:05:56 UTC 2014	# You get the output of the date command
 root@debian7:~#</screen>
 	<para>It can be useful when users need to access only one application on the server. Just logging in opens the application for them, and closing the application automatically logs them out.</para>
 <?hard-pagebreak?>
-	<para>8. Create a file named <command>welcome.txt</command> and make sure every new user will see this file in their home directory.</para>
+	<para>7. Create a file named <command>welcome.txt</command> and make sure every new user will see this file in their home directory.</para>
 	<screen>root@debian7:~# <command>echo Hello > /etc/skel/welcome.txt</command></screen>
-	<para>9. Verify this setup by creating (and deleting) a test user account.</para>
+	<para>8. Verify this setup by creating (and deleting) a test user account.</para>
 	<screen>root@debian7:~# <command>useradd -m test</command>
 root@debian7:~# <command>ls -l /home/test</command>
 total 4
 -rw-r--r-- 1 test test 6 Oct 15 11:16 welcome.txt
 root@debian7:~# <command>userdel -r test</command>
 root@debian7:~#</screen>
-	<para>10. Change the default login shell for the <command>serena</command> user to <command>/bin/bash</command>. Verify before and after you make this change.</para>
+	<para>9. Change the default login shell for the <command>serena</command> user to <command>/bin/bash</command>. Verify before and after you make this change.</para>
 	<screen>root@debian7:~# <command>grep serena /etc/passwd</command>
 serena:x:1008:1010:Serena Williams:/home/serena:/bin/sh
 root@debian7:~# <command>usermod -s /bin/bash serena</command>
