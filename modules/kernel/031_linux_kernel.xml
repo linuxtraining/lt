@@ -1,7 +1,7 @@
 <?hard-pagebreak?>
 <section><title>about the Linux kernel</title>
 	<section><title>kernel versions</title>
-		<para>In 1991 Linux Torvalds wrote (the first version of) the Linux kernel. He put it online, and other people started contributing code. Over 4000 individuals contributed source code to the latest kernel release (version 2.6.27 in November 2008).</para>
+		<para>In 1991 Linus Torvalds wrote (the first version of) the Linux kernel. He put it online, and other people started contributing code. Over 4000 individuals contributed source code to the latest kernel release (version 2.6.27 in November 2008).</para>
 		<para>Major Linux kernel versions used to come in even and odd numbers. Versions <command>2.0</command>, <command>2.2</command>, <command>2.4</command> and <command>2.6</command> are considered stable kernel versions. Whereas <command>2.1</command>, <command>2.3</command> and <command>2.5</command> were unstable (read development) versions. Since the release of 2.6.0 in January 2004, all development has been done in the 2.6 tree. There is currently no v2.7.x and according to Linus the even/stable vs odd/development scheme is abandoned forever.</para>
 	</section>
 	<section><title>uname -r</title>
