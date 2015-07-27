@@ -1,12 +1,36 @@
 <?hard-pagebreak?>
-<section><title>about unique objects</title>
+<section><title>vol_id (legacy)</title>
 	<para>Older versions of Linux have a <command>vol_id</command><indexterm><primary>vol_id(1)</primary></indexterm> utility to display the <command>uuid</command> of a file system.</para>
-	<screen>root@debian5:~# vol_id --uuid /dev/sda1
+	<screen>root@debian5:~# <command>vol_id --uuid /dev/sda1</command>
 193c3c9b-2c40-9290-8b71-4264ee4d4c82</screen>
 	<para>Red Hat Enterprise Linux 5 puts <command>vol_id</command> in <command>/lib/udev/vol_id</command>, which is not in the $PATH. The syntax is also a bit different from Debian/Ubuntu/Mint.</para>
-	<screen>root@rhel53 ~# /lib/udev/vol_id -u /dev/hda1
+	<screen>root@rhel53 ~# <command>/lib/udev/vol_id -u /dev/hda1</command>
 48a6a316-9ca9-4214-b5c6-e7b33a77e860</screen>
-	<para>This utility is not available in standard installations of RHEL6 or Debian6.</para>
+	<para>This utility is not available in standard installations of RHEL6/7 or Debian6/7/8.</para>
+</section>
+<section><title>lsblk -f</title>
+	<para>You can quickly locate the <command>uuid</command> of file systems with <command>lsblk -f</command>. This is a screenshot from a MAcbook Pro Retina with Debian 8.</para>
+	<screen>root@debian8:~# <command>lsblk -f</command>
+lsblk: sdb2: unknown device name
+NAME   FSTYPE  LABEL        UUID                                 MOUNTPOINT
+sda
+├─sda1 vfat    EFI          67E3-17ED                            /boot/efi
+├─sda2 hfsplus Macintosh HD de87321a-95e3-3b5b-9bc4-855c173d8337
+├─sda3 hfsplus Recovery HD  3ddc4f86-4e26-308e-a52c-0216318ab73e
+├─sda4 hfsplus Recovery HD  672f06bd-5e13-3f62-995b-c5e3dc5ee19e
+└─sda5 ext4                 5361cc68-746e-4800-8e6c-108d0054b6f0 /
+sdb
+└─sdb1
+root@debian8:~#</screen>
+	<para>The same command will also work on recent RHEL and CentOS servers.</para>
+	<screen>[root@centos7 ~]# <command>lsblk -f /dev/sdf</command>
+NAME          FSTYPE   LABEL UUID                                   MOUNTPOINT
+sdf
+├─sdf1        xfs            0697ab0c-5c99-4c80-880f-10bb0f9aa948   /boot
+└─sdf2        LVM2_mem       ZWr0TY-W0qX-Uwva-qMT1-Nkhp-RsXU-HDUIil
+  ├─c...-swap swap           14c9d978-f547-4e18-91e2-a2ab140fe82c   [SWAP]
+  └─c...-root xfs            fd931dbd-cdea-41e8-9943-1d9668d39857   /
+[root@centos7 ~]#</screen>
 </section>
 <section><title>tune2fs</title>
 	<para>Use <command>tune2fs</command><indexterm><primary>tune2fs(1)</primary></indexterm> to find the <command>uuid</command> of a file system.</para>
