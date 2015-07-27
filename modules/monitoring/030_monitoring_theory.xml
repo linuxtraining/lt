@@ -173,6 +173,29 @@ laika.local        =&#062; ik-in-f83.google.com          0b      0b     39b
 <screen>[root@centos65 ~]# iptraf 
 [root@centos65 ~]# iptraf -i eth0</screen>
 	</section>
+	<section><title>nload</title>
+	<para><command>nload</command> displays current network traffic in the command line. Use the arrow keys to walk through devices.</para>
+	<screen>Device wlan0 [192.168.1.35] (2/2):
+==============================================================================================
+Incoming:
+
+
+                                       ||
+ ..                                    ##  ||        ..     Curr: 13.20 kBit/s
+ ##                                    ##  ##..      ##     Avg: 656.33 kBit/s
+ ##..                                  ##||####      ##     Min: 0.00 Bit/s
+ ####                                  ##########    ##..   Max: 4.44 MBit/s
+.####                                ..##########  ..####   Ttl: 895.44 MByte
+Outgoing:
+
+
+
+                                                            Curr: 11.84 kBit/s
+                                                            Avg: 105.90 kBit/s
+                                                            Min: 0.00 Bit/s
+                                                            Max: 518.48 kBit/s
+ ..                                  ............    ..     Ttl: 672.49 MByte</sreen>
+	</section>
 <?hard-pagebreak?>
 	<section><title>nmon</title>
 	<para>Another popular and all round tool is <command>nmon</command>.</para>
