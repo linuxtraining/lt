@@ -9,7 +9,7 @@
 	<para>This utility is not available in standard installations of RHEL6/7 or Debian6/7/8.</para>
 </section>
 <section><title>lsblk -f</title>
-	<para>You can quickly locate the <command>uuid</command> of file systems with <command>lsblk -f</command>. This is a screenshot from a MAcbook Pro Retina with Debian 8.</para>
+	<para>You can quickly locate the <command>uuid</command> of file systems with <command>lsblk -f</command>. This is a screenshot from a Macbook Pro Retina with Debian 8.</para>
 	<screen>root@debian8:~# <command>lsblk -f</command>
 lsblk: sdb2: unknown device name
 NAME   FSTYPE  LABEL        UUID                                 MOUNTPOINT
