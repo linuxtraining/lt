@@ -5,8 +5,8 @@
 	<para>3. Verify that both users have correct entries in <command>/etc/passwd</command>, <command>/etc/shadow</command> and <command>/etc/group</command>.</para>
 	<para>4. Verify that their home directory was created.</para>
 	<para>5. Create a user named <command>einstime</command> with <command>/bin/date</command> as his default logon shell.</para>
-	<para>7. What happens when you log on with the <command>einstime</command> user ? Can you think of a useful real world example for changing a user's login shell to an application ?</para>
-	<para>8. Create a file named <command>welcome.txt</command> and make sure every new user will see this file in their home directory.</para>
-	<para>9. Verify this setup by creating (and deleting) a test user account.</para>
-	<para>10. Change the default login shell for the <command>serena</command> user to <command>/bin/bash</command>. Verify before and after you make this change.</para>
+	<para>6. What happens when you log on with the <command>einstime</command> user ? Can you think of a useful real world example for changing a user's login shell to an application ?</para>
+	<para>7. Create a file named <command>welcome.txt</command> and make sure every new user will see this file in their home directory.</para>
+	<para>8. Verify this setup by creating (and deleting) a test user account.</para>
+	<para>9. Change the default login shell for the <command>serena</command> user to <command>/bin/bash</command>. Verify before and after you make this change.</para>
 </section>

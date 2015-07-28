@@ -102,8 +102,9 @@
 </tgroup>
 </table>
 </section>
-<section><title>undo and repeat (u .)</title>
-	<para>When in command mode, you can undo your mistakes with u. You can do your mistakes twice with . (in other words, the . will repeat your last command).</para>
+<section><title>undo, redo and repeat (u .)</title>
+	<para>When in command mode, you can undo your mistakes with u. Use <command>ctrl-r</command> to redo the undo.</para>
+	<para>You can do your mistakes twice with . (in other words, the . will repeat your last command).</para>
 <table frame='all'><title>undo and repeat</title>
 <?dbfo table-width="80%" ?>
 <tgroup cols='2' align='center' colsep='1' rowsep='1'>
@@ -119,6 +120,10 @@
 <row>
   <entry>u</entry>
   <entry>undo the last action</entry>
+</row>
+<row>
+  <entry>ctrl-r</entry>
+  <entry>redo the last undo</entry>
 </row>
 <row>
   <entry>.</entry>

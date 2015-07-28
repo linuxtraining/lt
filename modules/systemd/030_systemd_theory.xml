@@ -1,0 +1,242 @@
+<?hard-pagebreak?>
+<section><title>systemd</title>
+	<para><mediaobject><imageobject><imagedata fileref="images/systemd_diagram.png" format="PNG" align="center" width="14cm"></imagedata></imageobject></mediaobject></para>
+	<para>It is likely that <command>systemd</command> will replace all the standard init/runlevel/rc functionality. Both <command>Red Hat</command> and <command>Debian</command> decided in 2014 that <command>systemd</command> will be replacing <command>init</command> in future releases (RHEL7/CentOS7 and Debian 8).</para>
+	<para>The screenshot below shows <command>systemd</command> running as <command>pid 1</command> on RHEL7.</para>
+	<screen>[root@rhel7 ~]# <command>ps fax | grep systemd | cut -c1-76</command>
+    1 ?        Ss     0:01 /usr/lib/systemd/systemd --switched-root --system
+  505 ?        Ss     0:00 /usr/lib/systemd/systemd-journald
+  545 ?        Ss     0:00 /usr/lib/systemd/systemd-udevd
+  670 ?        Ss     0:00 /usr/lib/systemd/systemd-logind
+  677 ?        Ssl    0:00 /bin/dbus-daemon --system --address=systemd: --no
+ 2662 pts/1    S+     0:00          \_ grep --color=auto systemd
+[root@rhel7 ~]#</screen>
+	<para>Debian 8 uses parts of <command>systemd</command>, but still has <command>init</command> as <command>pid 1</command>.</para>
+	<screen>root@debian8:~# <command>ps fax | grep systemd | cut -c1-76</command>
+  350 ?        Ss     0:00 /lib/systemd/systemd-udevd --daemon
+ 2206 ?        S      0:11 /sbin/cgmanager --daemon -m name=systemd
+ 2932 ?        S      0:04 /lib/systemd/systemd-logind
+16353 pts/4    S+     0:00              \_ grep systemd
+root@debian8:~#</screen>
+<?hard-pagebreak?>
+<section><title>systemd targets</title>
+	<para>The first command to learn is <command>systemctl list-units --type=target</command> (or the shorter version <command>systemctl -t target</command>). It will show you the different targets on the system.</para>
+	<screen>[root@rhel7 ~]# systemctl list-units --type=target
+UNIT                LOAD   ACTIVE SUB    DESCRIPTION
+basic.target        loaded active active Basic System
+cryptsetup.target   loaded active active Encrypted Volumes
+getty.target        loaded active active Login Prompts
+graphical.target    loaded active active Graphical Interface
+local-fs-pre.target loaded active active Local File Systems (Pre)
+local-fs.target     loaded active active Local File Systems
+multi-user.target   loaded active active Multi-User System
+network.target      loaded active active Network
+nfs.target          loaded active active Network File System Server
+paths.target        loaded active active Paths
+remote-fs.target    loaded active active Remote File Systems
+slices.target       loaded active active Slices
+sockets.target      loaded active active Sockets
+swap.target         loaded active active Swap
+sysinit.target      loaded active active System Initialization
+timers.target       loaded active active Timers
+
+LOAD   = Reflects whether the unit definition was properly loaded.
+ACTIVE = The high-level unit activation state, i.e. generalization of SUB.
+SUB    = The low-level unit activation state, values depend on unit type.
+
+16 loaded units listed. Pass --all to see loaded but inactive units, too.
+To show all installed unit files use 'systemctl list-unit-files'.
+[root@rhel7 ~]#</screen>
+	<para>Targets are the replacement of runlevels and define specific points to reach when booting the system. For example the <command>graphical.target</command> is reached when you get a graphical interface, and the <command>nfs.target</command> requires a running nfs server.</para>
+	<para>To switch to a target (for example <command>multi-user.target</command>), we now use <command>systemctl isolate</command> (instead of the equivalent <command>init 3</command> to change the runlevel).</para>
+<screen>[root@rhel7 ~]# ps fax | wc -l
+169
+[root@rhel7 ~]# systemctl isolate multi-user.target
+[root@rhel7 ~]# ps fax | wc -l
+129
+[root@rhel7 ~]#</screen>
+	<para>To change the default target, we again use this <command>systemctl</command> command (instead of editing the <command>/etc/inittab</command> file).</para>
+<screen>[root@rhel7 ~]# systemctl enable multi-user.target --force
+rm '/etc/systemd/system/default.target'
+ln -s '/usr/lib/systemd/system/multi-user.target' '/etc/systemd/system/default\
+.target'
+[root@rhel7 ~]#</screen>
+	<para>This command removed the file <command>/etc/systemd/system/default.target</command> and replaced it with a symbolic link to the <command>multi-user-.target</command> target.</para>
+</section>
+<?hard-pagebreak?>
+<section><title>systemd dependencies</title>
+	<para>Dependencies are no longer defined by alfabetical order of running scripts, but by configuration in <command>/etc/systemd/system/</command>. For example here are the required services for the <command>multi-user.target</command> on Red Hat Enterprise 7.</para>
+	<screen>[root@rhel7 ~]# ls /etc/systemd/system/multi-user.target.wants/
+abrt-ccpp.service     hypervkvpd.service      postfix.service
+abrtd.service         hypervvssd.service      remote-fs.target
+abrt-oops.service     irqbalance.service      rhsmcertd.service
+abrt-vmcore.service   ksm.service             rngd.service
+abrt-xorg.service     ksmtuned.service        rpcbind.service
+atd.service           libstoragemgmt.service  rsyslog.service
+auditd.service        libvirtd.service        smartd.service
+avahi-daemon.service  mdmonitor.service       sshd.service
+chronyd.service       ModemManager.service    sysstat.service
+crond.service         NetworkManager.service  tuned.service
+cups.path             nfs.target              vmtoolsd.service
+[root@rhel7 ~]#</screen>
+	<para>Debian8 is not fully migrated yet.</para>
+<screen>root@debian8:~# ls /etc/systemd/system/multi-user.target.wants/ 
+anacron.service       binfmt-support.service  pppd-dns.service  ssh.service
+atd.service           fancontrol.service      remote-fs.target
+avahi-daemon.service  lm-sensors.service      rsyslog.service</screen>
+	<para>Typical <command>rc scripts</command> are replaced with services. Issue the <command>systemctl list-units -t service --all</command> (or <command>systemctl -at service</command>) to get a list of all services on your system.</para>
+<screen>[root@rhel7 ~]# systemctl -at service | head -5 | column -t | cut -c1-78
+UNIT                 LOAD    ACTIVE    SUB      DESCRIPTION
+abrt-ccpp.service    loaded  active    exited   Install      ABRT     coredump
+abrt-oops.service    loaded  active    running  ABRT         kernel   log
+abrt-vmcore.service  loaded  inactive  dead     Harvest      vmcores  for
+abrt-xorg.service    loaded  active    running  ABRT         Xorg     log
+[root@rhel7 ~]#</screen>
+	<para>And here an example on how to see the status of the <command>sshd</command> service.</para>
+<screen>[root@rhel7 ~]# systemctl status sshd.service
+sshd.service - OpenSSH server daemon
+   Loaded: loaded (/usr/lib/systemd/system/sshd.service; enabled)
+   Active: active (running) since Wed 2014-09-10 13:42:21 CEST; 55min ago
+ Main PID: 1400 (sshd)
+   CGroup: /system.slice/sshd.service
+           --1400 /usr/sbin/sshd -D
+
+Sep 10 13:42:21 rhel7 systemd[1]: Started OpenSSH server daemon.
+Sep 10 13:42:21 rhel7 sshd[1400]: Server listening on 0.0.0.0 port 22.
+Sep 10 13:42:21 rhel7 sshd[1400]: Server listening on :: port 22.
+[root@rhel7 ~]#</screen>
+</section>
+<?hard-pagebreak?>
+<section><title>systemd services</title>
+	<para>The <command>chkconfig</command> and <command>service</command> commands are considered 'legacy'. They are replaced with <command>systemctl</command>.</para>
+	<para>This screenshot shows the new way to start and stop a service.</para>
+<screen>[root@rhel7 ~]# systemctl start crond.service
+[root@rhel7 ~]# systemctl show crond.service | grep State
+LoadState=loaded
+ActiveState=active
+SubState=running
+UnitFileState=enabled
+[root@rhel7 ~]# systemctl stop crond.service
+[root@rhel7 ~]# systemctl show crond.service | grep State
+LoadState=loaded
+ActiveState=inactive
+SubState=dead
+UnitFileState=enabled
+[root@rhel7 ~]#</screen>
+	<para>And here is the new way to stop and disable a service.</para>
+	<screen>[root@rhel7 ~]# systemctl stop crond.service
+[root@rhel7 ~]# systemctl disable crond.service
+rm '/etc/systemd/system/multi-user.target.wants/crond.service'
+[root@rhel7 ~]# systemctl show crond.service | grep State
+LoadState=loaded
+ActiveState=inactive
+SubState=dead
+UnitFileState=disabled
+[root@rhel7 ~]#</screen>
+	<para>This screenshot shows how to enable and start the service again.</para>
+	<screen>[root@rhel7 ~]# systemctl enable crond.service
+ln -s '/usr/lib/systemd/system/crond.service' '/etc/systemd/system/multi-user.\
+target.wants/crond.service'
+[root@rhel7 ~]# systemctl start crond.service
+[root@rhel7 ~]# systemctl show crond.service | grep State
+LoadState=loaded
+ActiveState=active
+SubState=running
+UnitFileState=enabled
+[root@rhel7 ~]#</screen>
+</section>
+<?hard-pagebreak?>
+<section><title>systemd signalling</title>
+	<para>You can also use <command>systemd</command> to <command>kill</command> problematic services.</para>
+<screen>[root@rhel7 ~]# systemctl show crond.service | grep State
+LoadState=loaded
+ActiveState=active
+SubState=running
+UnitFileState=enabled
+[root@rhel7 ~]# systemctl kill -s SIGKILL crond.service
+[root@rhel7 ~]# systemctl show crond.service | grep State
+LoadState=loaded
+ActiveState=failed
+SubState=failed
+UnitFileState=enabled
+[root@rhel7 ~]#</screen>
+</section>
+<section><title>systemd shutdown</title>
+	<para>The <command>poweroff</command>, <command>halt</command> and <command>reboot</command> commands are considered legacy now and are handeld by <command>systemctl</command>. The table below shows the legacy commands on the left and their new <command>systemd</command> equivalent on the right.</para>
+<table frame='all'><title>systemd power management</title>
+<?dbfo table-width="80%" ?>
+<tgroup cols='2' align='center' colsep='1' rowsep='1'>
+<colspec colname='c1' colwidth="2*" align="left"/>
+<colspec colname='c2' colwidth="3*" align="left"/>
+<thead>
+<row>
+  <entry>legacy command</entry>
+  <entry>systemd command</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>poweroff</entry>
+  <entry>systemctl poweroff</entry>
+</row>
+<row>
+  <entry>reboot</entry>
+  <entry>systemctl reboot</entry>
+</row>
+<row>
+  <entry>halt</entry>
+  <entry>systemctl halt</entry>
+</row>
+<row>
+  <entry>pm-suspend</entry>
+  <entry>systemctl suspend</entry>
+</row>
+<row>
+  <entry>pm-hibernate</entry>
+  <entry>systemctl hibernate</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</section>
+<section><title>remote systemd</title>
+	<para>The <command>systemctl</command> utility has a buil-in remote control providing there is an <command>ssh daemon</command> running on the remote system.</para>
+	<para>This screenshot shows how to use <command>systemctl</command> to verify a service on an other RHEL server.</para>
+	<screen>[root@rhel7 ~]# <command>systemctl -H root@192.168.1.65 status sshd</command>
+root@192.168.1.65's password:
+sshd.service - OpenSSH server daemon
+   Loaded: loaded (/usr/lib/systemd/system/sshd.service; enabled)
+   Active: active (running) since Thu 2014-09-11 13:04:10 CEST; 16min ago
+  Process: 1328 ExecStartPre=/usr/sbin/sshd-keygen (code=exited, status=0/SUCCE\
+SS)
+ Main PID: 1363 (sshd)
+   CGroup: /system.slice/sshd.service
+[root@rhel7 ~]#</screen>
+</section>
+<?hard-pagebreak?>
+<section><title>there is more systemd</title>
+	<para>There are other tools...</para>
+<screen>systemd-analyze                 systemd-loginctl
+systemd-ask-password            systemd-machine-id-setup
+systemd-cat                     systemd-notify
+systemd-cgls                    systemd-nspawn
+systemd-cgtop                   systemd-run
+systemd-coredumpctl             systemd-stdio-bridge
+systemd-delta                   systemd-sysv-convert
+systemd-detect-virt             systemd-tmpfiles
+systemd-inhibit                 systemd-tty-ask-password-agent</screen>
+	<para>For example <command>systemd-analyze blame</command> will give you an overview of the time it took for each service to boot.</para>
+<screen>[root@rhel7 ~]# systemd-analyze blame | head
+          1.977s firewalld.service
+          1.096s tuned.service
+           993ms postfix.service
+           939ms iprinit.service
+           925ms vboxadd-x11.service
+           880ms firstboot-graphical.service
+           839ms accounts-daemon.service
+           829ms network.service
+           822ms iprupdate.service
+           795ms boot.mount
+[root@rhel7 ~]#</screen>
+</section>
+</section>

@@ -180,7 +180,7 @@ root@rhel65:/etc#</screen>
 	</section>
 <?hard-pagebreak?>
 	<section><title>logger</title>
-		<para>The logger command can be used to generate syslog test messages. You can aslo use it in scripts. An example of testing syslogd with the <command>logger</command><indexterm><primary>logger(1)</primary></indexterm> tool.</para>
+		<para>The logger command can be used to generate syslog test messages. You can also use it in scripts. An example of testing syslogd with the <command>logger</command><indexterm><primary>logger(1)</primary></indexterm> tool.</para>
 		<screen>[root@rhel4a ~]# logger -p local4.debug "l4 debug"
 [root@rhel4a ~]# logger -p local4.crit "l4 crit"
 [root@rhel4a ~]# logger -p local4.emerg "l4 emerg"
