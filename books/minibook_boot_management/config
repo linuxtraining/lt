@@ -10,3 +10,4 @@ BOOKTITLE="boot management"
 # define book as directories in certain order
 add_mod chapter bootloader
 add_mod chapter init
+add_mod chapter systemd
