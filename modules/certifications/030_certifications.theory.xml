@@ -9,6 +9,9 @@
 			<section><title>LPIC Level 3</title>
 				<para>This is the senior level certification. It contains one core exam (301) which tests advanced skills mainly about ldap. To achieve this level you also need LPIC Level 2 and pass a specialty exam (302 or 303). Exam 302 mainly focuses on Samba, and 303 on advanced security. More info on http://www.lpi.org.</para>
 			</section>
+			<section><title>LPI DevOps Tools Engineer</title>
+				<para>certification exam focuses on the practical skills required to work successfully in a DevOps environment -- focusing on the skills needed to use the most prominent DevOps tools. The result is a certification that covers the intersection between development and operations, making it relevant for all IT professionals working in the field of DevOps.</para>
+			</section>
 			<section><title>Ubuntu</title>
 				<para>When you are LPIC Level 1 certified, you can take a LPI Ubuntu exam (199) and become Ubuntu certified.</para>
 			</section>
@@ -17,13 +20,10 @@
 			<para>The big difference with most other certifications is that there are no multiple choice questions for <command>RHCE</command><indexterm><primary>RHCE</primary></indexterm>. Red Hat Certified Engineers have to take a live exam consisting of two parts. First, they have to troubleshoot and maintain an existing but broken setup (scoring at least 80 percent), and second they have to install and configure a machine (scoring at least 70 percent).</para>
 		</section>
 		<section><title>MySQL</title>
-			<para>There are two tracks for MySQL certification; Certified MySQL 5.0 Developer (CMDEV) and Certified MySQL 5.0 DBA (CMDBA). The <command>CMDEV</command><indexterm><primary>CMDEV</primary></indexterm> is focused towards database application developers, and the <command>CMDBA</command><indexterm><primary>CMDBA</primary></indexterm> towards database administrators. Both tracks require two exams each. The MySQL cluster DBA certification requires CMDBA certification and passing the CMCDBA exam.</para>
+			<para>There are two tracks for MySQL certification; Certified MySQL 5.6 Developer (CMDEV) and Certified MySQL 5.0 DBA (CMDBA). The <command>CMDEV</command><indexterm><primary>CMDEV</primary></indexterm> is focused towards database application developers, and the <command>CMDBA</command><indexterm><primary>CMDBA</primary></indexterm> towards database administrators. Both tracks require two exams each. The MySQL cluster DBA certification requires CMDBA certification and passing the CMCDBA exam.</para>
 		</section>
-		<section><title>Novell CLP/CLE</title>
-			<para>To become a <command>Novell Certified Linux Professional</command><indexterm><primary>Novell Certified Linux Professional</primary></indexterm>, you have to take a live practicum. This is a VNC session to a set of real SLES servers. You have to perform several tasks and are free to choose your method (commandline or YaST or ...). No multiple choice involved.</para>
-		</section>
-		<section><title>Sun Solaris</title>
-			<para>Sun uses the classical formula of multiple choice exams for certification. Passing two exams for an operating system gets you the Solaris Certified Administrator for Solaris X title.</para>
+		<section><title>Suse SLA/SCE</title>
+			<para>To become a <command>Suse Certified Linux Professional</command><indexterm><primary>Suse Certified Linux Administrator</primary></indexterm>, you have to take a live practicum. This is a VNC session to a set of real SLES servers. You have to perform several tasks and are free to choose your method (commandline or YaST or ...). No multiple choice involved.</para>
 		</section>
 		<section><title>Other certifications</title>
 			<para>There are many other lesser known certifications like EC council's Certified Ethical Hacker, CompTIA's Linux+, and Sair's Linux GNU.</para>
