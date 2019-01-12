@@ -22,12 +22,12 @@ CONTENT todo
 
 1. integrate ksh into the shell chapters (assigned:paul)
 
-2. integrate dash into the shell chapters (obsolete no?)
+2. integrate dash into the shell chapters (obsolete no? its obsolete)
 
 3. extra Bash stuff
    - Array's (http://www.cyberciti.biz/faq/finding-bash-shell-array-length-elements/)
 
-4. add stuff from http://syntra.verwilst.be (we got permission) (assigned:serge)
+4. add stuff from http://syntra.verwilst.be (we got permission) (assigned:br0k3gl255)
 
 5. extra topics Serge should write
    - network sniffing: spoofarp, tcpdump
@@ -50,6 +50,29 @@ CONTENT todo
 
 8. interesting links
    - http://www.commandlinefu.com/ zie ook http://www.commandlinefu.com/commands/browse/sort-by-votes
+9. add http protocol  - the theory and curl explanation/use 
+	- link: https://code.tutsplus.com/tutorials/http-the-protocol-every-web-developer-must-know-part-1--net-31177
+10. add nginx usage - the theory and reverse proxy empahsys.
+	- link : https://www.server-world.info/en/note?os=CentOS_7&p=nginx&f=1
+11. add NoSQL explanation/tutorial with one or more NoSQL tool usage:
+	e.g.:
+		- MongoDB
+		- RedisLab
+		- Cassandra
+12. add and comapare PostGreSQL to MySQL :
+	- link: https://www.howtoforge.com/tutorial/how-to-install-and-configure-master-slave-replication-with-postgresql-96-on-centos-7/
+
+13. add DevOps Topics:
+	- Modern Software Development
+	- Standard Components and Platforms for Software
+	- Source Code Management
+	- Continuous Integration and Continuous Delivery
+	- Container Management
+	- Container Infrastructure
+	- Machine Deployment
+	- Configuration Management
+	- Service Operations
+
 
 META todo
 
