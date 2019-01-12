@@ -16,11 +16,11 @@
 				<para>When you are LPIC Level 1 certified, you can take a LPI Ubuntu exam (199) and become Ubuntu certified.</para>
 			</section>
 		</section>
-		<section><title>Red Hat Certified Engineer</title>
-			<para>The big difference with most other certifications is that there are no multiple choice questions for <command>RHCE</command><indexterm><primary>RHCE</primary></indexterm>. Red Hat Certified Engineers have to take a live exam consisting of two parts. First, they have to troubleshoot and maintain an existing but broken setup (scoring at least 80 percent), and second they have to install and configure a machine (scoring at least 70 percent).</para>
+		<section><title>Red Hat</title>
+			<para>The big difference with most other certifications is that there are no multiple choice questions for <command>RHCSA</command><indexterm><primary>RHCSA</primary></indexterm>. Red Hat Certified System Administrator and Red Hat Certified Engineer have to take a live exam consisting of two parts. First, they have to troubleshoot and maintain an existing but broken setup (scoring at least 80 percent), and second they have to install and configure a machine (scoring at least 70 percent).</para>
 		</section>
 		<section><title>MySQL</title>
-			<para>There are two tracks for MySQL certification; Certified MySQL 5.6 Developer (CMDEV) and Certified MySQL 5.0 DBA (CMDBA). The <command>CMDEV</command><indexterm><primary>CMDEV</primary></indexterm> is focused towards database application developers, and the <command>CMDBA</command><indexterm><primary>CMDBA</primary></indexterm> towards database administrators. Both tracks require two exams each. The MySQL cluster DBA certification requires CMDBA certification and passing the CMCDBA exam.</para>
+			<para>There are two tracks for MySQL certification; Certified MySQL 5.6 Developer (CMDEV) and Certified MySQL 5.6 DBA (CMDBA). The <command>CMDEV</command><indexterm><primary>CMDEV</primary></indexterm> is focused towards database application developers, and the <command>CMDBA</command><indexterm><primary>CMDBA</primary></indexterm> towards database administrators. Both tracks require two exams each. The MySQL cluster DBA certification requires CMDBA certification and passing the CMCDBA exam.</para>
 		</section>
 		<section><title>Suse SLA/SCE</title>
 			<para>To become a <command>Suse Certified Linux Professional</command><indexterm><primary>Suse Certified Linux Administrator</primary></indexterm>, you have to take a live practicum. This is a VNC session to a set of real SLES servers. You have to perform several tasks and are free to choose your method (commandline or YaST or ...). No multiple choice involved.</para>
