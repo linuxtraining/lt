@@ -63,15 +63,12 @@ CONTENT todo
 	- link: https://www.howtoforge.com/tutorial/how-to-install-and-configure-master-slave-replication-with-postgresql-96-on-centos-7/
 
 13. add DevOps Topics:
-	- Modern Software Development
-	- Standard Components and Platforms for Software
-	- Source Code Management
-	- Continuous Integration and Continuous Delivery
+	- Software Engineering
 	- Container Management
-	- Container Infrastructure
 	- Machine Deployment
 	- Configuration Management
 	- Service Operations
+
 14. add mysql practice and solutions.
 
 META todo
