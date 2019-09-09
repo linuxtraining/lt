@@ -1,0 +1,4 @@
+# first name, last name, email, url
+# several authors are possible, but only the first one is used by the docbook <author> tag.
+Paul,Cobbaut,paul.cobbaut@gmail.com,http://www.linkedin.com/in/cobbaut
+Alex,Schapelle,alex@vaiolabs.com,https://linkedin.com/in/alex-schapelle

@@ -1,0 +1,12 @@
+#!/bin/sh
+#
+
+BOOKTITLE="containers"
+
+##################
+# define minibook
+##################
+
+# define book as directories in certain order
+add_mod chapter dns
+add_mod chapter dns_advanced
