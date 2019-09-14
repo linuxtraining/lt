@@ -8,5 +8,4 @@ BOOKTITLE="containers"
 ##################
 
 # define book as directories in certain order
-add_mod chapter dns
-add_mod chapter dns_advanced
+add_mod chapter containers
