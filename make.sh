@@ -78,7 +78,7 @@ set_JAVA() {
 	if [ -x "$(which java)" ]
 	then    JAVA_ALTERNATIVE=$(readlink /etc/alternatives/java)
 		export JAVA_HOME=${JAVA_ALTERNATIVE%/bin/java}
-	else    echor Could not set JAVA_HOME, something unexpected happened in $0
+	else    echo "Could not set JAVA_HOME, something unexpected happened in $0"
 		exit 1
 	fi
 	}
