@@ -1,0 +1,3 @@
+<para>In this chapter we learn how to setup a web server with the <command>apache</command> software.</para>
+<para>According to NetCraft (http://news.netcraft.com/archives/web_server_survey.html) about seventy percent of all web servers are running on Apache. The name is derived from <command>a patchy</command> web server, because of all the patches people wrote for the NCSA httpd server.</para>
+<para>Later chapters will expand this web server into a LAMP stack (Linux, Apache, Mysql, Perl/PHP/Python).</para>
