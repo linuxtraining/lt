@@ -1,3 +1,5 @@
+# Linux Training
+
 This book is meant to be used in an instructor-led training. For self-study, 
 the intent is to read this book next to a working Linux computer so you can 
 immediately do every subject, practice each command.
@@ -15,15 +17,16 @@ Licensed under the GNU Free Documentation License
 ( http://www.gnu.org/licenses/fdl.html )
 
 
-** Dependencies
+## Dependencies
 
-- Java : on Ubuntu we use the Canonical partner provided sun-java6-bin package. We have a JAVAHOME hardcoded to this somewhere in the build script.
-  - sun-java6-bin
-  - default-jdk
-- xmlto : for building the html pages
-- fop : for building pdf documents
+- ### xmlto : for building the html pages
+- ### fop   : for building pdf documents
+- ### Java  : on Ubuntu we use the Canonical partner provided sun-java6-bin package. We have a JAVAHOME hardcoded at `set_JAVA` function in the build script.
+  - ### sun-java6-bin
+  - ### default-jdk
 
-** Build commands
+
+## Build Options
 
 - make.sh : builds the pdf, run it without arguments to get some help.
 
