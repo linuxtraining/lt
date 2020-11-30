@@ -78,10 +78,11 @@ set_xsl() {
 
 set_JAVA() {
 	# Debian / ubuntu specific
-	if [ -x "$(which java)" ]
-	then    JAVA_ALTERNATIVE=$(readlink /etc/alternatives/java)
+	if [[ -x "$(which java)" ]];then
+	    JAVA_ALTERNATIVE=$(readlink /etc/alternatives/java)
 		export JAVA_HOME=${JAVA_ALTERNATIVE%/bin/java}
-	else    echo "Could not set JAVA_HOME, something unexpected happened in $0"
+	else    
+		echo "Could not set JAVA_HOME, something unexpected happened in $0"
 		exit 1
 	fi
 	}
@@ -359,7 +360,7 @@ build_pdf() {
 	echo "---------------------------------"
 	echo "Generating $pdffile"
 	eval $(echo fop -xml $xmlfile -xsl $XSLFILE -pdf $pdffile $EXECDEBUG) >&2
-	ln -s $V $filename.pdf $OUTPUTDIR/book.pdf
+	ln -s $V $filename.xml $OUTPUTDIR/book.pdf
 	echo "---------------------------------"
 	}
 
