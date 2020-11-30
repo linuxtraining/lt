@@ -8,6 +8,9 @@
 # ./modules/
 # ./build/
 
+### import for testting  dependencies ###
+. ./dependencies.sh
+
 ### settings ###
 
 OUTPUTDIR="./output"
@@ -349,6 +352,7 @@ build_xml() {
 	}
 
 build_pdf() {
+	validate_dependencies
 	set_xsl
 	set_JAVA
 	echo 
