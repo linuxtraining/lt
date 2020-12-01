@@ -1,0 +1,11 @@
+#!/bin/sh
+#
+
+BOOKTITLE="nginx web server"
+
+##################
+# define minibook
+##################
+
+# define book as directories in certain order
+# add_mod chapter general_tcpip # general syntax of adding the chapter
