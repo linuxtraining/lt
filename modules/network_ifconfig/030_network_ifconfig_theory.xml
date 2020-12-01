@@ -140,11 +140,11 @@ ONBOOT="yes"</screen>
 	</section>
 	<section><title>nmcli</title>
 		<para>On RHEL7 you should run <command>nmcli connection reload</command> if you changed configuration files in <command>/etc/sysconfig/</command> to enable your changes.</para>
-		<para>The <command>nmcli</command> tool has many options to configure networking on the command line in RHEL7/CentOS7</para>
+		<para>The <command>nmcli</command> tool has many options to configure networking on the command line in RHEL7/CentOS8</para>
 		<screen>man nmcli</screen>
 	</section>
 	<section><title>nmtui</title>
-		<para>Another recommendation for RHEL7/CentOS7 is to use <command>nmtui</command>. This tool will use a 'windowed' interface in command line to manage network interfaces.</para>
+		<para>Another recommendation for RHEL7/CentOS8 is to use <command>nmtui</command>. This tool will use a 'windowed' interface in command line to manage network interfaces.</para>
 		<screen>nmtui</screen>
 	</section>
 <?hard-pagebreak?>
@@ -275,7 +275,7 @@ eth0 Link encap:Ethernet  HWaddr 00:42:42:42:42:42</screen>
 HOSTNAME=rhel610
 [root@rhel610 ~]# <command>hostname</command>
 rhel6</screen>
-	<para>Starting with RHEL7/CentOS7 this file is empty. The hostname is configured in the standard <command>/etc/hostname</command> file.</para>
+	<para>Starting with RHEL7/CentOS8 this file is empty. The hostname is configured in the standard <command>/etc/hostname</command> file.</para>
 	<screen>[root@rhel76 ~]# <command>cat /etc/hostname</command>
 rhel76.linux-training.be
 [root@rhel76 ~]#</screen>

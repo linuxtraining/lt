@@ -95,7 +95,7 @@ subnet 10.42.0.0 netmask 255.255.0.0 {
 }
 [root@rhel71 ~]#</screen>
 	<para>The 'routers' option is valid for the subnet alone, whereas the 'domain-name' option is global (for all subnets).</para>
-	<para>Time to start the server. Remember to use <command>systemctl start dhcpd</command> on RHEL7/CentOS7 and <command>service dhcpd start</command> on previous versions of RHEL/CentOS.</para>
+	<para>Time to start the server. Remember to use <command>systemctl start dhcpd</command> on RHEL7/CentOS8 and <command>service dhcpd start</command> on previous versions of RHEL/CentOS.</para>
 	<screen>[root@rhel71 ~]# <command>systemctl start dhcpd</command>
 [root@rhel71 ~]#</screen>
 </section>

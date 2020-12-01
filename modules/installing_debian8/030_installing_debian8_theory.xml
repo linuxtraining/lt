@@ -76,12 +76,12 @@
 <?hard-pagebreak?>
 <para>Most of the defaults in Virtualbox are ok.</para>
 <para>512MB of RAM is enough to practice all the topics in this book.</para>
-<para><mediaobject><imageobject><imagedata fileref="images/centos7_mem.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para><mediaobject><imageobject><imagedata fileref="images/centos8_mem.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <para>We do not care about the virtual disk format.</para>
-<para><mediaobject><imageobject><imagedata fileref="images/centos7_vdi.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para><mediaobject><imageobject><imagedata fileref="images/centos8_vdi.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <?hard-pagebreak?>
 <para>Choosing <command>dynamically allocated</command> will save you some disk space (for a small performance hit).</para>
-<para><mediaobject><imageobject><imagedata fileref="images/centos7_dynamic.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para><mediaobject><imageobject><imagedata fileref="images/centos8_dynamic.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <para>8GB should be plenty for learning about Linux servers.</para>
 <para><mediaobject><imageobject><imagedata fileref="images/debian8_disksize.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <para>This finishes the wizard. You virtual machine is almost ready to begin the installation.</para>
