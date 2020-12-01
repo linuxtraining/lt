@@ -4,10 +4,10 @@
 	<section><title>VNC Server</title>
 		<para>Starting the vnc server for the first time.</para>
 		<screen>
-[root@RHELv4u3 conf]# rpm -qa | grep -i vnc
+[root@RHELv8u3 conf]# rpm -qa | grep -i vnc
 vnc-server-4.0-8.1
 vnc-4.0-8.1
-[root@RHELv4u3 conf]# vncserver :2
+[root@RHELv8u3 conf]# vncserver :2
 				
 You will require a password to access your desktops.
 				
@@ -15,13 +15,13 @@ Password:
 Verify: 
 xauth:  creating new authority file /root/.Xauthority
 				
-New 'RHELv4u3.localdomain:2 (root)' desktop is RHELv4u3.localdomain:2
+New 'RHELv8u3.localdomain:2 (root)' desktop is RHELv8u3.localdomain:2
 				
 Creating default startup script /root/.vnc/xstartup
 Starting applications specified in /root/.vnc/xstartup
-Log file is /root/.vnc/RHELv4u3.localdomain:2.log
+Log file is /root/.vnc/RHELv8u3.localdomain:2.log
 				
-[root@RHELv4u3 conf]# 
+[root@RHELv8u3 conf]# 
 		</screen>
 	</section>
 	<section><title>VNC Client</title>
@@ -35,13 +35,13 @@ See http://www.realvnc.com for information on VNC.
 VNC server supports protocol version 3.8 (viewer 3.3)
 Password: 
 VNC authentication succeeded
-Desktop name "RHELv4u3.localdomain:2 (root)"
+Desktop name "RHELv8u3.localdomain:2 (root)"
 Connected to VNC server, using protocol version 3.3
 ...
 		</screen>
 		<para>If you don't like the simple twm window manager, you can comment out the last two lines of <command>~/.vnc/xstartup</command><indexterm><primary>xstartup(vnc)</primary></indexterm> and add a <command>gnome-session &#038;</command><indexterm><primary>gnome-session</primary></indexterm> line to have vnc default to gnome instead.</para>
 		<screen>
-[root@RHELv4u3 ~]# cat .vnc/xstartup 
+[root@RHELv8u3 ~]# cat .vnc/xstartup 
 #!/bin/sh
 				
 # Uncomment the following two lines for normal desktop:
@@ -55,18 +55,18 @@ vncconfig -iconic &#038;
 # xterm -geometry 80x24+10+10 -ls -title "$VNCDESKTOP Desktop" &#038;
 # twm &#038;
 gnome-session &#038;
-[root@RHELv4u3 ~]#
+[root@RHELv8u3 ~]#
 		</screen> 
 		<para>Don't forget to restart your vnc server after changing this file.</para>
 		<screen>
-[root@RHELv4u3 ~]# vncserver -kill :2
+[root@RHELv8u3 ~]# vncserver -kill :2
 Killing Xvnc process ID 5785
-[root@RHELv4u3 ~]# vncserver :2
+[root@RHELv8u3 ~]# vncserver :2
 		
-New 'RHELv4u3.localdomain:2 (root)' desktop is RHELv4u3.localdomain:2
+New 'RHELv8u3.localdomain:2 (root)' desktop is RHELv8u3.localdomain:2
 				
 Starting applications specified in /root/.vnc/xstartup
-Log file is /root/.vnc/RHELv4u3.localdomain:2.log
+Log file is /root/.vnc/RHELv8u3.localdomain:2.log
 		</screen>
 	</section>
 	<section><title>Practice VNC</title>

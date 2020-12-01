@@ -10,15 +10,15 @@ paul@barry:~$</screen>
 	</section>
 	<section><title>initrd</title>
 		<para>The kernel uses <command>initrd</command><indexterm><primary>initrd</primary></indexterm> (an initial RAM disk) at boot time. The initrd is mounted before the kernel loads, and can contain additional drivers and modules. It is a <command>compressed cpio archive</command>, so you can look at the contents in this way.</para>
-		<screen>root@RHELv4u4:/boot# mkdir /mnt/initrd
-root@RHELv4u4:/boot# cp initrd-2.6.9-42.0.3.EL.img TMPinitrd.gz
-root@RHELv4u4:/boot# gunzip TMPinitrd.gz 
-root@RHELv4u4:/boot# file TMPinitrd 
+		<screen>root@RHELv8u4:/boot# mkdir /mnt/initrd
+root@RHELv8u4:/boot# cp initrd-2.6.9-42.0.3.EL.img TMPinitrd.gz
+root@RHELv8u4:/boot# gunzip TMPinitrd.gz 
+root@RHELv8u4:/boot# file TMPinitrd 
 TMPinitrd: ASCII cpio archive (SVR4 with no CRC)
-root@RHELv4u4:/boot# cd /mnt/initrd/
-root@RHELv4u4:/mnt/initrd# cpio -i &#124; /boot/TMPinitrd 
+root@RHELv8u4:/boot# cd /mnt/initrd/
+root@RHELv8u4:/mnt/initrd# cpio -i &#124; /boot/TMPinitrd 
 4985 blocks
-root@RHELv4u4:/mnt/initrd# ls -l
+root@RHELv8u4:/mnt/initrd# ls -l
 total 76
 drwxr-xr-x  2 root root 4096 Feb  5 08:36 bin
 drwxr-xr-x  2 root root 4096 Feb  5 08:36 dev
@@ -30,12 +30,12 @@ drwxr-xr-x  2 root root 4096 Feb  5 08:36 proc
 lrwxrwxrwx  1 root root    3 Feb  5 08:36 sbin -> bin
 drwxr-xr-x  2 root root 4096 Feb  5 08:36 sys
 drwxr-xr-x  2 root root 4096 Feb  5 08:36 sysroot
-root@RHELv4u4:/mnt/initrd#</screen>
+root@RHELv8u4:/mnt/initrd#</screen>
 	</section>
 <?hard-pagebreak?>
 	<section><title>System.map</title>
 		<para>The <command>System.map</command><indexterm><primary>System.map</primary></indexterm> contains the symbol table and changes with every kernel compile. The symbol table is also present in <command>/proc/kallsyms</command><indexterm><primary>/proc/kallsyms</primary></indexterm> (pre 2.6 kernels name this file /proc/ksyms). </para>
-		<screen>root@RHELv4u4:/boot# head System.map-`uname -r`
+		<screen>root@RHELv8u4:/boot# head System.map-`uname -r`
 00000400 A __kernel_vsyscall
 0000041a A SYSENTER_RETURN_OFFSET
 00000420 A __kernel_sigreturn
@@ -46,7 +46,7 @@ c01000c6 t checkCPUtype
 c0100147 t is486
 c010014e t is386
 c010019f t L6
-root@RHELv4u4:/boot# head /proc/kallsyms 
+root@RHELv8u4:/boot# head /proc/kallsyms 
 c0100228 t _stext
 c0100228 t calibrate_delay_direct
 c0100228 t stext
@@ -57,7 +57,7 @@ c0100585 t run_init_process
 c01005ac t init
 c0100789 t early_param_test
 c01007ad t early_setup_test
-root@RHELv4u4:/boot#</screen>
+root@RHELv8u4:/boot#</screen>
 	</section>
 	<section><title>.config</title>
 		<para>The last file copied to the /boot directory is the kernel configuration used for compilation. This file is not necessary in the /boot directory, but it is common practice to put a copy there. It allows you to recompile a kernel, starting from the same configuration as an existing working one.</para>

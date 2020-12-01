@@ -5,21 +5,21 @@
 </section>			
 <section><title>rpcinfo</title>
 	<para>Clients connect to the server using <command>rpc</command><indexterm><primary>rpc</primary></indexterm> (on Linux this can be managed by the <command>portmap</command><indexterm><primary>portmap</primary></indexterm> daemon). Look at <command>rpcinfo</command><indexterm><primary>rpcinfo(1)</primary></indexterm> to verify that <command>nfs</command> and its related services are running.</para>
-		<screen>root@RHELv4u2:~# /etc/init.d/portmap status
+		<screen>root@RHELv8u2:~# /etc/init.d/portmap status
 portmap (pid 1920) is running...
-root@RHELv4u2:~# rpcinfo -p
+root@RHELv8u2:~# rpcinfo -p
 program vers proto   port
 100000    2   tcp    111  portmapper
 100000    2   udp    111  portmapper
 100024    1   udp  32768  status
 100024    1   tcp  32769  status
-root@RHELv4u2:~# service nfs start
+root@RHELv8u2:~# service nfs start
 Starting NFS services:                                     [  OK  ]
 Starting NFS quotas:                                       [  OK  ]
 Starting NFS daemon:                                       [  OK  ]
 Starting NFS mountd:                                       [  OK  ]</screen>
 		<para>The same <command>rpcinfo</command> command when <command>nfs</command> is started.</para>
-		<screen>root@RHELv4u2:~# rpcinfo -p
+		<screen>root@RHELv8u2:~# rpcinfo -p
 program vers proto   port
 100000    2   tcp    111  portmapper
 100000    2   udp    111  portmapper
@@ -92,20 +92,20 @@ exporting *:/srv/iso</screen>
 <?hard-pagebreak?>
 	<section><title>client configuration</title>
 		<para>We have seen the <command>mount</command><indexterm><primary>mount(1)</primary></indexterm> command and the <command>/etc/fstab</command><indexterm><primary>/etc/fstab</primary></indexterm> file before.</para>
-		<screen>root@RHELv4u2:~# mount -t nfs barry:/mnt/data/iso /home/project55/
-root@RHELv4u2:~# cat /etc/fstab | grep nfs
+		<screen>root@RHELv8u2:~# mount -t nfs barry:/mnt/data/iso /home/project55/
+root@RHELv8u2:~# cat /etc/fstab | grep nfs
 barry:/mnt/data/iso   /home/iso               nfs     defaults    0 0
-root@RHELv4u2:~#</screen>
+root@RHELv8u2:~#</screen>
 		<para>Here is another simple example. Suppose the project55 people tell you they only need a couple of CD-ROM images, and you already have them available on an <command>nfs</command> server. You could issue the following command to mount this storage on their <command>/home/project55</command> mount point.</para>
 		<screen>
-root@RHELv4u2:~# mount -t nfs 192.168.1.40:/mnt/data/iso /home/project55/
-root@RHELv4u2:~# ls -lh /home/project55/
+root@RHELv8u2:~# mount -t nfs 192.168.1.40:/mnt/data/iso /home/project55/
+root@RHELv8u2:~# ls -lh /home/project55/
 total 3.6G
-drwxr-xr-x  2 1000 1000 4.0K Jan 16 17:55 RHELv4u1
-drwxr-xr-x  2 1000 1000 4.0K Jan 16 14:14 RHELv4u2
-drwxr-xr-x  2 1000 1000 4.0K Jan 16 14:54 RHELv4u3
-drwxr-xr-x  2 1000 1000 4.0K Jan 16 11:09 RHELv4u4
+drwxr-xr-x  2 1000 1000 4.0K Jan 16 17:55 RHELv8u1
+drwxr-xr-x  2 1000 1000 4.0K Jan 16 14:14 RHELv8u2
+drwxr-xr-x  2 1000 1000 4.0K Jan 16 14:54 RHELv8u3
+drwxr-xr-x  2 1000 1000 4.0K Jan 16 11:09 RHELv8u4
 -rw-r--r--  1 root root 1.6G Oct 13 15:22 sled10-vmwarews5-vm.zip
-root@RHELv4u2:~# 
+root@RHELv8u2:~# 
 		</screen>
 	</section>

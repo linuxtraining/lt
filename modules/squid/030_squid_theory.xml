@@ -1,7 +1,7 @@
 <?hard-pagebreak?>
 <section><title>installing squid</title>
 <para>This screenshot shows how to install squid on Debian with <command>aptitude</command>. Use <command>yum</command> if you are on Red Hat/CentOS.</para>
-<screen>root@debian7:~# <command>aptitude install squid</command>
+<screen>root@debian10:~# <command>aptitude install squid</command>
 The following NEW packages will be installed:
   squid squid-common{a} squid-langpack{a}
 0 packages upgraded, 3 newly installed, 0 to remove and 0 not upgraded.
@@ -15,26 +15,26 @@ Creating squid spool directory structure
 2014/08/01 15:19:31| Creating Swap Directories
 Restarting Squid HTTP proxy: squid.</screen>
 	<para><command>squid</command>'s main configuration file is <command>/etc/squid/squid.conf</command><indexterm><primary>/etc/squid/squid.conf</primary></indexterm>. The file explains every parameter in great detail.</para>
-	<screen>root@debian7:~# <command>wc -l /etc/squid/squid.conf</command>
+	<screen>root@debian10:~# <command>wc -l /etc/squid/squid.conf</command>
 4948 /etc/squid/squid.conf</screen>
 </section>
 <section><title>port 3128</title>
 <para>By default the <command>squid proxy server</command> will lsiten to <command>port 3128</command>.</para>
-<screen>root@debian7:~# <command>grep ^http_port /etc/squid/squid.conf</command>
+<screen>root@debian10:~# <command>grep ^http_port /etc/squid/squid.conf</command>
 http_port 3128
-root@debian7:~#</screen>
+root@debian10:~#</screen>
 </section>
 <section><title>starting and stopping</title>
 <para>You can manage <command>squid</command> with the standard <command>service</command> command as shown in this screenshot.</para>
-<screen>root@debian7:~# <command>service squid start</command>
+<screen>root@debian10:~# <command>service squid start</command>
 Starting Squid HTTP proxy: squid.
-root@debian7:~# <command>service squid restart</command>
+root@debian10:~# <command>service squid restart</command>
 Restarting Squid HTTP proxy: squid.
-root@debian7:~# <command>service squid status</command>
+root@debian10:~# <command>service squid status</command>
 squid is running.
-root@debian7:~# <command>service squid stop</command>
+root@debian10:~# <command>service squid stop</command>
 Stopping Squid HTTP proxy: squid.
-root@debian7:~#</screen>
+root@debian10:~#</screen>
 </section>
 <?hard-pagebreak?>
 <section><title>client proxy settings</title>
@@ -44,7 +44,7 @@ root@debian7:~#</screen>
 	<para><mediaobject><imageobject><imagedata fileref="images/firefox_noproxy.png" format="PNG" align="center"></imagedata></imageobject></mediaobject></para>
 <?hard-pagebreak?>
 <para>To enable a proxy server with Google Chrome (or Debian Chromium) start the program from the command line like this:</para>
-<screen>paul@debian7:~$ chromium --proxy-server='192.168.1.60:3128'</screen>
+<screen>paul@debian10:~$ chromium --proxy-server='192.168.1.60:3128'</screen>
 <para>Disabling the proxy with <command>service squid stop</command> should result in an error message similar to this screenshot.</para>
 	<para><mediaobject><imageobject><imagedata fileref="images/chromium_noproxy.png" format="PNG" align="center"></imagedata></imageobject></mediaobject></para>
 </section>
@@ -53,13 +53,13 @@ root@debian7:~#</screen>
 <para>A proxy server sits inbetween your browser and the internet. So besides caching of internet data (the original function of a proxy server) and besides firewall like restrictions based on www content, a proxy server is in the perfect position to alter the webpages that you visit.</para>
 <para>You could for instance change the advertising on a webpage (or remove certain advertisers), or like we do in this example; change all images so they are upside down.</para>
 <para>The server needs command line tools to manipulate images and a perl script that uses these tools (and <command>wget</command> to download the images locally and serve them with <command>apache2</command>). In this example we use <command>imagemagick</command> (which provides tools like <command>convert</command> and <command>mogrify</command>).</para>
-<screen>root@debian7:~# <command>aptitude install imagemagick wget perl apache2</command>
+<screen>root@debian10:~# <command>aptitude install imagemagick wget perl apache2</command>
 ...output truncated...
-root@debian7:~# <command>dpkg -S $(readlink -f $(which mogrify))</command>
+root@debian10:~# <command>dpkg -S $(readlink -f $(which mogrify))</command>
 imagemagick: /usr/bin/mogrify.im6
-root@debian7:~#</screen>
+root@debian10:~#</screen>
 <para>The perl script that is shown in the screenshot below can be found on several websites, yet I have not found the original author. It is however a very simple script that uses <command>wget</command> and <command>mogrify</command> to download images (.jpg .gif and .png), flip them and store them in <command>/var/www/images</command>.</para>
-<screen>root@debian7:~# cat /usr/local/bin/flip.pl
+<screen>root@debian10:~# cat /usr/local/bin/flip.pl
 #!/usr/bin/perl
 $|=1;
 $count = 0;
@@ -94,11 +94,11 @@ while (&#060;&#062;) {
 http_port 3128 transparent
 url_rwwrite_program /usr/local/bin/flip.pl</screen>
 <para>The directory this script uses is <command>/var/www/images</command> and should be accessible by both the <command>squid server</command> (which uses the user named <command>proxy</command> and by the <command>apache2</command> webserver (which uses the user <command>www-data</command>. The screenshot below shows how to create this directory, set the permissions and make the users a member of the other groups.</para>
-<screen>root@debian7:~# mkdir /var/www/images
-root@debian7:~# chown www-data:www-data /var/www/images
-root@debian7:~# chmod 755 /var/www/images
-root@debian7:~# usermod -aG www-data proxy
-root@debian7:~# usermod -aG proxy www-data</screen>
+<screen>root@debian10:~# mkdir /var/www/images
+root@debian10:~# chown www-data:www-data /var/www/images
+root@debian10:~# chmod 755 /var/www/images
+root@debian10:~# usermod -aG www-data proxy
+root@debian10:~# usermod -aG proxy www-data</screen>
 <para>Test that it works after restarting <command>squid</command> and <command>apache2</command>.</para>
 	<para><mediaobject><imageobject><imagedata fileref="images/proxy_upsidedown_xkcd.png" format="PNG" align="center"></imagedata></imageobject></mediaobject></para>
 </section>

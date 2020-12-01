@@ -43,18 +43,18 @@ Filename                Type            Size     Used   Priority
 	</section>
 	<section><title>creating a swap partition</title>
 		<para>You can activate or deactivate swap space with the <command>swapon</command><indexterm><primary>swapon(1)</primary></indexterm> and <command>swapoff</command><indexterm><primary>swapoff(1)</primary></indexterm> commands. New swap space can be created with the <command>mkswap</command><indexterm><primary>mkswap(1)</primary></indexterm> command. The screenshot below shows the creation and activation of a swap partition.</para>
-		<screen>root@RHELv4u4:~# fdisk -l 2> /dev/null | grep hda
+		<screen>root@RHELv8u4:~# fdisk -l 2> /dev/null | grep hda
 Disk /dev/hda: 536 MB, 536870912 bytes
 /dev/hda1               1        1040      524128+  83  Linux
-root@RHELv4u4:~# mkswap /dev/hda1
+root@RHELv8u4:~# mkswap /dev/hda1
 Setting up swapspace version 1, size = 536702 kB
-root@RHELv4u4:~# swapon /dev/hda1</screen>
+root@RHELv8u4:~# swapon /dev/hda1</screen>
 		<para>Now you can see that <command>/proc/swaps</command> displays all swap spaces separately, whereas the <command>free -om</command> command only makes a human readable summary.</para> 
-		<screen>root@RHELv4u4:~# cat /proc/swaps
+		<screen>root@RHELv8u4:~# cat /proc/swaps
 Filename                          Type         Size    Used    Priority
 /dev/mapper/VolGroup00-LogVol01   partition    1048568 0       -1
 /dev/hda1                         partition    524120  0       -2
-root@RHELv4u4:~# free -om
+root@RHELv8u4:~# free -om
           total     used    free   shared    buffers    cached
 Mem:        249      245       4        0        125        54
 Swap:      1535        0    1535</screen>
@@ -62,13 +62,13 @@ Swap:      1535        0    1535</screen>
 <?hard-pagebreak?>
 	<section><title>creating a swap file</title>
 		<para>Here is one more example showing you how to create a <command>swap file</command>. On Solaris you can use <command>mkfile</command><indexterm><primary>mkfile(1)</primary></indexterm> instead of <command>dd</command><indexterm><primary>dd(1)</primary></indexterm>.</para>
-		<screen>root@RHELv4u4:~# dd if=/dev/zero of=/smallswapfile bs=1024 count=4096
+		<screen>root@RHELv8u4:~# dd if=/dev/zero of=/smallswapfile bs=1024 count=4096
 4096+0 records in
 4096+0 records out
-root@RHELv4u4:~# mkswap /smallswapfile 
+root@RHELv8u4:~# mkswap /smallswapfile 
 Setting up swapspace version 1, size = 4190 kB
-root@RHELv4u4:~# swapon /smallswapfile 
-root@RHELv4u4:~# cat /proc/swaps 
+root@RHELv8u4:~# swapon /smallswapfile 
+root@RHELv8u4:~# cat /proc/swaps 
 Filename                          Type        Size    Used   Priority
 /dev/mapper/VolGroup00-LogVol01   partition   1048568 0      -1
 /dev/hda1                         partition   524120  0      -2

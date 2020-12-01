@@ -342,7 +342,7 @@ p autopsy - graphical interface to SleuthKit
 p foremost - Forensics application to recover data 
 p sleuthkit - collection of tools for forensics analysis</screen>
 		<para>Although technically the <command>/sbin/badblocks</command><indexterm><primary>badblocks(8)</primary></indexterm> tool is meant to look for bad blocks, you can use it to completely erase all data from a disk. Since this is really writing to every sector of the disk, it can take a long time!</para>
-		<screen>root@RHELv4u2:~# badblocks -ws /dev/sdb
+		<screen>root@RHELv8u2:~# badblocks -ws /dev/sdb
 Testing with pattern 0xaa: done
 Reading and comparing: done
 Testing with pattern 0x55: done

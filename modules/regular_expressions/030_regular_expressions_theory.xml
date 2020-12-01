@@ -45,52 +45,52 @@ paul@rhel65:~$</screen>
 <?hard-pagebreak?>
 <section><title>one or the other</title>
 	<para>PRCE and ERE both use the pipe symbol to signify OR. In this example we <command>grep</command> for lines containing the letter i or the letter a.</para>
-	<screen>paul@debian7:~$ cat list 
+	<screen>paul@debian10:~$ cat list 
 Tania
 Laura
-paul@debian7:~$ grep -E 'i|a' list 
+paul@debian10:~$ grep -E 'i|a' list 
 Tania
 Laura</screen>
 	<para>Note that we use the <command>-E</command> switch of grep to force interpretion of our string as an ERE.</para>
 	<para>We need to <command>escape</command> the pipe symbol in a BRE to get the same logical OR.</para>
-	<screen>paul@debian7:~$ grep -G 'i|a' list 
-paul@debian7:~$ grep -G 'i\|a' list 
+	<screen>paul@debian10:~$ grep -G 'i|a' list 
+paul@debian10:~$ grep -G 'i\|a' list 
 Tania
 Laura</screen>
 </section>
 <section><title>one or more</title>
 	<para>The <command>*</command> signifies zero, one or more occurences of the previous and the <command>+</command> signifies one or more of the previous.</para>
-	<screen>paul@debian7:~$ cat list2
+	<screen>paul@debian10:~$ cat list2
 ll
 lol
 lool
 loool
-paul@debian7:~$ grep -E 'o*' list2
+paul@debian10:~$ grep -E 'o*' list2
 ll
 lol
 lool
 loool
-paul@debian7:~$ grep -E 'o+' list2
+paul@debian10:~$ grep -E 'o+' list2
 lol
 lool
 loool
-paul@debian7:~$</screen>
+paul@debian10:~$</screen>
 </section>
 <?hard-pagebreak?>
 <section><title>match the end of a string</title>
 	<para>For the following examples, we will use this file.</para>
-	<screen>paul@debian7:~$ cat names 
+	<screen>paul@debian10:~$ cat names 
 Tania
 Laura
 Valentina
 Fleur
 Floor</screen>
 	<para>The two examples below show how to use the <command>dollar character</command> to match the end of a string.</para>
-	<screen>paul@debian7:~$ grep a$ names 
+	<screen>paul@debian10:~$ grep a$ names 
 Tania
 Laura
 Valentina
-paul@debian7:~$ grep r$ names 
+paul@debian10:~$ grep r$ names 
 Fleur
 Floor
 </screen>
@@ -98,9 +98,9 @@ Floor
 <section><title>match the start of a string</title>
 	<para>The <command>caret character (^)</command> will match a string at the start (or the beginning) of a line.</para>
 	<para>Given the same file as above, here are two examples.</para>
-	<screen>paul@debian7:~$ grep ^Val names 
+	<screen>paul@debian10:~$ grep ^Val names 
 Valentina
-paul@debian7:~$ grep ^F names 
+paul@debian10:~$ grep ^F names 
 Fleur
 Floor</screen>
 	<para>Both the dollar sign and the little hat are called <command>anchors</command> in a regex.</para>
@@ -108,29 +108,29 @@ Floor</screen>
 <?hard-pagebreak?>
 <section><title>separating words</title>
 	<para>Regular expressions use a <command>\b</command> sequence to reference a word separator. Take for example this file:</para>
-	<screen>paul@debian7:~$ cat text
+	<screen>paul@debian10:~$ cat text
 The governer is governing.
 The winter is over.
 Can you get over there?</screen>
 	<para>Simply grepping for <command>over</command> will give too many results.</para>
-	<screen>paul@debian7:~$ grep over text
+	<screen>paul@debian10:~$ grep over text
 The governer is governing.
 The winter is over.
 Can you get over there?</screen>
 	<para>Surrounding the searched word with spaces is not a good solution (because other characters can be word separators). This screenshot below show how to use <command>\b</command> to find only the searched word:</para>
-	<screen>paul@debian7:~$ grep '\bover\b' text
+	<screen>paul@debian10:~$ grep '\bover\b' text
 The winter is over.
 Can you get over there?
-paul@debian7:~$</screen>
+paul@debian10:~$</screen>
 	<para>Note that <command>grep</command><indexterm><primary>grep</primary></indexterm> also has a <command>-w</command> option to grep for words.</para>
-	<screen>paul@debian7:~$ cat text 
+	<screen>paul@debian10:~$ cat text 
 The governer is governing.
 The winter is over.
 Can you get over there?
-paul@debian7:~$ grep -w over text
+paul@debian10:~$ grep -w over text
 The winter is over.
 Can you get over there?
-paul@debian7:~$ </screen>
+paul@debian10:~$ </screen>
 </section>
 <?hard-pagebreak?>
 <section><title>grep features</title>
@@ -144,7 +144,7 @@ grep -C5</screen>
 </section>
 <section><title>preventing shell expansion of a regex</title>
 	<para>The dollar sign is a special character, both for the regex and also for the shell (remember variables and embedded shells). Therefore it is advised to always quote the regex, this prevents shell expansion.</para>
-	<screen>paul@debian7:~$ grep 'r$' names 
+	<screen>paul@debian10:~$ grep 'r$' names 
 Fleur
 Floor</screen>
 </section>
@@ -218,12 +218,12 @@ paul@pi ~ $</screen>
 </section>
 <section><title>case insensitive replace</title>
 	<para>Another <command>modifier</command> that can be useful is <command>i</command>. this example shows how to replace a case insensitive string with another string.</para>
-	<screen>paul@debian7:~/files$ ls
+	<screen>paul@debian10:~/files$ ls
 file1.text  file2.TEXT  file3.txt
-paul@debian7:~/files$ rename 's/.text/.txt/i' *
-paul@debian7:~/files$ ls
+paul@debian10:~/files$ rename 's/.text/.txt/i' *
+paul@debian10:~/files$ ls
 file1.txt  file2.txt  file3.txt
-paul@debian7:~/files$ </screen>
+paul@debian10:~/files$ </screen>
 </section>
 <section><title>renaming extensions</title>
 	<para>Command line Linux has no knowledge of MS-DOS like extensions, but many end users and graphical application do use them.</para>
@@ -255,11 +255,11 @@ Monday</screen>
 </section>
 <section><title>interactive editor</title>
 	<para>While <command>sed</command> is meant to be used in a stream, it can also be used interactively on a file.</para>
-	<screen>paul@debian7:~/files$ echo Sunday > today
-paul@debian7:~/files$ cat today 
+	<screen>paul@debian10:~/files$ echo Sunday > today
+paul@debian10:~/files$ cat today 
 Sunday
-paul@debian7:~/files$ sed -i 's/Sun/Mon/' today
-paul@debian7:~/files$ cat today 
+paul@debian10:~/files$ sed -i 's/Sun/Mon/' today
+paul@debian10:~/files$ cat today 
 Monday</screen>
 </section>
 <?hard-pagebreak?>
@@ -274,23 +274,23 @@ Sundayday</screen>
 <section><title>back referencing</title>
 	<para>Parentheses (often called round brackets) are used to group sections of the regex so they can leter be referenced.</para>
 	<para>Consider this simple example:</para>
-	<screen>paul@debian7:~$ echo Sunday | sed 's_\(Sun\)_\1ny_'
+	<screen>paul@debian10:~$ echo Sunday | sed 's_\(Sun\)_\1ny_'
 Sunnyday
-paul@debian7:~$ echo Sunday | sed 's_\(Sun\)_\1ny \1_'
+paul@debian10:~$ echo Sunday | sed 's_\(Sun\)_\1ny \1_'
 Sunny Sunday</screen>
 </section>
 <section><title>a dot for any character</title>
 	<para>In a <command>regex</command><indexterm><primary>sed</primary></indexterm> a simple dot can signify any character.</para>
-	<screen>paul@debian7:~$ echo 2014-04-01 | sed 's/....-..-../YYYY-MM-DD/'
+	<screen>paul@debian10:~$ echo 2014-04-01 | sed 's/....-..-../YYYY-MM-DD/'
 YYYY-MM-DD
-paul@debian7:~$ echo abcd-ef-gh | sed 's/....-..-../YYYY-MM-DD/'
+paul@debian10:~$ echo abcd-ef-gh | sed 's/....-..-../YYYY-MM-DD/'
 YYYY-MM-DD</screen>
 </section>
 <section><title>multiple back referencing</title>
 	<para>When more than one pair of <command>parentheses</command> is used, each of them can be referenced separately by consecutive numbers.</para>
-	<screen>paul@debian7:~$ echo 2014-04-01 | sed 's/\(....\)-\(..\)-\(..\)/\1+\2+\3/'
+	<screen>paul@debian10:~$ echo 2014-04-01 | sed 's/\(....\)-\(..\)-\(..\)/\1+\2+\3/'
 2014+04+01
-paul@debian7:~$ echo 2014-04-01 | sed 's/\(....\)-\(..\)-\(..\)/\3:\2:\1/'
+paul@debian10:~$ echo 2014-04-01 | sed 's/\(....\)-\(..\)-\(..\)/\3:\2:\1/'
 01:04:2014</screen>
 	<para>This feature is called <command>grouping</command>.</para>
 </section>
@@ -298,23 +298,23 @@ paul@debian7:~$ echo 2014-04-01 | sed 's/\(....\)-\(..\)-\(..\)/\3:\2:\1/'
 <section><title>white space</title>
 	<para>The <command>\s</command> can refer to white space such as a space or a tab.</para>
 	<para>This example looks for white spaces (\s) globally and replaces them with 1 space.</para>
-	<screen>paul@debian7:~$ echo -e 'today\tis\twarm'
+	<screen>paul@debian10:~$ echo -e 'today\tis\twarm'
 today   is      warm
-paul@debian7:~$ echo -e 'today\tis\twarm' | sed 's_\s_ _g'
+paul@debian10:~$ echo -e 'today\tis\twarm' | sed 's_\s_ _g'
 today is warm</screen>
 </section>
 <section><title>optional occurrence</title>
 	<para>A question mark signifies that the previous is <command>optional</command>.</para>
 	<para>The example below searches for three consecutive letter o, but the third o is optional.</para>
-	<screen>paul@debian7:~$ cat list2
+	<screen>paul@debian10:~$ cat list2
 ll
 lol
 lool
 loool
-paul@debian7:~$ grep -E 'ooo?' list2
+paul@debian10:~$ grep -E 'ooo?' list2
 lool
 loool
-paul@debian7:~$ cat list2 | sed 's/ooo\?/A/'
+paul@debian10:~$ cat list2 | sed 's/ooo\?/A/'
 ll
 lol
 lAl
@@ -324,70 +324,70 @@ lAl</screen>
 <section><title>exactly n times</title>
 	<para>You can demand an exact number of times the oprevious has to occur.</para>
 	<para>This example wants exactly three o's.</para>
-	<screen>paul@debian7:~$ cat list2
+	<screen>paul@debian10:~$ cat list2
 ll
 lol
 lool
 loool
-paul@debian7:~$ grep -E 'o{3}' list2
+paul@debian10:~$ grep -E 'o{3}' list2
 loool
-paul@debian7:~$ cat list2 | sed 's/o\{3\}/A/'
+paul@debian10:~$ cat list2 | sed 's/o\{3\}/A/'
 ll
 lol
 lool
 lAl
-paul@debian7:~$</screen>
+paul@debian10:~$</screen>
 </section>
 <section><title>between n and m times</title>
 	<para>And here we demand exactly from minimum 2 to maximum 3 times.</para>
-	<screen>paul@debian7:~$ cat list2
+	<screen>paul@debian10:~$ cat list2
 ll
 lol
 lool
 loool
-paul@debian7:~$ grep -E 'o{2,3}' list2
+paul@debian10:~$ grep -E 'o{2,3}' list2
 lool
 loool
-paul@debian7:~$ grep 'o\{2,3\}' list2
+paul@debian10:~$ grep 'o\{2,3\}' list2
 lool
 loool
-paul@debian7:~$ cat list2 | sed 's/o\{2,3\}/A/'
+paul@debian10:~$ cat list2 | sed 's/o\{2,3\}/A/'
 ll
 lol
 lAl
 lAl
-paul@debian7:~$</screen>
+paul@debian10:~$</screen>
 </section>
 </section>
 <?hard-pagebreak?>
 <section><title>bash history</title>
 	<para>The <command>bash shell</command><indexterm><primary>bash</primary></indexterm> can also interprete some regular expressions.</para>
 	<para>This example shows how to manipulate the exclamation mask history feature of the bash shell.</para>
-	<screen>paul@debian7:~$ mkdir hist
-paul@debian7:~$ cd hist/
-paul@debian7:~/hist$ touch file1 file2 file3
-paul@debian7:~/hist$ ls -l file1
+	<screen>paul@debian10:~$ mkdir hist
+paul@debian10:~$ cd hist/
+paul@debian10:~/hist$ touch file1 file2 file3
+paul@debian10:~/hist$ ls -l file1
 -rw-r--r-- 1 paul paul 0 Apr 15 22:07 file1
-paul@debian7:~/hist$ !l
+paul@debian10:~/hist$ !l
 ls -l file1
 -rw-r--r-- 1 paul paul 0 Apr 15 22:07 file1
-paul@debian7:~/hist$ !l:s/1/3
+paul@debian10:~/hist$ !l:s/1/3
 ls -l file3
 -rw-r--r-- 1 paul paul 0 Apr 15 22:07 file3
-paul@debian7:~/hist$</screen>
+paul@debian10:~/hist$</screen>
 	<para>This also works with the history numbers in bash.</para>
-	<screen>paul@debian7:~/hist$ history 6
+	<screen>paul@debian10:~/hist$ history 6
  2089  mkdir hist
  2090  cd hist/
  2091  touch file1 file2 file3
  2092  ls -l file1
  2093  ls -l file3
  2094  history 6
-paul@debian7:~/hist$ !2092
+paul@debian10:~/hist$ !2092
 ls -l file1
 -rw-r--r-- 1 paul paul 0 Apr 15 22:07 file1
-paul@debian7:~/hist$ !2092:s/1/2
+paul@debian10:~/hist$ !2092:s/1/2
 ls -l file2
 -rw-r--r-- 1 paul paul 0 Apr 15 22:07 file2
-paul@debian7:~/hist$</screen>
+paul@debian10:~/hist$</screen>
 </section>

@@ -2,7 +2,7 @@
 <section><title>lsof</title>
 	<para>List open files with <command>lsof</command><indexterm><primary>lsof</primary></indexterm>.</para>
 	<para>When invoked without options, <command>lsof</command> will list all open files. You can see the command (init in this case), its PID (1) and the user (root) has openend the root directory and <command>/sbin/init</command>. The FD (file descriptor) columns shows that / is both the root directory (rtd) and current working directory (cwd) for the /sbin/init command. The FD column displays <command>rtd</command> for root directory, <command>cwd</command> for current directory and <command>txt</command> for text (both including data and code).</para> 
-	<screen>root@debian7:~# lsof | head -4
+	<screen>root@debian10:~# lsof | head -4
 COMMAND PID  TID   USER   FD    TYPE     DEVICE SIZE/OFF      NODE NAME
 init      1        root  cwd     DIR      254,0     4096         2 /
 init      1        root  rtd     DIR      254,0     4096         2 /
@@ -18,7 +18,7 @@ init      1        root  txt     REG      254,0    36992    130856 /sbin/init</s
 COMMAND  PID USER  FD  TYPE DEVICE SIZE/OFF NODE NAME
 vi      3243 root   3u  REG   8,17   4096   12 /srv/project33/.busyfile.txt.swp</screen>
 	<para>Here we see that <command>rsyslog</command><indexterm><primary>rsyslog</primary></indexterm> has a couple of log files open for writing (the FD column).</para>
-	<screen>root@debian7:~# lsof /var/log/*
+	<screen>root@debian10:~# lsof /var/log/*
 COMMAND   PID USER   FD   TYPE DEVICE SIZE/OFF    NODE NAME
 rsyslogd 2013 root    1w   REG  254,0   454297 1308187 /var/log/syslog
 rsyslogd 2013 root    2w   REG  254,0   419328 1308189 /var/log/kern.log
@@ -53,15 +53,15 @@ lsof    3331 paul  cwd    DIR  253,0     4096  788024 /home/paul</screen>
 [root@RHEL65 ~]# fuser -m -u /srv/project33/
 [root@RHEL65 ~]#</screen>
 	<para>This example shows all processes that are using the current directory (bash and vi in this case).</para>
-	<screen>root@debian7:~/test42# vi file42
+	<screen>root@debian10:~/test42# vi file42
 
 [1]+  Stopped                 vi file42
-root@debian7:~/test42# fuser -v .
+root@debian10:~/test42# fuser -v .
                      USER        PID ACCESS COMMAND
 /root/test42:        root       2909 ..c.. bash
                      root       3113 ..c.. vi</screen>
 	<para>This example shows that the <command>vi</command> command actually accesses <command>/usr/bin/vim.basic</command> as an <command>executable</command> file.</para>
-	<screen>root@debian7:~/test42# fuser -v $(which vi)
+	<screen>root@debian10:~/test42# fuser -v $(which vi)
                      USER        PID ACCESS COMMAND
 /usr/bin/vim.basic:  root       3113 ...e. vi</screen>
 	<para>The last example shows how to find the process that is accessing a specific file.</para>

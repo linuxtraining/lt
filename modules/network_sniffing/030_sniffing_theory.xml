@@ -27,7 +27,7 @@ Loading mirror speeds from cached hostfile
 	</section>
 	<section><title>sniffing ping</title>
 		<para>I started the sniffer and captured all packets while doing these three <command>ping</command> commands (there is no need for root to do this):</para>
-		<screen>root@debian7:~# <command>ping -c2 ns1.paul.local</command>
+		<screen>root@debian10:~# <command>ping -c2 ns1.paul.local</command>
 PING ns1.paul.local (10.104.33.30) 56(84) bytes of data.
 64 bytes from 10.104.33.30: icmp_req=1 ttl=64 time=0.010 ms
 64 bytes from 10.104.33.30: icmp_req=2 ttl=64 time=0.023 ms
@@ -35,7 +35,7 @@ PING ns1.paul.local (10.104.33.30) 56(84) bytes of data.
 --- ns1.paul.local ping statistics ---
 2 packets transmitted, 2 received, 0% packet loss, time 1001ms
 rtt min/avg/max/mdev = 0.010/0.016/0.023/0.007 ms
-root@debian7:~# <command>ping -c3 linux-training.be</command>
+root@debian10:~# <command>ping -c3 linux-training.be</command>
 PING linux-training.be (188.93.155.87) 56(84) bytes of data.
 64 bytes from antares.ginsys.net (188.93.155.87): icmp_req=1 ttl=56 time=15.6 ms
 64 bytes from antares.ginsys.net (188.93.155.87): icmp_req=2 ttl=56 time=17.8 ms
@@ -44,7 +44,7 @@ PING linux-training.be (188.93.155.87) 56(84) bytes of data.
 --- linux-training.be ping statistics ---
 3 packets transmitted, 3 received, 0% packet loss, time 2003ms
 rtt min/avg/max/mdev = 14.756/16.110/17.881/1.309 ms
-root@debian7:~# <command>ping -c1 centos7.paul.local</command>
+root@debian10:~# <command>ping -c1 centos7.paul.local</command>
 PING centos7.paul.local (10.104.33.31) 56(84) bytes of data.
 64 bytes from 10.104.33.31: icmp_req=1 ttl=64 time=0.590 ms
 

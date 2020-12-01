@@ -1,22 +1,22 @@
 <?hard-pagebreak?>
 <section><title>; semicolon</title>
 	<para>You can put two or more commands on the same line separated by a semicolon <command>;</command><indexterm><primary>; (shell)</primary></indexterm> . The shell will scan the line until it reaches the semicolon. All the arguments before this semicolon will be considered a separate command from all the arguments after the semicolon. Both series will be executed sequentially with the shell waiting for each command to finish before starting the next one.</para>
-	<screen>[paul@RHELv4u3 ~]$ echo Hello
+	<screen>[paul@RHELv8u3 ~]$ echo Hello
 Hello
-[paul@RHELv4u3 ~]$ echo World
+[paul@RHELv8u3 ~]$ echo World
 World
-[paul@RHELv4u3 ~]$ echo Hello ; echo World
+[paul@RHELv8u3 ~]$ echo Hello ; echo World
 Hello
 World
-[paul@RHELv4u3 ~]$</screen>
+[paul@RHELv8u3 ~]$</screen>
 </section>
 <section><title>&#038; ampersand</title>
 	<para>When a line ends with an ampersand <command>&#038;</command><indexterm><primary>&#038;</primary></indexterm>, the shell will not wait for the command to finish. You will get your shell prompt back, and the command is executed in background. You will get a message when this command has finished executing in background.</para>
-	<screen>[paul@RHELv4u3 ~]$ sleep 20 &#038;
+	<screen>[paul@RHELv8u3 ~]$ sleep 20 &#038;
 [1] 7925
-[paul@RHELv4u3 ~]$ 
+[paul@RHELv8u3 ~]$ 
 ...wait 20 seconds...
-[paul@RHELv4u3 ~]$ 
+[paul@RHELv8u3 ~]$ 
 [1]+  Done                     sleep 20</screen>
 	<para>The technical explanation of what happens in this case is explained in the chapter about <command>processes</command>.</para>
 </section>
@@ -43,10 +43,10 @@ second
 paul@barry:~$ zecho first &#038;&#038; echo second
 -bash: zecho: command not found</screen>
 	<para>Another example of the same <command>logical AND</command><indexterm><primary>logical AND</primary></indexterm> principle. This example starts with a working <command>cd</command> followed by <command>ls</command>, then a non-working <command>cd</command> which is <command>not</command> followed by <command>ls</command>.</para>
-	<screen>[paul@RHELv4u3 ~]$ cd gen &#038;&#038; ls
+	<screen>[paul@RHELv8u3 ~]$ cd gen &#038;&#038; ls
 file1  file3  File55  fileab  FileAB   fileabc
 file2  File4  FileA   Fileab  fileab2
-[paul@RHELv4u3 gen]$ cd gen &#038;&#038; ls
+[paul@RHELv8u3 gen]$ cd gen &#038;&#038; ls
 -bash: cd: gen: No such file or directory</screen>
 </section>
 <section><title>|| double vertical bar</title>
@@ -60,8 +60,8 @@ second
 third
 paul@barry:~$</screen>
 	<para>Another example of the same <command>logical OR</command><indexterm><primary>logical OR</primary></indexterm> principle.</para>
-	<screen>[paul@RHELv4u3 ~]$ cd gen || ls
-[paul@RHELv4u3 gen]$ cd gen || ls
+	<screen>[paul@RHELv8u3 ~]$ cd gen || ls
+[paul@RHELv8u3 gen]$ cd gen || ls
 -bash: cd: gen: No such file or directory
 file1  file3  File55  fileab  FileAB   fileabc
 file2  File4  FileA   Fileab  fileab2</screen>
@@ -85,13 +85,13 @@ paul@debian4:~/test$</screen>
 </section>
 <section><title>\ escaping special characters</title>
 	<para>The backslash <command>\</command><indexterm><primary>\ (backslash)</primary></indexterm> character enables the use of control characters, but without the shell interpreting it, this is called <command>escaping</command><indexterm><primary>shell escaping</primary></indexterm> characters.</para>
-	<screen>[paul@RHELv4u3 ~]$ echo hello \; world
+	<screen>[paul@RHELv8u3 ~]$ echo hello \; world
 hello ; world
-[paul@RHELv4u3 ~]$ echo hello\ \ \ world
+[paul@RHELv8u3 ~]$ echo hello\ \ \ world
 hello   world
-[paul@RHELv4u3 ~]$ echo escaping \\\ \#\ \&#038;\ \"\ \'
+[paul@RHELv8u3 ~]$ echo escaping \\\ \#\ \&#038;\ \"\ \'
 escaping \ # &#038; " '
-[paul@RHELv4u3 ~]$ echo escaping \\\?\*\"\'
+[paul@RHELv8u3 ~]$ echo escaping \\\?\*\"\'
 escaping \?*"'</screen>
 	<section><title>end of line backslash</title>
 		<para>Lines ending in a backslash are continued on the next line. The shell does not interpret the newline character and will wait on shell expansion and execution of the command line until a newline without backslash is encountered.</para>

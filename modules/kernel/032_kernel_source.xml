@@ -88,7 +88,7 @@ total 45M
 		</section>
 <?hard-pagebreak?>
 		<section><title>Red Hat Enterprise Linux</title>
-			<para>The Red Hat kernel source is located on the fourth source cdrom. The file is called <command>kernel-2.6.9-42.EL.src.rpm</command> (example for RHELv4u4). It is also available online at ftp://ftp.redhat.com/pub/redhat/linux/enterprise/5Server/en/os/SRPMS/ (example for RHEL5).</para>
+			<para>The Red Hat kernel source is located on the fourth source cdrom. The file is called <command>kernel-2.6.9-42.EL.src.rpm</command> (example for RHELv8u4). It is also available online at ftp://ftp.redhat.com/pub/redhat/linux/enterprise/5Server/en/os/SRPMS/ (example for RHEL5).</para>
 			<para>To download the kernel source on RHEL, use this long wget command (on one line, without the trailing \).</para>
 			<screen>wget ftp://ftp.redhat.com/pub/redhat/linux/enterprise/5Server/en/os/\
 SRPMS/kernel-`uname -r`.src.rpm</screen>

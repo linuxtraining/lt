@@ -2,38 +2,38 @@
 <section><title>$ dollar sign</title>
 	<para>Another important character interpreted by the shell is the dollar sign <command>$</command><indexterm><primary>$ (shell variables)</primary></indexterm>. The shell will look for an <command>environment variable</command><indexterm><primary>environment variable</primary></indexterm> named like the string following the <command>dollar sign</command> and replace it with the value of the variable (or with nothing if the variable does not exist).</para>
 	<para>These are some examples using $HOSTNAME, $USER, $UID, $SHELL, and $HOME.</para>
-	<screen>[paul@RHELv4u3 ~]$ echo This is the $SHELL shell
+	<screen>[paul@RHELv8u3 ~]$ echo This is the $SHELL shell
 This is the /bin/bash shell
-[paul@RHELv4u3 ~]$ echo This is $SHELL on computer $HOSTNAME
-This is /bin/bash on computer RHELv4u3.localdomain
-[paul@RHELv4u3 ~]$ echo The userid of $USER is $UID
+[paul@RHELv8u3 ~]$ echo This is $SHELL on computer $HOSTNAME
+This is /bin/bash on computer RHELv8u3.localdomain
+[paul@RHELv8u3 ~]$ echo The userid of $USER is $UID
 The userid of paul is 500
-[paul@RHELv4u3 ~]$ echo My homedir is $HOME
+[paul@RHELv8u3 ~]$ echo My homedir is $HOME
 My homedir is /home/paul</screen>
 </section>
 <section><title>case sensitive</title>
 	<para>This example shows that shell variables are case sensitive!</para>
-	<screen>[paul@RHELv4u3 ~]$ echo Hello $USER
+	<screen>[paul@RHELv8u3 ~]$ echo Hello $USER
 Hello paul
-[paul@RHELv4u3 ~]$ echo Hello $user
+[paul@RHELv8u3 ~]$ echo Hello $user
 Hello</screen>
 </section>
 <section><title>creating variables</title>
 	<para>This example creates the variable <command>$MyVar</command> and sets its value. It then uses <command>echo</command> to verify the value.</para>
-	<screen>[paul@RHELv4u3 gen]$ MyVar=555
-[paul@RHELv4u3 gen]$ echo $MyVar
+	<screen>[paul@RHELv8u3 gen]$ MyVar=555
+[paul@RHELv8u3 gen]$ echo $MyVar
 555
-[paul@RHELv4u3 gen]$</screen>
+[paul@RHELv8u3 gen]$</screen>
 </section>
 <?hard-pagebreak?>
 <section><title>quotes</title>
 	<para>Notice that double quotes still allow the parsing of variables, whereas single quotes prevent this.</para>
-	<screen>[paul@RHELv4u3 ~]$ MyVar=555
-[paul@RHELv4u3 ~]$ echo $MyVar
+	<screen>[paul@RHELv8u3 ~]$ MyVar=555
+[paul@RHELv8u3 ~]$ echo $MyVar
 555
-[paul@RHELv4u3 ~]$ echo "$MyVar"
+[paul@RHELv8u3 ~]$ echo "$MyVar"
 555
-[paul@RHELv4u3 ~]$ echo '$MyVar'
+[paul@RHELv8u3 ~]$ echo '$MyVar'
 $MyVar</screen>
 	<para>The bash shell will replace variables with their value in double quoted lines, but not in single quoted lines.</para>
 	<screen>paul@laika:~$ city=Burtonville
@@ -148,9 +148,9 @@ Hello Superman and Supergirl
 </section>
 <section><title>unbound variables</title>
 	<para>The example below tries to display the value of the <command>$MyVar</command> variable, but it fails because the variable does not exist. By default the shell will display nothing when a variable is unbound (does not exist).</para>
-	<screen>[paul@RHELv4u3 gen]$ echo $MyVar
+	<screen>[paul@RHELv8u3 gen]$ echo $MyVar
 				
-[paul@RHELv4u3 gen]$</screen>
+[paul@RHELv8u3 gen]$</screen>
 	<para>There is, however, the <command>nounset</command><indexterm><primary>nounset(shell)</primary></indexterm> shell option that you can use to generate an error when a variable does not exist.</para>
 	<screen>paul@laika:~$ set -u
 paul@laika:~$ echo $Myvar

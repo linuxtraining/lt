@@ -53,7 +53,7 @@ Volume group "vg" successfully created</screen>
 Logical volume "lvol0" created</screen>
 <?hard-pagebreak?>
 	<para>The logical volume /dev/vg/lvol0 can now be formatted with ext3, and mounted for normal use.</para>
-	<screen>root@RHELv4u2:~# mke2fs -m0 -j /dev/vg/lvol0 
+	<screen>root@RHELv8u2:~# mke2fs -m0 -j /dev/vg/lvol0 
 mke2fs 1.35 (28-Feb-2004)
 Filesystem label=
 OS type: Linux
@@ -75,9 +75,9 @@ Writing superblocks and filesystem accounting information: done
 			
 This filesystem will be automatically checked every 37 mounts or
 180 days, whichever comes first.  Use tune2fs -c or -i to override.
-root@RHELv4u2:~# mkdir /home/project10
-root@RHELv4u2:~# mount /dev/vg/lvol0 /home/project10/
-root@RHELv4u2:~# df -h | grep proj
+root@RHELv8u2:~# mkdir /home/project10
+root@RHELv8u2:~# mount /dev/vg/lvol0 /home/project10/
+root@RHELv8u2:~# df -h | grep proj
 /dev/mapper/vg-lvol0  485M   11M  474M   3% /home/project10</screen>
 	<para>A logical volume is very similar to a partition, it can be formatted with a file system, and can be mounted so users can access it.</para>
 </section>

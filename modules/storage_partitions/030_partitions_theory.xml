@@ -88,7 +88,7 @@ root@laika:~#
 	<section><title>/proc/partitions</title>
 		<para>The <command>/proc/partitions</command><indexterm><primary>/proc/partitions</primary></indexterm> file contains a table with major and minor number of partitioned devices, their number of blocks and the device name in <command>/dev</command><indexterm><primary>/dev</primary></indexterm>. Verify with <command>/proc/devices</command><indexterm><primary>/proc/devices</primary></indexterm> to link the major number to the proper device.</para>
 		<screen>
-paul@RHELv4u4:~$ cat /proc/partitions 
+paul@RHELv8u4:~$ cat /proc/partitions 
 major minor  #blocks  name
 
    3     0     524288 hda
@@ -134,7 +134,7 @@ Number  Start   End     Size    Type     File system  Flags
 	<para>In the example below, we bought a new disk for our system. After the new hardware is properly attached, you can use <command>fdisk</command> and <command>parted</command><indexterm><primary>parted(1)</primary></indexterm> to create the necessary partition(s). This example uses <command>fdisk</command>, but there is nothing wrong with using <command>parted</command>.</para>
 	<section><title>recognising the disk</title>
 	<para>First, we check with <command>fdisk -l</command> whether Linux can see the new disk. Yes it does, the new disk is seen as /dev/sdb, but it does not have any partitions yet.</para>
-	<screen>root@RHELv4u2:~# fdisk -l
+	<screen>root@RHELv8u2:~# fdisk -l
 		
 Disk /dev/sda: 12.8 GB, 12884901888 bytes
 255 heads, 63 sectors/track, 1566 cylinders
@@ -154,7 +154,7 @@ Disk /dev/sdb doesn't contain a valid partition table
 	<section><title>opening the disk with fdisk</title>
 		<para>Then we create a partition with fdisk on /dev/sdb. First we start the fdisk tool with /dev/sdb as argument. Be very very careful not to partition the wrong disk!!</para>
 		<screen>
-root@RHELv4u2:~# fdisk /dev/sdb
+root@RHELv8u2:~# fdisk /dev/sdb
 Device contains neither a valid DOS partition table, nor Sun, SGI...
 Building a new DOS disklabel. Changes will remain in memory only,
 until you decide to write them. After that, of course, the previous
@@ -199,12 +199,12 @@ The partition table has been altered!
 		
 Calling ioctl() to re-read partition table.
 Syncing disks.
-root@RHELv4u2:~#</screen>
+root@RHELv8u2:~#</screen>
 	</section>
 	<section><title>display the new partition</title>
 		<para>Let's verify again with <command>fdisk -l</command><indexterm><primary>fdisk(1)</primary></indexterm> to make sure reality fits our dreams. Indeed, the screenshot below now shows a partition on /dev/sdb. </para>
 		<screen>
-root@RHELv4u2:~# fdisk -l
+root@RHELv8u2:~# fdisk -l
 		
 Disk /dev/sda: 12.8 GB, 12884901888 bytes
 255 heads, 63 sectors/track, 1566 cylinders
@@ -220,7 +220,7 @@ Units = cylinders of 16065 * 512 = 8225280 bytes
 		
 Device Boot      Start         End      Blocks   Id  System
 /dev/sdb1               1          14      112423+  83  Linux
-root@RHELv4u2:~#</screen>
+root@RHELv8u2:~#</screen>
 	</section>
 </section>
 <?hard-pagebreak?>

@@ -2,17 +2,17 @@
 	<section><title>mounting local file systems</title>
 		<section><title>mkdir</title>
 			<para>This example shows how to create a new <command>mount point</command> with <command>mkdir</command><indexterm><primary>mkdir</primary></indexterm>.</para>
-			<screen>root@RHELv4u2:~# mkdir /home/project42</screen>
+			<screen>root@RHELv8u2:~# mkdir /home/project42</screen>
 		</section>
 		<section><title>mount</title>
 			<para>When the <command>mount point</command> is created, and a <command>file system</command> is present on the partition, then <command>mount</command> can <command>mount</command> the <command>file system</command> on the <command>mount point directory</command>.</para>
-			<screen>root@RHELv4u2:~# mount -t ext2 /dev/sdb1 /home/project42/</screen>
+			<screen>root@RHELv8u2:~# mount -t ext2 /dev/sdb1 /home/project42/</screen>
  			<para>Once mounted, the new file system is accessible to users.</para>
 		</section>
 		<section><title>/etc/filesystems</title>
 			<para>Actually the explicit <command>-t ext2</command> option to set the file system is not always necessary. The <command>mount</command> command is able to automatically detect a lot of file systems.</para>
 			<para>When mounting a file system without specifying explicitly the file system, then <command>mount</command><indexterm><primary>mount</primary></indexterm> will first probe <command>/etc/filesystems</command><indexterm><primary>/etc/filesystems</primary></indexterm>. Mount will skip lines with the <command>nodev</command><indexterm><primary>nodev</primary></indexterm> directive.</para>
-			<screen>paul@RHELv4u4:~$ cat /etc/filesystems 
+			<screen>paul@RHELv8u4:~$ cat /etc/filesystems 
 ext3
 ext2
 nodev proc
@@ -38,30 +38,30 @@ hfs</screen>
 		<para>To display all mounted file systems, issue the <command>mount</command> command. Or look at the files <command>/proc/mounts</command><indexterm><primary>/proc/mounts</primary></indexterm> and <command>/etc/mtab</command><indexterm><primary>/etc/mtab</primary></indexterm>.</para>
 		<section><title>mount</title>
 			<para>The simplest and most common way to view all mounts is by issuing the <command>mount</command><indexterm><primary>mount(1)</primary></indexterm> command without any arguments.</para>
-			<screen>root@RHELv4u2:~# mount | grep /dev/sdb
+			<screen>root@RHELv8u2:~# mount | grep /dev/sdb
 /dev/sdb1 on /home/project42 type ext2 (rw)</screen>
 		</section>
 		<section><title>/proc/mounts</title>
 			<para>The kernel provides the info in <command>/proc/mounts</command> in file form, but <command>/proc/mounts</command> does not exist as a file on any hard disk. Looking at <command>/proc/mounts</command> is looking at information that comes directly from the kernel.</para>
-			<screen>root@RHELv4u2:~# cat /proc/mounts | grep /dev/sdb
+			<screen>root@RHELv8u2:~# cat /proc/mounts | grep /dev/sdb
 /dev/sdb1 /home/project42 ext2 rw 0 0</screen>
 		</section>
 		<section><title>/etc/mtab</title>
 			<para>The <command>/etc/mtab</command> file is not updated by the kernel, but is maintained by the <command>mount</command> command. Do not edit <command>/etc/mtab</command> manually.</para>
-			<screen>root@RHELv4u2:~# cat /etc/mtab | grep /dev/sdb
+			<screen>root@RHELv8u2:~# cat /etc/mtab | grep /dev/sdb
 /dev/sdb1 /home/project42 ext2 rw 0 0</screen>
 		</section>
 <?hard-pagebreak?>
 		<section><title>df</title>
 		<para>A more user friendly way to look at mounted file systems is <command>df</command><indexterm><primary>df(1)</primary></indexterm>. The <command>df (diskfree)</command> command has the added benefit of showing you the free space on each mounted disk. Like a lot of Linux commands, <command>df</command> supports the <command>-h</command> switch to make the output more <command>human readable</command>.</para>
-		<screen>root@RHELv4u2:~# df
+		<screen>root@RHELv8u2:~# df
 Filesystem           1K-blocks      Used Available Use% Mounted on
 /dev/mapper/VolGroup00-LogVol00
 11707972   6366996   4746240  58% /
 /dev/sda1             101086    9300    86567  10% /boot
 none                  127988       0   127988   0% /dev/shm
 /dev/sdb1             108865    1550   101694   2% /home/project42
-root@RHELv4u2:~# df -h
+root@RHELv8u2:~# df -h
 Filesystem            Size  Used Avail Use% Mounted on
 /dev/mapper/VolGroup00-LogVol00
 12G  6.1G  4.6G  58% /
@@ -139,7 +139,7 @@ Maximum filesystem blocks=4294967296
 		<section><title>/etc/fstab</title>
 			<para>The file system table located in <command>/etc/fstab</command><indexterm><primary>/etc/fstab</primary></indexterm> contains a list of file systems, with an option to automtically mount each of them at boot time.</para>
 			<para>Below is a sample <command>/etc/fstab</command> file.</para>
-			<screen>root@RHELv4u2:~# cat /etc/fstab 
+			<screen>root@RHELv8u2:~# cat /etc/fstab 
 /dev/VolGroup00/LogVol00 /                ext3    defaults        1 1
 LABEL=/boot             /boot             ext3    defaults        1 2
 none                    /dev/pts          devpts  gid=5,mode=620  0 0

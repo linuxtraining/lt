@@ -8,7 +8,7 @@
 <section><title>the root directory /</title>
 	<para>All Linux systems have a directory structure that starts at the <command>root directory</command><indexterm><primary>root directory</primary></indexterm>. The root directory is represented by a <command>forward slash</command>, like this: <command>/</command><indexterm><primary>/</primary></indexterm>. Everything that exists on your Linux system can be found below this root directory. Let's take a brief look at the contents of the root directory.</para>
 	<screen>
-[paul@RHELv4u3 ~]$ ls /
+[paul@RHELv8u3 ~]$ ls /
 bin   dev  home  media  mnt  proc  sbin     srv  tftpboot  usr
 boot  etc  lib   misc   opt  root  selinux  sys  tmp       var
 	</screen>
@@ -111,8 +111,8 @@ paul@laika:~$ </screen>
 			<para>The <command>skeleton</command><indexterm><primary>skeleton</primary></indexterm> directory <command>/etc/skel</command><indexterm><primary>/etc/skel</primary></indexterm> is copied to the home directory of a newly created user. It usually contains hidden files like a <command>.bashrc</command> script.</para>
 		</section>
 		<section><title>/etc/sysconfig/</title>
-			<para>This directory, which is not mentioned in the FHS, contains a lot of <command>Red Hat Enterprise Linux</command> configuration files. We will discuss some of them in greater detail. The screenshot below is the <command>/etc/sysconfig</command><indexterm><primary>/etc/sysconfig</primary></indexterm> directory from RHELv4u4 with everything installed.</para>
-			<screen>paul@RHELv4u4:~$ ls /etc/sysconfig/
+			<para>This directory, which is not mentioned in the FHS, contains a lot of <command>Red Hat Enterprise Linux</command> configuration files. We will discuss some of them in greater detail. The screenshot below is the <command>/etc/sysconfig</command><indexterm><primary>/etc/sysconfig</primary></indexterm> directory from RHELv8u4 with everything installed.</para>
+			<screen>paul@RHELv8u4:~$ ls /etc/sysconfig/
 apmd         firstboot     irda              network      saslauthd
 apm-scripts  grub          irqbalance        networking   selinux
 authconfig   hidd          keyboard          ntpd         spamassassin
@@ -124,14 +124,14 @@ crond        installinfo   named             prelink      sys-logviewer
 desktop      ipmi          netdump           rawdevices   tux
 diskdump     iptables      netdump_id_dsa    rhn          vncservers
 dund         iptables-cfg  netdump_id_dsa.p  samba        xinetd
-paul@RHELv4u4:~$</screen>
+paul@RHELv8u4:~$</screen>
 			<para>The file <command>/etc/sysconfig/firstboot</command><indexterm><primary>/etc/sysconfig/firstboot</primary></indexterm> tells the Red Hat Setup Agent not to run at boot time. If you want to run the Red Hat Setup Agent at the next reboot, then simply remove this file, and run <command>chkconfig --level 5 firstboot on</command><indexterm><primary>chkconfig</primary></indexterm>. The Red Hat Setup Agent allows you to install the latest updates, create a user account, join the Red Hat Network and more. It will then create the /etc/sysconfig/firstboot file again.</para>
-			<screen>paul@RHELv4u4:~$ cat /etc/sysconfig/firstboot 
+			<screen>paul@RHELv8u4:~$ cat /etc/sysconfig/firstboot 
 RUN_FIRSTBOOT=NO</screen>
 			<para>The <command>/etc/sysconfig/harddisks</command><indexterm><primary>/etc/sysconfig/harddisks</primary></indexterm> file contains some parameters to tune the hard disks. The file explains itself.</para>
 			<para>You can see hardware detected by <command>kudzu</command><indexterm><primary>kudzu</primary></indexterm> in <command>/etc/sysconfig/hwconf</command><indexterm><primary>/etc/sysconfig/hwconf</primary></indexterm>. Kudzu is software from Red Hat for automatic discovery and configuration of hardware.</para>
 			<para>The keyboard type and keymap table are set in the <command>/etc/sysconfig/keyboard</command><indexterm><primary>/etc/sysconfig/keyboard</primary></indexterm> file. For more console keyboard information, check the manual pages of <command>keymaps(5)</command><indexterm><primary>keymaps(5)</primary></indexterm>, <command>dumpkeys(1)</command><indexterm><primary>dumpkeys(1)</primary></indexterm>, <command>loadkeys(1)</command><indexterm><primary>loadkeys(1)</primary></indexterm> and the directory <command>/lib/kbd/keymaps/</command><indexterm><primary>/lib/kbd/keymaps/</primary></indexterm>.</para>
-			<screen>root@RHELv4u4:/etc/sysconfig# cat keyboard 
+			<screen>root@RHELv8u4:/etc/sysconfig# cat keyboard 
 KEYBOARDTYPE="pc"
 KEYTABLE="us"</screen>
 			<para>We will discuss networking files in this directory in the networking chapter.</para>
@@ -203,7 +203,7 @@ paul@barry:~$ ls /dev/hd*
 	<section><title>/proc conversation with the kernel</title>
 		<para><command>/proc</command><indexterm><primary>/proc</primary></indexterm> is another special directory, appearing to be ordinary files, but not taking up disk space. It is actually a view of the kernel, or better, what the kernel manages, and is a means to interact with it directly. <command>/proc</command> is a proc filesystem.</para>
 		<screen>
-paul@RHELv4u4:~$ mount -t proc
+paul@RHELv8u4:~$ mount -t proc
 none on /proc type proc (rw)
 		</screen>
 		<para>When listing the /proc directory you will see many numbers (on any Unix) and some interesting files (on Linux)</para>
@@ -237,23 +237,23 @@ mul@laika:~$ ls /proc
 		</screen>
 		<para>Let's investigate the file properties inside <command>/proc</command>. Looking at the date and time will display the current date and time showing the files are constantly updated (a view on the kernel).</para>
 		<screen>
-paul@RHELv4u4:~$ date
+paul@RHELv8u4:~$ date
 Mon Jan 29 18:06:32 EST 2007
-paul@RHELv4u4:~$ ls -al /proc/cpuinfo 
+paul@RHELv8u4:~$ ls -al /proc/cpuinfo 
 -r--r--r--  1 root root 0 Jan 29 18:06 /proc/cpuinfo
-paul@RHELv4u4:~$ 
-paul@RHELv4u4:~$  ...time passes...
-paul@RHELv4u4:~$ 
-paul@RHELv4u4:~$ date
+paul@RHELv8u4:~$ 
+paul@RHELv8u4:~$  ...time passes...
+paul@RHELv8u4:~$ 
+paul@RHELv8u4:~$ date
 Mon Jan 29 18:10:00 EST 2007
-paul@RHELv4u4:~$ ls -al /proc/cpuinfo 
+paul@RHELv8u4:~$ ls -al /proc/cpuinfo 
 -r--r--r--  1 root root 0 Jan 29 18:10 /proc/cpuinfo
 		</screen>
 		<para>Most files in /proc are 0 bytes, yet they contain data--sometimes a lot of data. You can see this by executing cat on files like <command>/proc/cpuinfo</command><indexterm><primary>/proc/cpuinfo</primary></indexterm>, which contains information about the CPU. </para>
 		<screen>
-paul@RHELv4u4:~$ file /proc/cpuinfo 
+paul@RHELv8u4:~$ file /proc/cpuinfo 
 /proc/cpuinfo: empty
-paul@RHELv4u4:~$ cat /proc/cpuinfo 
+paul@RHELv8u4:~$ cat /proc/cpuinfo 
 processor       : 0
 vendor_id       : AuthenticAMD
 cpu family      : 15
@@ -297,7 +297,7 @@ CPU1: online
 		<section><title>/proc/interrupts</title>
 			<para>On the x86 architecture, <command>/proc/interrupts</command><indexterm><primary>/proc/interrupts</primary></indexterm> displays the interrupts.</para>
 			<screen>
-paul@RHELv4u4:~$ cat /proc/interrupts 
+paul@RHELv8u4:~$ cat /proc/interrupts 
            CPU0       
   0:   13876877    IO-APIC-edge  timer
   1:         15    IO-APIC-edge  i8042

@@ -14,7 +14,7 @@ paul@rhel65:~/owners$</screen>
 	</section>
 	<section><title>listing user accounts</title>
 		<para>You can use the following command to list all local user accounts.</para>
-		<screen>paul@debian7~$ cut -d: -f1 /etc/passwd | column 
+		<screen>paul@debian10~$ cut -d: -f1 /etc/passwd | column 
 root            ntp             sam             bert            naomi
 daemon          mysql           tom             rino            matthias2
 bin             paul            wouter          antonio         bram
@@ -158,7 +158,7 @@ lrwxrwxrwx   1 root root    13 Dec  5 10:36 /etc/motd -> /var/run/motd</screen>
 	</section>
 	<section><title>three sets of rwx</title>
 		<para>We already know that the output of <command>ls -l </command><indexterm><primary>ls</primary></indexterm> starts with ten characters for each file. This screenshot shows a regular file (because the first character is a - ).</para>
-		<screen>paul@RHELv4u4:~/test$ ls -l proc42.bash
+		<screen>paul@RHELv8u4:~/test$ ls -l proc42.bash
 -rwxr-xr--  1 paul proj 984 Feb  6 12:01 proc42.bash</screen>
 		<para>Below is a table describing the function of all ten characters.</para>
 <table frame='all'><title>Unix file permissions position</title>

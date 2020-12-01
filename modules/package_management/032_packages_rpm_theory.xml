@@ -14,19 +14,19 @@ samba-common-3.0.28-1.el5_2.1</screen>
 	</section>
 	<section><title>rpm -q</title>
 		<para>To verify whether one package is installed, use <command>rpm -q</command>.</para>
-		<screen>root@RHELv4u4:~# rpm -q gcc
+		<screen>root@RHELv8u4:~# rpm -q gcc
 gcc-3.4.6-3
-root@RHELv4u4:~# rpm -q laika
+root@RHELv8u4:~# rpm -q laika
 package laika is not installed</screen>
 	</section>
 	<section><title>rpm -Uvh</title>
 		<para>To install or upgrade a package, use the -Uvh switches. The -U switch is the same as -i for install, except that older versions of the software are removed. The -vh switches are for nicer output.</para>
-		<screen>root@RHELv4u4:~# rpm -Uvh gcc-3.4.6-3</screen>
+		<screen>root@RHELv8u4:~# rpm -Uvh gcc-3.4.6-3</screen>
 	</section>
 <?hard-pagebreak?>
 	<section><title>rpm -e</title>
 		<para>To remove a package, use the -e switch.</para>
-		<screen>root@RHELv4u4:~# rpm -e gcc-3.4.6-3</screen>
+		<screen>root@RHELv8u4:~# rpm -e gcc-3.4.6-3</screen>
 		<para><command>rpm -e</command> verifies dependencies, and thus will prevent you from accidentailly erasing packages that are needed by other packages.</para>
 		<screen>[root@RHEL52 ~]# rpm -e gcc-4.1.2-42.el5
 error: Failed dependencies:

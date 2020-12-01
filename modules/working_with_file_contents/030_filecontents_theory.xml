@@ -1,7 +1,7 @@
 <?hard-pagebreak?>
 <section><title>head</title>
 	<para>You can use <command>head</command><indexterm><primary>head(1)</primary></indexterm> to display the first ten lines of a file.</para>
-	<screen>paul@debian7~$ <command>head /etc/passwd</command>
+	<screen>paul@debian10~$ <command>head /etc/passwd</command>
 root:x:0:0:root:/root:/bin/bash
 daemon:x:1:1:daemon:/usr/sbin:/bin/sh
 bin:x:2:2:bin:/bin:/bin/sh
@@ -12,21 +12,21 @@ man:x:6:12:man:/var/cache/man:/bin/sh
 lp:x:7:7:lp:/var/spool/lpd:/bin/sh
 mail:x:8:8:mail:/var/mail:/bin/sh
 news:x:9:9:news:/var/spool/news:/bin/sh
-root@debian7~#</screen>
+root@debian10~#</screen>
 	<para>The <command>head</command> command can also display the first <command>n</command> lines of a file.</para>
-	<screen>paul@debian7~$ <command>head -4 /etc/passwd</command>
+	<screen>paul@debian10~$ <command>head -4 /etc/passwd</command>
 root:x:0:0:root:/root:/bin/bash
 daemon:x:1:1:daemon:/usr/sbin:/bin/sh
 bin:x:2:2:bin:/bin:/bin/sh
 sys:x:3:3:sys:/dev:/bin/sh
-paul@debian7~$</screen>
+paul@debian10~$</screen>
 	<para>And <command>head</command> can also display the first <command>n bytes</command>.</para>
-	<screen>paul@debian7~$ <command>head -c14 /etc/passwd</command>
-root:x:0:0:roopaul@debian7~$</screen>
+	<screen>paul@debian10~$ <command>head -c14 /etc/passwd</command>
+root:x:0:0:roopaul@debian10~$</screen>
 </section>
 <section><title>tail</title>
 	<para>Similar to <command>head</command>, the <command>tail</command><indexterm><primary>tail(1)</primary></indexterm> command will display the last ten lines of a file.</para>
-	<screen>paul@debian7~$ <command>tail /etc/services</command>
+	<screen>paul@debian10~$ <command>tail /etc/services</command>
 vboxd           20012/udp
 binkp           24554/tcp                       # binkp fidonet protocol
 asp             27374/tcp                       # Address Search Protocol
@@ -37,13 +37,13 @@ tfido           60177/tcp                       # fidonet EMSI over telnet
 fido            60179/tcp                       # fidonet EMSI over TCP
 
 # Local services
-paul@debian7~$</screen>
+paul@debian10~$</screen>
 	<para>You can give <command>tail</command> the number of lines you want to see.</para>
-	<screen>paul@debian7~$ <command>tail -3 /etc/services</command>
+	<screen>paul@debian10~$ <command>tail -3 /etc/services</command>
 fido            60179/tcp                       # fidonet EMSI over TCP
 
 # Local services
-paul@debian7~$</screen>
+paul@debian10~$</screen>
 	<para>The <command>tail</command> command has other useful options, some of which we will use during this course.</para>
 </section>
 <section><title>cat</title>

@@ -3,11 +3,11 @@
 	<para>Both the <command>bash</command><indexterm><primary>/bin/bash</primary></indexterm> and the <command>ksh</command><indexterm><primary>/bin/ksh</primary></indexterm> shell will verify the existence of <command>/etc/profile</command><indexterm><primary>/etc/profile</primary></indexterm> and <command>source</command> it if it exists.</para>
 	<para>When reading this script, you will notice (both on Debian and on Red Hat Enterprise Linux) that it builds the PATH environment variable (among others). The script might also change the PS1 variable, set the HOSTNAME and execute even more scripts like <command>/etc/inputrc</command><indexterm><primary>/etc/inputrc</primary></indexterm></para>
 	<para>This screenshot uses grep to show PATH manipulation in <command>/etc/profile</command> on Debian.</para>
-	<screen>root@debian7:~# <command>grep PATH /etc/profile</command>
+	<screen>root@debian10:~# <command>grep PATH /etc/profile</command>
   PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
   PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games"
 export PATH
-root@debian7:~#</screen>
+root@debian10:~#</screen>
 	<para>This screenshot uses grep to show PATH manipulation in <command>/etc/profile</command> on RHEL7/CentOS7.</para>
 	<screen>[root@centos7 ~]# <command>grep PATH /etc/profile</command>
     case ":${PATH}:" in
@@ -43,7 +43,7 @@ export PATH
 	<section><title>~/.profile</title>
 		<para>When neither <command>~/.bash_profile</command> and <command>~/.bash_login</command> exist, then bash will verify the existence of <command>~/.profile</command> and execute it. This file does not exist by default on Red Hat.</para>
 		<para>On Debian this script can execute <command>~/.bashrc</command><indexterm><primary>.bashrc</primary></indexterm> and will add $HOME/bin to the $PATH variable.</para>
-		<screen>root@debian7:~# <command>tail -11 /home/paul/.profile</command>
+		<screen>root@debian10:~# <command>tail -11 /home/paul/.profile</command>
 if [ -n "$BASH_VERSION" ]; then
     # include .bashrc if it exists
     if [ -f "$HOME/.bashrc" ]; then
@@ -73,7 +73,7 @@ fi
 
 # User specific aliases and functions</screen>
 		<para>On Debian this script is quite a bit longer and configures $PS1, some history variables and a number af active and inactive aliases.</para>
-		<screen>root@debian7:~# wc -l /home/paul/.bashrc
+		<screen>root@debian10:~# wc -l /home/paul/.bashrc
 110 /home/paul/.bashrc</screen>
 	</section>
 <?hard-pagebreak?>

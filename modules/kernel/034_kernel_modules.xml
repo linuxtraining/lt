@@ -106,24 +106,24 @@ root@barry:/lib/modules/2.6.17-2-686# ls -l modules.dep
 </section>
 <section><title>rmmod</title>
 	<para>Similar to insmod, the <command>rmmod</command><indexterm><primary>rmmod(1)</primary></indexterm> command is rarely used anymore.</para>
-	<screen>[root@RHELv4u3 ~]# modprobe isdn
-[root@RHELv4u3 ~]# rmmod slhc
+	<screen>[root@RHELv8u3 ~]# modprobe isdn
+[root@RHELv8u3 ~]# rmmod slhc
 ERROR: Module slhc is in use by isdn
-[root@RHELv4u3 ~]# rmmod isdn
-[root@RHELv4u3 ~]# rmmod slhc
-[root@RHELv4u3 ~]# lsmod | grep isdn
-[root@RHELv4u3 ~]#</screen>
+[root@RHELv8u3 ~]# rmmod isdn
+[root@RHELv8u3 ~]# rmmod slhc
+[root@RHELv8u3 ~]# lsmod | grep isdn
+[root@RHELv8u3 ~]#</screen>
 </section>
 <section><title>modprobe -r</title>
 	<para>Contrary to rmmod, <command>modprobe</command><indexterm><primary>modprobe(1)</primary></indexterm> will automatically remove unneeded modules.</para>
-	<screen>[root@RHELv4u3 ~]# modprobe isdn
-[root@RHELv4u3 ~]# lsmod | grep isdn
+	<screen>[root@RHELv8u3 ~]# modprobe isdn
+[root@RHELv8u3 ~]# lsmod | grep isdn
 isdn                  133537  0 
 slhc                    7233  1 isdn
-[root@RHELv4u3 ~]# modprobe -r isdn
-[root@RHELv4u3 ~]# lsmod | grep isdn
-[root@RHELv4u3 ~]# lsmod | grep slhc
-[root@RHELv4u3 ~]#</screen>
+[root@RHELv8u3 ~]# modprobe -r isdn
+[root@RHELv8u3 ~]# lsmod | grep isdn
+[root@RHELv8u3 ~]# lsmod | grep slhc
+[root@RHELv8u3 ~]#</screen>
 </section>
 <section><title>/etc/modprobe.conf</title>
 	<para>The <command>/etc/modprobe.conf</command><indexterm><primary>/etc/modprobe.conf</primary></indexterm> file and the <command>/etc/modprobe.d</command><indexterm><primary>/etc/modprobe.d/</primary></indexterm> directory can contain aliases (used by humans) and options (for dependent modules) for modprobe.</para>

@@ -3,15 +3,15 @@
 	<section><title>iptables firewall</title>
 		<para>The Linux kernel has a built-in stateful firewall named <command>iptables</command>. To stop the <command>iptables</command><indexterm><primary>iptables</primary></indexterm> firewall on Red Hat, use the service command.</para>
 		<screen>
-root@RHELv4u4:~# service iptables stop
+root@RHELv8u4:~# service iptables stop
 Flushing firewall rules:                                   [  OK  ]
 Setting chains to policy ACCEPT: filter                    [  OK  ]
 Unloading iptables modules:                                [  OK  ]
-root@RHELv4u4:~# 
+root@RHELv8u4:~# 
 		</screen>
 		<para>The easy way to configure iptables, is to use a graphical tool like KDE's <command>kmyfirewall</command><indexterm><primary>kmyfirewall</primary></indexterm> or <command>Security Level Configuration Tool</command>. You can find the latter in the graphical menu, somewhere in System Tools - Security, or you can start it by typing <command>system-config-securitylevel</command><indexterm><primary>system-config-securitylevel</primary></indexterm> in bash. These tools allow for some basic firewall configuration. You can decide whether to enable or disable the firewall, and what typical standard ports are allowed when the firewall is active. You can even add some custom ports. When you are done, the configuration is written to <command>/etc/sysconfig/iptables</command><indexterm><primary>/etc/sysconfig/iptables</primary></indexterm> on Red Hat. </para>
 		<screen>
-root@RHELv4u4:~# cat /etc/sysconfig/iptables
+root@RHELv8u4:~# cat /etc/sysconfig/iptables
 # Firewall configuration written by system-config-securitylevel
 # Manual customization of this file is not recommended.
 *filter
@@ -34,18 +34,18 @@ root@RHELv4u4:~# cat /etc/sysconfig/iptables
 -A RH-F...NPUT -m state --state NEW -m tcp -p tcp --dport 25 -j ACCEPT
 -A RH-Firewall-1-INPUT -j REJECT --reject-with icmp-host-prohibited
 COMMIT
-root@RHELv4u4:~#
+root@RHELv8u4:~#
 		</screen>
 		<para>To start the service, issue the <command>service iptables start</command><indexterm><primary>service(1)</primary></indexterm> command. You can configure iptables to start at boot time with chkconfig.</para>
 		<screen>
-root@RHELv4u4:~# service iptables start
+root@RHELv8u4:~# service iptables start
 Applying iptables firewall rules:                          [  OK  ]
-root@RHELv4u4:~# chkconfig iptables on
-root@RHELv4u4:~# 
+root@RHELv8u4:~# chkconfig iptables on
+root@RHELv8u4:~# 
 		</screen>
 		<para>One of the nice features of iptables is that it displays extensive <command>status</command> information when queried with the <command>service iptables status</command> command.</para>
 		<screen>
-root@RHELv4u4:~# service iptables status
+root@RHELv8u4:~# service iptables status
 Table: filter
 Chain INPUT (policy ACCEPT)
 target     prot opt source               destination         
@@ -73,7 +73,7 @@ ACCEPT  tcp  --  0.0.0.0/0   0.0.0.0/0   state NEW tcp dpt:21
 ACCEPT  tcp  --  0.0.0.0/0   0.0.0.0/0   state NEW tcp dpt:25 
 REJECT  all  --  0.0.0.0/0   0.0.0.0/0   reject-with icmp-host-prohibited 
 
-root@RHELv4u4:~# 
+root@RHELv8u4:~# 
 		</screen>
 		<para>Mastering firewall configuration requires a decent knowledge of tcp/ip. Good iptables tutorials can be found online here http://iptables-tutorial.frozentux.net/iptables-tutorial.html and here http://tldp.org/HOWTO/IP-Masquerade-HOWTO/.</para>
 	</section>

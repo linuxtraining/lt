@@ -2,11 +2,11 @@
 <section><title>example: DNS round robin</title>
 	<para>When you create multiple A records for the same name, then <command>bind</command><indexterm><primary>bind(DNS)</primary></indexterm> will do a <command>round robin</command> of the order in which the records are returned. This allows the use of DNS as a load balancer between hosts, since clients will usually take the first ip-address offered.</para>
 	<para>Consider this example from the <command>/etc/bind/db.paul.local</command> zone configuration file. There are two A records for <command>www</command> pointing to two distinct ip addresses.</para>
-	<screen>root@debian7:~# <command>grep www /etc/bind/db.paul.local</command>
+	<screen>root@debian10:~# <command>grep www /etc/bind/db.paul.local</command>
 www             IN      A       10.104.33.30
 www             IN      A       10.104.33.31</screen>
 	<para>Below a screenshot of <command>nslookup</command> querying a load balanced A record. Notice the order of ip addresses returned.</para>
-		<screen>root@debian7:~# <command>nslookup www.paul.local 10.104.33.30</command>
+		<screen>root@debian10:~# <command>nslookup www.paul.local 10.104.33.30</command>
 Server:         10.104.33.30
 Address:        10.104.33.30#53
 
@@ -15,7 +15,7 @@ Address: 10.104.33.31
 Name:   www.paul.local
 Address: 10.104.33.30
 
-root@debian7:~# <command>nslookup www.paul.local 10.104.33.30</command>
+root@debian10:~# <command>nslookup www.paul.local 10.104.33.30</command>
 Server:         10.104.33.30
 Address:        10.104.33.30#53
 
@@ -33,10 +33,10 @@ Address: 10.104.33.31</screen>
 </section>
 <?hard-pagebreak?>
 <section><title>example: DNS delegation</title>
-	<para>We have another <command>Linux server</command> named <command>debian7b</command> and we want to make it responsible for the child domain <command>test42.paul.local</command>.</para>
-	<para><emphasis>Note the name of the servers in the screenshots are either <command>debian7</command> (hosting the parent domain) or <command>debian7b</command> (hosting the child domain).</emphasis></para>
+	<para>We have another <command>Linux server</command> named <command>debian10b</command> and we want to make it responsible for the child domain <command>test42.paul.local</command>.</para>
+	<para><emphasis>Note the name of the servers in the screenshots are either <command>debian10</command> (hosting the parent domain) or <command>debian10b</command> (hosting the child domain).</emphasis></para>
 	<para>We start by adjusting the <command>/etc/bind/named.comf.local</command> file (on the server hosting the parent domain) to make sure that no forwarder will be used when resolving authoritative names.</para>
-	<screen>root@debian7:~# <command>grep -A4 paul.local /etc/bind/named.conf.local</command>
+	<screen>root@debian10:~# <command>grep -A4 paul.local /etc/bind/named.conf.local</command>
 zone "paul.local" IN {
         type master;
         file "/etc/bind/db.paul.local";
@@ -44,26 +44,26 @@ zone "paul.local" IN {
         allow-transfer { 10.104.15.20; };
         forwarders { };
 };
-root@debian7:~#</screen>
+root@debian10:~#</screen>
 	<para>Technically, you could also set <command>allow-transfer</command> to <command>{ any; };</command> while troubleshooting and then refine it later, but this is not needed for delegation.</para>
 	<para>Then we add the delegation to our zone database:</para>
-	<screen>root@debian7:~# <command>tail -3 /etc/bind/db.paul.local</command>
+	<screen>root@debian10:~# <command>tail -3 /etc/bind/db.paul.local</command>
 $ORIGIN test42.paul.local.
 @       IN      NS      ns2.test42.paul.local.
 ns2     IN      A       10.104.33.31    ; the glue record
-root@debian7:~#</screen>
+root@debian10:~#</screen>
 	<para>Don't forget to restart <command>bind</command> and verify <command>/var/log/syslog</command>.</para>
-	<screen>root@debian7:~# <command>service bind9 restart</command>
+	<screen>root@debian10:~# <command>service bind9 restart</command>
 Stopping domain name service...: bind9.
 Starting domain name service...: bind9.
-root@debian7:~# <command>grep paul.local /var/log/syslog | cut -c28- | tail -2</command>
+root@debian10:~# <command>grep paul.local /var/log/syslog | cut -c28- | tail -2</command>
 named[3202]: zone paul.local/IN: loaded serial 2014100801
 named[3202]: zone paul.local/IN: sending notifies (serial 2014100801)
-root@debian7:~#</screen>
+root@debian10:~#</screen>
 	<para><emphasis>Note that on your terminal you can type <command>tail -40 /var/log/syslog</command> because the only reason I use <command>grep</command>, <command>cut</command> and <command>tail -2</command> is to limit the size of the screenshots in this book.</emphasis></para>
 <?hard-pagebreak?>
 	<para>Next we create a zone database file on the second server, as seen in this screenshot:</para>
-	<screen>root@debian7b:~# <command>cat /etc/bind/db.test42.paul.local</command>
+	<screen>root@debian10b:~# <command>cat /etc/bind/db.test42.paul.local</command>
 ; child zone for classroom teaching
 $TTL    86400
 $ORIGIN test42.paul.local.
@@ -77,16 +77,16 @@ $ORIGIN test42.paul.local.
 ; name servers
 ;
         IN      NS      ns2.test42.paul.local.
-        IN      NS      debian7b.test42.paul.local.
+        IN      NS      debian10b.test42.paul.local.
 ;
 ; servers
 ;
 ns2             IN      A       10.104.33.31
-debian7b        IN      A       10.104.33.31
+debian10b        IN      A       10.104.33.31
 testsrv         IN      A       10.104.33.31
-root@debian7b:~#</screen>
+root@debian10b:~#</screen>
 	<para>The second server also needs a zone definition in <command>named.conf.local</command>, followed by a restart of <command>bind</command>.</para>
-	<screen>root@debian7b:~# <command>cat /etc/bind/named.conf.local</command>
+	<screen>root@debian10b:~# <command>cat /etc/bind/named.conf.local</command>
 //
 // Do any local configuration here
 //
@@ -101,13 +101,13 @@ zone "test42.paul.local" IN {
         allow-update { none; };
         allow-transfer { any; };
 };
-root@debian7b:~#</screen>
+root@debian10b:~#</screen>
 	<para>Testing on the parent server:</para>
-	<screen>root@debian7:~# <command>dig ns1.paul.local +short</command>
+	<screen>root@debian10:~# <command>dig ns1.paul.local +short</command>
 10.104.33.30
-root@debian7:~# <command>dig ns2.test42.paul.local +short</command>
+root@debian10:~# <command>dig ns2.test42.paul.local +short</command>
 10.104.33.31
-root@debian7:~# <command>dig debian7b.test42.paul.local +short</command>
+root@debian10:~# <command>dig debian10b.test42.paul.local +short</command>
 10.104.33.31</screen>
 </section>
 <?hard-pagebreak?>
@@ -116,7 +116,7 @@ root@debian7:~# <command>dig debian7b.test42.paul.local +short</command>
 	<para>A <command>split-horizon</command> setup can be used to redirect people to <command>local</command> copies of certain services.</para>
 	<para>In this example we want to decide on specific answers for two networks (Jesse's and Keith's) and prevent them from using our dns server for <command>recursion</command>, while maintaining the capability to resolve the internet and our paul.local zone from our own network.</para>
 	<para>We start by creating three <command>view</command> clauses in <command>named.conf.local</command>.</para>
-	<screen>root@debian7:/etc/bind# <command>cat named.conf.local</command>
+	<screen>root@debian10:/etc/bind# <command>cat named.conf.local</command>
 view "paul" {
 match-clients { 10.104.33.0; localhost; };
 include "/etc/bind/named.conf.default-zones";
@@ -146,7 +146,7 @@ zone "paul.local" IN {
 };      // end view keith</screen>
 	<para>Note that we included the <command>default-zones</command> in the internal zone. It is mandatory to put all zones inside views when using a view.</para>
 	<para>The zone files are identical copies, except for the <command>www</command> record. You can see that the <command>round robin</command> is still active for internal users, computers from 10.104.15.0/24 (Jesse) will always receive 10.104.33.30 while computers from 10.104.42.0/24 (Keith) will receive 10.104.33.31.</para>
-	<screen>root@debian7:/etc/bind# <command>grep www db.paul.local db.paul.local.[jk]*</command>
+	<screen>root@debian10:/etc/bind# <command>grep www db.paul.local db.paul.local.[jk]*</command>
 db.paul.local:www               IN      A       10.104.33.30
 db.paul.local:www               IN      A       10.104.33.31
 db.paul.local.jesse:www         IN      A       10.104.33.30

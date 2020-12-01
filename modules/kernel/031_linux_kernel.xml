@@ -15,7 +15,7 @@
 	</section>
 	<section><title>/proc/cmdline</title>
 		<para>The parameters that were passed to the kernel at boot time are in <command>/proc/cmdline</command><indexterm><primary>/proc/cmdline</primary></indexterm>.</para>
-		<screen>paul@RHELv4u4:~$ cat /proc/cmdline 
+		<screen>paul@RHELv8u4:~$ cat /proc/cmdline 
 ro root=/dev/VolGroup00/LogVol00 rhgb quiet</screen>
 	</section>
 <?hard-pagebreak?>

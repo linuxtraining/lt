@@ -20,7 +20,7 @@ root@barry:~# ps fax | grep inet
 	<section><title>xinetd superdaemon</title>
 		<para>The <command>xinetd</command><indexterm><primary>xinetd</primary></indexterm> daemon is often called a superdaemon because it listens to a lot of incoming connections, and starts other daemons when they are needed. When a connection request is received, <command>xinetd</command> will first check TCP wrappers (/etc/hosts.allow and /etc/hosts.deny) and then give control of the connection to the other daemon. This superdaemon is configured through <command>/etc/xinetd.conf</command><indexterm><primary>/etc/xinetd.conf</primary></indexterm> and the files in the directory <command>/etc/xinetd.d</command><indexterm><primary>/etc/xinetd.d</primary></indexterm>. Let's first take a look at /etc/xinetd.conf.</para>
 		<screen>
-paul@RHELv4u2:~$ cat /etc/xinetd.conf 
+paul@RHELv8u2:~$ cat /etc/xinetd.conf 
 #
 # Simple configuration file for xinetd
 #
@@ -37,18 +37,18 @@ cps                     = 25 30
 				
 includedir /etc/xinetd.d
 				
-paul@RHELv4u2:~$ 
+paul@RHELv8u2:~$ 
 		</screen>
 		<para>According to the settings in this file, xinetd can handle 60 client requests at once. It uses the <command>authpriv</command> facility to log the host ip-address and pid of successful daemon spawns. When a service (aka protocol linked to daemon) gets more than 25 cps (connections per second), it holds subsequent requests for 30 seconds.</para>
 		<para>The directory <command>/etc/xinetd.d</command> contains more specific configuration files. Let's also take a look at one of them.</para>
 		<screen>
-paul@RHELv4u2:~$ ls /etc/xinetd.d
+paul@RHELv8u2:~$ ls /etc/xinetd.d
 amanda     chargen-udp  echo      klogin       rexec   talk
 amandaidx  cups-lpd     echo-udp  krb5-telnet  rlogin  telnet
 amidxtape  daytime      eklogin   kshell       rsh     tftp
 auth       daytime-udp  finger    ktalk        rsync   time
 chargen    dbskkd-cdb   gssftp    ntalk        swat    time-udp
-paul@RHELv4u2:~$ cat /etc/xinetd.d/swat 
+paul@RHELv8u2:~$ cat /etc/xinetd.d/swat 
 # default: off
 # description: SWAT is the Samba Web Admin Tool. Use swat \
 #              to configure your Samba server. To use SWAT, \
@@ -64,7 +64,7 @@ server          = /usr/sbin/swat
 log_on_failure  += USERID
 disable         = yes
 }
-paul@RHELv4u2:~$
+paul@RHELv8u2:~$
 		</screen>
 		<para>The services should be listed in the <command>/etc/services</command><indexterm><primary>/etc/services</primary></indexterm> file. Port determines the service port, and must be the same as the port specified in /etc/services. The <command>socket_type</command> should be set to <command>stream</command> for tcp services (and to dgram for udp). The <command>log_on_failure +=</command> concats the userid to the log message formatted in /etc/xinetd.conf. The last setting <command>disable</command> can be set to yes or no. Setting this to <command>no</command> means the service is enabled! </para>
 		<para>Check the xinetd and xinetd.conf manual pages for many more configuration options.</para>

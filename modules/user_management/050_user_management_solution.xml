@@ -1,48 +1,48 @@
 <?hard-pagebreak?>
 <section><title>solution: user management</title>
 	<para>1. Create a user account named <command>serena</command>, including a home directory and a description (or comment) that reads <command>Serena Williams</command>. Do all this in one single command.</para>
-	<screen>root@debian7:~# <command>useradd -m -c 'Serena Williams' serena</command></screen>
+	<screen>root@debian10:~# <command>useradd -m -c 'Serena Williams' serena</command></screen>
 	<para>2. Create a user named <command>venus</command>, including home directory, bash shell, a description that reads <command>Venus Williams</command> all in one single command.</para>
-	<screen>root@debian7:~# <command>useradd -m -c "Venus Williams" -s /bin/bash venus</command></screen>
+	<screen>root@debian10:~# <command>useradd -m -c "Venus Williams" -s /bin/bash venus</command></screen>
 	<para>3. Verify that both users have correct entries in <command>/etc/passwd</command>, <command>/etc/shadow</command> and <command>/etc/group</command>.</para>
-	<screen>root@debian7:~# <command>tail -2 /etc/passwd</command>
+	<screen>root@debian10:~# <command>tail -2 /etc/passwd</command>
 serena:x:1008:1010:Serena Williams:/home/serena:/bin/sh
 venus:x:1009:1011:Venus Williams:/home/venus:/bin/bash
-root@debian7:~# <command>tail -2 /etc/shadow</command>
+root@debian10:~# <command>tail -2 /etc/shadow</command>
 serena:!:16358:0:99999:7:::
 venus:!:16358:0:99999:7:::
-root@debian7:~# <command>tail -2 /etc/group</command>
+root@debian10:~# <command>tail -2 /etc/group</command>
 serena:x:1010:
 venus:x:1011:</screen>
 	<para>4. Verify that their home directory was created.</para>
-	<screen>root@debian7:~# <command>ls -lrt /home | tail -2</command>
+	<screen>root@debian10:~# <command>ls -lrt /home | tail -2</command>
 drwxr-xr-x 2 serena    serena    4096 Oct 15 10:50 serena
 drwxr-xr-x 2 venus     venus     4096 Oct 15 10:59 venus
-root@debian7:~#</screen>	
+root@debian10:~#</screen>	
 	<para>5. Create a user named <command>einstime</command> with <command>/bin/date</command> as his default logon shell.</para>
-	<screen>root@debian7:~# <command>useradd -s /bin/date einstime</command></screen>
+	<screen>root@debian10:~# <command>useradd -s /bin/date einstime</command></screen>
 <para>Or even better:</para>
-	<screen>root@debian7:~# <command>useradd -s $(which date) einstime</command></screen>
+	<screen>root@debian10:~# <command>useradd -s $(which date) einstime</command></screen>
 	<para>6. What happens when you log on with the <command>einstime</command> user ? Can you think of a useful real world example for changing a user's login shell to an application ?</para>
-	<screen>root@debian7:~# <command>su - einstime</command>
+	<screen>root@debian10:~# <command>su - einstime</command>
 Wed Oct 15 11:05:56 UTC 2014	# You get the output of the date command
-root@debian7:~#</screen>
+root@debian10:~#</screen>
 	<para>It can be useful when users need to access only one application on the server. Just logging in opens the application for them, and closing the application automatically logs them out.</para>
 <?hard-pagebreak?>
 	<para>7. Create a file named <command>welcome.txt</command> and make sure every new user will see this file in their home directory.</para>
-	<screen>root@debian7:~# <command>echo Hello > /etc/skel/welcome.txt</command></screen>
+	<screen>root@debian10:~# <command>echo Hello > /etc/skel/welcome.txt</command></screen>
 	<para>8. Verify this setup by creating (and deleting) a test user account.</para>
-	<screen>root@debian7:~# <command>useradd -m test</command>
-root@debian7:~# <command>ls -l /home/test</command>
+	<screen>root@debian10:~# <command>useradd -m test</command>
+root@debian10:~# <command>ls -l /home/test</command>
 total 4
 -rw-r--r-- 1 test test 6 Oct 15 11:16 welcome.txt
-root@debian7:~# <command>userdel -r test</command>
-root@debian7:~#</screen>
+root@debian10:~# <command>userdel -r test</command>
+root@debian10:~#</screen>
 	<para>9. Change the default login shell for the <command>serena</command> user to <command>/bin/bash</command>. Verify before and after you make this change.</para>
-	<screen>root@debian7:~# <command>grep serena /etc/passwd</command>
+	<screen>root@debian10:~# <command>grep serena /etc/passwd</command>
 serena:x:1008:1010:Serena Williams:/home/serena:/bin/sh
-root@debian7:~# <command>usermod -s /bin/bash serena</command>
-root@debian7:~# <command>grep serena /etc/passwd</command>
+root@debian10:~# <command>usermod -s /bin/bash serena</command>
+root@debian10:~# <command>grep serena /etc/passwd</command>
 serena:x:1008:1010:Serena Williams:/home/serena:/bin/bash
-root@debian7:~#</screen>
+root@debian10:~#</screen>
 </section>

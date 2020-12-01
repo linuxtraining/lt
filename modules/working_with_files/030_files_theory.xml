@@ -36,142 +36,142 @@ root@debian6~# <command>file -s /proc/cpuinfo</command>
 	<section><title>create an empty file</title>
 	<para>One easy way to create an empty file is with <command>touch</command><indexterm><primary>touch(1)</primary></indexterm>. (We will see many other ways for creating files later in this book.)</para>
 	<para>This screenshot starts with an empty directory, creates two files with <command>touch</command> and the lists those files.</para>
-	<screen>paul@debian7:~$ <command>ls -l</command>
+	<screen>paul@debian10:~$ <command>ls -l</command>
 total 0
-paul@debian7:~$ <command>touch file42</command>
-paul@debian7:~$ <command>touch file33</command>
-paul@debian7:~$ <command>ls -l</command>
+paul@debian10:~$ <command>touch file42</command>
+paul@debian10:~$ <command>touch file33</command>
+paul@debian10:~$ <command>ls -l</command>
 total 0
 -rw-r--r-- 1 paul paul 0 Oct 15 08:57 file33
 -rw-r--r-- 1 paul paul 0 Oct 15 08:56 file42
-paul@debian7:~$</screen>
+paul@debian10:~$</screen>
 	</section>
 	<section><title>touch -t</title>
 		<para>The <command>touch</command> command can set some properties while creating empty files. Can you determine what is set by looking at the next screenshot? If not, check the manual for <command>touch</command>.</para>
-		<screen>paul@debian7:~$ <command>touch -t 200505050000 SinkoDeMayo</command>
-paul@debian7:~$ <command>touch -t 130207111630 BigBattle.txt</command>
-paul@debian7:~$ <command>ls -l</command>
+		<screen>paul@debian10:~$ <command>touch -t 200505050000 SinkoDeMayo</command>
+paul@debian10:~$ <command>touch -t 130207111630 BigBattle.txt</command>
+paul@debian10:~$ <command>ls -l</command>
 total 0
 -rw-r--r-- 1 paul paul 0 Jul 11  1302 BigBattle.txt
 -rw-r--r-- 1 paul paul 0 Oct 15 08:57 file33
 -rw-r--r-- 1 paul paul 0 Oct 15 08:56 file42
 -rw-r--r-- 1 paul paul 0 May  5  2005 SinkoDeMayo
-paul@debian7:~$</screen>
+paul@debian10:~$</screen>
 	</section>
 </section>
 <?hard-pagebreak?>
 <section><title>rm</title>
 	<section><title>remove forever</title>
 	<para>When you no longer need a file, use <command>rm</command><indexterm><primary>rm</primary></indexterm> to remove it. Unlike some graphical user interfaces, the command line in general does not have a <command>waste bin</command> or <command>trash can</command> to recover files. When you use <command>rm</command> to remove a file, the file is gone. Therefore, be careful when removing files!</para>
-	<screen>paul@debian7:~$ <command>ls</command>
+	<screen>paul@debian10:~$ <command>ls</command>
 BigBattle.txt  file33  file42  SinkoDeMayo
-paul@debian7:~$ <command>rm BigBattle.txt</command>
-paul@debian7:~$ <command>ls</command>
+paul@debian10:~$ <command>rm BigBattle.txt</command>
+paul@debian10:~$ <command>ls</command>
 file33  file42  SinkoDeMayo
-paul@debian7:~$</screen>
+paul@debian10:~$</screen>
 	</section>
 	<section><title>rm -i</title>
 		<para>To prevent yourself from accidentally removing a file, you can type <command>rm -i</command>.</para>
-		<screen>paul@debian7:~$ <command>ls</command>
+		<screen>paul@debian10:~$ <command>ls</command>
 file33  file42  SinkoDeMayo
-paul@debian7:~$ <command>rm -i file33</command>
+paul@debian10:~$ <command>rm -i file33</command>
 rm: remove regular empty file `file33'? yes
-paul@debian7:~$ <command>rm -i SinkoDeMayo</command>
+paul@debian10:~$ <command>rm -i SinkoDeMayo</command>
 rm: remove regular empty file `SinkoDeMayo'? n
-paul@debian7:~$ <command>ls</command>
+paul@debian10:~$ <command>ls</command>
 file42  SinkoDeMayo
-paul@debian7:~$</screen>
+paul@debian10:~$</screen>
 	</section>
 	<section><title>rm -rf</title>
 		<para>By default, <command>rm -r</command> will not remove non-empty directories. However <command>rm</command> accepts several options that will allow you to remove any directory. The <command>rm -rf</command><indexterm><primary>rm -rf</primary></indexterm> statement is famous because it will erase anything (providing that you have the permissions to do so). When you are logged on as root, be very careful with <command>rm -rf</command> (the <command>f</command> means <command>force</command> and the <command>r</command> means <command>recursive</command>) since being root implies that permissions don't apply to you. You can literally erase your entire file system by accident.</para>
-		<screen>paul@debian7:~$ <command>mkdir test</command>
-paul@debian7:~$ <command>rm test</command>
+		<screen>paul@debian10:~$ <command>mkdir test</command>
+paul@debian10:~$ <command>rm test</command>
 rm: cannot remove `test': Is a directory
-paul@debian7:~$ <command>rm -rf test</command>
-paul@debian7:~$ <command>ls test</command>
+paul@debian10:~$ <command>rm -rf test</command>
+paul@debian10:~$ <command>ls test</command>
 ls: cannot access test: No such file or directory
-paul@debian7:~$</screen>
+paul@debian10:~$</screen>
 	</section>
 </section>
 <?hard-pagebreak?>
 <section><title>cp</title>
 	<section><title>copy one file</title>
 	<para>To copy a file, use <command>cp</command><indexterm><primary>cp</primary></indexterm> with a source and a target argument.</para>
-	<screen>paul@debian7:~$ <command>ls</command>
+	<screen>paul@debian10:~$ <command>ls</command>
 file42  SinkoDeMayo
-paul@debian7:~$ <command>cp file42 file42.copy</command>
-paul@debian7:~$ <command>ls</command>
+paul@debian10:~$ <command>cp file42 file42.copy</command>
+paul@debian10:~$ <command>ls</command>
 file42  file42.copy  SinkoDeMayo</screen>
 	</section>
 	<section><title>copy to another directory</title>
 	<para>If the target is a directory, then the source files are copied to that target directory.</para>
-	<screen>paul@debian7:~$ <command>mkdir dir42</command>
-paul@debian7:~$ <command>cp SinkoDeMayo dir42</command>
-paul@debian7:~$ <command>ls dir42/</command>
+	<screen>paul@debian10:~$ <command>mkdir dir42</command>
+paul@debian10:~$ <command>cp SinkoDeMayo dir42</command>
+paul@debian10:~$ <command>ls dir42/</command>
 SinkoDeMayo</screen>
 	</section>
 	<section><title>cp -r</title>
 		<para>To copy complete directories, use <command>cp -r</command><indexterm><primary>cp(1)</primary></indexterm> (the <command>-r</command> option forces <command>recursive</command> copying of all files in all subdirectories).</para>
-		<screen>paul@debian7:~$ <command>ls</command>
+		<screen>paul@debian10:~$ <command>ls</command>
 dir42  file42  file42.copy  SinkoDeMayo
-paul@debian7:~$ <command>cp -r dir42/ dir33</command>
-paul@debian7:~$ <command>ls</command>
+paul@debian10:~$ <command>cp -r dir42/ dir33</command>
+paul@debian10:~$ <command>ls</command>
 dir33  dir42  file42  file42.copy  SinkoDeMayo
-paul@debian7:~$ <command>ls dir33/</command>
+paul@debian10:~$ <command>ls dir33/</command>
 SinkoDeMayo</screen>
 	</section>
 	<section><title>copy multiple files to directory</title>
 		<para>You can also use cp to copy multiple files into a directory. In this case, the last argument (a.k.a. the target) must be a directory.</para>
-		<screen>paul@debian7:~$ <command>cp file42 file42.copy SinkoDeMayo dir42/</command>
-paul@debian7:~$ <command>ls dir42/</command>
+		<screen>paul@debian10:~$ <command>cp file42 file42.copy SinkoDeMayo dir42/</command>
+paul@debian10:~$ <command>ls dir42/</command>
 file42  file42.copy  SinkoDeMayo</screen>
 	</section>
 	<section><title>cp -i</title>
 		<para>To prevent <command>cp</command> from overwriting existing files, use the <command>-i</command> (for interactive) option.</para>
-		<screen>paul@debian7:~$ <command>cp SinkoDeMayo file42</command>
-paul@debian7:~$ <command>cp SinkoDeMayo file42</command>
-paul@debian7:~$ <command>cp -i SinkoDeMayo file42</command>
+		<screen>paul@debian10:~$ <command>cp SinkoDeMayo file42</command>
+paul@debian10:~$ <command>cp SinkoDeMayo file42</command>
+paul@debian10:~$ <command>cp -i SinkoDeMayo file42</command>
 cp: overwrite `file42'? <command>n</command>
-paul@debian7:~$</screen>
+paul@debian10:~$</screen>
 	</section>
 </section>
 <?hard-pagebreak?>
 <section><title>mv</title>
 <section><title>rename files with mv</title>
 	<para>Use <command>mv</command><indexterm><primary>mv</primary></indexterm> to rename a file or to move the file to another directory.</para>
-	<screen>paul@debian7:~$ <command>ls</command>
+	<screen>paul@debian10:~$ <command>ls</command>
 dir33  dir42  file42  file42.copy  SinkoDeMayo
-paul@debian7:~$ <command>mv file42 file33</command>
-paul@debian7:~$ <command>ls</command>
+paul@debian10:~$ <command>mv file42 file33</command>
+paul@debian10:~$ <command>ls</command>
 dir33  dir42  file33  file42.copy  SinkoDeMayo
-paul@debian7:~$</screen>
+paul@debian10:~$</screen>
 	<para>When you need to rename only one file then <command>mv</command> is the preferred command to use.</para>
 </section>
 <section><title>rename directories with mv</title>
 	<para>The same <command>mv</command> command can be used to rename directories.</para>
-	<screen>paul@debian7:~$ <command>ls -l</command>
+	<screen>paul@debian10:~$ <command>ls -l</command>
 total 8
 drwxr-xr-x 2 paul paul 4096 Oct 15 09:36 dir33
 drwxr-xr-x 2 paul paul 4096 Oct 15 09:36 dir42
 -rw-r--r-- 1 paul paul    0 Oct 15 09:38 file33
 -rw-r--r-- 1 paul paul    0 Oct 15 09:16 file42.copy
 -rw-r--r-- 1 paul paul    0 May  5  2005 SinkoDeMayo
-paul@debian7:~$ <command>mv dir33 backup</command>
-paul@debian7:~$ <command>ls -l</command>
+paul@debian10:~$ <command>mv dir33 backup</command>
+paul@debian10:~$ <command>ls -l</command>
 total 8
 drwxr-xr-x 2 paul paul 4096 Oct 15 09:36 backup
 drwxr-xr-x 2 paul paul 4096 Oct 15 09:36 dir42
 -rw-r--r-- 1 paul paul    0 Oct 15 09:38 file33
 -rw-r--r-- 1 paul paul    0 Oct 15 09:16 file42.copy
 -rw-r--r-- 1 paul paul    0 May  5  2005 SinkoDeMayo
-paul@debian7:~$</screen>
+paul@debian10:~$</screen>
 </section>
 <section><title>mv -i</title>
 	<para>The <command>mv</command> also has a <command>-i</command> switch similar to <command>cp</command> and <command>rm</command>.</para>
 	<para>this screenshot shows that <command>mv -i</command> will ask permission to overwrite an existing file.</para>
-<screen>paul@debian7:~$ <command>mv -i file33 SinkoDeMayo</command>
+<screen>paul@debian10:~$ <command>mv -i file33 SinkoDeMayo</command>
 mv: overwrite `SinkoDeMayo'? <command>no</command>
-paul@debian7:~$</screen>
+paul@debian10:~$</screen>
 </section>
 </section>
 <?hard-pagebreak?>
@@ -183,18 +183,18 @@ paul@debian7:~$</screen>
 	<section><title>rename on Debian/Ubuntu</title>
 		<para>The <command>rename</command><indexterm><primary>rename</primary></indexterm> command on Debian uses regular expressions (regular expression or shor regex are explained in a later chapter) to rename many files at once.</para>
 		<para>Below a <command>rename</command> example that switches all occurrences of txt to png for all file names ending in .txt.</para>
-	<screen>paul@debian7:~/test42$ <command>ls</command>
+	<screen>paul@debian10:~/test42$ <command>ls</command>
 abc.txt  file33.txt  file42.txt
-paul@debian7:~/test42$ <command>rename 's/\.txt/\.png/' *.txt</command>
-paul@debian7:~/test42$ <command>ls</command>
+paul@debian10:~/test42$ <command>rename 's/\.txt/\.png/' *.txt</command>
+paul@debian10:~/test42$ <command>ls</command>
 abc.png  file33.png  file42.png</screen>
 		<para>This second example switches all (first) occurrences of <command>file</command> into <command>document</command> for all file names ending in .png.</para>
-		<screen>paul@debian7:~/test42$ <command>ls</command>
+		<screen>paul@debian10:~/test42$ <command>ls</command>
 abc.png  file33.png  file42.png
-paul@debian7:~/test42$ <command>rename 's/file/document/' *.png</command>
-paul@debian7:~/test42$ <command>ls</command>
+paul@debian10:~/test42$ <command>rename 's/file/document/' *.png</command>
+paul@debian10:~/test42$ <command>ls</command>
 abc.png  document33.png  document42.png
-paul@debian7:~/test42$</screen>
+paul@debian10:~/test42$</screen>
 	</section>
 	<section><title>rename on CentOS/RHEL/Fedora</title>
 		<para>On Red Hat Enterprise Linux, the syntax of <command>rename</command> is a bit different. The first example below renames all *.conf files replacing any occurrence of .conf with .backup.</para>

@@ -11,7 +11,7 @@ samba-3.5.10-116.el6_2.i686</screen>
 	</section>
 	<section><title>.deb based distributions</title>
 		<para>Use <command>dpkg -l</command><indexterm><primary>dpkg</primary></indexterm> or <command>aptitide show</command><indexterm><primary>aptitude</primary></indexterm> on Debian or Ubuntu. Both Debian 7.0 (Wheezy) and Ubuntu 12.04 (Precise) use version 3.6.3 of the Samba server.</para>
-		<screen>root@debian7~# aptitude show samba | grep Version
+		<screen>root@debian10~# aptitude show samba | grep Version
 Version: 2:3.6.3-1</screen>
 		<para>Ubuntu 12.04 is currently at Samba version 3.6.3.</para>
 		<screen>root@ubu1204:~# dpkg -l samba | tail -1
@@ -29,7 +29,7 @@ ii samba 2:3.6.3-2ubuntu2.1 SMB/CIFS file, print, and login server for Unix</scr
 	</section>
 	<section><title>.deb based distributions</title>
 	<para>Ubuntu and Debian users can use the <command>aptitude</command><indexterm><primary>aptitude</primary></indexterm> program (or use a graphical tool like Synaptic).</para>
-	<screen>root@debian7~# aptitude install samba
+	<screen>root@debian10~# aptitude install samba
 The following NEW packages will be installed:
   samba samba-common{a} samba-common-bin{a} tdb-tools{a} 
 0 packages upgraded, 4 newly installed, 0 to remove and 1 not upgraded.

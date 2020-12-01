@@ -6,13 +6,13 @@
 <section><title>white space removal</title>
 	<para>Parts that are separated by one or more consecutive <command>white spaces</command><indexterm><primary>white space(shell)</primary></indexterm> (or tabs) are considered separate <command>arguments</command>, any white space is removed. The first <command>argument</command><indexterm><primary>arguments(shell)</primary></indexterm> is the command to be executed, the other <command>arguments</command> are given to the command. The shell effectively cuts your command into one or more arguments.</para>
 	<para>This explains why the following four different command lines are the same after <command>shell expansion</command><indexterm><primary>shell expansion</primary></indexterm>.</para>
-	<screen>[paul@RHELv4u3 ~]$ echo Hello World
+	<screen>[paul@RHELv8u3 ~]$ echo Hello World
 Hello World
-[paul@RHELv4u3 ~]$ echo Hello   World
+[paul@RHELv8u3 ~]$ echo Hello   World
 Hello World
-[paul@RHELv4u3 ~]$ echo   Hello   World
+[paul@RHELv8u3 ~]$ echo   Hello   World
 Hello World
-[paul@RHELv4u3 ~]$    echo      Hello      World
+[paul@RHELv8u3 ~]$    echo      Hello      World
 Hello World</screen>
 	<para>The <command>echo</command><indexterm><primary>echo</primary></indexterm> command will display each argument it receives from the shell. The <command>echo</command> command will also add a new white space between the arguments it received.</para>
 </section>
@@ -82,12 +82,12 @@ Running the external echo command...</screen>
 <section><title>aliases</title>
 	<section><title>create an alias</title>
 		<para>The shell allows you to create <command>aliases</command><indexterm><primary>alias(bash)</primary></indexterm>. Aliases are often used to create an easier to remember name for an existing command or to easily supply parameters.</para>
-		<screen>[paul@RHELv4u3 ~]$ cat count.txt 
+		<screen>[paul@RHELv8u3 ~]$ cat count.txt 
 one
 two
 three
-[paul@RHELv4u3 ~]$ alias dog=tac
-[paul@RHELv4u3 ~]$ dog count.txt 
+[paul@RHELv8u3 ~]$ alias dog=tac
+[paul@RHELv8u3 ~]$ dog count.txt 
 three
 two
 one</screen>
@@ -100,16 +100,16 @@ paul@laika:~$</screen>
 	</section>
 	<section><title>default options</title>
 		<para>Aliases can be used to supply commands with default options. The example below shows how to set the <command>-i</command> option default when typing <command>rm</command><indexterm><primary>/bin/rm</primary></indexterm>.</para>
-		<screen>[paul@RHELv4u3 ~]$ rm -i winter.txt 
+		<screen>[paul@RHELv8u3 ~]$ rm -i winter.txt 
 rm: remove regular file `winter.txt'? no
-[paul@RHELv4u3 ~]$ rm winter.txt 
-[paul@RHELv4u3 ~]$ ls winter.txt
+[paul@RHELv8u3 ~]$ rm winter.txt 
+[paul@RHELv8u3 ~]$ ls winter.txt
 ls: winter.txt: No such file or directory
-[paul@RHELv4u3 ~]$ touch winter.txt
-[paul@RHELv4u3 ~]$ alias rm='rm -i'
-[paul@RHELv4u3 ~]$ rm winter.txt 
+[paul@RHELv8u3 ~]$ touch winter.txt
+[paul@RHELv8u3 ~]$ alias rm='rm -i'
+[paul@RHELv8u3 ~]$ rm winter.txt 
 rm: remove regular empty file `winter.txt'? no
-[paul@RHELv4u3 ~]$</screen>
+[paul@RHELv8u3 ~]$</screen>
 		<para>Some distributions enable default aliases to protect users from accidentally erasing files ('rm -i', 'mv -i', 'cp -i')</para>
 	</section>
 	<section><title>viewing aliases</title>
@@ -135,18 +135,18 @@ alias rm='rm -i'
 </section>
 <section><title>displaying shell expansion</title>
 	<para>You can display shell expansion with <command>set -x</command><indexterm><primary>set -x</primary></indexterm>, and stop displaying it with <command>set +x</command><indexterm><primary>set +x</primary></indexterm>. You might want to use this further on in this course, or when in doubt about exactly what the shell is doing with your command.</para>
-		<screen>[paul@RHELv4u3 ~]$ set -x
-++ echo -ne '\033]0;paul@RHELv4u3:~\007'
-[paul@RHELv4u3 ~]$ echo $USER
+		<screen>[paul@RHELv8u3 ~]$ set -x
+++ echo -ne '\033]0;paul@RHELv8u3:~\007'
+[paul@RHELv8u3 ~]$ echo $USER
 + echo paul
 paul
-++ echo -ne '\033]0;paul@RHELv4u3:~\007'
-[paul@RHELv4u3 ~]$ echo \$USER
+++ echo -ne '\033]0;paul@RHELv8u3:~\007'
+[paul@RHELv8u3 ~]$ echo \$USER
 + echo '$USER'
 $USER
-++ echo -ne '\033]0;paul@RHELv4u3:~\007'
-[paul@RHELv4u3 ~]$ set +x
+++ echo -ne '\033]0;paul@RHELv8u3:~\007'
+[paul@RHELv8u3 ~]$ set +x
 + set +x
-[paul@RHELv4u3 ~]$ echo $USER
+[paul@RHELv8u3 ~]$ echo $USER
 paul</screen>
 </section>

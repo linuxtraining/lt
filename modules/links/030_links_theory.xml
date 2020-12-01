@@ -22,42 +22,42 @@ tmpfs                  64417       1   64416    1% /dev/shm
 	</section>
 	<section><title>inode number</title>
 		<para>Each <command>inode</command> has a unique number (the inode number). You can see the <command>inode</command> numbers with the <command>ls -li</command><indexterm><primary>ls(1)</primary></indexterm> command.</para>
-		<screen>paul@RHELv4u4:~/test$ touch file1
-paul@RHELv4u4:~/test$ touch file2
-paul@RHELv4u4:~/test$ touch file3
-paul@RHELv4u4:~/test$ ls -li
+		<screen>paul@RHELv8u4:~/test$ touch file1
+paul@RHELv8u4:~/test$ touch file2
+paul@RHELv8u4:~/test$ touch file3
+paul@RHELv8u4:~/test$ ls -li
 total 12
 817266 -rw-rw-r--  1 paul paul 0 Feb  5 15:38 file1
 817267 -rw-rw-r--  1 paul paul 0 Feb  5 15:38 file2
 817268 -rw-rw-r--  1 paul paul 0 Feb  5 15:38 file3
-paul@RHELv4u4:~/test$</screen>
+paul@RHELv8u4:~/test$</screen>
 		<para>These three files were created one after the other and got three different <command>inodes</command> (the first column). All the information you see with this <command>ls</command> command resides in the <command>inode</command>, except for the filename (which is contained in the directory).</para>
 	</section>
 	<section><title>inode and file contents</title>
 		<para> Let's put some data in one of the files.</para>
-		<screen>paul@RHELv4u4:~/test$ ls -li
+		<screen>paul@RHELv8u4:~/test$ ls -li
 total 16
 817266 -rw-rw-r--  1 paul paul  0 Feb  5 15:38 file1
 817270 -rw-rw-r--  1 paul paul 92 Feb  5 15:42 file2
 817268 -rw-rw-r--  1 paul paul  0 Feb  5 15:38 file3
-paul@RHELv4u4:~/test$ cat file2
+paul@RHELv8u4:~/test$ cat file2
 It is winter now and it is very cold.
 We do not like the cold, we prefer hot summer nights.
-paul@RHELv4u4:~/test$</screen>
+paul@RHELv8u4:~/test$</screen>
 		<para>The data that is displayed by the <command>cat</command> command is not in the <command>inode</command>, but somewhere else on the disk. The <command>inode</command> contains a pointer to that data.</para>
 	</section>
 </section>
 <section><title>about directories</title>
 	<section><title>a directory is a table</title>
 		<para>A <command>directory</command><indexterm><primary>directory</primary></indexterm> is a special kind of file that contains a table which maps filenames to inodes. Listing our current directory with <command>ls -ali</command><indexterm><primary>ls(1)</primary></indexterm> will display the contents of the directory file.</para>
-		<screen>paul@RHELv4u4:~/test$ ls -ali
+		<screen>paul@RHELv8u4:~/test$ ls -ali
 total 32
 817262 drwxrwxr-x   2 paul paul 4096 Feb  5 15:42 .
 800768 drwx------  16 paul paul 4096 Feb  5 15:42 ..
 817266 -rw-rw-r--   1 paul paul    0 Feb  5 15:38 file1
 817270 -rw-rw-r--   1 paul paul   92 Feb  5 15:42 file2
 817268 -rw-rw-r--   1 paul paul    0 Feb  5 15:38 file3
-paul@RHELv4u4:~/test$</screen>
+paul@RHELv8u4:~/test$</screen>
 	</section>
 	<section><title>. and ..</title>
 		<para>You can see five names, and the mapping to their five inodes. The dot <command>.</command><indexterm><primary>. (directory)</primary></indexterm> is a mapping to itself, and the dotdot <command>..</command><indexterm><primary>.. (directory)</primary></indexterm> is a mapping to the parent directory. The three other names are mappings to different inodes.</para>
@@ -67,19 +67,19 @@ paul@RHELv4u4:~/test$</screen>
 <section><title>hard links</title>
 	<section><title>creating hard links</title>
 		<para>When we create a <command>hard link</command><indexterm><primary>hard link</primary></indexterm> to a file with <command>ln</command><indexterm><primary>ln(1)</primary></indexterm>, an extra entry is added in the directory. A new file name is mapped to an existing inode.</para>
-		<screen>paul@RHELv4u4:~/test$ ln file2 hardlink_to_file2
-paul@RHELv4u4:~/test$ ls -li
+		<screen>paul@RHELv8u4:~/test$ ln file2 hardlink_to_file2
+paul@RHELv8u4:~/test$ ls -li
 total 24
 817266 -rw-rw-r--  1 paul paul  0 Feb  5 15:38 file1
 817270 -rw-rw-r--  2 paul paul 92 Feb  5 15:42 file2
 817268 -rw-rw-r--  1 paul paul  0 Feb  5 15:38 file3
 817270 -rw-rw-r--  2 paul paul 92 Feb  5 15:42 hardlink_to_file2
-paul@RHELv4u4:~/test$</screen>
+paul@RHELv8u4:~/test$</screen>
 		<para>Both files have the same inode, so they will always have the same permissions and the same owner. Both files will have the same content. Actually, both files are equal now, meaning you can safely remove the original file, the hardlinked file will remain. The inode contains a counter, counting the number of hard links to itself. When the counter drops to zero, then the inode is emptied.</para>
 	</section>
 	<section><title>finding hard links</title>
 		<para>You can use the <command>find</command><indexterm><primary>find(1)</primary></indexterm> command to look for files with a certain inode. The screenshot below shows how to search for all filenames that point to <command>inode</command> 817270. Remember that an <command>inode</command><indexterm><primary>inode</primary></indexterm> number is unique to its partition.</para>
-		<screen>paul@RHELv4u4:~/test$ find / -inum 817270 2> /dev/null
+		<screen>paul@RHELv8u4:~/test$ find / -inum 817270 2> /dev/null
 /home/paul/test/file2
 /home/paul/test/hardlink_to_file2</screen>
 	</section>
@@ -87,15 +87,15 @@ paul@RHELv4u4:~/test$</screen>
 <?hard-pagebreak?>
 <section><title>symbolic links</title>
 	<para>Symbolic links (sometimes called <command>soft links</command><indexterm><primary>soft link</primary></indexterm>) do not link to inodes, but create a name to name mapping. Symbolic links are created with <command>ln -s</command><indexterm><primary>ln</primary></indexterm>. As you can see below, the <command>symbolic link</command><indexterm><primary>symbolic link</primary></indexterm> gets an inode of its own.</para>
-	<screen>paul@RHELv4u4:~/test$ ln -s file2 symlink_to_file2
-paul@RHELv4u4:~/test$ ls -li
+	<screen>paul@RHELv8u4:~/test$ ln -s file2 symlink_to_file2
+paul@RHELv8u4:~/test$ ls -li
 total 32
 817273 -rw-rw-r--  1 paul paul  13 Feb  5 17:06 file1
 817270 -rw-rw-r--  2 paul paul 106 Feb  5 17:04 file2
 817268 -rw-rw-r--  1 paul paul   0 Feb  5 15:38 file3
 817270 -rw-rw-r--  2 paul paul 106 Feb  5 17:04 hardlink_to_file2
 817267 lrwxrwxrwx  1 paul paul   5 Feb  5 16:55 symlink_to_file2 -> file2
-paul@RHELv4u4:~/test$</screen>
+paul@RHELv8u4:~/test$</screen>
 	<para>Permissions on a symbolic link have no meaning, since the permissions of the target apply. Hard links are limited to their own partition (because they point to an inode), symbolic links can link anywhere (other file systems, even networked).</para>	
 </section>
 <section><title>removing links</title>

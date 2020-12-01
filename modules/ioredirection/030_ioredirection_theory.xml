@@ -13,56 +13,56 @@
 		<para><command>stdout</command> can be redirected with a <command>greater than</command> sign. While scanning the line, the shell will see the <command>&#062;</command><indexterm><primary>&#062;</primary></indexterm> sign and will clear the file.</para>
 		<para><mediaobject><imageobject><imagedata fileref="images/bash_output_redirection.png" format="PNG" align="center"></imagedata></imageobject></mediaobject></para>
 		<para>The <command>&#062;</command> notation is in fact the abbreviation of <command>1&#062;</command> (<command>stdout</command> being referred to as stream <command>1</command>).</para>
-		<screen>[paul@RHELv4u3 ~]$ echo It is cold today!
+		<screen>[paul@RHELv8u3 ~]$ echo It is cold today!
 It is cold today!
-[paul@RHELv4u3 ~]$ echo It is cold today! &#062; winter.txt
-[paul@RHELv4u3 ~]$ cat winter.txt 
+[paul@RHELv8u3 ~]$ echo It is cold today! &#062; winter.txt
+[paul@RHELv8u3 ~]$ cat winter.txt 
 It is cold today!
-[paul@RHELv4u3 ~]$</screen>
+[paul@RHELv8u3 ~]$</screen>
 		<para>Note that the bash shell effectively <command>removes</command> the redirection from the command line before argument 0 is executed. This means that in the case of this command:</para>
 		<screen>echo hello > greetings.txt</screen>
 		<para>the shell only counts two arguments (echo = argument 0, hello = argument 1). The redirection is removed before the argument counting takes place.</para>
 	</section>
 	<section><title>output file is erased</title>
 		<para>While scanning the line, the shell will see the &#062; sign and <command>will clear the file</command>! Since this happens before resolving <command>argument 0</command>, this means that even when the command fails, the file will have been cleared!</para>
-		<screen>[paul@RHELv4u3 ~]$ cat winter.txt 
+		<screen>[paul@RHELv8u3 ~]$ cat winter.txt 
 It is cold today!
-[paul@RHELv4u3 ~]$ zcho It is cold today! &#062; winter.txt
+[paul@RHELv8u3 ~]$ zcho It is cold today! &#062; winter.txt
 -bash: zcho: command not found
-[paul@RHELv4u3 ~]$ cat winter.txt 
-[paul@RHELv4u3 ~]$</screen>
+[paul@RHELv8u3 ~]$ cat winter.txt 
+[paul@RHELv8u3 ~]$</screen>
 	</section>
 <?hard-pagebreak?>
 	<section><title>noclobber</title>
 		<para>Erasing a file while using &#062; can be prevented by setting the <command>noclobber</command><indexterm><primary>noclobber</primary></indexterm> option.</para>
-		<screen>[paul@RHELv4u3 ~]$ cat winter.txt 
+		<screen>[paul@RHELv8u3 ~]$ cat winter.txt 
 It is cold today!
-[paul@RHELv4u3 ~]$ set -o noclobber
-[paul@RHELv4u3 ~]$ echo It is cold today! &#062; winter.txt
+[paul@RHELv8u3 ~]$ set -o noclobber
+[paul@RHELv8u3 ~]$ echo It is cold today! &#062; winter.txt
 -bash: winter.txt: cannot overwrite existing file
-[paul@RHELv4u3 ~]$ set +o noclobber
-[paul@RHELv4u3 ~]$</screen>
+[paul@RHELv8u3 ~]$ set +o noclobber
+[paul@RHELv8u3 ~]$</screen>
 	</section>
 	<section><title>overruling noclobber</title>
 		<para>The <command>noclobber</command> can be overruled with <command>&#062;|</command><indexterm><primary>&#062;|</primary></indexterm>.</para>
-		<screen>[paul@RHELv4u3 ~]$ set -o noclobber
-[paul@RHELv4u3 ~]$ echo It is cold today! &#062; winter.txt
+		<screen>[paul@RHELv8u3 ~]$ set -o noclobber
+[paul@RHELv8u3 ~]$ echo It is cold today! &#062; winter.txt
 -bash: winter.txt: cannot overwrite existing file
-[paul@RHELv4u3 ~]$ echo It is very cold today! &#062;| winter.txt
-[paul@RHELv4u3 ~]$ cat winter.txt 
+[paul@RHELv8u3 ~]$ echo It is very cold today! &#062;| winter.txt
+[paul@RHELv8u3 ~]$ cat winter.txt 
 It is very cold today!
-[paul@RHELv4u3 ~]$</screen>
+[paul@RHELv8u3 ~]$</screen>
 	</section>
 	<section><title>&#062;&#062; append</title>
 		<para>Use <command>&#062;&#062;</command><indexterm><primary>&#062;&#062;</primary></indexterm> to <command>append</command> output to a file.</para>
-		<screen>[paul@RHELv4u3 ~]$ echo It is cold today! &#062; winter.txt
-[paul@RHELv4u3 ~]$ cat winter.txt 
+		<screen>[paul@RHELv8u3 ~]$ echo It is cold today! &#062; winter.txt
+[paul@RHELv8u3 ~]$ cat winter.txt 
 It is cold today!
-[paul@RHELv4u3 ~]$ echo Where is the summer ? &#062;&#062; winter.txt
-[paul@RHELv4u3 ~]$ cat winter.txt 
+[paul@RHELv8u3 ~]$ echo Where is the summer ? &#062;&#062; winter.txt
+[paul@RHELv8u3 ~]$ cat winter.txt 
 It is cold today!
 Where is the summer ?
-[paul@RHELv4u3 ~]$</screen>
+[paul@RHELv8u3 ~]$</screen>
 	</section>
 </section>
 <?hard-pagebreak?>
@@ -71,13 +71,13 @@ Where is the summer ?
 		<para>Redirecting <command>stderr</command> is done with <command>2&#062;</command><indexterm><primary>2&#062;</primary></indexterm>. This can be very useful to prevent error messages from cluttering your screen.</para>
 		<para><mediaobject><imageobject><imagedata fileref="images/bash_error_redirection.png" format="PNG" align="center"></imagedata></imageobject></mediaobject></para>
 		<para>The screenshot below shows redirection of <command>stdout</command> to a file, and <command>stderr</command> to <command>/dev/null</command><indexterm><primary>/dev/null</primary></indexterm>. Writing <command>1&#062;</command><indexterm><primary>1&#062;</primary></indexterm> is the same as &#062;.</para>
-		<screen>[paul@RHELv4u3 ~]$ find / &#062; allfiles.txt 2&#062; /dev/null
-[paul@RHELv4u3 ~]$</screen>
+		<screen>[paul@RHELv8u3 ~]$ find / &#062; allfiles.txt 2&#062; /dev/null
+[paul@RHELv8u3 ~]$</screen>
 	</section>
 	<section><title>2&#062;&#038;1</title>
 		<para>To redirect both <command>stdout</command> and <command>stderr</command> to the same file, use <command>2>&#038;1</command><indexterm><primary>2>&#038;1</primary></indexterm>.</para>
-		<screen>[paul@RHELv4u3 ~]$ find / &#062; allfiles_and_errors.txt 2&#062;&#038;1
-[paul@RHELv4u3 ~]$</screen>
+		<screen>[paul@RHELv8u3 ~]$ find / &#062; allfiles_and_errors.txt 2&#062;&#038;1
+[paul@RHELv8u3 ~]$</screen>
 		<para>Note that the order of redirections is significant. For example, the command</para>
 		<screen>ls > dirlist 2>&amp;1</screen>
 		<para>directs both standard output (file descriptor 1) and standard error (file descriptor 2) to the file dirlist, while the command</para>
@@ -88,33 +88,33 @@ Where is the summer ?
 <?hard-pagebreak?>
 <section><title>output redirection and pipes</title>
 	<para>By default you cannot grep inside <command>stderr</command> when using pipes on the command line, because only <command>stdout</command> is passed.</para>
-	<screen>paul@debian7:~$ rm file42 file33 file1201 | grep file42
+	<screen>paul@debian10:~$ rm file42 file33 file1201 | grep file42
 rm: cannot remove ‘file42’: No such file or directory
 rm: cannot remove ‘file33’: No such file or directory
 rm: cannot remove ‘file1201’: No such file or directory</screen>
 	<para>With <command>2&#062;&#038;1</command> you can force <command>stderr</command> to go to <command>stdout</command>. This enables the next command in the pipe to act on both streams.</para>
-	<screen>paul@debian7:~$ rm file42 file33 file1201 2>&#038;1 | grep file42
+	<screen>paul@debian10:~$ rm file42 file33 file1201 2>&#038;1 | grep file42
 rm: cannot remove ‘file42’: No such file or directory</screen>
 	<para>You cannot use both <command>1&#062;&#038;2</command> and <command>2&#062;&#038;1</command> to switch <command>stdout</command> and <command>stderr</command>.</para>
-	<screen>paul@debian7:~$ rm file42 file33 file1201 2>&#038;1 1>&#038;2 | grep file42
+	<screen>paul@debian10:~$ rm file42 file33 file1201 2>&#038;1 1>&#038;2 | grep file42
 rm: cannot remove ‘file42’: No such file or directory
-paul@debian7:~$ echo file42 2>&#038;1 1>&#038;2 | sed 's/file42/FILE42/' 
+paul@debian10:~$ echo file42 2>&#038;1 1>&#038;2 | sed 's/file42/FILE42/' 
 FILE42</screen>
 	<para>You need a third stream to switch stdout and stderr after a pipe symbol.</para>
-	<screen>paul@debian7:~$ echo file42 3>&#038;1 1>&#038;2 2>&#038;3 | sed 's/file42/FILE42/' 
+	<screen>paul@debian10:~$ echo file42 3>&#038;1 1>&#038;2 2>&#038;3 | sed 's/file42/FILE42/' 
 file42
-paul@debian7:~$ rm file42 3>&#038;1 1>&#038;2 2>&#038;3 | sed 's/file42/FILE42/' 
+paul@debian10:~$ rm file42 3>&#038;1 1>&#038;2 2>&#038;3 | sed 's/file42/FILE42/' 
 rm: cannot remove ‘FILE42’: No such file or directory</screen>
 </section>
 <section><title>joining stdout and stderr</title>
 	<para>The <command>&#038;></command> construction will put both <command>stdout</command> and <command>stderr</command> in one stream (to a file).</para>
-<screen>paul@debian7:~$ rm file42 &#038;> out_and_err
-paul@debian7:~$ cat out_and_err 
+<screen>paul@debian10:~$ rm file42 &#038;> out_and_err
+paul@debian10:~$ cat out_and_err 
 rm: cannot remove ‘file42’: No such file or directory
-paul@debian7:~$ echo file42 &#038;> out_and_err
-paul@debian7:~$ cat out_and_err 
+paul@debian10:~$ echo file42 &#038;> out_and_err
+paul@debian10:~$ cat out_and_err 
 file42
-paul@debian7:~$ </screen>
+paul@debian10:~$ </screen>
 </section>
 <?hard-pagebreak?>
 <section><title>input redirection</title>
