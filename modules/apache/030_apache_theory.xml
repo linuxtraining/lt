@@ -862,7 +862,7 @@ To activate the new configuration, you need to run:
 root@debian10:/var/www/choochoos# service apache2 restart
 Restarting web server: apache2 ... waiting .</screen>
 <para>Chances are your browser will warn you about the self signed certificate.</para>
-	<para><mediaobject><imageobject><imagedata fileref="images/apache_selfsigned.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+	<para><mediaobject><imageobject><imagedata fileref="../../images/apache_selfsigned.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 	</section>
 <?hard-pagebreak?>
 <section><title>self signed cert on RHEL/CentOS</title>
@@ -939,5 +939,5 @@ index.html
 Stopping httpd:                                            [  OK  ]
 Starting httpd:                                            [  OK  ]</screen>
 <para>And your browser will probably warn you that this certificate is self signed.</para>
-	<para><mediaobject><imageobject><imagedata fileref="images/apache_selfsigned_centos.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+	<para><mediaobject><imageobject><imagedata fileref="../images/apache_selfsigned_centos.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 </section>

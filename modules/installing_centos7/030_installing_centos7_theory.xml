@@ -2,13 +2,13 @@
 <section><title>download a CentOS 7 image</title>
 <para>This demonstration uses a laptop computer with <command>Virtualbox</command> to install <command>CentOS 7</command> as a virtual machine. The first task is to download an <command>.iso</command> image of <command>CentOS 7</command>.</para>
 <para>The <command>CentOS 7</command> website looks like this today (November 2014). They change the look regularly, so it may look different when you visit it.</para>
-<para><mediaobject><imageobject><imagedata fileref="images/centos8_downloadpage.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para><mediaobject><imageobject><imagedata fileref="../images/centos8_downloadpage.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <para>You can download a full DVD, which allows for an off line installation of a graphical <command>CentOS 7</command> desktop. You can select this because it should be easy and complete, and should get you started with a working <command>CentOS 7</command> virtual machine.</para>
 <?hard-pagebreak?>
 <para>But I clicked instead on 'alternative downloads', selected <command>CentOS 7</command> and <command>x86_64</command> and ended up on a <command>mirror list</command>. Each mirror is a server that contains copies of <command>CentOS 7</command> media. I selected a Belgian mirror because I currently am in Belgium.</para>
-<para><mediaobject><imageobject><imagedata fileref="images/centos8_mirror.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para><mediaobject><imageobject><imagedata fileref="../images/centos8_mirror.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <para>There is again the option for full DVD's and more. This demonstration will use the <command>minimal</command> .iso file, because it is much smaller in size. The download takes a couple of minutes.</para>
-<para><mediaobject><imageobject><imagedata fileref="images/centos8_downloading.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para><mediaobject><imageobject><imagedata fileref="../images/centos8_downloading.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <para>Verify the size of the file after download to make sure it is complete. Probably a right click on the file and selecting 'properties' (if you use Windows or Mac OSX).</para>
 <para>I use Linux on the laptop already:</para>
 <screen>paul@debian8:~$ <command>ls -lh CentOS-7.0-1406-x86_64-Minimal.iso</command>
@@ -18,41 +18,41 @@
 <?hard-pagebreak?>
 <section><title>Virtualbox</title>
 <para>This screenshot shows up when I start Virtualbox. I already have four virtual machines, you might have none.</para>
-<para><mediaobject><imageobject><imagedata fileref="images/centos8_novm.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para><mediaobject><imageobject><imagedata fileref="../images/centos8_novm.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <para>Below are the steps for creating a new virtual machine. Start by clicking <command>New</command> and give your machine a name (I chose <command>server33</command>). Click <command>Next</command>.</para>
-<para><mediaobject><imageobject><imagedata fileref="images/centos8_name.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para><mediaobject><imageobject><imagedata fileref="../images/centos8_name.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <?hard-pagebreak?>
 <para>A Linux computer without graphical interface will run fine on <command>half a gigabyte</command> of RAM.</para>
-<para><mediaobject><imageobject><imagedata fileref="images/centos8_mem.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para><mediaobject><imageobject><imagedata fileref="../images/centos8_mem.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <para>A Linux virtual machine will need a <command>virtual hard drive</command>.</para>
-<para><mediaobject><imageobject><imagedata fileref="images/centos8_createdisk.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para><mediaobject><imageobject><imagedata fileref="../images/centos8_createdisk.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <?hard-pagebreak?>
 <para>Any format will do for our purpose, so I left the default <command>vdi</command>.</para>
-<para><mediaobject><imageobject><imagedata fileref="images/centos8_vdi.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para><mediaobject><imageobject><imagedata fileref="../images/centos8_vdi.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <para>The default <command>dynamically allocated</command> type will save disk space (until we fill the virtual disk up to 100 percent). It makes the virtual machine a bit slower than <command>fixed size</command>, but the <command>fixed size</command> speed improvement is not worth it for our purpose.</para>
-<para><mediaobject><imageobject><imagedata fileref="images/centos8_dynamic.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para><mediaobject><imageobject><imagedata fileref="../images/centos8_dynamic.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <?hard-pagebreak?>
 <para>The name of the virtual disk file on the host computer will be <command>server33.vdi</command> in my case (I left it default and it uses the vm name). Also 16 GB should be enough to practice Linux. The file will stay much smaller than 16GB, unless you copy a lot of files to the virtual machine.</para>
-<para><mediaobject><imageobject><imagedata fileref="images/centos8_disksize.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para><mediaobject><imageobject><imagedata fileref="../images/centos8_disksize.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <para>You should now be back to the start screen of <command>Virtualbox</command>. If all went well, then you should see the machine you just created in the list.</para>
-<para><mediaobject><imageobject><imagedata fileref="images/centos8_vmok.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para><mediaobject><imageobject><imagedata fileref="../images/centos8_vmok.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <?hard-pagebreak?>
 <para>After finishing the setup, we go into the <command>Settings</command> of our virtual machine and attach the <command>.iso</command> file we downloaded before. Below is the default screenshot.</para>
-<para><mediaobject><imageobject><imagedata fileref="images/centos8_nocd.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para><mediaobject><imageobject><imagedata fileref="../images/centos8_nocd.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <para>This is a screenshot with the <command>.iso</command> file properly attached.</para>
-<para><mediaobject><imageobject><imagedata fileref="images/centos8_cdiso.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para><mediaobject><imageobject><imagedata fileref="../images/centos8_cdiso.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 </section>
 <?hard-pagebreak?>
 <section><title>CentOS 7 installing</title>
 <para>The screenshots below will show every step from starting the virtual machine for the first time (with the .iso file attached) until the first logon.</para>
 <para>You should see this when booting, otherwise verify the attachment of the .iso file form the previous steps. Select <command>Test this media and install CentOS 7</command>.</para>
-<para><mediaobject><imageobject><imagedata fileref="images/a_install.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para><mediaobject><imageobject><imagedata fileref="../images/a_install.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <?hard-pagebreak?>
 <para>Carefully select the language in which you want your <command>CentOS</command>. I always install operating systems in English, even though my native language is not English.</para>
 <para>Also select the right keyboard, mine is a US qwerty, but yours may be different.</para>
-<para><mediaobject><imageobject><imagedata fileref="images/b_install_language.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para><mediaobject><imageobject><imagedata fileref="../images/b_install_language.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <para>You should arrive at a summary page (with one or more warnings).</para>
-<para><mediaobject><imageobject><imagedata fileref="images/c_install_summary.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para><mediaobject><imageobject><imagedata fileref="../images/c_install_summary.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <?hard-pagebreak?>
 <para>Start by configuring the network. During this demonstration I had a DHCP server running at 192.168.1.42, yours is probably different. Ask someone (a network administator ?) for help if this step fails.</para>
 <para><mediaobject><imageobject><imagedata fileref="images/d_install_network.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
@@ -65,7 +65,7 @@
 <para><mediaobject><imageobject><imagedata fileref="images/g_install_mirrorok.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <?hard-pagebreak?>
 <para>I did not select any software here (because I want to show it all in this training).</para>
-<para><mediaobject><imageobject><imagedata fileref="images/h_install_nosoftsel.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para><mediaobject><imageobject><imagedata fileref="../images/h_install_nosoftsel.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <para>After configuring network, location, software and all, you should be back on this page. Make sure there are no warnings anymore (and that you made the correct choice everywhere).</para>
 <para><mediaobject><imageobject><imagedata fileref="images/i_install_go.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <?hard-pagebreak?>

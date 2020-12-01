@@ -61,18 +61,18 @@
 <para>Download Debian here:</para>
 <para><mediaobject><imageobject><imagedata fileref="images/debian8.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <para>After a couple of clicks on that website, I ended up downloading <command>Debian 8</command> (testing) here. It should be only one click once <command>Debian 8</command> is released (somewhere in 2015).</para>
-<para><mediaobject><imageobject><imagedata fileref="images/debian8_ftp.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para><mediaobject><imageobject><imagedata fileref="../images/debian10_ftp.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <para>You have many other options to download and install <command>Debian</command>. We will discuss them much later.</para>
 <para>This small screenshot shows the downloading of a <command>netinst</command> .iso file. Most of the software will be downloaded during the installation. This also means that you will have the most recent version of all packages when the install is finished.</para>
-<para><mediaobject><imageobject><imagedata fileref="images/debian8_isodown.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para><mediaobject><imageobject><imagedata fileref="../images/debian10_isodown.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <para>I already have Debian 8 installed on my laptop (hence the <command>paul@debian8</command> prompt). Anyway, this is the downloaded file just before starting the installation.</para>
 <screen>paul@debian8:~$ <command>ls -hl debian-testing-amd64-netinst.iso</command>
 -rw-r--r-- 1 paul paul 231M Nov 10 17:59 debian-testing-amd64-netinst.iso</screen>
 <?hard-pagebreak?>
 <para>Create a new virtualbox machine (I already have five, you might have zero for now). Click the <command>New</command> button to start a wizard that will help you create a virtual machine.</para>
-<para><mediaobject><imageobject><imagedata fileref="images/debian8_vb.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para><mediaobject><imageobject><imagedata fileref="../images/debian10_vb.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <para>The machine needs a name, this screenshot shows that I named it <command>server42</command>.</para>
-<para><mediaobject><imageobject><imagedata fileref="images/debian8_vb2.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para><mediaobject><imageobject><imagedata fileref="../images/debian10_vb2.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <?hard-pagebreak?>
 <para>Most of the defaults in Virtualbox are ok.</para>
 <para>512MB of RAM is enough to practice all the topics in this book.</para>
@@ -83,64 +83,64 @@
 <para>Choosing <command>dynamically allocated</command> will save you some disk space (for a small performance hit).</para>
 <para><mediaobject><imageobject><imagedata fileref="images/centos8_dynamic.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <para>8GB should be plenty for learning about Linux servers.</para>
-<para><mediaobject><imageobject><imagedata fileref="images/debian8_disksize.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para><mediaobject><imageobject><imagedata fileref="../images/debian10_disksize.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <para>This finishes the wizard. You virtual machine is almost ready to begin the installation.</para>
 <?hard-pagebreak?>
 <para>First, make sure that you attach the downloaded .iso image to the virtual CD drive. (by opening <command>Settings</command>, <command>Storage</command> followed by a mouse click on the round CD icon)</para>
-<para><mediaobject><imageobject><imagedata fileref="images/debian8_iso.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para><mediaobject><imageobject><imagedata fileref="../images/debian10_iso.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <para>Personally I also disable sound and usb, because I never use these features. I also remove the floppy disk and use a PS/2 mouse pointer. This is probably not very important, but I like the idea that it saves some resources.</para>
 <para>Now boot the virtual machine and begin the actual installation. After a couple of seconds you should see a screen similar to this. Choose <command>Install</command> to begin the installation of Debian.</para>
-<para><mediaobject><imageobject><imagedata fileref="images/debian8_start_install.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para><mediaobject><imageobject><imagedata fileref="../images/debian10_start_install.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <?hard-pagebreak?>
 <para>First select the language you want to use.</para>
-<para><mediaobject><imageobject><imagedata fileref="images/debian8_inst1.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para><mediaobject><imageobject><imagedata fileref="../images/debian10_inst1.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <para>Choose your country. This information will be used to suggest a download mirror.</para>
-<para><mediaobject><imageobject><imagedata fileref="images/debian8_inst2_country.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para><mediaobject><imageobject><imagedata fileref="../images/debian10_inst2_country.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <?hard-pagebreak?>
 <para>Choose the correct keyboard. On servers this is of no importance since most servers are remotely managed via <command>ssh</command>.</para>
-<para><mediaobject><imageobject><imagedata fileref="images/debian8_inst3_keyb.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para><mediaobject><imageobject><imagedata fileref="../images/debian10_inst3_keyb.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <para>Enter a <command>hostname</command> (with <command>fqdn</command> to set a <command>dnsdomainname</command>).</para>
-<para><mediaobject><imageobject><imagedata fileref="images/debian8_inst4_hostname.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para><mediaobject><imageobject><imagedata fileref="../images/debian10_inst4_hostname.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <?hard-pagebreak?>
 <para>Give the <command>root</command> user a password. Remember this password (or use <command>hunter2</command>).</para>
-<para><mediaobject><imageobject><imagedata fileref="images/debian8_inst5_rootpw.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para><mediaobject><imageobject><imagedata fileref="../images/debian10_inst5_rootpw.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <para>It is adviced to also create a normal user account. I don't give my full name, Debian 8 accepts an identical username and full name <command>paul</command>.</para>
-<para><mediaobject><imageobject><imagedata fileref="images/debian8_inst5_newuser.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para><mediaobject><imageobject><imagedata fileref="../images/debian10_inst5_newuser.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <?hard-pagebreak?>
 <para>The <command>use entire disk</command> refers to the <command>virtual disk</command> that you created before in <command>Virtualbox</command>..</para>
-<para><mediaobject><imageobject><imagedata fileref="images/debian8_inst6_disk.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para><mediaobject><imageobject><imagedata fileref="../images/debian10_inst6_disk.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <para>Again the default is probably what you want. Only change partitioning if you really know what you are doing.</para>
-<para><mediaobject><imageobject><imagedata fileref="images/debian8_inst7_partition.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para><mediaobject><imageobject><imagedata fileref="../images/debian10_inst7_partition.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <?hard-pagebreak?>
 <para>Accept the partition layout (again only change if you really know what you are doing).</para>
-<para><mediaobject><imageobject><imagedata fileref="images/debian8_inst8_ponr.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para><mediaobject><imageobject><imagedata fileref="../images/debian10_inst8_ponr.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <para>This is the point of no return, the magical moment where pressing <command>yes</command> will forever erase data on the (virtual) computer.</para>
-<para><mediaobject><imageobject><imagedata fileref="images/debian8_inst8_ponr2.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para><mediaobject><imageobject><imagedata fileref="../images/debian10_inst8_ponr2.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <?hard-pagebreak?>
 <para>Software is downloaded from a mirror repository, preferably choose one that is close by (as in the same country).</para>
-<para><mediaobject><imageobject><imagedata fileref="images/debian8_inst9_mirror.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para><mediaobject><imageobject><imagedata fileref="../images/debian10_inst9_mirror.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <para>This setup was done in Belgium.</para>
-<para><mediaobject><imageobject><imagedata fileref="images/debian8_inst9_mirror2.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para><mediaobject><imageobject><imagedata fileref="../images/debian10_inst9_mirror2.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <?hard-pagebreak?>
 <para>Leave the proxy field empty (unless you are sure that you are behind a proxy server).</para>
-<para><mediaobject><imageobject><imagedata fileref="images/debian8_insta_proxy.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para><mediaobject><imageobject><imagedata fileref="../images/debian10_insta_proxy.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <para>Choose whether you want to send anonymous statistics to the Debian project (it gathers data about installed packages). You can view the statistics here <command>http://popcon.debian.org/</command>.</para>
-<para><mediaobject><imageobject><imagedata fileref="images/debian8_instb_stats.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para><mediaobject><imageobject><imagedata fileref="../images/debian10_instb_stats.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <?hard-pagebreak?>
 <para>Choose what software to install, we do not need any graphical stuff for this training.</para>
-<para><mediaobject><imageobject><imagedata fileref="images/debian8_instc_soft.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para><mediaobject><imageobject><imagedata fileref="../images/debian10_instc_soft.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <para>The latest versions are being downloaded.</para>
-<para><mediaobject><imageobject><imagedata fileref="images/debian8_instd_retr.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para><mediaobject><imageobject><imagedata fileref="../images/debian10_instd_retr.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <?hard-pagebreak?>
 <para>Say yes to install the bootloader on the virtual machine.</para>
-<para><mediaobject><imageobject><imagedata fileref="images/debian8_inste_grub.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para><mediaobject><imageobject><imagedata fileref="../images/debian10_inste_grub.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <para>Booting for the first time shows the grub screen</para>
-<para><mediaobject><imageobject><imagedata fileref="images/debian8_grubboot.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para><mediaobject><imageobject><imagedata fileref="../images/debian10_grubboot.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <?hard-pagebreak?>
 <para>A couple seconds later you should see a lot of text scrolling of the screen (<command>dmesg</command>). After which you are presented with this <command>getty</command> and are allowed your first logon.</para>
-<para><mediaobject><imageobject><imagedata fileref="images/debian8_getty.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para><mediaobject><imageobject><imagedata fileref="../images/debian10_getty.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <para>You should now be able to log on to your virtual machine with the <command>root</command> account. Do you remember the password ? Was it <command>hunter2</command> ?</para>
-<para><mediaobject><imageobject><imagedata fileref="images/debian8_firstlogon.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para><mediaobject><imageobject><imagedata fileref="../images/debian10_firstlogon.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <para>The screenshots in this book will look like this from now on. You can just type those commands in the terminal (after you logged on).</para>
 <screen>root@server42:~# <command>who am i</command>
 root     tty1         2014-11-10 18:21
@@ -171,7 +171,7 @@ lo        Link encap:Local Loopback
           TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
           collisions:0 txqueuelen:0
           RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)</screen>
-<para><mediaobject><imageobject><imagedata fileref="images/debian8_bridge.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para><mediaobject><imageobject><imagedata fileref="../images/debian10_bridge.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <para>By shutting down the network interface and enabling it again, we force Debian to renew an ip address from the bridged network.</para>
 <screen>root@server42:~# <command># do not run ifdown while connected over ssh!</command>
 root@server42:~# <command>ifdown eth0</command>

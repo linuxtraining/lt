@@ -76,7 +76,7 @@ other::r--
 <?hard-pagebreak?>
 	<section><title>eiciel</title>
 		<para>Desktop users might want to use <command>eiciel</command><indexterm><primary>eiciel</primary></indexterm> to manage <command>acls</command><indexterm><primary>acl</primary></indexterm> with a graphical tool.</para>
-		<mediaobject><imageobject><imagedata fileref="images/eiciel_acls.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>			
+		<mediaobject><imageobject><imagedata fileref="../images/eiciel_acls.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>			
 		<para>You will need to install <command>eiciel</command> and <command>nautilus-actions</command> to have an extra tab in <command>nautilus</command> to manage <command>acls</command>.</para>
 		<screen>
 paul@laika:~$ sudo aptitude install eiciel nautilus-actions
