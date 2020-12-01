@@ -329,6 +329,7 @@ build_xml() {
 	BOOKTITLE2=$(echo $BOOKTITLE | sed -e 's/\ /\_/g' -e 's@/@-@g' )
 	filename=$BOOKTITLE2-$VERSIONSTRING-$DATECODE
 	xmlfile=$OUTPUTDIR/$filename.xml
+	tmp_xmlfile=$OUTPUTDIR/$filename.tmp.xml
 	pdffile=$OUTPUTDIR/$filename.pdf
 	headerfile=$OUTPUTDIR/section_header.xml
 	footerfile=$OUTPUTDIR/section_footer.xml
@@ -353,14 +354,19 @@ build_xml() {
 	}
 
 build_pdf() {
+	set -x
 	validate_dependencies
 	set_xsl
 	set_JAVA
 	echo 
 	echo "---------------------------------"
 	echo "Generating $pdffile"
-	eval $(echo fop -xml $xmlfile -xsl $XSLFILE -pdf $pdffile $EXECDEBUG) >&2
+	tail -n +2 $xmlfile > $tmp_xmlfile
+	eval $(echo fop -xml $tmp_xmlfile -xsl $XSLFILE -pdf $pdffile ) >&2
+	#eval $(echo fop -xml $tmp_xmlfile -xsl $XSLFILE -pdf $pdffile $EXECDEBUG) >&2
+	#fop -xml $tmp_xmlfile -xsl $XSLFILE -pdf $pdffile 
 	ln -s $V $filename.xml $OUTPUTDIR/book.pdf
+	set +x
 	echo "---------------------------------"
 	}
 
@@ -475,4 +481,3 @@ case "$command" in
 	;;
 	
 esac
-
