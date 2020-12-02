@@ -6,11 +6,12 @@
 		<para>Just like in every programming course, we start with a simple <command>hello_world</command> script. The following script will output <command>Hello World</command>.</para>
 		<screen>echo Hello World</screen>
 		<para>After creating this simple script in <command>vi</command> or with <command>echo</command>, you'll have to <command>chmod +x hello_world</command><indexterm><primary>chmod +x</primary></indexterm> to make it executable. And unless you add the scripts directory to your path, you'll have to type the path to the script for the shell to be able to find it.</para>
-		<screen>[paul@RHEL4a ~]$ echo echo Hello World > hello_world
-[paul@RHEL4a ~]$ chmod +x hello_world 
-[paul@RHEL4a ~]$ ./hello_world 
+		<screen>[paul@RHEL8a ~]$ echo echo Hello World > hello_world
+[paul@RHEL8a ~]$ chmod +x hello_world 
+[paul@RHEL8a ~]$ ./hello_world 
 Hello World
-[paul@RHEL4a ~]$</screen>
+[paul@RHEL8a ~]$
+</screen>
 	</section>
 	<section><title>she-bang</title>
 		<para>Let's expand our example a little further by putting <command>#!/bin/bash</command> on the first line of the script. The <command>#!</command><indexterm><primary>#! (shell)</primary></indexterm> is called a <command>she-bang</command><indexterm><primary>she-bang (shell)</primary></indexterm> (sometimes called <command>sha-bang</command>), where the <command>she-bang</command> is the first two characters of the script.</para>
@@ -21,78 +22,91 @@ echo Hello World</screen>
 echo -n hello
 echo A bash subshell `echo -n hello`
 		</screen>
-		<para>This script will run in a Korn shell (unless <command>/bin/ksh</command> is a hard link to <command>/bin/bash</command>). The <command>/etc/shells</command><indexterm><primary>/etc/shells</primary></indexterm> file contains a list of shells on your system.</para>
+		<para>This script will run in a Korn shell (unless <command>/bin/ksh</command> is a hard link to <command>/bin/bash</command>). The <command>/etc/shells</command><indexterm><primary>/etc/shells</primary></indexterm> file contains a list of shells available on your system. Check it to see which ones are optional for you</para>
 		<screen>#!/bin/ksh
 echo -n hello
 echo a Korn subshell `echo -n hello`
 		</screen>
+		<para> in order to shorten search for needed path for your shell environment you could use <command>env</command>. env is used to either print environment variables. It is also used to run a utility or command in a custom environment. In practice, <command>env</command> has another common use. It is often used by shell scripts to launch the correct interpreter.</para>
+		<screen>#!/usr/bin/env bash
+echo -n hello
+echo A bash subshell $(echo -n hello)
+		</screen>
+		<para> as of 2020, Bourne Again SHell, or bash for short, still remains the most needed language to shorten the gap the difference between UNIX/Linux based systems and various applications they use. Moreover, due its usefulness it was incorporated in windows10 operational system(WSL). thus its knowledge is more needed, then you might have known.</para>
 	</section>
 <?hard-pagebreak?>
-	<section><title>comment</title>
+	<section><title>comments</title>
+		<para>When writing Bash scripts, it is always a good practice to make your code clean and easily understandable. Organizing your code in blocks, indenting, giving variables and functions descriptive names are several ways to do this.
+		Another way to improve the readability of your code is by using comments. A comment is a human-readable explanation or annotation that is written in the shell script.</para>
 		<para>Let's expand our example a little further by adding comment lines.</para>
-		<screen>#!/bin/bash
+		<screen>#!/usr/bin/env bash  # this is sha-bang using env command
 #
 # Hello World Script
 #
-echo Hello World</screen>
+echo Hello World
+echo A bash subshell `echo -n hello` # this is old way of calling for subshell with backtick ``
+echo A bash subshell $(echo -n hello) # this is more modern way of calling for subshell with dollar and brackets $()
+#NOTICE: backtick might not work in future versions of bash shell
+</screen>
+
 	</section>
 	<section><title>variables</title>
 		<para>Here is a simple example of a variable inside a script.</para>
-		<screen>#!/bin/bash
+		<screen>#!/usr/bin/env bash
 #
 # simple variable in script
 #
 var1=4
 echo var1 = $var1</screen>
 		<para>Scripts can contain variables, but since scripts are run in their own shell, the variables do not survive the end of the script.</para>
-		<screen>[paul@RHEL4a ~]$ echo $var1
+		<screen>[paul@RHEL8a ~]$ echo $var1
 
-[paul@RHEL4a ~]$ ./vars
+[paul@RHEL8a ~]$ ./vars
 var1 = 4
-[paul@RHEL4a ~]$ echo $var1
+[paul@RHEL8a ~]$ echo $var1
 
-[paul@RHEL4a ~]$</screen>
+[paul@RHEL8a ~]$</screen>
 	</section>
 	<section><title>sourcing a script</title>
 		<para>Luckily, you can force a script to run in the same shell; this is called <command>sourcing</command><indexterm><primary>source</primary></indexterm> a script.</para>
 		<screen>
-[paul@RHEL4a ~]$ source ./vars
+[paul@RHEL8a ~]$ source ./vars
 var1 = 4
-[paul@RHEL4a ~]$ echo $var1
+[paul@RHEL8a ~]$ echo $var1
 4
-[paul@RHEL4a ~]$ 
+[paul@RHEL8a ~]$ 
 		</screen>
 		<para>The above is identical<indexterm><primary>. (shell)</primary></indexterm> to the below.</para>
 		<screen>
-[paul@RHEL4a ~]$ . ./vars
+[paul@RHEL8a ~]$ . ./vars
 var1 = 4
-[paul@RHEL4a ~]$ echo $var1
+[paul@RHEL8a ~]$ echo $var1
 4
-[paul@RHEL4a ~]$ 
+[paul@RHEL8a ~]$ 
 		</screen>
 	</section>
 <?hard-pagebreak?>
 	<section><title>troubleshooting a script</title>
 	<para>Another way to run a script in a separate shell is by typing <command>bash</command> with the name of the script as a parameter.</para>
-	<screen>paul@debian6~/test$ bash runme
+	<screen>paul@debian10~/test$ bash runme
 42</screen>
 	<para>Expanding this to <command>bash -x</command><indexterm><primary>bash -x</primary></indexterm> allows you to see the commands that the shell is executing (after shell expansion).</para>
-<screen>paul@debian6~/test$ bash -x runme
+<screen>paul@debian10~/test$ bash -x runme
 + var4=42
 + echo 42
 42
-paul@debian6~/test$ cat runme
+paul@debian10~/test$ cat runme
 # the runme script
 var4=42
 echo $var4
-paul@debian6~/test$</screen>
+paul@debian10~/test$</screen>
 	<para>Notice the absence of the commented (#) line, and the replacement of the variable before execution of <command>echo</command>.</para>
 
 	</section>
 	<section><title>prevent setuid root spoofing</title>
 		<para>Some user may try to perform <command>setuid</command><indexterm><primary>setuid</primary></indexterm> based script <command>root spoofing</command>. This is a rare but possible attack. To improve script security and to avoid interpreter spoofing, you need to add <command>--</command> after the <command>#!/bin/bash</command>, which disables further option processing so the shell will not accept any options.</para>
-		<screen>#!/bin/bash -
+		<screen>#!/usr/bin/env bash -
 or
-#!/bin/bash --</screen>
+#!/usr/bin/env bash --</screen>
 		<para>Any arguments after the <command>--</command><indexterm><primary>-- (shell)</primary></indexterm> are treated as filenames and arguments. An argument of - is equivalent to --.</para>
 	</section>
