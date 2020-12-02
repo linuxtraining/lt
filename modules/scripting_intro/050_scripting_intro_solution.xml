@@ -27,7 +27,7 @@ echo $var33 $var42</screen>
 	<screen>source second.bash</screen>
 	<para>6. Is there a shorter way to <command>source</command> the script ?</para>
 	<screen>. ./second.bash</screen>
-	<para>7. Comment your scripts so that you know what they are doing.</para>
+	<para>7. Comment your scripts so that others may know what they are working with.</para>
 	<screen>$ cat second.bash
 #!/bin/bash
 # script to test variables and sourcing
