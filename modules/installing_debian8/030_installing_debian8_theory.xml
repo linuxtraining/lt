@@ -59,7 +59,7 @@
 <section><title>Downloading</title>
 <para>All these screenshots were made in November 2014, which means <command>Debian 8</command> was still in 'testing' (but in 'freeze', so there will be no major changes when it is released).</para>
 <para>Download Debian here:</para>
-<para><mediaobject><imageobject><imagedata fileref="images/debian8.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para><mediaobject><imageobject><imagedata fileref="../images/debian8.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <para>After a couple of clicks on that website, I ended up downloading <command>Debian 8</command> (testing) here. It should be only one click once <command>Debian 8</command> is released (somewhere in 2015).</para>
 <para><mediaobject><imageobject><imagedata fileref="../images/debian10_ftp.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <para>You have many other options to download and install <command>Debian</command>. We will discuss them much later.</para>
@@ -76,12 +76,12 @@
 <?hard-pagebreak?>
 <para>Most of the defaults in Virtualbox are ok.</para>
 <para>512MB of RAM is enough to practice all the topics in this book.</para>
-<para><mediaobject><imageobject><imagedata fileref="images/centos8_mem.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para><mediaobject><imageobject><imagedata fileref="../images/centos8_mem.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <para>We do not care about the virtual disk format.</para>
-<para><mediaobject><imageobject><imagedata fileref="images/centos8_vdi.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para><mediaobject><imageobject><imagedata fileref="../images/centos8_vdi.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <?hard-pagebreak?>
 <para>Choosing <command>dynamically allocated</command> will save you some disk space (for a small performance hit).</para>
-<para><mediaobject><imageobject><imagedata fileref="images/centos8_dynamic.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
+<para><mediaobject><imageobject><imagedata fileref="../images/centos8_dynamic.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <para>8GB should be plenty for learning about Linux servers.</para>
 <para><mediaobject><imageobject><imagedata fileref="../images/debian10_disksize.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <para>This finishes the wizard. You virtual machine is almost ready to begin the installation.</para>
