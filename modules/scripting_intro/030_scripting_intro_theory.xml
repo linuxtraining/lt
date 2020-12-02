@@ -76,6 +76,9 @@ var1 = 4
 4
 [paul@RHEL8a ~]$ 
 		</screen>
+		<para> </para>
+		<para> </para>
+		<para> </para>
 		<para>The above is identical<indexterm><primary>. (shell)</primary></indexterm> to the below.</para>
 		<screen>
 [paul@RHEL8a ~]$ . ./vars
