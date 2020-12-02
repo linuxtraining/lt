@@ -28,12 +28,19 @@
    <fo:block break-after='page'/>
  </xsl:template>
 
-<!-- screen tags in cyan -->
+<!-- screen tags in cyan 
 <xsl:param name="shade.verbatim" select="1"/>
 <xsl:attribute-set condition="fo" name="shade.verbatim.style">
   <xsl:attribute name="background-color">#E0FFFF</xsl:attribute>
 </xsl:attribute-set>
-<!-- screen tags in cyan -->
+ screen tags in cyan -->
+
+<!-- screen tags in green -->
+<xsl:param name="shade.verbatim" select="1"/>
+<xsl:attribute-set condition="fo" name="shade.verbatim.style">
+  <xsl:attribute name="background-color">#B3FFB3</xsl:attribute>
+</xsl:attribute-set>
+ <!--screen tags in green -->
 
 <xsl:template match="para">
   <fo:block font-size="12pt">
