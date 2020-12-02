@@ -355,7 +355,6 @@ build_xml() {
 
 build_pdf() {
 	#set -x
-	validate_dependencies
 	set_xsl
 	set_JAVA
 	echo 
