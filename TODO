@@ -27,9 +27,8 @@ CONTENT todo
 3. extra Bash stuff
    - Array's (http://www.cyberciti.biz/faq/finding-bash-shell-array-length-elements/)
 
-4. add stuff from http://syntra.verwilst.be (we got permission) (assigned:br0k3gl255)
 
-5. extra topics Serge should write
+4. extra topics Serge should write
    - network sniffing: spoofarp, tcpdump
    - mail servers, postfix, intro integration with mysql and imap server
    - backup chapter (rsnapshot, bacula)
@@ -40,40 +39,40 @@ CONTENT todo
    - intro acl's samen 
    - mtr ipv traceroute and ping
 
-6. other stuff 
+5. other stuff 
    - ldap
    - ipv6
    - NIS, yp
 
-7. bugs
+6. bugs
    - logging: explain | named pipes, needs fifo buffer (mkfifo)
 
-8. interesting links
+7. interesting links
    - http://www.commandlinefu.com/ zie ook http://www.commandlinefu.com/commands/browse/sort-by-votes
-9. add http protocol  - the theory and curl explanation/use 
+8. add http protocol  - the theory and curl explanation/use 
 	- link: https://code.tutsplus.com/tutorials/http-the-protocol-every-web-developer-must-know-part-1--net-31177
-10. add nginx usage - the theory and reverse proxy empahsys.
+9. add nginx usage - the theory and reverse proxy empahsys.
 	- link : https://www.server-world.info/en/note?os=CentOS_7&p=nginx&f=1
-11. add NoSQL explanation/tutorial with one or more NoSQL tool usage:
+10. add NoSQL explanation/tutorial with one or more NoSQL tool usage:
 	e.g.:
 		- MongoDB
 		- RedisLab
 		- Cassandra
-12. add and comapare PostGreSQL to MySQL :
+11. add and comapare PostGreSQL to MySQL :
 	- link: https://www.howtoforge.com/tutorial/how-to-install-and-configure-master-slave-replication-with-postgresql-96-on-centos-7/
 
-13. add DevOps Topics:
+12. add DevOps Topics:
 	- Software Engineering
 	- Container Management
 	- Machine Deployment
 	- Configuration Management
 	- Service Operations
 
-14. add mysql practice and solutions.
+13. add mysql practice and solutions.
 
 META todo
 
-- convince userfriendly.org to allow inclusion of one of their cartoons in distros.xml (assigned:paul)
+- convince userfriendly.org to allow inclusion of one of their cartoons in distros.xml (assigned:Alex) - tried to reach them - no answer yet.
 
 
 
