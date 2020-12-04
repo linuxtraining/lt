@@ -120,30 +120,30 @@ paul@debian10:~$ </screen>
 <section><title>input redirection</title>
 	<section><title>&#060; stdin</title>
 		<para>Redirecting <command>stdin</command> is done with &#060; (short for 0&#060;).</para>
-		<screen>[paul@RHEL4b ~]$ cat &#060; text.txt
+		<screen>[paul@RHEL8b ~]$ cat &#060; text.txt
 one
 two
-[paul@RHEL4b ~]$ tr 'onetw' 'ONEZZ' &#060; text.txt
+[paul@RHEL8b ~]$ tr 'onetw' 'ONEZZ' &#060; text.txt
 ONE
 ZZO
-[paul@RHEL4b ~]$</screen>
+[paul@RHEL8b ~]$</screen>
 	</section>
 	<section><title>&#060;&#060; here document</title>
 		<para>The <command>here document</command><indexterm><primary>here document</primary></indexterm> (sometimes called here-is-document) is a way to append input until a certain sequence (usually EOF) is encountered. The <command>EOF</command><indexterm><primary>EOF</primary></indexterm> marker can be typed literally or can be called with Ctrl-D.</para>
 		<screen>
-[paul@RHEL4b ~]$ cat &#060;&#060;EOF &#062; text.txt
+[paul@RHEL8b ~]$ cat &#060;&#060;EOF &#062; text.txt
 > one
 > two
 > EOF
-[paul@RHEL4b ~]$ cat text.txt 
+[paul@RHEL8b ~]$ cat text.txt 
 one
 two
-[paul@RHEL4b ~]$ cat &#060;&#060;brol &#062; text.txt
+[paul@RHEL8b ~]$ cat &#060;&#060;brol &#062; text.txt
 > brel
 > brol
-[paul@RHEL4b ~]$ cat text.txt 
+[paul@RHEL8b ~]$ cat text.txt 
 brel
-[paul@RHEL4b ~]$
+[paul@RHEL8b ~]$
 		</screen>
 	</section>
 	<section><title>&#060;&#060;&#060; here string</title>

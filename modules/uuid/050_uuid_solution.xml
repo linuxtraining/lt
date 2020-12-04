@@ -13,7 +13,7 @@ UUID=60926898-2c78-49b4-a71d-c1d6310c87cc /home/pro42 ext3 defaults 0 0</screen>
 	<para>3. (optional) Test it also by removing a disk (so the device name is changed). You can edit settings in vmware/Virtualbox to remove a hard disk.</para>
 	<screen></screen>
 	<para>4. Display the <command>root=</command> directive in <command>/boot/grub/menu.lst</command>. (We see later in the course how to maintain this file.)</para>
-	<screen>paul@deb503:~$ grep ^[^#] /boot/grub/menu.lst | grep root=
+	<screen>paul@deb106:~$ grep ^[^#] /boot/grub/menu.lst | grep root=
 kernel          /boot/vmlinuz-2.6.26-2-686 root=/dev/hda1 ro selinux=1 quiet
 kernel          /boot/vmlinuz-2.6.26-2-686 root=/dev/hda1 ro selinux=1 single</screen>
 	<para>5. (optional on ubuntu) Replace the <command>/dev/xxx</command> in <command>/boot/grub/menu.lst</command> with a <command>uuid</command> (use an extra stanza for this). Test that it works.</para>

@@ -1,4 +1,12 @@
 <?hard-pagebreak?>
 <section><title>practice: git</title>
-	<para>1. Create a project on github to host a script that you wrote. Have at least two other people improve the script.</para>
+	<para>1.Crate local project called <command>git_practice</command>.</para>
+	<para>2.Create a project on <command>gitlab.com</command> to host a local project that you have created.</para>
+	<para>3.The project should have <command>REAMDE.md</command> file as well as <command>TODO.md</command> file in it.</para>
+	<para>4.Write in <command>REAMDE.md</command> file description of the project and what you think it might be.</para>
+	<para>5.Initialize your project with <command>git</command> command, setup your username, mail and remote server.</para>
+	<para>6.Use <command>git push -u origin master </command> to send project saves to remote host.</para>
+	<para>7.Verify on <command>gitlab.com</command> that the project has been setup and is updated with <command>REAMDE.md</command> and <command>TODO.md</command>.</para>
+	<para>8.Add git_hello.sh script that prints hello to username from its current location.</para>
+	<para>9.Push the script to gitlab repository.</para>
 </section>

@@ -48,7 +48,7 @@ eth0:1 Link encap:Ethernet  HWaddr 08:00:27:DD:0D:5C
 <section><title>binding on Debian/Ubuntu</title>
 	<section><title>binding extra ip addresses</title>
 		<para>The configuration of multiple ip addresses on the same network card is done in <command>/etc/network/interfaces</command><indexterm><primary>/etc/network/interfaces</primary></indexterm> by adding <command>eth0:x</command> devices. Adding the <command>netmask</command> is mandatory.</para>
-		<screen>debian5:~# cat /etc/network/interfaces
+		<screen>debian10:~# cat /etc/network/interfaces
 # This file describes the network interfaces available on your system
 # and how to activate them. For more information, see interfaces(5).
 
@@ -76,12 +76,12 @@ netmask 255.255.255.0</screen>
 	</section>
 	<section><title>enabling extra ip-addresses</title>
 		<para>Use <command>ifup</command><indexterm><primary>ifup(1)</primary></indexterm> to enable the extra addresses.</para>
-		<screen>debian5:~# ifup eth0:0
-debian5:~# ifup eth0:1</screen>
+		<screen>debian10:~# ifup eth0:0
+debian10:~# ifup eth0:1</screen>
 	</section>
 	<section><title>verifying extra ip-addresses</title>
 		<para>Use <command>ping</command> from another computer to check the activation, or use <command>ifconfig</command><indexterm><primary>ifconfig(1)</primary></indexterm> like in this screenshot.</para>
-		<screen>debian5:~# ifconfig | grep 'inet '
+		<screen>debian10:~# ifconfig | grep 'inet '
       inet addr:192.168.1.34  Bcast:192.168.1.255  Mask:255.255.255.0
       inet addr:192.168.1.233  Bcast:192.168.1.255  Mask:255.255.255.0
       inet addr:192.168.1.242  Bcast:192.168.1.255  Mask:255.255.255.0
@@ -158,20 +158,20 @@ Permanent HW addr: 08:00:27:40:03:3b</screen>
 <?hard-pagebreak?>
 <section><title>bonding on Debian/Ubuntu</title>
 	<para>We start with <command>ifconfig -a</command><indexterm><primary>ifconfig(1)</primary></indexterm> to get a list of all the network cards on our system.</para>
-	<screen>debian5:~# ifconfig -a | grep Ethernet
+	<screen>debian10:~# ifconfig -a | grep Ethernet
 eth0      Link encap:Ethernet  HWaddr 08:00:27:bb:18:a4
 eth1      Link encap:Ethernet  HWaddr 08:00:27:63:9a:95
 eth2      Link encap:Ethernet  HWaddr 08:00:27:27:a4:92</screen>
 	<para>In this demo we decide to bond <command>eth1</command> and <command>eth2</command>.</para>
 	<para>We also need to install the <command>ifenslave</command><indexterm><primary>ifenslave</primary></indexterm> package.</para>
-	<screen>debian5:~# aptitude search ifenslave
+	<screen>debian10:~# aptitude search ifenslave
 p ifenslave     - Attach and detach slave interfaces to a bonding device
 p ifenslave-2.6 - Attach and detach slave interfaces to a bonding device
-debian5:~# aptitude install ifenslave
+debian10:~# aptitude install ifenslave
 Reading package lists... Done
 ...</screen>
 	<para>Next we update the <command>/etc/network/interfaces</command><indexterm><primary>/etc/network/interfaces</primary></indexterm> file with information about the <command>bond0</command> interface.</para>
-	<screen>debian5:~# tail -7 /etc/network/interfaces
+	<screen>debian10:~# tail -7 /etc/network/interfaces
 iface bond0 inet static
  address 192.168.1.42
  netmask 255.255.255.0
@@ -180,8 +180,8 @@ iface bond0 inet static
  bond-mode active-backup
  bond_primary eth1</screen>
 	<para>On older version of Debian/Ubuntu you needed to <command>modprobe bonding</command>, but this is no longer required. Use <command>ifup</command> to bring the interface up, then test that it works.</para>
-	<screen>debian5:~# ifup bond0
-debian5:~# ifconfig bond0
+	<screen>debian10:~# ifup bond0
+debian10:~# ifconfig bond0
 bond0     Link encap:Ethernet  HWaddr 08:00:27:63:9a:95  
           inet addr:192.168.1.42  Bcast:192.168.1.255  Mask:255.255.255.0
           inet6 addr: fe80::a00:27ff:fe63:9a95/64 Scope:Link
@@ -191,7 +191,7 @@ bond0     Link encap:Ethernet  HWaddr 08:00:27:63:9a:95
           collisions:0 txqueuelen:0 
           RX bytes:31978 (31.2 KiB)  TX bytes:6709 (6.5 KiB)</screen>
 	<para>The <command>bond</command> should also be visible in <command>/proc/net/bonding</command><indexterm><primary>/proc/net/bonding</primary></indexterm>.</para>
-	<screen>debian5:~# cat /proc/net/bonding/bond0 
+	<screen>debian10:~# cat /proc/net/bonding/bond0 
 Ethernet Channel Bonding Driver: v3.2.5 (March 21, 2008)
 
 Bonding Mode: fault-tolerance (active-backup)
@@ -212,10 +212,3 @@ MII Status: up
 Link Failure Count: 0
 Permanent HW addr: 08:00:27:27:a4:92</screen>
 </section>
-
-
-
-
-
-
-

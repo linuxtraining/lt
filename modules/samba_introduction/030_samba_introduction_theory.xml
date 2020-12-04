@@ -74,15 +74,15 @@ root@laika:~# /etc/init.d/samba restart
 root@laika:~# /etc/init.d/samba status
  * SMBD is running                                           [ OK ]</screen>
 	<para>Red Hat derived systems are happy with <command>service smb start</command><indexterm><primary>service(8)</primary></indexterm>.</para>
-	<screen>[root@RHEL4b ~]# /etc/init.d/smb start
+	<screen>[root@RHEL8b ~]# /etc/init.d/smb start
 Starting SMB services:                                     [  OK  ]
 Starting NMB services:                                     [  OK  ]
-[root@RHEL4b ~]# service smb restart
+[root@RHEL8b ~]# service smb restart
 Shutting down SMB services:                                [  OK  ]
 Shutting down NMB services:                                [  OK  ]
 Starting SMB services:                                     [  OK  ]
 Starting NMB services:                                     [  OK  ]
-[root@RHEL4b ~]#</screen>
+[root@RHEL8b ~]#</screen>
 </section>
 <?hard-pagebreak?>
 <section><title>samba daemons</title>

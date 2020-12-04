@@ -155,7 +155,7 @@ Added user root.
 	</screen>
 	<para>Adding all the other users generates less output, because tdbsam is already created.</para>
 	<screen>
-[root@RHEL4b samba]# smbpasswd -a root
+[root@RHEL8b samba]# smbpasswd -a root
 New SMB password:
 Retype new SMB password:
 Added user root.
@@ -198,7 +198,7 @@ logon path = \\%L\Profiles\%U
 	</screen>
 	<para>The <command>&#037;L</command> variable is the name of this Samba server, the <command>&#037;U</command> variable translates to the username. After adding a user to smbpasswd and letting the user log on and off, the profile of the user will look like this.</para>
 	<screen>
-[root@RHEL4b samba]# ll /srv/samba/profiles/Venus/
+[root@RHEL8b samba]# ll /srv/samba/profiles/Venus/
 total 568
 drwxr-xr-x  4 Venus Venus   4096 Jul  5 10:03 Application Data
 drwxr-xr-x  2 Venus Venus   4096 Jul  5 10:03 Cookies
@@ -219,39 +219,39 @@ drwxr-xr-x  2 Venus Venus   4096 Jul  5 10:03 Templates
 <section><title>Groups in NTFS acls</title>
 	<para>We have users on Unix, we have groups on Unix that contain those users.</para>
 	<screen>
-[root@RHEL4b samba]# grep nt /etc/group
+[root@RHEL8b samba]# grep nt /etc/group
 ...
 ntadmins:x:506:Administrator
 ntsports:x:507:Venus,Serena,Kim,Figo,Pfaff
 nttennis:x:508:Venus,Serena,Kim
 ntfootball:x:509:Figo,Pfaff
-[root@RHEL4b samba]# 
+[root@RHEL8b samba]# 
 	</screen>
 	<para>We already added Venus to the <command>tdbsam</command> with <command>smbpasswd</command><indexterm><primary>smbpasswd(1)</primary></indexterm>.</para>
 	<screen>smbpasswd -a Venus</screen>
 	<para>Does this mean that Venus can access the tennis and the sports shares ? Yes, all access works fine on the Samba server. But the nttennis group is not available on the windows machines. To make the groups available on windows (like in the ntfs security tab of files and folders), we have to map unix groups to windows groups. To do this, we use the <command>net groupmap</command><indexterm><primary>net groupmap</primary></indexterm> command.</para>
 	<screen>
-[root@RHEL4b samba]# net groupmap add ntgroup="tennis" unixgroup=nttennis type=d
+[root@RHEL8b samba]# net groupmap add ntgroup="tennis" unixgroup=nttennis type=d
 No rid or sid specified, choosing algorithmic mapping
 Successully added group tennis to the mapping db
-[root@RHEL4b samba]# net groupmap add ntgroup="football" unixgroup=ntfootball type=d
+[root@RHEL8b samba]# net groupmap add ntgroup="football" unixgroup=ntfootball type=d
 No rid or sid specified, choosing algorithmic mapping
 Successully added group football to the mapping db
-[root@RHEL4b samba]# net groupmap add ntgroup="sports" unixgroup=ntsports type=d
+[root@RHEL8b samba]# net groupmap add ntgroup="sports" unixgroup=ntsports type=d
 No rid or sid specified, choosing algorithmic mapping
 Successully added group sports to the mapping db
-[root@RHEL4b samba]# 
+[root@RHEL8b samba]# 
 	</screen>
 	<para>Now you can use the Samba groups on all NTFS volumes on members of the domain.</para>
 </section>
 <section><title>logon scripts</title>
 	<para>Before testing a logon script, make sure it has the proper carriage returns that DOS files have.</para>
 	<screen>
-[root@RHEL4b netlogon]# cat start.bat 
+[root@RHEL8b netlogon]# cat start.bat 
 net use Z: \\DCSPORTS0\SPORTS
-[root@RHEL4b netlogon]# unix2dos start.bat 
+[root@RHEL8b netlogon]# unix2dos start.bat 
 unix2dos: converting file start.bat to DOS format ...
-[root@RHEL4b netlogon]# 
+[root@RHEL8b netlogon]# 
 	</screen>
 	<para>Then copy the scripts to the netlogon share, and add the following parameter to smb.conf.</para>
 	<screen>logon script = start.bat</screen>

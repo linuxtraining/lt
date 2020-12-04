@@ -84,12 +84,12 @@ hosts:      files dns winbind
 	<section><title>starting samba and winbindd</title>
 		<para>Time to start Samba followed by <command>winbindd</command><indexterm><primary>winbindd(8)</primary></indexterm>.</para>
 		<screen>
-[root@RHEL4b samba]# service smb start
+[root@RHEL8b samba]# service smb start
 Starting SMB services:                                     [  OK  ]
 Starting NMB services:                                     [  OK  ]
-[root@RHEL4b samba]# service winbind start
+[root@RHEL8b samba]# service winbind start
 Starting winbindd services:                                [  OK  ]
-[root@RHEL4b samba]# 
+[root@RHEL8b samba]# 
 		</screen>
 	</section>
 </section>
@@ -162,7 +162,7 @@ paul:x:500:500:Paul Cobbaut:/home/paul:/bin/bash
 </section>
 <section><title>file ownership</title>
 	<screen>
-[root@RHEL4b samba]# ll /srv/samba/domaindata/
+[root@RHEL8b samba]# ll /srv/samba/domaindata/
 total 0
 -rwxr--r--  1 justine 20000 0 Jun 22 19:54 create_by_justine_on_winxp.txt
 -rwxr--r--  1 venus   20000 0 Jun 22 19:55 create_by_venus.txt

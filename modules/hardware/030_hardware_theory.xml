@@ -10,7 +10,7 @@ root@laika:~# ls /proc/bus/
 input  pccard  pci  usb
 		</screen>
 		<screen>
-[root@RHEL4b ~]# ls /proc/bus/
+[root@RHEL8b ~]# ls /proc/bus/
 input  pci  usb
 		</screen>
 		<para>Can you guess which of these two screenshots was taken on a laptop ?</para>
@@ -100,7 +100,7 @@ paul@laika:~$ cat /proc/interrupts
 	<section><title>/proc/ioports</title>
 		<para>You can see a listing of your system's IO ports via <command>/proc/ioports</command><indexterm><primary>/proc/ioports</primary></indexterm>.</para>
 		<screen>
-[root@RHEL4b ~]# cat /proc/ioports 
+[root@RHEL8b ~]# cat /proc/ioports 
 0000-001f : dma1
 0020-0021 : pic1
 0040-0043 : timer0

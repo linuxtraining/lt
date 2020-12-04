@@ -12,39 +12,39 @@ root@rhel53 ~#
 		<para>Some processes can be <command>suspended</command> with the <command>Ctrl-Z</command><indexterm><primary>Ctrl-Z</primary></indexterm> key combination. This sends a <command>SIGSTOP</command> signal to the <command>Linux kernel</command>, effectively freezing the operation of the process.</para>
 		<para>When doing this in <command>vi(m)</command>, then <command>vi(m)</command> goes to the background. The background <command>vi(m)</command> can be seen with the <command>jobs</command> command.</para>
 		<screen>
-[paul@RHEL4a ~]$ vi procdemo.txt
+[paul@RHEL8a ~]$ vi procdemo.txt
 
 [5]+  Stopped                 vim procdemo.txt
-[paul@RHEL4a ~]$ jobs
+[paul@RHEL8a ~]$ jobs
 [5]+  Stopped                 vim procdemo.txt
 		</screen>
 	</section>
 	<section><title>&#038; ampersand</title>
 		<para>Processes that are started in background using the <command>&#038;</command> character at the end of the command line are also visible with the <command> jobs</command> command.</para>
 		<screen>
-[paul@RHEL4a ~]$ find / &#062; allfiles.txt 2&#062; /dev/null &#038;
+[paul@RHEL8a ~]$ find / &#062; allfiles.txt 2&#062; /dev/null &#038;
 [6] 5230
-[paul@RHEL4a ~]$ jobs
+[paul@RHEL8a ~]$ jobs
 [5]+  Stopped                 vim procdemo.txt
 [6]-  Running                 find / &#062;allfiles.txt 2&#062;/dev/null &#038;
-[paul@RHEL4a ~]$
+[paul@RHEL8a ~]$
 		</screen>
 	</section>
 	<section><title>jobs -p</title>
 		<para>An interesting option is <command>jobs -p</command> to see the <command>process id</command> of background processes.</para>
 		<screen>
-[paul@RHEL4b ~]$ sleep 500 &#038;
+[paul@RHEL8b ~]$ sleep 500 &#038;
 [1] 4902
-[paul@RHEL4b ~]$ sleep 400 &#038;
+[paul@RHEL8b ~]$ sleep 400 &#038;
 [2] 4903
-[paul@RHEL4b ~]$ jobs -p
+[paul@RHEL8b ~]$ jobs -p
 4902
 4903
-[paul@RHEL4b ~]$ ps `jobs -p`
+[paul@RHEL8b ~]$ ps `jobs -p`
   PID TTY      STAT   TIME COMMAND
  4902 pts/0    S      0:00 sleep 500
  4903 pts/0    S      0:00 sleep 400
-[paul@RHEL4b ~]$
+[paul@RHEL8b ~]$
 		</screen>
 	</section>
 	<section><title>fg</title>

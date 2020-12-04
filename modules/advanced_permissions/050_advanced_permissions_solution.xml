@@ -14,16 +14,16 @@
 	<para>Log in with different users (group members and others and root), create files and watch the permissions. Try changing and deleting files...</para>
 	<para>2. Verify the permissions on <command>/usr/bin/passwd</command>. Remove the <command>setuid</command>, then try changing your password as a normal user. Reset the permissions back and try again.</para>
 	<screen>
-root@deb503:~# ls -l /usr/bin/passwd 
+root@deb106:~# ls -l /usr/bin/passwd 
 -rwsr-xr-x 1 root root 31704 2009-11-14 15:41 /usr/bin/passwd
-root@deb503:~# chmod 755 /usr/bin/passwd 
-root@deb503:~# ls -l /usr/bin/passwd 
+root@deb106:~# chmod 755 /usr/bin/passwd 
+root@deb106:~# ls -l /usr/bin/passwd 
 -rwxr-xr-x 1 root root 31704 2009-11-14 15:41 /usr/bin/passwd
 	</screen>
 	<para>A normal user cannot change password now.</para>
 	<screen>
-root@deb503:~# chmod 4755 /usr/bin/passwd 
-root@deb503:~# ls -l /usr/bin/passwd 
+root@deb106:~# chmod 4755 /usr/bin/passwd 
+root@deb106:~# ls -l /usr/bin/passwd 
 -rwsr-xr-x 1 root root 31704 2009-11-14 15:41 /usr/bin/passwd
 	</screen>
 	<para>3. If time permits (or if you are waiting for other students to finish this practice), read about file attributes in the man page of chattr and lsattr. Try setting the i attribute on a file and test that it works.</para>

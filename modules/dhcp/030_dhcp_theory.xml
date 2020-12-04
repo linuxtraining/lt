@@ -19,7 +19,7 @@
 <?hard-pagebreak?>
 <section><title>installing a dhcp server</title>
 	<para>dhcp server for Debian/Mint</para>
-	<screen>debian5:~# aptitude install dhcp3-server
+	<screen>debian10:~# aptitude install dhcp3-server
 Reading package lists... Done
 Building dependency tree       
 Reading state information... Done
@@ -29,7 +29,7 @@ Reading task descriptions... Done
 The following NEW packages will be installed:
   dhcp3-server </screen>
 	<para>You get a configuration file with many examples.</para>
-	<screen>debian5:~# ls -l /etc/dhcp3/dhcpd.conf 
+	<screen>debian10:~# ls -l /etc/dhcp3/dhcpd.conf 
 -rw-r--r-- 1 root root 3551 2011-04-10 21:23 /etc/dhcp3/dhcpd.conf</screen>
 </section>
 <section><title>dhcp server for RHEL/CentOS</title>

@@ -90,7 +90,7 @@ lrwxrwxrwx 1 root root 16 Jan 21 04:17 S99smartd -> ../init.d/smartd</screen>
 	<section><title>mingetty</title>
 		<section><title>mingetty in /etc/inittab</title>
 			<para>Almost at the end of <command>/etc/inittab</command><indexterm><primary>/etc/inittab</primary></indexterm> there is a section to start and <command>respawn</command><indexterm><primary>respawn(init)</primary></indexterm> several <command>mingetty</command><indexterm><primary>mingetty</primary></indexterm> daemons.</para>
-			<screen>[root@RHEL4b ~]# grep getty /etc/inittab 
+			<screen>[root@RHEL8b ~]# grep getty /etc/inittab 
 # Run gettys in standard runlevels
 1:2345:respawn:/sbin/mingetty tty1
 2:2345:respawn:/sbin/mingetty tty2
@@ -157,7 +157,7 @@ lrwxrwxrwx 1 root root 16 Jan 21 04:17 S99smartd -> ../init.d/smartd</screen>
  * Stopping Samba daemons...                               [ OK ] 
  * Starting Samba daemons...                               [ OK ]</screen>
 	<para>You can achieve the same result on RHEL/Fedora with the <command>service</command><indexterm><primary>service(1)</primary></indexterm> command.</para>
-	<screen>[root@RHEL4b ~]# service smb restart
+	<screen>[root@RHEL8b ~]# service smb restart
 Shutting down SMB services:                                [  OK  ]
 Shutting down NMB services:                                [  OK  ]
 Starting SMB services:                                     [  OK  ]
@@ -277,10 +277,10 @@ root@barry:~#</screen>
 	<section><title>display the runlevel</title>
 		<para>You can see your current runlevel with the <command>runlevel</command><indexterm><primary>runlevel(1)</primary></indexterm> or <command>who -r</command><indexterm><primary>who(1)</primary></indexterm> commands.</para>
 		<para>The runlevel command is typical Linux and will output the previous and the current runlevel. If there was no previous runlevel, then it will mark it with the letter N.</para>
-		<screen>[root@RHEL4b ~]# runlevel 
+		<screen>[root@RHEL8b ~]# runlevel 
 N 3</screen>
 		<para>The history of <command>who -r</command> dates back to Seventies Unix, it still works on Linux.</para>
-		<screen>[root@RHEL4b ~]# who -r
+		<screen>[root@RHEL8b ~]# who -r
          run-level 3  Jul 28 09:15                   last=S</screen>
 	</section>
 	<section><title>changing the runlevel</title>

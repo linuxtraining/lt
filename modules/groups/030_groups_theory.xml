@@ -20,9 +20,9 @@ root@laika:~#</screen>
 </section>
 <section><title>groups</title>
 	<para>A user can type the <command>groups</command><indexterm><primary>groups(1)</primary></indexterm> command to see a list of groups where the user belongs to.</para>
-	<screen>[harry@RHEL4b ~]$ groups
+	<screen>[harry@RHEL8b ~]$ groups
 harry sports
-[harry@RHEL4b ~]$</screen>
+[harry@RHEL8b ~]$</screen>
 </section>
 <?hard-pagebreak?>
 <section><title>usermod</title>
@@ -59,27 +59,27 @@ root@laika:~#</screen>
 <?hard-pagebreak?>
 <section><title>gpasswd</title>
 	<para>You can delegate control of group membership to another user with the <command>gpasswd</command><indexterm><primary>gpasswd</primary></indexterm> command. In the example below we delegate permissions to add and remove group members to serena for the sports group. Then we <command>su</command><indexterm><primary>su</primary></indexterm> to serena and add harry to the sports group.</para>
-	<screen>[root@RHEL4b ~]# gpasswd -A serena sports
-[root@RHEL4b ~]# su - serena
-[serena@RHEL4b ~]$ id harry
+	<screen>[root@RHEL8b ~]# gpasswd -A serena sports
+[root@RHEL8b ~]# su - serena
+[serena@RHEL8b ~]$ id harry
 uid=516(harry) gid=520(harry) groups=520(harry)
-[serena@RHEL4b ~]$ gpasswd -a harry sports
+[serena@RHEL8b ~]$ gpasswd -a harry sports
 Adding user harry to group sports
-[serena@RHEL4b ~]$ id harry
+[serena@RHEL8b ~]$ id harry
 uid=516(harry) gid=520(harry) groups=520(harry),522(sports)
-[serena@RHEL4b ~]$ tail -1 /etc/group
+[serena@RHEL8b ~]$ tail -1 /etc/group
 sports:x:522:serena,venus,harry
-[serena@RHEL4b ~]$ </screen>
+[serena@RHEL8b ~]$ </screen>
 	<para>Group administrators do not have to be a member of the group. They can remove themselves from a group, but this does not influence their ability to add or remove members.</para>
-	<screen>[serena@RHEL4b ~]$ gpasswd -d serena sports
+	<screen>[serena@RHEL8b ~]$ gpasswd -d serena sports
 Removing user serena from group sports
-[serena@RHEL4b ~]$ exit</screen>
+[serena@RHEL8b ~]$ exit</screen>
 	<para>Information about group administrators is kept in the <command>/etc/gshadow</command><indexterm><primary>/etc/gshadow</primary></indexterm> file.</para>
-	<screen>[root@RHEL4b ~]# tail -1 /etc/gshadow
+	<screen>[root@RHEL8b ~]# tail -1 /etc/gshadow
 sports:!:serena:venus,harry
-[root@RHEL4b ~]#</screen>
+[root@RHEL8b ~]#</screen>
 	<para>To remove all group administrators from a group, use the <command>gpasswd</command> command to set an empty administrators list.</para>
-	<screen>[root@RHEL4b ~]# gpasswd -A "" sports</screen>
+	<screen>[root@RHEL8b ~]# gpasswd -A "" sports</screen>
 </section>
 <?hard-pagebreak?>
 <section><title>newgrp</title>

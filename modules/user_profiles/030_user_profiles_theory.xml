@@ -80,7 +80,7 @@ fi
 	<section><title>~/.bash_logout</title>
 		<para>When exiting <command>bash</command>, it can execute <command>~/.bash_logout</command><indexterm><primary>.bash_logout</primary></indexterm>.</para>
 		<para> Debian use this opportunity to clear the console screen.</para>
-		<screen>serena@deb503:~$ <command>cat .bash_logout</command>
+		<screen>serena@deb106:~$ <command>cat .bash_logout</command>
 # ~/.bash_logout: executed by bash(1) when login shell exits.
 
 # when leaving the console clear the screen to increase privacy

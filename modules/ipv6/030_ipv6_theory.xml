@@ -10,7 +10,7 @@
 	<para>This <command>::</command> can only occur once! The following is not a valid ipv6 address:</para>
 	<screen>fe80::20:2e4f::39ac</screen>
 	<para>The ipv6 <command>localhost</command> address is <command>0000:0000:0000:0000:0000:0000:0000:0001</command>, which can be abbreviated to <command>::1</command>.</para>
-	<screen>paul@debian5:~/github/lt/images$ /sbin/ifconfig lo | grep inet6
+	<screen>paul@debian10:~/github/lt/images$ /sbin/ifconfig lo | grep inet6
           inet6 addr: ::1/128 Scope:Host</screen>
 </section>
 
@@ -24,7 +24,7 @@
 
 <section><title>host part generation</title>
 	<para>The host part of an automatically generated (stateless) ipv6 address contains part of the hosts mac address:</para>
-	<screen>paul@debian5:~$ /sbin/ifconfig | head -3
+	<screen>paul@debian10:~$ /sbin/ifconfig | head -3
 eth3      Link encap:Ethernet  HWaddr 08:00:27:ab:67:30  
           inet addr:192.168.1.29  Bcast:192.168.1.255  Mask:255.255.255.0
           inet6 addr: fe80::a00:27ff:feab:6730/64 Scope:Link</screen>
@@ -39,7 +39,7 @@ eth3      Link encap:Ethernet  HWaddr 08:00:27:ab:67:30
 
 <section><title>link local addresses</title>
 	<para><command>ipv6</command> addresses starting with <command>fe8.</command> can only be used on the local segment (replace the dot with an hexadecimal digit). This is the reason you see <command>Scope:Link</command> behind the address in this screenshot. This address serves only the <command>local link</command>.</para>
-	<screen>paul@deb503:~$ /sbin/ifconfig | grep inet6
+	<screen>paul@deb106:~$ /sbin/ifconfig | grep inet6
    inet6 addr: fe80::a00:27ff:fe8e:8aa8/64 Scope:Link
    inet6 addr: ::1/128 Scope:Host</screen>
 	<para>These <command>link local</command> addresses all begin with <command>fe8.</command>.</para>

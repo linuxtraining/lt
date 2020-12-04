@@ -12,7 +12,7 @@ root@barry:~# ps fax | grep inet
 		</screen>
 		<para>This Red Hat Enterprise Linux 4 update 4 is running <command>xinetd</command>.</para>
 		<screen>
-[root@RHEL4b ~]# ps fax | grep inet
+[root@RHEL8b ~]# ps fax | grep inet
  3003 ?        Ss     0:00 xinetd -stayalive -pidfile /var/run/xinetd.pid
 		</screen>
 		<para>Both daemons have the same functionality (listening to many ports, starting other daemons when they are needed), but they have different configuration files.</para>

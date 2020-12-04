@@ -150,7 +150,7 @@ total 4
 <section><title>X forwarding via ssh</title>
 	<para>Another popular feature of <command>ssh</command> is called <command>X11 forwarding</command> and is implemented with <command>ssh -X</command><indexterm><primary>ssh -X</primary></indexterm>.</para>
 	<para>Below an example of X forwarding: user paul logs in as user greet on her computer to start the graphical application mozilla-thunderbird. Although the application will run on the remote computer from greet, it will be displayed on the screen attached locally to paul's computer.</para>
-	<screen>paul@debian5:~/PDF$ ssh -X greet@greet.dyndns.org -p 55555
+	<screen>paul@debian10:~/PDF$ ssh -X greet@greet.dyndns.org -p 55555
 Warning: Permanently added the RSA host key for IP address \
 '81.240.174.161' to the list of known hosts.
 Password: 
@@ -163,7 +163,7 @@ greet@raika:~$ mozilla-thunderbird &#038;
 </section>
 <section><title>troubleshooting ssh</title>
 	<para>Use <command>ssh -v</command> to get debug information about the ssh connection attempt.</para>
-	<screen>paul@debian5:~$ ssh -v bert@192.168.1.192
+	<screen>paul@debian10:~$ ssh -v bert@192.168.1.192
 OpenSSH_4.3p2 Debian-8ubuntu1, OpenSSL 0.9.8c 05 Sep 2006
 debug1: Reading configuration data /home/paul/.ssh/config
 debug1: Reading configuration data /etc/ssh/ssh_config
@@ -198,8 +198,8 @@ ii  openssh-server   1:5.9p1-5ubuntu1    secure shell (SSH) server,... </screen>
 	<screen>root@ubu1204~# ps -ef | grep ssh-agent
 paul     2405  2365  0 08:13 ?        00:00:00 /usr/bin/ssh-agent...</screen>
 	<para>This clipped screenshot shows how to use <command>ssh-add</command> to list the keys that are currently added to the <command>ssh-agent</command></para>
-	<screen>paul@debian5:~$ ssh-add -L
+	<screen>paul@debian10:~$ ssh-add -L
 ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAvgI+Vx5UrIsusZPl8da8URHGsxG7yivv3/\
 ...
-wMGqa48Kelwom8TGb4Sgcwpp/VO/ldA5m+BGCw== paul@deb503</screen>
+wMGqa48Kelwom8TGb4Sgcwpp/VO/ldA5m+BGCw== paul@deb106</screen>
 </section>
