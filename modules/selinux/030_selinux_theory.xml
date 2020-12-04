@@ -16,15 +16,15 @@ auditd (pid  1660) is running...
 syslogd (pid  1688) is running...
 klogd (pid  1691) is running...</screen>
 	<para>The <command>/var/log/messages</command> log file will tell you that <command>selinux</command> is disabled.</para>
-	<screen>root@deb503:~# grep -i selinux /var/log/messages
-Jun 25 15:59:34 deb503 kernel: [    0.084083] SELinux:  Disabled at boot.</screen>
+	<screen>root@deb106:~# grep -i selinux /var/log/messages
+Jun 25 15:59:34 deb106 kernel: [    0.084083] SELinux:  Disabled at boot.</screen>
 	<para>Or that it is enabled.</para>
-	<screen>root@deb503:~# grep SELinux /var/log/messages | grep -i Init
-Jun 25 15:09:52 deb503 kernel: [    0.084094] SELinux:  Initializing.</screen>
+	<screen>root@deb106:~# grep SELinux /var/log/messages | grep -i Init
+Jun 25 15:09:52 deb106 kernel: [    0.084094] SELinux:  Initializing.</screen>
 </section>
 <section><title>activating selinux</title>
 	<para>On RHEL you can use the GUI tool to activate <command>selinux</command>, on Debian there is the <command>selinux-activate</command><indexterm><primary>selinux-activate</primary></indexterm> command. Activation requires a reboot.</para>
-	<screen>root@deb503:~# selinux-activate 
+	<screen>root@deb106:~# selinux-activate 
 Activating SE Linux
 Searching for GRUB installation directory ... found: /boot/grub
 Searching for default file ... found: /boot/grub/default

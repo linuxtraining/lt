@@ -327,19 +327,19 @@ paul@laika:~/perms$ ls -l permissions.txt
 <?hard-pagebreak?>
 	<section><title>umask</title>
 		<para>When creating a file or directory, a set of default permissions are applied. These default permissions are determined by the <command>umask</command><indexterm><primary>umask(1)</primary></indexterm>. The <command>umask</command> specifies permissions that you do not want set on by default. You can display the <command>umask</command> with the <command>umask</command> command.</para>
-		<screen>[Harry@RHEL4b ~]$ umask
+		<screen>[Harry@RHEL8b ~]$ umask
 0002
-[Harry@RHEL4b ~]$ touch test
-[Harry@RHEL4b ~]$ ls -l test
+[Harry@RHEL8b ~]$ touch test
+[Harry@RHEL8b ~]$ ls -l test
 -rw-rw-r--  1 Harry Harry 0 Jul 24 06:03 test
-[Harry@RHEL4b ~]$</screen>
+[Harry@RHEL8b ~]$</screen>
 		<para>As you can also see, the file is also not executable by default. This is a general security feature among Unixes; newly created files are never executable by default. You have to explicitly do a <command>chmod +x</command><indexterm><primary>chmod +x</primary></indexterm> to make a file executable. This also means that the 1 bit in the <command>umask</command> has no meaning--a <command>umask</command> of 0022 is the same as 0033.</para>
 	</section>
 	<section><title>mkdir -m</title>
 		<para>When creating directories with <command>mkdir</command><indexterm><primary>mkdir(1)</primary></indexterm> you can use the <command>-m</command> option to set the <command>mode</command>. This screenshot explains.</para>
-	<screen>paul@debian5~$ mkdir -m 700 MyDir
-paul@debian5~$ mkdir -m 777 Public
-paul@debian5~$ ls -dl MyDir/ Public/
+	<screen>paul@debian10~$ mkdir -m 700 MyDir
+paul@debian10~$ mkdir -m 777 Public
+paul@debian10~$ ls -dl MyDir/ Public/
 drwx------ 2 paul paul 4096 2011-10-16 19:16 MyDir/
 drwxrwxrwx 2 paul paul 4096 2011-10-16 19:16 Public/</screen>
 	</section>

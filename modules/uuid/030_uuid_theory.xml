@@ -1,7 +1,7 @@
 <?hard-pagebreak?>
 <section><title>vol_id (legacy)</title>
 	<para>Older versions of Linux have a <command>vol_id</command><indexterm><primary>vol_id(1)</primary></indexterm> utility to display the <command>uuid</command> of a file system.</para>
-	<screen>root@debian5:~# <command>vol_id --uuid /dev/sda1</command>
+	<screen>root@debian10:~# <command>vol_id --uuid /dev/sda1</command>
 193c3c9b-2c40-9290-8b71-4264ee4d4c82</screen>
 	<para>Red Hat Enterprise Linux 5 puts <command>vol_id</command> in <command>/lib/udev/vol_id</command>, which is not in the $PATH. The syntax is also a bit different from Debian/Ubuntu/Mint.</para>
 	<screen>root@rhel53 ~# <command>/lib/udev/vol_id -u /dev/hda1</command>

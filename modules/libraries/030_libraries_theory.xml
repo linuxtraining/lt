@@ -25,8 +25,8 @@ lrwxrwxrwx 1 root root   16 Feb 18 16:36 /lib/libext2fs.so.2 -> libext2fs.so.2.4
 <?hard-pagebreak?>
 <section><title>ltrace</title>
 	<para>The <command>ltrace</command><indexterm><primary>ltrace</primary></indexterm> program allows to see all the calls made to library functions by a program. The example below uses the -c option to get only a summary count (there can be many calls), and the -l option to only show calls in one library file. All this to see what calls are made when executing <command>su - serena</command> as root.</para>
-	<screen>root@deb503:~# ltrace -c -l /lib/libpam.so.0 su - serena
-serena@deb503:~$ exit
+	<screen>root@deb106:~# ltrace -c -l /lib/libpam.so.0 su - serena
+serena@deb106:~$ exit
 logout
 % time     seconds  usecs/call     calls      function
 ------ ----------- ----------- --------- --------------------
@@ -45,16 +45,16 @@ logout
 </section>
 <section><title>dpkg -S and debsums</title>
 	<para>Find out on Debian/Ubuntu to which package a library <indexterm><primary>dpkg -S</primary></indexterm>belongs.</para>
-	<screen>paul@deb503:/lib$ dpkg -S libext2fs.so.2.4 
+	<screen>paul@deb106:/lib$ dpkg -S libext2fs.so.2.4 
 e2fslibs: /lib/libext2fs.so.2.4</screen>
 	<para>You can then verify the integrity of all files in this package using <command>debsums</command><indexterm><primary>debsums</primary></indexterm>.</para>
-	<screen>paul@deb503:~$ debsums e2fslibs
+	<screen>paul@deb106:~$ debsums e2fslibs
 /usr/share/doc/e2fslibs/changelog.Debian.gz                               OK
 /usr/share/doc/e2fslibs/copyright                                         OK
 /lib/libe2p.so.2.3                                                        OK
 /lib/libext2fs.so.2.4                                                     OK</screen>
 	<para>Should a library be broken, then reinstall it with <command>aptitude reinstall $package</command><indexterm><primary>aptitude</primary></indexterm>.</para>
-	<screen>root@deb503:~# aptitude reinstall e2fslibs
+	<screen>root@deb106:~# aptitude reinstall e2fslibs
 Reading package lists... Done
 Building dependency tree       
 Reading state information... Done
@@ -91,19 +91,19 @@ root@rhel53 lib#</screen>
 <?hard-pagebreak?>
 <section><title>tracing with strace</title>
 	<para>More detailed tracing of all function calls can be done with <command>strace</command><indexterm><primary>strace</primary></indexterm>. We start by creating a read only file.</para>
-<screen>root@deb503:~# echo hello > 42.txt
-root@deb503:~# chmod 400 42.txt 
-root@deb503:~# ls -l 42.txt 
+<screen>root@deb106:~# echo hello > 42.txt
+root@deb106:~# chmod 400 42.txt 
+root@deb106:~# ls -l 42.txt 
 -r-------- 1 root root 6 2011-09-26 12:03 42.txt</screen>
 	<para>We open the file with <command>vi</command><indexterm><primary>vi</primary></indexterm>, but include the <command>strace</command> command with an output file for the trace before <command>vi</command>. This will create a file with all the function calls done by <command>vi</command>.</para>
-<screen>root@deb503:~# strace -o strace.txt vi 42.txt</screen>
+<screen>root@deb106:~# strace -o strace.txt vi 42.txt</screen>
 	<para>The file is read only, but we still change the contents, and use the <command>:w!</command> directive to write to this file. Then we close <command>vi</command> and take a look at the trace log.</para>
-<screen>root@deb503:~# grep chmod strace.txt 
+<screen>root@deb106:~# grep chmod strace.txt 
 chmod("42.txt", 0100600)                = -1 ENOENT (No such file or directory)
 chmod("42.txt", 0100400)                = 0
-root@deb503:~# ls -l 42.txt 
+root@deb106:~# ls -l 42.txt 
 -r-------- 1 root root 12 2011-09-26 12:04 42.txt</screen>
 	<para>Notice that <command>vi</command> changed the permissions on the file twice. The trace log is too long to show a complete screenshot in this book.</para>
-<screen>root@deb503:~# wc -l strace.txt 
+<screen>root@deb106:~# wc -l strace.txt 
 941 strace.txt</screen>
 </section>

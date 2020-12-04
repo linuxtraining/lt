@@ -91,7 +91,7 @@ paul@RHELv8u4:~$</screen>
 <?hard-pagebreak?>
 <section><title>putting a file system on a partition</title>
 	<para>We now have a fresh partition. The system binaries to make file systems can be found with ls.</para>
-	<screen>[root@RHEL4b ~]# ls -lS /sbin/mk*
+	<screen>[root@RHEL8b ~]# ls -lS /sbin/mk*
 -rwxr-xr-x  3 root root 34832 Apr 24  2006 /sbin/mke2fs
 -rwxr-xr-x  3 root root 34832 Apr 24  2006 /sbin/mkfs.ext2
 -rwxr-xr-x  3 root root 34832 Apr 24  2006 /sbin/mkfs.ext3
@@ -104,7 +104,7 @@ paul@RHELv8u4:~$</screen>
 -rwxr-xr-x  1 root root 13036 May 24  2006 /sbin/mkswap
 -rwxr-xr-x  1 root root  6912 May 24  2006 /sbin/mkfs
 -rwxr-xr-x  1 root root  5905 Aug  3  2004 /sbin/mkbootdisk
-[root@RHEL4b ~]#</screen>
+[root@RHEL8b ~]#</screen>
 	<para>It is time for you to read the manual pages of <command>mkfs</command><indexterm><primary>mkfs(1)</primary></indexterm> and <command>mke2fs</command><indexterm><primary>mke2fs(1)</primary></indexterm>. In the example below, you see the creation of an <command>ext2 file system</command><indexterm><primary>ext2</primary></indexterm> on /dev/sdb1. In real life, you might want to use options like -m0 and -j.</para>
 	<screen>root@RHELv8u2:~# mke2fs /dev/sdb1
 mke2fs 1.35 (28-Feb-2004)
@@ -147,17 +147,17 @@ Reserved block count:     10430
 <?hard-pagebreak?>
 <section><title>checking a file system</title>
 	<para>The <command>fsck</command><indexterm><primary>fsck(1)</primary></indexterm> command is a front end tool used to check a file system for errors.</para>
-	<screen>[root@RHEL4b ~]# ls /sbin/*fsck*
+	<screen>[root@RHEL8b ~]# ls /sbin/*fsck*
 /sbin/dosfsck  /sbin/fsck         /sbin/fsck.ext2  /sbin/fsck.msdos
 /sbin/e2fsck   /sbin/fsck.cramfs  /sbin/fsck.ext3  /sbin/fsck.vfat
-[root@RHEL4b ~]#</screen>
+[root@RHEL8b ~]#</screen>
 	<para>The last column in <command>/etc/fstab</command><indexterm><primary>/etc/fstab</primary></indexterm> is used to determine whether a file system should be checked at boot-up.</para>
-	<screen>[paul@RHEL4b ~]$ grep ext /etc/fstab 
+	<screen>[paul@RHEL8b ~]$ grep ext /etc/fstab 
 /dev/VolGroup00/LogVol00   /             ext3    defaults        1 1
 LABEL=/boot                /boot         ext3    defaults        1 2
-[paul@RHEL4b ~]$</screen>
+[paul@RHEL8b ~]$</screen>
 	<para>Manually checking a mounted file system results in a warning from fsck.</para>
-	<screen>[root@RHEL4b ~]# fsck /boot
+	<screen>[root@RHEL8b ~]# fsck /boot
 fsck 1.35 (28-Feb-2004)
 e2fsck 1.35 (28-Feb-2004)
 /dev/sda1 is mounted.  
@@ -169,13 +169,13 @@ Do you really want to continue (y/n)? no
 
 check aborted.</screen>
 	<para>But after unmounting fsck and <command>e2fsck</command><indexterm><primary>e2fsck(1)</primary></indexterm> can be used to check an ext2 file system.</para>
-	<screen>[root@RHEL4b ~]# fsck  /boot
+	<screen>[root@RHEL8b ~]# fsck  /boot
 fsck 1.35 (28-Feb-2004)
 e2fsck 1.35 (28-Feb-2004)
 /boot: clean, 44/26104 files, 17598/104388 blocks
-[root@RHEL4b ~]# fsck -p /boot
+[root@RHEL8b ~]# fsck -p /boot
 fsck 1.35 (28-Feb-2004)
 /boot: clean, 44/26104 files, 17598/104388 blocks
-[root@RHEL4b ~]# e2fsck -p /dev/sda1
+[root@RHEL8b ~]# e2fsck -p /dev/sda1
 /boot: clean, 44/26104 files, 17598/104388 blocks</screen>
 </section>

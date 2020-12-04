@@ -56,7 +56,7 @@ guest ok = yes</screen>
 </section>
 <section><title>restart the server</title>
 	<para>After testing with <command>testparm</command>, restart the samba server (so you don't have to wait).</para>
-	<screen>[root@RHEL4b readonly]# service smb restart
+	<screen>[root@RHEL8b readonly]# service smb restart
 Shutting down SMB services:                                [  OK  ]
 Shutting down NMB services:                                [  OK  ]
 Starting SMB services:                                     [  OK  ]

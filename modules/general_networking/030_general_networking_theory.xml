@@ -111,7 +111,7 @@
 	<section><title>many protocols</title>
 		<para>For reliable connections, you use <command>tcp</command><indexterm><primary>tcp</primary></indexterm>, whereas <command>udp</command><indexterm><primary>udp</primary></indexterm> is connectionless but faster. The <command>icmp</command><indexterm><primary>icmp</primary></indexterm> error messages are used by <command>ping</command><indexterm><primary>ping</primary></indexterm>, multicast groups are managed by <command>igmp</command><indexterm><primary>igmp</primary></indexterm>.</para>
 		<para>These protocols are visible in the protocol field of the ip header, and are listed in the <command>/etc/protocols</command><indexterm><primary>/etc/protocols</primary></indexterm> file.</para>
-		<screen>paul@debian5:~$ grep tcp /etc/protocols 
+		<screen>paul@debian10:~$ grep tcp /etc/protocols 
 tcp     6       TCP             # transmission control protocol</screen>
 	</section>
 	<section><title>many services</title>

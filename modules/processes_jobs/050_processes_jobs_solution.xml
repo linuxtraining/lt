@@ -34,33 +34,33 @@
 	<screen>fg 3 (again verify your job-id)</screen>
 	<para>10. (if time permits, a general review question...) Explain in detail where the numbers come from in the next screenshot. When are the variables replaced by their value ? By which shell ?</para>
 	<screen>
-[paul@RHEL4b ~]$ echo $$ $PPID
+[paul@RHEL8b ~]$ echo $$ $PPID
 4224 4223
-[paul@RHEL4b ~]$ bash -c "echo $$ $PPID"
+[paul@RHEL8b ~]$ bash -c "echo $$ $PPID"
 4224 4223
-[paul@RHEL4b ~]$ bash -c 'echo $$ $PPID'
+[paul@RHEL8b ~]$ bash -c 'echo $$ $PPID'
 5059 4224
-[paul@RHEL4b ~]$ bash -c `echo $$ $PPID`
+[paul@RHEL8b ~]$ bash -c `echo $$ $PPID`
 4223: 4224: command not found
 	</screen>
 	<para>The current bash shell will replace the $$ and $PPID while scanning the line, and before executing the echo command.</para>
 	<screen>
-[paul@RHEL4b ~]$ echo $$ $PPID
+[paul@RHEL8b ~]$ echo $$ $PPID
 4224 4223
 	</screen>
 	<para>The variables are now double quoted, but the current bash shell will replace $$ and $PPID while scanning the line, and before executing the <command>bash -c</command> command.</para>
 	<screen>
-[paul@RHEL4b ~]$ bash -c "echo $$ $PPID"
+[paul@RHEL8b ~]$ bash -c "echo $$ $PPID"
 4224 4223
 	</screen>
 	<para>The variables are now single quoted. The current bash shell will <command>not</command> replace the $$ and the $PPID. The bash -c command will be executed before the variables replaced with their value. This latter bash is the one replacing the $$ and $PPID with their value.</para>
 	<screen>
-[paul@RHEL4b ~]$ bash -c 'echo $$ $PPID'
+[paul@RHEL8b ~]$ bash -c 'echo $$ $PPID'
 5059 4224
 	</screen>
 	<para>With backticks the shell will still replace both variable before the embedded echo is executed. The result of this echo is the two process id's. These are given as commands to bash -c. But two numbers are not commands!</para>
 	<screen>
-[paul@RHEL4b ~]$ bash -c `echo $$ $PPID`
+[paul@RHEL8b ~]$ bash -c `echo $$ $PPID`
 4223: 4224: command not found
 	</screen>
 </section>

@@ -37,16 +37,16 @@
 <?hard-pagebreak?>
 	<section><title>locate</title>
 		<para>The <command>locate</command><indexterm><primary>locate(1)</primary></indexterm> tool is very different from <command>find</command> in that it uses an index to locate files. This is a lot faster than traversing all the directories, but it also means that it is always outdated. If the index does not exist yet, then you have to create it (as root on Red Hat Enterprise Linux) with the <command>updatedb</command><indexterm><primary>updatedb(1)</primary></indexterm> command.</para>
-		<screen>[paul@RHEL4b ~]$ locate Samba
+		<screen>[paul@RHEL8b ~]$ locate Samba
 warning: locate: could not open database: /var/lib/slocate/slocate.db:...
 warning: You need to run the 'updatedb' command (as root) to create th...
 Please have a look at /etc/updatedb.conf to enable the daily cron job.
-[paul@RHEL4b ~]$ updatedb 
+[paul@RHEL8b ~]$ updatedb 
 fatal error: updatedb: You are not authorized to create a default sloc...
-[paul@RHEL4b ~]$ su -
+[paul@RHEL8b ~]$ su -
 Password: 
-[root@RHEL4b ~]# updatedb
-[root@RHEL4b ~]#</screen>
+[root@RHEL8b ~]# updatedb
+[root@RHEL8b ~]#</screen>
 		<para>Most Linux distributions will schedule the <command>updatedb</command> to run once every day.</para>
 	</section>
 	<section><title>date</title>

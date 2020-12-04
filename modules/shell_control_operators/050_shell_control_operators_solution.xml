@@ -12,9 +12,9 @@
 	<para>5. Execute <command>cd /etc</command> after <command>cd etc</command>, but only if <command>cd etc</command> fails.</para>
 	<screen>cd etc || cd /etc</screen>
 	<para>6. Echo <command>it worked</command> when <command>touch test42</command> works, and echo <command>it failed</command> when the <command>touch</command> failed. All on one command line as a normal user (not root). Test this line in your home directory and in <command>/bin/</command> .</para>
-	<screen>paul@deb503:~$ cd ; touch test42 &#038;&#038; echo it worked || echo it failed
+	<screen>paul@deb106:~$ cd ; touch test42 &#038;&#038; echo it worked || echo it failed
 it worked
-paul@deb503:~$ cd /bin; touch test42 &#038;&#038; echo it worked || echo it failed
+paul@deb106:~$ cd /bin; touch test42 &#038;&#038; echo it worked || echo it failed
 touch: cannot touch `test42': Permission denied
 it failed</screen>
 	<para>7. Execute <command>sleep 6</command>, what is this command doing ?</para>

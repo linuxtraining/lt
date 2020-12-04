@@ -1,22 +1,22 @@
 <?hard-pagebreak?>
 	<section><title>test [ ]</title>
 		<para>The <command>test</command><indexterm><primary>test</primary></indexterm> command can test whether something is true or false. Let's start by testing whether 10 is greater than 55.</para>
-		<screen>[paul@RHEL4b ~]$ test 10 -gt 55 ; echo $?
+		<screen>[paul@RHEL8b ~]$ test 10 -gt 55 ; echo $?
 1
-[paul@RHEL4b ~]$</screen>
+[paul@RHEL8b ~]$</screen>
 		<para>The test command returns 1 if the test fails. And as you see in the next screenshot, test returns 0 when a test succeeds.</para>
-		<screen>[paul@RHEL4b ~]$ test 56 -gt 55 ; echo $?
+		<screen>[paul@RHEL8b ~]$ test 56 -gt 55 ; echo $?
 0
-[paul@RHEL4b ~]$</screen>
+[paul@RHEL8b ~]$</screen>
 		<para>If you prefer true and false, then write the test like this.</para>
-		<screen>[paul@RHEL4b ~]$ test 56 -gt 55 &#038;&#038; echo true || echo false
+		<screen>[paul@RHEL8b ~]$ test 56 -gt 55 &#038;&#038; echo true || echo false
 true
-[paul@RHEL4b ~]$ test 6 -gt 55 &#038;&#038; echo true || echo false
+[paul@RHEL8b ~]$ test 6 -gt 55 &#038;&#038; echo true || echo false
 false</screen>
 		<para>The test command can also be written as square brackets<indexterm><primary>[ (shell)</primary></indexterm>, the screenshot below is identical to the one above.</para>
-		<screen>[paul@RHEL4b ~]$ [ 56 -gt 55 ] &#038;&#038; echo true || echo false
+		<screen>[paul@RHEL8b ~]$ [ 56 -gt 55 ] &#038;&#038; echo true || echo false
 true
-[paul@RHEL4b ~]$ [ 6 -gt 55 ] &#038;&#038; echo true || echo false
+[paul@RHEL8b ~]$ [ 6 -gt 55 ] &#038;&#038; echo true || echo false
 false</screen>
 		<para>Below are some example tests. Take a look at <command>man test</command> to see more options for tests.</para>
 		<screen>[ -d foo ]             Does the directory foo exist ?
@@ -31,11 +31,11 @@ false</screen>
 [ foo -nt bar ]        Is file foo newer than file bar ?
 [ -o nounset ]         Is the shell option nounset set ?</screen>
 		<para>Tests can be combined with logical AND and OR.</para>
-		<screen>paul@RHEL4b:~$ [ 66 -gt 55 -a 66 -lt 500 ] &#038;&#038; echo true || echo false
+		<screen>paul@RHEL8b:~$ [ 66 -gt 55 -a 66 -lt 500 ] &#038;&#038; echo true || echo false
 true
-paul@RHEL4b:~$ [ 66 -gt 55 -a 660 -lt 500 ] &#038;&#038; echo true || echo false
+paul@RHEL8b:~$ [ 66 -gt 55 -a 660 -lt 500 ] &#038;&#038; echo true || echo false
 false
-paul@RHEL4b:~$ [ 66 -gt 55 -o 660 -lt 500 ] &#038;&#038; echo true || echo false
+paul@RHEL8b:~$ [ 66 -gt 55 -o 660 -lt 500 ] &#038;&#038; echo true || echo false
 true</screen>
 	</section>
 <?hard-pagebreak?>
@@ -48,12 +48,12 @@ then echo isit.txt exists!
 else echo isit.txt not found!
 fi</screen>
 		<para>If we name the above script 'choice', then it executes like this.</para>
-		<screen>[paul@RHEL4a scripts]$ ./choice 
+		<screen>[paul@RHEL8a scripts]$ ./choice 
 isit.txt not found!
-[paul@RHEL4a scripts]$ touch isit.txt
-[paul@RHEL4a scripts]$ ./choice 
+[paul@RHEL8a scripts]$ touch isit.txt
+[paul@RHEL8a scripts]$ ./choice 
 isit.txt exists!
-[paul@RHEL4a scripts]$</screen>
+[paul@RHEL8a scripts]$</screen>
 	</section>
 	<section><title>if then elif</title>
 	<para>You can nest a new <command>if</command> inside an <command>else</command> with <command>elif</command><indexterm><primary>elif</primary></indexterm>. This is a simple example.</para>

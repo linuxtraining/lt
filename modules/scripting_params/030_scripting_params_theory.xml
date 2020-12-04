@@ -13,7 +13,7 @@ echo \? $?  last return code
 echo \* $*  all the arguments</screen>
 		<para>Below is the output of the script above in action.</para>
 		<screen>
-[paul@RHEL4a scripts]$ ./pars one two three
+[paul@RHEL8a scripts]$ ./pars one two three
 The first argument is one
 The second argument is two
 The third argument is three
@@ -24,7 +24,7 @@ $ 5610 PID of the script
 </screen>
 		<para>Once more the same script, but with only two parameters.</para>
 <screen>
-[paul@RHEL4a scripts]$ ./pars 1 2
+[paul@RHEL8a scripts]$ ./pars 1 2
 The first argument is 1
 The second argument is 2
 The third argument is
@@ -32,7 +32,7 @@ $ 5612 PID of the script
 # 2 count arguments
 ? 0 last return code
 * 1 2 all the arguments
-[paul@RHEL4a scripts]$
+[paul@RHEL8a scripts]$
 </screen>
 		<para>Here is another example, where we use <command>$0</command>. The <command>$0</command> parameter contains the name of the script.</para>
 		<screen>
@@ -89,7 +89,7 @@ read number
 	<section><title>sourcing a config file</title>
 		<para>The <command>source</command><indexterm><primary>source</primary></indexterm> (as seen in the shell chapters) can be used to source a configuration file.</para>
 		<para>Below a sample configuration file for an application.</para>
-		<screen>[paul@RHEL4a scripts]$ cat myApp.conf 
+		<screen>[paul@RHEL8a scripts]$ cat myApp.conf 
 # The config file of myApp
 
 # Enter the path here
@@ -100,7 +100,7 @@ quines=5
 </screen>
 		<para>And here an application that uses this file.</para>
 <screen>
-[paul@RHEL4a scripts]$ cat myApp.bash 
+[paul@RHEL8a scripts]$ cat myApp.bash 
 #!/bin/bash
 #
 # Welcome to the myApp application
@@ -112,9 +112,9 @@ echo There are $quines quines
 </screen>
 		<para>The running application can use the values inside the sourced configuration file.</para>
 <screen>
-[paul@RHEL4a scripts]$ ./myApp.bash 
+[paul@RHEL8a scripts]$ ./myApp.bash 
 There are 5 quines
-[paul@RHEL4a scripts]$</screen>
+[paul@RHEL8a scripts]$</screen>
 	</section>
 <?hard-pagebreak?>
 	<section><title>get script options with getopts</title>

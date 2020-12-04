@@ -24,8 +24,8 @@
 	<screen>set -x</screen>
 	<para>9. Test the functionality of <command>set -x</command> by executing your <command>city</command> and <command>rm</command> aliases.</para>
 	<screen>shell should display the resolved aliases and then execute the command:
-paul@deb503:~$ set -x
-paul@deb503:~$ city
+paul@deb106:~$ set -x
+paul@deb106:~$ city
 + echo antwerp
 antwerp</screen>
 	<para>10 Execute <command>set +x</command> to stop displaying shell expansion.</para>

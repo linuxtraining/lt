@@ -1,9 +1,9 @@
 <?hard-pagebreak?>
 	<section><title>eval</title>
 		<para><command>eval</command><indexterm><primary>eval</primary></indexterm> reads arguments as input to the shell (the resulting commands are executed). This allows using the value of a variable as a variable.</para>
-		<screen>paul@deb503:~/test42$ answer=42
-paul@deb503:~/test42$ word=answer
-paul@deb503:~/test42$ eval x=\$$word ; echo $x
+		<screen>paul@deb106:~/test42$ answer=42
+paul@deb106:~/test42$ word=answer
+paul@deb106:~/test42$ eval x=\$$word ; echo $x
 42</screen>
 		<para>Both in <command>bash</command> and <command>Korn</command> the arguments can be quoted.</para>
 		<screen>kahlan@solexp11$ answer=42
@@ -27,45 +27,45 @@ Thu Mar  8 21:36:39 CET 2012
 	</section>
 	<section><title>(( ))</title>
 		<para>The <command>(( ))</command><indexterm><primary>(( (shell)</primary></indexterm> allows for evaluation of numerical expressions.</para>
-		<screen>paul@deb503:~/test42$ (( 42 > 33 )) &#038;&#038; echo true || echo false
+		<screen>paul@deb106:~/test42$ (( 42 > 33 )) &#038;&#038; echo true || echo false
 true
-paul@deb503:~/test42$ (( 42 > 1201 )) &#038;&#038; echo true || echo false
+paul@deb106:~/test42$ (( 42 > 1201 )) &#038;&#038; echo true || echo false
 false
-paul@deb503:~/test42$ var42=42
-paul@deb503:~/test42$ (( 42 == var42 )) &#038;&#038; echo true || echo false
+paul@deb106:~/test42$ var42=42
+paul@deb106:~/test42$ (( 42 == var42 )) &#038;&#038; echo true || echo false
 true
-paul@deb503:~/test42$ (( 42 == $var42 )) &#038;&#038; echo true || echo false
+paul@deb106:~/test42$ (( 42 == $var42 )) &#038;&#038; echo true || echo false
 true
-paul@deb503:~/test42$ var42=33
-paul@deb503:~/test42$ (( 42 == var42 )) &#038;&#038; echo true || echo false
+paul@deb106:~/test42$ var42=33
+paul@deb106:~/test42$ (( 42 == var42 )) &#038;&#038; echo true || echo false
 false</screen>
 	</section>
 <?hard-pagebreak?>
 	<section><title>let</title>
 		<para>The <command>let</command><indexterm><primary>let</primary></indexterm> built-in shell function instructs the shell to perform an evaluation of arithmetic expressions. It will return 0 unless the last arithmetic expression evaluates to 0.</para>
 		<screen>
-[paul@RHEL4b ~]$ let x="3 + 4" ; echo $x
+[paul@RHEL8b ~]$ let x="3 + 4" ; echo $x
 7
-[paul@RHEL4b ~]$ let x="10 + 100/10" ; echo $x
+[paul@RHEL8b ~]$ let x="10 + 100/10" ; echo $x
 20
-[paul@RHEL4b ~]$ let x="10-2+100/10" ; echo $x
+[paul@RHEL8b ~]$ let x="10-2+100/10" ; echo $x
 18
-[paul@RHEL4b ~]$ let x="10*2+100/10" ; echo $x
+[paul@RHEL8b ~]$ let x="10*2+100/10" ; echo $x
 30
 		</screen>
 		<para>The <command>shell</command> can also convert between different bases.</para>
 		<screen>
-[paul@RHEL4b ~]$ let x="0xFF" ; echo $x
+[paul@RHEL8b ~]$ let x="0xFF" ; echo $x
 255
-[paul@RHEL4b ~]$ let x="0xC0" ; echo $x
+[paul@RHEL8b ~]$ let x="0xC0" ; echo $x
 192
-[paul@RHEL4b ~]$ let x="0xA8" ; echo $x
+[paul@RHEL8b ~]$ let x="0xA8" ; echo $x
 168
-[paul@RHEL4b ~]$ let x="8#70" ; echo $x
+[paul@RHEL8b ~]$ let x="8#70" ; echo $x
 56
-[paul@RHEL4b ~]$ let x="8#77" ; echo $x
+[paul@RHEL8b ~]$ let x="8#77" ; echo $x
 63
-[paul@RHEL4b ~]$ let x="16#c0" ; echo $x
+[paul@RHEL8b ~]$ let x="16#c0" ; echo $x
 192
 		</screen>
 		<para>There is a difference between assigning a variable directly, or using <command>let</command> to evaluate the arithmetic expressions (even if it is just assigning a value).</para>
@@ -80,13 +80,13 @@ kahlan@solexp11$ echo $dec $oct $hex
 	<section><title>case</title>
 		<para>You can sometimes simplify nested if statements with a <command>case</command><indexterm><primary>case</primary></indexterm> construct.</para>
 		<screen>
-[paul@RHEL4b ~]$ ./help
+[paul@RHEL8b ~]$ ./help
 What animal did you see ? lion
 You better start running fast!
-[paul@RHEL4b ~]$ ./help
+[paul@RHEL8b ~]$ ./help
 What animal did you see ? dog
 Don't worry, give it a cookie.
-[paul@RHEL4b ~]$ cat help
+[paul@RHEL8b ~]$ cat help
 #!/bin/bash
 #
 # Wild Animals Helpdesk Advice
@@ -116,7 +116,7 @@ case $animal in
                 echo "You discovered an unknown animal, name it!"
         ;;
 esac
-[paul@RHEL4b ~]$ 			
+[paul@RHEL8b ~]$ 			
 		</screen>
 	</section>
 <?hard-pagebreak?>

@@ -11,27 +11,27 @@ ls /etc &#062; etc.txt (should not work)</screen>
 	<para>4. Deactivate the <command>noclobber</command> option.</para>
 	<screen>set +o noclobber</screen>
 	<para>5. Make sure you have two shells open on the same computer. Create an empty <command>tailing.txt</command> file. Then type <command>tail -f tailing.txt</command>. Use the second shell to <command>append</command> a line of text to that file. Verify that the first shell displays this line.</para>
-	<screen>paul@deb503:~$ &#062; tailing.txt
-paul@deb503:~$ tail -f tailing.txt 
+	<screen>paul@deb106:~$ &#062; tailing.txt
+paul@deb106:~$ tail -f tailing.txt 
 hello
 world
 
 in the other shell:
-paul@deb503:~$ echo hello >> tailing.txt 
-paul@deb503:~$ echo world >> tailing.txt</screen>
+paul@deb106:~$ echo hello >> tailing.txt 
+paul@deb106:~$ echo world >> tailing.txt</screen>
 	<para>6. Create a file that contains the names of five people. Use <command>cat</command> and output redirection to create the file and use a <command>here document</command> to end the input.</para>
-	<screen>paul@deb503:~$ cat &#062; tennis.txt &#060;&#060; ace
+	<screen>paul@deb106:~$ cat &#062; tennis.txt &#060;&#060; ace
 > Justine Henin
 > Venus Williams
 > Serena Williams
 > Martina Hingis
 > Kim Clijsters
 > ace
-paul@deb503:~$ cat tennis.txt 
+paul@deb106:~$ cat tennis.txt 
 Justine Henin
 Venus Williams
 Serena Williams
 Martina Hingis
 Kim Clijsters
-paul@deb503:~$</screen>
+paul@deb106:~$</screen>
 </section>

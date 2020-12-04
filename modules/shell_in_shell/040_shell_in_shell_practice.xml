@@ -8,6 +8,6 @@
 	<para>5. Create the variable embvar in an embedded shell and echo it. Does the variable exist in your current shell now ?</para>
 	<para>6. Explain what "set -x" does. Can this be useful ?</para>
 	<para>(optional)7. Given the following screenshot, add exactly four characters to that command line so that the total output is FirstMiddleLast.</para>
-	<screen>[paul@RHEL4b ~]$ echo  First; echo  Middle; echo  Last</screen>
+	<screen>[paul@RHEL8b ~]$ echo  First; echo  Middle; echo  Last</screen>
 	<para>8. Display a <command>long listing</command> (ls -l) of the <command>passwd</command> command using the <command>which</command> command inside an embedded shell.</para>
 </section>

@@ -1,75 +1,75 @@
 <?hard-pagebreak?>
 <section><title>cat</title>
 	<para>When between two <command>pipes</command>, the <command>cat</command><indexterm><primary>cat</primary></indexterm> command does nothing (except putting <command>stdin</command> on <command>stdout</command>).</para>
-	<screen>[paul@RHEL4b pipes]$ tac count.txt | cat | cat | cat | cat | cat
+	<screen>[paul@RHEL8b pipes]$ tac count.txt | cat | cat | cat | cat | cat
 five
 four
 three
 two
 one
-[paul@RHEL4b pipes]$</screen>
+[paul@RHEL8b pipes]$</screen>
 </section>
 <section><title>tee</title>
 	<para>Writing long <command>pipes</command> in Unix is fun, but sometimes you may want intermediate results. This is were <command>tee</command><indexterm><primary>tee(1)</primary></indexterm> comes in handy. The <command>tee</command> filter puts <command>stdin</command><indexterm><primary>stdin</primary></indexterm> on <command>stdout</command><indexterm><primary>stdout</primary></indexterm> and also into a file. So <command>tee</command> is almost the same as <command>cat</command>, except that it has two identical outputs.</para>
-	<screen>[paul@RHEL4b pipes]$ tac count.txt | tee temp.txt | tac
+	<screen>[paul@RHEL8b pipes]$ tac count.txt | tee temp.txt | tac
 one
 two
 three
 four
 five
-[paul@RHEL4b pipes]$ cat temp.txt 
+[paul@RHEL8b pipes]$ cat temp.txt 
 five
 four
 three
 two
 one
-[paul@RHEL4b pipes]$</screen>
+[paul@RHEL8b pipes]$</screen>
 </section>
 <section><title>grep</title>
 	<para>The <command>grep</command><indexterm><primary>grep(1)</primary></indexterm> filter is famous among Unix users. The most common use of <command>grep</command> is to filter lines of text containing (or not containing) a certain string.</para>
-	<screen>[paul@RHEL4b pipes]$ cat tennis.txt 
+	<screen>[paul@RHEL8b pipes]$ cat tennis.txt 
 Amelie Mauresmo, Fra
 Kim Clijsters, BEL
 Justine Henin, Bel
 Serena Williams, usa
 Venus Williams, USA
-[paul@RHEL4b pipes]$ cat tennis.txt | grep Williams
+[paul@RHEL8b pipes]$ cat tennis.txt | grep Williams
 Serena Williams, usa
 Venus Williams, USA</screen>
 	<para>You can write this without the cat.</para>
-	<screen>[paul@RHEL4b pipes]$ grep Williams tennis.txt 
+	<screen>[paul@RHEL8b pipes]$ grep Williams tennis.txt 
 Serena Williams, usa
 Venus Williams, USA</screen>
 	<para>One of the most useful options of grep is <command>grep -i</command><indexterm><primary>grep -i</primary></indexterm> which filters in a case insensitive way.</para>
-	<screen>[paul@RHEL4b pipes]$ grep Bel tennis.txt 
+	<screen>[paul@RHEL8b pipes]$ grep Bel tennis.txt 
 Justine Henin, Bel
-[paul@RHEL4b pipes]$ grep -i Bel tennis.txt 
+[paul@RHEL8b pipes]$ grep -i Bel tennis.txt 
 Kim Clijsters, BEL
 Justine Henin, Bel
-[paul@RHEL4b pipes]$</screen>
+[paul@RHEL8b pipes]$</screen>
 	<para>Another very useful option is <command>grep -v</command><indexterm><primary>grep -v</primary></indexterm> which outputs lines not matching the string.</para>
-	<screen>[paul@RHEL4b pipes]$ grep -v Fra tennis.txt 
+	<screen>[paul@RHEL8b pipes]$ grep -v Fra tennis.txt 
 Kim Clijsters, BEL
 Justine Henin, Bel
 Serena Williams, usa
 Venus Williams, USA
-[paul@RHEL4b pipes]$</screen>
+[paul@RHEL8b pipes]$</screen>
 	<para>And of course, both options can be combined to filter all lines not containing a case insensitive string.</para>
-	<screen>[paul@RHEL4b pipes]$ grep -vi usa tennis.txt 
+	<screen>[paul@RHEL8b pipes]$ grep -vi usa tennis.txt 
 Amelie Mauresmo, Fra
 Kim Clijsters, BEL
 Justine Henin, Bel
-[paul@RHEL4b pipes]$</screen>
+[paul@RHEL8b pipes]$</screen>
 	<para>With <command>grep -A1</command> one line <command>after</command> the result is also displayed.</para>
-	<screen>paul@debian5:~/pipes$ grep -A1 Henin tennis.txt 
+	<screen>paul@debian10:~/pipes$ grep -A1 Henin tennis.txt 
 Justine Henin, Bel
 Serena Williams, usa</screen>
 	<para>With <command>grep -B1</command> one line <command>before</command> the result is also displayed.</para>
-	<screen>paul@debian5:~/pipes$ grep -B1 Henin tennis.txt 
+	<screen>paul@debian10:~/pipes$ grep -B1 Henin tennis.txt 
 Kim Clijsters, BEL
 Justine Henin, Bel</screen>
 	<para>With <command>grep -C1</command> (context) one line <command>before</command> and one <command>after</command> are also displayed. All three options (A,B, and C) can display any number of lines (using e.g. A2, B4 or C20).</para>
-	<screen>paul@debian5:~/pipes$ grep -C1 Henin tennis.txt 
+	<screen>paul@debian10:~/pipes$ grep -C1 Henin tennis.txt 
 Kim Clijsters, BEL
 Justine Henin, Bel
 Serena Williams, usa</screen>
@@ -77,77 +77,77 @@ Serena Williams, usa</screen>
 <?hard-pagebreak?>
 	<section><title>cut</title>
 		<para>The <command>cut</command><indexterm><primary>cut(1)</primary></indexterm> filter can select columns from files, depending on a delimiter or a count of bytes. The screenshot below uses <command>cut</command> to filter for the username and userid in the <command>/etc/passwd</command> file. It uses the colon as a delimiter, and selects fields 1 and 3.</para>
-		<screen>[[paul@RHEL4b pipes]$ cut -d: -f1,3 /etc/passwd | tail -4 
+		<screen>[[paul@RHEL8b pipes]$ cut -d: -f1,3 /etc/passwd | tail -4 
 Figo:510
 Pfaff:511
 Harry:516
 Hermione:517
-[paul@RHEL4b pipes]$</screen>
+[paul@RHEL8b pipes]$</screen>
 		<para>When using a space as the delimiter for <command>cut</command>, you have to quote the space.</para>
-		<screen>[paul@RHEL4b pipes]$ cut -d" " -f1 tennis.txt 
+		<screen>[paul@RHEL8b pipes]$ cut -d" " -f1 tennis.txt 
 Amelie
 Kim
 Justine
 Serena
 Venus
-[paul@RHEL4b pipes]$</screen>
+[paul@RHEL8b pipes]$</screen>
 		<para>This example uses <command>cut</command> to display the second to the seventh character of <command>/etc/passwd</command>.</para>
-		<screen>[paul@RHEL4b pipes]$ cut -c2-7 /etc/passwd | tail -4
+		<screen>[paul@RHEL8b pipes]$ cut -c2-7 /etc/passwd | tail -4
 igo:x:
 faff:x
 arry:x
 ermion
-[paul@RHEL4b pipes]$</screen>
+[paul@RHEL8b pipes]$</screen>
 	</section>
 	<section><title>tr</title>
 		<para>You can translate characters with <command>tr</command><indexterm><primary>tr(1)</primary></indexterm>. The screenshot shows the translation of all occurrences of e to E.</para>
-		<screen>[paul@RHEL4b pipes]$ cat tennis.txt | tr 'e' 'E'
+		<screen>[paul@RHEL8b pipes]$ cat tennis.txt | tr 'e' 'E'
 AmEliE MaurEsmo, Fra
 Kim ClijstErs, BEL
 JustinE HEnin, BEl
 SErEna Williams, usa
 VEnus Williams, USA</screen>
 		<para>Here we set all letters to uppercase by defining two ranges.</para>
-		<screen>[paul@RHEL4b pipes]$ cat tennis.txt | tr 'a-z' 'A-Z'
+		<screen>[paul@RHEL8b pipes]$ cat tennis.txt | tr 'a-z' 'A-Z'
 AMELIE MAURESMO, FRA
 KIM CLIJSTERS, BEL
 JUSTINE HENIN, BEL
 SERENA WILLIAMS, USA
 VENUS WILLIAMS, USA
-[paul@RHEL4b pipes]$</screen>
+[paul@RHEL8b pipes]$</screen>
 		<para>Here we translate all newlines to spaces.</para>
-		<screen>[paul@RHEL4b pipes]$ cat count.txt 
+		<screen>[paul@RHEL8b pipes]$ cat count.txt 
 one
 two
 three
 four
 five
-[paul@RHEL4b pipes]$ cat count.txt | tr '\n' ' '
-one two three four five [paul@RHEL4b pipes]$</screen>
+[paul@RHEL8b pipes]$ cat count.txt | tr '\n' ' '
+one two three four five [paul@RHEL8b pipes]$</screen>
 		<para>The <command>tr -s</command> filter can also be used to squeeze multiple occurrences of a character to one.</para>
-		<screen>[paul@RHEL4b pipes]$ cat spaces.txt 
+		<screen>[paul@RHEL8b pipes]$ cat spaces.txt 
 one    two        three
      four   five  six
-[paul@RHEL4b pipes]$ cat spaces.txt | tr -s ' '
+[paul@RHEL8b pipes]$ cat spaces.txt | tr -s ' '
 one two three
  four five six
-[paul@RHEL4b pipes]$</screen>
+[paul@RHEL8b pipes]$</screen>
 		<para>You can also use <command>tr</command><indexterm><primary>tr</primary></indexterm> to 'encrypt' texts with <command>rot13</command>.</para>
-		<screen>[paul@RHEL4b pipes]$ cat count.txt | tr 'a-z' 'nopqrstuvwxyzabcdefghijklm'
+		<screen>[paul@RHEL8b pipes]$ cat count.txt | tr 'a-z' 'nopqrstuvwxyzabcdefghijklm'
 bar
 gjb
 guerr
 sbhe
 svir
-[paul@RHEL4b pipes]$ cat count.txt | tr 'a-z' 'n-za-m'
+[paul@RHEL8b pipes]$ cat count.txt | tr 'a-z' 'n-za-m'
 bar
 gjb
 guerr
 sbhe
 svir
-[paul@RHEL4b pipes]$</screen>
+[paul@RHEL8b pipes]$</screen>
 		<para>This last example uses <command>tr -d</command> to delete characters.</para>
-		<screen>paul@debian5:~/pipes$ cat tennis.txt | tr -d e
+		<screen>paul@debian10:~/pipes$ cat tennis.txt | tr -d e
 Amli Maursmo, Fra
 Kim Clijstrs, BEL
 Justin Hnin, Bl
@@ -156,50 +156,50 @@ Vnus Williams, USA</screen>
 	</section>
 	<section><title>wc</title>
 		<para>Counting words, lines and characters is easy with <command>wc</command><indexterm><primary>wc(1)</primary></indexterm>.</para>
-		<screen>[paul@RHEL4b pipes]$ wc tennis.txt 
+		<screen>[paul@RHEL8b pipes]$ wc tennis.txt 
   5  15 100 tennis.txt
-[paul@RHEL4b pipes]$ wc -l tennis.txt 
+[paul@RHEL8b pipes]$ wc -l tennis.txt 
 5 tennis.txt
-[paul@RHEL4b pipes]$ wc -w tennis.txt 
+[paul@RHEL8b pipes]$ wc -w tennis.txt 
 15 tennis.txt
-[paul@RHEL4b pipes]$ wc -c tennis.txt 
+[paul@RHEL8b pipes]$ wc -c tennis.txt 
 100 tennis.txt
-[paul@RHEL4b pipes]$</screen>
+[paul@RHEL8b pipes]$</screen>
 	</section>
 <?hard-pagebreak?>
 	<section><title>sort</title>
 		<para>The <command>sort</command><indexterm><primary>sort(1)</primary></indexterm> filter will default to an alphabetical sort.</para>
-		<screen>paul@debian5:~/pipes$ cat music.txt 
+		<screen>paul@debian10:~/pipes$ cat music.txt 
 Queen
 Brel
 Led Zeppelin
 Abba
-paul@debian5:~/pipes$ sort music.txt 
+paul@debian10:~/pipes$ sort music.txt 
 Abba
 Brel
 Led Zeppelin
 Queen</screen>
 		<para>But the <command>sort</command> filter has many options to tweak its usage. This example shows sorting different columns (column 1 or column 2).</para>
-		<screen>[paul@RHEL4b pipes]$ sort -k1 country.txt 
+		<screen>[paul@RHEL8b pipes]$ sort -k1 country.txt 
 Belgium, Brussels, 10
 France, Paris, 60
 Germany, Berlin, 100
 Iran, Teheran, 70
 Italy, Rome, 50
-[paul@RHEL4b pipes]$ sort -k2 country.txt 
+[paul@RHEL8b pipes]$ sort -k2 country.txt 
 Germany, Berlin, 100
 Belgium, Brussels, 10
 France, Paris, 60
 Italy, Rome, 50
 Iran, Teheran, 70</screen>
 		<para>The screenshot below shows the difference between an alphabetical sort and a numerical sort (both on the third column).</para>
-		<screen>[paul@RHEL4b pipes]$ sort -k3 country.txt 
+		<screen>[paul@RHEL8b pipes]$ sort -k3 country.txt 
 Belgium, Brussels, 10
 Germany, Berlin, 100
 Italy, Rome, 50
 France, Paris, 60
 Iran, Teheran, 70
-[paul@RHEL4b pipes]$ sort -n -k3 country.txt 
+[paul@RHEL8b pipes]$ sort -n -k3 country.txt 
 Belgium, Brussels, 10
 Italy, Rome, 50
 France, Paris, 60
@@ -209,22 +209,22 @@ Germany, Berlin, 100</screen>
 <?hard-pagebreak?>
 	<section><title>uniq</title>
 		<para>With <command>uniq</command><indexterm><primary>uniq(1)</primary></indexterm> you can remove duplicates from a <command>sorted list</command>.</para>
-		<screen>paul@debian5:~/pipes$ cat music.txt 
+		<screen>paul@debian10:~/pipes$ cat music.txt 
 Queen
 Brel
 Queen
 Abba
-paul@debian5:~/pipes$ sort music.txt 
+paul@debian10:~/pipes$ sort music.txt 
 Abba
 Brel
 Queen
 Queen
-paul@debian5:~/pipes$ sort music.txt |uniq
+paul@debian10:~/pipes$ sort music.txt |uniq
 Abba
 Brel
 Queen</screen>
 		<para><command>uniq</command> can also count occurrences with the <command>-c</command> option.</para>
-		<screen>paul@debian5:~/pipes$ sort music.txt |uniq -c
+		<screen>paul@debian10:~/pipes$ sort music.txt |uniq -c
       1 Abba
       1 Brel
       2 Queen</screen>
@@ -232,18 +232,18 @@ Queen</screen>
 <?hard-pagebreak?>
 	<section><title>comm</title>
 		<para>Comparing streams (or files) can be done with the <command>comm</command><indexterm><primary>comm(1)</primary></indexterm>. By default <command>comm</command> will output three columns. In this example, Abba, Cure and Queen are in both lists, Bowie and Sweet are only in the first file, Turner is only in the second.</para>
-		<screen>paul@debian5:~/pipes$ cat &#062; list1.txt
+		<screen>paul@debian10:~/pipes$ cat &#062; list1.txt
 Abba
 Bowie
 Cure
 Queen
 Sweet
-paul@debian5:~/pipes$ cat &#062; list2.txt
+paul@debian10:~/pipes$ cat &#062; list2.txt
 Abba
 Cure
 Queen
 Turner
-paul@debian5:~/pipes$ comm list1.txt list2.txt 
+paul@debian10:~/pipes$ comm list1.txt list2.txt 
                 Abba
 Bowie
                 Cure
@@ -252,13 +252,13 @@ Sweet
         Turner</screen>
 		<para>The output of <command>comm</command> can be easier to read when outputting only a single column. The digits point out which output columns should not be displayed.</para>
 		<screen>
-paul@debian5:~/pipes$ comm -12 list1.txt list2.txt 
+paul@debian10:~/pipes$ comm -12 list1.txt list2.txt 
 Abba
 Cure
 Queen
-paul@debian5:~/pipes$ comm -13 list1.txt list2.txt 
+paul@debian10:~/pipes$ comm -13 list1.txt list2.txt 
 Turner
-paul@debian5:~/pipes$ comm -23 list1.txt list2.txt 
+paul@debian10:~/pipes$ comm -23 list1.txt list2.txt 
 Bowie
 Sweet
 </screen>
@@ -291,28 +291,28 @@ paul@laika:~/test$ od -c text.txt
 	<section><title>sed</title>
 		<para>The <command>s</command>tream <command>ed</command>itor <command>sed</command><indexterm><primary>sed</primary></indexterm> can perform editing functions in the stream, using <command>regular expressions</command>.</para>
 		<screen>
-paul@debian5:~/pipes$ echo level5 | sed 's/5/42/'
+paul@debian10:~/pipes$ echo level5 | sed 's/5/42/'
 level42
-paul@debian5:~/pipes$ echo level5 | sed 's/level/jump/'
+paul@debian10:~/pipes$ echo level5 | sed 's/level/jump/'
 jump5
 		</screen>
 		<para>Add <command>g</command> for global replacements (all occurrences of the string per line).</para>
 		<screen>
-paul@debian5:~/pipes$ echo level5 level7 | sed 's/level/jump/'
+paul@debian10:~/pipes$ echo level5 level7 | sed 's/level/jump/'
 jump5 level7
-paul@debian5:~/pipes$ echo level5 level7 | sed 's/level/jump/g'
+paul@debian10:~/pipes$ echo level5 level7 | sed 's/level/jump/g'
 jump5 jump7
 		</screen>
 		<para>With <command>d</command> you can remove lines from a stream containing a character.</para>
 		<screen>
-paul@debian5:~/test42$ cat tennis.txt 
+paul@debian10:~/test42$ cat tennis.txt 
 Venus Williams, USA
 Martina Hingis, SUI
 Justine Henin, BE
 Serena williams, USA
 Kim Clijsters, BE
 Yanina Wickmayer, BE
-paul@debian5:~/test42$ cat tennis.txt | sed '/BE/d'
+paul@debian10:~/test42$ cat tennis.txt | sed '/BE/d'
 Venus Williams, USA
 Martina Hingis, SUI
 Serena williams, USA</screen>
@@ -321,34 +321,34 @@ Serena williams, USA</screen>
 <section><title>pipe examples</title>
 	<section><title>who | wc</title>
 		<para>How many users are logged <indexterm><primary>who</primary></indexterm> on to this system ?</para>
-		<screen>[paul@RHEL4b pipes]$ who
+		<screen>[paul@RHEL8b pipes]$ who
 root     tty1         Jul 25 10:50
 paul     pts/0        Jul 25 09:29 (laika)
 Harry    pts/1        Jul 25 12:26 (barry)
 paul     pts/2        Jul 25 12:26 (pasha)
-[paul@RHEL4b pipes]$ who | wc -l
+[paul@RHEL8b pipes]$ who | wc -l
 4</screen>
 	</section>
 	<section><title>who | cut | sort</title>
 		<para>Display a sorted <indexterm><primary>sort</primary></indexterm> list of logged on users.</para>
-		<screen>[paul@RHEL4b pipes]$ who | cut -d' ' -f1 | sort
+		<screen>[paul@RHEL8b pipes]$ who | cut -d' ' -f1 | sort
 Harry
 paul
 paul
 root</screen>
 		<para>Display a sorted list of logged on users<indexterm><primary>cut</primary></indexterm>, but every user only once <indexterm><primary>uniq</primary></indexterm>.</para>
-		<screen>[paul@RHEL4b pipes]$ who | cut -d' ' -f1 | sort | uniq
+		<screen>[paul@RHEL8b pipes]$ who | cut -d' ' -f1 | sort | uniq
 Harry
 paul
 root</screen>
 	</section>
 	<section><title>grep | cut</title>
 		<para>Display a list of all bash <command>user accounts</command><indexterm><primary>/etc/passwd</primary></indexterm> on this computer. Users accounts are explained in detail later.</para>
-		<screen>paul@debian5:~$ grep bash /etc/passwd
+		<screen>paul@debian10:~$ grep bash /etc/passwd
 root:x:0:0:root:/root:/bin/bash
 paul:x:1000:1000:paul,,,:/home/paul:/bin/bash
 serena:x:1001:1001::/home/serena:/bin/bash
-paul@debian5:~$ grep bash /etc/passwd | cut -d: -f1
+paul@debian10:~$ grep bash /etc/passwd | cut -d: -f1
 root
 paul
 serena</screen>

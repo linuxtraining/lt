@@ -10,12 +10,12 @@
 	<para>8. Continue the <command>find</command> process in background (make sure it runs again).</para>
 	<para>9. Put one of the <command>sleep</command> commands back in foreground.</para>
 	<para>10. (if time permits, a general review question...) Explain in detail where the numbers come from in the next screenshot. When are the variables replaced by their value ? By which shell ?</para>
-	<screen>[paul@RHEL4b ~]$ echo $$ $PPID
+	<screen>[paul@RHEL8b ~]$ echo $$ $PPID
 4224 4223
-[paul@RHEL4b ~]$ bash -c "echo $$ $PPID"
+[paul@RHEL8b ~]$ bash -c "echo $$ $PPID"
 4224 4223
-[paul@RHEL4b ~]$ bash -c 'echo $$ $PPID'
+[paul@RHEL8b ~]$ bash -c 'echo $$ $PPID'
 5059 4224
-[paul@RHEL4b ~]$ bash -c `echo $$ $PPID`
+[paul@RHEL8b ~]$ bash -c `echo $$ $PPID`
 4223: 4224: command not found</screen>
 </section>

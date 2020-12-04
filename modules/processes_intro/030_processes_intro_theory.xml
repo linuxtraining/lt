@@ -28,7 +28,7 @@
 		<para>Some shell environment variables contain information about processes. The <command>$$</command><indexterm><primary>$$</primary></indexterm> variable will hold your current <command>process ID</command>, and <command>$PPID</command><indexterm><primary>$PPID</primary></indexterm> contains the <command>parent PID</command>. Actually <command>$$</command> is a shell parameter and not a variable, you cannot assign a value to it.</para>
 		<para>Below we use <command>echo</command><indexterm><primary>echo(1)</primary></indexterm> to display the values of <command>$$</command> and <command>$PPID</command>.</para>
 		<screen>
-[paul@RHEL4b ~]$ echo $$ $PPID
+[paul@RHEL8b ~]$ echo $$ $PPID
 4224 4223
 		</screen>
 	</section>
@@ -43,47 +43,47 @@ root@rhel53 ~# pidof mingetty
 		<para>Processes have a <command>parent-child</command> relationship. Every process has a parent process.</para>
 		<para>When starting a new <command>bash</command> you can use <command>echo</command> to verify that the <command>pid</command> from before is the <command>ppid</command> of the new shell. The <command>child</command> process from above is now the <command>parent</command> process.</para>
 		<screen>
-[paul@RHEL4b ~]$ bash
-[paul@RHEL4b ~]$ echo $$ $PPID
+[paul@RHEL8b ~]$ bash
+[paul@RHEL8b ~]$ echo $$ $PPID
 4812 4224
 		</screen>
 		<para>Typing <command>exit</command> will end the current process and brings us back to our original values for <command>$$</command> and <command>$PPID</command>.</para>
 		<screen>
-[paul@RHEL4b ~]$ echo $$ $PPID
+[paul@RHEL8b ~]$ echo $$ $PPID
 4812 4224
-[paul@RHEL4b ~]$ exit
+[paul@RHEL8b ~]$ exit
 exit
-[paul@RHEL4b ~]$ echo $$ $PPID
+[paul@RHEL8b ~]$ echo $$ $PPID
 4224 4223
-[paul@RHEL4b ~]$
+[paul@RHEL8b ~]$
 		</screen>
 	</section>
 <?hard-pagebreak?>
 	<section><title>fork and exec</title>
 		<para>A process starts another process in two phases. First the process creates a <command>fork</command><indexterm><primary>fork</primary></indexterm> of itself, an identical copy. Then the forked process executes an <command>exec</command><indexterm><primary>exec</primary></indexterm> to replace the forked process with the target child process.</para>
 		<screen>
-[paul@RHEL4b ~]$ echo $$
+[paul@RHEL8b ~]$ echo $$
 4224
-[paul@RHEL4b ~]$ bash
-[paul@RHEL4b ~]$ echo $$ $PPID
+[paul@RHEL8b ~]$ bash
+[paul@RHEL8b ~]$ echo $$ $PPID
 5310 4224
-[paul@RHEL4b ~]$
+[paul@RHEL8b ~]$
 		</screen>
 	</section>
 	<section><title>exec</title>
 		<para>With the <command>exec</command> command, you can execute a process without forking a new process. In the following screenshot a <command>Korn shell</command> (ksh) is started and is being replaced with a <command>bash shell</command> using the <command>exec</command> command. The <command>pid</command> of the <command>bash shell</command> is the same as the <command>pid</command> of the <command>Korn shell</command>. Exiting the child <command>bash shell</command> will get me back to the parent <command>bash</command>, not to the <command>Korn shell</command> (which does not exist anymore).</para>
 		<screen>
-[paul@RHEL4b ~]$ echo $$
+[paul@RHEL8b ~]$ echo $$
 4224                                # PID of bash
-[paul@RHEL4b ~]$ ksh
+[paul@RHEL8b ~]$ ksh
 $ echo $$ $PPID
 5343 4224                           # PID of ksh and bash
 $ exec bash
-[paul@RHEL4b ~]$ echo $$ $PPID
+[paul@RHEL8b ~]$ echo $$ $PPID
 5343 4224                           # PID of bash and bash
-[paul@RHEL4b ~]$ exit
+[paul@RHEL8b ~]$ exit
 exit
-[paul@RHEL4b ~]$ echo $$
+[paul@RHEL8b ~]$ echo $$
 4224
 		</screen>
 	</section>
@@ -91,40 +91,40 @@ exit
 	<section><title>ps</title>
 		<para>One of the most common tools on Linux to look at processes is <command>ps</command><indexterm><primary>ps</primary></indexterm>. The following screenshot shows the parent child relationship between three bash processes.</para>
 		<screen>
-[paul@RHEL4b ~]$ echo $$ $PPID
+[paul@RHEL8b ~]$ echo $$ $PPID
 4224 4223
-[paul@RHEL4b ~]$ bash
-[paul@RHEL4b ~]$ echo $$ $PPID
+[paul@RHEL8b ~]$ bash
+[paul@RHEL8b ~]$ echo $$ $PPID
 4866 4224
-[paul@RHEL4b ~]$ bash
-[paul@RHEL4b ~]$ echo $$ $PPID
+[paul@RHEL8b ~]$ bash
+[paul@RHEL8b ~]$ echo $$ $PPID
 4884 4866
-[paul@RHEL4b ~]$ ps fx
+[paul@RHEL8b ~]$ ps fx
   PID TTY      STAT   TIME COMMAND
  4223 ?        S      0:01 sshd: paul@pts/0 
  4224 pts/0    Ss     0:00  \_ -bash
  4866 pts/0    S      0:00      \_ bash
  4884 pts/0    S      0:00          \_ bash
  4902 pts/0    R+     0:00              \_ ps fx
-[paul@RHEL4b ~]$ exit
+[paul@RHEL8b ~]$ exit
 exit
-[paul@RHEL4b ~]$ ps fx
+[paul@RHEL8b ~]$ ps fx
   PID TTY      STAT   TIME COMMAND
  4223 ?        S      0:01 sshd: paul@pts/0 
  4224 pts/0    Ss     0:00  \_ -bash
  4866 pts/0    S      0:00      \_ bash
  4903 pts/0    R+     0:00          \_ ps fx
-[paul@RHEL4b ~]$ exit
+[paul@RHEL8b ~]$ exit
 exit
-[paul@RHEL4b ~]$ ps fx
+[paul@RHEL8b ~]$ ps fx
   PID TTY      STAT   TIME COMMAND
  4223 ?        S      0:01 sshd: paul@pts/0 
  4224 pts/0    Ss     0:00  \_ -bash
  4904 pts/0    R+     0:00      \_ ps fx
-[paul@RHEL4b ~]$ 		</screen>
+[paul@RHEL8b ~]$ 		</screen>
 		<para>On Linux, <command>ps fax</command><indexterm><primary>ps fax</primary></indexterm> is often used. On Solaris <command>ps -ef</command><indexterm><primary>ps -ef</primary></indexterm> (which also works on Linux) is common. Here is a partial output from <command>ps fax</command>.</para>
 		<screen>
-[paul@RHEL4a ~]$ ps fax
+[paul@RHEL8a ~]$ ps fax
 PID TTY      STAT   TIME COMMAND
 1 ?        S      0:00 init [5]
 
@@ -173,7 +173,7 @@ paul@ubuntu910:~$
 	<section><title>list signals</title>
 		<para>Running processes can receive signals from each other or from the users. You can have a list of signals by typing <command>kill -l</command><indexterm><primary>kill(1)</primary></indexterm>, that is a letter <command>l</command>, not the number 1.</para>
 		<screen>
-[paul@RHEL4a ~]$ kill -l
+[paul@RHEL8a ~]$ kill -l
 1) SIGHUP       2) SIGINT       3) SIGQUIT      4) SIGILL
 5) SIGTRAP      6) SIGABRT      7) SIGBUS       8) SIGFPE
 9) SIGKILL     10) SIGUSR1     11) SIGSEGV     12) SIGUSR2
@@ -190,14 +190,14 @@ paul@ubuntu910:~$
 56) SIGRTMAX-8  57) SIGRTMAX-7  58) SIGRTMAX-6  59) SIGRTMAX-5
 60) SIGRTMAX-4  61) SIGRTMAX-3  62) SIGRTMAX-2  63) SIGRTMAX-1
 64) SIGRTMAX
-[paul@RHEL4a ~]$ 
+[paul@RHEL8a ~]$ 
 		</screen>
 	</section>
 	<section><title>kill -1 (SIGHUP)</title>
 		<para>It is common on Linux to use the first signal <command>SIGHUP</command><indexterm><primary>SIGHUP</primary></indexterm> (or HUP or 1) to tell a process that it should re-read its configuration file. Thus, the <command>kill -1 1</command> command forces the <command>init</command> process (<command>init</command> always runs with <command>pid 1</command>) to re-read its configuration file.</para>
 		<screen>
-root@deb503:~# kill -1 1
-root@deb503:~#
+root@deb106:~# kill -1 1
+root@deb106:~#
 		</screen>
 		<para>It is up to the developer of the process to decide whether the process can do this running, or whether it needs to stop and start. It is up to the user to read the documentation of the program.</para>
 	</section>

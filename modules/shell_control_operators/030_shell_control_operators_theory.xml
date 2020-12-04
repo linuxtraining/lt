@@ -22,17 +22,17 @@ World
 </section>
 <section><title>$? dollar question mark</title>
 	<para>The exit code of the previous command is stored in the shell variable <command>$?</command>. Actually <command>$?</command><indexterm><primary>$? (shell variables)</primary></indexterm> is a shell parameter and not a variable, since you cannot assign a value to <command>$?</command>.</para>
-	<screen>paul@debian5:~/test$ touch file1
-paul@debian5:~/test$ echo $?
+	<screen>paul@debian10:~/test$ touch file1
+paul@debian10:~/test$ echo $?
 0
-paul@debian5:~/test$ rm file1
-paul@debian5:~/test$ echo $?
+paul@debian10:~/test$ rm file1
+paul@debian10:~/test$ echo $?
 0
-paul@debian5:~/test$ rm file1
+paul@debian10:~/test$ rm file1
 rm: cannot remove `file1': No such file or directory
-paul@debian5:~/test$ echo $?
+paul@debian10:~/test$ echo $?
 1
-paul@debian5:~/test$</screen>
+paul@debian10:~/test$</screen>
 </section>
 <?hard-pagebreak?>
 <section><title>&#038;&#038; double ampersand</title>
@@ -95,10 +95,10 @@ escaping \ # &#038; " '
 escaping \?*"'</screen>
 	<section><title>end of line backslash</title>
 		<para>Lines ending in a backslash are continued on the next line. The shell does not interpret the newline character and will wait on shell expansion and execution of the command line until a newline without backslash is encountered.</para>
-		<screen>[paul@RHEL4b ~]$ echo This command line \
+		<screen>[paul@RHEL8b ~]$ echo This command line \
 > is split in three \
 > parts
 This command line is split in three parts
-[paul@RHEL4b ~]$</screen>
+[paul@RHEL8b ~]$</screen>
 	</section>
 </section>
