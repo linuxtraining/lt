@@ -1,9 +1,6 @@
 <?hard-pagebreak?>
-<section><title>practice: scripting tests and loops</title>
-	<para>1. Write a script that uses a <command>for</command> loop to count from 3 to 7.</para>
-	<para>2. Write a script that uses a <command>for</command> loop to count from 1 to 17000.</para>
-	<para>3. Write a script that uses a <command>while</command> loop to count from 3 to 7.</para>
-	<para>4. Write a script that uses an <command>until</command> loop to count down from 8 to 4.</para>
-	<para>5. Write a script that counts the number of files ending in <command>.txt</command> in the current directory.</para>
-	<para>6. Wrap an <command>if</command> statement around the script so it is also correct when there are zero files ending in <command>.txt</command>.</para>
+<section><title>practice: scripting arrays</title>
+	<para>1.In Bash Shell:</para>
+		<para>* create variable named <command>my_arr</command> with empty value.</para>
+		<para>* add to my_arr values apple banana pineapple watermelon melon strawberry</para>
 </section>
