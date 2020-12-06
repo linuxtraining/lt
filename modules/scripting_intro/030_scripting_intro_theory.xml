@@ -44,8 +44,10 @@ echo A bash subshell $(echo -n hello)
 # Hello World Script
 #
 echo Hello World
-echo A bash subshell `echo -n hello` # this is old way of calling for subshell with backtick ``
-echo A bash subshell $(echo -n hello) # this is more modern way of calling for subshell with dollar and brackets $()
+echo A bash subshell `echo -n hello` 
+# this is old way of calling for subshell with backtick ``
+echo A bash subshell $(echo -n hello) 
+# this is more modern way of calling for subshell with dollar and brackets $()
 #NOTICE: backtick might not work in future versions of bash shell
 </screen>
 
