@@ -8,8 +8,7 @@
 # ./modules/
 # ./build/
 
-### import for testting  dependencies ###
-. ./dependencies.sh
+
 
 ### settings ###
 
