@@ -1,9 +1,14 @@
 <?hard-pagebreak?>
-<section><title>practice: init</title>
-        <para>1. Change <command>/etc/inittab</command> so that only two mingetty's are respawned. Kill the other <command>mingetty's</command> and verify that they don't come back.</para>
-        <para>2. Use the Red Hat Enterprise Linux virtual machine. Go to runlevel 5, display the current and previous runlevel, then go back to runlevel 3.</para>
-        <para>3. Is the sysinit script on your computers setting or changing the PATH environment variable ?</para>
-	<para>4. List all init.d scripts that are started in runlevel 2.</para>
-        <para>5. Write a script that acts like a daemon script in <command>/etc/init.d/</command>. It should have a case statement to act on start/stop/restart and status. Test the script!</para>
-        <para>6. Use <command>chkconfig</command> to setup your script to start in runlevels 3,4 and 5, and to stop in any other runlevel.</para>
+<section><title>practice: systemd</title>
+        <para>1.determine on which target you are at the moment</para>
+        <para>2.list all systemctl units with type of service</para>
+        <para>3.check what is the status of cron service.</para>
+        <para>4.disable cron service</para>
+        <para>5.1 on RedHat based system, disable networkmanager and enable networking service.</para>
+        <para>5.2 on Debian based system, disable networkmanager and enable netconf serice</para>
+        <para>6.use one command, to eneable and start cron service</para>
+        <para></para>
+        <para></para>
+        <para></para>
+        <para></para>
 </section>
