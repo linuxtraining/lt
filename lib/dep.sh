@@ -6,10 +6,13 @@
 #date       :  20/11/2020
 #version    :  v1.0.0
 ##########################################################
-
+dot="$(cd "$(dirname "$0")"; pwd)"
 line="#################################"
 dep_list=(xmlto fop default-jdk default-jdk-headless)
 installer="${1:-apt-get}"
+
+
+
 
 main(){
     validate_dependencies ${dep_list[@]}

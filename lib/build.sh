@@ -1,8 +1,12 @@
 #!/usr/bin/env bash 
 
+
+dot="$(cd "$(dirname "$0")"; pwd)"
+
 help() {
+	clear
 	echo
-	echo "linux-training book build script\t\thttp://linux-training.be"
+	echo -e "linux-training book build script\t\thttp://linux-training.be"
 	echo
 	echo $0 [OPTION] command [book]
 	echo 
@@ -23,6 +27,7 @@ help() {
 	echo "Available books:" $superbooks
 	echo "      minibooks:" $minibooks
 	echo
+	sleep 2
 	}
 
 clean() {
