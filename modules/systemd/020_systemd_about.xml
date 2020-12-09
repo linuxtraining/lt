@@ -1,3 +1,7 @@
-<para>Many Unix and Linux distributions have been using <command>init</command> scripts to start daemons in the same way that <command>Unix System V</command><indexterm><primary>System V</primary></indexterm> did back in 1983.</para>
-<para>Starting 2015 this is considered legacy. Most Linux distributions, including Debian and Red Hat/CentOS, are in the process of migrating to <command>systemd</command>. They will however remain compatible with <command>init</command> because it will take many years before all applications are migrated.</para>
+<para>Many Unix and Linux distributions have been using <command>init</command> scripts to start daemons in the same way
+ that <command>Unix System V</command><indexterm><primary>System V</primary></indexterm> did back in 1983.</para>
+<para>Starting 2015 this is considered legacy. Most Linux distributions, including Debian and Red Hat/CentOS, are in the process of migrating to
+ <command>systemd</command>. They will however, remain somewhat compatible with <command>init</command> mainly, due to migration process might take a while.
+ It is also need to be mentioned that majority of OpenSource software and applications, have already migrated to <command>systemd</command>,
+  especially in case of RedHat and its derivitieves.</para>
 <para>This chapter explains how to manage Linux with <command>systemd</command>.</para>
