@@ -8,21 +8,19 @@
 # ./modules/
 # ./build/
 
-### import for testting  dependencies ###
-. ./dependencies.sh
-
+dot="$(cd "$(dirname "$0")"; pwd)"
 ### settings ###
 
-OUTPUTDIR="./output"
+OUTPUTDIR=".$dot/output"
 redirfile="$OUTPUTDIR/debug.txt"
 HTMLDIR="$OUTPUTDIR/html"
 HTMLIMGDIR="$HTMLDIR/images"
-IMAGESDIR="./images" 
-MODULESDIR="./modules"
-BUILDDIR="."
+IMAGESDIR="$dot/images" 
+MODULESDIR="$dot/modules"
+BUILDDIR="$dot"
 LIBDIR="$BUILDDIR/lib"
 export FOP_OPTS="-Xms512m -Xmx512m"
-export BOOKSDIR=./books
+export BOOKSDIR=$dot/books
 HTMLXSL="$LIBDIR/html.xsl"
 HTMLCSS="$LIBDIR/html.css"
 
@@ -41,3 +39,9 @@ APPENDICES=""
 DATECODE=$(date +%y%m%d | sed s/^0//)
 PUBDATE=$(date +'%Y-%m-%d')
 YEAR=$(date +%Y)
+
+
+
+#####
+# Main - _- _- _-is implemented in main.sh file _- _- _- _- _- _- _- _- _- _- _- _ 
+#####

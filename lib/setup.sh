@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+dot="$(cd "$(dirname "$0")"; pwd)"
+
 set_xsl() {
 	if	[ -r $BOOKSDIR/$book/lt.xsl ]
 		then	XSLFILE="$BOOKSDIR/$book/lt.xsl"
