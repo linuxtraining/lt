@@ -1,4 +1,0 @@
-<para>This module is a step by step demonstration of an actual installation of <command>CentOS 8</command>.</para>
-<para>We start by downloading an image from the internet and install <command>CentOS 8</command> as a virtual machine in <command>Virtualbox</command>. We will also do some basic configuration of this new machine like setting an <command>ip address</command> and fixing a <command>hostname</command>.</para>
-<para>This procedure should be very similar for other versions of <command>CentOS</command>, and also for distributions like <command>RHEL</command> (Red Hat Enterprise Linux) or <command>Fedora</command>. This procedure can also be helpful if you are using another virtualization solution.</para>
-
