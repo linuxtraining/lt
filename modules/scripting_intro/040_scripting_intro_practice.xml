@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>practice: introduction to scripting</title>
+<section><title>Practice: introduction to scripting</title>
 	<para>0. Give each script a different name, keep them for later!</para>
 	<para>1. Write a script that outputs the name of a city.</para>
 	<para>2. Make sure the script runs in the bash shell.</para>

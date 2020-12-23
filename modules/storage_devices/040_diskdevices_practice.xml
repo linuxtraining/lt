@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>practice: hard disk devices</title>
+<section><title>Practice: hard disk devices</title>
 	<para><command>About this lab:</command> To practice working with hard disks, you will need some hard disks. When there are no physical hard disk available, you can use virtual disks in <command>vmware</command> or <command>VirtualBox</command>. The teacher will help you in attaching a couple of ATA and/or SCSI disks to a virtual machine. The results of this lab can be used in the next three labs (partitions, file systems, mounting).</para>
 	<para>It is adviced to attach three 1GB disks and three 2GB disks to the virtual machine. This will allow for some freedom in the practices of this chapter as well as the next chapters (raid, lvm, iSCSI).</para>
 	<para>1. Use <command>dmesg</command> to make a list of hard disk devices detected at boot-up.</para>

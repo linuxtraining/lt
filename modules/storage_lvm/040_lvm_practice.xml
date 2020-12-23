@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>practice : lvm</title>
+<section><title>Practice : lvm</title>
 	<para>1. Create a volume group that contains a complete disk and a partition on another disk.</para>
 	<para>2. Create two logical volumes (a small one and a bigger one) in this volumegroup. Format them wih ext3, mount them and copy some files to them.</para>
 	<para>3. Verify usage with fdisk, mount, pvs, vgs, lvs, pvdisplay, vgdisplay, lvdisplay and df. Does fdisk give you any information about lvm?</para>

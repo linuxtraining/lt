@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -x
+#set -ex
 ########################################################
 #created by:
 #porpuse:
@@ -7,32 +7,32 @@ set -x
 #version: v1.0.15
 ########################################################
 
-dot="$(cd "$(dirname "$0")"; pwd)"
+cd "$(cd "$(dirname "${BASH_SOURCE[0]}")"; pwd -P)"
 
 #####
 #script imports
 #####
-. $dot/lib/vars.sh
-. $dot/lib/setup.sh
-. $dot/lib/build.sh
-. $dot/lib/dep.sh
+. $(pwd)/lib/vars.sh
+. $(pwd)/lib/setup.sh
+. $(pwd)/lib/build.sh
+. $(pwd)/lib/dep.sh
+
 
 main(){
-
 while getopts "d: h" option
 do
 	case $option in
 		d ) 	OPTDEBUG=$OPTARG
 			shift 2
 			;;
-		h ) help
+		h ) 	help
 			shift 1
 			exit 0
 			;;
         esac
 done
 
-command=$1
+cmd=${1:-build}
 book=$2
 
 case $OPTDEBUG in
@@ -73,12 +73,13 @@ mkdir -p $OUTPUTDIR
 eval "exec $REDIR"
 
 # Main loop
-case "$command" in
+case "$cmd" in
   clean)
-	clean
+	clean_dir
 	;;
   build)
-	clean
+	[[ -x "$(which xmlto)" ]] || echor "xmlto not installed." || exit 1
+	#clean_dir
 	check_book
 	echo "Building '$book' book."
 	build_xml
@@ -87,8 +88,8 @@ case "$command" in
 	echo "Done generating pdf $OUTPUTDIR/book.pdf -> $pdffile" 
 	;;
   html)
-	[ -x "$(which xmlto)" ] || echor "xmlto not installed." || exit 1
-	clean 
+	[[ -x "$(which xmlto)" ]] || echor "xmlto not installed." || exit 1
+	#clean_dir
 	check_book
 	echo "Building '$book' book."
 	build_xml
@@ -106,15 +107,7 @@ esac
 
 
 
-
-
-
-
-
-
-
-
-#####
-# Main - _- _- _- _- _- DO NOT REMOVE - _- _- _- _- _- _- _- _
-#####
-main
+#############
+#
+#############
+main "$@"

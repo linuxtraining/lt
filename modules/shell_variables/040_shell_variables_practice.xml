@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>practice: shell variables</title>
+<section><title>Practice: shell variables</title>
 	<para>1. Use echo to display Hello followed by your username. (use a bash variable!)</para>
 	<para>2. Create a variable <command>answer</command> with a value of <command>42</command>.</para>
 	<para>3. Copy the value of $LANG to $MyLANG.</para>

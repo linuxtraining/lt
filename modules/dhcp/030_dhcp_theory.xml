@@ -34,7 +34,7 @@ The following NEW packages will be installed:
 </section>
 <section><title>dhcp server for RHEL/CentOS</title>
 	<para>Installing is easy with <command>yum</command>.</para>
-	<screen>[root@rhel71 ~]# <command>yum install dhcp</command>
+	<screen>[root@rhel81 ~]# <command>yum install dhcp</command>
 Loaded plugins: product-id, subscription-manager
 Resolving Dependencies
 --> Running transaction check
@@ -69,20 +69,20 @@ Installed:
   dhcp.x86_64 12:4.2.5-36.el7
 
 Complete!
-[root@rhel71 ~]#</screen>
+[root@rhel81 ~]#</screen>
 	<para>After installing we get a <command>/etc/dhcp/dhcpd.conf</command> that points us to an example file named <command>dhcpd.conf.sample</command>.</para>
-	<screen>[root@rhel71 ~]# <command>cat /etc/dhcp/dhcpd.conf</command>
+	<screen>[root@rhel81 ~]# <command>cat /etc/dhcp/dhcpd.conf</command>
 #
 # DHCP Server Configuration file.
 #   see /usr/share/doc/dhcp*/dhcpd.conf.example
 #   see dhcpd.conf(5) man page
 #
-[root@rhel71 ~]#</screen>
+[root@rhel81 ~]#</screen>
 	<para>So we copy the sample and adjust it for our real situation. We name the copy <command>/etc/dhcp/dhcpd.conf</command>.</para>
-	<screen>[root@rhel71 ~]# <command>cp /usr/share/doc/dhcp-4.2.5/dhcpd.conf.example /etc/dhcp/dhcp\
+	<screen>[root@rhel81 ~]# <command>cp /usr/share/doc/dhcp-4.2.5/dhcpd.conf.example /etc/dhcp/dhcp\
 d.conf</command>
-[root@rhel71 ~]# <command>vi /etc/dhcp/dhcpd.conf</command>
-[root@rhel71 ~]# <command>cat /etc/dhcp/dhcpd.conf</command>
+[root@rhel81 ~]# <command>vi /etc/dhcp/dhcpd.conf</command>
+[root@rhel81 ~]# <command>cat /etc/dhcp/dhcpd.conf</command>
 option domain-name "linux-training.be";
 option domain-name-servers 10.42.42.42;
 default-lease-time 600;
@@ -93,11 +93,11 @@ subnet 10.42.0.0 netmask 255.255.0.0 {
   range 10.42.200.11 10.42.200.120;
   option routers 10.42.200.1;
 }
-[root@rhel71 ~]#</screen>
+[root@rhel81 ~]#</screen>
 	<para>The 'routers' option is valid for the subnet alone, whereas the 'domain-name' option is global (for all subnets).</para>
-	<para>Time to start the server. Remember to use <command>systemctl start dhcpd</command> on RHEL7/CentOS8 and <command>service dhcpd start</command> on previous versions of RHEL/CentOS.</para>
-	<screen>[root@rhel71 ~]# <command>systemctl start dhcpd</command>
-[root@rhel71 ~]#</screen>
+	<para>Time to start the server. Remember to use <command>systemctl start dhcpd</command> on RHEL8/CentOS8 and <command>service dhcpd start</command> on previous versions of RHEL/CentOS.</para>
+	<screen>[root@rhel81 ~]# <command>systemctl start dhcpd</command>
+[root@rhel81 ~]#</screen>
 </section>
 <section><title>client reservations</title>
 	<para>You can reserve an ip configuration for a client using the mac address.</para>

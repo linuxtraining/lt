@@ -1,6 +1,6 @@
 <?hard-pagebreak?>
 <section><title>Linux kernel modules</title>
-<section><title>about kernel modules</title>
+<section><title>About kernel modules</title>
 	<para>The Linux kernel is a monolithic kernel with loadable modules. These modules contain parts of the kernel used typically for device drivers, file systems and network protocols. Most of the time the necessary kernel modules are loaded automatically and dynamically without administrator interaction.</para>
 </section>
 <section><title>/lib/modules</title>
@@ -39,7 +39,7 @@ vmnet                  36896  13
 vmmon                 194540  0 
 paul@laika:~$</screen>
 </section>
-<section><title>module dependencies</title>
+<section><title>Module dependencies</title>
 	<para>Some modules depend on others. In the following example, you can see that the nfsd module is used by exportfs, lockd and sunrpc. </para>
 	<screen>paul@laika:~$ cat /proc/modules | grep nfsd
 nfsd 267432 17 - Live 0xffffffff88a40000

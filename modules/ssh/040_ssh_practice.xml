@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>practice: ssh</title>
+<section><title>Practice: ssh</title>
 	<para>0. Make sure that you have access to <command>two Linux computers</command>, or work together with a partner for this exercise. For this practice, we will name one of the machines the server.</para>
 	<para>1. Install <command>sshd</command> on the server</para>
 	<para>2. Verify in the ssh configuration files that only protocol version 2 is allowed.</para>

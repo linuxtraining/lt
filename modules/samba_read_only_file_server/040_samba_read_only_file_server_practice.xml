@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>practice: read only file server</title>
+<section><title>Practice: read only file server</title>
 	<para>1. Create a directory in a good location (FHS) to share files for everyone to read.</para>
 	<para>2. Make sure the directory is owned properly and is world accessible.</para>
 	<para>3. Put a textfile in this directory.</para>

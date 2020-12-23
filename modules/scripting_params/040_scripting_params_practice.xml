@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>practice: parameters and options</title>
+<section><title>Practice: parameters and options</title>
 	<para>1. Write a script that receives four parameters, and outputs them in reverse order.</para>
 	<para>2. Write a script that receives two parameters (two filenames) and outputs whether those files exist.</para>
 	<para>3. Write a script that asks for a filename. Verify existence of the file, then verify that you own the file, and whether it is writable. If not, then make it writable.</para>

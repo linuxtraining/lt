@@ -35,8 +35,8 @@ brw-rw----. 1 root disk 8,  1 Apr 19 10:12 /dev/sda1
 brw-rw----. 1 root disk 8,  2 Apr 19 10:12 /dev/sda2
 brw-rw----. 1 root disk 8, 16 Apr 19 10:12 /dev/sdb
 brw-rw----. 1 root disk 8, 32 Apr 19 10:12 /dev/sdc</screen>
-	<para>Virtual devices like <command>raid</command> or <command>lvm</command> are also listed as <command>block devices</command> as seen in this RHEL7 virtual machine.</para>
-	<screen>[root@centos7 ~]# <command>lsblk</command>
+	<para>Virtual devices like <command>raid</command> or <command>lvm</command> are also listed as <command>block devices</command> as seen in this RHEL8 virtual machine.</para>
+	<screen>[root@centos8 ~]# <command>lsblk</command>
 NAME                    MAJ:MIN RM   SIZE RO TYPE  MOUNTPOINT
 sda                       8:0    0     8G  0 disk
 ├─sda1                    8:1    0   400M  0 part
@@ -51,10 +51,10 @@ sde                       8:64   0     2G  0 disk
 sdf                       8:80   0  20.5G  0 disk
 ├─sdf1                    8:81   0   500M  0 part  /boot
 └─sdf2                    8:82   0    20G  0 part
-  ├─centos_centos7-swap 253:0    0     2G  0 lvm   [SWAP]
-  └─centos_centos7-root 253:1    0    18G  0 lvm   /
+  ├─centos_centos8-swap 253:0    0     2G  0 lvm   [SWAP]
+  └─centos_centos8-root 253:1    0    18G  0 lvm   /
 sr0                      11:0    1  1024M  0 rom
-[root@centos7 ~]#</screen>
+[root@centos8 ~]#</screen>
 			<para>Note that a <command>character device</command><indexterm><primary>character device</primary></indexterm> is a constant stream of characters, being denoted by a c in <command>ls -l</command>. Note also that the <command>ISO 9660</command> standard for cdrom uses a <command>2048 byte</command> block size.</para>
 			<para>Old hard disks (and floppy disks) use <command>cylinder-head-sector</command><indexterm><primary>CHS</primary></indexterm> addressing to access a sector on the disk. Most current disks use <command>LBA (Logical Block Addressing)</command><indexterm><primary>LBA</primary></indexterm>.</para>
 		</section>	

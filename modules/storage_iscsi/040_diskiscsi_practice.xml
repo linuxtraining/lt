@@ -1,7 +1,7 @@
 <?hard-pagebreak?>
-<section><title>practice: iSCSI devices</title>
+<section><title>Practice: iSCSI devices</title>
 	<para>1. Set up a target (using an LVM and a SCSI device) and an initiator that connects to both.</para>
-	<para>2. Set up an iSCSI Target and Initiator on two CentOS7/RHEL7 computers with the following information:</para>
+	<para>2. Set up an iSCSI Target and Initiator on two CentOS8/RHEL8 computers with the following information:</para>
 <table frame='all'><title>iSCSI Target and Initiator practice</title>
 <?dbfo table-width="80%" ?>
 <tgroup cols='2' align='center' colsep='1' rowsep='1'>

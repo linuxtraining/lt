@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>practice: first samba user account</title>
+<section><title>Practice: first samba user account</title>
 	<para>1. Create a user account for use with samba.</para>
 	<para>2. Add this user to samba's user database.</para>
 	<para>3. Create a writable shared directory and use the "force user" and "force group" directives to force ownership of files.</para>

@@ -1,40 +1,40 @@
 <?hard-pagebreak?>
 	<section><title>whoami</title>
 		<para>The <command>whoami</command><indexterm><primary>whoami</primary></indexterm> command tells you your username.</para>
-		<screen>[paul@centos7 ~]$ <command>whoami</command>
+		<screen>[paul@centos8 ~]$ <command>whoami</command>
 paul
-[paul@centos7 ~]$</screen>
+[paul@centos8 ~]$</screen>
 	</section>
 	<section><title>who</title>
 		<para>The <command>who</command><indexterm><primary>who</primary></indexterm> command will give you information about who is logged on the system.</para>
-		<screen>[paul@centos7 ~]$ <command>who</command>
+		<screen>[paul@centos8 ~]$ <command>who</command>
 root     pts/0        2014-10-10 23:07 (10.104.33.101)
 paul     pts/1        2014-10-10 23:30 (10.104.33.101)
 laura    pts/2        2014-10-10 23:34 (10.104.33.96)
 tania    pts/3        2014-10-10 23:39 (10.104.33.91)
-[paul@centos7 ~]$</screen>
+[paul@centos8 ~]$</screen>
 	</section>
 	<section><title>who am i</title>
 		<para>With <command>who am i</command><indexterm><primary>who am i</primary></indexterm> the <command>who</command> command will display only the line pointing to your current session.</para>
-		<screen>[paul@centos7 ~]$ <command>who am i</command>
+		<screen>[paul@centos8 ~]$ <command>who am i</command>
 paul     pts/1        2014-10-10 23:30 (10.104.33.101)
-[paul@centos7 ~]$</screen>
+[paul@centos8 ~]$</screen>
 	 </section>
 	<section><title>w</title>
 		<para>The <command>w</command><indexterm><primary>w</primary></indexterm> command shows you who is logged on and what they are doing.</para>
-		<screen>[paul@centos7 ~]$ <command>w</command>
+		<screen>[paul@centos8 ~]$ <command>w</command>
  23:34:07 up 31 min,  2 users,  load average: 0.00, 0.01, 0.02
 USER     TTY        LOGIN@   IDLE   JCPU   PCPU WHAT
 root     pts/0     23:07   15.00s  0.01s  0.01s top
 paul     pts/1     23:30    7.00s  0.00s  0.00s w
-[paul@centos7 ~]$</screen>
+[paul@centos8 ~]$</screen>
 	</section>
 	<section><title>id</title>
 		<para>The <command>id</command><indexterm><primary>id</primary></indexterm> command will give you your user id, primary group id, and a list of the groups that you belong to.</para> 
 		<screen>paul@debian9:~$ <command>id</command>
 uid=1000(paul) gid=1000(paul) groups=1000(paul)</screen>
 		<para>On RHEL/CentOS you will also get <command>SELinux</command> context information with this command.</para>
-		<screen>[root@centos7 ~]# <command>id</command>
+		<screen>[root@centos8 ~]# <command>id</command>
 uid=0(root) gid=0(root) groups=0(root) context=unconfined_u:unconfined_r\
 :unconfined_t:s0-s0:c0.c1023</screen>
 	</section>

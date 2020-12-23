@@ -1,5 +1,5 @@
 #!/usr/bin/env bash 
-
+#set -e
 ### module info ###
 # The build environment expects to live in a subdir build/
 # It expects to find book information in the parent dir
@@ -8,7 +8,7 @@
 # ./modules/
 # ./build/
 
-dot="$(cd "$(dirname "$0")"; pwd)"
+dot=$(realpath --relative-to={PWD} {PWD})
 ### settings ###
 
 OUTPUTDIR=".$dot/output"

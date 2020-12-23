@@ -1,6 +1,6 @@
 <?hard-pagebreak?>
-<section><title>introduction to apache</title>
-	<section><title>installing on Debian</title>
+<section><title>Introduction to apache</title>
+	<section><title>Installing on Debian</title>
 		<para>This screenshot shows that there is no <command>apache</command> server installed, nor does the <command>/var/www</command> directory exist.</para>
 		<screen>root@debian10:~# <command>ls -l /var/www</command>
 ls: cannot access /var/www: No such file or directory
@@ -27,7 +27,7 @@ ii apache2.2-bin 2.2.22-13+deb7u1 amd64 Apache HTTP Server common binary files
 ii apache2.2-common 2.2.22-13+deb7u1 amd64 Apache HTTP Server common files</screen>
 	</section>
 <?hard-pagebreak?>
-	<section><title>installing on RHEL/CentOS</title>
+	<section><title>Installing on RHEL/CentOS</title>
 		<para>Note that Red Hat derived distributions use <command>httpd</command> as package and process name instead of <command>apache</command>.</para>
 		<para>To verify whether <command>apache</command> is installed in CentOS/RHEL:</para>
 		<screen>[root@centos65 ~]# <command>rpm -q httpd</command>
@@ -48,7 +48,7 @@ drwxr-xr-x. 3 root root 4096 May  6 13:08 icons
 [root@centos65 ~]#</screen>
 	</section>
 <?hard-pagebreak?>
-	<section><title>running apache on Debian</title>
+	<section><title>Running apache on Debian</title>
 		<para>This is how you start <command>apache2</command><indexterm><primary>apache2</primary></indexterm> on Debian.</para>
 		<screen>root@debian10:~# <command>service apache2 status</command>
 Apache2 is NOT running.
@@ -90,7 +90,7 @@ Restarting web server: apache2 ... waiting .
 root@debian10:~#</screen>
 </section>
 <?hard-pagebreak?>
-<section><title>running apache on CentOS</title>
+<section><title>Running apache on CentOS</title>
 	<para>Starting the <command>httpd</command><indexterm><primary>httpd</primary></indexterm> on RHEL/CentOS is done with the <command>service</command> command.</para>
 	<screen>[root@centos65 ~]# <command>service httpd status</command>
 httpd is stopped
@@ -122,7 +122,7 @@ Starting httpd:                                            [  OK  ]
 [root@centos65 ~]#</screen>
 </section>
 <?hard-pagebreak?>
-<section><title>index file on CentOS</title>
+<section><title>Index file on CentOS</title>
 	<para>CentOS does not provide a standard index.html or index.php file. A simple <command>wget</command> gives an error.</para>
 	<screen>[root@centos65 ~]# <command>wget 127.0.0.1</command>
 --2014-05-06 15:10:22--  http://127.0.0.1/
@@ -161,7 +161,7 @@ Saving to: “index.html”
 Welcome to my website</screen>
 </section>
 <?hard-pagebreak?>
-<section><title>default website</title>
+<section><title>Default website</title>
 	<para>Changing the default website of a freshly installed apache web server is easy. All you need to do is create (or change) an index.html file in the DocumentRoot directory.</para>
 	<para>To locate the DocumentRoot directory on Debian:</para>
 	<screen>root@debian10:~# <command>grep DocumentRoot /etc/apache2/sites-available/default</command>
@@ -185,7 +185,7 @@ ody>&#060;/html>
 [root@centos65 ~]#</screen>
 </section>
 <?hard-pagebreak?>
-	<section><title>apache configuration</title>
+	<section><title>Apache configuration</title>
 		<para>There are many similarities, but also a couple of differences when configuring <command>apache</command> on Debian or on CentOS. Both Linux families will get their own chapters with examples.</para>
 		<para>All configuration on RHEL/CentOS is done in <command>/etc/httpd</command><indexterm><primary>/etc/httpd</primary></indexterm>.</para>
 		<screen>[root@centos65 ~]# ls -l /etc/httpd/
@@ -213,14 +213,14 @@ root@debian10:~#</screen>
 	</section>
 </section>
 <?hard-pagebreak?>
-<section><title>port virtual hosts on Debian</title>
-<section><title>default virtual host</title>
+<section><title>Port virtual hosts on Debian</title>
+<section><title>Default virtual host</title>
 	<para>Debian has a virtualhost configuration file for its default website in <command>/etc/apache2/sites-available/default</command>.</para>
 	<screen>root@debian10:~# <command>head -2 /etc/apache2/sites-available/default</command>
 &#060;VirtualHost *:80>
         ServerAdmin webmaster@localhost</screen>
 </section>
-<section><title>three extra virtual hosts</title>
+<section><title>Three extra virtual hosts</title>
 	<para>In this scenario we create three additional websites for three customers that share a clubhouse and want to jointly hire you. They are a model train club named <command>Choo Choo</command>, a chess club named <command>Chess Club 42</command> and a hackerspace named <command>hunter2</command>.</para>
 	<para>One way to put three websites on one web server, is to put each website on a different port. This screenshot shows three newly created <command>virtual hosts</command>, one for each customer.</para>
 	<screen>root@debian10:~# <command>vi /etc/apache2/sites-available/choochoo</command>
@@ -245,7 +245,7 @@ root@debian10:~# <command>cat /etc/apache2/sites-available/hunter2</command>
 	<para>Are you using <command>Ubuntu</command> or <command>Mint</command>, then these configfiles need to end in <command>.conf</command>.</para>
 </section>
 <?hard-pagebreak?>
-<section><title>three extra ports</title>
+<section><title>Three extra ports</title>
 	<para>We need to enable these three ports on apache in the <command>ports.conf</command> file. Open this file with <command>vi</command> and add three lines to <command>listen</command> on three extra ports.</para>
 	<screen>root@debian10:~# <command>vi /etc/apache2/ports.conf</command></screen>
 	<para>Verify with <command>grep</command> that the <command>Listen</command> directives are added correctly.</para>
@@ -255,7 +255,7 @@ Listen 7000
 Listen 8000
 Listen 9000</screen>
 </section>
-<section><title>three extra websites</title>
+<section><title>Three extra websites</title>
 	<para>Next we need to create three <command>DocumentRoot</command> directories.</para>
 	<screen>root@debian10:~# mkdir /var/www/choochoo
 root@debian10:~# mkdir /var/www/chessclub42
@@ -268,7 +268,7 @@ ml
 root@debian10:~# echo 'HaCkInG iS fUn At HuNtEr2' > /var/www/hunter2/index.html</screen>
 </section>
 <?hard-pagebreak?>
-<section><title>enabling extra websites</title>
+<section><title>Enabling extra websites</title>
 	<para>The last step is to enable the websites with the <command>a2ensite</command> command. This command will create links in <command>sites-enabled</command>.</para>
 	<para>The links are not there yet...</para>
 	<screen>root@debian10:~# <command>cd /etc/apache2/</command> 
@@ -297,7 +297,7 @@ Reloading web server config: apache2.
 root@debian10:/etc/apache2#</screen>
 </section>
 <?hard-pagebreak?>
-<section><title>testing the three websites</title>
+<section><title>Testing the three websites</title>
 	<para>Testing the model train club named <command>Choo Choo</command> on port 7000.</para>
 	<screen>root@debian10:/etc/apache2# <command>wget 127.0.0.1:7000</command> 
 --2014-05-06 21:16:03--  http://127.0.0.1:7000/
@@ -346,8 +346,8 @@ HaCkInG iS fUn At HuNtEr2</screen>
 </section>
 </section>
 <?hard-pagebreak?>
-<section><title>named virtual hosts on Debian</title>
-<section><title>named virtual hosts</title>
+<section><title>Named virtual hosts on Debian</title>
+<section><title>Named virtual hosts</title>
 	<para>The chess club and the model train club find the port numbers too hard to remember. They would prefere to have their website accessible by name.</para>
 	<para>We continue work on the same server that has three websites on three ports. We need to make sure those websites are accesible using the names <command>choochoo.local</command>, <command>chessclub42.local</command> and <command>hunter2.local</command>.</para>
 	<para>We start by creating three new virtualhosts.</para>
@@ -375,7 +375,7 @@ root@debian10:/etc/apache2/sites-available# <command>cat hunter2.local</command>
 root@debian10:/etc/apache2/sites-available#</screen>
 	<para>Notice that they all listen on <command>port 80</command> and have an extra <command>ServerName</command> directive.</para>
 </section>
-<section><title>name resolution</title>
+<section><title>Name resolution</title>
 	<para>We need some way to resolve names. This can be done with DNS, which is discussed in another chapter. For this demo it is also possible to quickly add the three names to the <command>/etc/hosts</command> file.</para>
 	<screen>root@debian10:/etc/apache2/sites-available# <command>grep ^192 /etc/hosts</command> 
 192.168.42.50 choochoo.local
@@ -384,7 +384,7 @@ root@debian10:/etc/apache2/sites-available#</screen>
 	<para>Note that you may have another ip address...</para>
 </section>
 <?hard-pagebreak?>
-<section><title>enabling virtual hosts</title>
+<section><title>Enabling virtual hosts</title>
 	<para>Next we enable them with <command>a2ensite</command>.</para>
 	<screen>root@debian10:/etc/apache2/sites-available# <command>a2ensite choochoo.local</command> 
 Enabling site choochoo.local.
@@ -399,7 +399,7 @@ Enabling site hunter2.local.
 To activate the new configuration, you need to run:
   service apache2 reload</screen>
 </section>
-<section><title>reload and verify</title>
+<section><title>Reload and verify</title>
 	<para>After a <command>service apache2 reload</command> the websites should be available by name.</para>
 	<screen>root@debian10:/etc/apache2/sites-available# <command>service apache2 reload</command>
 Reloading web server config: apache2.
@@ -421,7 +421,7 @@ Welcome to chess club 42</screen>
 </section>
 </section>
 <?hard-pagebreak?>
-<section><title>password protected website on Debian</title>
+<section><title>Password protected website on Debian</title>
 	<para>You can secure files and directories in your website with a <command>.htaccess</command> file that refers to a <command>.htpasswd</command> file. The <command>htpasswd</command><indexterm><primary>htpasswd(1)</primary></indexterm> command can create a <command>.htpasswd</command><indexterm><primary>.htpasswd</primary></indexterm> file that contains a userid and an (encrypted) password.</para>
 	<para>This screenshot creates a user and password for the hacker named <command>cliff</command> and uses the <command>-c</command> flag to create the <command>.htpasswd</command> file.</para>
 	<screen>root@debian10:~# <command>htpasswd -c /var/www/.htpasswd cliff</command> 
@@ -457,11 +457,11 @@ require valid-user</screen>
 	<para>Now restart the apache2 server and test that it works!</para>
 </section>
 <?hard-pagebreak?>
-<section><title>port virtual hosts on CentOS</title>
-<section><title>default virtual host</title>
+<section><title>Port virtual hosts on CentOS</title>
+<section><title>Default virtual host</title>
 	<para>Unlike Debian, CentOS has no virtualHost configuration file for its default website. Instead the default configuration will throw a standard error page when no index file can be found in the default location (/var/www/html).</para>
 </section>
-<section><title>three extra virtual hosts</title>
+<section><title>Three extra virtual hosts</title>
 	<para>In this scenario we create three additional websites for three customers that share a clubhouse and want to jointly hire you. They are a model train club named <command>Choo Choo</command>, a chess club named <command>Chess Club 42</command> and a hackerspace named <command>hunter2</command>.</para>
 	<para>One way to put three websites on one web server, is to put each website on a different port. This screenshot shows three newly created <command>virtual hosts</command>, one for each customer.</para>
 	<screen>[root@CentOS65 ~]# <command>vi /etc/httpd/conf.d/choochoo.conf</command>
@@ -484,7 +484,7 @@ require valid-user</screen>
 &#060;/VirtualHost></screen>
 	<para>Notice the different port numbers 7000, 8000 and 9000. Notice also that we specified a unique <command>DocumentRoot</command> for each website.</para>
 </section>
-<section><title>three extra ports</title>
+<section><title>Three extra ports</title>
 	<para>We need to enable these three ports on apache in the <command>httpd.conf</command> file.</para>
 	<screen>[root@CentOS65 ~]# <command>vi /etc/httpd/conf/httpd.conf</command>
 root@debian10:~# <command>grep ^Listen /etc/httpd/conf/httpd.conf</command>
@@ -509,7 +509,7 @@ no listening sockets available, shutting down
 Stopping httpd:                                            [  OK  ]
 Starting httpd:                                            [  OK  ]</screen>
 </section>
-<section><title>three extra websites</title>
+<section><title>Three extra websites</title>
 	<para>Next we need to create three <command>DocumentRoot</command> directories.</para>
 	<screen>[root@CentOS65 ~]# mkdir /var/www/html/choochoo
 [root@CentOS65 ~]# mkdir /var/www/html/chessclub42
@@ -522,7 +522,7 @@ index.html
 [root@CentOS65 ~]# echo 'HaCkInG iS fUn At HuNtEr2' > /var/www/html/hunter2/ind\
 ex.html</screen>
 </section>
-<section><title>enabling extra websites</title>
+<section><title>Enabling extra websites</title>
 	<para>The only way to enable or disable configurations in RHEL/CentOS is by renaming or moving the configuration files. Any file in
 	/etc/httpd/conf.d ending on .conf will be loaded by Apache. To disable a site we can either rename the file or move it to another directory.</para>
 
@@ -533,7 +533,7 @@ chessclub42.conf  choochoo.conf  hunter2.conf  README  welcome.conf
 Reloading httpd: </screen>
 </section>
 <?hard-pagebreak?>
-<section><title>testing the three websites</title>
+<section><title>Testing the three websites</title>
 	<para>Testing the model train club named <command>Choo Choo</command> on port 7000.</para>
 	<screen>[root@CentOS65 ~]# <command>wget 127.0.0.1:7000</command>
 --2014-05-11 11:59:36--  http://127.0.0.1:7000/
@@ -580,7 +580,7 @@ HaCkInG iS fUn At HuNtEr2</screen>
 	<screen>[root@CentOS65 ~]# <command>rm index.html index.html.1 index.html.2</command> </screen>
 </section>
 <?hard-pagebreak?>
-<section><title>firewall rules</title>
+<section><title>Firewall rules</title>
 	<para>If we attempt to access the site from another machine however, we will not be able to view the website yet. The firewall is blocking incoming connections. We need to open these incoming ports first</para>
 	<screen>[root@CentOS65 ~]# iptables -I INPUT -p tcp --dport 80 -j ACCEPT
 [root@CentOS65 ~]# iptables -I INPUT -p tcp --dport 7000 -j ACCEPT
@@ -593,8 +593,8 @@ iptables: Saving firewall rules to /etc/sysconfig/iptables:[  OK  ]</screen>
 </section>
 </section>
 <?hard-pagebreak?>
-<section><title>named virtual hosts on CentOS</title>
-<section><title>named virtual hosts</title>
+<section><title>Named virtual hosts on CentOS</title>
+<section><title>Named virtual hosts</title>
 	<para>The chess club and the model train club find the port numbers too hard to remember. They would prefere to have their website accessible by name.</para>
 	<para>We continue work on the same server that has three websites on three ports. We need to make sure those websites are accesible using the names <command>choochoo.local</command>, <command>chessclub42.local</command> and <command>hunter2.local</command>.</para>
 	<para>First, we need to enable named virtual hosts in the configuration</para>
@@ -627,7 +627,7 @@ NameVirtualHost *:80
 [root@CentOS65 ~]#</screen>
 	<para>Notice that they all listen on <command>port 80</command> and have an extra <command>ServerName</command> directive.</para>
 </section>
-<section><title>name resolution</title>
+<section><title>Name resolution</title>
 	<para>We need some way to resolve names. This can be done with DNS, which is discussed in another chapter. For this demo it is also possible to quickly add the three names to the <command>/etc/hosts</command> file.</para>
 	<screen>[root@CentOS65 ~]# grep ^192 /etc/hosts
 192.168.1.225 choochoo.local
@@ -636,7 +636,7 @@ NameVirtualHost *:80
 	<para>Note that you may have another ip address...</para>
 </section>
 <?hard-pagebreak?>
-<section><title>reload and verify</title>
+<section><title>Reload and verify</title>
 	<para>After a <command>service httpd reload</command> the websites should be available by name.</para>
 	<screen>[root@CentOS65 ~]# <command>service httpd reload</command>
 Reloading httpd: 
@@ -657,7 +657,7 @@ Welcome to chess club 42</screen>
 </section>
 </section>
 <?hard-pagebreak?>
-<section><title>password protected website on CentOS</title>
+<section><title>Password protected website on CentOS</title>
 	<para>You can secure files and directories in your website with a <command>.htaccess</command> file that refers to a <command>.htpasswd</command> file. The <command>htpasswd</command><indexterm><primary>htpasswd(1)</primary></indexterm> command can create a <command>.htpasswd</command><indexterm><primary>.htpasswd</primary></indexterm> file that contains a userid and an (encrypted) password.</para>
 	<para>This screenshot creates a user and password for the hacker named <command>cliff</command> and uses the <command>-c</command> flag to create the <command>.htpasswd</command> file.</para>
 	<screen>[root@CentOS65 ~]# <command>htpasswd -c /var/www/.htpasswd cliff</command>
@@ -719,7 +719,7 @@ require valid-user</screen>
 	<para>Now restart the apache2 server and test that it works!</para>
 </section>
 <?hard-pagebreak?>
-	<section><title>troubleshooting apache</title>
+	<section><title>Troubleshooting apache</title>
 	<para>When apache restarts, it will verify the syntax of files in the configuration folder <command>/etc/apache2</command> on debian or <command>/etc/httpd</command> on CentOS and it will tell you the name of the faulty file, the line number and an explanation of the error.</para>
 	<screen>root@debian10:~# <command>service apache2 restart</command>
 apache2: Syntax error on line 268 of /etc/apache2/apache2.conf: Syntax error o\
@@ -749,7 +749,7 @@ Warning: DocumentRoot [/var/www/choochoo] does not exist
 	<para>You can also troubleshoot by connecting to the website via a browser and then checking the apache log files in <command>/var/log/apache</command>.</para>
 </section>
 <?hard-pagebreak?>
-	<section><title>virtual hosts example</title>
+	<section><title>Virtual hosts example</title>
 		<para>Below is a sample virtual host configuration. This virtual hosts overrules the default Apache <command>ErrorDocument</command> directive.</para>
 		<screen>
 &#060;VirtualHost 83.217.76.245:80&#062;
@@ -767,13 +767,13 @@ ErrorDocument 404 http://www.cobbaut.be/cobbaut.php
 &#060;/VirtualHost&#062;
 		</screen>
 	</section>
-	<section><title>aliases and redirects</title>
+	<section><title>Aliases and redirects</title>
 		<para>Apache supports aliases for directories, like this example shows.</para>
 		<screen>Alias /paul/ "/home/paul/public_html/"</screen>
 		<para>Similarly, content can be redirected to another website or web server.</para>
 		<screen>Redirect permanent /foo http://www.foo.com/bar</screen>
 	</section>
-	<section><title>more on .htaccess</title>
+	<section><title>More on .htaccess</title>
 		<para>You can do much more with <command>.htaccess</command><indexterm><primary>.htaccess</primary></indexterm>. One example is to use .htaccess to prevent people from certain domains to access your website. Like in this case, where a number of referer spammers are blocked from the website.</para>
 		<screen>paul@lounge:~/cobbaut.be$ cat .htaccess 
 # Options +FollowSymlinks
@@ -787,11 +787,11 @@ RewriteCond &#037;{HTTP_REFERER} ^http://(www\.)?www.healthinsurancehelp.net.*$ 
 RewriteRule .* - [F,L]
 paul@lounge:~/cobbaut.be$</screen>
 	</section>
-	<section><title>traffic</title>
+	<section><title>Traffic</title>
 		<para>Apache keeps a log of all visitors. The <command>webalizer</command><indexterm><primary>webalizer</primary></indexterm> is often used to parse this log into nice html statistics.</para>
 	</section>
 <?hard-pagebreak?>
-<section><title>self signed cert on Debian</title>
+<section><title>Self signed cert on Debian</title>
 <para>Below is a very quick guide on setting up Apache2 on Debian 7 with a self-signed certificate.</para>
 <para>Chances are these packages are already installed.</para>
 <screen>root@debian10:~# aptitude install apache2 openssl
@@ -865,7 +865,7 @@ Restarting web server: apache2 ... waiting .</screen>
 	<para><mediaobject><imageobject><imagedata fileref="../../images/apache_selfsigned.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 	</section>
 <?hard-pagebreak?>
-<section><title>self signed cert on RHEL/CentOS</title>
+<section><title>Self signed cert on RHEL/CentOS</title>
 <para>Below is a quick way to create a self signed cert for https on RHEL/CentOS. You may need these packages:</para>
 <screen>[root@paulserver ~]# yum install httpd openssl mod_ssl
 Loaded plugins: fastestmirror

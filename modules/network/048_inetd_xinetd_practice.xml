@@ -1,4 +1,4 @@
-<section><title>practice : inetd and xinetd</title>
+<section><title>Practice : inetd and xinetd</title>
 	<para>1. Verify on all systems whether they are using xinetd or inetd.</para>
 	<para>2. Look at the configuration files.</para>
 	<para>3. (If telnet is installable, then replace swat in these questions with telnet) Is swat installed ? If not, then install swat and look at the changes in the (x)inetd configuration. Is swat enabled or disabled ?</para>

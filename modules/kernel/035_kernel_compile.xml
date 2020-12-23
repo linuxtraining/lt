@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>compiling a kernel</title>
+<section><title>Compiling a kernel</title>
 		<section><title>extraversion</title>
 			<para>Enter into <command>/usr/src/redhat/BUILD/kernel-2.6.9/linux-2.6.9/</command> and change the <command>extraversion</command> in the Makefile.</para>
 			<screen>[root@RHEL52 linux-2.6.18.i686]# pwd

@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>practice: systemd</title>
+<section><title>Practice: systemd</title>
         <para>1.determine on which target you are at the moment</para>
         <para>2.list all systemctl units with type of service</para>
         <para>3.check what is the status of cron service.</para>

@@ -1,10 +1,10 @@
 #!/usr/bin/env bash 
+#set -e
 
-
-dot="$(cd "$(dirname "$0")"; pwd)"
+dot="$(cd "$(dirname "${BASH_SOURCE[0]}")"; pwd -P)"
 
 help() {
-	clear
+
 	echo
 	echo -e "linux-training book build script\t\thttp://linux-training.be"
 	echo
@@ -30,16 +30,16 @@ help() {
 	sleep 2
 	}
 
-clean() {
+clean_dir() {
 	echo "Cleaning up $OUTPUTDIR directory"
 	# We don't need the .xml files
 	rm -rf $V $OUTPUTDIR/*.xml
 	# We don't need the previous errors.txt
-	[ -f $redirfile ] && rm -rf $V $redirfile
+	[[ -f $redirfile ]] && rm -rf $V $redirfile
 	# Symlink creation fails unless we remove this symlink first
-	[ -h $OUTPUTDIR/book.pdf ] && rm -rf $V $OUTPUTDIR/book.pdf
+	[[ -h $OUTPUTDIR/book.pdf ]] && rm -rf $V $OUTPUTDIR/book.pdf
 	# Clean $HTMLDIR
-	[ -d $HTMLDIR ] && rm -rf $V $HTMLDIR/*.xml
+	[[ -d $HTMLDIR ]] && rm -rf $V $HTMLDIR/*.xml
 	}
 
 check_book() {
@@ -114,7 +114,7 @@ build_part_body() {
             # Generate all the sections
             for module in $MODULES
             do
-                echod -n "\t.. adding module $module"
+                echod -e "\t.. adding module $module"
                 cat $module                                 >> $modfile
             done
             echod
@@ -277,7 +277,7 @@ build_pdf() {
 	}
 
 build_html() {
-    [ -d $HTMLDIR ] && rm -rf $V $HTMLDIR
+    [[ -d $HTMLDIR ]] && rm -rf $V $HTMLDIR
     mkdir $V $HTMLDIR || ( echor Error creating $HTMLDIR; exit 1 )
     mkdir $V $HTMLIMGDIR || ( echor Error creating $HTMLIMGDIR; exit 1 )
 

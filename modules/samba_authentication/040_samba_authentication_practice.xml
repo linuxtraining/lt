@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>practice : samba authentication</title>
+<section><title>Practice : samba authentication</title>
 	<para>0. Make sure you have properly named backups of your smb.conf of the previous practices.</para>
 	<para>1. Create three users (on the Linux and on the samba), remember their passwords!</para>
 	<para>2. Set up a shared directory that is only accessible to authenticated users.</para>

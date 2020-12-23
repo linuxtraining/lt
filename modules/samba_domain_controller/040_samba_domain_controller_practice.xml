@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>practice: samba domain controller</title>
+<section><title>Practice: samba domain controller</title>
 	<para>1. Setup Samba as a domain controller.</para>
 	<para>2. Create the shares salesdata, salespresentations and meetings. Salesdata must be accessible to all sales people and to all managers. SalesPresentations is only for all sales people. Meetings is only accessible to all managers. Use groups to accomplish this.</para>
 	<para>3. Join a Microsoft computer to your domain. Verify the creation of a computer account in /etc/passwd.</para>

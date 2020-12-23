@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>practice: interface configuration</title>
+<section><title>Practice: interface configuration</title>
 	<para>1. Verify whether <command>dhclient</command> is running.</para>
 	<para>2. Display your current ip address(es).</para>
 	<para>3. Display the configuration file where this <command>ip address</command> is defined.</para>

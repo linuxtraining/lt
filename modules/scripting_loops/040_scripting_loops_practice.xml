@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>practice: scripting arrays</title>
+<section><title>Practice: scripting arrays</title>
 	<para>1.In Bash Shell:</para>
 		<para>* create variable named <command>my_arr</command> with empty value.</para>
 		<para>* add to my_arr values apple banana pineapple watermelon melon strawberry</para>

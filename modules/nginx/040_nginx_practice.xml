@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>practice: apache</title>
+<section><title>Practice: apache</title>
 	<para>1. Verify that Apache is installed and running.</para>
 	<para>2. Browse to the Apache HTML manual.</para>
 	<para>3. Create three virtual hosts that listen on ports 8472, 31337 and 1201. Test that it all works.</para>

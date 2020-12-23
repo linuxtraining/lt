@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>practice: uuid and filesystems</title>
+<section><title>Practice: uuid and filesystems</title>
 	<para>1. Find the <command>uuid</command> of one of your <command>ext3</command> partitions with <command>tune2fs</command> ( and <command>vol_id</command> if you are on RHEL5).</para>
 	<para>2. Use this <command>uuid</command> in <command>/etc/fstab</command> and test that it works with a simple <command>mount</command>.</para>
 	<para>3. (optional) Test it also by removing a disk (so the device name is changed). You can edit settings in vmware/Virtualbox to remove a hard disk.</para>

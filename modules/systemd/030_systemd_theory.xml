@@ -12,7 +12,7 @@ It also plays on the term "System D", which refers to a person's ability to adap
   </para>
 	<para><command>systemd</command> has replaced all the standard init/runlevel/rc functionality. Both <command>Red Hat</command> and 
   <command>Debian</command>  and their deritives have decided in 2014 that <command>systemd</command> will be replacing 
-  <command>init</command> in current and future releases (RHEL7+/CentOS7+ and Debian 8+).</para>
+  <command>init</command> in current and future releases (RHEL8+/centos8+ and Debian 10+).</para>
 
 	<para>The screenshot below shows <command>systemd</command> running as <command>pid 1</command> on RHEL8.</para>
 	<screen>[root@rhel8 ~]# <command>ps fax | grep systemd | cut -c1-76</command>
@@ -91,7 +91,7 @@ abrt-oops.service    crond.service           rhsmcertd.service
 abrt-vmcore.service  irqbalance.service      rsyslog.service
 abrt-xorg.service    NetworkManager.service  sshd.service
 [root@rhel81 ~]#</screen>
-	<para>Below a screenshot from Debian (bullseye/sid is Debian 11). There is already a lot of <command>systemd</command> in Debian 8 and 9 (less than in RHEL7).</para>
+	<para>Below a screenshot from Debian (bullseye/sid is Debian 11). There is already a lot of <command>systemd</command> in Debian 8 and 9 (less than in RHEL8).</para>
 	<screen>root@debian11:~# <command>cat /etc/debian_version</command>
 stretch/sid
 root@debian11:~# <command>ls /etc/systemd/system/multi-user.target.wants/</command>

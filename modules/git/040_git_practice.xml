@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>practice: git</title>
+<section><title>Practice: git</title>
 	<para>1.Crate local project called <command>git_practice</command>.</para>
 	<para>2.Create a project on <command>gitlab.com</command> to host a local project that you have created.</para>
 	<para>3.The project should have <command>REAMDE.md</command> file as well as <command>TODO.md</command> file in it.</para>

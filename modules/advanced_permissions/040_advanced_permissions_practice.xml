@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>practice: sticky, setuid and setgid bits</title>
+<section><title>Practice: sticky, setuid and setgid bits</title>
 	<para>1a. Set up a directory, owned by the group sports.</para>
 	<para>1b. Members of the sports group should be able to create files in this directory.</para>
 	<para>1c. All files created in this directory should be group-owned by the sports group.</para>

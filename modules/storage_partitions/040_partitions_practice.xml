@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>practice: partitions</title>
+<section><title>Practice: partitions</title>
 	<para>1. Use <command>fdisk -l</command> to display existing partitions and sizes.</para>
 	<para>2. Use <command>df -h</command> to display existing partitions and sizes.</para>
 	<para>3. Compare the output of <command>fdisk</command> and <command>df</command>.</para>

@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>practice: init</title>
+<section><title>Practice: init</title>
         <para>1. Change <command>/etc/inittab</command> so that only two mingetty's are respawned. Kill the other <command>mingetty's</command> and verify that they don't come back.</para>
         <para>2. Use the Red Hat Enterprise Linux virtual machine. Go to runlevel 5, display the current and previous runlevel, then go back to runlevel 3.</para>
         <para>3. Is the sysinit script on your computers setting or changing the PATH environment variable ?</para>

@@ -1,12 +1,12 @@
 #!/usr/bin/env bash 
-#set -x
+set -e
 ##########################################################
 #created by :  silent-mobius
 #purpose    :  check and validated dependencies
 #date       :  20/11/2020
 #version    :  v1.0.0
 ##########################################################
-dot="$(cd "$(dirname "$0")"; pwd)"
+dot="$(cd "$(dirname "${BASH_SOURCE[0]}")"; pwd -P)"
 line="#################################"
 dep_list=(xmlto fop default-jdk default-jdk-headless)
 installer="${1:-apt-get}"
@@ -25,13 +25,15 @@ deco(){
 }
 
 check_os_type(){
-   local _os=$(cat /etc/*-release|grep '^ID'|awk -F= '{print$2}')
-    if [[ ${_os,,} == "debian" ]];then 
+   local _os=$(cat /etc/*-release|grep '^ID='|awk -F= '{print$2}')
+    if [[ "${_os,,}" == "debian" ]] || [[ "${_os,,}" == "ubuntu" ]] || [[ "${_os,,}" == "linuxmint" ]];then 
         true
     else  
-        installer yum
+        deco "OS not Supported"
+        exit 1 
     fi
 }
+
 
 
 validate_dependencies(){

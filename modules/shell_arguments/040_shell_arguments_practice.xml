@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>practice: commands and arguments</title>
+<section><title>Practice: commands and arguments</title>
 	<para>1. How many <command>arguments</command> are in this line (not counting the command itself).</para>
 	<screen>touch '/etc/cron/cron.allow' 'file 42.txt' "file 33.txt"</screen>
 	<para>2. Is <command>tac</command> a shell builtin command ?</para>

@@ -23,14 +23,14 @@ sdb
 └─sdb1
 root@debian8:~#</screen>
 	<para>The same command will also work on recent RHEL and CentOS servers.</para>
-	<screen>[root@centos7 ~]# <command>lsblk -f /dev/sdf</command>
+	<screen>[root@centos8 ~]# <command>lsblk -f /dev/sdf</command>
 NAME          FSTYPE   LABEL UUID                                   MOUNTPOINT
 sdf
 ├─sdf1        xfs            0697ab0c-5c99-4c80-880f-10bb0f9aa948   /boot
 └─sdf2        LVM2_mem       ZWr0TY-W0qX-Uwva-qMT1-Nkhp-RsXU-HDUIil
   ├─c...-swap swap           14c9d978-f547-4e18-91e2-a2ab140fe82c   [SWAP]
   └─c...-root xfs            fd931dbd-cdea-41e8-9943-1d9668d39857   /
-[root@centos7 ~]#</screen>
+[root@centos8 ~]#</screen>
 </section>
 <section><title>tune2fs</title>
 	<para>Use <command>tune2fs</command><indexterm><primary>tune2fs(1)</primary></indexterm> to find the <command>uuid</command> of a file system.</para>

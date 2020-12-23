@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
+#set -e
+####################
 
-dot="$(cd "$(dirname "$0")"; pwd)"
+
+
+dot="$(cd "$(dirname "${BASH_SOURCE[0]}")"; pwd -P)"
 
 set_xsl() {
 	if	[ -r $BOOKSDIR/$book/lt.xsl ]
@@ -22,9 +26,10 @@ set_JAVA() {
 
 check_ROOTDIR() {
 
-	if	[ -d $BOOKSDIR -a -d $MODULESDIR -a -d $BUILDDIR ]
-	then	echor "Current dir is book project root directory."
-	else	echor "Please run this script from the book root directory."
+	if	[[ -d $BOOKSDIR ]] && [[ -d $MODULESDIR ]] && [[ -d $BUILDDIR ]];then
+		echor "Current dir is book project root directory."
+	else	
+		echor "Please run this script from the book root directory."
 		return 1
 	fi
 
@@ -50,9 +55,13 @@ add_mod() {
         }
 
 echor() {	# echo error
+	
+	sleep 0.1
 	echo $* >&2
 	}
 
 echod() {	# echo debug
-	[ $OPTDEBUG -ge 2 ] && echo $* 
+	
+	sleep 0.1
+	[[ $OPTDEBUG -ge 2 ]] && echo $* 
 	}

@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>practice : background processes</title>
+<section><title>Practice : background processes</title>
 	<para>1. Use the <command>jobs</command> command to verify whether you have any processes running in background.</para>
 	<para>2. Use <command>vi</command> to create a little text file. Suspend <command>vi</command> in background.</para>
 	<para>3. Verify with <command>jobs</command> that <command>vi</command> is suspended in background.</para>

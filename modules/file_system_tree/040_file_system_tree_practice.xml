@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>practice: file system tree</title>
+<section><title>Practice: File system tree</title>
 	<para>1. Does the file <command>/bin/cat</command> exist ? What about <command>/bin/dd</command> and <command>/bin/echo</command>. What is the type of these files ?</para>
 	<para>2. What is the size of the Linux kernel file(s) (vmlinu*) in <command>/boot</command> ?</para>
 	<para>3. Create a directory ~/test. Then issue the following commands:</para>

@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>practice: introduction to users</title>
+<section><title>Practice: introduction to users</title>
 	<para>1. Run a command that displays only your currently logged on user name.</para>
 	<para>2. Display a list of all logged on users.</para>
 	<para>3. Display a list of all logged on users including the command they are running at this very moment.</para>

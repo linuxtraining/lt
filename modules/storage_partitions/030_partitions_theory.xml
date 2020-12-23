@@ -256,7 +256,7 @@ root@RHELv8u2:~#</screen>
 <section><title>labeling with parted</title>
 <para><command>parted</command> is an interactive tool, just like <command>fdisk</command><indexterm><primary>fdisk limitations</primary></indexterm>. Type <command>help</command> in <command>parted</command> for a list of commands and options.</para>
 <para>This screenshot shows how to start <command>parted</command><indexterm><primary>parted</primary></indexterm> to manage partitions on <command>/dev/sdb</command>.</para>
-<screen>[root@rhel71 ~]# <command>parted /dev/sdb</command>
+<screen>[root@rhel81 ~]# <command>parted /dev/sdb</command>
 GNU Parted 3.1
 Using /dev/sdb
 Welcome to GNU Parted! Type 'help' to view a list of commands.
@@ -311,6 +311,6 @@ Number  Start   End     Size    File system  Name     Flags
 (parted) <command>quit</command>
 Information: You may need to update /etc/fstab.
 
-[root@rhel71 ~]#</screen>
+[root@rhel81 ~]#</screen>
 </section>
 </section>

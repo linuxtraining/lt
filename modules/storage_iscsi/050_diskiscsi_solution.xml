@@ -28,7 +28,7 @@ iqn.2010-02.be.linux-training:storage.lun2</screen>
 	<para>Then use <command>iscsiadm -m discovery -t st -p 'target-ip'</command> to see the iscsi devices on the Target.</para>
 	<para>Edit the files <command>/etc/iscsi/nodes/</command> as shown in the book. Then restart the iSCSI daemon and rund <command>fdisk -l</command> to see the iSCSI devices.</para>
 <?hard-pagebreak?>
-	<para>2. Set up an iSCSI Target and Initiator on two CentOS7/RHEL7 computers with the following information:</para>
+	<para>2. Set up an iSCSI Target and Initiator on two CentOS8/RHEL8 computers with the following information:</para>
 <table frame='all'><title>iSCSI Target and Initiator practice</title>
 <?dbfo table-width="80%" ?>
 <tgroup cols='2' align='center' colsep='1' rowsep='1'>
@@ -81,7 +81,7 @@ iqn.2010-02.be.linux-training:storage.lun2</screen>
 </tgroup>
 </table>
 <para>On the iSCSI Target server:</para>
-<screen>[root@centos7 ~]# <command>targetcli</command>
+<screen>[root@centos8 ~]# <command>targetcli</command>
 targetcli shell version 2.1.fb37
 Copyright 2011-2013 by Datera, Inc and others.
 For help on commands, type 'help'.
@@ -168,19 +168,19 @@ o- / ..................................................................... [...]
 Global pref auto_save_on_exit=true
 Last 10 configs saved in /etc/target/backup.
 Configuration saved to /etc/target/saveconfig.json
-[root@centos7 ~]# <command>systemctl enable target</command>
+[root@centos8 ~]# <command>systemctl enable target</command>
 ln -s '/usr/lib/systemd/system/target.service' '/etc/systemd/system/multi-user.target.wants/target.service'
-[root@centos7 ~]# <command>systemctl start target</command>
-[root@centos7 ~]# <command>setenforce 0</command></screen>
+[root@centos8 ~]# <command>systemctl start target</command>
+[root@centos8 ~]# <command>setenforce 0</command></screen>
 <para>On the Initiator:</para>
-<screen>[root@centos7 ~]# <command>cat /etc/iscsi/initiatorname.iscsi</command>
+<screen>[root@centos8 ~]# <command>cat /etc/iscsi/initiatorname.iscsi</command>
 InitiatorName=iqn.2015-04.be.linux:initiator
-[root@centos7 ~]# <command>vi /etc/iscsi/iscsid.conf</command>
-[root@centos7 ~]# <command>grep ^node.session.au /etc/iscsi/iscsid.conf</command>
+[root@centos8 ~]# <command>vi /etc/iscsi/iscsid.conf</command>
+[root@centos8 ~]# <command>grep ^node.session.au /etc/iscsi/iscsid.conf</command>
 node.session.auth.authmethod = CHAP
 node.session.auth.username = paul
 node.session.auth.password = hunter2
-[root@centos7 ~]# <command>fdisk -l 2>/dev/null | grep sd</command>
+[root@centos8 ~]# <command>fdisk -l 2>/dev/null | grep sd</command>
 Disk /dev/sda: 22.0 GB, 22038806528 bytes, 43044544 sectors
 /dev/sda1   *        2048     1026047      512000   83  Linux
 /dev/sda2         1026048    43042815    21008384   8e  Linux LVM
@@ -192,13 +192,13 @@ Disk /dev/sdc: 8589 MB, 8589934592 bytes, 16777216 sectors
 Disk /dev/sdd: 8589 MB, 8589934592 bytes, 16777216 sectors
 Disk /dev/sde: 2147 MB, 2147483648 bytes, 4194304 sectors
 Disk /dev/sdf: 2147 MB, 2147483648 bytes, 4194304 sectors
-[root@centos7 ~]# <command>systemctl enable iscsid</command>
+[root@centos8 ~]# <command>systemctl enable iscsid</command>
 ln -s '/usr/lib/systemd/system/iscsid.service' '/etc/systemd/system/multi-user.target.wants/iscsid.service'
-[root@centos7 ~]# <command>iscsiadm -m node -T iqn.2015-04.be.linux:target -p 192.168.1.143 -l</command>
+[root@centos8 ~]# <command>iscsiadm -m node -T iqn.2015-04.be.linux:target -p 192.168.1.143 -l</command>
 Logging in to [iface: default, target: iqn.2015-04.be.linux:target, portal: 192.168.1.143,3260] (multiple)
 Login to [iface: default, target: iqn.2015-04.be.linux:target, portal: 192.168.1.143,3260] successful.
 
-[root@centos7 ~]# <command>fdisk -l 2>/dev/null | grep sd</command>
+[root@centos8 ~]# <command>fdisk -l 2>/dev/null | grep sd</command>
 Disk /dev/sda: 22.0 GB, 22038806528 bytes, 43044544 sectors
 /dev/sda1   *        2048     1026047      512000   83  Linux
 /dev/sda2         1026048    43042815    21008384   8e  Linux LVM
@@ -213,5 +213,5 @@ Disk /dev/sdf: 2147 MB, 2147483648 bytes, 4194304 sectors
 Disk /dev/sdg: 8589 MB, 8589934592 bytes, 16777216 sectors
 Disk /dev/sdh: 8589 MB, 8589934592 bytes, 16777216 sectors
 Disk /dev/sdi: 8589 MB, 8589934592 bytes, 16777216 sectors
-[root@centos7 ~]# </screen>
+[root@centos8 ~]# </screen>
 </section>

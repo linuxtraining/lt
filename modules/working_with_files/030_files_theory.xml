@@ -198,17 +198,17 @@ paul@debian10:~/test42$</screen>
 	</section>
 	<section><title>rename on CentOS/RHEL/Fedora</title>
 		<para>On Red Hat Enterprise Linux, the syntax of <command>rename</command> is a bit different. The first example below renames all *.conf files replacing any occurrence of .conf with .backup.</para>
-	<screen>[paul@centos7 ~]$ <command>touch one.conf two.conf three.conf</command>
-[paul@centos7 ~]$ <command>rename .conf .backup *.conf</command>
-[paul@centos7 ~]$ <command>ls</command>
+	<screen>[paul@centos8 ~]$ <command>touch one.conf two.conf three.conf</command>
+[paul@centos8 ~]$ <command>rename .conf .backup *.conf</command>
+[paul@centos8 ~]$ <command>ls</command>
 one.backup  three.backup  two.backup
-[paul@centos7 ~]$</screen>
+[paul@centos8 ~]$</screen>
 	<para>The second example renames all (*) files replacing one with ONE.</para>
-	<screen>[paul@centos7 ~]$ <command>ls</command>
+	<screen>[paul@centos8 ~]$ <command>ls</command>
 one.backup  three.backup  two.backup
-[paul@centos7 ~]$ <command>rename one ONE *</command>
-[paul@centos7 ~]$ <command>ls</command>
+[paul@centos8 ~]$ <command>rename one ONE *</command>
+[paul@centos8 ~]$ <command>ls</command>
 ONE.backup  three.backup  two.backup
-[paul@centos7 ~]$</screen>
+[paul@centos8 ~]$</screen>
 	</section>
 </section>
