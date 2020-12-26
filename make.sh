@@ -87,7 +87,7 @@ set_JAVA() {
 	    JAVA_ALTERNATIVE=$(readlink /etc/alternatives/java)
 		export JAVA_HOME=${JAVA_ALTERNATIVE%/bin/java}
 	else    
-		echo "Could not set JAVA_HOME, something unexpected happened in $0"
+		echo "[!] Could not set JAVA_HOME, something unexpected happened in $0"
 		exit 1
 	fi
 	}
@@ -95,9 +95,9 @@ set_JAVA() {
 check_ROOTDIR() {
 
 	if	[[ -d $BOOKSDIR ]] && [[ -d $MODULESDIR ]] && [[ -d $BUILDDIR ]];then
-		echor "Current dir is book project root directory."
+		echor "[!] Current dir is book project root directory."
 	else	
-		echor "Please run this script from the book root directory."
+		echor "[!] Please run this script from the book root directory."
 		return 1
 	fi
 
@@ -133,7 +133,7 @@ echod() {	# echo debug
 	}
 
 clean() {
-	echo "Cleaning up $OUTPUTDIR directory"
+	deco "Cleaning up $OUTPUTDIR directory"
 	# We don't need the .xml files
 	rm -rf $V $OUTPUTDIR/*.xml
 	# We don't need the previous errors.txt
@@ -146,7 +146,7 @@ clean() {
 
 check_book() {
 	if [[ ! -z $book ]];then 	# check if $book parameter is one of the available books
-			echo -n "Checking if $book.cfg exists in ./books directory ... "
+			echo -e "[?] Checking if $book.cfg exists in ./books directory ... "
 			check=0
 			for entry in ${books[@]} 
 				do
@@ -156,12 +156,12 @@ check_book() {
 				done
 
 			if [[ $check -eq 1 ]];then
-				deco "Selected book $book"
+				deco "[*] Selected book $book"
 			else
-				deco "$book is not available"; exit
+				deco "[*] $book is not available"; exit
 			fi
 		else
-			deco "No book specified, assuming default book"
+			deco "[!] No book specified, assuming default book"
 			book="default"
 		fi
 	}
@@ -191,18 +191,18 @@ build_part_body() {
 
     for modtype in CHAPTERS APPENDICES
     do
-        echod Building $modtype ..
+        echod "[+] Building $modtype .."
         for mod in ${!modtype}
         do
-            echod -n "Building module $mod "
+            echo -e "[+] Building module $mod 	"
             modfile=$OUTPUTDIR/mod_$mod.xml
 
             # enumerate module files for this module $mod
 	    if [[ -d modules/$mod ]];then	
 			MODULES=$(ls modules/${mod}/*)
  	    else	
-		 	echo "Error: module $mod does not exist!" 
-			echor "Fatal error occurred!"
+		 	echo "[!] Error: module $mod does not exist!" 
+			echor "[!!!] Fatal error occurred!"
 			exit 1
 	    fi
             echo $MODULES
@@ -219,7 +219,7 @@ build_part_body() {
             # Generate all the sections
             for module in $MODULES
             do
-                echod -n "\t.. adding module $module"
+                echo -e "[+] adding module $module"
                 cat $module                                 >> $modfile
             done
             echod
@@ -261,7 +261,7 @@ build_part() {
 
     if [[ "$PART" = "CUSTOMPART" ]];then    # just build the part body using the chapters and apendices from the main book config
 	    if [[ "$BUNDLE_APPENDICES" = 1 ]];then
-			echod "restore the bundled appendices: ${APPENDICES_BUNDLE}"
+			echod "[+] restore the bundled appendices: ${APPENDICES_BUNDLE}"
 			APPENDICES=${APPENDICES_BUNDLE}
 	    fi
             . $BOOKSDIR/$book/config
@@ -355,7 +355,7 @@ build_xml() {
 	build_body
 
 	# build master xml
-	echo "[+] Building $xmlfile"
+	echo -e "[+] Building $xmlfile"
 	cat $headerfile  > $xmlfile
 	cat $bodyfile   >> $xmlfile
 	cat $footerfile >> $xmlfile
@@ -422,7 +422,7 @@ check_os_type(){
     if [[ "${_os,,}" == 'debian' ]] || [[ "${_os,,}" == 'ubuntu' ]] || [[ "${_os,,}" == 'linuxmint' ]];then 
         true
     else  
-        deco "OS not Supported"
+        deco "!!!!  OS not Supported  !!!!"
         exit 1 
     fi
 }
