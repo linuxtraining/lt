@@ -3,7 +3,7 @@
 #created by: Serge
 #edited by: Alex M. Schapelle
 #purpose: build pdf or html files for linux-training learning material
-#version; v1.9.23
+#version; v1.9.29
 #####################################################
 
 
@@ -16,14 +16,16 @@
 # ./build/
 
 
+#########################
+### settings/variables
+#########################
 
-### settings ###
 L="#####################################"
 OUTPUTDIR="./output"
 redirfile="$OUTPUTDIR/debug.txt"
 HTMLDIR="$OUTPUTDIR/html"
 HTMLIMGDIR="$HTMLDIR/images"
-IMAGESDIR="./images" 
+IMAGESDIR="./images"
 MODULESDIR="./modules"
 BUILDDIR="."
 LIBDIR="$BUILDDIR/lib"
@@ -48,12 +50,14 @@ DATECODE=$(date +%y%m%d | sed s/^0//)
 PUBDATE=$(date +'%Y-%m-%d')
 YEAR=$(date +%Y)
 
-### functions ###
+##################
+### functions
+##################
 
 help() {
 	clear
 	deco "Linux-Training book build script:  http://linux-training.be
-	$0 [OPTION] command [book] 
+	$0 [OPTION] command [book]
 	 Options
 	  -d 0,1,2,3,4		Set debug level, 1 is default
 						0	No output
@@ -62,21 +66,21 @@ help() {
 						3	Extra verbose output
 						4	Debug output
 	  -h			Help
-	
+
 	 Commands
 	  clean			clean output dir
 	  build [BOOK]		build book
 	  html [BOOK]		generate html
 	"
-	 deco "Available books: ${superbooks[*]}"     
+	 deco "Available books: ${superbooks[*]}"
 	 deco "Minibooks: ${minibooks[*]}"
-	
+
 	}
 
 set_xsl() {
 	if	[[ -r $BOOKSDIR/$book/lt.xsl ]];then
 		XSLFILE="$BOOKSDIR/$book/lt.xsl"
-	else	
+	else
 		XSLFILE="$LIBDIR/lt.xsl"
 	fi
 }
@@ -86,7 +90,7 @@ set_JAVA() {
 	if [[ -x "$(which java)" ]];then
 	    JAVA_ALTERNATIVE=$(readlink /etc/alternatives/java)
 		export JAVA_HOME=${JAVA_ALTERNATIVE%/bin/java}
-	else    
+	else
 		echo "[!] Could not set JAVA_HOME, something unexpected happened in $0"
 		exit 1
 	fi
@@ -96,7 +100,7 @@ check_ROOTDIR() {
 
 	if	[[ -d $BOOKSDIR ]] && [[ -d $MODULESDIR ]] && [[ -d $BUILDDIR ]];then
 		echor "[!] Current dir is book project root directory."
-	else	
+	else
 		echor "[!] Please run this script from the book root directory."
 		return 1
 	fi
@@ -129,7 +133,7 @@ echor() {	# echo error
 
 echod() {	# echo debug
 	sleep 0.1
-	[[ $OPTDEBUG -ge 2 ]] && echo $* 
+	[[ $OPTDEBUG -ge 2 ]] && echo $*
 	}
 
 clean() {
@@ -148,7 +152,7 @@ check_book() {
 	if [[ ! -z $book ]];then 	# check if $book parameter is one of the available books
 			echo -e "[?] Checking if $book.cfg exists in ./books directory ... "
 			check=0
-			for entry in ${books[@]} 
+			for entry in ${books[@]}
 				do
 					if [[ $entry == ${book[@]} ]];then
 						check=1
@@ -179,7 +183,7 @@ build_header() {
 		"$BOOKSDIR/$book/reviewers" \
 		"$PUBDATE" \
 		"$YEAR" \
-		"$TEACHER"			                            		>> $headerfile	 
+		"$TEACHER"			                            		>> $headerfile
         echo "</bookinfo>"                                      >> $headerfile
 	}
 
@@ -198,10 +202,10 @@ build_part_body() {
             modfile=$OUTPUTDIR/mod_$mod.xml
 
             # enumerate module files for this module $mod
-	    if [[ -d modules/$mod ]];then	
+	    if [[ -d modules/$mod ]];then
 			MODULES=$(ls modules/${mod}/*)
- 	    else	
-		 	echo "[!] Error: module $mod does not exist!" 
+ 	    else
+		 	echo "[!] Error: module $mod does not exist!"
 			echor "[!!!] Fatal error occurred!"
 			exit 1
 	    fi
@@ -288,7 +292,7 @@ build_body() {
     else    # build minibooks
             HAZ_MINIBOOKS=1
             for minibook in $MINIBOOKS
-            	do  
+            	do
 					echod "[+] Assembling the part for minibook $minibook"
 					build_part $minibook
                 	fill_part $partfile
@@ -306,9 +310,9 @@ build_body() {
             		cat $partfile   >>$bodyfile
 	    else	# add custom part as extra part
 			# set booktitle for custompart
-			if [[ $(echo $CHAPTERS $APPENDICES | wc -w ) -gt 1 ]];then	
+			if [[ $(echo $CHAPTERS $APPENDICES | wc -w ) -gt 1 ]];then
 					BOOKTITLE="Appendices"
-			else	
+			else
 					BOOKTITLE="Appendix"
 			fi
 			echod "[+] Adding the custom part at the end."
@@ -364,13 +368,13 @@ build_xml() {
 build_pdf() {
 	set_xsl
 	set_JAVA
-	echo 
+	echo
 	echo "---------------------------------"
 	echo "Generating $pdffile"
 	tail -n +2 $xmlfile > $tmp_xmlfile
 	eval $(echo fop -xml $tmp_xmlfile -xsl $XSLFILE -pdf $pdffile ) >&2
 	#eval $(echo fop -xml $tmp_xmlfile -xsl $XSLFILE -pdf $pdffile $EXECDEBUG) >&2 #there is an issue with EXECDEBUG param
-	#fop -xml $tmp_xmlfile -xsl $XSLFILE -pdf $pdffile 
+	#fop -xml $tmp_xmlfile -xsl $XSLFILE -pdf $pdffile
 	ln -s $V $filename.xml $OUTPUTDIR/book.pdf
 	echo "---------------------------------"
 	}
@@ -390,7 +394,7 @@ build_html() {
     for img in $images
     do
          echo Copying $img to $HTMLIMGDIR ...
-         cp $V "$IMAGESDIR/$img" $HTMLIMGDIR/ || echor Error copying $img 
+         cp $V "$IMAGESDIR/$img" $HTMLIMGDIR/ || echor Error copying $img
     done
 
     # Copy css file to html directory
@@ -405,7 +409,7 @@ build_html() {
 }
 
 deco(){
-	
+
     printf "$L\n# %s\n$L\n" "$@"
     sleep 0.5
 }
@@ -419,13 +423,20 @@ try_fix(){
 
 check_os_type(){
    local _os=$(cat /etc/*-release|grep '^ID='|awk -F= '{print$2}')
-    if [[ "${_os,,}" == 'debian' ]] || [[ "${_os,,}" == 'ubuntu' ]] || [[ "${_os,,}" == 'linuxmint' ]];then 
+    if [[ "${_os,,}" == 'debian' ]] || [[ "${_os,,}" == 'ubuntu' ]] || [[ "${_os,,}" == 'linuxmint' ]];then
         true
-    else  
+    else
         deco "!!!!  OS not Supported  !!!!"
-        exit 1 
+        exit 1
     fi
 }
+
+
+############
+### Main
+############
+
+
 
 while getopts "d: h" option
 do
@@ -494,11 +505,11 @@ case "$cmd" in
 	build_xml
 	deco "Generating pdf for '$book' book."
 	build_pdf
-	deco "Done generating pdf $OUTPUTDIR/book.pdf -> $pdffile" 
+	deco "Done generating pdf $OUTPUTDIR/book.pdf -> $pdffile"
 	;;
   html)
 	[[ -x "$(which xmlto)" ]] || echor "xmlto not installed."|| exit 1
-	clean 
+	clean
 	check_book
 	deco "Building '$book' book."
 	build_xml
@@ -509,5 +520,5 @@ case "$cmd" in
   *)
 	help
 	;;
-	
+
 esac
