@@ -1,3 +1,5 @@
 output/
 build-lt.conf
 *test*
+.vagrant/*
+Vagrant*
