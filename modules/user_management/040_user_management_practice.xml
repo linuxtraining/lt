@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>practice: user management</title>
+<section><title>Practice: user management</title>
 	<para>1. Create a user account named <command>serena</command>, including a home directory and a description (or comment) that reads <command>Serena Williams</command>. Do all this in one single command.</para>
 	<para>2. Create a user named <command>venus</command>, including home directory, bash shell, a description that reads <command>Venus Williams</command> all in one single command.</para>
 	<para>3. Verify that both users have correct entries in <command>/etc/passwd</command>, <command>/etc/shadow</command> and <command>/etc/group</command>.</para>

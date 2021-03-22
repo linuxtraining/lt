@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>practice: mounting file systems</title>
+<section><title>Practice: mounting file systems</title>
 	<para>1. Mount the small 200MB partition on /home/project22.</para>
 	<para>2. Mount the big 400MB primary partition on /mnt, then copy some files to it (everything in /etc). Then umount, and mount the file system as read only on /srv/nfs/salesnumbers. Where are the files you copied ?</para>
 	<para>3. Verify your work with <command>fdisk</command>, <command>df</command> and <command>mount</command>. Also look in <command>/etc/mtab</command> and <command>/proc/mounts</command>.</para>

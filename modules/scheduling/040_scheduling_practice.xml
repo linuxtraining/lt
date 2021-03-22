@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>practice : scheduling</title>
+<section><title>Practice : scheduling</title>
 	<para>1. Schedule two jobs with <command>at</command>, display the <command>at queue</command> and remove a job.</para>
 	<para>2. As normal user, use <command>crontab -e</command> to schedule a script to run every four minutes.</para>
 	<para>3. As root, display the <command>crontab</command> file of your normal user.</para>

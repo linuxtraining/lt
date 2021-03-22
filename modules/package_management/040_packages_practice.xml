@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>practice: package management</title>
+<section><title>Practice: package management</title>
 	<para>1. Verify whether gcc, sudo and wesnoth are installed.</para>
 	<para>2. Use yum or aptitude to search for and install the scp, tmux, and man-pages packages. Did you find them all ?</para>
 	<para>3. Search the internet for 'webmin' and figure out how to install it.</para>

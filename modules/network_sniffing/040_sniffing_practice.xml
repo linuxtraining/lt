@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>practice: network sniffing</title>
+<section><title>Practice: network sniffing</title>
 	<para>1. Install wireshark on your computer (not inside a virtual machine).</para>
 	<para>2. Start a ping between your computer and another computer.</para>
 	<para>3. Start sniffing the network.</para>

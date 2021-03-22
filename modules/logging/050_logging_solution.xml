@@ -11,7 +11,7 @@
 	<para>Answer depends on whether you machine uses <command>syslog</command> or <command>rsyslog</command> (newer).</para>
 	<screen>[root@rhel53 ~]# <command>grep authpriv /etc/syslog.conf</command>
 authpriv.*                                              /var/log/secure</screen>
-	<screen>[root@rhel71 ~]# <command>grep ^authpriv /etc/rsyslog.conf</command>
+	<screen>[root@rhel81 ~]# <command>grep ^authpriv /etc/rsyslog.conf</command>
 authpriv.*                                              /var/log/secure</screen>
 	<screen>paul@debian8:~$ <command>grep ^auth /etc/rsyslog.conf</command>
 auth,authpriv.*                   /var/log/auth.log</screen>
@@ -35,7 +35,7 @@ cat /var/log/l4i.log</screen>
 	<para>This will log more than just the <command>su</command> usage.</para>
 	<para>7. Send the local5 messages to the syslog server of your neighbour. Test that it works.</para>
 	<para>On RHEL5, edit <command>/etc/sysconfig/syslog</command> to enable remote listening on the server.</para>
-	<para>On RHEL7, uncomment these two lines in <command>/etc/rsyslog.conf</command> to enable 'UDP syslog reception'.</para>
+	<para>On RHEL8, uncomment these two lines in <command>/etc/rsyslog.conf</command> to enable 'UDP syslog reception'.</para>
 	<screen># Provides UDP syslog reception
 $ModLoad imudp
 $UDPServerRun 514</screen>

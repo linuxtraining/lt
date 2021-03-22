@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>practice : more scripting</title>
+<section><title>Practice : more scripting</title>
 	<para>1. Write a script that asks for two numbers, and outputs the sum and product (as shown here).</para>
 	<screen>Enter a number: 5
 Enter another number: 2

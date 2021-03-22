@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>practice: user profiles</title>
+<section><title>Practice: user profiles</title>
 	<para>1. Make a list of all the profile files on your system.</para>
 	<para>2. Read the contents of each of these, often they <command>source</command> extra scripts.</para>
 	<para>3. Put a unique variable, alias and function in each of those files.</para>

@@ -8,7 +8,7 @@ Building dependency tree
 Reading state information... Done
 ... (output truncated)</screen>
 		<para>On <command>.rpm</command> based distributions like CentOS, RHEL and Fedora you can use <command>yum</command> to install <command>wireshark</command>.</para>
-		<screen>[root@centos7 ~]# <command>yum install wireshark</command>
+		<screen>[root@centos8 ~]# <command>yum install wireshark</command>
 Loaded plugins: fastestmirror
 Loading mirror speeds from cached hostfile
 ... (output truncated)</screen>
@@ -44,11 +44,11 @@ PING linux-training.be (188.93.155.87) 56(84) bytes of data.
 --- linux-training.be ping statistics ---
 3 packets transmitted, 3 received, 0% packet loss, time 2003ms
 rtt min/avg/max/mdev = 14.756/16.110/17.881/1.309 ms
-root@debian10:~# <command>ping -c1 centos7.paul.local</command>
-PING centos7.paul.local (10.104.33.31) 56(84) bytes of data.
+root@debian10:~# <command>ping -c1 centos8.paul.local</command>
+PING centos8.paul.local (10.104.33.31) 56(84) bytes of data.
 64 bytes from 10.104.33.31: icmp_req=1 ttl=64 time=0.590 ms
 
---- centos7.paul.local ping statistics ---
+--- centos8.paul.local ping statistics ---
 1 packets transmitted, 1 received, 0% packet loss, time 0ms
 rtt min/avg/max/mdev = 0.590/0.590/0.590/0.000 ms</screen>
 		<para>In total more than 200 packets were sniffed from the network. Things become clearer when you enter <command>icmp</command> in the filter field and press the <command>apply</command> button.</para>

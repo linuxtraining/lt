@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>practice: shell history</title>
+<section><title>Practice: shell history</title>
 	<para>1. Issue the command <command>echo The answer to the meaning of life, the universe and everything is 42</command>.</para>
 	<para>2. Repeat the previous command using only two characters (there are two solutions!)</para>
 	<para>3. Display the last 5 commands you typed.</para>

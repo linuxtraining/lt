@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>practice: filters</title>
+<section><title>Practice: filters</title>
 	<para>1. Put a sorted list of all bash users in bashusers.txt.</para>
 	<para>2. Put a sorted list of all logged on users in onlineusers.txt.</para>
 	<para>3. Make a list of all filenames in <command>/etc</command> that contain the string <command>conf</command> in their filename.</para>

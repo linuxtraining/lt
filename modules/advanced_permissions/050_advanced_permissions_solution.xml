@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>solution: sticky, setuid and setgid bits</title>
+<section><title>Solution: sticky, setuid and setgid bits</title>
 	<para>1a. Set up a directory, owned by the group sports.</para>
 	<screen>groupadd sports</screen>
 	<screen>mkdir /home/sports</screen>

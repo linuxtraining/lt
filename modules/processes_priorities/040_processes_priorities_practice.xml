@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>practice : process priorities</title>
+<section><title>Practice : process priorities</title>
 	<para>1. Create a new directory and create six <command>pipes</command> in that directory.</para>
 	<para>2. Bounce a character between two <command>pipes</command>.</para>
 	<para>3. Use <command>top</command> and <command>ps</command> to display information (pid, ppid, priority, nice value, ...) about these two cat processes.</para>

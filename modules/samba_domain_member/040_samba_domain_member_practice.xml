@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>practice : samba domain member</title>
+<section><title>Practice : samba domain member</title>
 	<para>1. Verify that you have a working Active Directory (AD) domain.</para>
 	<para>2. Add the domain name and domain controller to /etc/hosts. Set the AD-DNS in /etc/resolv.conf.</para>
 	<para>3. Setup Samba as a member server in the domain.</para>

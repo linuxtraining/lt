@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>practice : memory</title>
+<section><title>Practice : memory</title>
 	<para>1. Use <command>dmesg</command> to find the total amount of memory in your computer.</para>
 	<para>2. Use <command>free</command> to display memory usage in kilobytes (then in megabytes).</para>
 	<para>3. On a virtual machine, create a swap partition (you might need an extra virtual disk for this).</para>

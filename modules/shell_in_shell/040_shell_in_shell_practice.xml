@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>practice: shell embedding</title>
+<section><title>Practice: shell embedding</title>
 	<para>1. Find the list of shell options in the man page of <command>bash</command>. What is the difference between <command>set -u</command> and <command>set -o nounset</command>?</para>
 	<para>2. Activate <command>nounset</command> in your shell. Test that it shows an error message when using non-existing variables.</para>	
 	<para>3. Deactivate nounset.</para>	

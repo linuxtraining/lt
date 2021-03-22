@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>practice: input/output redirection</title>
+<section><title>Practice: input/output redirection</title>
 	<para>1. Activate the <command>noclobber</command> shell option.</para>
 	<para>2. Verify that <command>noclobber</command> is active by repeating an <command>ls</command> on <command>/etc/</command> with redirected output to a file.</para>
 	<para>3. When listing all shell options, which character represents the <command>noclobber</command> option ?</para>

@@ -10,7 +10,7 @@ BOOKTITLE="installing Linux"
 # define book as directories in certain order
 
 add_mod chapter installing_debian8
-add_mod chapter installing_centos7
+add_mod chapter installing_centos8
 #add_mod chapter installing_linux this is legacy content
 add_mod chapter virtualbox
 

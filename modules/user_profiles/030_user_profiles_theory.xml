@@ -8,19 +8,19 @@
   PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games"
 export PATH
 root@debian10:~#</screen>
-	<para>This screenshot uses grep to show PATH manipulation in <command>/etc/profile</command> on RHEL7/CentOS7.</para>
-	<screen>[root@centos7 ~]# <command>grep PATH /etc/profile</command>
+	<para>This screenshot uses grep to show PATH manipulation in <command>/etc/profile</command> on RHEL8/CentOS8.</para>
+	<screen>[root@centos8 ~]# <command>grep PATH /etc/profile</command>
     case ":${PATH}:" in
                 PATH=$PATH:$1
                 PATH=$1:$PATH
 export PATH USER LOGNAME MAIL HOSTNAME HISTSIZE HISTCONTROL
-[root@centos7 ~]#</screen>
+[root@centos8 ~]#</screen>
 	<para>The <command>root user</command> can use this script to set aliases, functions, and variables for every user on the system.</para>
 </section>
 <section><title>~/.bash_profile</title>
-	<para>When this file exists in the home directory, then <command>bash</command> will source it. On Debian Linux 5/6/7 this file does not exist by default.</para>
-	<para>RHEL7/CentOS7 uses a small <command>~/.bash_profile</command><indexterm><primary>.bash_profile</primary></indexterm> where it checks for the existence of <command>~/.bashrc</command><indexterm><primary>.bashrc</primary></indexterm> and then sources it. It also adds $HOME/bin to the $PATH variable.</para>
-		<screen>[root@rhel7 ~]# <command>cat /home/paul/.bash_profile</command>
+	<para>When this file exists in the home directory, then <command>bash</command> will source it. On Debian Linux 8/9/10 this file does not exist by default.</para>
+	<para>RHEL8/CentOS8 uses a small <command>~/.bash_profile</command><indexterm><primary>.bash_profile</primary></indexterm> where it checks for the existence of <command>~/.bashrc</command><indexterm><primary>.bashrc</primary></indexterm> and then sources it. It also adds $HOME/bin to the $PATH variable.</para>
+		<screen>[root@rhel8 ~]# <command>cat /home/paul/.bash_profile</command>
 # .bash_profile
 
 # Get the aliases and functions
@@ -33,7 +33,7 @@ fi
 PATH=$PATH:$HOME/.local/bin:$HOME/bin
 
 export PATH
-[root@rhel7 ~]#</screen>
+[root@rhel8 ~]#</screen>
 	</section>
 <?hard-pagebreak?>
 	<section><title>~/.bash_login</title>
@@ -60,7 +60,7 @@ fi</screen>
 	<section><title>~/.bashrc</title>
 		<para>The <command>~/.bashrc</command> script is often sourced by other scripts. Let us take a look at what it does by default.</para>
 		<para>Red Hat uses a very simple <command>~/.bashrc</command>, checking for <command>/etc/bashrc</command><indexterm><primary>/etc/bashrc</primary></indexterm> and sourcing it. It also leaves room for custom aliases and functions.</para>
-		<screen>[root@rhel7 ~]# <command>cat /home/paul/.bashrc</command>
+		<screen>[root@rhel8 ~]# <command>cat /home/paul/.bashrc</command>
 # .bashrc
 
 # Source global definitions
@@ -93,7 +93,7 @@ fi</screen>
 # ~/.bash_logout
 
 /usr/bin/clear</screen>
-	<para>Red Hat Enterprise Linux 6 and 7 create this file, but leave it empty (except for a comment).</para>
+	<para>Red Hat Enterprise Linux 6,7 and 8 create this file, but leave it empty (except for a comment).</para>
 	<screen>paul@rhel65:~$ <command>cat .bash_logout</command>
 # ~/.bash_logout</screen>
 	</section>
@@ -150,7 +150,7 @@ fi</screen>
 </tgroup>
 </table>
 	</section>
-	<section><title>RHEL5 overview</title>
+	<section><title>RHEL6 overview</title>
 		<para>Below is a table overview of when Red Hat Enterprise Linux 5 is running any of these bash startup scripts.</para>
 <table frame='all'><title>Red Hat User Environment</title>
 <?dbfo table-width="60%" ?>

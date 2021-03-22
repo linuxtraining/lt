@@ -10,8 +10,8 @@ BOOKTITLE="scripting"
 # define book as directories in certain order
 
 add_mod chapter scripting_intro
-add_mod chapter scripting_loops
 add_mod chapter scripting_params
+add_mod chapter scripting_loops
 #add_mod chapter scripting_functions # TODO
 #add_mod chapter scripting_arrays    # TODO
 add_mod chapter scripting_adv

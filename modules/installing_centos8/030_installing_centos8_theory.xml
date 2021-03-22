@@ -1,19 +1,19 @@
 <?hard-pagebreak?>
-<section><title>download a CentOS 7 image</title>
-<para>This demonstration uses a laptop computer with <command>Virtualbox</command> to install <command>CentOS 7</command> as a virtual machine. The first task is to download an <command>.iso</command> image of <command>CentOS 7</command>.</para>
-<para>The <command>CentOS 7</command> website looks like this today (November 2014). They change the look regularly, so it may look different when you visit it.</para>
+<section><title>Download a CentOS 8 image</title>
+<para>This demonstration uses a laptop computer with <command>Virtualbox</command> to install <command>CentOS 8</command> as a virtual machine. The first task is to download an <command>.iso</command> image of <command>CentOS 8</command>.</para>
+<para>The <command>CentOS 8</command> website looks like this today (November 2014). They change the look regularly, so it may look different when you visit it.</para>
 <para><mediaobject><imageobject><imagedata fileref="../images/centos8_downloadpage.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
-<para>You can download a full DVD, which allows for an off line installation of a graphical <command>CentOS 7</command> desktop. You can select this because it should be easy and complete, and should get you started with a working <command>CentOS 7</command> virtual machine.</para>
+<para>You can download a full DVD, which allows for an off line installation of a graphical <command>CentOS 8</command> desktop. You can select this because it should be easy and complete, and should get you started with a working <command>CentOS 8</command> virtual machine.</para>
 <?hard-pagebreak?>
-<para>But I clicked instead on 'alternative downloads', selected <command>CentOS 7</command> and <command>x86_64</command> and ended up on a <command>mirror list</command>. Each mirror is a server that contains copies of <command>CentOS 7</command> media. I selected a Belgian mirror because I currently am in Belgium.</para>
+<para>But I clicked instead on 'alternative downloads', selected <command>CentOS 8</command> and <command>x86_64</command> and ended up on a <command>mirror list</command>. Each mirror is a server that contains copies of <command>CentOS 8</command> media. I selected a Belgian mirror because I currently am in Belgium.</para>
 <para><mediaobject><imageobject><imagedata fileref="../images/centos8_mirror.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <para>There is again the option for full DVD's and more. This demonstration will use the <command>minimal</command> .iso file, because it is much smaller in size. The download takes a couple of minutes.</para>
 <para><mediaobject><imageobject><imagedata fileref="../images/centos8_downloading.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <para>Verify the size of the file after download to make sure it is complete. Probably a right click on the file and selecting 'properties' (if you use Windows or Mac OSX).</para>
 <para>I use Linux on the laptop already:</para>
-<screen>paul@debian8:~$ <command>ls -lh CentOS-7.0-1406-x86_64-Minimal.iso</command>
--rw-r--r-- 1 paul paul 566M Nov  1 14:45 CentOS-7.0-1406-x86_64-Minimal.iso</screen>
-<para>Do not worry if you do no understand the above command. Just try to make sure that the size of this file is the same as the size that is mentioned on the <command>CentOS 7</command> website.</para>
+<screen>paul@debian8:~$ <command>ls -lh CentOS-8.0-1406-x86_64-Minimal.iso</command>
+-rw-r--r-- 1 paul paul 566M Nov  1 14:45 CentOS-8.0-1406-x86_64-Minimal.iso</screen>
+<para>Do not worry if you do no understand the above command. Just try to make sure that the size of this file is the same as the size that is mentioned on the <command>CentOS 8</command> website.</para>
 </section>
 <?hard-pagebreak?>
 <section><title>Virtualbox</title>
@@ -43,9 +43,9 @@
 <para><mediaobject><imageobject><imagedata fileref="../images/centos8_cdiso.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 </section>
 <?hard-pagebreak?>
-<section><title>CentOS 7 installing</title>
+<section><title>CentOS 8 installing</title>
 <para>The screenshots below will show every step from starting the virtual machine for the first time (with the .iso file attached) until the first logon.</para>
-<para>You should see this when booting, otherwise verify the attachment of the .iso file form the previous steps. Select <command>Test this media and install CentOS 7</command>.</para>
+<para>You should see this when booting, otherwise verify the attachment of the .iso file form the previous steps. Select <command>Test this media and install CentOS 8</command>.</para>
 <para><mediaobject><imageobject><imagedata fileref="../images/a_install.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <?hard-pagebreak?>
 <para>Carefully select the language in which you want your <command>CentOS</command>. I always install operating systems in English, even though my native language is not English.</para>
@@ -72,7 +72,7 @@
 <para>You can enter a <command>root password</command> and create a <command>user account</command> while the installation is downloading from the internet. This is the longest step, it can take several minutes (or up to an hour if you have a slow internet connection).</para>
 <para><mediaobject><imageobject><imagedata fileref="images/j_install_users.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <para>If you see this, then the installation was successful.</para>
-<para>Time to reboot the computer and start <command>CentOS 7</command> for the first time.</para>
+<para>Time to reboot the computer and start <command>CentOS 8</command> for the first time.</para>
 <para><mediaobject><imageobject><imagedata fileref="images/k_install_done.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <?hard-pagebreak?>
 <para>This screen will appear briefly when the virtual machines starts. You don't have to do anything.</para>
@@ -83,7 +83,7 @@
 <para>And this is what it looks like after logon. You are logged on to your own Linux machine, very good.</para>
 <para><mediaobject><imageobject><imagedata fileref="images/n_install_gettylogon.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <para>All subsequent screenshots will be text only, no images anymore.</para>
-<para>For example this screenshot shows three commands being typed on my new CentOS 7 install.</para>
+<para>For example this screenshot shows three commands being typed on my new CentOS 8 install.</para>
 <screen>[root@localhost ~]# <command>who am i</command>
 root     pts/0        2014-11-01 22:14
 [root@localhost ~]# <command>hostname</command>
@@ -98,10 +98,10 @@ localhost.localdomain
 [root@localhost ~]# <command>date</command>
 Sat Nov  1 22:10:04 CET 2014
 [root@localhost ~]#</screen>
-<para>If the last part is a bit too fast, take a look at the next topic <command>CentOS 7 first logon</command>.</para>
+<para>If the last part is a bit too fast, take a look at the next topic <command>CentOS 8 first logon</command>.</para>
 </section>
 <?hard-pagebreak?>
-<section><title>CentOS 7 first logon</title>
+<section><title>CentOS 8 first logon</title>
 <para>All you have to log on, after finishing the installation, is this screen in Virtualbox.</para>
 <para><mediaobject><imageobject><imagedata fileref="images/m_install_getty.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 <para>This is workable to learn Linux, and you will be able to practice a lot. But there are more ways to access your virtual machine, the next chapters discuss some of these and will also introduce some basic system configuration.</para>
@@ -109,7 +109,7 @@ Sat Nov  1 22:10:04 CET 2014
 <para>Setting the hostname is a simple as changing the <command>/etc/hostname</command> file. As you can see here, it is set to <command>localhost.localdomain</command> by default.</para>
 <screen>[root@localhost ~]# <command>cat /etc/hostname</command>
 localhost.localdomain</screen>
-<para>You could do <command>echo server33.netsec.local > /etc/hostname</command> followed by a <command>reboot</command>. But there is also the new <command>CentOS 7</command> way of setting a new hostname.</para>
+<para>You could do <command>echo server33.netsec.local > /etc/hostname</command> followed by a <command>reboot</command>. But there is also the new <command>CentOS 8</command> way of setting a new hostname.</para>
 <screen>[root@localhost ~]# <command>nmtui</command></screen>
 <para>The above command will give you a menu to choose from with a <command>set system hostname</command> option. Using this <command>nmtui</command> option will edit the <command>/etc/hostname</command> file for you.</para>
 <screen>[root@localhost ~]# <command>cat /etc/hostname</command>
@@ -188,7 +188,7 @@ lo      loopback  unmanaged  --</screen>
 </section>
 <?hard-pagebreak?>
 <section><title>package management</title>
-<para>Even with a network install, <command>CentOS 7</command> did not install the latest version of some packages. Luckily there is only one command to run (as root). This can take a while.</para>
+<para>Even with a network install, <command>CentOS 8</command> did not install the latest version of some packages. Luckily there is only one command to run (as root). This can take a while.</para>
 <screen>[root@server33 ~]# <command>yum update</command>
 Loaded plugins: fastestmirror
 Loading mirror speeds from cached hostfile

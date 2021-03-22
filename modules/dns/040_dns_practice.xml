@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>practice: dns</title>
+<section><title>Practice: dns</title>
 	<para>1. Install <command>bind9</command> and verify with a sniffer how it works.</para>
 	<para>2. Add a <command>forwarder</command> and verify that it works.</para>
 	<para>3. Create a <command>primary forward lookup zone</command> named yourname.local with at least two NS records and four A records.</para>

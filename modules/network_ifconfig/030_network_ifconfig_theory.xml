@@ -88,8 +88,8 @@ NETWORKING=yes
 HOSTNAME=rhel610
 GATEWAY=192.168.1.1</screen>
 		<para>There are a dozen more options settable in this file, details can be found in <command>/usr/share/doc/initscripts-*/sysconfig.txt</command><indexterm><primary>/usr/share/doc</primary></indexterm>.</para>
-		<para>Note that this file contains no settings at all in a default RHEL7 install (with networking enabled).</para>
-		<screen>[root@rhel76 ~]# <command>cat /etc/sysconfig/network</command>
+		<para>Note that this file contains no settings at all in a default RHEL8 install (with networking enabled).</para>
+		<screen>[root@rhel82 ~]# <command>cat /etc/sysconfig/network</command>
 # Created by anaconda</screen>
 	</section>
 	<section><title>/etc/sysconfig/network-scripts/ifcfg-</title>
@@ -103,8 +103,8 @@ NM_CONTROLLED="no"
 BOOTPROTO="dhcp"
 ONBOOT="yes"</screen>
 		<para>The BOOTPROTO variable can be set to either <command>dhcp</command><indexterm><primary>dhcp</primary></indexterm> or <command>bootp</command><indexterm><primary>bootp</primary></indexterm>, anything else will be considered <command>static</command> meaning there should be no protocol used at boot time to set the interface values.</para>
-		<para>RHEL7 adds <command>ipv6</command> variables to this file.</para>
-		<screen>[root@rhel76 network-scripts]# <command>cat ifcfg-enp0s3</command>
+		<para>RHEL8 adds <command>ipv6</command> variables to this file.</para>
+		<screen>[root@rhel82 network-scripts]# <command>cat ifcfg-enp0s3</command>
 TYPE="Ethernet"
 BOOTPROTO="dhcp"
 DEFROUTE="yes"
@@ -121,7 +121,7 @@ NAME="enp0s3"
 UUID="9fa6a83a-2f8e-4ecc-962c-5f614605f4ee"
 DEVICE="enp0s3"
 ONBOOT="yes"
-[root@rhel71 network-scripts]#</screen>
+[root@rhel81 network-scripts]#</screen>
 	</section>
 	<section><title>fixed ip</title>
 		<para>Below a screenshot of a <command>fixed ip</command><indexterm><primary>fixed ip</primary></indexterm> configuration in <command>/etc/sysconfig/network-scripts/ifcfg-eth0</command>.</para>
@@ -139,12 +139,12 @@ ONBOOT="yes"</screen>
 	</section>
 	</section>
 	<section><title>nmcli</title>
-		<para>On RHEL7 you should run <command>nmcli connection reload</command> if you changed configuration files in <command>/etc/sysconfig/</command> to enable your changes.</para>
-		<para>The <command>nmcli</command> tool has many options to configure networking on the command line in RHEL7/CentOS8</para>
+		<para>On RHEL9 you should run <command>nmcli connection reload</command> if you changed configuration files in <command>/etc/sysconfig/</command> to enable your changes.</para>
+		<para>The <command>nmcli</command> tool has many options to configure networking on the command line in RHEL8/CentOS8</para>
 		<screen>man nmcli</screen>
 	</section>
 	<section><title>nmtui</title>
-		<para>Another recommendation for RHEL7/CentOS8 is to use <command>nmtui</command>. This tool will use a 'windowed' interface in command line to manage network interfaces.</para>
+		<para>Another recommendation for RHEL8/CentOS8 is to use <command>nmtui</command>. This tool will use a 'windowed' interface in command line to manage network interfaces.</para>
 		<screen>nmtui</screen>
 	</section>
 <?hard-pagebreak?>
@@ -247,8 +247,8 @@ eth0 Link encap:Ethernet  HWaddr 00:42:42:42:42:42</screen>
 </section>
 <section><title>ip</title>
 	<para>The <command>ifconfig</command> tool is deprecated on some systems. Use the <command>ip</command> tool instead.</para>
-	<para>To see ip addresses on RHEL7 for example, use this command:</para>
-	<screen>[root@rhel76 ~]# <command>ip a</command>
+	<para>To see ip addresses on RHEL8 for example, use this command:</para>
+	<screen>[root@rhel82 ~]# <command>ip a</command>
 1: lo: &#060;LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
     inet 127.0.0.1/8 scope host lo
@@ -261,7 +261,7 @@ eth0 Link encap:Ethernet  HWaddr 00:42:42:42:42:42</screen>
        valid_lft 6173sec preferred_lft 6173sec
     inet6 fe80::a00:27ff:fe89:2233/64 scope link
        valid_lft forever preferred_lft forever
-[root@rhel76 ~]#</screen>
+[root@rhel82 ~]#</screen>
 </section>
 <?hard-pagebreak?>
 <section><title>dhclient</title>
@@ -275,10 +275,10 @@ eth0 Link encap:Ethernet  HWaddr 00:42:42:42:42:42</screen>
 HOSTNAME=rhel610
 [root@rhel610 ~]# <command>hostname</command>
 rhel6</screen>
-	<para>Starting with RHEL7/CentOS8 this file is empty. The hostname is configured in the standard <command>/etc/hostname</command> file.</para>
-	<screen>[root@rhel76 ~]# <command>cat /etc/hostname</command>
-rhel76.linux-training.be
-[root@rhel76 ~]#</screen>
+	<para>Starting with RHEL8/CentOS8 this file is empty. The hostname is configured in the standard <command>/etc/hostname</command> file.</para>
+	<screen>[root@rhel82 ~]# <command>cat /etc/hostname</command>
+rhel82.linux-training.be
+[root@rhel82 ~]#</screen>
 	<para>Ubuntu/Debian uses the <command>/etc/hostname</command><indexterm><primary>/etc/hostname</primary></indexterm> file to configure the <command>hostname</command>.</para>
 	<screen>paul@debian9:~$ <command>cat /etc/hostname</command>
 server42

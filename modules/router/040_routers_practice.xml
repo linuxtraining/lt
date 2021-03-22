@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>practice: packet forwarding</title>
+<section><title>Practice: packet forwarding</title>
 	<para>0. You have the option to select (or create) an internal network when adding a network card in <command>VirtualBox</command><indexterm><primary>virtualbox</primary></indexterm> or <command>VMWare</command><indexterm><primary>vmware</primary></indexterm>. Use this option to create two internal networks. I named them <command>leftnet</command> and <command>rightnet</command>, but you can choose any other name.</para>
 	<para><mediaobject><imageobject><imagedata fileref="images/LAN_networks.png" format="EPS" align="center"></imagedata></imageobject></mediaobject></para>
 	<para>1. Set up two Linux machines, one on <command>leftnet</command>, the other on <command>rightnet</command>. Make sure they both get an ip-address in the correct subnet. These two machines will be 'left' and 'right' from the 'router'.</para>

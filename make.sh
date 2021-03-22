@@ -1,4 +1,11 @@
-#!/bin/bash
+#!/usr/bin/env bash
+######################################################
+#created by: Serge
+#edited by: Alex M. Schapelle
+#purpose: build pdf or html files for linux-training learning material
+#version; v1.9.29
+#####################################################
+
 
 ### module info ###
 # The build environment expects to live in a subdir build/
@@ -8,15 +15,16 @@
 # ./modules/
 # ./build/
 
+#########################
+### settings/variables
+#########################
 
-
-### settings ###
-
+L="#####################################"
 OUTPUTDIR="./output"
 redirfile="$OUTPUTDIR/debug.txt"
 HTMLDIR="$OUTPUTDIR/html"
 HTMLIMGDIR="$HTMLDIR/images"
-IMAGESDIR="./images" 
+IMAGESDIR="./images"
 MODULESDIR="./modules"
 BUILDDIR="."
 LIBDIR="$BUILDDIR/lib"
@@ -24,7 +32,7 @@ export FOP_OPTS="-Xms512m -Xmx512m"
 export BOOKSDIR=./books
 HTMLXSL="$LIBDIR/html.xsl"
 HTMLCSS="$LIBDIR/html.css"
-
+INSTALLER="apt-get"
 ### script configuration ###
 
 # set this to empty or zero to disable this feature
@@ -41,37 +49,38 @@ DATECODE=$(date +%y%m%d | sed s/^0//)
 PUBDATE=$(date +'%Y-%m-%d')
 YEAR=$(date +%Y)
 
-### functions ###
+##################
+### functions
+##################
 
 help() {
-	echo
-	echo "linux-training book build script\t\thttp://linux-training.be"
-	echo
-	echo $0 [OPTION] command [book]
-	echo 
-	echo "Options"
-	echo "  -d 0,1,2,3,4		Set debug level, 1 is default"
-	echo "					0	No output"
-	echo "					1	Standard output"
-	echo "					2	Verbose output"
-	echo "					3	Extra verbose output"
-	echo "					4	Debug output"
-	echo "  -h			Help"
-	echo
-	echo "Commands"
-	echo "  clean			clean output dir"
-	echo "  build [BOOK]		build book"
-	echo "  html [BOOK]		generate html"
-	echo
-	echo "Available books:" $superbooks
-	echo "      minibooks:" $minibooks
-	echo
+	clear
+	deco "Linux-Training book build script:  http://linux-training.be
+	$0 [OPTION] command [book]
+	 Options
+	  -d 0,1,2,3,4		Set debug level, 1 is default
+						0	No output
+						1	Standard output
+						2	Verbose output
+						3	Extra verbose output
+						4	Debug output
+	  -h			Help
+
+	 Commands
+	  clean			clean output dir
+	  build [BOOK]		build book
+	  html [BOOK]		generate html
+	"
+	 deco "Available books: ${superbooks[*]}"
+	 deco "Minibooks: ${minibooks[*]}"
+
 	}
 
 set_xsl() {
-	if	[ -r $BOOKSDIR/$book/lt.xsl ]
-		then	XSLFILE="$BOOKSDIR/$book/lt.xsl"
-		else	XSLFILE="$LIBDIR/lt.xsl"
+	if	[[ -r $BOOKSDIR/$book/lt.xsl ]];then
+		XSLFILE="$BOOKSDIR/$book/lt.xsl"
+	else
+		XSLFILE="$LIBDIR/lt.xsl"
 	fi
 }
 
@@ -80,17 +89,18 @@ set_JAVA() {
 	if [[ -x "$(which java)" ]];then
 	    JAVA_ALTERNATIVE=$(readlink /etc/alternatives/java)
 		export JAVA_HOME=${JAVA_ALTERNATIVE%/bin/java}
-	else    
-		echo "Could not set JAVA_HOME, something unexpected happened in $0"
+	else
+		echo "[!] Could not set JAVA_HOME, something unexpected happened in $0"
 		exit 1
 	fi
 	}
 
 check_ROOTDIR() {
 
-	if	[ -d $BOOKSDIR -a -d $MODULESDIR -a -d $BUILDDIR ]
-	then	echor "Current dir is book project root directory."
-	else	echor "Please run this script from the book root directory."
+	if	[[ -d $BOOKSDIR ]] && [[ -d $MODULESDIR ]] && [[ -d $BUILDDIR ]];then
+		echor "[!] Current dir is book project root directory."
+	else
+		echor "[!] Please run this script from the book root directory."
 		return 1
 	fi
 
@@ -116,41 +126,45 @@ add_mod() {
         }
 
 echor() {	# echo error
+	sleep 0.1
 	echo $* >&2
 	}
 
 echod() {	# echo debug
-	[ $OPTDEBUG -ge 2 ] && echo $* 
+	sleep 0.1
+	[[ $OPTDEBUG -ge 2 ]] && echo $*
 	}
 
 clean() {
-	echo "Cleaning up $OUTPUTDIR directory"
+	deco "Cleaning up $OUTPUTDIR directory"
 	# We don't need the .xml files
 	rm -rf $V $OUTPUTDIR/*.xml
 	# We don't need the previous errors.txt
-	[ -f $redirfile ] && rm -rf $V $redirfile
+	[[ -f $redirfile ]] && rm -rf $V $redirfile
 	# Symlink creation fails unless we remove this symlink first
-	[ -h $OUTPUTDIR/book.pdf ] && rm -rf $V $OUTPUTDIR/book.pdf
+	[[ -h $OUTPUTDIR/book.pdf ]] && rm -rf $V $OUTPUTDIR/book.pdf
 	# Clean $HTMLDIR
-	[ -d $HTMLDIR ] && rm -rf $V $HTMLDIR/*.xml
+	[[ -d $HTMLDIR ]] && rm -rf $V $HTMLDIR/*.xml
 	}
 
 check_book() {
-	if [ ! -z $book ]
-		then 	# check if $book parameter is one of the available books
-			echo -n "Checking if $book.cfg exists in ./books directory ... "
+	if [[ ! -z $book ]];then 	# check if $book parameter is one of the available books
+			echo -e "[?] Checking if $book.cfg exists in ./books directory ... "
 			check=0
-			for entry in $books ; do
-				if [ $entry = $book ]
-					then check=1
-				fi
-			done
-			if [ $check = 1 ]
-				then echo "Selected book $book"
-				else echo "$book is not available"; exit
+			for entry in ${books[@]}
+				do
+					if [[ $entry == ${book[@]} ]];then
+						check=1
+					fi
+				done
+
+			if [[ $check -eq 1 ]];then
+				deco "[*] Selected book $book"
+			else
+				deco "[*] $book is not available"; exit
 			fi
 		else
-			echo "No book specified, assuming default book"
+			deco "[!] No book specified, assuming default book"
 			book="default"
 		fi
 	}
@@ -168,7 +182,7 @@ build_header() {
 		"$BOOKSDIR/$book/reviewers" \
 		"$PUBDATE" \
 		"$YEAR" \
-		"$TEACHER"			                            		>> $headerfile	 
+		"$TEACHER"			                            		>> $headerfile
         echo "</bookinfo>"                                      >> $headerfile
 	}
 
@@ -180,17 +194,18 @@ build_part_body() {
 
     for modtype in CHAPTERS APPENDICES
     do
-        echod Building $modtype ..
+        echod "[+] Building $modtype .."
         for mod in ${!modtype}
         do
-            echod -n "Building module $mod "
+            echo -e "[+] Building module $mod 	"
             modfile=$OUTPUTDIR/mod_$mod.xml
 
             # enumerate module files for this module $mod
-	    if [ -d modules/$mod ]
-	    then	MODULES=$(ls modules/${mod}/*)
- 	    else	echo "Error: module $mod does not exist!" 
-			echor "Fatal error occurred!"
+	    if [[ -d modules/$mod ]];then
+			MODULES=$(ls modules/${mod}/*)
+ 	    else
+		 	echo "[!] Error: module $mod does not exist!"
+			echor "[!!!] Fatal error occurred!"
 			exit 1
 	    fi
             echo $MODULES
@@ -207,7 +222,7 @@ build_part_body() {
             # Generate all the sections
             for module in $MODULES
             do
-                echod -n "\t.. adding module $module"
+                echo -e "[+] adding module $module"
                 cat $module                                 >> $modfile
             done
             echod
@@ -247,18 +262,16 @@ build_part() {
     CHAPTERS=""
     APPENDICES=""
 
-    if [ "$PART" = "CUSTOMPART" ]
-    then    # just build the part body using the chapters and apendices from the main book config
-	    if [ "$BUNDLE_APPENDICES" = 1 ]
-	    then	echod "restore the bundled appendices: ${APPENDICES_BUNDLE}"
+    if [[ "$PART" = "CUSTOMPART" ]];then    # just build the part body using the chapters and apendices from the main book config
+	    if [[ "$BUNDLE_APPENDICES" = 1 ]];then
+			echod "[+] restore the bundled appendices: ${APPENDICES_BUNDLE}"
 			APPENDICES=${APPENDICES_BUNDLE}
 	    fi
             . $BOOKSDIR/$book/config
             build_part_body
     else    # first read in the config of this part minibook
             . $BOOKSDIR/$PART/config
-	    if [ "$BUNDLE_APPENDICES" = 1 ]
-	    then	# move content of APPENDICES var to be used later in the custompart
+	    if [[ "$BUNDLE_APPENDICES" == 1 ]]; then	# move content of APPENDICES var to be used later in the custompart
 			APPENDICES_BUNDLE=${APPENDICES_BUNDLE}${APPENDICES}
 			APPENDICES=""
 	    fi
@@ -273,43 +286,42 @@ build_body() {
     # if we have both minibooks and separate chapters+appendices, then build the latter set as a custom minibook in a separate <part>
     # if we have no minibooks, then no need for "<part>"
 
-    if [ -z "$MINIBOOKS" ]
-    then    # no minibooks
+    if [[ -z "$MINIBOOKS" ]];then    # no minibooks
             HAZ_MINIBOOKS=0
     else    # build minibooks
             HAZ_MINIBOOKS=1
             for minibook in $MINIBOOKS
-            do  echod "Assembling the part for minibook $minibook"
-		build_part $minibook
-                fill_part $partfile
-            done
+            	do
+					echod "[+] Assembling the part for minibook $minibook"
+					build_part $minibook
+                	fill_part $partfile
+            	done
     fi
 
-    if [ -z "$CHAPTERS $APPENDICES" ]
-    then    # no custom part
+    if [[ -z "$CHAPTERS $APPENDICES" ]];then    # no custom part
             HAZ_CUSTOMPART=0
     else    # simple custom book or custom part
             HAZ_CUSTOMPART=1
-	    # just build the custom book
-	    echod "Assembling the custom part or simple book."
+	    		# just build the custom book
+	    	echod "[+] Assembling the custom part or simple book."
             build_part CUSTOMPART
-	    if [ $HAZ_MINIBOOKS = 0 ]
-	    then	# just use partfile as bookbody
+	    if [[ $HAZ_MINIBOOKS = 0 ]];then	# just use partfile as bookbody
             		cat $partfile   >>$bodyfile
 	    else	# add custom part as extra part
 			# set booktitle for custompart
-			if [ $(echo $CHAPTERS $APPENDICES | wc -w ) -gt 1 ]
-			then	BOOKTITLE="Appendices"
-			else	BOOKTITLE="Appendix"
+			if [[ $(echo $CHAPTERS $APPENDICES | wc -w ) -gt 1 ]];then
+					BOOKTITLE="Appendices"
+			else
+					BOOKTITLE="Appendix"
 			fi
-			echod "Adding the custom part at the end."
+			echod "[+] Adding the custom part at the end."
 			fill_part $partfile
 	    fi
     fi
     }
 
 build_xml() {
-	echo -n "Parsing config $BOOKSDIR/$book/config ... "
+	echo -ne "[:] Parsing config $BOOKSDIR/$book/config ... "
 	CHAPTERS=""
 	APPENDICES=""
 	. $BOOKSDIR/$book/config
@@ -323,7 +335,7 @@ build_xml() {
 	VERSIONSTRING=lt-$MAJOR.$MINOR
 
 	echo "generating book $book (titled \"$BOOKTITLE\")"
-	[ -d $OUTPUTDIR ] || mkdir $OUTPUTDIR
+	[[ -d $OUTPUTDIR ]] || mkdir $OUTPUTDIR
 
 	BOOKTITLE2=$(echo $BOOKTITLE | sed -e 's/\ /\_/g' -e 's@/@-@g' )
 	filename=$BOOKTITLE2-$VERSIONSTRING-$DATECODE
@@ -346,30 +358,28 @@ build_xml() {
 	build_body
 
 	# build master xml
-	echo "Building $xmlfile"
+	echo -e "[+] Building $xmlfile"
 	cat $headerfile  > $xmlfile
 	cat $bodyfile   >> $xmlfile
 	cat $footerfile >> $xmlfile
 	}
 
 build_pdf() {
-	#set -x
 	set_xsl
 	set_JAVA
-	echo 
+	echo
 	echo "---------------------------------"
 	echo "Generating $pdffile"
 	tail -n +2 $xmlfile > $tmp_xmlfile
 	eval $(echo fop -xml $tmp_xmlfile -xsl $XSLFILE -pdf $pdffile ) >&2
 	#eval $(echo fop -xml $tmp_xmlfile -xsl $XSLFILE -pdf $pdffile $EXECDEBUG) >&2 #there is an issue with EXECDEBUG param
-	#fop -xml $tmp_xmlfile -xsl $XSLFILE -pdf $pdffile 
+	#fop -xml $tmp_xmlfile -xsl $XSLFILE -pdf $pdffile
 	ln -s $V $filename.xml $OUTPUTDIR/book.pdf
-	#set +x
 	echo "---------------------------------"
 	}
 
 build_html() {
-    [ -d $HTMLDIR ] && rm -rf $V $HTMLDIR
+    [[ -d $HTMLDIR ]] && rm -rf $V $HTMLDIR
     mkdir $V $HTMLDIR || ( echor Error creating $HTMLDIR; exit 1 )
     mkdir $V $HTMLIMGDIR || ( echor Error creating $HTMLIMGDIR; exit 1 )
 
@@ -377,13 +387,13 @@ build_html() {
     cp $V $xmlfile $HTMLDIR || ( echor error copying $xmlfile ; exit 1 )
 
     # Locate the used images in the xml file
-    images=`grep imagedata $HTMLDIR/*.xml | cut -d/ -f2 | cut -d\" -f1`
+    images=$(grep imagedata $HTMLDIR/*.xml | cut -d/ -f2 | cut -d\" -f1)
 
     # Copy all the used images
     for img in $images
     do
          echo Copying $img to $HTMLIMGDIR ...
-         cp $V "$IMAGESDIR/$img" $HTMLIMGDIR/ || echor Error copying $img 
+         cp $V "$IMAGESDIR/$img" $HTMLIMGDIR/ || echor Error copying $img
     done
 
     # Copy css file to html directory
@@ -396,6 +406,36 @@ build_html() {
     rm $HTMLDIR/*.xml
 
 }
+
+deco(){
+
+    printf "$L\n# %s\n$L\n" "$@"
+    sleep 0.5
+}
+
+
+try_fix(){
+	echod "Trying to install dependencies"
+	sudo $INSTALLER install -y ${tool[@]}
+}
+
+
+check_os_type(){
+   local _os=$(cat /etc/*-release|grep '^ID='|awk -F= '{print$2}')
+    if [[ "${_os,,}" == 'debian' ]] || [[ "${_os,,}" == 'ubuntu' ]] || [[ "${_os,,}" == 'linuxmint' ]];then
+        true
+    else
+        deco "!!!!  OS not Supported  !!!!"
+        exit 1
+    fi
+}
+
+
+############
+### Main
+############
+
+
 
 while getopts "d: h" option
 do
@@ -410,7 +450,7 @@ do
         esac
 done
 
-command=$1
+cmd=$1
 book=$2
 
 case $OPTDEBUG in
@@ -441,41 +481,43 @@ esac
 
 check_ROOTDIR || exit 1
 
-books=$( cd $BOOKSDIR ; find * -maxdepth 1 -type d)
-superbooks=$( cd $BOOKSDIR ; find * -maxdepth 1 -type d | grep -v minibook )
-minibooks=$( cd $BOOKSDIR ; find * -maxdepth 1 -type d | grep minibook)
+books=($( cd $BOOKSDIR ; find * -maxdepth 1 -type d))
+superbooks=($( cd $BOOKSDIR ; find * -maxdepth 1 -type d | grep -v minibook ))
+minibooks=($( cd $BOOKSDIR ; find * -maxdepth 1 -type d | grep minibook))
 
 mkdir -p $OUTPUTDIR
 
 # Redirect everything according to REDIR var from now on.
-eval "exec $REDIR"
+#eval "exec $REDIR"
 
 # Main loop
-case "$command" in
+case "$cmd" in
   clean)
 	clean
 	;;
   build)
+	check_os_type
 	clean
+	[[ -x "$(which fop)" ]] || echor "fop not installed." || exit 1
 	check_book
-	echo "Building '$book' book."
+	deco "Building '$book' book."
 	build_xml
-	echo "Generating pdf for '$book' book."
+	deco "Generating pdf for '$book' book."
 	build_pdf
-	echo "Done generating pdf $OUTPUTDIR/book.pdf -> $pdffile" 
+	deco "Done generating pdf $OUTPUTDIR/book.pdf -> $pdffile"
 	;;
   html)
-	[ -x "$(which xmlto)" ] || echor "xmlto not installed." || exit 1
-	clean 
+	[[ -x "$(which xmlto)" ]] || echor "xmlto not installed."|| exit 1
+	clean
 	check_book
-	echo "Building '$book' book."
+	deco "Building '$book' book."
 	build_xml
-	echo "Generating html for '$book' book."
+	deco "Generating html for '$book' book."
 	build_html
- 	echo "Done Generating html for '$book' book."
+ 	deco "Done Generating html for '$book' book."
 	;;
   *)
 	help
 	;;
-	
+
 esac

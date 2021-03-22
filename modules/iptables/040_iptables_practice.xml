@@ -1,5 +1,5 @@
 <?hard-pagebreak?>
-<section><title>practice: packet filtering</title>
+<section><title>Practice: packet filtering</title>
 <para>1. Make sure you can ssh to your router-system when iptables is active.</para>
 <para>2. Make sure you can ping to your router-system when iptables is active.</para>
 <para>3. Define one of your networks as 'internal' and the other as 'external'. Configure the router to allow visits to a website (http) to go from the internal network to the external network (but not in the other direction).</para>

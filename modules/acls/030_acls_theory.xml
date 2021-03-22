@@ -37,7 +37,7 @@ mask::rwx
 other::r--</screen>
 	</section>
 <?hard-pagebreak?>
-	<section><title>remove an acl entry</title>
+	<section><title>Remove an acl entry</title>
 		<para>The <command>-x</command> option of the <command>setfacl</command> command will remove an <command>acl</command> entry from the targeted file.</para>
 		<screen>paul@laika:~/test$ setfacl -m u:sandra:7 file33 
 paul@laika:~/test$ getfacl file33 | grep sandra
@@ -46,7 +46,7 @@ paul@laika:~/test$ setfacl -x sandra file33
 paul@laika:~/test$ getfacl file33 | grep sandra</screen>
 		<para>Note that omitting the <command>u</command> or <command>g</command> when defining the <command>acl</command> for an account will default it to a user account.</para>
 	</section>
-	<section><title>remove the complete acl</title>
+	<section><title>Remove the complete acl</title>
 		<para>The <command>-b</command> option of the <command>setfacl</command> command will remove the <command>acl</command> from the targeted file.</para>
 		<screen>paul@laika:~/test$ setfacl -b file33 
 paul@laika:~/test$ getfacl file33 
@@ -57,7 +57,7 @@ user::rw-
 group::r--
 other::r--</screen>
 	</section>
-	<section><title>the acl mask</title>
+	<section><title>The acl mask</title>
 		<para>The <command>acl mask</command> defines the maximum effective permissions for any entry in the <command>acl</command>. This <command>mask</command> is calculated every time you execute the <command>setfacl</command> or <command>chmod</command> commands.</para>
 		<para>You can prevent the calculation by using the <command>--no-mask</command> switch.</para>
 		<screen>
@@ -74,7 +74,7 @@ other::r--
 		</screen>
 	</section>
 <?hard-pagebreak?>
-	<section><title>eiciel</title>
+	<section><title>Eiciel</title>
 		<para>Desktop users might want to use <command>eiciel</command><indexterm><primary>eiciel</primary></indexterm> to manage <command>acls</command><indexterm><primary>acl</primary></indexterm> with a graphical tool.</para>
 		<mediaobject><imageobject><imagedata fileref="../images/eiciel_acls.jpg" format="EPS" align="center"></imagedata></imageobject></mediaobject>			
 		<para>You will need to install <command>eiciel</command> and <command>nautilus-actions</command> to have an extra tab in <command>nautilus</command> to manage <command>acls</command>.</para>

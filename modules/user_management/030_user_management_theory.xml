@@ -98,7 +98,7 @@ laura:x:528:534:art dealer:/home/laura:/bin/bash</screen>
 </section>
 <section><title>chsh</title>
 	<para>Users can change their login shell with the <command>chsh</command><indexterm><primary>chsh(1)</primary></indexterm> command. First, user harry obtains a list of available shells (he could also have done a <command>cat /etc/shells</command><indexterm><primary>/etc/shells</primary></indexterm>) and then changes his login shell to the <command>Korn shell</command><indexterm><primary>Korn Shell</primary></indexterm> (/bin/ksh). At the next login, harry will default into ksh instead of bash. </para>
-	<screen>[laura@centos7 ~]$ <command>chsh -l</command>
+	<screen>[laura@centos8 ~]$ <command>chsh -l</command>
 /bin/sh
 /bin/bash
 /sbin/nologin
@@ -108,10 +108,10 @@ laura:x:528:534:art dealer:/home/laura:/bin/bash</screen>
 /bin/ksh
 /bin/tcsh
 /bin/csh
-[laura@centos7 ~]$</screen>
+[laura@centos8 ~]$</screen>
 	<para>Note that the <command>-l</command> option does not exist on Debian and that the above screenshot assumes that <command>ksh</command> and <command>csh</command> shells are installed.</para>
 	<para>The screenshot below shows how <command>laura</command> can change her default shell (active on next login).</para>
- 	<screen>[laura@centos7 ~]$ <command>chsh -s /bin/ksh</command>
+ 	<screen>[laura@centos8 ~]$ <command>chsh -s /bin/ksh</command>
 Changing shell for laura.
 Password: 
 Shell changed.</screen>

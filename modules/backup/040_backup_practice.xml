@@ -1,4 +1,4 @@
-<section><title>practice: backup</title>
+<section><title>Practice: backup</title>
 	<para>!! Careful with tar options and the position of the backup file, mistakes can destroy your system!!</para>
 	<para>1. Create a directory (or partition if you like) for backups. Link (or mount) it under /mnt/backup.</para>
 	<para>2a. Use tar to backup /etc in /mnt/backup/etc_date.tgz, the backup must be gzipped. (Replace date with the current date)</para>
