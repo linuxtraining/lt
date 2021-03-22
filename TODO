@@ -12,7 +12,7 @@ e.g https://www.linuxfoundation.org/publications/linuxkerneldevelopment.php coul
 3. Have a seperate index of files
 not so urgent since they are all at the beginning of the index because they all start with /
 
-4. Is there a better alternative? Have a look at reST, editing with Spinx, can be converted to from Docbook 
+4. Is there a better alternative? Have a look at reST, editing with Spinx, can be converted to from Docbook
    - http://docutils.sourceforge.net/rst.html
    - http://code.google.com/p/db2rst/
    - http://sphinx.pocoo.org/intro.html
@@ -20,7 +20,7 @@ not so urgent since they are all at the beginning of the index because they all 
 
 CONTENT todo
 
-1. integrate ksh into the shell chapters (assigned:paul)
+1. integrate ksh into the shell chapters
 
 2. integrate dash into the shell chapters
 
@@ -36,10 +36,10 @@ CONTENT todo
    - monitoring: vmstat and dstat, info about interpretation, atopn vnstat http://humdi.net/vnstat/
    - conceptual difference between NFS and samba
    - samba 2, 3, 4 and how it relates to windows versions; smb, cifs
-   - intro acl's samen 
+   - intro acl's samen
    - mtr ipv traceroute and ping
 
-5. other stuff 
+5. other stuff
    - ldap
    - ipv6
    - NIS, yp
@@ -49,7 +49,7 @@ CONTENT todo
 
 7. interesting links
    - http://www.commandlinefu.com/ zie ook http://www.commandlinefu.com/commands/browse/sort-by-votes
-8. add http protocol  - the theory and curl explanation/use 
+8. add http protocol  - the theory and curl explanation/use
 	- link: https://code.tutsplus.com/tutorials/http-the-protocol-every-web-developer-must-know-part-1--net-31177
 9. add nginx usage - the theory and reverse proxy empahsys.
 	- link : https://www.server-world.info/en/note?os=CentOS_7&p=nginx&f=1
